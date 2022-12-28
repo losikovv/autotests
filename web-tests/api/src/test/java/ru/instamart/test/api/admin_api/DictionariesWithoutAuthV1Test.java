@@ -12,6 +12,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.DictionariesV1Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
 @Epic("ApiV1")
@@ -25,7 +26,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
 
     @CaseId(1818)
     @Story("Получение словарей")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря api_clients без авторизации")
     public void getDictionariesApiClients401() {
         final Response response = DictionariesV1Request.ApiClients.GET();
@@ -34,7 +35,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
 
     @CaseId(1819)
     @Story("Получение словарей")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря payment_methods без авторизации")
     public void getDictionariesPaymentMethods401() {
         final Response response = DictionariesV1Request.PaymentMethods.GET();
@@ -43,7 +44,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
 
     @CaseId(1820)
     @Story("Получение словарей")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря payment_states без авторизации")
     public void getDictionariesPaymentStates401() {
         final Response response = DictionariesV1Request.PaymentStates.GET();
@@ -52,7 +53,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
 
     @CaseId(1821)
     @Story("Получение словарей")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря shipment_combined_states без авторизации")
     public void getDictionariesShipmentCombinedStates401() {
         final Response response = DictionariesV1Request.ShipmentCombinedStates.GET();
@@ -61,7 +62,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
 
     @CaseId(1822)
     @Story("Получение словарей")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря tenants без авторизации")
     public void getDictionariesTenants401() {
         final Response response = DictionariesV1Request.Tenants.GET();

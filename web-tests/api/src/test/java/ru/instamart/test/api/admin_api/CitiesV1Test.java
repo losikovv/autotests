@@ -24,6 +24,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.List;
 import java.util.Objects;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkCity;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -44,7 +45,7 @@ public class CitiesV1Test extends RestBase {
 
     @CaseId(1133)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение списка всех городов")
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка всех городов")
     public void getAllCities() {
         final Response response = CitiesV1Request.GET();
         checkStatusCode200(response);
@@ -58,7 +59,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1124)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Создание города c обязательными параметрами")
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Создание города c обязательными параметрами")
     public void createCityWithRequiredParams() {
         cityName = "Autotest-" + Generate.literalString(6);
         final Response response = CitiesV1Request.POST(CitiesV1Request.City.builder()
@@ -79,7 +80,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1125)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Создание города со всеми возможными параметрами")
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Создание города со всеми возможными параметрами")
     public void createCityWithAllParams() {
         CitiesV1Request.City city = CitiesV1Request.City.builder()
                 .name("Autotest-" + Generate.literalString(6))
@@ -98,7 +99,7 @@ public class CitiesV1Test extends RestBase {
 
     @CaseId(1126)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Создание города c пустыми обязательными параметрами")
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Создание города c пустыми обязательными параметрами")
     public void createCityWithEmptyRequiredParams() {
         final Response response = CitiesV1Request.POST(CitiesV1Request.City.builder().build());
         checkStatusCode400(response);
@@ -109,7 +110,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1127)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование города с обязательными параметрами",
             dependsOnMethods = "createCityWithRequiredParams")
     public void editCityWithRequiredParams() {
@@ -132,7 +133,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1128)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование города c пустыми обязательными параметрами",
             dependsOnMethods = "createCityWithRequiredParams")
     public void editCityWithEmptyRequiredParams() {
@@ -145,7 +146,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1129)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование города со всеми возможными параметрами",
             dependsOnMethods = {"editCityWithRequiredParams", "editCityWithEmptyRequiredParams"})
     public void editCityWithAllParams() {
@@ -167,7 +168,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2470)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование несуществующего города")
     public void editNonExistentCity() {
         final Response response = CitiesV1Request.PUT(CitiesV1Request.City.builder().build(), 0L);
@@ -179,7 +180,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2466)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Блокировка города для изменений города",
             dependsOnMethods = "createCityWithAllParams")
     public void lockCity() {
@@ -193,7 +194,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1130)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Блокировка города для изменений города",
             dependsOnMethods = "lockCity")
     public void editLockedCity() {
@@ -208,7 +209,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2467)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение города",
             dependsOnMethods = "editCityWithAllParams")
     public void getCity() {
@@ -223,7 +224,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2469)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение несуществующего города")
     public void getNonExistentCity() {
         final Response response = CitiesV1Request.GET(0L);
@@ -235,7 +236,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1131)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление города",
             dependsOnMethods = "getCity")
     public void deleteCity() {
@@ -248,7 +249,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1132)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление заблокированного для изменений города",
             dependsOnMethods = "editLockedCity")
     public void deleteLockedCity() {
@@ -262,7 +263,7 @@ public class CitiesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2471)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление несуществующего города")
     public void deleteNonExistentCity() {
         final Response response = CitiesV1Request.DELETE(0L);

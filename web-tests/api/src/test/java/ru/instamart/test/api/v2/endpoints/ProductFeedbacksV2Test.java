@@ -23,6 +23,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
 
@@ -41,7 +43,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2297)
     @Story("Получение списка отзывов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение списка отзывов без обязательных параметров")
     public void getProductFeedbacks400() {
         final Response response = ProductFeedbacksV2Request.GET();
@@ -62,7 +64,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     @Skip
     @CaseId(2307)
     @Story("Получение списка отзывов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение списка отзывов без обязательных параметров")
     public void getProductFeedbacks200() {
         final Response response = ProductFeedbacksV2Request.GET(
@@ -78,7 +80,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2301)
     @Story("Проверка, может ли пользователь опубликовать отзыв")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверка, может ли пользователь опубликовать отзыв")
     public void canPostFeedback200() {
         final Response response = ProductFeedbacksV2Request.CanPostFeedback.GET(String.valueOf(EnvironmentProperties.DEFAULT_SID), productSku);
@@ -90,7 +92,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2308)
     @Story("Получить актуальный отзыв на товар")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить актуальный отзыв на товар")
     public void getActualFeedback400() {
         final Response response = ProductFeedbacksV2Request.ActualFeedback.GET();
@@ -109,7 +111,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2309)
     @Story("Получить актуальный отзыв на товар")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить актуальный отзыв на товар")
     public void getActualFeedback200() {
         final Response response = ProductFeedbacksV2Request.ActualFeedback.GET(String.valueOf(EnvironmentProperties.DEFAULT_SID), productSku);

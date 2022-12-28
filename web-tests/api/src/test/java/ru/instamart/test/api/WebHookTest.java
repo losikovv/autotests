@@ -12,6 +12,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.helper.K8sHelper.sendMessageFromWebhook;
 
 
@@ -35,7 +36,7 @@ public class WebHookTest {
     }
 
     @Skip(onServer = Server.STAGING)
-    @Test(groups = {"api-instamart-regress"}, description = "Проверка webhook")
+    @Test(groups = {API_INSTAMART_REGRESS}, description = "Проверка webhook")
     public void webHookTest() {
         //Отправка сообщения
         sendMessageFromWebhook("metro_marketplace", "Test message");

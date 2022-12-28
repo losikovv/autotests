@@ -23,6 +23,7 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
@@ -50,7 +51,7 @@ public class StoreZonesV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2795)
     @Story("Зоны магазинов")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение зон дефолтного магазина")
     public void getStoreZonesPositive() {
         final Response response = StoreZonesV1Request.Zones.GET(EnvironmentProperties.DEFAULT_SID);
@@ -63,7 +64,7 @@ public class StoreZonesV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2796)
     @Story("Зоны магазинов")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение пустого списка зон магазина (у магазина нет зон)")
     public void getStoreZonesPositiveEmptyZonesList() {
         final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
@@ -80,7 +81,7 @@ public class StoreZonesV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2797)
     @Story("Зоны магазинов")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение списка зон магазина, несуществующий магазин")
     public void getStoreZonesNegativeInvalidSid() {
         final Response response = StoreZonesV1Request.Zones.GET(Generate.integer(6));
@@ -91,7 +92,7 @@ public class StoreZonesV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2798)
     @Story("Зоны магазинов")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Добавление зон в магазин")
     public void postStoreZones() {
         final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
@@ -108,7 +109,7 @@ public class StoreZonesV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2799)
     @Story("Зоны магазинов")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Добавление зон в магазин. Негативный. Магазин не существует")
     public void postStoreZonesNegativeInvalidSid() {
         final Response response = StoreZonesV1Request.Zones.POST(Generate.integer(6),
@@ -120,7 +121,7 @@ public class StoreZonesV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2800)
     @Story("Зоны магазинов")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Загрузка файла с зонами")
     public void importStoreZonesFile() {
         final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
@@ -136,7 +137,7 @@ public class StoreZonesV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2801)
     @Story("Зоны магазинов")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование зон магазина")
     public void editStoreZones() {
         final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
@@ -166,7 +167,7 @@ public class StoreZonesV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2802)
     @Story("Зоны магазинов")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление зон магазина")
     public void deleteStoreZones() {
         final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");

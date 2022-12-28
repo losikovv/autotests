@@ -27,6 +27,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.Group.API_SHOPPER_PROD;
+import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -55,7 +57,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(23)
     @Test(description = "Список сотрудников",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShoppers200() {
         Response response = ShopperAdminRequest.Shoppers.GET();
         checkStatusCode200(response);
@@ -64,7 +66,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(24)
     @Test(description = "Список магазинов",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getStores200() {
         Response response = ShopperAdminRequest.Stores.GET();
         checkStatusCode200(response);
@@ -73,7 +75,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(25)
     @Test(description = "Список расписаний",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRouteSchedules200() {
         Response response = ShopperAdminRequest.RouteSchedules.GET();
         checkStatusCode200(response);
@@ -82,7 +84,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(26)
     @Test(description = "Список операционных зон",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getOperationalZones200() {
         Response response = ShopperAdminRequest.OperationalZones.GET();
         checkStatusCode200(response);
@@ -91,7 +93,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(27)
     @Test(description = "Список ретейлеров",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRetailers200() {
         Response response = ShopperAdminRequest.Retailers.GET();
         checkStatusCode200(response);
@@ -100,7 +102,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(28)
     @Test(description = "Список доставок",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShipments200() {
         Response response = ShopperAdminRequest.Shipments.GET(sid, getPastDateWithoutTime(1L));
         checkStatusCode200(response);
@@ -108,7 +110,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(29)
     @Test(description = "Список смен",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShifts200() {
         Response response = ShopperAdminRequest.Shifts.GET();
         checkStatusCode200(response);
@@ -117,7 +119,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(31)
     @Test(description = "Список тарифов",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getTariffs200() {
         Response response = ShopperAdminRequest.Tariffs.GET();
         checkStatusCode200(response);
@@ -126,7 +128,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(84)
     @Test(description = "Создание расписания на день",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void postRouteSchedules200() {
         shopperAdmin.deleteRouteScheduleIfExists(sid, today);
 
@@ -146,7 +148,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(85)
     @Test(description = "Создание маршрута",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRouteSchedules200")
     public void postRoutes200() {
         Response response = ShopperAdminRequest.Routes.POST(routeScheduleId, driverId);
@@ -161,7 +163,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(30)
     @Test(description = "Получение инфы о маршруте",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRoutes200")
     public void getRoute200() {
         Response response = ShopperAdminRequest.Routes.GET(routeId);
@@ -173,7 +175,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(32)
     @Test(description = "Изменение расписания",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRouteSchedules200")
     public void patchRouteSchedule200() {
         Response response = ShopperAdminRequest.RouteSchedules.PATCH(routeScheduleId, routeScheduleStatus);
@@ -189,7 +191,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(37)
     @Test(description = "Получение всех доступных ролей",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRoles200() {
         Response response = ShopperAdminRequest.Roles.GET();
         checkStatusCode200(response);
@@ -198,7 +200,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(86)
     @Test(description = "Создание тарифа",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void postTariffs200() {
         Response response = ShopperAdminRequest.Tariffs.POST();
         checkStatusCode200(response);
@@ -209,7 +211,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(88)
     @Test(description = "Создание смены",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postTariffs200")
     public void postShifts200() {
         Response response = ShopperAdminRequest.Shifts.POST(today, 0, sid, tariffId);
@@ -227,7 +229,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(33)
     @Test(description = "Создание назначения в смену",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postShifts200")
     public void postShiftAssignments200() {
         String startsAt = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString();
@@ -254,7 +256,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(34)
     @Test(description = "Изменение назначения в смену",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postShiftAssignments200")
     public void putShiftAssignments200() {
         String startsAt = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString();
@@ -277,7 +279,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(35)
     @Test(description = "Изменение маршрута",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRoutes200")
     public void putRoutes200() {
         Response response = ShopperAdminRequest.Routes.PUT(routeId, routeScheduleId, driverId);
@@ -292,7 +294,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(36)
     @Test(description = "Создание блокировки для маршрута",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRoutes200")
     public void postRoutesLock200() {
         Response response = ShopperAdminRequest.Routes.Lock.POST(routeId);
@@ -301,7 +303,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(41)
     @Test(description = "Удаление блокировки для маршрута",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = {"postRoutesLock200"})
     public void deleteRoutesLock200() {
         Response response = ShopperAdminRequest.Routes.Lock.DELETE(routeId);
@@ -310,7 +312,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(38)
     @Test(description = "Удаление маршрута",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = {"postRoutes200", "getRoute200", "postRoutesLock200", "putRoutes200"})
     public void deleteRoute200() {
         Response response = ShopperAdminRequest.Routes.DELETE(routeId);
@@ -319,7 +321,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(40)
     @Test(description = "Изменения` шоппера",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void patchShopper200() {
         Response response = ShopperAdminRequest.Shoppers.PATCH(shopperId, shopperStatus);
         checkStatusCode200(response);
@@ -333,7 +335,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(42)
     @Test(description = "Создание видимости для маршрута",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = {"postRoutes200"})
     public void postRoutesVisibility200() {
         Response response = ShopperAdminRequest.Routes.Visibility.POST(routeId);
@@ -342,7 +344,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(89)
     @Test(description = "Создание видимости для маршрута",
-            groups = {"api-shopper-regress"},
+            groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = {"postRoutesVisibility200"})
     public void deleteRoutesVisibility200() {
         Response response = ShopperAdminRequest.Routes.Visibility.DELETE(routeId);
@@ -351,7 +353,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @Story("Dispatch settings")
     @Test(description = "Получение настроек ретейлера",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void getOrderServiceSettings() {
         String storeUuid = "599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a";
         final Response response = ShopperAdminRequest.OrderServiceSettings.GET(storeUuid);
@@ -365,7 +367,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     @Story("Dispatch settings")
     @CaseId(159)
     @Test(description = "Получение настроек сервиса RES",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void getEstimatorSettings() {
         String retailerUUID = "4872ead0-274b-49a2-955e-a5101a7de9cb";
         final Response response = ShopperAdminRequest.Stores.GET(retailerUUID);
@@ -379,7 +381,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     @Story("Dispatch settings")
     @CaseId(189)
     @Test(description = "Изменение настроек сервиса RES",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void putEstimatorSettings() {
         String retailerUUID = "4872ead0-274b-49a2-955e-a5101a7de9cb";
         var parameters = PutEstimatorSettings.builder()
@@ -425,7 +427,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @Story("Routing settings")
     @Test(description = "Установка маршрутизатизации на диспатч",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void patchRoutingSettingsDispatch() {
 
         int storeId = 16;
@@ -451,7 +453,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @Story("Routing settings")
     @Test(description = "Установка маршрутизатизации на револьверную",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void patchRoutingSettingsList() {
         int storeId = 16;
         String schedule_type = "list";

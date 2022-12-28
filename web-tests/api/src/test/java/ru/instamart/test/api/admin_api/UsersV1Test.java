@@ -18,6 +18,7 @@ import ru.instamart.kraken.data.Generate;
 
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkUsers;
@@ -37,7 +38,7 @@ public class UsersV1Test extends RestBase {
 
 
     @Test(description = "Получение пользователя по емейлу",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProvider = "userEmails",
             dataProviderClass = RestDataProvider.class)
     public void getUser(String email) {
@@ -51,7 +52,7 @@ public class UsersV1Test extends RestBase {
     }
 
     @Test(description = "Получение пользователя по номеру телефона",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getUserByPhone() {
         final Response response = UsersV1Request.GET("79000000001");
         checkStatusCode200(response);
@@ -64,7 +65,7 @@ public class UsersV1Test extends RestBase {
     }
 
     @Test(description = "Создание пользователя",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void createUser() {
         UsersV1Request.UserRequest user = UsersV1Request.UserRequest.builder()
                 .user(UsersV1Request.User.builder()
@@ -91,7 +92,7 @@ public class UsersV1Test extends RestBase {
 
 
     @Test(description = "Удаление пользователя",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createUser")
     public void deleteUser() {
         final Response response = UsersV1Request.DELETE(userId);

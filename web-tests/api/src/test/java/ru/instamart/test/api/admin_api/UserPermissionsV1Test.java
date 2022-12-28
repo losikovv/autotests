@@ -11,6 +11,8 @@ import ru.instamart.api.request.v1.UserPermissionsV1Request;
 import ru.instamart.api.response.v1.UserPermissionsV1Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -21,7 +23,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class UserPermissionsV1Test extends RestBase {
 
     @CaseId(1832)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о страницах в админке")
     public void getUserPermissions() {
         admin.authApi();
@@ -31,7 +33,7 @@ public class UserPermissionsV1Test extends RestBase {
     }
 
     @CaseId(1833)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о страницах в админке")
     public void getUserPermissionsWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);

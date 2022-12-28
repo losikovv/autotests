@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
@@ -42,7 +44,7 @@ public class AuthenticationDCTest extends RestBase {
 
     @CaseId(573)
     @Story("Авторизация")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
                 description = "Клиент не авторизован")
     public void postAuthToken401() {
         final Response response = AuthenticationDCRequest.Token.POST("","");

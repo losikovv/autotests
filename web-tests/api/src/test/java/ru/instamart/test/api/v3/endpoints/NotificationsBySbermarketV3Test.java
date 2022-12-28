@@ -22,6 +22,7 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.request.v3.NotificationsV3Request.*;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
@@ -67,7 +68,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(1462)
     @Test(description = "Canceled после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void canceledOrderInWork() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyCanceled = apiV3Notifications.bodyCanceled(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
@@ -85,7 +86,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(1464)
     @Test(description = "Canceled после order.ready_for_delivery (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void canceledOrderReadyForDelivery() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyReadyForDelivery = apiV3Notifications.bodyReadyForDelivery(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
@@ -185,7 +186,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(2189)
     @Test(description = "Повторная отправка in_work негатив. (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderInWorkRepeat() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
 
@@ -202,7 +203,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(2190)
     @Test(description = "In_work после ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderInWorkAfterReadyForDelivery() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyReadyForDelivery = apiV3Notifications.bodyReadyForDelivery(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
@@ -226,7 +227,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(2192)
     @Test(description = "In_work после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderInWorkAfterCancel() {
         var bodyCanceled = apiV3Notifications.bodyCanceled(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
@@ -244,7 +245,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(2186)
     @Test(description = "Повторная отправка ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderReadyForDeliveryRepeat() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyReadyForDelivery = apiV3Notifications.bodyReadyForDelivery(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
@@ -268,7 +269,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(2992)
     @Test(description = "Ready_for_delivery после оформления заказа негатив. (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderReadyForDeliveryAfterCreate() {
         var bodyReadyForDelivery = apiV3Notifications.bodyReadyForDelivery(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
 
@@ -283,7 +284,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(2188)
     @Test(description = "Ready_for_delivery после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderReadyForDeliveryAfterCancel() {
         var bodyCanceled = apiV3Notifications.bodyCanceled(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyReadyForDelivery = apiV3Notifications.bodyReadyForDelivery(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
@@ -301,7 +302,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(2710)
     @Test(description = "Валидация in_work (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationInWork() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
 
@@ -316,7 +317,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(3035)
     @Test(description = "Валидация in_work + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationInWorkAll() {
         String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
@@ -373,7 +374,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(2716)
     @Test(description = "Валидация canceled (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationCanceled() {
         var bodyCanceled = apiV3Notifications.bodyCanceled(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
 
@@ -388,7 +389,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(3036)
     @Test(description = "Валидация canceled + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationCanceledAll() {
         String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
@@ -445,7 +446,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(2712)
     @Test(description = "Валидация ready_for_delivery (без changed) (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDelivery() {
         String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
@@ -484,7 +485,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(3041)
     @Test(description = "Валидация ready_for_delivery (changed true) (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryTrue() {
         String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
@@ -524,7 +525,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(3042)
     @Test(description = "Валидация ready_for_delivery (changed false) (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryFalse() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyReadyForDelivery = apiV3Notifications.bodyReadyForDelivery(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
@@ -546,7 +547,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(3045)
     @Test(description = "Валидация ready_for_delivery + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryAll() {
         String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
@@ -610,7 +611,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(2711)
     @Test(description = "Валидация in_work негатив (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationInWorkNegative() {
         var bodyInWork = Notifications.builder()
                 .event(Event.builder()
@@ -630,7 +631,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(2717)
     @Test(description = "Валидация canceled негатив (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationCanceledNegative() {
         var bodyCanceled = Notifications.builder()
                 .event(Event.builder()
@@ -649,7 +650,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(3044)
     @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryFalseWithoutOrderId() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyReadyForDelivery = Notifications.builder()
@@ -681,7 +682,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(3044)
     @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryFalseWithoutOriginalOrderId() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyReadyForDelivery = Notifications.builder()
@@ -713,7 +714,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(3044)
     @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryFalseWithoutChanged() {
         var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryBySbermarket.getShipments().get(0).getNumber());
         var bodyReadyForDelivery = Notifications.builder()

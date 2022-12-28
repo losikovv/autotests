@@ -14,6 +14,8 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode403;
 
@@ -24,7 +26,7 @@ public class ShipmentsOtherAuthV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(785)
     @Story("Получения статуса шипмента")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получения статуса шипмента с существующим shipmentNumber другого пользователя")
     public void getShipmentState403() {
         SessionFactory.makeSession(SessionType.API_V2);

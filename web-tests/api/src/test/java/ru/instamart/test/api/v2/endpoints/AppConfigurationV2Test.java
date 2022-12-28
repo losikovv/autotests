@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v2.AppConfigurationV2Request;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -16,7 +17,7 @@ public class AppConfigurationV2Test extends RestBase {
 
     @CaseId(789)
     @Test(description = "Получение конфигурации приложения",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getAppConfiguration200() {
         final Response response = AppConfigurationV2Request.GET();
         checkStatusCode200(response);

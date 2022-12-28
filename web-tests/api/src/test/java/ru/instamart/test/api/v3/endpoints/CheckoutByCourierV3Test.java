@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.ApiV3Checkpoints.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -68,7 +69,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseIDs(value = {@CaseId(2023), @CaseId(2025), @CaseId(2027), @CaseId(2029)})
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с заказом созданным данным пользователем, доставка курьером",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void initializeCheckoutWithCourier() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         order = apiV1.getMultiRetailerOrder();
@@ -80,7 +81,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2006)
     @Story("Получение данных заказа")
     @Test(description = "Получение данных для несуществующего заказа",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void getNonExistentOrder() {
         final Response response = CheckoutV3Request.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -91,7 +92,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2005)
     @Story("Получение данных заказа")
     @Test(description = "Получение данных о заказе другого пользователя",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void getAnotherUserOrder() {
         final Response response = CheckoutV3Request.GET(SpreeOrdersDao.INSTANCE.getOrderOfAnotherUser(Long.parseLong(user.getId())).getNumber());
         checkStatusCode403(response);
@@ -102,7 +103,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseIDs(value = {@CaseId(2007), @CaseId(2008), @CaseId(2009), @CaseId(2010), @CaseId(2011), @CaseId(2013), @CaseId(2015)})
     @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом, доступным для пользователя, курьерская доставка",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validateCourierOrder() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         order = apiV1.getMultiRetailerOrder();
@@ -115,7 +116,7 @@ public class CheckoutByCourierV3Test extends RestBase {
 
     @CaseId(2004)
     @Test(description = "Получение полных данных при вводе реального номера заказа",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     @Story("Получение данных заказа")
     public void getOrder() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
@@ -132,7 +133,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2033)
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с указанием существующего и несуществующего шипментов",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void initializeCheckoutWithOneNonExistentShipment() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         order = apiV1.getMultiRetailerOrder();
@@ -145,7 +146,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2031)
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с пустым полем shipment_numbers",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void initializeCheckoutWithoutBody() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         order = apiV1.getMultiRetailerOrder();
@@ -158,7 +159,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2032)
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с указанием несуществующего шипмента",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void initializeCheckoutWithNonExistentShipment() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         order = apiV1.getMultiRetailerOrder();
@@ -171,7 +172,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2030)
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию со стоимостью заказа ниже минимально допустимой",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void initializeCheckoutWithInvalidCost() {
         long offerId = OffersDao.INSTANCE.getOfferWithSpecificPrice(EnvironmentProperties.DEFAULT_SID, 500).getId();
         apiV1.changeAddress(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod());
@@ -186,7 +187,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2017)
     @Story("Валидация")
     @Test(description = "Запрос на валидацию со стоимостью заказа ниже минимально допустимой",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validateCheckoutWithInvalidCost() {
         long offerId = OffersDao.INSTANCE.getOfferWithSpecificPrice(EnvironmentProperties.DEFAULT_SID, 500).getId();
         apiV1.changeAddress(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod());
@@ -205,7 +206,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2018)
     @Story("Валидация")
     @Test(description = "Запрос на валидацию, когда не выбран магазин для оформления",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validateCheckoutWithInvalidAddress() {
         AddressV2 address = AddressV2.builder()
                 .city("Норильск")
@@ -228,7 +229,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2016)
     @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом без статуса в 'В корзине'",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validateCheckoutWithoutCart() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         order = apiV1.getMultiRetailerOrder();
@@ -242,7 +243,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2057)
     @Story("Валидация")
     @Test(description = "Запрос на валидацию когда в ордере нет шипментов",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validateCheckoutWithoutShipment() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         order = apiV1.getMultiRetailerOrder();
@@ -256,7 +257,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2019)
     @Story("Валидация")
     @Test(description = "Запрос на валидацию когда shipment не в валидном статусе",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validateCheckoutWithIncorrectShipment() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         order = apiV1.getMultiRetailerOrder();
@@ -272,7 +273,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2021)
     @Story("Валидация")
     @Test(description = "Запрос на валидацию, когда shipments относятся к разным магазинам",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validateCheckoutWithDifferentShipment() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         var firstShipment = apiV1.getMultiRetailerOrder().getShipments().get(0).getNumber();
@@ -291,7 +292,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2022)
     @Story("Валидация")
     @Test(description = "Запрос на валидацию на старом чек-ауте",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             priority = 100)
     public void validateCheckoutWithOldCheckout() {
         checkFlipperOff("checkout_web_force_all");
@@ -306,7 +307,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @CaseId(2020)
     @Story("Валидация")
     @Test(description = "Запрос на валидацию без подтвержденного номера телефона",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validateCheckoutWithoutPhoneApproval() {
         PhoneTokensDao.INSTANCE.deletePhoneTokenByUserId(user.getId());
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);

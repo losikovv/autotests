@@ -32,6 +32,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.Collections;
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -59,7 +60,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2372)
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void getShippingRates() {
         final Response response = CheckoutV3Request.Shipments.GET(order.getShipments().get(0).getNumber(), getFutureDateWithoutTime(1L));
         checkStatusCode200(response);
@@ -70,7 +71,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2564)
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов с номером чужого шипмента",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void getShippingRatesForAnotherUserShipment() {
         final Response response = CheckoutV3Request.Shipments.GET(SpreeShipmentsDao.INSTANCE.getShipmentOfAnotherUser(Long.parseLong(user.getId())).getNumber(), getFutureDateWithoutTime(1L));
         checkStatusCode403(response);
@@ -81,7 +82,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2565)
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов с несуществующим шипментом",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void getShippingRatesForNonExistentShipment() {
         final Response response = CheckoutV3Request.Shipments.GET("failedShipmentNumber", getFutureDateWithoutTime(1L));
         checkStatusCode404(response);
@@ -92,7 +93,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2567)
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов на 7 дней",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void getShippingRatesForSevenDays() {
         final Response response = CheckoutV3Request.Shipments.GET(order.getShipments().get(0).getNumber(), null);
         checkStatusCode200(response);
@@ -103,7 +104,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2568)
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "getShippingRates")
     public void addDeliveryWindow() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -132,7 +133,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2570)
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота с указанием чужого заказа",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "getShippingRates")
     public void addDeliveryWindowWithAnotherUserOrder() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -153,7 +154,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2571)
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота с указанием чужого шипмента",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "getShippingRates")
     public void addDeliveryWindowWithAnotherUserShipment() {
         String shipmentNumberOfAnotherUser = SpreeShipmentsDao.INSTANCE.getShipmentOfAnotherUser(Long.parseLong(user.getId())).getNumber();
@@ -174,7 +175,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2566)
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов, указав номер шипмента неавторизованного пользователя",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = {"getShippingRatesForSevenDays", "getShippingRatesForNonExistentShipment",
                     "getShippingRatesForAnotherUserShipment", "getShippingRates"})
     public void getShippingRatesWithoutAuth() {
@@ -186,7 +187,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseIDs(value = {@CaseId(2572), @CaseId(2573)})
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота без авторизации",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "getShippingRatesWithoutAuth")
     public void addDeliveryWindowWithoutAuth() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -205,7 +206,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2569)
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота on demand",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "addDeliveryWindowWithoutAuth")
     public void addOnDemandDeliveryWindow() {
         apiV1.authByPhone(UserManager.getQaUser());
@@ -236,7 +237,7 @@ public class ShippingRatesV3Test extends RestBase {
     @CaseId(2574)
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота для уже оформленного заказа",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "addOnDemandDeliveryWindow")
     public void addDeliveryForCompletedOrder() {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), OrderStatusV2.COMPLETE.getStatus());

@@ -16,6 +16,8 @@ import ru.instamart.kraken.util.PhoneCrypt;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -62,7 +64,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
 
     @CaseId(1513)
     @Story("Инициация отправки кода подтверждения")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Инициировать отправку кода подтверждения  с невалидным значением для phone")
     public void postPhoneConfirmationsWithInvalidPhone() {
         final Response response = PhoneConfirmationsV1Request.POST(PhoneCrypt.INSTANCE.encryptPhone("invalidPhoneNumber"));
@@ -71,7 +73,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
 
     @CaseId(1517)
     @Story("Подтверждение телефона кодом")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Подтверждение телефона кодом с невалидным номером")
     public void confirmPhonesWithInvalidNumber() {
         final Response response = PhoneConfirmationsV1Request.PUT("invalidPhoneNumber", 111);
@@ -80,7 +82,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
 
     @CaseId(1519)
     @Story("Подтверждение телефона кодом")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Подтверждение телефона кодом с валидным номером без запроса")
     public void confirmPhonesWithValidPhone() {
         final Response response = PhoneConfirmationsV1Request.PUT(Generate.phoneNumber(), Integer.valueOf(CoreProperties.DEFAULT_UI_SMS));

@@ -20,6 +20,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Collections;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -45,7 +46,7 @@ public class ReplacementPoliciesV3Test extends RestBase {
     @CaseId(2210)
     @Story("Способы замены товаров")
     @Test(description = "Запрос на получение способов замены товаров",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void getReplacementPolicies() {
         final Response response = CheckoutV3Request.ReplacementPolicies.GET();
         checkStatusCode200(response);
@@ -56,7 +57,7 @@ public class ReplacementPoliciesV3Test extends RestBase {
     @CaseId(2211)
     @Story("Способы замены товаров")
     @Test(description = "Запрос на выбор способа замены товаров",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "getReplacementPolicies")
     public void addReplacementPolicy() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()

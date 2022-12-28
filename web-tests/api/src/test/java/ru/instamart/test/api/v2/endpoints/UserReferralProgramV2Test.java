@@ -17,6 +17,7 @@ import ru.instamart.jdbc.dao.stf.InstacoinAccountsDao;
 
 import java.util.Objects;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -28,7 +29,7 @@ public class UserReferralProgramV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(551), @CaseId(552)})
     @Story("Реферальная программа пользователя")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Существующий пользователь",
             dataProvider = "userDataForReferralProgram",
             dataProviderClass = RestDataProvider.class)
@@ -44,7 +45,7 @@ public class UserReferralProgramV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(553), @CaseId(554)})
     @Story("Реферальная программа пользователя")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Несуществующий пользователь",
             dataProvider = "invalidUserDataForReferralProgram",
             dataProviderClass = RestDataProvider.class)

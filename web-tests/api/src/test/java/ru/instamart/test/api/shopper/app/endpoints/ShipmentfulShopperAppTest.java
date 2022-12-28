@@ -24,6 +24,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.Objects;
 
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.Group.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkIsDeliveryToday;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -67,7 +68,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Начало сборки")
     @CaseId(4)
     @Test(description = "Проверяем импортировался ли заказ",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void createOrderImport() {
         //todo проверять сам вебхук
 
@@ -77,7 +78,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Начало сборки")
     @CaseId(13)
     @Test(description = "Создаём сборку",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void postAssembly200() {
         response = AssembliesSHPRequest.POST(shipment.getId());
         checkStatusCode200(response);
@@ -94,7 +95,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Получение информации о сборках")
     @CaseId(3)
     @Test(description = "Получаем сборку по номеру",
-            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
     public void getAssembly200() {
         response = AssembliesSHPRequest.GET(assemblyId);
@@ -110,7 +111,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Получение информации о заказах")
     @CaseId(5)
     @Test(description = "Получаем все заказы для сборщика",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getShopperShipments200() {
         response = ShopperSHPRequest.Shipments.GET();
         checkStatusCode200(response);
@@ -120,7 +121,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Получение информации о заказах")
     @CaseId(105)
     @Test(description = "Получаем все заказы для сборщика",
-            groups = {"api-shopper-regress"}) //, "api-shopper-prod"}) TODO приходит пустой ответ на проде
+            groups = {API_SHOPPER_REGRESS}) //, API_SHOPPER_PROD}) TODO приходит пустой ответ на проде
     public void getShopperShipment200() {
         response = ShopperSHPRequest.Shipment.GET();
         checkStatusCode200(response);
@@ -131,7 +132,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Получение информации о сборках")
     @CaseId(6)
     @Test(description = "Получаем все сборки сборщика",
-            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
     public void getShopperAssemblies200() {
         response = ShopperSHPRequest.Assemblies.GET();
@@ -142,7 +143,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Процесс сборки")
     @CaseId(7)
     @Test(description = "Собираем товар PATCH",
-            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = {"postAssembly200", "getAssembly200"})
     public void patchAssemblyItem200() {
         response = AssemblyItemsSHPRequest.PATCH(assemblyId, assemblyItemId, itemQty);
@@ -153,7 +154,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Процесс сборки")
     @CaseId(7)
     @Test(description = "Собираем товар PUT",
-            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = {"postAssembly200", "getAssembly200"})
     public void putAssemblyItem200() {
         response = AssemblyItemsSHPRequest.PUT(assemblyId, assemblyItemId, itemQty);
@@ -164,7 +165,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Хелпдеск")
     @CaseId(102)
     @Test(description = "Создаем новый тикет в хелпдеске",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void createHelpdeskTicket() {
         Response response = HelpdeskSHPRequest.Tickets.POST(shipment.getId());
         checkStatusCode200(response);
@@ -176,7 +177,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Хелпдеск")
     @CaseId(8)
     @Test(description = "Получаем тикеты хелпдеска",
-            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = {"createHelpdeskTicket"})
     public void getHelpdeskTickets200() {
         Response response = HelpdeskSHPRequest.Tickets.GET(shipment.getId());
@@ -189,7 +190,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Получение информации о заказах")
     @CaseId(9)
     @Test(description = "Получаем заказ по номеру",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getShipment200() {
         response = ShipmentsSHPRequest.GET(shipment.getId());
         checkStatusCode200(response);
@@ -199,7 +200,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Получение информации о сборках")
     @CaseId(17)
     @Test(description = "Получаем предзамены для позиций в сборке",
-            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
     public void getAssemblyItemPrereplacements200() {
         response = AssemblyItemsSHPRequest.Prereplacements.GET(assemblyItemId);
@@ -210,7 +211,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Получение информации о заказах")
     @CaseId(22)
     @Test(description = "Получаем инфу о стоках товаров в заказе",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getShipmentStock200() {
         response = ShipmentsSHPRequest.Stocks.GET(shipment.getId());
         checkStatusCode200(response);
@@ -220,7 +221,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Оплата")
     @CaseId(44)
     @Test(description = "Оплачиваем заказ через LifePay",
-            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
     public void putAssemblyLifePay200() {
         response = AssembliesSHPRequest.LifePay.PUT(assemblyId);
@@ -230,7 +231,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Получение информации о заказах")
     @CaseId(45)
     @Test(description = "Получаем маркетинговые пробники для заказа",
-            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
     public void getShipmentMarketingSampleItems200() {
         response = ShipmentsSHPRequest.MarketingSampleItems.GET(shipment.getId());
@@ -242,7 +243,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Сборки/отгрузки")
     @CaseId(73)
     @Test(description = "Список активных отгрузок магазина текущего партнёра",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void activeShipments200() {
         final Response response = ShopperSHPRequest.Shipments.Active.GET();
         checkStatusCode200(response);
@@ -252,7 +253,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Сборки/отгрузки")
     @CaseId(108)
     @Test(description = "Список активных сборок/отгрузок магазина текущего партнёра для универсалов",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void shopperDriverActive200() {
         final Response response = ShopperDriverSHPRequest.Shipments.Active.GET();
         checkStatusCode200(response);

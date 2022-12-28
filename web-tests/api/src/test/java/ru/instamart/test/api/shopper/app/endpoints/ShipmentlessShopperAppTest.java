@@ -20,6 +20,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.Group.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -37,7 +38,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о сотруднике")
     @CaseId(10)
     @Test(description = "Получаем инфу о сборщике",
-            groups = {"api-shopper-smoke", "MRAutoCheck", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, "MRAutoCheck", API_SHOPPER_PROD})
     public void getShopper200() {
         response = ShopperSHPRequest.GET();
         checkStatusCode200(response);
@@ -47,7 +48,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о маршрутах")
     @CaseId(11)
     @Test(description = "Получаем маршруты",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getRoutes200() {
         response = RoutesSHPRequest.GET();
         checkStatusCode200(response);
@@ -56,7 +57,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о сотруднике")
     @CaseId(12)
     @Test(description = "Получаем смены сборщика",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getShopperOperationShifts200() {
         response = ShopperSHPRequest.OperationShifts.GET();
         checkStatusCode200(response);
@@ -65,7 +66,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о заказах")
     @CaseId(14)
     @Test(description = "Получаем все заказы для водителя",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getDriverShipments200() {
         response = DriverSHPRequest.Shipments.GET();
         checkStatusCode200(response);
@@ -74,7 +75,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о причинах")
     @CaseId(15)
     @Test(description = "Получаем причины отмен",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getCancelReasons200() {
         response = CancelReasonsSHPRequest.GET();
         checkStatusCode200(response);
@@ -84,7 +85,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о причинах")
     @CaseId(15)
     @Test(description = "Получаем причины уточнения",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getClarifyReasons200() {
         response = ClarifyReasonsSHPRequest.GET();
         checkStatusCode200(response);
@@ -94,7 +95,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о причинах")
     @CaseId(15)
     @Test(description = "Получаем причины возврата",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getReturnReasons200() {
         response = ReturnReasonsSHPRequest.GET();
         checkStatusCode200(response);
@@ -104,7 +105,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение марс токена (стоки метро)")
     @CaseId(16)
     @Test(description = "Получаем марс токен (стоки метро)",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getMarsToken200() {
         response = MarsTokenSHPRequest.GET();
         checkStatusCode200(response);
@@ -114,7 +115,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о заказах")
     @CaseId(18)
     @Test(description = "Получаем все заказы для упаковщика",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getPackerShipments200() {
         response = PackerSHPRequest.Shipments.GET();
         checkStatusCode200(response);
@@ -126,7 +127,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о сборках")
     @CaseId(19)
     @Test(description = "Получаем все сборки упаковщика",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getPackerAssemblies200() {
         response = PackerSHPRequest.Assemblies.GET();
         checkStatusCode200(response);
@@ -136,7 +137,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о приложении")
     @CaseId(20)
     @Test(description = "Получаем инфу о текущей версии приложения",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getCurrentAppVersion200() {
         response = CurrentAppVersionSHPRequest.GET();
         checkStatusCode200(response);
@@ -148,7 +149,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Поиск")
     @CaseId(21)
     @Test(description = "Поиск товаров",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getStoreOffers200() {
         response = StoresSHPRequest.Offers.GET(
                 EnvironmentProperties.DEFAULT_SHOPPER_SID,
@@ -160,7 +161,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Авторизация")
     @CaseId(43)
     @Test(description = "Обновление авторизации",
-            groups = {"api-shopper-smoke"})
+            groups = {API_SHOPPER_SMOKE})
     public void postAuthRefresh200() {
         response = AuthSHPRequest.Refresh.POST();
         checkStatusCode200(response);
@@ -172,7 +173,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Авторизация")
     @CaseId(46)
     @Test(description = "Отправка запроса для получения смс кодом для авторизации",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void postOtpsTokens200() {
         response = AuthSHPRequest.Login.POST(phone);
         checkStatusCode200(response);
@@ -181,7 +182,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Авторизация")
     @CaseId(47)
     @Test(description = "Авторизация по номеру телефона и коду из смс",
-            groups = {"api-shopper-smoke"},
+            groups = {API_SHOPPER_SMOKE},
             dependsOnMethods = "postOtpsTokens200")
     public void postOtpsAuthorizations200() {
         response = AuthSHPRequest.Code.POST(phone, CoreProperties.DEFAULT_SMS);
@@ -195,7 +196,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Маршрут")
     @CaseId(106)
     @Test(description = "Запрос назначенных маршрутов без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void nextUncompletedRoute200() {
         final Response response = NextUncompletedRouteSHPRequest.GET();
         checkStatusCode200(response);

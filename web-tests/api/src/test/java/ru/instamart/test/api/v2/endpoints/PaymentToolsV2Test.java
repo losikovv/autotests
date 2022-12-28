@@ -21,6 +21,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -40,7 +42,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(1115)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Получить способы оплаты")
     public void getPaymentMethods() {
         final Response response = PaymentToolsV2Request.GET();
@@ -56,7 +58,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(682)
     @Story("Способы оплаты с типами")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Существующий номер заказа")
     public void getPaymentMethodsWithTypes() {
         final Response response = OrdersV2Request.PaymentToolsWithTypes.GET(orderNumber);
@@ -78,7 +80,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(820)
     @Story("Способы оплаты с типами")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Несуществующий номер заказа")
     public void getPaymentMethodsWithTypesForNonexistingOrder() {
         final Response response = OrdersV2Request.PaymentToolsWithTypes.GET("failedOrderNumber");
@@ -90,7 +92,7 @@ public class PaymentToolsV2Test extends RestBase {
     @CaseId(1116)
     @Story("Способы оплаты")
     @Deprecated
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Существующий номер заказа")
     public void getPaymentToolsWithOrder200() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -117,7 +119,7 @@ public class PaymentToolsV2Test extends RestBase {
     @CaseId(1117)
     @Story("Способы оплаты")
     @Deprecated
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Несуществующий номер заказа")
     public void getPaymentToolsWithOrder404() {
         final Response response = PaymentToolsV2Request.GET("failedOrderNumber");
@@ -127,7 +129,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(2217)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Несуществующий номер заказа")
     public void getPaymentToolsWithTypes404() {
         final Response response = PaymentToolsWithTypesV2Request.GET(null,"failedOrderId");
@@ -137,7 +139,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(2216)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Существующий номер заказа")
     public void getPaymentToolsWithTypes200() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);

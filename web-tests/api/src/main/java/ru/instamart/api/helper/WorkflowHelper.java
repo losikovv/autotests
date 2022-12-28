@@ -629,7 +629,6 @@ public class WorkflowHelper {
                 .pollInterval(15, TimeUnit.SECONDS) //Интервал между запросами
                 .until(() -> {
                     final var response = AssignmentsRequest.All.GET();
-                    response.prettyPeek();
                     final var assignmentsResponses = response.as(AssignmentsResponse[].class);
                     return Arrays.stream(assignmentsResponses).count() > 0;
                 });

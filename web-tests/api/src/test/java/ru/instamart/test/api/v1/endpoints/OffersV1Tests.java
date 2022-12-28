@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertFalse;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkOffer;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -50,7 +52,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(111)
     @Test(description = "Контрактный тест поиска товаров в магазине",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "offerOfEachRetailer-parallel")
     public void getOffer(OfferV1 offer) {
@@ -63,7 +65,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1382)
     @Test(description = "Поиск товаров в магазине по SKU",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "getOffer")
     public void getOfferBySku() {
         final Response response = StoresV1Request.Offers.GET(offerForRequest.getStoreId(), offerForRequest.getProductSku());
@@ -77,7 +79,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1383)
     @Test(description = "Поиск товаров в магазине по нескольким SKU",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "getOffer")
     public void getOfferBySkus() {
         List<OfferV1> offersFromStore = apiV1.getActiveOffers(offerForRequest.getStore().getUuid()).stream().sorted(Comparator.comparing(OfferV1::getId)).collect(Collectors.toList());
@@ -101,7 +103,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1384)
     @Test(description = "Поиск товаров в магазине без SKU",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getOfferWithoutSkus() {
         final Response response = StoresV1Request.Offers.GET(EnvironmentProperties.DEFAULT_SID, null);
         checkStatusCode400(response);
@@ -111,7 +113,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1385)
     @Test(description = "Поиск товаров в несуществующем магазине по SKU",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getOfferForNonExistentStore() {
         final Response response = StoresV1Request.Offers.GET(0, "123");
         checkStatusCode404(response);
@@ -121,7 +123,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1386)
     @Test(description = "Поиск товаров в магазине по несуществующему SKU",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getOfferByNonExistentSkus() {
         final Response response = StoresV1Request.Offers.GET(EnvironmentProperties.DEFAULT_SID, "000");
         checkStatusCode200(response);
@@ -131,7 +133,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Офферы")
     @CaseIDs(value = {@CaseId(2221), @CaseId(2222)})
     @Test(description = "Создание оффера",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProvider = "priceTypes",
             dataProviderClass = RestDataProvider.class,
             dependsOnMethods = {"getOfferBySku"})//, "getOfferBySkus"})
@@ -158,7 +160,7 @@ public class OffersV1Tests extends RestBase {
     @CaseId(2223)
     @Story("Офферы")
     @Test(description = "Редактирование оффера",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createOffer")
     public void editOffer() {
         OfferForRequest offer = OfferForRequest.builder()
@@ -183,7 +185,7 @@ public class OffersV1Tests extends RestBase {
     @CaseId(2224)
     @Story("Офферы")
     @Test(description = "Редактирование несуществующего оффера",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void editNonexistentOffer() {
         final Response response = OffersV1Request.PUT("offerUuid", OfferForRequest.builder().build());
         checkStatusCode404(response);
@@ -193,7 +195,7 @@ public class OffersV1Tests extends RestBase {
     @CaseId(2225)
     @Story("Офферы")
     @Test(description = "Удаление оффера",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "editOffer")
     public void deleteOffer() {
         final Response response = OffersV1Request.DELETE(offerFromResponse.getUuid());
@@ -204,7 +206,7 @@ public class OffersV1Tests extends RestBase {
     @CaseId(2226)
     @Story("Офферы")
     @Test(description = "Удаление несуществующего оффера",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void deleteNonexistentOffer() {
         final Response response = OffersV1Request.DELETE("failedUuuid");
         checkStatusCode404(response);
@@ -216,7 +218,7 @@ public class OffersV1Tests extends RestBase {
     @Issue("FEP-3655")
     @Story("Офферы")
     @Test(description = "Получение оффера",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "getOffer")
     public void getOffersByPermalink() {
         final Response response = ProductsV1Request.GET(offerForRequest.getPermalink());
@@ -227,7 +229,7 @@ public class OffersV1Tests extends RestBase {
     @CaseId(2228)
     @Story("Офферы")
     @Test(description = "Получение оффера по несуществующему permalink",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getOffersByNonExistentPermalink() {
         final Response response = ProductsV1Request.GET("failed-permalink");
         checkStatusCode404(response);

@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
@@ -39,7 +41,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(282)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Упрощенный запрос нативной рекламы с обязательными параметрами")
     public void simpleAdsTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -124,7 +126,7 @@ public final class SimpleAdsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(284), @CaseId(1087), @CaseId(1088), @CaseId(1089)})
     @JsonDataProvider(path = "data/json_v2/api_v2_blank_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Упрощенный запрос нативной рекламы с отсутствующими параметрами")
@@ -139,7 +141,7 @@ public final class SimpleAdsV2Test extends RestBase {
     @Skip(onServer = Server.PRODUCTION)
     @CaseIDs(value = {@CaseId(283), @CaseId(1090)})
     @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Упрощенный запрос нативной рекламы с невалидными параметрами")
@@ -152,7 +154,7 @@ public final class SimpleAdsV2Test extends RestBase {
 
     @Skip() //todo Рекомендаций нет
     @CaseId(285)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Запрос проверки существующего изображения")
     public void simpleAdsGetExistingImageTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -192,7 +194,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(286)
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Запрос проверки не существующего изображения")
     public void simpleAdsGetNotExistingImageTest() {
         String imagePath = "imageNotFound";

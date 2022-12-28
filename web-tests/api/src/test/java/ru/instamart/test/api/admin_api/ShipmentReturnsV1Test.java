@@ -24,6 +24,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkShipmentReturn;
@@ -56,7 +57,7 @@ public class ShipmentReturnsV1Test extends RestBase {
 
     @Skip // TODO: Сейчас 500-ая
     @CaseId(2311)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             //undefined method `shipments' for nil:NilClass , уточнить у Манаса, что еще требуется
             description = "Полный возврат средств за заказ включая доставку и сборку на стр. возвратов (sberpayments)")
     public void postShipmentReturns() {
@@ -91,7 +92,7 @@ public class ShipmentReturnsV1Test extends RestBase {
 
     @Skip
     @CaseId(2312)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Отображение истории возвратов на стр. возвратов (sberpayments)",
             dependsOnMethods = "postShipmentReturns")
     public void getShipmentReturns() {
@@ -105,7 +106,7 @@ public class ShipmentReturnsV1Test extends RestBase {
     @Issue("B2C-6444")
     @Skip
     @CaseId(2313)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Детализация истории возвратов на стр. возвратов (sberpayments)",
             dependsOnMethods = "postShipmentReturns")
     public void getShipmentReturn() {

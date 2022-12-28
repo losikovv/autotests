@@ -8,6 +8,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.PromotionCodesAdminRequest;
+
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 
 
@@ -21,7 +23,7 @@ public class PromotionCodesAdminTest extends RestBase {
     }
 
     @Test(description = "Открытие страницы поиска промокодов",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getPromotionCodes() {
         final Response response = PromotionCodesAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);

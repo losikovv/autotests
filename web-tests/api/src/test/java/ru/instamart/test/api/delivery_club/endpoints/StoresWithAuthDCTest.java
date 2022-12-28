@@ -26,6 +26,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import java.util.Arrays;
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -55,7 +56,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(563)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение доступных слотов")
     public void getStoresSlotsAvailable200() {
         final Response response = StoresDCRequest.Slots.Available.GET(sid);
@@ -68,7 +69,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(574)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение доступных слотов из несуществующего магазина")
     public void getStoresSlotsAvailable404() {
         final Response response = StoresDCRequest.Slots.Available.GET(wrongSid);
@@ -77,7 +78,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(564)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение всех слотов")
     public void getStoresSlots200() {
         final Response response = StoresDCRequest.Slots.GET(sid);
@@ -87,7 +88,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(575)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение всех слотов из несуществующего магазина")
     public void getStoresSlots404() {
         final Response response = StoresDCRequest.Slots.GET(wrongSid);
@@ -96,7 +97,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(565)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение стоков")
     public void getStoresStock200() {
         final Response response = StoresDCRequest.Stock.GET(sid);
@@ -106,7 +107,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(576)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение стоков из несуществующего магазина")
     public void getStoresStock404() {
         final Response response = StoresDCRequest.Stock.GET(wrongSid);
@@ -115,7 +116,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(566)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Создание нотификации для заказа")
     public void postStoresNotifications200() {
@@ -126,7 +127,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(577)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Создание нотификации для заказа в несуществующем магазине")
     public void postStoresNotifications404WrongSid() {
@@ -136,7 +137,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(578)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Создание нотификации для несуществующего заказа")
     public void postStoresNotifications404WrongOrderNumber() {
@@ -146,7 +147,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(590)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Создание несуществующего типа нотификации для заказа")
     public void postStoresNotifications400WrongNotificationType() {
@@ -156,7 +157,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(567)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение зон доставки")
     public void getStoresZones200() {
         final Response response = StoresDCRequest.Zones.GET(sid);
@@ -166,7 +167,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(579)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение зон доставки из несуществующего магазина")
     public void getStoresZones404() {
         final Response response = StoresDCRequest.Zones.GET(wrongSid);
@@ -175,7 +176,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(568)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = {"getStoresSlotsAvailable200", "getStoresCatalogProducts200"},
             description = "Создание заказа")
     public void postStoresOrders200() {
@@ -194,7 +195,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(580)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = {"getStoresSlotsAvailable200", "getStoresCatalogProducts200"},
             description = "Создание заказа в несуществующем магазине")
     public void postStoresOrders404WrongSid() {
@@ -204,7 +205,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(581)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = {"getStoresCatalogProducts200"},
             description = "Создание заказа в несуществующий слот")
     public void postStoresOrders400WrongSlotId() {
@@ -216,7 +217,7 @@ public class StoresWithAuthDCTest extends RestBase {
     @Issue("STF-9241")
     @CaseId(582)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = {"getStoresSlotsAvailable200"},
             description = "Создание заказа с несуществующим товаром")
     public void postStoresOrders404WrongProductId() {
@@ -226,7 +227,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(569)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение категорий продуктов")
     public void getStoresCatalogCategories200() {
         final Response response = StoresDCRequest.Catalog.Categories.GET(sid);
@@ -236,7 +237,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(583)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение категорий продуктов из несуществующего магазина")
     public void getStoresCatalogCategories404() {
         final Response response = StoresDCRequest.Catalog.Categories.GET(wrongSid);
@@ -245,7 +246,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(570)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение продуктов")
     public void getStoresCatalogProducts200() {
         final Response response = StoresDCRequest.Catalog.Products.GET(sid);
@@ -256,7 +257,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(584)
     @Story("Получение информации из магазинов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение продуктов из несуществующего магазина")
     public void getStoresCatalogProducts404() {
         final Response response = StoresDCRequest.Catalog.Products.GET(wrongSid);
@@ -265,7 +266,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(571)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Получение информации о заказе по номеру")
     public void getStoresOrders200() {
@@ -276,7 +277,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(585)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Получение информации о заказе по номеру из несуществующего магазина")
     public void getStoresOrders404WrongSid() {
@@ -286,7 +287,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(586)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Получение информации о заказе по несуществующему номеру")
     public void getStoresOrders404WrongOrderNumber() {
@@ -296,7 +297,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(572)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Изменение статуса заказа")
     public void putStoresOrdersStatus200() {
@@ -307,7 +308,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(587)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Изменение статуса заказа в несуществующем магазине")
     public void putStoresOrdersStatus404WrongSid() {
@@ -317,7 +318,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(588)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Изменение статуса несуществующего заказа")
     public void putStoresOrdersStatus404WrongOrderNumber() {
@@ -327,7 +328,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @CaseId(589)
     @Story("Заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
             description = "Изменение несуществующего статуса заказа")
     public void putStoresOrdersStatus400WrongOrderStatus() {

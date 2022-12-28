@@ -11,6 +11,8 @@ import ru.instamart.api.response.v2.CurrentTimeV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -19,7 +21,7 @@ public class CurrentTimeV2Test extends RestBase {
 
     @CaseId(2468)
     @Story("Текущее серверное время")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение текущего серверного времени")
     public void currentTimeTest() {
         final Response response = CurrentTimeV2Request.GET();

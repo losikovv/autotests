@@ -25,6 +25,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Collections;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.data.PaymentCards.*;
@@ -55,7 +56,7 @@ public class CheckoutCompletionWithCardV3Test extends RestBase {
     @CaseIDs(value = {@CaseId(2584), @CaseId(2620)})
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа при выборе \"Оплата картой\"",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void completeOrder() {
         apiV2.bindCardToUser(user, order.getNumber(), testCard());
         apiV3.addPaymentTool(order, PaymentToolV2.SBER_GATEWAY.getKey());
@@ -71,7 +72,7 @@ public class CheckoutCompletionWithCardV3Test extends RestBase {
     @CaseId(2651)
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа со списанием бонусов СберСпасибо",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void completeOrderWithSberSbasibo() {
         apiV2.bindCardToUser(user, order.getNumber(), testCardWithSpasibo());
         apiV3.addPaymentTool(order, PaymentToolV2.SBER_GATEWAY.getKey(), 1);

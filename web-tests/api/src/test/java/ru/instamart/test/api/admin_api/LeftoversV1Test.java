@@ -18,6 +18,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.data.PaymentCards.testCardNo3dsWithSpasibo;
 
@@ -43,7 +44,7 @@ public class LeftoversV1Test extends RestBase {
 
     @Skip // TODO: Сейчас 500-ая
     @CaseId(2310)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             //undefined method `shipments' for nil:NilClass , уточнить у Манаса, что еще требуется
             description = "Отображение таблицы товаров на стр. возвратов (sberpayments)")
     public void getLeftovers() {

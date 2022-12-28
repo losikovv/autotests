@@ -12,6 +12,8 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
+import static ru.instamart.api.Group.API_SHOPPER_PROD;
+import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 import static ru.instamart.kraken.util.TimeUtil.getPastDateWithoutTime;
 
@@ -30,7 +32,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(74)
     @Test(description = "Список сотрудников без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShoppers401() {
         Response response = ShopperAdminRequest.Shoppers.GET();
         checkStatusCode401(response);
@@ -38,7 +40,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(75)
     @Test(description = "Список магазинов без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getStores401() {
         Response response = ShopperAdminRequest.Stores.GET();
         checkStatusCode401(response);
@@ -46,7 +48,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(76)
     @Test(description = "Список маршрутов без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRouteSchedules401() {
         Response response = ShopperAdminRequest.RouteSchedules.GET();
         checkStatusCode401(response);
@@ -54,7 +56,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(77)
     @Test(description = "Список операционных зон без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getOperationalZones401() {
         Response response = ShopperAdminRequest.OperationalZones.GET();
         checkStatusCode401(response);
@@ -62,7 +64,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(78)
     @Test(description = "Список ретейлеров без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRetailers401() {
         Response response = ShopperAdminRequest.Retailers.GET();
         checkStatusCode401(response);
@@ -70,7 +72,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(79)
     @Test(description = "Список доставок без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShipments401() {
         Response response = ShopperAdminRequest.Shipments.GET(sid, yesterday);
         checkStatusCode401(response);
@@ -78,7 +80,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(80)
     @Test(description = "Список смен без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShifts401() {
         Response response = ShopperAdminRequest.Shifts.GET();
         checkStatusCode401(response);
@@ -86,7 +88,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(82)
     @Test(description = "Список тарифов без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getTariffs401() {
         Response response = ShopperAdminRequest.Tariffs.GET();
         checkStatusCode401(response);
@@ -94,7 +96,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(81)
     @Test(description = "Маршрут без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRoute401() {
         Response response = ShopperAdminRequest.Routes.GET(routeId);
         checkStatusCode401(response);
@@ -102,7 +104,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @CaseId(83)
     @Test(description = "Изменение расписания без авторизации",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void patchRouteSchedule401() {
         Response response = ShopperAdminRequest.RouteSchedules.PATCH(routeScheduleId, "enabled");
         checkStatusCode401(response);

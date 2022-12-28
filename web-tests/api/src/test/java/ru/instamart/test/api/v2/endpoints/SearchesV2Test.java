@@ -21,6 +21,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkSearchSuggestionsNegative;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -31,7 +33,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(271)
     @Test(description = "Получаем поисковые подсказки",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getSearchSuggestions200() {
         final Response response = SearchesV2Request.Suggestions.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
@@ -40,7 +42,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(272)
     @Test(description = "Получаем поисковые подсказки в несуществующем магазине",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getSearchSuggestions404() {
         response = SearchesV2Request.Suggestions.GET(0);
         checkStatusCode404(response);
@@ -49,7 +51,7 @@ public class SearchesV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseIDs(value = {@CaseId(273), @CaseId(1431), @CaseId(278)})
     @Test(description = "Получаем поисковые подсказки по слову - позитивные сценарии",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "positiveQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithQuery(String query) {
@@ -60,7 +62,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(276), @CaseId(277), @CaseId(279)})
     @Test(description = "Получаем поисковые подсказки по слову - негативные сценарии",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "negativeQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithSqlQuery(String query) {
@@ -72,7 +74,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(274)
     @Test(description = "Получаем поисковые подсказки по слову для несуществующего магазина",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getSearchSuggestionsWithQueryAndNonExistentShop() {
         final Response response = SearchesV2Request.Suggestions.GET(0, "сыр");
         checkStatusCode404(response);
@@ -81,7 +83,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(275)
     @Test(description = "Получаем поисковые подсказки c пустым запросом",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "emptyQueries",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithEmptyQuery(String query) {
@@ -93,7 +95,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(2472)
     @Story("Список популярных запросов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Список популярных запросов без sid")
     public void topPhrasesTest() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET();
@@ -103,7 +105,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(2473)
     @Story("Список популярных запросов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Список популярных запросов с несуществующим sid")
     public void topPhrasesTest1() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET(0);
@@ -113,7 +115,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(2474)
     @Story("Список популярных запросов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Список популярных запросов с существующим sid")
     public void topPhrasesSidTest() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET(EnvironmentProperties.DEFAULT_SID);

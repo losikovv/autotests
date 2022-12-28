@@ -14,6 +14,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.enums.v2.ReplacementPolicyV2.*;
 
@@ -22,7 +23,7 @@ import static ru.instamart.api.enums.v2.ReplacementPolicyV2.*;
 public class ReplacementPoliciesV2Test extends RestBase {
 
     @CaseId(811)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получить список способов замены")
     public void getListReplacementMethods() {
         final Response response = ReplacementPoliciesV2Request.GET();

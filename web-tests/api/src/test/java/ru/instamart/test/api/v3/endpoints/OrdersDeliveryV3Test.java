@@ -11,6 +11,7 @@ import ru.instamart.api.model.v3.OrderV3;
 import ru.instamart.api.request.v3.OrderV3Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
@@ -19,7 +20,7 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(858)
     @Story("Доставка")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Goods")
@@ -36,7 +37,7 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(860)
     @Story("Доставка")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "sber_devices",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание на доставку заказа Sber_devices")
@@ -54,7 +55,7 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(859)
     @Story("Доставка")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Metro_Marketplace")
@@ -71,7 +72,7 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(1916)
     @Story("Доставка")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Aliexpress",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Aliexpress")
@@ -88,7 +89,7 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(1917)
     @Story("Доставка")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Auchan",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Auchan")

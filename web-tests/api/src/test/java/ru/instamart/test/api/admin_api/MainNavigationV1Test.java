@@ -11,6 +11,8 @@ import ru.instamart.api.request.v1.MainNavigationV1Request;
 import ru.instamart.api.response.v1.MainNavigationV1Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -21,7 +23,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class MainNavigationV1Test extends RestBase {
 
     @CaseId(1830)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о страницах в админке")
     public void getMainNavigation() {
         admin.authApi();
@@ -31,7 +33,7 @@ public class MainNavigationV1Test extends RestBase {
     }
 
     @CaseId(1831)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о страницах в админке без авторизации")
     public void getMainNavigationWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);

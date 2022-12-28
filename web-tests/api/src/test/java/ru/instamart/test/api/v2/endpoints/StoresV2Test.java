@@ -19,6 +19,8 @@ import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -56,7 +58,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(197)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем магазин")
     public void testGetStoresWithInvalidSid() {
         final Response response = StoresV2Request.GET(0);
@@ -80,7 +82,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(196)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем магазин")
     public void testGetStoresWithDefaultSid() {
         final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -91,7 +93,7 @@ public final class StoresV2Test extends RestBase {
 
     @CaseId(188)
     @JsonDataProvider(path = "data/json_v2/api_v2_negative_store_data.json", type = RestDataProvider.StoreDataRoot.class)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Получить список магазинов с отсутствующими lat или/и lon")
@@ -102,7 +104,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(189)
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получение списка магазинов с указанием lat и lon")
     public void getStoresWithLatAndLon() {
         final Response response = StoresV2Request.GET(
@@ -125,7 +127,7 @@ public final class StoresV2Test extends RestBase {
 
     @CaseId(190)
     @JsonDataProvider(path = "data/json_v2/api_v2_positive_store_data.json", type = RestDataProvider.StoreDataRoot.class)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Получение списка магазинов с валидными значениями")
@@ -164,7 +166,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(2213)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "forMapFailedTestParams",
             dataProviderClass = RestDataProvider.class,
             description = "Получение магазинов для вывода на карте без обязательных параметров")
@@ -175,7 +177,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(2212)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение магазинов для вывода на карте")
     public void testForMap() {
         StoresV2Request.ForMapParams params = StoresV2Request.ForMapParams.builder()

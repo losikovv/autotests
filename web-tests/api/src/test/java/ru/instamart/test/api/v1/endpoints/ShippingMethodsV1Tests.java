@@ -27,6 +27,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.Collections;
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -49,7 +51,7 @@ public class ShippingMethodsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2137)
     @Test(description = "Получение списка способов доставки",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getShippingMethodKinds() {
         final Response response = ShippingMethodKindsV1Request.GET();
         checkStatusCode200(response);
@@ -62,7 +64,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2137)
     @Test(description = "Получение списка способов доставки",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getAdminShippingMethodKinds() {
         final Response response = ShippingMethodKindsV1Request.Admin.GET();
         checkStatusCode200(response);
@@ -75,7 +77,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2776)
     @Test(description = "Получение списка способов доставки",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getShippingMethods() {
         final Response response = ShippingMethodsV1Request.GET();
         checkStatusCode200(response);
@@ -88,7 +90,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2777)
     @Test(description = "Создание способа доставки",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void createShippingMethod() {
         shippingMethodKind = apiV1.getShippingMethodKinds().get(0);
         shippingMethod = ShippingMethodsV1Request.ShippingMethod.builder()
@@ -110,7 +112,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2778)
     @Test(description = "Получение способа доставки",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createShippingMethod")
     public void getShippingMethod() {
         final Response response = ShippingMethodsV1Request.GET(shippingMethodId);
@@ -125,7 +127,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2779)
     @Test(description = "Получение списка правил",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getRuleTypes() {
         final Response response = ShippingMethodsV1Request.Rules.GET();
         checkStatusCode200(response);
@@ -134,7 +136,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2780)
     @Test(description = "Получение списка калькуляторов цен",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getCalculatorTypes() {
         final Response response = ShippingMethodsV1Request.Calculators.GET();
         checkStatusCode200(response);
@@ -143,7 +145,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2781)
     @Test(description = "Создание маркетингового правила",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createShippingMethod")
     public void createMarketingRule() {
         final Response response = ShippingMethodsV1Request.MarketingPricers.POST(shippingMethodId);
@@ -154,7 +156,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2782)
     @Test(description = "Получение маркетингового правила",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createMarketingRule")
     public void getMarketingRule() {
         final Response response = ShippingMethodsV1Request.MarketingPricers.GET(shippingMethodId);
@@ -167,7 +169,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2783)
     @Test(description = "Создание правила номинальной стоимости доставки",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createShippingMethod")
     public void createNominalCostRule() {
         final Response response = ShippingMethodsV1Request.NominalPricers.POST(shippingMethodId);
@@ -178,7 +180,7 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2784)
     @Test(description = "Получение правил номинальной стоимости доставки",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createNominalCostRule")
     public void getNominalCostRule() {
         final Response response = ShippingMethodsV1Request.NominalPricers.GET(shippingMethodId);

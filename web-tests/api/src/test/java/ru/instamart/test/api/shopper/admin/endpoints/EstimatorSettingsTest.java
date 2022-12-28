@@ -16,6 +16,7 @@ import ru.instamart.api.response.shopper.admin.OperationalZoneEstimatorSettingRe
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 
+import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -29,7 +30,7 @@ public class EstimatorSettingsTest extends RestBase {
     }
 
     @Story("EstimatorSettings")
-    @Test(description = "Получение настроек сервиса RES для региона", groups = {"api-shopper-regress"})
+    @Test(description = "Получение настроек сервиса RES для региона", groups = {API_SHOPPER_REGRESS})
     public void getEstimatorSettings() {
         Response response = ShopperAdminRequest.OperationalZones.EstimatorSettings.GET(EnvironmentProperties.DEFAULT_ID_ZONE);
         checkStatusCode200(response);
@@ -37,7 +38,7 @@ public class EstimatorSettingsTest extends RestBase {
     }
 
     @Story("EstimatorSettings")
-    @Test(description = "Изменение настроек сервиса RES для региона", groups = {"api-shopper-regress"})
+    @Test(description = "Изменение настроек сервиса RES для региона", groups = {API_SHOPPER_REGRESS})
     public void PutRegionEstimatorSettings() {
         var parameters = ShopperAdminRequest.PutRegionEstimatorSettings.builder()
                 .settingsResRegion(ShopperAdminRequest.SettingsResRegion.builder()

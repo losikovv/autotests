@@ -13,6 +13,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.k8s.K8sConsumer.*;
 
 
@@ -24,7 +25,7 @@ public final class KubernetesClientTest extends RestBase {
     private final String labelSelector = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
 
     @Story("Список подов для namespace")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Список подов для namespace = s-sb-stfkraken")
     public void kubeTest() {
         final var list = getPodList(namespace, labelSelector);
@@ -34,7 +35,7 @@ public final class KubernetesClientTest extends RestBase {
     }
 
     @Story("Логи пода")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {API_INSTAMART_REGRESS},
             description = "Список последних 10 строк лога")
     public void kubeLogs() {
         final List<String> logs = getLogs(getPod(namespace, labelSelector), "puma", 10);

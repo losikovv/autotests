@@ -26,6 +26,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -48,7 +49,7 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1029)
     @Story("Мердж подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление в подзаказ другого подзаказа")
     public void mergeShipments() {
         final Response response = LineItemsV2Request.POST(products.get(4).getId(), 1, apiV2.createOrder().getNumber());
@@ -61,7 +62,7 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1030)
     @Story("Мердж подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление в подзаказ подзаказа из другого магазина",
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithShipmentFromAnotherStore() {
@@ -75,7 +76,7 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1031)
     @Story("Мердж подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление в подзаказ подзаказа с алкоголем",
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithAlcoholShipment() {
@@ -91,7 +92,7 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1474)
     @Story("Статус мержа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о статусе мержа для существующего заказа",
             dependsOnMethods = "mergeShipments")
     public void getMergeStatus() {
@@ -103,7 +104,7 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1475)
     @Story("Статус мержа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о статусе мержа для несуществующего заказа")
     public void getMergeStatusOfNonexistentOrder() {
         final Response response = OrdersV2Request.MergeStatus.GET("failedOrder");
@@ -113,7 +114,7 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(2046)
     @Story("Мердж подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление в подзаказ подзаказа с аптечной продукцией",
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithPharmaShipment() {

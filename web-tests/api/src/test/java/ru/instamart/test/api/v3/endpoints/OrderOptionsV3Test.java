@@ -11,6 +11,7 @@ import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.request.v3.OrderOptionsV3Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
@@ -19,7 +20,7 @@ public final class OrderOptionsV3Test extends RestBase {
 
     @CaseId(853)
     @Story("Опции доставки")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Опции заказа доставки Goods")
@@ -30,7 +31,7 @@ public final class OrderOptionsV3Test extends RestBase {
 
     @CaseId(855)
     @Story("Опции доставки")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "sber_devices",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Опции заказа доставки SberDevices")
@@ -41,7 +42,7 @@ public final class OrderOptionsV3Test extends RestBase {
 
     @CaseId(1898)
     @Story("Опции доставки")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Aliexpress",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Опции заказа доставки Aliexpress")
@@ -52,7 +53,7 @@ public final class OrderOptionsV3Test extends RestBase {
 
     @CaseId(1900)
     @Story("Опции доставки")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Auchan",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Опции заказа доставки Auchan")
@@ -63,7 +64,7 @@ public final class OrderOptionsV3Test extends RestBase {
 
     @CaseId(854)
     @Story("Опции доставки")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Опции заказа доставки Metro_Marketplace")
@@ -75,7 +76,7 @@ public final class OrderOptionsV3Test extends RestBase {
 
     @CaseId(677)
     @Story("Опции самовывоза")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Опции заказа на самовывоз Metro_Marketplace")
@@ -86,7 +87,7 @@ public final class OrderOptionsV3Test extends RestBase {
 
     @CaseId(1902)
     @Story("Опции доставки")
-    @Test(groups = {"api-instamart-regress", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Auchan",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Опции заказа на самовывоз Auchan")

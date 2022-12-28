@@ -11,6 +11,8 @@ import ru.instamart.api.response.v2.DeeplinkV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -18,7 +20,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class DeeplinksV2Test extends RestBase {
 
     @Story("Получить диплинк юр лиц")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получить диплинк юридического лица с валидным url")
     public void DeeplinkExists() {
         final Response response = DeeplinksV2Request.GET(EnvironmentProperties.Env.FULL_SITE_URL +"metro");
@@ -27,7 +29,7 @@ public class DeeplinksV2Test extends RestBase {
     }
 
     @Story("Получить диплинк юр лиц")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получить диплинк юридического лица с невалидным url")
     public void DeeplinkNotExists() {
         final Response response = DeeplinksV2Request.GET("notValidURL");

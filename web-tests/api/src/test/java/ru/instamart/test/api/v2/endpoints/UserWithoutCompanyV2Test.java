@@ -15,6 +15,7 @@ import ru.instamart.api.response.v2.CompanyV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertFalse;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.factory.SessionFactory.makeSession;
 import static ru.instamart.kraken.data.Generate.generateINN;
@@ -33,7 +34,7 @@ public class UserWithoutCompanyV2Test extends RestBase {
 
     @CaseId(2344)
     @Story("Получить факт наличия компаний у пользователя")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получить факт наличия компаний у пользователя без компании")
     public void getCompaniesExist200() {
         final Response response = UserV2Request.Exist.GET();
@@ -43,7 +44,7 @@ public class UserWithoutCompanyV2Test extends RestBase {
 
     @CaseId(2360)
     @Story("Создание")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание компании",
             dependsOnMethods = "getCompaniesExist200")
     public void createCompany200() {

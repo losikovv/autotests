@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkUserShipmentFromResponse;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.util.TimeUtil.getDbDate;
@@ -57,7 +58,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1336)
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе collecting - заказ задерживается",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getReadyUserShipmentWithDelay")
     public void getCollectingUserShipmentWithDelay()  {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.COLLECTING.getValue());
@@ -69,7 +70,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1337)
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе shipping - заказ задерживается",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getCollectingUserShipmentWithDelay")
     public void getShippingUserShipmentWithDelay()  {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.SHIPPING.getValue());

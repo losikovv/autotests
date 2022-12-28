@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -58,7 +59,7 @@ public class CheckoutCompletionV3Test extends RestBase {
     @CaseId(2575)
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void completeOrder() {
         final Response response = CheckoutV3Request.Completion.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode200(response);
@@ -72,7 +73,7 @@ public class CheckoutCompletionV3Test extends RestBase {
     @CaseId(2576)
     @Story("Завершение заказа")
     @Test(description = "Завершение чужого заказа",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void completeAnotherUserOrder() {
         String anotherOrderNumber = SpreeOrdersDao.INSTANCE.getOrderOfAnotherUser(Long.parseLong(user.getId())).getNumber();
         final Response response = CheckoutV3Request.Completion.POST(anotherOrderNumber, Collections.singletonList(order.getShipments().get(0).getNumber()));
@@ -84,7 +85,7 @@ public class CheckoutCompletionV3Test extends RestBase {
     @CaseId(2577)
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа c чужим шипментом",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void completeOrderWithAnotherUserShipment() {
         String anotherUserShipment = SpreeShipmentsDao.INSTANCE.getShipmentOfAnotherUser(Long.parseLong(user.getId())).getNumber();
         final Response response = CheckoutV3Request.Completion.POST(order.getNumber(), Collections.singletonList(anotherUserShipment));
@@ -95,7 +96,7 @@ public class CheckoutCompletionV3Test extends RestBase {
     @CaseId(2578)
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа без выбранного способа оплаты",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "completeOrder")
     public void completeOrderWithoutPaymentTool() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
@@ -112,7 +113,7 @@ public class CheckoutCompletionV3Test extends RestBase {
     @CaseId(2579)
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа без выбранного окна доставки",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "completeOrderWithoutPaymentTool")
     public void completeOrderWithoutDeliveryWindow() {
         apiV1.deleteShipment(order.getShipments().get(0).getNumber(), order.getToken());
@@ -130,7 +131,7 @@ public class CheckoutCompletionV3Test extends RestBase {
     @CaseId(2580)
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа неавторизованным пользователем",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "completeOrderWithoutDeliveryWindow")
     public void completeOrderWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);

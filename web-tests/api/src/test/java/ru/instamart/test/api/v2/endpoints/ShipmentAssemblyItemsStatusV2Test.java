@@ -27,6 +27,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkAssemblyItem;
@@ -60,7 +62,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     @CaseId(529)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Детали по существующему подзаказу до сборки")
     public void getAssemblyItemsOfExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
@@ -73,7 +75,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     @CaseId(536)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Детали по сборке несуществующего подзаказа")
     public void getAssemblyItemsOfNonExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET("failedShipmentNumber");
@@ -83,7 +85,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     @CaseId(822)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Детали по сборке cобранного подзаказа",
             dependsOnMethods = "getAssemblyItemsOfExistingShipment")
     public void getAssemblyItemsOfShipmentAfterAssembling() {
@@ -96,7 +98,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     @CaseId(531)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Детали по сборке отмененного подзаказа",
             dependsOnMethods = {"getAssemblyItemsOfExistingShipment", "getAssemblyItemsOfShipmentAfterAssembling"})
     public void getCancelledAssemblyItemsOfShipment() {
@@ -111,7 +113,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
     @Skip(onServer = Server.STAGING) // на stf-0 нет офферов с Pricer::PerPack
     @CaseIDs(value = {@CaseId(534), @CaseId(535)})
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Детали по сборке существующего подзаказа c выбранным типом цены",
             dataProvider = "priceTypes",
             dataProviderClass = RestDataProvider.class,

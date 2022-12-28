@@ -14,6 +14,8 @@ import ru.instamart.api.response.v2.ExternalAnalyticsV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
@@ -28,7 +30,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
     }
 
     @CaseId(791)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение идентификатора устройства для аналитики с токеном")
     public void testGetDeviceIdWithToken() {
         final Response response = ExternalAnalyticsV2Request.POST();
@@ -41,7 +43,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
     }
 
     @CaseId(946)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение идентификатора устройства для аналитики без токена")
     public void testGetDeviceIdWithoutToken() {
         SessionFactory.clearSession(SessionType.API_V2);

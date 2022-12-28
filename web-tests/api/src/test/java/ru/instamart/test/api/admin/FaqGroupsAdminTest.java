@@ -14,6 +14,7 @@ import ru.instamart.jdbc.entity.stf.SpreeFaqGroupsEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
@@ -32,7 +33,7 @@ public class FaqGroupsAdminTest extends RestBase {
     }
 
     @CaseId(2193)
-    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение списка групп FAQ")
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка групп FAQ")
     public void getAllFaqGroups() {
         final Response response = FaqGroupsAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);

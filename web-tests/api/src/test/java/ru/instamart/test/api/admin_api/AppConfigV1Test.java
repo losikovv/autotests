@@ -10,6 +10,8 @@ import ru.instamart.api.request.v1.AppConfigV1Request;
 import ru.instamart.api.response.v1.AppConfigV1Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -19,7 +21,7 @@ public class AppConfigV1Test extends RestBase {
 
     @CaseId(1435)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о конфигурации системы")
     public void getAppConfig() {
         final Response response = AppConfigV1Request.GET();

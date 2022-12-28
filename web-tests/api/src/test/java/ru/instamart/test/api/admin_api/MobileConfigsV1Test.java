@@ -13,6 +13,7 @@ import ru.instamart.api.response.v1.MobileConfigsV1Response;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkMobileConfig;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -31,7 +32,7 @@ public class MobileConfigsV1Test extends RestBase {
 
     @CaseId(2544)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование информации о настройках смс")
     public void editMobileConfigs() {
         mobileExtendId = RandomUtils.nextInt(1, 100);
@@ -44,7 +45,7 @@ public class MobileConfigsV1Test extends RestBase {
 
     @CaseId(2544)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование информации о настройках смс",
             dependsOnMethods = "editMobileConfigs")
     public void getMobileConfigs() {

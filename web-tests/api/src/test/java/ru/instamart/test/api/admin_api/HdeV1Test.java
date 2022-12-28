@@ -13,6 +13,7 @@ import ru.instamart.api.request.v1.HdeV1Request;
 import ru.instamart.api.response.v1.TicketsV1Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -27,7 +28,7 @@ public class HdeV1Test extends RestBase {
     }
 
     @CaseId(2510)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение тикетов хелпдеска без параметров")
     public void getHdeTickets() {
         final Response response = HdeV1Request.GET();
@@ -36,7 +37,7 @@ public class HdeV1Test extends RestBase {
     }
 
     @CaseId(2513)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение тикетов хелпдеска по email")
     public void getHdeTicketsByEmail() {
         final Response response = HdeV1Request.GET(SessionFactory.getSession(SessionType.API_V1).getLogin(), "2");

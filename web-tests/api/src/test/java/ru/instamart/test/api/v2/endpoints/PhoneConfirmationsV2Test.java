@@ -17,6 +17,7 @@ import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.util.PhoneCrypt;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
@@ -51,7 +52,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
 
     @CaseId(452)
     @Story("Инициировать отправку кода подтверждения")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Инициировать отправку кода подтверждения  с невалидным значением для phone")
     public void postPhoneConfirmations404() {
         final Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone("invalidPhoneNumber"));
@@ -75,7 +76,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
 
     @CaseId(457)
     @Story("Подтверждение телефона кодом")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Подтверждение телефона кодом с невалидным номером")
     public void confirmPhonesWithInvalidNumber() {
         final Response response = PhoneConfirmationsV2Request.PUT("invalidPhoneNumber");
@@ -85,7 +86,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
 
     @CaseId(459)
     @Story("Подтверждение телефона кодом")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Подтверждение телефона кодом с валидным номером без запроса")
     public void confirmPhonesWithValidPhone() {
         final Response response = PhoneConfirmationsV2Request.PUT(Generate.phoneNumber(), CoreProperties.DEFAULT_UI_SMS, false);

@@ -30,6 +30,8 @@ import java.util.stream.Collectors;
 
 import static io.qameta.allure.Allure.step;
 import static org.testng.Assert.*;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkSort;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -44,7 +46,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(265), @CaseId(869)})
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             dependsOnMethods = "getProductsWithValidSid")
     public void getProductInfo() {
         final Response response = ProductsV2Request.GET(product.getId());
@@ -64,7 +66,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(560)
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте c невалидным id",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductInfoWithInvalidId() {
         final Response response = ProductsV2Request.GET(6666666L);
         checkStatusCode404(response);
@@ -75,7 +77,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(262)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-instamart-regress", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, API_INSTAMART_REGRESS, "api-v2", "api-bff"})
     public void getProductsWithValidSid() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -92,7 +94,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(2708)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "В категории больше 3 дефолтных фильтров",
-            groups = {"api-instamart-prod", "api-instamart-regress", "api-v2"})
+            groups = {API_INSTAMART_PROD, API_INSTAMART_REGRESS, "api-v2"})
     public void getProductsWithManyFilters() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -110,7 +112,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(263)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Несуществующий sid",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductsWithInvalidSid() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(6666666)
@@ -123,7 +125,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(264)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductsWithValidSidAndQuery() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -144,7 +146,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(638)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по популярности",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductsSortedByPopularity() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -161,7 +163,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(639)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по возрастанию цены",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductsSortedByPriceAsc() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -178,7 +180,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(640)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по убыванию цены",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductsSortedByPriceDesc() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -195,7 +197,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(806)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductsFilteredByDiscount() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -217,7 +219,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(807)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по бренду продукты",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"})
     public void getProductsFilteredByBrand() {
         final String brandName = "metro";
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
@@ -241,7 +243,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(808)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductsFilteredByCountry() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -265,7 +267,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(809)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные по выгодному весу",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductsSortedByWeightPrice() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -282,7 +284,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(1175)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по категории со второй страницы",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductWithTidAndPage() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -303,7 +305,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(1176)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу со второй страницы",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductWithQueryAndPage() {
         final Response responseFirstPage = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
@@ -332,7 +334,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(1177)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу с несуществующей страницы",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getProductsOnNonExistingPage() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)

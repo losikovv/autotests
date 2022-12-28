@@ -14,6 +14,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -24,7 +26,7 @@ public class OnboardingV2PagesV2Test extends RestBase {
 
     @CaseId(821)
     @Test(description = "Получение экранов онбординга при старте приложения",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getOnboardingPages() {
         final Response response = OnboardingV2PagesV2Request.GET();
         checkStatusCode200(response);

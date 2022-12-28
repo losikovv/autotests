@@ -14,6 +14,7 @@ import ru.instamart.api.response.shopper.admin.OperationalZoneWorkflowSettingsRe
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 
+import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.request.shopper.admin.ShopperAdminRequest.*;
@@ -30,7 +31,7 @@ public class WorkflowSettingsTest extends RestBase {
     }
 
     @Story("WorkflowSettings")
-    @Test(description = "Получение настроек сервиса Workflow для региона", groups = {"api-shopper-regress"})
+    @Test(description = "Получение настроек сервиса Workflow для региона", groups = {API_SHOPPER_REGRESS})
     public void getWorkflowSettings() {
         Response response = OperationalZones.WorkflowSettings.GET(EnvironmentProperties.DEFAULT_ID_ZONE);
         checkStatusCode200(response);
@@ -38,7 +39,7 @@ public class WorkflowSettingsTest extends RestBase {
     }
 
     @Story("WorkflowSettings")
-    @Test(description = "Изменение настроек сервиса Workflow для региона", groups = {"api-shopper-regress"})
+    @Test(description = "Изменение настроек сервиса Workflow для региона", groups = {API_SHOPPER_REGRESS})
     public void putWorkflowSettings() {
         parameters = PutWorkflowSettings.builder()
                 .settings(Settings.builder()

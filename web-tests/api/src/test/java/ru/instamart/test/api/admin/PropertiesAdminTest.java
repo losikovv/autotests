@@ -14,6 +14,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
@@ -28,7 +29,7 @@ public class PropertiesAdminTest extends RestBase {
     }
 
     @CaseId(1941)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение всех свойств")
     public void getAllProperties() {
         final Response response = PropertiesAdminRequest.GET();
@@ -36,7 +37,7 @@ public class PropertiesAdminTest extends RestBase {
     }
 
     @CaseId(1942)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание свойства")
     public void createProperty() {
         String postfix = Generate.literalString(6);
@@ -50,7 +51,7 @@ public class PropertiesAdminTest extends RestBase {
     }
 
     @CaseId(1943)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование свойства",
             dependsOnMethods = "createProperty")
     public void patchProperty() {
@@ -66,7 +67,7 @@ public class PropertiesAdminTest extends RestBase {
     }
 
     @CaseId(1944)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление свойства",
             dependsOnMethods = "patchProperty")
     public void deleteProperty() {

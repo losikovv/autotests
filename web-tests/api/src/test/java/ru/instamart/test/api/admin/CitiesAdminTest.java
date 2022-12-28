@@ -19,6 +19,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkCityInDb;
@@ -41,7 +42,7 @@ public class CitiesAdminTest extends RestBase {
 
     @CaseId(1133)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение списка всех городов")
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка всех городов")
     public void getAllCities() {
         final Response response = CitiesAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);
