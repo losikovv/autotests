@@ -10,7 +10,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.config.BasicProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
@@ -20,7 +20,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Авторизация")
 public final class UserAuthorisationTests {
 
-    @CaseId(1455)
+    @TmsLink("1455")
     @Test(description = "Тест успешной авторизации на витрине", groups = {STARTING_X, REGRESSION_STF})
     public void successAuthOnMainPage() {
         shop().goToPage();
@@ -29,7 +29,7 @@ public final class UserAuthorisationTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(2543)
+    @TmsLink("2543")
     @Test(description = "Авторизация по номеру телефона", groups = {STARTING_X, REGRESSION_STF})
     public void successAuthOnMainPageUserWithOrder() {
         final var user = UserManager.getQaUser();
@@ -43,7 +43,7 @@ public final class UserAuthorisationTests {
 
     @Skip
     // Сейчас для незарегистрированного пользователя отображается "большая" модалка выбора адреса в ней нет кнопки авторизации
-    @CaseId(1456)
+    @TmsLink("1456")
     @Test(description = "Тест авторизации из адресной модалки феникса", groups = {STARTING_X, REGRESSION_STF})
     public void successAuthFromAddressModal() {
         shop().goToPage();
@@ -54,7 +54,7 @@ public final class UserAuthorisationTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(2621)
+    @TmsLink("2621")
     @Test(description = "Тест успешной авторизации из корзины", groups = {STARTING_X, REGRESSION_STF})
     public void successAuthFromCart() {
         shop().goToPage();
@@ -78,7 +78,7 @@ public final class UserAuthorisationTests {
         checkoutNew().checkDeliverySlotsVisible();
     }
 
-    @CaseId(2735)
+    @TmsLink("2735")
     @Story("Авторизация через VK")
     @Issue("B2C-11803")
     @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
@@ -101,7 +101,7 @@ public final class UserAuthorisationTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(1460)
+    @TmsLink("1460")
     @Story("Авторизация через Mail.ru")
     @Issue("B2C-11803")
     @Test(description = "Тест успешной авторизация через MailRu", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
@@ -127,7 +127,7 @@ public final class UserAuthorisationTests {
     }
 
     //Нет учетки для SberID
-    @CaseId(1461)
+    @TmsLink("1461")
     @Story("Авторизация через SberID")
     @Skip
     @Test(description = "Тест успешной авторизация через Sber ID", groups = {STARTING_X, REGRESSION_STF})
@@ -147,8 +147,8 @@ public final class UserAuthorisationTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    //@CaseId(1459)
-    @CaseId(3522)
+    //@TmsLink("1459")
+    @TmsLink("3522")
     @Story("Авторизация через SberID")
     @Test(description = "Тест перехода на сайт Sber ID", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
     public void checkCorrectTransitionToSberIdSite() {
@@ -161,7 +161,7 @@ public final class UserAuthorisationTests {
         sberId().checkPageContains(BasicProperties.SBER_ID_URL);
     }
 
-    //    @CaseId(1459)
+    //    @TmsLink("1459")
     @Story("Авторизация через СберБизнесID")
     @Test(description = "Тест успешной авторизация через СберБизнесID", groups = {STARTING_X, REGRESSION_STF})
     public void successRegWithSberBusinessID() {

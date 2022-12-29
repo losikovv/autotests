@@ -9,7 +9,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.response.v1.FreeDeliveryV1Response;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -31,7 +31,7 @@ public class
 PromotionsV2Test extends RestBase {
 
     @Skip(onServer = Server.PRODUCTION) // DMND-1222
-    @CaseId(824)
+    @TmsLink("824")
     @Story("Реферальная программа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Общие сведения о реферальной программе")
@@ -41,7 +41,7 @@ PromotionsV2Test extends RestBase {
         checkResponseJsonSchema(response, ReferralProgramV2Response.class);
     }
 
-    @CaseId(292)
+    @TmsLink("292")
     @Story("Список продуктов для активации промо")
     @Test(groups = {"api-instamart-smoke", "api-v2"},
             description = "Существующий productId и существующий id магазина")
@@ -55,7 +55,7 @@ PromotionsV2Test extends RestBase {
 
     }
 
-    @CaseId(293)
+    @TmsLink("293")
     @Story("Список продуктов для активации промо")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Несуществующий productId")
@@ -64,7 +64,7 @@ PromotionsV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(295)
+    @TmsLink("295")
     @Story("Список продуктов для активации промо")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Несуществующий sid")
@@ -73,7 +73,7 @@ PromotionsV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(1484)
+    @TmsLink("1484")
     @Story("Бесплатная доставка")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение информации о бесплатной доставке")

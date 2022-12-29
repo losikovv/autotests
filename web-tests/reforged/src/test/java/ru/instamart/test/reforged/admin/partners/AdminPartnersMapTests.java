@@ -1,9 +1,6 @@
 package ru.instamart.test.reforged.admin.partners;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Flaky;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,7 +15,6 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;
 
@@ -52,7 +48,7 @@ public final class AdminPartnersMapTests {
         shiftsApiHelper.stopAllActiveShifts();
     }
 
-    @CaseId(2167)
+    @TmsLink("2167")
     @Test(description = "Поиск партнера по ФИО", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void partnerSearchByName() {
         login().goToPage();
@@ -68,7 +64,7 @@ public final class AdminPartnersMapTests {
     }
 
     @Flaky
-    @CaseId(2168)
+    @TmsLink("2168")
     @Test(description = "Поиск по номеру заказа", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void partnerSearchByOrderNumber() {
         shopperApp.deleteCurrentAssembly();
@@ -102,7 +98,7 @@ public final class AdminPartnersMapTests {
     }
 
     @Flaky
-    @CaseId(2169)
+    @TmsLink("2169")
     @Test(description = "Отображение исполнителей на карте", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void displayPerformersOnTheMap() {
         login().goToPage();
@@ -117,7 +113,7 @@ public final class AdminPartnersMapTests {
     }
 
     @Skip
-    @CaseId(2170)
+    @TmsLink("2170")
     @Test(description = "Обновление карты", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void mapUpdate() {
         login().goToPage();
@@ -127,7 +123,7 @@ public final class AdminPartnersMapTests {
         partnersMap().checkMapLoaded();
     }
 
-    @CaseId(2171)
+    @TmsLink("2171")
     @Test(description = "Открытие карты другого города", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void openingMapOfAnotherCity() {
         login().goToPage();
@@ -145,7 +141,7 @@ public final class AdminPartnersMapTests {
     }
 
     @Skip
-    @CaseId(2172)
+    @TmsLink("2172")
     @Test(description = "Карточка исполнителя", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void artistCard() {
         login().goToPage();
@@ -156,7 +152,7 @@ public final class AdminPartnersMapTests {
     }
 
     @Skip
-    @CaseId(2173)
+    @TmsLink("2173")
     @Test(description = "Отображение в легенде подсчет исполнителей", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void displayingThePerformerCountInTheLegend() {
         login().goToPage();
@@ -166,7 +162,7 @@ public final class AdminPartnersMapTests {
         partnersMap().checkMapLoaded();
     }
 
-    @CaseId(2174)
+    @TmsLink("2174")
     @Test(description = "Поиск по номеру телефона", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void searchByPhoneNumber() {
         login().goToPage();
@@ -182,7 +178,7 @@ public final class AdminPartnersMapTests {
     }
 
     @Skip
-    @CaseId(2175)
+    @TmsLink("2175")
     @Test(description = "Фильтр плановые / ondemand", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void filterOnDemand() {
         login().goToPage();

@@ -9,7 +9,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ProfileV2Request;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -25,7 +25,7 @@ public class ProfileV2NoAuthTest extends RestBase {
         SessionFactory.clearSession(SessionType.API_V2);
     }
 
-    @CaseId(160)
+    @TmsLink("160")
     @Test(description = "Получение данных профиля пользователя. Запрос без токена",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"})
     public void getProfile401() {
@@ -34,7 +34,7 @@ public class ProfileV2NoAuthTest extends RestBase {
         checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 
-    @CaseId(151)
+    @TmsLink("151")
     @Test(description = "Обновление профиля пользователя",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"})
     public void putProfile422() {

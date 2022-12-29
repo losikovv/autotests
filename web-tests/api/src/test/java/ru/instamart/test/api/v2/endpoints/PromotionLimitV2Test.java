@@ -3,7 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -31,7 +31,7 @@ public final class PromotionLimitV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
-    @CaseId(309)
+    @TmsLink("309")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверка условий оплаты бонусами")
     public void bonusPaymentTermsTest() {
@@ -57,7 +57,7 @@ public final class PromotionLimitV2Test extends RestBase {
         });
     }
 
-    @CaseId(310)
+    @TmsLink("310")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Условия оплаты бонусами для несуществующего заказа")
     public void termsOfPaymentWithBonusesforNonExistentParametres() {

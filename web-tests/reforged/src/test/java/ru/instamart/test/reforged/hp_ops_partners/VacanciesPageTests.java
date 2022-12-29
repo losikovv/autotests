@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.hr_ops_partners.faq.Faq;
 import ru.instamart.kraken.data.hr_ops_partners.vacancy_cards.VacancyCards;
 import ru.instamart.kraken.enums.CiPipelineSource;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.kraken.data.TestVariables.CompanyParams.companyTelegramLink;
 import static ru.instamart.kraken.data.TestVariables.CompanyParams.companyVkontakteLink;
@@ -21,7 +21,7 @@ public final class VacanciesPageTests {
 
     private final String expectedRegionName = CiPipelineSource.isLocal() ? "Москва" : "Санкт-Петербург";
 
-    @CaseId(58)
+    @TmsLink("58")
     @Story("Страница вакансий")
     @Test(description = "PM-58. Шапка (шаг 1-2)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageHeader1_2() {
@@ -44,7 +44,7 @@ public final class VacanciesPageTests {
 
     }
 
-    @CaseId(58)
+    @TmsLink("58")
     @Story("Страница вакансий")
     @Test(description = "PM-58. Шапка (шаг 3-4)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageHeader3_4() {
@@ -62,7 +62,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactHeader().checkRegionNameInHeader("Иваново");
     }
 
-    @CaseId(58)
+    @TmsLink("58")
     @Story("Страница вакансий")
     @Test(description = "PM-58. Шапка (шаг 5)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageHeader5() {
@@ -86,7 +86,7 @@ public final class VacanciesPageTests {
 
     //TODO разобраться с подменой геолокации, добавить шаги 6-7
 
-    @CaseId(58)
+    @TmsLink("58")
     @Story("Страница вакансий")
     @Test(description = "PM-58. Шапка (шаг 8)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageHeader8() {
@@ -132,7 +132,7 @@ public final class VacanciesPageTests {
         home().interactMainBanner().checkBannerTitle("ВАКАНСИИ В СБЕРМАРКЕТЕ");
     }
 
-    @CaseId(60)
+    @TmsLink("60")
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 1)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody1() {
@@ -189,7 +189,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactFaq().checkMoreFAQButtonVisible();
     }
 
-    @CaseId(60)
+    @TmsLink("60")
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 2)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody2() {
@@ -218,7 +218,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactMainBanner().checkBannerTitle(VacancyCards.driverCourierMSK().getVacancyPageTitle());
     }
 
-    @CaseId(60)
+    @TmsLink("60")
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 3)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody3() {
@@ -229,7 +229,7 @@ public final class VacanciesPageTests {
         vacancyPage().checkAnotherVacancyCardsCount(1);
     }
 
-    @CaseId(60)
+    @TmsLink("60")
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 4)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody4() {
@@ -258,7 +258,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactMainBanner().checkBannerTitle(VacancyCards.driverCourierMSK().getVacancyPageTitle());
     }
 
-    @CaseId(60)
+    @TmsLink("60")
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 5)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody5() {
@@ -272,7 +272,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactHeader().checkRegionNameInHeader("Санкт-Петербург");
     }
 
-    @CaseId(60)
+    @TmsLink("60")
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 6)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody6() {
@@ -298,7 +298,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactCities().checkShowAllButtonVisible();
     }
 
-    @CaseId(60)
+    @TmsLink("60")
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 7)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody7() {
@@ -342,7 +342,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactFaq().checkExpandeAnswersNotVisible();
     }
 
-    @CaseId(60)
+    @TmsLink("60")
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 8-9)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody89() {
@@ -364,7 +364,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactFaq().checkMoreFAQButtonVisible();
     }
 
-    @CaseId(60)
+    @TmsLink("60")
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 10-11)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody1011() {
@@ -406,7 +406,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactMainBanner().checkBannerSubtitle(VacancyCards.callCenterOperatorMSK().getVacancyPageSalary());*/
     }
 
-    @CaseId(59)
+    @TmsLink("59")
     @Story("Страница вакансий")
     @Test(description = "PM-59. Подвал (шаг 1)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageFooter1() {
@@ -442,7 +442,7 @@ public final class VacanciesPageTests {
 
     }
 
-    @CaseId(59)
+    @TmsLink("59")
     @Story("Страница вакансий")
     @Test(description = "PM-59. Подвал (шаг 4)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageFooter4() {

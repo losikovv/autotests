@@ -6,7 +6,7 @@ public final class TestItProperties {
 
     public static final String NAME = "testit";
 
-    @Config(configName = NAME, fieldName = "url", defaultValue = "")
+    @Config(configName = NAME, fieldName = "url", defaultValue = "https://testit.sbmt.io")
     public static String URL;
     @Config(configName = NAME, fieldName = "privateToken", defaultValue = "", env = "TESTIT_TOKEN", encrypted = true)
     public static String PRIVATE_TOKEN;

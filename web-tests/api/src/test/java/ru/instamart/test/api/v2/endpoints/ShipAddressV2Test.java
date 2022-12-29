@@ -15,7 +15,7 @@ import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.ShipAddressChangeV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.v2.ShipAddressChangeV2Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
@@ -98,7 +98,7 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(241)
+    @TmsLink("241")
     @Story("Изменить адрес доставки для заказа")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Существующий id для авторизованных")
@@ -119,7 +119,7 @@ public final class ShipAddressV2Test extends RestBase {
         });
     }
 
-    @CaseId(242)
+    @TmsLink("242")
     @Story("Изменить адрес доставки для заказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Несуществующий id для авторизованных")

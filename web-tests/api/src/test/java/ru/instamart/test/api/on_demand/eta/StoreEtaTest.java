@@ -13,8 +13,8 @@ import ru.instamart.api.common.EtaBase;
 import ru.instamart.api.helper.EtaHelper;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.redis.*;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -43,7 +43,7 @@ public class StoreEtaTest extends EtaBase {
         RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID));
     }
 
-    @CaseIDs(value = {@CaseId(1), @CaseId(58), @CaseId(48), @CaseId(30)})
+    @TmsLinks(value = {@TmsLink("1"), @TmsLink("58"), @TmsLink("48"), @TmsLink("30")})
     @Story("Store ETA")
     @Test(description = "Отправка запроса с валидными store_uuid, lat, lon",
             groups = "ondemand-eta")
@@ -54,7 +54,7 @@ public class StoreEtaTest extends EtaBase {
         checkStoreEta(response, STORE_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(3)
+    @TmsLink("3")
     @Story("Store ETA")
     @Test(description = "Отправка запроса на 2+ store_uuid",
             groups = "ondemand-eta")
@@ -70,7 +70,7 @@ public class StoreEtaTest extends EtaBase {
         checkMultipleStoreEta(response, STORE_UUID, STORE_UUID_WITH_DIFFERENT_TIMEZONE);
     }
 
-    @CaseId(4)
+    @TmsLink("4")
     @Story("Store ETA")
     @Test(description = "Изменение результата, при изменении координат пользователя",
             groups = "ondemand-eta")
@@ -86,7 +86,7 @@ public class StoreEtaTest extends EtaBase {
         Allure.step("Проверяем изменение результата при изменении координат пользователя", () -> assertNotEquals(responseFirstCoordinates.getData(0).getEta(), responseSecondCoordinates.getData(0).getEta(), "Поля eta равны для разных координат"));
     }
 
-    @CaseId(9)
+    @TmsLink("9")
     @Story("Store ETA")
     @Test(description = "Отправка запроса с координатами клиента, соответствующими координатам магазина",
             groups = "ondemand-eta")
@@ -97,7 +97,7 @@ public class StoreEtaTest extends EtaBase {
         checkStoreEta(response, STORE_UUID, 0, "Поле eta меньше или равно нулю", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(5)
+    @TmsLink("5")
     @Story("Store ETA")
     @Test(description = "Отправка запроса с невалидным магазином",
             groups = "ondemand-eta",
@@ -109,7 +109,7 @@ public class StoreEtaTest extends EtaBase {
         clientEta.getStoreEta(request);
     }
 
-    @CaseId(6)
+    @TmsLink("6")
     @Story("Store ETA")
     @Test(description = "Отправка запроса с невалидным координатами",
             groups = "ondemand-eta",
@@ -121,7 +121,7 @@ public class StoreEtaTest extends EtaBase {
         clientEta.getStoreEta(request);
     }
 
-    @CaseId(8)
+    @TmsLink("8")
     @Story("Store ETA")
     @Test(description = "Отправка запроса с валидным, но несуществующим в БД store_uuid",
             groups = "ondemand-eta")
@@ -132,7 +132,7 @@ public class StoreEtaTest extends EtaBase {
         compareTwoObjects(response.getDataCount(), 0);
     }
 
-    @CaseId(39)
+    @TmsLink("39")
     @Story("Store ETA")
     @Test(description = "Получение пустого ответа при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
             groups = "ondemand-eta")
@@ -153,7 +153,7 @@ public class StoreEtaTest extends EtaBase {
     }
 
 
-    @CaseId(44)
+    @TmsLink("44")
     @Story("Store ETA")
     @Test(description = "Получение пустого ответа при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
             groups = "ondemand-eta")
@@ -173,7 +173,7 @@ public class StoreEtaTest extends EtaBase {
         compareTwoObjects(response.getDataCount(), 0);
     }
 
-    @CaseId(51)
+    @TmsLink("51")
     @Story("Store ETA")
     @Test(description = "Получение пустого ответа при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
             groups = "ondemand-eta")
@@ -193,7 +193,7 @@ public class StoreEtaTest extends EtaBase {
         compareTwoObjects(response.getDataCount(), 0);
     }
 
-    @CaseId(247)
+    @TmsLink("247")
     @Story("Store ETA")
     @Test(description = "Получение ЕТА при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
             groups = "ondemand-eta")
@@ -214,7 +214,7 @@ public class StoreEtaTest extends EtaBase {
     }
 
 
-    @CaseId(249)
+    @TmsLink("249")
     @Story("Store ETA")
     @Test(description = "Получение ЕТА при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
             groups = "ondemand-eta")
@@ -234,7 +234,7 @@ public class StoreEtaTest extends EtaBase {
         checkStoreEta(response, STORE_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(250)
+    @TmsLink("250")
     @Story("Store ETA")
     @Test(description = "Получение ЕТА при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
             groups = "ondemand-eta")
@@ -254,7 +254,7 @@ public class StoreEtaTest extends EtaBase {
         checkStoreEta(response, STORE_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(54)
+    @TmsLink("54")
     @Story("Store ETA")
     @Test(description = "Отправка валидного запроса в магазин, который в одном часовом поясе открыт, а другом закрыт",
             groups = "ondemand-eta")
@@ -270,7 +270,7 @@ public class StoreEtaTest extends EtaBase {
         checkStoreEta(response, STORE_UUID_WITH_DIFFERENT_TIMEZONE, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(57)
+    @TmsLink("57")
     @Story("Store ETA")
     @Test(description = "Получение ответа от ML",
             groups = "ondemand-eta")
@@ -281,7 +281,7 @@ public class StoreEtaTest extends EtaBase {
         checkStoreEta(response, STORE_UUID_WITH_ML, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.ML);
     }
 
-    @CaseId(36)
+    @TmsLink("36")
     @Story("Store ETA")
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае если ML возвращает ноль",
             groups = "ondemand-eta")

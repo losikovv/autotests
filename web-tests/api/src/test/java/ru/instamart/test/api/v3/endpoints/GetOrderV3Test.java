@@ -10,7 +10,7 @@ import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.OrderV3;
 import ru.instamart.api.request.v3.OrderV3Request;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -21,7 +21,7 @@ public class GetOrderV3Test extends RestBase {
 
     OrderV3 order;
 
-    @CaseId(862)
+    @TmsLink("862")
     @Story("Заказ на доставку")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "goods",
@@ -33,7 +33,7 @@ public class GetOrderV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(863)
+    @TmsLink("863")
     @Story("Заказ на самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "metro_marketplace",

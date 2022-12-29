@@ -2,7 +2,7 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -15,7 +15,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Конфигурация мобильного приложения")
 public class AppConfigurationV2Test extends RestBase {
 
-    @CaseId(789)
+    @TmsLink("789")
     @Test(description = "Получение конфигурации приложения",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getAppConfiguration200() {

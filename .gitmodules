@@ -1,4 +1,0 @@
-[submodule "qase"]
-	path = qase
-	url = ../qase.git
-	branch = master

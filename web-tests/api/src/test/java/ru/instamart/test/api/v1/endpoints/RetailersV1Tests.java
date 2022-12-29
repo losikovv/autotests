@@ -35,8 +35,8 @@ import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.Comparator;
 import java.util.List;
@@ -66,7 +66,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(122)
+    @TmsLink("122")
     @Test(description = "Контрактный тест списка ритейлеров для shopper-бэкенда",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getRetailers() {
@@ -80,7 +80,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(123)
+    @TmsLink("123")
     @Test(description = "Контрактный тест ритейлера для shopper-бэкенда",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dataProviderClass = RestDataProvider.class,
@@ -92,7 +92,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(124)
+    @TmsLink("124")
     @Test(description = "Контрактный тест списка штрихкодов у ритейлера для shopper-бэкенда",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dataProviderClass = RestDataProvider.class,
@@ -104,7 +104,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1273)
+    @TmsLink("1273")
     @Test(description = "Получение списка ритейлеров по региону",
             groups = {"api-instamart-smoke", "api-v1"})
     public void getRetailersByOperationalZones() {
@@ -120,7 +120,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseIDs(value = {@CaseId(1277), @CaseId(1284), @CaseId(1288), @CaseId(1296)})
+    @TmsLinks(value = {@TmsLink("1277"), @TmsLink("1284"), @TmsLink("1288"), @TmsLink("1296")})
     @Test(description = "Получение списка ритейлеров с несуществующими параметрами",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dataProvider = "incorrectRetailerParams",
@@ -134,7 +134,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseIDs(value = {@CaseId(1278), @CaseId(1279), @CaseId(1280), @CaseId(1281), @CaseId(1282), @CaseId(1283)})
+    @TmsLinks(value = {@TmsLink("1278"), @TmsLink("1279"), @TmsLink("1280"), @TmsLink("1281"), @TmsLink("1282"), @TmsLink("1283")})
     @Test(description = "Получение списка ритейлеров по имени",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dataProvider = "retailerNameData",
@@ -150,7 +150,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1285)
+    @TmsLink("1285")
     @Test(description = "Получение списка ритейлеров по имени (пробел)",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getRetailersBySpaceInName() {
@@ -164,7 +164,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1286)
+    @TmsLink("1286")
     @Test(description = "Получение ритейлера по id",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getRetailersById() {
@@ -179,7 +179,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1287)
+    @TmsLink("1287")
     @Test(description = "Получение ритейлеров по нескольким id",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getRetailersByIds() {
@@ -198,7 +198,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры")
-    @CaseId(1289)
+    @TmsLink("1289")
     @Test(description = "Получение доступных ритейлеров",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getActiveRetailers() {
@@ -216,7 +216,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры")
-    @CaseId(1290)
+    @TmsLink("1290")
     @Test(description = "Получение недоступных ритейлеров",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getInactiveRetailers() {
@@ -233,7 +233,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1291)
+    @TmsLink("1291")
     @Test(description = "Получение ритейлеров, отсортированных по имени в возрастающем порядке",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "getRetailers")
@@ -253,7 +253,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1292)
+    @TmsLink("1292")
     @Test(description = "Получение ритейлеров, отсортированных по имени в убывающем порядке",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "getRetailers")
@@ -273,7 +273,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1293)
+    @TmsLink("1293")
     @Test(description = "Получение ритейлеров, отсортированных по дате создания в возрастающем порядке",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "getRetailers")
@@ -289,7 +289,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1294)
+    @TmsLink("1294")
     @Test(description = "Получение ритейлеров, отсортированных по дате создания в убывающем порядке",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "getRetailers")
@@ -305,7 +305,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1295)
+    @TmsLink("1295")
     @Test(description = "Получение ритейлеров с пагинацией",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getRetailersWithPagination() {
@@ -324,7 +324,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1297)
+    @TmsLink("1297")
     @Test(description = "Получение ритейлеров с несколькими параметрами сортировки и фильтрации",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getRetailersWithAFewParams() {
@@ -348,7 +348,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1306)
+    @TmsLink("1306")
     @Test(description = "Изменение позиций ритейлеров",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getRetailers")
@@ -366,7 +366,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры")
-    @CaseId(1307)
+    @TmsLink("1307")
     @Test(description = "Изменение позиций ритейлеров с несуществующими id ритейеров",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void changeRetailerPositionsForNonExistingRetailer() {
@@ -378,7 +378,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING) //todo починить 405 "Создание ритейлеров в данном разделе отключено. Используйте раздел Онбординг."
     @Story("Ритейлеры")
-    @CaseId(1310)
+    @TmsLink("1310")
     @Test(description = "Создание ритейлера",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getRetailersWithPagination")
@@ -405,8 +405,8 @@ public class RetailersV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING) //todo починить 405 "Создание ритейлеров в данном разделе отключено. Используйте раздел Онбординг."
     @Story("Ритейлеры")
     @JsonDataProvider(path = "data/json_v1/api_v1_negative_retailer_data.json", type = RestDataProvider.RetailerV1TestDataRoot.class)
-    @CaseIDs(value = {@CaseId(1311), @CaseId(1312), @CaseId(1313), @CaseId(1314), @CaseId(1315), @CaseId(1316),
-            @CaseId(1317), @CaseId(1318), @CaseId(1319), @CaseId(1320), @CaseId(1321), @CaseId(1322), @CaseId(1323)})
+    @TmsLinks(value = {@TmsLink("1311"), @TmsLink("1312"), @TmsLink("1313"), @TmsLink("1314"), @TmsLink("1315"), @TmsLink("1316"),
+            @TmsLink("1317"), @TmsLink("1318"), @TmsLink("1319"), @TmsLink("1320"), @TmsLink("1321"), @TmsLink("1322"), @TmsLink("1323")})
     @Test(description = "Создание ритейлера с невалидными параметрами",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProvider = "jsonWithoutParallel",
@@ -419,7 +419,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры")
-    @CaseId(1325)
+    @TmsLink("1325")
     @Test(description = "Редактирование ритейлера",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createRetailer")
@@ -449,7 +449,7 @@ public class RetailersV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры")
     @JsonDataProvider(path = "data/json_v1/api_v1_negative_edit_retailer_data.json", type = RestDataProvider.RetailerV1TestDataRoot.class)
-    @CaseIDs(value = {@CaseId(1326), @CaseId(1327)})
+    @TmsLinks(value = {@TmsLink("1326"), @TmsLink("1327")})
     @Test(description = "Редактирование ритейлера с невалидными параметрами",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProvider = "jsonWithoutParallel",
@@ -463,7 +463,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - ETA")
-    @CaseId(1330)
+    @TmsLink("1330")
     @Test(description = "Редактирование ETA для ритейлера",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createRetailer")
@@ -474,7 +474,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - ETA")
-    @CaseId(1331)
+    @TmsLink("1331")
     @Test(description = "Получение ETA для ритейлера",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "editEta")
@@ -492,7 +492,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1347)
+    @TmsLink("1347")
     @Test(description = "Создание правил доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createRetailer")
@@ -507,7 +507,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1348)
+    @TmsLink("1348")
     @Test(description = "Получение правила доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createShippingPolicies")
@@ -521,7 +521,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1349)
+    @TmsLink("1349")
     @Test(description = "Получение правил доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createShippingPolicies")
@@ -535,7 +535,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1350)
+    @TmsLink("1350")
     @Test(description = "Получение несуществующего правила доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getNonExistingShippingPolicy() {
@@ -546,7 +546,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1351)
+    @TmsLink("1351")
     @Test(description = "Получение правил доступности слотов доставки для несуществующего ритейлера",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createShippingPolicies")
@@ -558,7 +558,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseIDs(value = {@CaseId(2345), @CaseId(2349), @CaseId(2350), @CaseId(2351), @CaseId(2352)})
+    @TmsLinks(value = {@TmsLink("2345"), @TmsLink("2349"), @TmsLink("2350"), @TmsLink("2351"), @TmsLink("2352")})
     @Test(description = "Создание правила доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProvider = "shippingPolicyRulesData",
@@ -572,7 +572,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(2356)
+    @TmsLink("2356")
     @Test(description = "Создание правила доступности слотов доставки для несуществующего правила",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies"})
@@ -590,7 +590,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1352)
+    @TmsLink("1352")
     @Test(description = "Удаление правила доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = {"createShippingPolicyRule", "createShippingPolicyRuleForNonExistentPolicy"})
@@ -606,7 +606,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1353)
+    @TmsLink("1353")
     @Test(description = "Удаление несуществующего правила доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = {"createShippingPolicyRule", "createShippingPolicyRuleForNonExistentPolicy"})
@@ -617,7 +617,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1354)
+    @TmsLink("1354")
     @Test(description = "Редактирование правил доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies", "deleteShippingPolicyRule"})
@@ -632,7 +632,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1355)
+    @TmsLink("1355")
     @Test(description = "Редактирование несуществующих правил доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void editNonExistingShippingPolicies() {
@@ -644,7 +644,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1356)
+    @TmsLink("1356")
     @Test(description = "Удаление правил доступности слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "editShippingPolicies")
@@ -658,7 +658,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры - Слоты доставки")
-    @CaseId(1357)
+    @TmsLink("1357")
     @Test(description = "Удаление правил доступности несуществующих слотов доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void deleteNonExistingShippingPolicies() {
@@ -668,7 +668,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры - Соглашения")
-    @CaseId(2339)
+    @TmsLink("2339")
     @Test(description = "Получение списка соглашений ритейлеров",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getRetailerAgreements() {
@@ -678,7 +678,7 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры - Соглашения")
-    @CaseId(2340)
+    @TmsLink("2340")
     @Test(description = "Получение списка типов контрактов ритейлеров",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getRetailerContractTypes() {

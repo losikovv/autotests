@@ -2,10 +2,10 @@ package ru.instamart.test.reforged.admin_prod;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -14,7 +14,7 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Feature("Основные настройки")
 public final class AdministrationGeneralSettingsTests {
 
-    @CaseId(346)
+    @TmsLink("346")
     @Test(description = "Корректное отображение страницы основных настроек", groups =  PROD_ADMIN_SMOKE)
     public void generalSettingsPageValidate() {
         UserData defaultAdmin = UserManager.getDefaultAdmin();
@@ -128,7 +128,7 @@ public final class AdministrationGeneralSettingsTests {
         settings().checkCancelButtonVisible();
     }
 
-    @CaseId(572)
+    @TmsLink("572")
     @Test(description = "Корректное отображение страницы настройки городов", groups = PROD_ADMIN_SMOKE)
     public void citiesSettingsPageValidate() {
         UserData defaultAdmin = UserManager.getDefaultAdmin();
@@ -148,7 +148,7 @@ public final class AdministrationGeneralSettingsTests {
         allCities().checkListingCitiesTableVisible();
     }
 
-    @CaseId(575)
+    @TmsLink("575")
     @Test(description = "Корректное отображение страницы добавления городов", groups = PROD_ADMIN_SMOKE)
     public void cityAddPageValidate() {
         UserData defaultAdmin = UserManager.getDefaultAdmin();
@@ -189,7 +189,7 @@ public final class AdministrationGeneralSettingsTests {
 
     }
 
-    @CaseId(573)
+    @TmsLink("573")
     @Test(description = "Корректное отображение страницы редактирования городов", groups = PROD_ADMIN_SMOKE)
     public void cityEditPageValidate() {
         UserData defaultAdmin = UserManager.getDefaultAdmin();
@@ -231,7 +231,7 @@ public final class AdministrationGeneralSettingsTests {
         allCities().interactEditCityModal().checkCancelButtonVisible();
     }
 
-    @CaseId(367)
+    @TmsLink("367")
     @Test(description = "Корректное отображение страницы настроек методов оплаты", groups = PROD_ADMIN_SMOKE)
     public void paymentMethodsSettingsPageValidate() {
         UserData defaultAdmin = UserManager.getDefaultAdmin();
@@ -250,7 +250,7 @@ public final class AdministrationGeneralSettingsTests {
         payments().checkPaymentMethodsTableVisible();
     }
 
-    @CaseId(393)
+    @TmsLink("393")
     @Test(description = "Корректное отображение страницы настроек компаний", groups = PROD_ADMIN_SMOKE)
     public void companySettingsPageValidate() {
         UserData defaultAdmin = UserManager.getDefaultAdmin();
@@ -313,7 +313,7 @@ public final class AdministrationGeneralSettingsTests {
         companySettings().checkSaveChangesVisible();
     }
 
-    @CaseId(394)
+    @TmsLink("394")
     @Test(description = "Корректное отображение страницы настроек смс", groups = PROD_ADMIN_SMOKE)
     public void smsSettingsPageValidate() {
         UserData defaultAdmin = UserManager.getDefaultAdmin();

@@ -10,7 +10,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.Kraken;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkDeliveryIntervalsNonEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.getNearestInterval;
@@ -26,7 +26,7 @@ public final class HomePageTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
 
-    @CaseId(3358)
+    @TmsLink("3358")
     @Test(description = "Отображение слотов доставки магазина для адреса в пересечении зон доставки", groups = {STARTING_X, REGRESSION_STF})
     public void crossZonesStoreSingleZoneAddress() {
         final String zone1DeliveryInterval = apiHelper.getNextDeliveryInfo(DEFAULT_METRO_CROSSZONES_SID, RestAddresses.Moscow.metroCrossZone1Address());
@@ -66,7 +66,7 @@ public final class HomePageTests {
         shop().interactHeader().checkNextDeliveryEquals(zone2DeliveryInterval);
     }
 
-    @CaseId(3359)
+    @TmsLink("3359")
     @Test(description = "Отображение слотов доставки магазина для адреса вне пересечения зон доставки", groups = {STARTING_X, REGRESSION_STF})
     public void crossZonesStoreDoubleZoneAddress() {
         final String zone1DeliveryInterval = apiHelper.getNextDeliveryInfo(DEFAULT_METRO_CROSSZONES_SID, RestAddresses.Moscow.metroCrossZone1Address());
@@ -88,7 +88,7 @@ public final class HomePageTests {
         shop().interactHeader().checkNextDeliveryEquals(nearestDeliveryInterval);
     }
 
-    @CaseId(3360)
+    @TmsLink("3360")
     @Test(description = "Отображение страницы для авторизованного пользователя", groups = {STARTING_X, REGRESSION_STF})
     public void homePageForAuthorizedUser() {
         final UserData userData = UserManager.getQaUser();
@@ -105,7 +105,7 @@ public final class HomePageTests {
         home().interactMultisearchHeader().checkIsSetAddressEqualToInput(home().getEnteredAddress(), Addresses.Moscow.defaultAddressRest());
     }
 
-    @CaseId(3361)
+    @TmsLink("3361")
     @Test(description = "Определение города по IP если в городе работает СберМаркет", groups = {STARTING_X, REGRESSION_STF})
     public void detectCityByIPAndChangeCityFromOnboarding() {
         home().goToPage();
@@ -122,7 +122,7 @@ public final class HomePageTests {
         home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), expectedDeliveryBlockTitle);
     }
 
-    @CaseId(3362)
+    @TmsLink("3362")
     @Test(description = "Отображение магазинов после ввода адреса доставки", groups = {STARTING_X, REGRESSION_STF})
     public void showShopsAfterFillAddress() {
         final UserData userData = UserManager.getQaUser();
@@ -139,7 +139,7 @@ public final class HomePageTests {
         //home().checkDeliveryBlockTitle(home().getStoresBlockTitle(), expectedDeliveryBlockTitle);
     }
 
-    @CaseId(3363)
+    @TmsLink("3363")
     @Test(description = "Отображение магазинов после ввода адреса вне города доставки", groups = {STARTING_X, REGRESSION_STF})
     public void outOfDeliveryLocation() {
         home().goToPage();
@@ -157,7 +157,7 @@ public final class HomePageTests {
     }
 
     @Skip //Непонятен порядок определения геолокации + что должно определяться в контейнерах
-    @CaseId(3364)
+    @TmsLink("3364")
     @Test(description = "Определение города по IP и координатам", groups = {STARTING_X, REGRESSION_STF})
     public void retailerNotInCity() {
         home().goToPage();
@@ -175,7 +175,7 @@ public final class HomePageTests {
         home().checkStoreCardDisplayed(DEFAULT_AUCHAN_SID);
     }
 
-    @CaseId(3365)
+    @TmsLink("3365")
     @Test(description = "Переход по ссылке с кодом лейбла при незаполненном адресе", groups = {STARTING_X, REGRESSION_STF})
     public void openGroupsAddressNotSet() {
         final UserData userData = UserManager.getQaUser();
@@ -200,7 +200,7 @@ public final class HomePageTests {
         home().checkStoreCardDisplayed(DEFAULT_METRO_MOSCOW_SID);
     }
 
-    @CaseId(3366)
+    @TmsLink("3366")
     @Test(description = "Переход по ссылке с кодом лейбла при заполненном адресе", groups = {STARTING_X, REGRESSION_STF})
     public void openGroupsAddressSet() {
         final UserData userData = UserManager.getQaUser();
@@ -230,7 +230,7 @@ public final class HomePageTests {
         home().checkStoreCardDisplayed(DEFAULT_METRO_MOSCOW_SID);
     }
 
-    @CaseId(3204)
+    @TmsLink("3204")
     @Test(description = "Переход по ссылке с кодом лейбла при заполненном адресе и отсутствующих магазинах", groups = {STARTING_X, REGRESSION_STF})
     public void openGroupsAddressSetNoStoresByGroupLabel() {
         home().goToPage();

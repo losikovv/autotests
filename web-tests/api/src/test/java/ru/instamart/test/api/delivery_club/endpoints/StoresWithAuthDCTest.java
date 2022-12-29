@@ -5,7 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
@@ -54,7 +54,7 @@ public class StoresWithAuthDCTest extends RestBase {
         SessionFactory.createSessionToken(SessionType.DELIVERY_CLUB, UserManager.getDeliveryClubUser());
     }
 
-    @CaseId(563)
+    @TmsLink("563")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение доступных слотов")
@@ -67,7 +67,7 @@ public class StoresWithAuthDCTest extends RestBase {
         slotId = slots.get(0).getId();
     }
 
-    @CaseId(574)
+    @TmsLink("574")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение доступных слотов из несуществующего магазина")
@@ -76,7 +76,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(564)
+    @TmsLink("564")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение всех слотов")
@@ -86,7 +86,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkResponseJsonSchema(response, SlotsDCResponse[].class);
     }
 
-    @CaseId(575)
+    @TmsLink("575")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение всех слотов из несуществующего магазина")
@@ -95,7 +95,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(565)
+    @TmsLink("565")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение стоков")
@@ -105,7 +105,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkResponseJsonSchema(response, StoresStockDCResponse.class);
     }
 
-    @CaseId(576)
+    @TmsLink("576")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение стоков из несуществующего магазина")
@@ -114,7 +114,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(566)
+    @TmsLink("566")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -125,7 +125,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkResponseJsonSchema(response, NotificationDC.class);
     }
 
-    @CaseId(577)
+    @TmsLink("577")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -135,7 +135,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(578)
+    @TmsLink("578")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -145,7 +145,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(590)
+    @TmsLink("590")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -155,7 +155,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode400(response);
     }
 
-    @CaseId(567)
+    @TmsLink("567")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение зон доставки")
@@ -165,7 +165,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkResponseJsonSchema(response, StoreZoneDC[].class);
     }
 
-    @CaseId(579)
+    @TmsLink("579")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение зон доставки из несуществующего магазина")
@@ -174,7 +174,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(568)
+    @TmsLink("568")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = {"getStoresSlotsAvailable200", "getStoresCatalogProducts200"},
@@ -193,7 +193,7 @@ public class StoresWithAuthDCTest extends RestBase {
         orderNumber = response.as(OrderDCResponse.class).getId();
     }
 
-    @CaseId(580)
+    @TmsLink("580")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = {"getStoresSlotsAvailable200", "getStoresCatalogProducts200"},
@@ -203,7 +203,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(581)
+    @TmsLink("581")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = {"getStoresCatalogProducts200"},
@@ -215,7 +215,7 @@ public class StoresWithAuthDCTest extends RestBase {
 
     @Skip // todo сейчас возвращает 500 - похоже на баг
     @Issue("STF-9241")
-    @CaseId(582)
+    @TmsLink("582")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = {"getStoresSlotsAvailable200"},
@@ -225,7 +225,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(569)
+    @TmsLink("569")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение категорий продуктов")
@@ -235,7 +235,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkResponseJsonSchema(response, CatalogCategoriesDCResponse.class);
     }
 
-    @CaseId(583)
+    @TmsLink("583")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение категорий продуктов из несуществующего магазина")
@@ -244,7 +244,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(570)
+    @TmsLink("570")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение продуктов")
@@ -255,7 +255,7 @@ public class StoresWithAuthDCTest extends RestBase {
         productId = response.as(ProductsDCResponse.class).getData().getProducts().get(0).getId();
     }
 
-    @CaseId(584)
+    @TmsLink("584")
     @Story("Получение информации из магазинов")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Получение продуктов из несуществующего магазина")
@@ -264,7 +264,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(571)
+    @TmsLink("571")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -275,7 +275,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkResponseJsonSchema(response, OrderDCResponse.class);
     }
 
-    @CaseId(585)
+    @TmsLink("585")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -285,7 +285,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(586)
+    @TmsLink("586")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -295,7 +295,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(572)
+    @TmsLink("572")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -306,7 +306,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkResponseJsonSchema(response, OrderDCResponse.class);
     }
 
-    @CaseId(587)
+    @TmsLink("587")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -316,7 +316,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(588)
+    @TmsLink("588")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",
@@ -326,7 +326,7 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(589)
+    @TmsLink("589")
     @Story("Заказ")
     @Test(groups = {API_INSTAMART_REGRESS},
             dependsOnMethods = "postStoresOrders200",

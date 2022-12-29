@@ -25,7 +25,7 @@ import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -49,7 +49,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позиции заказа")
-    @CaseId(945)
+    @TmsLink("945")
     @Test(description = "Заказ собран без изменений (все типы упаковок)",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "ordersWithDifferentPricers",
@@ -79,7 +79,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip //todo включить когда появится возможность создавать заказы с количеством товара больше 1
     @Story("Позиции заказа")
-    @CaseId(874)
+    @TmsLink("874")
     @Test(description = "Собрано меньше изначального количества",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "ordersWithDifferentPricers",
@@ -109,7 +109,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позиции заказа")
-    @CaseId(875)
+    @TmsLink("875")
     @Test(description = "Собрано больше изначального количества",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "ordersWithDifferentPricers",
@@ -139,7 +139,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(949)
+    @TmsLink("949")
     @Test(description = "Вес передан ритейлером (весовые товары)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightKilo() {
@@ -179,7 +179,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(1959)
+    @TmsLink("1959")
     @Test(description = "Вес передан ритейлером (фасованные товары)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightPackage() {
@@ -219,7 +219,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(950)
+    @TmsLink("950")
     @Test(description = "Вес передан ритейлером (штучные товары)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightItem() {
@@ -258,7 +258,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(1960)
+    @TmsLink("1960")
     @Test(description = "Вес передан ритейлером (упаковки)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightPack() {
@@ -297,7 +297,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(2042)
+    @TmsLink("2042")
     @Test(description = "Передан 0 вес ритейлером (штучные товары)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightNullItem() {
@@ -335,7 +335,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(2043)
+    @TmsLink("2043")
     @Test(description = "Передан 0 вес ритейлером (упаковки)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightNullPack() {
@@ -373,7 +373,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(976)
+    @TmsLink("976")
     @Test(description = "Передано 0 квантов при не 0 весе ритейлером (весовые)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightNotNullKilo() {
@@ -413,7 +413,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(1959)
+    @TmsLink("1959")
     @Test(description = "Передано 0 квантов при не 0 весе ритейлером (фасованные)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightNotNullPackage() {
@@ -453,7 +453,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(1092)
+    @TmsLink("1092")
     @Test(description = "Собрано меньше 1 кванта (весовые товары)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightLessKilo() {
@@ -493,7 +493,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
-    @CaseId(1961)
+    @TmsLink("1961")
     @Test(description = "Собрано меньше 1 кванта (фасованные товары)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void weightLessPackage() {

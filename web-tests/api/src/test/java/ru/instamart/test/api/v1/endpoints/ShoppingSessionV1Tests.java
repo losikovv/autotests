@@ -14,8 +14,8 @@ import ru.instamart.api.request.v1.ShoppingSessionV1Request;
 import ru.instamart.api.response.v1.ShoppingSessionV1Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -26,7 +26,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Сессия")
 public class ShoppingSessionV1Tests extends RestBase {
 
-    @CaseIDs(value = {@CaseId(44), @CaseId(1417)})
+    @TmsLinks(value = {@TmsLink("44"), @TmsLink("1417")})
     @Story("Сессия покупки")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение сессии для авторизованного пользователя")
@@ -43,7 +43,7 @@ public class ShoppingSessionV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1418)
+    @TmsLink("1418")
     @Story("Сессия покупки")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение сессии для неавторизованного пользователя")

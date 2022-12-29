@@ -12,8 +12,8 @@ import ru.instamart.api.model.v1.SuggestionOfferV1;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v1.SearchSuggestionsV1Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 @Feature("Поиск")
 public class SearchSuggestionsV1Tests extends RestBase {
 
-    @CaseIDs(value = {@CaseId(1420), @CaseId(1421), @CaseId(1422)})
+    @TmsLinks(value = {@TmsLink("1420"), @TmsLink("1421"), @TmsLink("1422")})
     @Story("Поисковые подсказки")
     @Test(description = "Получение поисковых подсказок",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
@@ -42,7 +42,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1423)
+    @TmsLink("1423")
     @Story("Поисковые подсказки")
     @Test(description = "Получение поисковых подсказок с неверной раскладкой",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
@@ -58,7 +58,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseIDs(value = {@CaseId(1424), @CaseId(1425), @CaseId(1426)})
+    @TmsLinks(value = {@TmsLink("1424"), @TmsLink("1425"), @TmsLink("1426")})
     @Story("Поисковые подсказки")
     @Test(description = "Получение поисковых подсказок",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
@@ -71,7 +71,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
         compareTwoObjects(offersFromResponse.size(), 0);
     }
 
-    @CaseIDs(value = {@CaseId(1427), @CaseId(1428)})
+    @TmsLinks(value = {@TmsLink("1427"), @TmsLink("1428")})
     @Story("Поисковые подсказки")
     @Test(description = "Получение пустых поисковых подсказок",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
@@ -83,7 +83,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
         checkErrorText(response, "Bad Request");
     }
 
-    @CaseId(1429)
+    @TmsLink("1429")
     @Story("Поисковые подсказки")
     @Test(description = "Получение поисковых подсказок для несуществующего магазина",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})

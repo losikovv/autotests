@@ -2,7 +2,7 @@ package ru.instamart.test.api.v2.e2e;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -27,7 +27,7 @@ public class ZoneE2ETests extends RestBase {
         RestDataProvider.getAvailableZones();
     }
 
-    @CaseId(109)
+    @TmsLink("109")
     @Test(  dataProvider = "zones-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех зонах всех магазинов",

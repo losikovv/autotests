@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.stf.changing_order_details;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -11,10 +12,8 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.enums.v2.StateV2.*;
-import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 import static ru.instamart.reforged.Group.*;
@@ -37,7 +36,7 @@ public final class ChangingDeliverySlotTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(3692)
+    @TmsLink("3692")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка возможности изменения слота доставки", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -95,7 +94,7 @@ public final class ChangingDeliverySlotTests {
         userShipment().checkCurrentDeliveryInterval(StringUtil.getTodayTomorrowOrDate(newSlotDate) + ", " + newSlotTime);
     }
 
-    @CaseId(3715)
+    @TmsLink("3715")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка возможности изменения слота самовывоза", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -159,7 +158,7 @@ public final class ChangingDeliverySlotTests {
         userShipment().checkCurrentDeliveryInterval(StringUtil.getTodayTomorrowOrDate(newSlotDate) + ", " + newSlotTime);
     }
 
-    @CaseId(3693)
+    @TmsLink("3693")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка возможности изменения слота доставки/самовывоза с учетом промика бесплатной доставки в заказе", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -219,7 +218,7 @@ public final class ChangingDeliverySlotTests {
         userShipment().checkOrderTotalCost(orderAmount);
     }
 
-    @CaseId(3718)
+    @TmsLink("3718")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка возможности изменения слота доставки/самовывоза с учетом промика в заказе", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -283,7 +282,7 @@ public final class ChangingDeliverySlotTests {
         userShipment().checkOrderTotalCost(orderAmount);
     }
 
-    @CaseId(3782)
+    @TmsLink("3782")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка возможности изменения слота с обычного на OnDemand", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -332,7 +331,7 @@ public final class ChangingDeliverySlotTests {
         userShipment().checkCurrentDeliveryInterval(StringUtil.getTodayTomorrowOrDate(newSlotDate) + ", " + newSlotTime);
     }
 
-    @CaseId(3695)
+    @TmsLink("3695")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка невозможности изменения слота доставки когда оформлен OnDemand", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -373,7 +372,7 @@ public final class ChangingDeliverySlotTests {
     }
 
     // У магазина должен быть отключена функция смены слота доставки Админка -> Редактирование магазина -> Разрешить менять слот доставки после оформления заказа
-    @CaseId(3719)
+    @TmsLink("3719")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка невозможности изменения слота при невозможности изменения в выбранном магазине", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -411,7 +410,7 @@ public final class ChangingDeliverySlotTests {
         userShipment().checkAlertText("Изменение недоступно для этого магазина");
     }
 
-    @CaseId(3712)
+    @TmsLink("3712")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка невозможности изменения слота самовывоза, имея в шипменте алкоголь", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -468,7 +467,7 @@ public final class ChangingDeliverySlotTests {
         userShipment().checkAlertText("В заказе есть алкоголь. Время поменять не получится");
     }
 
-    @CaseId(3714)
+    @TmsLink("3714")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка невозможности изменения слота доставки, когда статус заказа старше статуса 'Ожидает сборки'", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -522,7 +521,7 @@ public final class ChangingDeliverySlotTests {
         userShipment().checkAlertText("Заказ отменён. Время поменять не получится");
     }
 
-    @CaseId(3716)
+    @TmsLink("3716")
     @Story("Изменение слота доставки")
     @Test(description = "Проверка невозможности изменения слота самовывоза, когда статус заказа старше статуса 'Ожидает сборки'", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})

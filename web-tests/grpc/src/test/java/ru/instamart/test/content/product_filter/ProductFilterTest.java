@@ -6,8 +6,8 @@ import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.grpc.data_provider.GrpcDataProvider;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -32,7 +32,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("Фасеты")
-    @CaseId(170)
+    @TmsLink("170")
     @Test(description = "Построение фасетов по id категории",
             groups = "grpc-product-hub")
     public void getCategoryFacetsByCategoryIds() {
@@ -52,7 +52,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("Фасеты")
-    @CaseId(171)
+    @TmsLink("171")
     @Test(description = "Построение фасетов по id категории с отсутствующим store id",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -70,7 +70,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("Фасеты")
-    @CaseId(228)
+    @TmsLink("228")
     @Test(description = "Построение фасетов по id категории с пустым store id",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -89,7 +89,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("Фасеты")
-    @CaseId(229)
+    @TmsLink("229")
     @Test(description = "Построение фасетов по id категории с пустым tenant id",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -108,7 +108,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("Фасеты")
-    @CaseId(230)
+    @TmsLink("230")
     @Test(description = "Построение фасетов по id категории без tenant id",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -126,7 +126,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("Фасеты")
-    @CaseId(231)
+    @TmsLink("231")
     @Test(description = "Построение фасетов по id категории с пустым category_ids",
             groups = "grpc-product-hub")
     public void getCategoryFacetsByCategoryIdsWithEmptyCategories() {
@@ -147,7 +147,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("Фасеты")
-    @CaseId(232)
+    @TmsLink("232")
     @Test(description = "Построение фасетов по id категории без category_ids",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -165,7 +165,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("Фасеты")
-    @CaseId(233)
+    @TmsLink("233")
     @Test(description = "Построение недоступных фасетов по id категории",
             groups = "grpc-product-hub")
     public void getUnavailableCategoryFacetsByCategoryIds() {
@@ -183,7 +183,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("SKU")
-    @CaseId(172)
+    @TmsLink("172")
     @Test(description = "Получение популярных sku продуктов по ID категорий",
             groups = "grpc-product-hub")
     public void getPopularProductsSKUByCategoryIds() {
@@ -204,7 +204,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("SKU")
-    @CaseId(173)
+    @TmsLink("173")
     @Test(description = "Получение популярных sku продуктов по ID категорий без tenant_id",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -225,7 +225,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("SKU")
-    @CaseIDs(value = {@CaseId(234), @CaseId(235), @CaseId(238)})
+    @TmsLinks(value = {@TmsLink("234"), @TmsLink("235"), @TmsLink("238")})
     @Test(description = "Получение популярных sku продуктов c пустым массивом SKU",
             groups = "grpc-product-hub",
             dataProvider = "categorySKUData",
@@ -236,7 +236,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("SKU")
-    @CaseId(236)
+    @TmsLink("236")
     @Test(description = "Получение популярных sku продуктов по ID категорий с пустым tenant_id",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -258,7 +258,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("SKU")
-    @CaseId(237)
+    @TmsLink("237")
     @Test(description = "Получение популярных sku продуктов по ID категорий с пустым store_id",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -280,7 +280,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("SKU и атрибуты")
-    @CaseId(174)
+    @TmsLink("174")
     @Test(description = "Получение sku продуктов и атрибутов",
             groups = "grpc-product-hub")
     public void getProductsSKUByAttributes() {
@@ -304,7 +304,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("SKU и атрибуты")
-    @CaseId(175)
+    @TmsLink("175")
     @Test(description = "Получение sku продуктов и атрибутов без category_ids",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -325,7 +325,7 @@ public class ProductFilterTest extends GrpcBase {
     }
 
     @Story("SKU и атрибуты")
-    @CaseId(239)
+    @TmsLink("239")
     @Test(description = "Получение sku продуктов и атрибутов с пустыми category_ids",
             groups = "grpc-product-hub")
     public void getProductsSKUByAttributesWithEmptyCategory() {

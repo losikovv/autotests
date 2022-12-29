@@ -8,7 +8,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
@@ -20,7 +20,7 @@ public class ShoppingTestsForExistingUser {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(2606)
+    @TmsLink("2606")
     @Story("Тест набора корзины до суммы, достаточной для оформления заказа")
     @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа",
             groups = {STF_PROD_S})

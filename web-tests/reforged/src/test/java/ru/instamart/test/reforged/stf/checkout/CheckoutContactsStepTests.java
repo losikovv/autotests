@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.stf.checkout;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,7 +14,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -35,7 +35,7 @@ public final class CheckoutContactsStepTests {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseId(1679)
+    @TmsLink("1679")
     @Story("Корзина")
     @Test(description = "Тест на изменение телефона и контактов", groups = REGRESSION_STF)
     public void successChangePhoneAndContacts() {

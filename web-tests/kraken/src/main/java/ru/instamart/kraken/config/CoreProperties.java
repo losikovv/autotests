@@ -11,9 +11,6 @@ public final class CoreProperties {
     @Config(configName = NAME, fieldName = "defaultUiSms", defaultValue = "199011")
     public static String DEFAULT_UI_SMS;
 
-    @Config(configName = NAME, fieldName = "qaseApiToken", defaultValue = "", encrypted = true)
-    public static String QASE_API_TOKEN;
-
     @Config(configName = NAME, fieldName = "base64KubeConfig", defaultValue = "", encrypted = true)
     public static String BASE64_KUBE_CONFIG;
 

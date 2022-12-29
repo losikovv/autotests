@@ -3,13 +3,13 @@ package ru.instamart.test.reforged.stf_prod;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.curl.Curl;
 import ru.instamart.reforged.core.service.curl.CurlService;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.Group.STF_PROD_S;
@@ -21,7 +21,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Лэндинг")
 public final class BasicSbermarketTests {
 
-    @CaseId(1438)
+    @TmsLink("1438")
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = {STF_PROD_S})
     public void successValidateHeader() {
@@ -47,7 +47,7 @@ public final class BasicSbermarketTests {
         shop().interactHeader().assertAll();
     }
 
-    @CaseId(733)
+    @TmsLink("733")
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на как мы работаем", groups = {STF_PROD_S})
     public void successTransitionHowWeWork() {
@@ -57,7 +57,7 @@ public final class BasicSbermarketTests {
         howWeWork().checkPageOpened();
     }
 
-    @CaseId(1810)
+    @TmsLink("1810")
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на информацию о контактах", groups = {STF_PROD_S})
     public void successTransitionContactsInfo() {
@@ -67,7 +67,7 @@ public final class BasicSbermarketTests {
         contacts().checkPageOpened();
     }
 
-    @CaseId(1811)
+    @TmsLink("1811")
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с помощью для клиента", groups = {STF_PROD_S})
     public void successTransitionHelpInfo() {
@@ -77,7 +77,7 @@ public final class BasicSbermarketTests {
         faq().checkPageOpened();
     }
 
-    @CaseId(1812)
+    @TmsLink("1812")
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с информацией о доставке", groups = {STF_PROD_S})
     public void successTransitionDeliveryInfo() {
@@ -87,7 +87,7 @@ public final class BasicSbermarketTests {
         delivery().checkPageOpened();
     }
 
-    @CaseId(1813)
+    @TmsLink("1813")
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с Logo", groups = {STF_PROD_S})
     public void successTransitionLogo() {
@@ -97,7 +97,7 @@ public final class BasicSbermarketTests {
         shop().checkPageOpened();
     }
 
-    @CaseId(1439)
+    @TmsLink("1439")
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов в футере Сбермаркета", groups = {STF_PROD_S})
     public void successValidateElementInFooterSbermarket() {
@@ -135,7 +135,7 @@ public final class BasicSbermarketTests {
         home().interactFooter().assertAll();
     }
 
-    @CaseId(3470)
+    @TmsLink("3470")
     @Story("Статические страницы")
     @Test(
             dataProviderClass = StaticPage.class,
@@ -151,7 +151,7 @@ public final class BasicSbermarketTests {
     }
 
     @Skip //ошибка рендера
-    @CaseId(3504)
+    @TmsLink("3504")
     @Story("Статические страницы")
     @Test(description = "Тест валидности переходов по ссылкам в футере Сбермаркета, кейсы с открытием документа и модального окна",
             groups = {STF_PROD_S})
@@ -165,7 +165,7 @@ public final class BasicSbermarketTests {
     }
 
     @DoNotOpenBrowser
-    @CaseId(1814)
+    @TmsLink("1814")
     @Story("Сервисные страницы")
     @Test(description = "Тест доступности сервисных страниц", groups = {STF_PROD_S})
     public void successCheckServicePagesAreAvailable() {
@@ -175,7 +175,7 @@ public final class BasicSbermarketTests {
     }
 
     @DoNotOpenBrowser
-    @CaseId(1814)
+    @TmsLink("1814")
     @Story("Сервисные страницы")
     @Test(description = "Тест доступности сервисных страниц", groups = {STF_PROD_S})
     public void successCheckJobLandingAreAvailable() {
@@ -184,7 +184,7 @@ public final class BasicSbermarketTests {
     }
 
     @DoNotOpenBrowser
-    @CaseId(1432)
+    @TmsLink("1432")
     @Story("Статические страницы")
     @Test(
             dataProviderClass = StaticPage.class,

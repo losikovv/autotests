@@ -19,7 +19,7 @@ import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import workflow.ServiceGrpc;
 
 import java.util.Objects;
@@ -58,7 +58,7 @@ public class WorkflowCandidatesTest extends RestBase {
         shopperApp.authorisation(UserManager.getShp6Universal3());
     }
 
-    @CaseId(93)
+    @TmsLink("93")
     @Test(description = "Блокирование кандидата в статусе offered",
             groups = "dispatch-workflow-smoke")
     public void checkUnavailableCandidate() {
@@ -68,7 +68,7 @@ public class WorkflowCandidatesTest extends RestBase {
         compareTwoObjects(candidate.getActive(), false);
     }
 
-    @CaseId(94)
+    @TmsLink("94")
     @Test(description = "Разблокирование кандидата в статусе accepted",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkUnavailableCandidate")
@@ -79,7 +79,7 @@ public class WorkflowCandidatesTest extends RestBase {
         compareTwoObjects(candidate.getActive(), true);
     }
 
-    @CaseId(94)
+    @TmsLink("94")
     @Test(description = "Разблокирование кандидата в статусе canceled",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkAvailableCandidateWithAcceptedWorkflow")
@@ -89,7 +89,7 @@ public class WorkflowCandidatesTest extends RestBase {
         compareTwoObjects(candidate.getActive(), true);
     }
 
-    @CaseId(92)
+    @TmsLink("92")
     @Test(description = "Создание маршрутного листа для заблокированного кандидата",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkAvailableCandidateWithCanceledWorkflow")

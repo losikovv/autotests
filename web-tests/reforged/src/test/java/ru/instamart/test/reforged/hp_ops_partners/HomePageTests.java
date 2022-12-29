@@ -6,7 +6,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.hr_ops_partners.vacancy_cards.VacancyCards;
 import ru.instamart.kraken.enums.CiPipelineSource;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.kraken.data.TestVariables.CompanyParams.companyTelegramLink;
 import static ru.instamart.kraken.data.TestVariables.CompanyParams.companyVkontakteLink;
@@ -20,7 +20,7 @@ public final class HomePageTests {
 
     private final String expectedRegionName = CiPipelineSource.isLocal() ? "Москва" : "Санкт-Петербург";
 
-    @CaseId(51)
+    @TmsLink("51")
     @Story("Главная страница")
     @Test(description = "PM-51. Шапка (шаг 1-2)", groups = {HR_OPS_PARTNERS})
     public void testHomePageHeader1_2() {
@@ -43,7 +43,7 @@ public final class HomePageTests {
 
     }
 
-    @CaseId(51)
+    @TmsLink("51")
     @Story("Главная страница")
     @Test(description = "PM-51. Шапка (шаг 3-4)", groups = {HR_OPS_PARTNERS})
     public void testHomePageHeader3_4() {
@@ -63,7 +63,7 @@ public final class HomePageTests {
 
     //TODO разобраться с подменой геолокации, добавить шаги 5-6
 
-    @CaseId(51)
+    @TmsLink("51")
     @Story("Главная страница")
     @Test(description = "PM-51. Шапка (шаг 7-8)", groups = {HR_OPS_PARTNERS})
     public void testHomePageHeader7_8() {
@@ -96,7 +96,7 @@ public final class HomePageTests {
         home().interactNotAvailableModal().checkModalContent("Ростове-на-Дону ");
     }
 
-    @CaseId(51)
+    @TmsLink("51")
     @Story("Главная страница")
     @Test(description = "PM-51. Шапка (шаг 9-10)", groups = {HR_OPS_PARTNERS})
     public void testHomePageHeader9_10() {
@@ -114,7 +114,7 @@ public final class HomePageTests {
         vacancyPage().interactHeader().checkRegionNameInHeader("Казань");
     }
 
-    @CaseId(51)
+    @TmsLink("51")
     @Story("Главная страница")
     @Test(description = "PM-51. Шапка (шаг 11)", groups = {HR_OPS_PARTNERS})
     public void testHomePageHeader11() {
@@ -134,7 +134,7 @@ public final class HomePageTests {
         vacancyPage().interactHeader().checkRegionNameInHeader("Вологда");
     }
 
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Главная страница")
     @Test(description = "PM-55. Боди (шаг 1)", groups = {HR_OPS_PARTNERS})
     public void testHomePageBody1() {
@@ -210,7 +210,7 @@ public final class HomePageTests {
         home().interactFaq().checkMoreFAQButtonVisible();
     }
 
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Главная страница")
     @Test(description = "PM-55. Боди (шаг 4)", groups = {HR_OPS_PARTNERS})
     public void testHomePageBody4() {
@@ -223,7 +223,7 @@ public final class HomePageTests {
         home().interactCollectorCourier().checkMoreInfoButtonVisible();
     }
 
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Главная страница")
     @Test(description = "PM-55. Боди (шаг 5).", groups = {HR_OPS_PARTNERS})
     public void testHomePageBody5() {
@@ -264,7 +264,7 @@ public final class HomePageTests {
         vacancyPage().interactMainBanner().checkBannerTitle(VacancyCards.callCenterOperatorMSK().getVacancyPageTitle());
     }
 
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Главная страница")
     @Test(description = "PM-55. Боди (шаг 6)", groups = {HR_OPS_PARTNERS})
     public void testHomePageBody6() {
@@ -279,7 +279,7 @@ public final class HomePageTests {
         home().interactNotAvailableModal().checkModalNotVisible();
     }
 
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Главная страница")
     @Test(description = "PM-55. Боди (шаг 7)", groups = {HR_OPS_PARTNERS})
     public void testHomePageBody7() {
@@ -320,7 +320,7 @@ public final class HomePageTests {
         vacancyPage().interactMainBanner().checkBannerTitle(VacancyCards.callCenterOperatorMSK().getVacancyPageTitle());
     }
 
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Главная страница")
     @Test(description = "PM-55. Боди (шаг 6)", groups = {HR_OPS_PARTNERS})
     public void testHomePageBody8() {
@@ -335,7 +335,7 @@ public final class HomePageTests {
         home().interactNotAvailableModal().checkModalNotVisible();
     }
 
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Главная страница")
     @Test(description = "PM-55. Боди (шаг 9)", groups = {HR_OPS_PARTNERS})
     public void testHomePageBody9() {
@@ -349,7 +349,7 @@ public final class HomePageTests {
         home().interactHeader().checkRegionNameInHeader("Москва");
     }
 
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Главная страница")
     @Test(description = "PM-55. Боди (шаг 10)", groups = {HR_OPS_PARTNERS})
     public void testHomePageBody10() {
@@ -375,7 +375,7 @@ public final class HomePageTests {
         home().interactCities().checkShowAllButtonVisible();
     }
 
-    @CaseId(53)
+    @TmsLink("53")
     @Story("Главная страница")
     @Test(description = "PM-53. Подвал (шаг 1)", groups = {HR_OPS_PARTNERS})
     public void testHomePageFooter1() {
@@ -411,7 +411,7 @@ public final class HomePageTests {
 
     }
 
-    @CaseId(53)
+    @TmsLink("53")
     @Story("Главная страница")
     @Test(description = "PM-53. Подвал (шаг 4)", groups = {HR_OPS_PARTNERS})
     public void testHomePageFooter4() {

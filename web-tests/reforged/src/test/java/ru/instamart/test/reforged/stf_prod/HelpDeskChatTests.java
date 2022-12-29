@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
@@ -16,7 +16,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Feature("Чат поддержки")
 public final class HelpDeskChatTests {
 
-    @CaseId(1758)
+    @TmsLink("1758")
     @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {STF_PROD_S})
     public void noHelpDeskWidgetOnCheckout() {
         final var apiHelper = new ApiHelper();
@@ -36,7 +36,7 @@ public final class HelpDeskChatTests {
         checkoutNew().interactHelpDesk().checkHelpDeskWidgetNotVisible();
     }
 
-    @CaseId(1759)
+    @TmsLink("1759")
     @Test(description = "Тест работы с виджетом HelpDesk на витрине ритейлера", groups = {STF_PROD_S})
     public void successOperateHelpDeskWidgetOnRetailerPage() {
         shop().goToPage();

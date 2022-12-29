@@ -1,8 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -14,8 +12,6 @@ import ru.instamart.api.model.v2.CityV2;
 import ru.instamart.api.request.v2.CitiesV2Request;
 import ru.instamart.api.response.v2.CitiesV2Response;
 import ru.instamart.jdbc.dao.stf.StoresDao;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
@@ -30,7 +26,7 @@ import static ru.instamart.kraken.config.EnvironmentProperties.Env.isProduction;
 @Feature("Города")
 public class CitiesV2Test extends RestBase {
 
-    @CaseId(2141)
+    @TmsLink("2141")
     @Story("Получение городов")
     @Test(description = "Получаем города без параметров с 1 символом в запросе",
             groups = {API_INSTAMART_REGRESS, "api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -42,7 +38,7 @@ public class CitiesV2Test extends RestBase {
         checkError(response, "keyword должен состоять из 2 или более символов");
     }
 
-    @CaseId(1407)
+    @TmsLink("1407")
     @Story("Получение городов")
     @Test(description = "Получаем города без параметров",
             groups = {API_INSTAMART_REGRESS, "api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -54,7 +50,7 @@ public class CitiesV2Test extends RestBase {
         compareTwoObjects(10, citiesFromResponse.size());
     }
 
-    @CaseId(1408)
+    @TmsLink("1408")
     @Story("Получение городов")
     @Test(description = "Получаем города, где есть самовывоз",
             groups = {API_INSTAMART_REGRESS, "api-v2", API_INSTAMART_PROD})
@@ -71,7 +67,7 @@ public class CitiesV2Test extends RestBase {
         }
     }
 
-    @CaseId(1409)
+    @TmsLink("1409")
     @Story("Получение городов")
     @Test(description = "Получаем все города",
             groups = {API_INSTAMART_REGRESS, "api-v2", API_INSTAMART_PROD, "api-bff"}
@@ -90,7 +86,7 @@ public class CitiesV2Test extends RestBase {
 //        }
     }
 
-    @CaseIDs(value = {@CaseId(1410), @CaseId(1411), @CaseId(1412), @CaseId(1413)})
+    @TmsLinks(value = {@TmsLink("1410"), @TmsLink("1411"), @TmsLink("1412"), @TmsLink("1413")})
     @Story("Получение городов")
     @Test(description = "Получаем города по имени",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
@@ -106,7 +102,7 @@ public class CitiesV2Test extends RestBase {
         citiesFromResponse.forEach(c -> Assert.assertTrue(c.getName().toLowerCase().contains(keyword.toLowerCase()), "Пришел неверный город"));
     }
 
-    @CaseIDs(value = {@CaseId(1414), @CaseId(1416)})
+    @TmsLinks(value = {@TmsLink("1414"), @TmsLink("1416")})
     @Story("Получение городов")
     @Test(description = "Получаем все города с невалидными параметрами",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
@@ -119,7 +115,7 @@ public class CitiesV2Test extends RestBase {
         compareTwoObjects(citiesFromResponse.size(), 0);
     }
 
-    @CaseId(1415)
+    @TmsLink("1415")
     @Story("Получение городов")
     @Test(description = "Получаем все города с определенной страницы",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})

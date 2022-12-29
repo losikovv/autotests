@@ -9,7 +9,7 @@ task debug(type: Test) {
     useTestNG() {
         options {
             listeners.add("ru.instamart.reforged.core.listener.UiExecutionListener")
-            listeners.add("ru.instamart.reforged.core.listener.UiListener")
+            listeners.add("ru.instamart.reforged.core.listener.UiDefaultListener")
         }
         suites 'src/test/resources/suite/debug.xml'
         includeGroups 'debug'
@@ -20,20 +20,20 @@ task localRun(type: Test) {
     useTestNG() {
         options {
             listeners.add("ru.instamart.reforged.core.listener.UiExecutionListener")
-            listeners.add("ru.instamart.reforged.core.listener.UiListener")
+            listeners.add("ru.instamart.reforged.core.listener.UiDefaultListener")
         }
     }
     environment 'BROWSER', 'chrome'
     environment 'HEADLESS', 'false'
-    systemProperty 'qase.Project', 'DEBUG'
-    systemProperty 'qase.Title', 'STF UI DEBUG'
+    environment 'PROJECT_ID', 'DEBUG'
+    environment 'TEST_RUN_NAME', 'STF UI DEBUG'
 }
 
 task localRunAdminOnDemand(type: Test) {
     useTestNG() {
         options {
             listeners.add("ru.instamart.reforged.core.listener.UiExecutionListener")
-            listeners.add("ru.instamart.reforged.core.listener.UiListener")
+            listeners.add("ru.instamart.reforged.core.listener.UiDefaultListener")
         }
     }
     environment 'BROWSER', 'chrome'
@@ -44,22 +44,22 @@ task localRunAdminOnDemand(type: Test) {
     environment 'SHP_NAMESPACE', 'paas-content-shopper-6'
     environment 'SHP_LABEL', 'app.kubernetes.io/component=pg-exporter'
     systemProperty 'service', 'paas-content-operations-shifts'
-    systemProperty 'qase.Project', 'DEBUG'
-    systemProperty 'qase.Title', 'Admin On Demand UI DEBUG'
+    environment 'PROJECT_ID', 'DEBUG'
+    environment 'TEST_RUN_NAME', 'Admin On Demand UI DEBUG'
 }
 
 task localRunSelgros(type: Test) {
     useTestNG() {
         options {
             listeners.add("ru.instamart.reforged.core.listener.UiExecutionListener")
-            listeners.add("ru.instamart.reforged.core.listener.UiListener")
+            listeners.add("ru.instamart.reforged.core.listener.UiDefaultListener")
         }
     }
     environment 'BROWSER', 'chrome'
     environment 'HEADLESS', 'false'
     environment 'P_ENV', 'selgros-preprod'
-    systemProperty 'qase.Project', 'DEBUG'
-    systemProperty 'qase.Title', 'Selgros UI DEBUG'
+    environment 'PROJECT_ID', 'DEBUG'
+    environment 'TEST_RUN_NAME', 'Selgros UI DEBUG'
 }
 
 task ciRunUi(type: Test) {

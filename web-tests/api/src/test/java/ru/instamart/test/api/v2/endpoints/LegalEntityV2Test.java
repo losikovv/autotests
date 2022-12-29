@@ -8,7 +8,7 @@ import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -32,7 +32,7 @@ import static ru.instamart.kraken.helper.LegalEntityHelper.*;
 @Feature(value = "Реквизиты юридического лица")
 public class LegalEntityV2Test extends RestBase {
 
-    @CaseId(479)
+    @TmsLink("479")
     @Story("Запрос на получение данных юр. лица по ИНН")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "innFailedList",
@@ -45,7 +45,7 @@ public class LegalEntityV2Test extends RestBase {
         checkError(response, "Информация о компании не существует");
     }
 
-    @CaseId(482)
+    @TmsLink("482")
     @Story("Создание нового реквизита для юр лица")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Создание нового реквизита для юр лица с заполнением обязательных полей")
@@ -85,7 +85,7 @@ public class LegalEntityV2Test extends RestBase {
         });
     }
 
-    @CaseId(483)
+    @TmsLink("483")
     @Story("Создание нового реквизита для юр лица")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Создание нового реквизита для юр лица с не уникальным ИНН")
@@ -111,7 +111,7 @@ public class LegalEntityV2Test extends RestBase {
         checkError(response, "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»");
     }
 
-    @CaseId(484)
+    @TmsLink("484")
     @Story("Создание нового реквизита для юр лица")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Создание нового реквизита для юр лица с заполнением всех полей")
@@ -156,7 +156,7 @@ public class LegalEntityV2Test extends RestBase {
     }
 
     @Skip //TODO разобраться с данными по компаниям
-    @CaseId(482)
+    @TmsLink("482")
     @Story("Создание нового реквизита для юр лица")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Создание нового реквизита для юр лица с заполнением обязательных полей")
@@ -167,7 +167,7 @@ public class LegalEntityV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(856)
+    @TmsLink("856")
     @Story("Создание нового реквизита для юр лица")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             dataProvider = "postCompanyDocuments",

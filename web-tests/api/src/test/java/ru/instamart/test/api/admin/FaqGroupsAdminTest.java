@@ -12,7 +12,7 @@ import ru.instamart.api.request.admin.FaqGroupsAdminRequest;
 import ru.instamart.jdbc.dao.stf.SpreeFaqGroupsDao;
 import ru.instamart.jdbc.entity.stf.SpreeFaqGroupsEntity;
 import ru.instamart.kraken.data.Generate;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
@@ -32,7 +32,7 @@ public class FaqGroupsAdminTest extends RestBase {
         admin.auth();
     }
 
-    @CaseId(2193)
+    @TmsLink("2193")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка групп FAQ")
     public void getAllFaqGroups() {
         final Response response = FaqGroupsAdminRequest.GET();

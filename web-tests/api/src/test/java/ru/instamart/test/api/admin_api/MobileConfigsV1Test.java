@@ -11,7 +11,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v1.MobileConfigsV1Request;
 import ru.instamart.api.response.v1.MobileConfigsV1Response;
 import ru.instamart.kraken.data.Generate;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -30,7 +30,7 @@ public class MobileConfigsV1Test extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(2544)
+    @TmsLink("2544")
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование информации о настройках смс")
@@ -43,7 +43,7 @@ public class MobileConfigsV1Test extends RestBase {
         checkMobileConfig(response, mobileExtendId, property);
     }
 
-    @CaseId(2544)
+    @TmsLink("2544")
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование информации о настройках смс",

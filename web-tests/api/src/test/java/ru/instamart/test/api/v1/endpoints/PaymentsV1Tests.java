@@ -19,7 +19,7 @@ import ru.instamart.jdbc.entity.stf.SpreePaymentsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +49,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING) // Проблема с добавлением карт
-    @CaseId(2280)
+    @TmsLink("2280")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о способах платежа для заказа")
     public void getPaymentToolsForOrder() {
@@ -62,7 +62,7 @@ public class PaymentsV1Tests extends RestBase {
         }
     }
 
-    @CaseId(2281)
+    @TmsLink("2281")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о способах платежа для несуществующего заказа")
     public void getPaymentToolsForNonExistentOrder() {
@@ -72,7 +72,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2282)
+    @TmsLink("2282")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание платежа для заказа",
             dependsOnMethods = "getPaymentToolsForOrder")
@@ -84,7 +84,7 @@ public class PaymentsV1Tests extends RestBase {
         paymentId = paymentFromDb.getId();
     }
 
-    @CaseId(2283)
+    @TmsLink("2283")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Создание платежа для заказа c несуществующим способом оплаты")
     public void createPaymentWithNonExistentTool() {
@@ -94,7 +94,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2284)
+    @TmsLink("2284")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Создание платежа для несуществующего заказа",
             dependsOnMethods = "getPaymentToolsForOrder")
@@ -105,7 +105,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2285)
+    @TmsLink("2285")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Оплата заказа",
             dependsOnMethods = "createPayment")
@@ -119,7 +119,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2286)
+    @TmsLink("2286")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Оплата несуществующего заказа",
             dependsOnMethods = "purchaseOrder")
@@ -130,7 +130,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2287)
+    @TmsLink("2287")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Оплата несуществующего счета",
             dependsOnMethods = "purchaseOrder")
@@ -141,7 +141,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2288)
+    @TmsLink("2288")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о платеже",
             dependsOnMethods = "purchaseOrder")
@@ -153,7 +153,7 @@ public class PaymentsV1Tests extends RestBase {
         checkPayment(paymentFromResponse, order);
     }
 
-    @CaseId(2289)
+    @TmsLink("2289")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о несуществующем платеже")
     public void getNonExistentPayment() {
@@ -163,7 +163,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2290)
+    @TmsLink("2290")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о платеже для несуществующего заказа",
             dependsOnMethods = "createPayment")
@@ -174,7 +174,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2291)
+    @TmsLink("2291")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение всех платежей по заказу",
             dependsOnMethods = "purchaseOrder")
@@ -187,7 +187,7 @@ public class PaymentsV1Tests extends RestBase {
         compareTwoObjects(paymentsFromResponse.size(), paymentsFromDbCount);
     }
 
-    @CaseId(2292)
+    @TmsLink("2292")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение всех платежей по несуществующему заказу")
     public void getPaymentsForNonExistentOrder() {

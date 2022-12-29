@@ -6,13 +6,13 @@ import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.sbermarket.qase.annotation.CaseId;
 
 @Epic("Catalog Microservice")
 @Feature("Catalog")
@@ -27,7 +27,7 @@ public class CatalogTest extends GrpcBase {
     }
 
     @Story("Каталог продуктов")
-    @CaseId(180)
+    @TmsLink("180")
     @Test(description = "Получение продуктов", enabled = false, //ждет обновления от Дмитрия Дьячкова после изменения логики
             groups = {"grpc-product-hub"})
     public void getProducts() {
@@ -49,7 +49,7 @@ public class CatalogTest extends GrpcBase {
     }
 
     @Story("Каталог продуктов")
-    @CaseId(181)
+    @TmsLink("181")
     @Test(description = "Получение продуктов без store_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -70,7 +70,7 @@ public class CatalogTest extends GrpcBase {
     }
 
     @Story("Каталог продуктов")
-    @CaseId(252)
+    @TmsLink("252")
     @Test(description = "Получение продуктов с пустым store_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -92,7 +92,7 @@ public class CatalogTest extends GrpcBase {
     }
 
     @Story("Каталог продуктов")
-    @CaseId(253)
+    @TmsLink("253")
     @Test(description = "Получение продуктов с пустым tenant_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -114,7 +114,7 @@ public class CatalogTest extends GrpcBase {
     }
 
     @Story("Каталог продуктов")
-    @CaseId(254)
+    @TmsLink("254")
     @Test(description = "Получение продуктов без tenant_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -135,7 +135,7 @@ public class CatalogTest extends GrpcBase {
     }
 
     @Story("Каталог продуктов")
-    @CaseId(255)
+    @TmsLink("255")
     @Test(description = "Получение продуктов с пустым category_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -157,7 +157,7 @@ public class CatalogTest extends GrpcBase {
     }
 
     @Story("Каталог продуктов")
-    @CaseId(256)
+    @TmsLink("256")
     @Test(description = "Получение продуктов без category_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,

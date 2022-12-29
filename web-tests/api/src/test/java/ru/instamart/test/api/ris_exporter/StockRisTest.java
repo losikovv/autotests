@@ -11,7 +11,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.ris_exporter.StockRisRequest;
 import ru.instamart.api.response.ris_exporter.StockRisResponse;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -26,7 +26,7 @@ public class StockRisTest extends RestBase {
         SessionFactory.createSessionToken(SessionType.RIS_EXPORTER, UserManager.getRisUser());
     }
 
-    @CaseId(427)
+    @TmsLink("427")
     @Test(  groups = {"api-ris-exporter"},
             description = "Получение остатка на складах")
     public void getStock200() {
@@ -36,7 +36,7 @@ public class StockRisTest extends RestBase {
         checkResponseJsonSchema(response, StockRisResponse.class);
     }
 
-    @CaseId(435)
+    @TmsLink("435")
     @Test(  groups = {"api-ris-exporter"},
             description = "Получение остатка на складах по неверному storeId")
     public void getStock404() {
@@ -45,7 +45,7 @@ public class StockRisTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(436)
+    @TmsLink("436")
     @Test(  groups = {"api-ris-exporter"},
             description = "Проверка количества остатков на складах для всех ритейлеров",
             dataProviderClass = RestDataProvider.class,

@@ -3,7 +3,7 @@ package ru.instamart.test.api.v1.contracts;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -29,7 +29,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class StoresV1ContractTests extends RestBase {
 
     @Story("Магазины")
-    @CaseId(125)
+    @TmsLink("125")
     @Test(description = "Контрактный тест списка магазинов",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getStores() {
@@ -41,7 +41,7 @@ public class StoresV1ContractTests extends RestBase {
     }
 
     @Story("Магазины")
-    @CaseId(126)
+    @TmsLink("126")
     @Test(description = "Контрактный тест магазина",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dataProviderClass = RestDataProvider.class,
@@ -53,7 +53,7 @@ public class StoresV1ContractTests extends RestBase {
     }
 
     @Story("Магазины")
-    @CaseId(127)
+    @TmsLink("127")
     @Test(description = "Контрактный тест поиска товаров в магазине",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dataProviderClass = RestDataProvider.class,

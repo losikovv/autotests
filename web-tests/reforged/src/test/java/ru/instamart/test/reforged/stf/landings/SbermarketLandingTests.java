@@ -3,7 +3,7 @@ package ru.instamart.test.reforged.stf.landings;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.STARTING_X;
@@ -13,7 +13,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.home;
 @Feature("Проверка лендингов")
 public final class SbermarketLandingTests {
 
-    @CaseId(1687)
+    @TmsLink("1687")
     @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = {STARTING_X, REGRESSION_STF})
     public void successValidateSbermarketLanding() {
         home().goToPage();
@@ -43,7 +43,7 @@ public final class SbermarketLandingTests {
         home().checkHuaweiPlayButtonVisible();
     }
 
-    @CaseId(2042)
+    @TmsLink("2042")
     @Test(description = "Кнопка СберБизнес ID при выбранном чекбоксе 'Хочу заказывать для бизнеса'", groups = {STARTING_X, REGRESSION_STF})
     public void enabledSberBusinessIdButton() {
         home().goToPage();

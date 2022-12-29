@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import surgelevel.ServiceGrpc;
 import surgelevel.Surgelevel;
 
@@ -23,7 +23,7 @@ public class GrpcV1Test extends GrpcBase {
         client = ServiceGrpc.newBlockingStub(channel);
     }
 
-    @CaseId(50)
+    @TmsLink("50")
     @Story("Get Config")
     @Test(description = "Получить дефолтную конфигурацию",
             groups = "ondemand-surgelevel")

@@ -16,8 +16,8 @@ import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -50,7 +50,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseId(1333)
+    @TmsLink("1333")
     @Test(description = "Получение информации о заказе пользователя в статусе pending",
             groups = {"api-instamart-smoke", "api-v1"})
     public void getPendingUserShipment() {
@@ -60,7 +60,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseId(1333)
+    @TmsLink("1333")
     @Test(description = "Получение информации о заказе пользователя в статусе ready",
             groups = {"api-instamart-smoke", "api-v1"},
             dependsOnMethods = "getPendingUserShipment")
@@ -72,7 +72,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseId(1338)
+    @TmsLink("1338")
     @Test(description = "Получение информации о заказе пользователя в статусе ready - заказ задерживается",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getReadyUserShipment")
@@ -88,7 +88,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseIDs(value = {@CaseId(1299), @CaseId(1339)})
+    @TmsLinks(value = {@TmsLink("1299"), @TmsLink("1339")})
     @Test(description = "Получение информации о заказе пользователя в статусе collecting",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getReadyUserShipmentWithDelay")
@@ -100,7 +100,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseIDs(value = {@CaseId(1300), @CaseId(1339)})
+    @TmsLinks(value = {@TmsLink("1300"), @TmsLink("1339")})
     @Test(description = "Получение информации о заказе пользователя в статусе ready_to_ship",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getCollectingUserShipment")
@@ -112,7 +112,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseIDs(value = {@CaseId(1301), @CaseId(1340)})
+    @TmsLinks(value = {@TmsLink("1301"), @TmsLink("1340")})
     @Test(description = "Получение информации о заказе пользователя в статусе shipping",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getReadyToShipUserShipment")
@@ -124,7 +124,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseId(1335)
+    @TmsLink("1335")
     @Test(description = "Получение информации о заказе пользователя в статусе shipped",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getShippingUserShipment")
@@ -136,7 +136,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseId(1302)
+    @TmsLink("1302")
     @Test(description = "Получение информации о заказе пользователя в статусе canceled",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getShippedUserShipment")
@@ -149,7 +149,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseId(1334)
+    @TmsLink("1334")
     @Test(description = "Получение информации о несуществующем заказе пользователя",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getNonExistentUserShipment() {

@@ -2,6 +2,7 @@ package ru.instamart.test.api.shadowcat;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.ShadowcatRestBase;
@@ -11,7 +12,6 @@ import ru.instamart.api.request.shadowcat.PromotionRequest.Promotions;
 import ru.instamart.api.response.shadowcat.ErrorShadowcatResponse;
 import ru.instamart.api.response.shadowcat.PromocodeResponse;
 import ru.instamart.api.response.shadowcat.PromocodesResponse;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
     private static String promocode;
     private static int promocodeId;
 
-    @CaseId(1)
+    @TmsLink("1")
     @Test(description = "Создание промоакции",
             groups = {"api-shadowcat"},
             priority = 1)
@@ -36,7 +36,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
         promoId = response.path("id");
     }
 
-    @CaseId(2)
+    @TmsLink("2")
     @Test(description = "Обновление промоакции",
             groups = {"api-shadowcat"},
             priority = 2,
@@ -46,7 +46,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
         checkStatusCode204or404(response);
     }
 
-    @CaseId(9)
+    @TmsLink("9")
     @Test(description = "Создание промокода в промоакции",
             groups = {"api-shadowcat"},
             priority = 3)
@@ -58,7 +58,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
         promocodeId = pr.getId();
     }
 
-    @CaseId(6)
+    @TmsLink("6")
     @Test(description = "Обновление промокода в промоакции",
             groups = {"api-shadowcat"},
             priority = 4,
@@ -68,7 +68,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(5)
+    @TmsLink("5")
     @Test(description = "Получение промокода в промоакции",
             groups = {"api-shadowcat"},
             priority = 5,
@@ -81,7 +81,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
         compareTwoObjects(promocodeList.get(0).getCode(), promocode);
     }
 
-    @CaseId(20)
+    @TmsLink("20")
     @Test(description = "Проверка наличия промокода при калькуляции",
             groups = {"api-shadowcat"},
             priority = 6,
@@ -92,7 +92,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
         checkResponseJsonSchema(response, PromocodeResponse.class);
     }
 
-    @CaseId(21)
+    @TmsLink("21")
     @Test(description = "Негативная проверка наличия промокода при калькуляции",
             groups = {"api-shadowcat"},
             priority = 7,
@@ -103,7 +103,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
         checkResponseJsonSchema(response, ErrorShadowcatResponse.class);
     }
 
-    @CaseId(8)
+    @TmsLink("8")
     @Test(description = "Удаление промокода",
             groups = {"api-shadowcat"},
             priority = 8,
@@ -113,7 +113,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
         checkStatusCode204or404(response);
     }
 
-    @CaseId(19)
+    @TmsLink("19")
     @Test(description = "Удаление промоакции",
             groups = {"api-shadowcat"},
             priority = 9,

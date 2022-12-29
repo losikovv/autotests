@@ -12,7 +12,7 @@ import ru.instamart.api.request.admin.PaymentMethodsRequest;
 import ru.instamart.api.response.v1.admin.PaymentMethodsV1Response;
 import ru.instamart.jdbc.dao.stf.SpreePaymentMethodsDao;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +26,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 @Feature("Настройки")
 public class PaymentMethodsV1Test extends RestBase {
 
-    @CaseId(2809)
+    @TmsLink("2809")
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -39,7 +39,7 @@ public class PaymentMethodsV1Test extends RestBase {
         compareTwoObjects(response.as(PaymentMethodsV1Response.class).getPaymentMethods().size(), paymentMethodIds.size());
     }
 
-    @CaseId(2810)
+    @TmsLink("2810")
     @Story("Способы оплаты")
     @Test(description = "Попытка получения способов оплаты без авторизации",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -50,7 +50,7 @@ public class PaymentMethodsV1Test extends RestBase {
         checkErrorText(response, "Вам требуется войти или зарегистрироваться перед тем, как продолжить.");
     }
 
-    @CaseId(2811)
+    @TmsLink("2811")
     @Story("Способы оплаты")
     @Test(description = "Попытка получения способов оплаты пользователем без админских прав",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -61,7 +61,7 @@ public class PaymentMethodsV1Test extends RestBase {
         checkErrorText(response, "Пользователь не авторизован для этого действия");
     }
 
-    @CaseId(2823)
+    @TmsLink("2823")
     @Story("Способы оплаты")
     @Test(description = "Изменение порядка отображения способов оплаты",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -74,7 +74,7 @@ public class PaymentMethodsV1Test extends RestBase {
         checkStatusCode(response, 204);
     }
 
-    @CaseId(2824)
+    @TmsLink("2824")
     @Story("Способы оплаты")
     @Test(description = "Попытка изменение порядка отображения способов оплаты неавторизованным",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -86,7 +86,7 @@ public class PaymentMethodsV1Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(2825)
+    @TmsLink("2825")
     @Story("Способы оплаты")
     @Test(description = "Попытка изменения порядка отображения способов оплаты пользователем без админских прав",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -98,7 +98,7 @@ public class PaymentMethodsV1Test extends RestBase {
         checkStatusCode403(response);
     }
 
-    @CaseId(2526)
+    @TmsLink("2526")
     @Story("Способы оплаты")
     @Test(description = "Попытка изменения порядка отображения способов оплаты некорректным запросом",
             groups = {API_INSTAMART_REGRESS, "api-v1"})

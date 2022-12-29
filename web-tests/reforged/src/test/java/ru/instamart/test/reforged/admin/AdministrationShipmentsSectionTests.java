@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.openqa.selenium.NotFoundException;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -14,7 +15,6 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.login;
@@ -27,7 +27,7 @@ public final class AdministrationShipmentsSectionTests {
     private final ApiHelper helper = new ApiHelper();
 
     @Skip
-    @CaseId(175)
+    @TmsLink("175")
     @Story("Тест на корректное отображение элементов страницы со списком заказов в админке")
     @Test(description = "Тест на корректное отображение элементов страницы со списком заказов в админке", groups = REGRESSION_ADMIN)
     public void validateDefaultAdminShipmentsPage() {
@@ -42,7 +42,7 @@ public final class AdministrationShipmentsSectionTests {
         shipments().checkCustomerSurName();
     }
 
-    @CaseId(172)
+    @TmsLink("172")
     @Story("Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ")
     @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ", groups = {REGRESSION_ADMIN, "smoke"})
     public void validateFilterDateAndTimeAdminShipmentsPage() {
@@ -58,7 +58,7 @@ public final class AdministrationShipmentsSectionTests {
         shipments().checkDateAndTimeShipmentsColumn(TimeUtil.getDateWithoutTimeUTC());
     }
 
-    @CaseId(173)
+    @TmsLink("173")
     @Story("Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ")
     @Test(description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ", groups = {REGRESSION_ADMIN, "smoke"})
     public void validateFilterPhoneShipmentsPage() {
@@ -84,7 +84,7 @@ public final class AdministrationShipmentsSectionTests {
         shipments().checkPhoneShipmentsColumn(phone);
     }
 
-    @CaseId(174)
+    @TmsLink("174")
     @Story("Тест на работоспособность мультифильтра")
     @Test(description = "Тест на работоспособность мультифильтра", groups = {REGRESSION_ADMIN, "smoke", "debug"})
     public void validateMultiFiltersShipmentsPage() {
@@ -114,7 +114,7 @@ public final class AdministrationShipmentsSectionTests {
         shipments().checkDateAndTimeShipmentsColumn(shipment.deliveryWindowDate);
     }
 
-    @CaseId(1224)
+    @TmsLink("1224")
     @Story("Тест на проверку изменения количества заказов после применения фильтра, без пейджера")
     @Test(  description = "Тест на проверку изменения количества заказов после применения фильтра, без пейджера",
             groups = {REGRESSION_ADMIN, "smoke"})
@@ -146,7 +146,7 @@ public final class AdministrationShipmentsSectionTests {
 
     // TODO test successShowEmptySearchPlaceholder
 
-    @CaseId(182)
+    @TmsLink("182")
     @Story("Тест поиска заказа по номеру заказа в админке")
     @Test(description = "Тест поиска заказа по номеру заказа в админке", groups = {REGRESSION_ADMIN, "smoke"})
     public void successSearchOrderByOrderNumber() {
@@ -173,7 +173,7 @@ public final class AdministrationShipmentsSectionTests {
         shipments().checkOrderOrShipmentNumber(shipments().getOrderNumber(0), orderNumber);
     }
 
-    @CaseId(445)
+    @TmsLink("445")
     @Story("Тест поиска заказа по номеру шипмента в админке")
     @Test(description = "Тест поиска заказа по номеру шипмента в админке", groups = {REGRESSION_ADMIN, "smoke"})
     public void successSearchOrderByShipmentNumber() {
@@ -214,7 +214,7 @@ public final class AdministrationShipmentsSectionTests {
         //TODO: Заказ появляется в админке с задержкой рандомной
     }
 
-    @CaseId(183)
+    @TmsLink("183")
     @Story("Тест поиска B2B заказа в админке")
     @Test(description = "Тест поиска B2B заказа в админке", groups = REGRESSION_ADMIN)
     public void successSearchB2BOrder() {

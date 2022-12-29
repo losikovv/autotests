@@ -22,8 +22,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         currentOrderNumber = apiV2.createOrder().getNumber();
     }
 
-    @CaseIDs(value = {@CaseId(1566), @CaseId(1567), @CaseId(1568)})
+    @TmsLinks(value = {@TmsLink("1566"), @TmsLink("1567"), @TmsLink("1568")})
     @Story("Трансфер доставка-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
@@ -66,7 +66,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
     }
 
-    @CaseIDs(value = {@CaseId(1569), @CaseId(1570)})
+    @TmsLinks(value = {@TmsLink("1569"), @TmsLink("1570")})
     @Story("Трансфер доставка-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
@@ -83,7 +83,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseIDs(value = {@CaseId(1571), @CaseId(1572)})
+    @TmsLinks(value = {@TmsLink("1571"), @TmsLink("1572")})
     @Story("Трансфер доставка-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
@@ -98,7 +98,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
 
-    @CaseIDs(value = {@CaseId(1573), @CaseId(1574)})
+    @TmsLinks(value = {@TmsLink("1573"), @TmsLink("1574")})
     @Story("Трансфер доставка-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
@@ -113,7 +113,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
     }
 
-    @CaseId(1575)
+    @TmsLink("1575")
     @Story("Трансфер доставка-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка")
@@ -126,7 +126,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseId(1576)
+    @TmsLink("1576")
     @Story("Трансфер доставка-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери c отсуствующим обязательным параметром")
@@ -138,7 +138,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkError(response, "Недопустимые параметры запроса: address_params Для способа доставки курьером, требуется указать address_params");
     }
 
-    @CaseId(1577)
+    @TmsLink("1577")
     @Story("Трансфер доставка-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери c отсуствующим обязательным параметром",
@@ -155,7 +155,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         lineItem = apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId(), 1);
     }
 
-    @CaseIDs(value = {@CaseId(1578), @CaseId(1579), @CaseId(1580)})
+    @TmsLinks(value = {@TmsLink("1578"), @TmsLink("1579"), @TmsLink("1580")})
     @Story("Трансфер доставка-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
@@ -174,7 +174,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
     }
 
-    @CaseIDs(value = {@CaseId(1581), @CaseId(1582)})
+    @TmsLinks(value = {@TmsLink("1581"), @TmsLink("1582")})
     @Story("Трансфер доставка-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
@@ -193,7 +193,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseIDs(value = {@CaseId(1653), @CaseId(1654), @CaseId(1655)})
+    @TmsLinks(value = {@TmsLink("1653"), @TmsLink("1654"), @TmsLink("1655")})
     @Skip(onServer = Server.STAGING)
     @Story("Трансфер доставка-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
@@ -210,7 +210,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
     }
 
-    @CaseId(1656)
+    @TmsLink("1656")
     @Story("Трансфер доставка-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
@@ -224,7 +224,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
 
-    @CaseId(1657)
+    @TmsLink("1657")
     @Story("Трансфер доставка-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз (другой ритейлер)",
@@ -238,7 +238,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseId(1658)
+    @TmsLink("1658")
     @Story("Трансфер доставка-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для несуществующей зоны",
@@ -253,7 +253,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseIDs(value = {@CaseId(1659), @CaseId(1660), @CaseId(1661)})
+    @TmsLinks(value = {@TmsLink("1659"), @TmsLink("1660"), @TmsLink("1661")})
     @Story("Трансфер самовывоз-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
@@ -273,7 +273,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
     }
 
-    @CaseIDs(value = {@CaseId(1662), @CaseId(1663)})
+    @TmsLinks(value = {@TmsLink("1662"), @TmsLink("1663")})
     @Story("Трансфер самовывоз-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
@@ -293,7 +293,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseIDs(value = {@CaseId(1665), @CaseId(1666), @CaseId(1667)})
+    @TmsLinks(value = {@TmsLink("1665"), @TmsLink("1666"), @TmsLink("1667")})
     @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
@@ -310,7 +310,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 1);
     }
 
-    @CaseId(1669)
+    @TmsLink("1669")
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз (другой ритейлер)",
@@ -324,7 +324,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseId(1668)
+    @TmsLink("1668")
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
@@ -338,7 +338,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
 
-    @CaseId(1670)
+    @TmsLink("1670")
     @Story("Трансфер доставка-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для пустой корзины",
@@ -360,7 +360,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         lineItem = apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(22).get(0).getId(), 1);
     }
 
-    @CaseIDs(value = {@CaseId(1674), @CaseId(1675)})
+    @TmsLinks(value = {@TmsLink("1674"), @TmsLink("1675")})
     @Story("Трансфер самовывоз-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
@@ -379,7 +379,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
     }
 
-    @CaseIDs(value = {@CaseId(1671), @CaseId(1672), @CaseId(1673)})
+    @TmsLinks(value = {@TmsLink("1671"), @TmsLink("1672"), @TmsLink("1673")})
     @Story("Трансфер самовывоз-доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
@@ -398,7 +398,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseIDs(value = {@CaseId(1676), @CaseId(1677), @CaseId(1678)})
+    @TmsLinks(value = {@TmsLink("1676"), @TmsLink("1677"), @TmsLink("1678")})
     @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
@@ -415,7 +415,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
     }
 
-    @CaseId(1680)
+    @TmsLink("1680")
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступен только самовывоз (другой ритейлер)",
@@ -429,7 +429,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseId(1679)
+    @TmsLink("1679")
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
@@ -443,7 +443,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
 
-    @CaseId(1683)
+    @TmsLink("1683")
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для пустой корзины",
@@ -463,7 +463,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         lineItem = apiV2.addItemToCart(SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID), 1);
     }
 
-    @CaseIDs(value = {@CaseId(1686), @CaseId(1687), @CaseId(1688)})
+    @TmsLinks(value = {@TmsLink("1686"), @TmsLink("1687"), @TmsLink("1688")})
     @Story("Трансфер доставка, алкоголь")
     @Test(enabled = false,
             groups = {API_INSTAMART_REGRESS, "api-v2"},
@@ -482,7 +482,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseId(1689)
+    @TmsLink("1689")
     @Story("Трансфер доставка, алкоголь")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для несуществующего адреса",
@@ -497,7 +497,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseIDs(value = {@CaseId(1691), @CaseId(1692)})
+    @TmsLinks(value = {@TmsLink("1691"), @TmsLink("1692")})
     @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз, алкоголь")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
@@ -514,7 +514,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
     }
 
-    @CaseId(1693)
+    @TmsLink("1693")
     @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз, алкоголь")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
@@ -529,7 +529,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseId(1690)
+    @TmsLink("1690")
     @Story("Трансфер самовывоз, алкоголь")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для магазина без самовывоза",
@@ -543,7 +543,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
 
-    @CaseId(1684)
+    @TmsLink("1684")
     @Story("Мультиритейлерная корзина")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери при смене ритейлера на одного из списка",
@@ -562,7 +562,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkLosses(response, lineItem);
     }
 
-    @CaseId(1685)
+    @TmsLink("1685")
     @Story("Мультиритейлерная корзина")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери при смене ритейлера на стороннего",

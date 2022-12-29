@@ -15,8 +15,8 @@ import ru.instamart.api.response.shifts.PlanningAreaShiftsItemSHPResponse;
 import ru.instamart.api.response.shopper.app.ShopperSHPResponse;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,7 +54,7 @@ public class ShiftsPlanningAreaTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
     }
 
-    @CaseIDs({@CaseId(100),@CaseId(102)})
+    @TmsLinks({@TmsLink("100"),@TmsLink("102")})
     @Story("Зоны планирования")
     @Test(groups = {"api-shifts"},
             description = "Получение списка территорий доставки без ограничений")
@@ -64,7 +64,7 @@ public class ShiftsPlanningAreaTest extends RestBase {
         checkResponseJsonSchema(response, PlanningAreaShiftsItemSHPResponse[].class);
     }
 
-    @CaseIDs({@CaseId(160), @CaseId(159)})
+    @TmsLinks({@TmsLink("160"), @TmsLink("159")})
     @Story("Зоны планирования")
     @Test(groups = {"api-shifts"},
             dataProvider = "shopperRole",

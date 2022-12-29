@@ -29,7 +29,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import com.google.protobuf.Timestamp;
 
 import java.time.LocalDateTime;
@@ -86,7 +86,7 @@ public class RTETest extends RestBase {
 
     }
 
-    @CaseId(160)
+    @TmsLink("160")
     @Test(description = "Расчет времени для экспресс доставки с ресторана",
             groups = "dispatch-orderservice-smoke")
     public void RTEForOndemandOrder() {
@@ -103,7 +103,7 @@ public class RTETest extends RestBase {
         assertEquals(timeEnd, orderChangedMessage.get(0).getJobs(1).getPlanEndedAt().getSeconds(), "Рассчитанове время планового окончания не верно");
     }
 
-    @CaseId(160)
+    @TmsLink("160")
     @Test(description = "Расчет времени для плановой доставки с ресторана",
             dataProvider = "shopperUniversal",
             dataProviderClass = DispatchDataProvider.class,
@@ -145,7 +145,7 @@ public class RTETest extends RestBase {
         assertEquals(timeEnd, orderChangedMessage.get(0).getJobs(1).getPlanEndedAt().getSeconds(), "Рассчитанове время планового окончания не верно");
     }
 
-    @CaseId(160)
+    @TmsLink("160")
     @Test(description = "Расчет максимального времени для плановой доставки с ресторана",
             dataProvider = "shopperUniversal",
             dataProviderClass = DispatchDataProvider.class,

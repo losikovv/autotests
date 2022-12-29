@@ -10,7 +10,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v2.ReplacementPolicyV2;
 import ru.instamart.api.request.v2.ReplacementPoliciesV2Request;
 import ru.instamart.api.response.v2.ReplacementPoliciesV2Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import static ru.instamart.api.enums.v2.ReplacementPolicyV2.*;
 @Feature("Способы замены")
 public class ReplacementPoliciesV2Test extends RestBase {
 
-    @CaseId(811)
+    @TmsLink("811")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получить список способов замены")
     public void getListReplacementMethods() {

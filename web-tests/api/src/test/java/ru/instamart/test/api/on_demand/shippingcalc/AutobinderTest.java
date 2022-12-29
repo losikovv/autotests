@@ -1,10 +1,7 @@
 package ru.instamart.test.api.on_demand.shippingcalc;
 
 import io.grpc.StatusRuntimeException;
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,7 +12,6 @@ import ru.instamart.jdbc.dao.shippingcalc.BindingRulesDao;
 import ru.instamart.jdbc.entity.shippingcalc.BindingRulesEntity;
 import ru.instamart.kraken.enums.AppVersion;
 import ru.instamart.kraken.enums.Tenant;
-import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.*;
 
 import java.util.UUID;
@@ -23,7 +19,6 @@ import java.util.UUID;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
-import static ru.instamart.api.helper.ShippingCalcHelper.deleteCreatedStrategy;
 import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTimezone;
 
 @Epic("ShippingCalc")
@@ -50,7 +45,7 @@ public class AutobinderTest extends ShippingCalcBase {
         addBindingRule(secondStrategyId, DeliveryType.COURIER_DELIVERY.toString(), Tenant.SBERMARKET.getId(), 1, null, null, 1, null);
     }
 
-    @CaseId(459)
+    @TmsLink("459")
     @Story("Create Binding Rule")
     @Test(description = "Создание правила для автобайндера с валидными данными",
             groups = "ondemand-shippingcalc")
@@ -79,7 +74,7 @@ public class AutobinderTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(543)
+    @TmsLink("543")
     @Story("Create Binding Rule")
     @Test(description = "Создание правила для автобайндера с частью полей в запросе",
             groups = "ondemand-shippingcalc")
@@ -104,7 +99,7 @@ public class AutobinderTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(461)
+    @TmsLink("461")
     @Story("Create Binding Rule")
     @Test(description = "Получение ошибки при создании правила для автобайндера без указания стратегии",
             groups = "ondemand-shippingcalc",
@@ -115,7 +110,7 @@ public class AutobinderTest extends ShippingCalcBase {
         clientShippingCalc.createBindingRule(request);
     }
 
-    @CaseId(480)
+    @TmsLink("480")
     @Story("Create Binding Rule")
     @Test(description = "Получение ошибки при создании правила для автобайндера с указанием несуществующей стратегии",
             groups = "ondemand-shippingcalc",
@@ -126,7 +121,7 @@ public class AutobinderTest extends ShippingCalcBase {
         clientShippingCalc.createBindingRule(request);
     }
 
-    @CaseId(466)
+    @TmsLink("466")
     @Story("Update Binding Rule")
     @Test(description = "Обновление существующего правила для автобайндера с валидными данными",
             groups = "ondemand-shippingcalc",
@@ -157,7 +152,7 @@ public class AutobinderTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(469)
+    @TmsLink("469")
     @Story("Update Binding Rule")
     @Test(description = "Проверка отсутствия обновления опциональных полей с пустым значением в запросе",
             groups = "ondemand-shippingcalc",
@@ -183,7 +178,7 @@ public class AutobinderTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(546)
+    @TmsLink("546")
     @Story("Update Binding Rule")
     @Test(description = "Получение ошибки при обновлении правила для автобайндера без указания хотя бы одного поля",
             groups = "ondemand-shippingcalc",
@@ -197,7 +192,7 @@ public class AutobinderTest extends ShippingCalcBase {
         clientShippingCalc.updateBindingRule(request);
     }
 
-    @CaseId(544)
+    @TmsLink("544")
     @Story("Update Binding Rule")
     @Test(description = "Получение ошибки при обновлении правила для автобайндера с указанием несуществующей стратегии",
             groups = "ondemand-shippingcalc",
@@ -212,7 +207,7 @@ public class AutobinderTest extends ShippingCalcBase {
         clientShippingCalc.updateBindingRule(request);
     }
 
-    @CaseId(474)
+    @TmsLink("474")
     @Story("Get Binding Rules")
     @Test(description = "Получение списка правил для автобайндера",
             groups = "ondemand-shippingcalc",
@@ -232,7 +227,7 @@ public class AutobinderTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(477)
+    @TmsLink("477")
     @Story("Delete Binding Rule")
     @Test(description = "Удаление существующего правила для автобайндера",
             groups = "ondemand-shippingcalc",
@@ -250,7 +245,7 @@ public class AutobinderTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(478)
+    @TmsLink("478")
     @Story("Delete Binding Rule")
     @Test(description = "Получение ошибки при удалении правила для автобайндера без указания стратегии",
             groups = "ondemand-shippingcalc",
@@ -262,7 +257,7 @@ public class AutobinderTest extends ShippingCalcBase {
         clientShippingCalc.deleteBindingRule(request);
     }
 
-    @CaseId(545)
+    @TmsLink("545")
     @Story("Delete Binding Rule")
     @Test(description = "Получение ошибки при удалении правила для автобайндера с указанием несуществующей стратегии",
             groups = "ondemand-shippingcalc",
@@ -275,7 +270,7 @@ public class AutobinderTest extends ShippingCalcBase {
         clientShippingCalc.deleteBindingRule(request);
     }
 
-    @CaseId(485)
+    @TmsLink("485")
     @Story("Autobinder in GetDeliveryPrice")
     @Test(description = "Запрос по магазину, который не привязан к стратегиям, возвращает ответ по стратегии из подходящего правила",
             groups = "ondemand-shippingcalc")
@@ -291,7 +286,7 @@ public class AutobinderTest extends ShippingCalcBase {
         checkDeliveryPrice(response, strategyId, 123, 123, 1, 0, 0, 0);
     }
 
-    @CaseId(488)
+    @TmsLink("488")
     @Story("Autobinder in GetDeliveryPrice")
     @Test(description = "Запрос по магазину, который не привязан к стратегиям, возвращает ответ по стратегии из правила с наибольшим рангом",
             groups = "ondemand-shippingcalc")
@@ -336,7 +331,7 @@ public class AutobinderTest extends ShippingCalcBase {
         checkDeliveryPrice(response, secondStrategyId, 321, 321, 1, 0, 0, 0);
     }
 
-    @CaseId(486)
+    @TmsLink("486")
     @Story("Autobinder in GetDeliveryPrice")
     @Test(description = "Получение ошибки, при запросе по магазину, который не привязан к стратегиям, если правило не подходит",
             groups = "ondemand-shippingcalc",
@@ -352,7 +347,7 @@ public class AutobinderTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
-    @CaseId(487)
+    @TmsLink("487")
     @Story("Autobinder in GetDeliveryPrice")
     @Test(description = "Получение ошибки, при запросе по магазину, который не привязан к стратегиям, если правило подходит, но удалено",
             groups = "ondemand-shippingcalc",

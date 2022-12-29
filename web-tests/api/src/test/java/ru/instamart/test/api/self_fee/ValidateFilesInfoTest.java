@@ -3,6 +3,7 @@ package ru.instamart.test.api.self_fee;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.SelfFeeBase;
@@ -11,7 +12,6 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.self_fee.SelfFeeV3Request;
 import ru.instamart.api.response.self_fee.FileUploadResponse;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.HashMap;
 
@@ -30,7 +30,7 @@ public class ValidateFilesInfoTest extends SelfFeeBase {
     }
 
 
-    @CaseId(452)
+    @TmsLink("452")
     @Story("V3 Получение инфо о валидации файлов")
     @Test(groups = {SELF_FEE},
             description = "После загрзуки информация о реестре  =  данным из xlsx + csv")
@@ -47,7 +47,7 @@ public class ValidateFilesInfoTest extends SelfFeeBase {
 
     }
 
-    @CaseId(466)
+    @TmsLink("466")
     @Story("V3 Получение инфо о валидации файлов")
     @Test(groups = {SELF_FEE},
             description = "Ошибки в файле xlsx, когда в xlsx есть период, которого нет в csv")
@@ -63,7 +63,7 @@ public class ValidateFilesInfoTest extends SelfFeeBase {
         //TODO дописать шаг 3 и проверки после актуализации кейса или заведения бага
     }
 
-    @CaseId(451)
+    @TmsLink("451")
     @Story("V3 Получение инфо о валидации файлов")
     @Test(groups = {SELF_FEE},
             description = "Инфо после загрузки xlsx + невалидный формат csv")
@@ -80,7 +80,7 @@ public class ValidateFilesInfoTest extends SelfFeeBase {
         //TODO дописать шаг 3 и проверки после актуализации кейса или заведения бага
     }
 
-    @CaseId(460)
+    @TmsLink("460")
     @Story("V3 Получение инфо о валидации файлов")
     @Test(groups = {SELF_FEE},
             description = "Файл с ошибкой без обязательного поля xlsx + валидным csv")
@@ -96,6 +96,4 @@ public class ValidateFilesInfoTest extends SelfFeeBase {
         checkStatusCode200(responseFileInfo);
         //TODO дописать шаг 3 и проверки после актуализации кейса или заведения бага
     }
-
-
 }

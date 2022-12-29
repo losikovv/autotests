@@ -2,7 +2,7 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -21,7 +21,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Магазины")
 public class StoresV3Test extends RestBase {
 
-    @CaseId(669)
+    @TmsLink("669")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Все доступные магазины ")
     public void getStores() {
@@ -29,7 +29,7 @@ public class StoresV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(864)
+    @TmsLink("864")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступные магазины для доставки")
     public void getStoresDelivery() {
@@ -41,7 +41,7 @@ public class StoresV3Test extends RestBase {
         checkFieldIsNotEmpty(shippingMethodTitle, "title");
     }
 
-    @CaseId(865)
+    @TmsLink("865")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступные магазины для самовывоза")
     public void getStoresPickupFromStore() {
@@ -49,7 +49,7 @@ public class StoresV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(866)
+    @TmsLink("866")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступные магазины с ближайшими опциями")
     public void getStoresClosestShippingOptions() {
@@ -57,7 +57,7 @@ public class StoresV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(867)
+    @TmsLink("867")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступные магазины по ритейлеру Metro")
     public void getStoresRetailerId() {

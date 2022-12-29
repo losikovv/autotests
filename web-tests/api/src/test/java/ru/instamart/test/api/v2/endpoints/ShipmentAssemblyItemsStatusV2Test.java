@@ -22,8 +22,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
         }
     }
 
-    @CaseId(529)
+    @TmsLink("529")
     @Story("Детали по сборке подзаказа")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Детали по существующему подзаказу до сборки")
@@ -73,7 +73,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
         checkAssemblyItem(shipment, items.get(0), StateV2.PENDING);
     }
 
-    @CaseId(536)
+    @TmsLink("536")
     @Story("Детали по сборке подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Детали по сборке несуществующего подзаказа")
@@ -83,7 +83,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
         checkError(response, "Доставка не существует");
     }
 
-    @CaseId(822)
+    @TmsLink("822")
     @Story("Детали по сборке подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Детали по сборке cобранного подзаказа",
@@ -96,7 +96,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
         checkAssemblyItem(shipment, assemblyItem, StateV2.ASSEMBLED);
     }
 
-    @CaseId(531)
+    @TmsLink("531")
     @Story("Детали по сборке подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Детали по сборке отмененного подзаказа",
@@ -111,7 +111,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING) // на stf-0 нет офферов с Pricer::PerPack
-    @CaseIDs(value = {@CaseId(534), @CaseId(535)})
+    @TmsLinks(value = {@TmsLink("534"), @TmsLink("535")})
     @Story("Детали по сборке подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Детали по сборке существующего подзаказа c выбранным типом цены",

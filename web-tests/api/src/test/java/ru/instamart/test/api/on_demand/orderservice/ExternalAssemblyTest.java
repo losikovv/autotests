@@ -3,6 +3,7 @@ package ru.instamart.test.api.on_demand.orderservice;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import order.OrderChanged;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
@@ -16,7 +17,6 @@ import ru.instamart.jdbc.dao.orders_service.OrdersDao;
 import ru.instamart.jdbc.dao.orders_service.PlacesDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.helper.OrderServiceHelper.POST;
@@ -46,7 +46,7 @@ public class ExternalAssemblyTest extends RestBase {
         });
     }
 
-    @CaseId(147)
+    @TmsLink("147")
     @Test(groups = {"dispatch-orderservice-smoke"},
             description = "Получение данных заказа с внешней сборкой")
     public void getOrderWithExternalAssembly() {
@@ -63,7 +63,7 @@ public class ExternalAssemblyTest extends RestBase {
         });
     }
 
-    @CaseId(148)
+    @TmsLink("148")
     @Test(groups = {"dispatch-orderservice-smoke"},
             description = "Смена статуса джобов для заказа с внешней сборкой после получения ивента о начале сборки заказа")
     public void checkJobsAfterStartedExternalAssembly() {
@@ -90,7 +90,7 @@ public class ExternalAssemblyTest extends RestBase {
         });
     }
 
-    @CaseId(149)
+    @TmsLink("149")
     @Test(groups = {"dispatch-orderservice-smoke"},
             description = "Смена статуса джобов для заказа с внешней сборкой после получения ивента о конце сборки заказа")
     public void checkJobsAfterFinishedExternalAssembly() {

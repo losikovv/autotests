@@ -5,15 +5,12 @@ import candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import operations_order_service.OperationsOrderService.EventOrder.RequestOrderType;
-import operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus;
-import operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind;
+import io.qameta.allure.TmsLink;
 import order.OrderChanged.EventOrderChanged.Job.JobStatus;
 import order.OrderChanged.EventOrderChanged.OrderStatus;
 import order.OrderChanged.EventOrderChanged.ShipmentType;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -23,7 +20,6 @@ import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.jdbc.dao.orders_service.*;
 import ru.instamart.jdbc.entity.order_service.RetailersEntity;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.UUID;
 
@@ -49,7 +45,7 @@ public class OrderServiceKafkaTest extends RestBase {
         SettingsDao.INSTANCE.updateSettings(placeUUID, RteFactorCityCongestionMinutes,RteDeliverySlotMultiplier);
     }
 
-    @CaseId(207)
+    @TmsLink("207")
     @Test(description = "Получение информации о статусе джобов и заказа для нового планового заказа",
             groups = "dispatch-orderservice-smoke")
     public void receiveNewPlannedOrderEvent() {
@@ -73,7 +69,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(209)
+    @TmsLink("209")
     @Test(description = "Получение информации о статусе джобов и заказа для нового ондеманд заказа",
             groups = "dispatch-orderservice-smoke")
     public void receiveNewOnDemandOrderEvent() {
@@ -97,7 +93,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(211)
+    @TmsLink("211")
     @Test(description = "Получение информации о статусе джобы и заказа для нового заказа самовывоза",
             groups = "dispatch-orderservice-smoke")
     public void receiveNewPickupOrderEvent() {
@@ -120,7 +116,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(212)
+    @TmsLink("212")
     @Test(description = "Получение и сохранение двух заказов из мультизаказа",
             groups = "dispatch-orderservice-smoke")
     public void receiveMultiOrder() {
@@ -146,7 +142,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(195)
+    @TmsLink("195")
     @Test(description = "При получении события отмены заказа статусы джобов и заказа переходят в CANCELED",
             groups = "dispatch-orderservice-smoke")
     public void receiveNewCancelledOrderEvent() {
@@ -171,7 +167,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(252)
+    @TmsLink("252")
     @Test(description = "Обновление информации о вертикали ретейлера (вертикаль = магазин) в БД при получении сообщения в кафку",
             groups = "dispatch-orderservice-smoke")
     public void receiveRetailerGroceryVerticalEvent() {
@@ -187,7 +183,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(251)
+    @TmsLink("251")
     @Test(description = "Обновление информации о вертикали ретейлера (вертикаль = аптека) в БД при получении сообщения в кафку",
             groups = "dispatch-orderservice-smoke")
     public void receiveRetailerPharmacyVerticalEvent() {
@@ -203,7 +199,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(41)
+    @TmsLink("41")
     @Test(description = "Обновление информации о вертикали ретейлера (вертикаль = ресторан) в БД при получении сообщения в кафку",
             groups = "dispatch-orderservice-smoke")
     public void receiveRetailerRestaurantVerticalEvent() {
@@ -219,7 +215,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(42)
+    @TmsLink("42")
     @Test(description = "Обновление информации о времени на приготовления для точки в БД при получении сообщения в кафку",
             groups = "dispatch-orderservice-smoke")
     public void receiveOrderPreparationValue() {
@@ -234,7 +230,7 @@ public class OrderServiceKafkaTest extends RestBase {
             softAssert.assertAll();
         });
     }
-    @CaseId(63)
+    @TmsLink("63")
     @Test(description = "При получении сообщения в топик store-changed не обнуляем коэффициенты по RTE",
             groups = "dispatch-orderservice-smoke")
     public void checkRteSettingsAfterStoreChangedMessage() {
@@ -255,7 +251,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(254)
+    @TmsLink("254")
     @Test(description = "При создании магазина через топик yc.retail-onboarding.fct.stores active = false",
             groups = "dispatch-orderservice-smoke")
     public void checkNewStoreStatusAfterRetailerStoreChangedMessage() {
@@ -272,7 +268,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
-    @CaseId(255)
+    @TmsLink("255")
     @Test(description = "При создании магазина через топик yc.retail-onboarding.fct.stores и после получения информации о магазине из топика store-changed active = true",
             groups = "dispatch-orderservice-smoke")
     public void checkNewStoreStatusAfterRetailerAndShopperStoreChangedMessage() {

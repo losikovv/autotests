@@ -3,7 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
@@ -27,7 +27,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class PhoneConfirmationsV2Test extends RestBase {
     private static final String phoneNumber = Generate.phoneNumber();
 
-    @CaseId(451)
+    @TmsLink("451")
     @Story("Авторизация по номеру телефона")
     @Test(description = "Отправляем запрос на получение смс с кодом",
             groups = {"api-instamart-smoke", "MRAutoCheck", "api-v2"})
@@ -39,7 +39,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(456)
+    @TmsLink("456")
     @Story("Авторизация по номеру телефона")
     @Test(description = "Получение токена авторизации по номеру телефона и коду из смс",
             groups = {"api-instamart-smoke", "MRAutoCheck", "api-v2"},
@@ -50,7 +50,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
         checkResponseJsonSchema(response, SessionsV2Response.class);
     }
 
-    @CaseId(452)
+    @TmsLink("452")
     @Story("Инициировать отправку кода подтверждения")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Инициировать отправку кода подтверждения  с невалидным значением для phone")
@@ -60,7 +60,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
         checkError(response, "PhoneToken: Value не может быть пустым");
     }
 
-    @CaseId(453)
+    @TmsLink("453")
     @Story("Инициировать отправку кода подтверждения")
     @Test(groups = {"api-instamart-smoke", "api-v2"},
             description = "Инициировать отправку кода подтверждения. Пользователь существует с указанным phone")
@@ -74,7 +74,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(457)
+    @TmsLink("457")
     @Story("Подтверждение телефона кодом")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Подтверждение телефона кодом с невалидным номером")
@@ -84,7 +84,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
         checkError(response, "PhoneToken: Value не может быть пустым");
     }
 
-    @CaseId(459)
+    @TmsLink("459")
     @Story("Подтверждение телефона кодом")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Подтверждение телефона кодом с валидным номером без запроса")

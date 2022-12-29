@@ -2,20 +2,19 @@ package ru.instamart.test.reforged.chatwoot;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.CHATWOOT;
 import static ru.instamart.reforged.chatwoot.ChatwootRouter.*;
-import static ru.instamart.reforged.chatwoot.enums.OperatorStates.ONLINE;
 
 @Epic("Chatwoot")
 @Feature("Страница Эффективность операторов (СВ КЦ)")
 public final class EffectivenessTests {
 
-    @CaseId(59)
+    @TmsLink("59")
     @Test(description = "Проверка отображения таблицы эффективности работы операторов на странице", groups = {CHATWOOT})
     public void checkEffectivenessOperatorTableClose() {
         UserData userData = UserManager.getSVCCUser();

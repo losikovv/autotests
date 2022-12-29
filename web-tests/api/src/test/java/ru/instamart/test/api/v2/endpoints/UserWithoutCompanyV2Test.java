@@ -12,7 +12,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.request.v2.UserV2Request;
 import ru.instamart.api.response.v2.CompaniesExistV2Response;
 import ru.instamart.api.response.v2.CompanyV2Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -32,7 +32,7 @@ public class UserWithoutCompanyV2Test extends RestBase {
         makeSession(SessionType.API_V2);
     }
 
-    @CaseId(2344)
+    @TmsLink("2344")
     @Story("Получить факт наличия компаний у пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получить факт наличия компаний у пользователя без компании")
@@ -42,7 +42,7 @@ public class UserWithoutCompanyV2Test extends RestBase {
         assertFalse(response.as(CompaniesExistV2Response.class).isCompaniesExist(), "Вернулось true");
     }
 
-    @CaseId(2360)
+    @TmsLink("2360")
     @Story("Создание")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание компании",

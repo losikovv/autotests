@@ -4,12 +4,11 @@ import eta.Eta;
 import eta.PredEtaGrpc;
 import eta.PredEtaGrpc.PredEtaBlockingStub;
 import io.grpc.StatusRuntimeException;
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.SkipException;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.EtaBase;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
@@ -18,8 +17,6 @@ import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
 import ru.instamart.redis.RedisService;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -54,7 +51,7 @@ public class BasketEtaTest extends EtaBase {
         RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID));
     }
 
-    @CaseIDs(value = {@CaseId(11), @CaseId(40), @CaseId(49), @CaseId(60)})
+    @TmsLinks(value = {@TmsLink("11"), @TmsLink("40"), @TmsLink("49"), @TmsLink("60")})
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с валидными координатами пользователя",
             groups = "ondemand-eta")
@@ -65,7 +62,7 @@ public class BasketEtaTest extends EtaBase {
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(21)
+    @TmsLink("21")
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с координатами клиента, соответствующими координатам магазина",
             groups = "ondemand-eta")
@@ -76,7 +73,7 @@ public class BasketEtaTest extends EtaBase {
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 0, "Поле eta меньше или равно нулю", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(20)
+    @TmsLink("20")
     @Story("Basket ETA")
     @Test(description = "Изменение результата, при изменении координат пользователя",
             groups = "ondemand-eta")
@@ -92,7 +89,7 @@ public class BasketEtaTest extends EtaBase {
         Allure.step("Проверяем изменение результата при изменении координат пользователя", () -> assertNotEquals(responseFirstCoordinates.getOrder().getShipmentEtas(0).getEta(), responseSecondCoordinates.getOrder().getShipmentEtas(0).getEta(), "Поля eta равны для разных координат"));
     }
 
-    @CaseId(12)
+    @TmsLink("12")
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с не валидными координатами пользователя",
             groups = "ondemand-eta",
@@ -104,7 +101,7 @@ public class BasketEtaTest extends EtaBase {
         clientEta.getBasketEta(request);
     }
 
-    @CaseId(13)
+    @TmsLink("13")
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с невалидным магазином",
             groups = "ondemand-eta",
@@ -116,7 +113,7 @@ public class BasketEtaTest extends EtaBase {
         clientEta.getBasketEta(request);
     }
 
-    @CaseId(14)
+    @TmsLink("14")
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с валидным, но несуществующим в БД store_uuid",
             groups = "ondemand-eta")
@@ -127,7 +124,7 @@ public class BasketEtaTest extends EtaBase {
         compareTwoObjects(response.toString(), "");
     }
 
-    @CaseId(64)
+    @TmsLink("64")
     @Story("Basket ETA")
     @Test(description = "Отправка запросов с различным количеством структур в массиве sku",
             groups = "ondemand-eta")
@@ -188,7 +185,7 @@ public class BasketEtaTest extends EtaBase {
         Allure.step("Проверка различной ETA для запросов", () -> assertTrue(secondResponse.getOrder().getShipmentEtas(0).getEta() > firstResponse.getOrder().getShipmentEtas(0).getEta(), "Поле eta второго запроса меньше или равно полю eta из первого"));
     }
 
-    @CaseId(22)
+    @TmsLink("22")
     @Story("Basket ETA")
     @Test(description = "Отправка запросов с различным значением в параметре unit_quantity",
             groups = "ondemand-eta")
@@ -230,7 +227,7 @@ public class BasketEtaTest extends EtaBase {
         Allure.step("Проверка различной ETA для запросов", () -> assertTrue(secondResponse.getOrder().getShipmentEtas(0).getEta() > firstResponse.getOrder().getShipmentEtas(0).getEta(), "Поле eta второго запроса меньше или равно полю eta из первого"));
     }
 
-    @CaseId(31)
+    @TmsLink("31")
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с двумя шипментами из двух разных магазинов",
             groups = "ondemand-eta")
@@ -297,7 +294,7 @@ public class BasketEtaTest extends EtaBase {
         });
     }
 
-    @CaseId(41)
+    @TmsLink("41")
     @Story("Basket ETA")
     @Test(description = "Получение пустого ответа при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
             groups = "ondemand-eta")
@@ -317,7 +314,7 @@ public class BasketEtaTest extends EtaBase {
         compareTwoObjects(response.getOrder().getShipmentEtasCount(), 0);
     }
 
-    @CaseId(45)
+    @TmsLink("45")
     @Story("Basket ETA")
     @Test(description = "Получение пустого ответа при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
             groups = "ondemand-eta")
@@ -337,7 +334,7 @@ public class BasketEtaTest extends EtaBase {
         compareTwoObjects(response.getOrder().getShipmentEtasCount(), 0);
     }
 
-    @CaseId(50)
+    @TmsLink("50")
     @Story("Basket ETA")
     @Test(description = "Получение пустого ответа при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
             groups = "ondemand-eta")
@@ -357,7 +354,7 @@ public class BasketEtaTest extends EtaBase {
         compareTwoObjects(response.getOrder().getShipmentEtasCount(), 0);
     }
 
-    @CaseId(248)
+    @TmsLink("248")
     @Story("Basket ETA")
     @Test(description = "Получение ЕТА при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
             groups = "ondemand-eta")
@@ -377,7 +374,7 @@ public class BasketEtaTest extends EtaBase {
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(251)
+    @TmsLink("251")
     @Story("Basket ETA")
     @Test(description = "Получение ЕТА при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
             groups = "ondemand-eta")
@@ -397,7 +394,7 @@ public class BasketEtaTest extends EtaBase {
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(252)
+    @TmsLink("252")
     @Story("Basket ETA")
     @Test(description = "Получение ЕТА при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
             groups = "ondemand-eta")
@@ -417,7 +414,7 @@ public class BasketEtaTest extends EtaBase {
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Basket ETA")
     @Test(description = "Отправка валидного запроса в магазин, который в одном часовом поясе открыт, а другом закрыт",
             groups = "ondemand-eta")
@@ -433,7 +430,7 @@ public class BasketEtaTest extends EtaBase {
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(59)
+    @TmsLink("59")
     @Story("Basket ETA")
     @Test(description = "Получение ответа от ML",
             groups = "ondemand-eta")
@@ -444,7 +441,7 @@ public class BasketEtaTest extends EtaBase {
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.ML);
     }
 
-    @CaseId(37)
+    @TmsLink("37")
     @Story("Basket ETA")
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML возвращает ноль",
             groups = "ondemand-eta")

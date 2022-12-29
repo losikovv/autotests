@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.stf.checkout;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,12 +13,10 @@ import ru.instamart.kraken.data.PaymentCardData;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #5. Оплата")
@@ -40,7 +39,7 @@ public final class CheckoutPaymentStepTests {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseId(1678)
+    @TmsLink("1678")
     @Story("Корзина")
     @Test(description = "Тест удаления карты оплаты", groups = REGRESSION_STF)
     public void successDeleteSavedCard() {

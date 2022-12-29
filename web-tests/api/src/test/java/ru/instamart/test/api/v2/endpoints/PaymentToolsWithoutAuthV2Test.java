@@ -9,7 +9,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.PaymentToolsWithTypesV2Request;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -20,7 +20,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Способы оплаты")
 public class PaymentToolsWithoutAuthV2Test extends RestBase {
 
-    @CaseId(2217)
+    @TmsLink("2217")
     @Story("Способы оплаты")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Без авторизации")

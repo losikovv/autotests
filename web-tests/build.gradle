@@ -23,7 +23,6 @@ apply from: 'subproject.gradle'
 
 project(":kraken") {
     dependencies {
-        api lib.qase
         api lib.testit
 
         api lib.testng

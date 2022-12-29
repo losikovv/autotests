@@ -16,7 +16,7 @@ import ru.instamart.api.response.v1.admin.ProductV1Response;
 import ru.instamart.api.response.v1.admin.ProductsV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.jdbc.entity.stf.SpreeProductsEntity;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -32,7 +32,7 @@ public class ProductsAdminTest extends RestBase {
         admin.auth();
     }
 
-    @CaseId(2948)
+    @TmsLink("2948")
     @Story("Данные о мерах")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение данных о мерах в админке")
     public void getAllProductsReferences() {
@@ -40,7 +40,7 @@ public class ProductsAdminTest extends RestBase {
         checkStatusCode(response, 200);
     }
 
-    @CaseId(2949)
+    @TmsLink("2949")
     @Story("Получить данные о продукте")
     @Test(description = "Получение данных о продукте",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -60,7 +60,7 @@ public class ProductsAdminTest extends RestBase {
         });
     }
 
-    @CaseId(2950)
+    @TmsLink("2950")
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о невалидном продукте",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -69,7 +69,7 @@ public class ProductsAdminTest extends RestBase {
         checkStatusCode(response, 404);
     }
 
-    @CaseId(2951)
+    @TmsLink("2951")
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продуктах",
             groups = {API_INSTAMART_REGRESS, "api-v1"})

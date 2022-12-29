@@ -1,18 +1,18 @@
 package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
+import io.qameta.allure.TmsLinks;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 public class ActiveDirectoryLoginTests {
 
-    @CaseId(31)
+    @TmsLink("31")
     @Story("Успешная авторизация через Active Directory")
     @Test(description = "Успешная аутентификация через Active Directory в админке STF", groups = {REGRESSION_ADMIN, ADMIN_KEYCLOAK, PROD_ADMIN_SMOKE})
     public void successLoginViaActiveDirectory() {
@@ -28,7 +28,7 @@ public class ActiveDirectoryLoginTests {
         main().interactAuthoredHeader().checkAdminAvatar();
     }
 
-    @CaseId(32)
+    @TmsLink("32")
     @Story("Неуспешная авторизация через Active Directory")
     @Test(description = "Нет залогина при вводе некорректного пароля и логина", groups = {REGRESSION_ADMIN, ADMIN_KEYCLOAK})
     public void noAuthUnexistLoginViaActiveDirectory() {
@@ -41,7 +41,7 @@ public class ActiveDirectoryLoginTests {
         activeDirectory().checkWrongLoginFormatAlertVisible();
     }
 
-    @CaseId(32)
+    @TmsLink("32")
     @Story("Неуспешная авторизация через Active Directory")
     @Test(description = "Нет залогина при вводе некорректного пароля и логина", groups = PROD_ADMIN_SMOKE)
     public void noAuthUnexistLoginViaActiveDirectoryProd() {
@@ -54,7 +54,7 @@ public class ActiveDirectoryLoginTests {
         activeDirectory().checkWrongUserDataAlertVisible();
     }
 
-    @CaseIDs(value = {@CaseId(33), @CaseId(34)})
+    @TmsLinks(value = {@TmsLink("33"), @TmsLink("34")})
     @Story("Неуспешная авторизация через Active Directory")
     @Test(description = "Нет залогина при вводе несуществующего логина или пароля", groups = {REGRESSION_ADMIN, ADMIN_KEYCLOAK, PROD_ADMIN_SMOKE})
     public void noAuthWrongLoginViaActiveDirectory() {

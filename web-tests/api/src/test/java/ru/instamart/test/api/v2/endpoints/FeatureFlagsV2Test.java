@@ -10,7 +10,7 @@ import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.FeatureFlagV2;
 import ru.instamart.api.request.v2.FeatureFlagsV2Request;
 import ru.instamart.api.response.v2.FeatureFlagsV2Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -22,7 +22,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 @Feature("Feature флаги")
 public class FeatureFlagsV2Test extends RestBase {
 
-    @CaseId(792)
+    @TmsLink("792")
     @Test(description = "Получение списка всех фича-флагов",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getFeatureFlags200() {
@@ -31,7 +31,7 @@ public class FeatureFlagsV2Test extends RestBase {
         checkResponseJsonSchema(response, FeatureFlagsV2Response.class);
     }
 
-    @CaseId(792)
+    @TmsLink("792")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             dataProvider = "getAllFeatureFlags",
             dataProviderClass = RestDataProvider.class,
@@ -41,7 +41,7 @@ public class FeatureFlagsV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(792)
+    @TmsLink("792")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение несуществующего фича-флага")
     public void getFeatureFlagsItem404() {

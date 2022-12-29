@@ -8,8 +8,8 @@ import org.testng.Assert;
 import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -47,7 +47,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Категории")
-    @CaseIDs(value = {@CaseId(156), @CaseId(264)})
+    @TmsLinks(value = {@TmsLink("156"), @TmsLink("264")})
     @Test(description = "Создание категории для продукта",
             groups = "grpc-product-hub")
     public void saveCategories() {
@@ -144,7 +144,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Категории")
-    @CaseId(157)
+    @TmsLink("157")
     @Test(description = "Создание категории для продукта без обязательного поля \"id\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -164,7 +164,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Словари")
-    @CaseId(158)
+    @TmsLink("158")
     @Test(description = "Создание словарей для нового продукта",
             groups = "grpc-product-hub")
     public void saveDictionaries() {
@@ -197,7 +197,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Словари")
-    @CaseId(159)
+    @TmsLink("159")
     @Test(description = "Создание словарей для нового продукта без обязательного поля \"key\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -214,7 +214,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Атрибуты")
-    @CaseIDs(value = {@CaseId(160), @CaseId(263)})
+    @TmsLinks(value = {@TmsLink("160"), @TmsLink("263")})
     @Test(description = "Создание атрибутов для нового продукта",
             groups = "grpc-product-hub")
     public void saveAttributes() {
@@ -258,7 +258,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Атрибуты")
-    @CaseId(161)
+    @TmsLink("161")
     @Test(description = "Создание аттрибутов для нового продукта без обязательного поля \"key\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -278,7 +278,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(162)
+    @TmsLink("162")
     @Test(description = "Создание продукта",
             groups = {"grpc-product-hub"})
     public void saveProducts() {
@@ -315,7 +315,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(163)
+    @TmsLink("163")
     @Test(description = "Создание нового продукта в системе без обязательного поля \"sku\"",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -334,7 +334,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Стоки")
-    @CaseIDs(value = {@CaseId(164), @CaseId(265)})
+    @TmsLinks(value = {@TmsLink("164"), @TmsLink("265")})
     @Test(description = "Добавление стоков к созданному новому продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
@@ -389,7 +389,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Стоки")
-    @CaseId(165)
+    @TmsLink("165")
     @Test(description = "Добавление стоков к созданному новому продукту без поля \"sku\"",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -409,7 +409,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Цены")
-    @CaseIDs(value = {@CaseId(166), @CaseId(266)})
+    @TmsLinks(value = {@TmsLink("166"), @TmsLink("266")})
     @Test(description = "Добавление стоимости продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
@@ -498,7 +498,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Цены")
-    @CaseId(167)
+    @TmsLink("167")
     @Test(description = "Добавление стоимости продукту без поля \"sku\"",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -519,7 +519,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Товарные предложения")
-    @CaseIDs(value = {@CaseId(168), @CaseId(267)})
+    @TmsLinks(value = {@TmsLink("168"), @TmsLink("267")})
     @Test(description = "Добавление предложений к продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
@@ -580,7 +580,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Товарные предложения")
-    @CaseId(169)
+    @TmsLink("169")
     @Test(description = "Добавление предложений к продукту без поля \"retailer_id\"",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts",
@@ -600,7 +600,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(262)
+    @TmsLink("262")
     @Test(description = "Получение продукта по SKU",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")

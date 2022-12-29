@@ -1,9 +1,6 @@
 package ru.instamart.test.api.on_demand.surgelevel;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.SkipException;
@@ -19,17 +16,19 @@ import ru.instamart.jdbc.dao.eta.DisableEtaIntervalsDao;
 import ru.instamart.jdbc.dao.surgelevel.ResultDao;
 import ru.instamart.jdbc.dao.surgelevel.StoreDao;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import surgelevelevent.Surgelevelevent;
 import surgelevelevent.Surgelevelevent.SurgeEvent.Method;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
-import static ru.instamart.api.helper.SurgeLevelHelper.*;
+import static ru.instamart.api.helper.SurgeLevelHelper.addStore;
+import static ru.instamart.api.helper.SurgeLevelHelper.checkSurgeLevelProduce;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampLongFromStringDtdb;
 
 @Epic("Surgelevel")
@@ -52,7 +51,7 @@ public class BoostTest extends RestBase {
         }
     }
 
-    @CaseIDs({@CaseId(169), @CaseId(175)})
+    @TmsLinks({@TmsLink("169"), @TmsLink("175")})
     @Story("boost")
     @Test(description = "Увеличение цен",
             groups = "ondemand-surgelevel")
@@ -76,7 +75,7 @@ public class BoostTest extends RestBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, BOOSTED_SURGELEVEL, BOOSTED_SURGELEVEL, 0, 0, Method.MANUAL);
     }
 
-    @CaseId(170)
+    @TmsLink("170")
     @Story("boost")
     @Test(description = "Отключение еты",
             groups = "ondemand-surgelevel")
@@ -110,7 +109,7 @@ public class BoostTest extends RestBase {
         });
     }
 
-    @CaseId(171)
+    @TmsLink("171")
     @Story("boost")
     @Test(description = "Отключение еты и слотов",
             groups = "ondemand-surgelevel")
@@ -144,7 +143,7 @@ public class BoostTest extends RestBase {
         });
     }
 
-    @CaseId(172)
+    @TmsLink("172")
     @Story("boost")
     @Test(description = "Отмена увеличения цен",
             groups = "ondemand-surgelevel",
@@ -169,7 +168,7 @@ public class BoostTest extends RestBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, BOOSTED_SURGELEVEL, BOOSTED_SURGELEVEL - 1, 0, 0, Method.ACTUAL);
     }
 
-    @CaseId(172)
+    @TmsLink("172")
     @Story("boost")
     @Test(description = "Отмена отключения еты",
             groups = "ondemand-surgelevel",
@@ -201,7 +200,7 @@ public class BoostTest extends RestBase {
         });
     }
 
-    @CaseId(173)
+    @TmsLink("173")
     @Story("boost")
     @Test(description = "Отмена отключения еты и слотов",
             groups = "ondemand-surgelevel",
@@ -227,7 +226,7 @@ public class BoostTest extends RestBase {
         });
     }
 
-    @CaseId(177)
+    @TmsLink("177")
     @Story("boost")
     @Test(description = "Отправка запроса на несколько магазинов",
             groups = "ondemand-surgelevel")
@@ -259,7 +258,7 @@ public class BoostTest extends RestBase {
         });
     }
 
-    @CaseId(178)
+    @TmsLink("178")
     @Story("boost")
     @Test(description = "Получение ошибки при пустом списке магазинов",
             groups = "ondemand-surgelevel")
@@ -279,7 +278,7 @@ public class BoostTest extends RestBase {
         compareTwoObjects(parameters.getMessage(), "empty store uuids");
     }
 
-    @CaseId(179)
+    @TmsLink("179")
     @Story("boost")
     @Test(description = "Получение ошибки при не валидном действии",
             groups = "ondemand-surgelevel")
@@ -299,7 +298,7 @@ public class BoostTest extends RestBase {
         compareTwoObjects(parameters.getMessage(), "invalid action");
     }
 
-    @CaseId(180)
+    @TmsLink("180")
     @Story("boost")
     @Test(description = "Получение ошибки при не валидной длительности",
             groups = "ondemand-surgelevel")
@@ -319,7 +318,7 @@ public class BoostTest extends RestBase {
         compareTwoObjects(parameters.getMessage(), "invalid duration");
     }
 
-    @CaseId(181)
+    @TmsLink("181")
     @Story("boost")
     @Test(description = "Получение ошибки авторизации",
             groups = "ondemand-surgelevel")
@@ -335,7 +334,7 @@ public class BoostTest extends RestBase {
         compareTwoObjects(parameters.getMessage(), "Unauthorized");
     }
 
-    @CaseId(182)
+    @TmsLink("182")
     @Story("boost")
     @Test(description = "Получение ошибки не валидного списка магазинов",
             groups = "ondemand-surgelevel")

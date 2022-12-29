@@ -2,6 +2,7 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -12,7 +13,6 @@ import ru.instamart.api.response.v3.CategoriesV3Response;
 import ru.instamart.api.response.v3.CategoryV3Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -25,7 +25,7 @@ public class CategoriesV3Test extends RestBase {
     private CategoryV3 category;
     private final Integer sid = EnvironmentProperties.DEFAULT_SID;
 
-    @CaseId(2314)
+    @TmsLink("2314")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Получение пользовательских категорий")
     public void getAggregatingCategories()  {
@@ -34,7 +34,7 @@ public class CategoriesV3Test extends RestBase {
     }
 
     @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
-    @CaseId(2315)
+    @TmsLink("2315")
     @Test(  groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Получение дерева категорий")
     public void getCategories()  {
@@ -45,7 +45,7 @@ public class CategoriesV3Test extends RestBase {
     }
 
     @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
-    @CaseId(2316)
+    @TmsLink("2316")
     @Test(  groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Получение поддерева категорий по id категории",
             dependsOnMethods = "getCategories")

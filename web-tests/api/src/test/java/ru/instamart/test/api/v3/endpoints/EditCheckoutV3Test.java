@@ -25,8 +25,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +57,7 @@ public class EditCheckoutV3Test extends RestBase {
         order = apiV1.getMultiRetailerOrder();
     }
 
-    @CaseIDs(value = {@CaseId(2080), @CaseId(2083)})
+    @TmsLinks(value = {@TmsLink("2080"), @TmsLink("2083")})
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с вводом валидных данных",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -79,7 +79,7 @@ public class EditCheckoutV3Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2084)
+    @TmsLink("2084")
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с несуществующим заказом",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -89,7 +89,7 @@ public class EditCheckoutV3Test extends RestBase {
         checkErrors(response, "not_found", null, "Заказ не существует");
     }
 
-    @CaseId(2085)
+    @TmsLink("2085")
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с несуществующим shipments",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -106,7 +106,7 @@ public class EditCheckoutV3Test extends RestBase {
         checkError(response, "invalid_current_shipments", "Вы уже оформляете заказ в другом магазине");
     }
 
-    @CaseId(2086)
+    @TmsLink("2086")
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с пустым order",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -122,7 +122,7 @@ public class EditCheckoutV3Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(2087)
+    @TmsLink("2087")
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с пустым shipments",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -139,7 +139,7 @@ public class EditCheckoutV3Test extends RestBase {
         checkError(response, "invalid_current_shipments", "Вы уже оформляете заказ в другом магазине");
     }
 
-    @CaseId(2088)
+    @TmsLink("2088")
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с существующим order другого пользователя",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -157,7 +157,7 @@ public class EditCheckoutV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2089)
+    @TmsLink("2089")
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с существующим shipments другого пользователя",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -174,7 +174,7 @@ public class EditCheckoutV3Test extends RestBase {
         checkError(response, "invalid_current_shipments", "Вы уже оформляете заказ в другом магазине");
     }
 
-    @CaseId(2090)
+    @TmsLink("2090")
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с вводом невалидных данных",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -193,7 +193,7 @@ public class EditCheckoutV3Test extends RestBase {
         checkError(response, errorType, "имеет неправильный формат");
     }
 
-    @CaseId(2091)
+    @TmsLink("2091")
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с вводом пустых данных",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -212,7 +212,7 @@ public class EditCheckoutV3Test extends RestBase {
         checkError(response, errorType, "не может быть пустым");
     }
 
-    @CaseId(2244)
+    @TmsLink("2244")
     @Story("Редактирование адреса в заказе")
     @Test(description = "Запрос на обновление адреса доставки",
             groups = {API_INSTAMART_REGRESS, "api-v3"})

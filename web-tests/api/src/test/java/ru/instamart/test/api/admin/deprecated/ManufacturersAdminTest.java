@@ -14,7 +14,7 @@ import ru.instamart.jdbc.dao.stf.ManufacturersDao;
 import ru.instamart.jdbc.entity.stf.ManufacturersEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -33,7 +33,7 @@ public class ManufacturersAdminTest extends RestBase {
         admin.auth();
     }
 
-    @CaseId(1824)
+    @TmsLink("1824")
     @Skip
     @Story("Производители")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
@@ -44,7 +44,7 @@ public class ManufacturersAdminTest extends RestBase {
         checkStatusCode(response, 200, ContentType.HTML);
     }
 
-    @CaseId(1825)
+    @TmsLink("1825")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание производителя")
@@ -55,7 +55,7 @@ public class ManufacturersAdminTest extends RestBase {
         assertNotNull(manufacturers, "Производитель не создался в БД");
     }
 
-    @CaseId(1826)
+    @TmsLink("1826")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование производителя", dependsOnMethods = "postManufacturers302")
@@ -71,7 +71,7 @@ public class ManufacturersAdminTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1827)
+    @TmsLink("1827")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление производителя", dependsOnMethods = "patchManufacturers302")

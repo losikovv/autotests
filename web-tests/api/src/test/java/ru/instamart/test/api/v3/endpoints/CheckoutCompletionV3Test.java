@@ -1,9 +1,6 @@
 package ru.instamart.test.api.v3.endpoints;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -25,7 +22,6 @@ import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +52,7 @@ public class CheckoutCompletionV3Test extends RestBase {
         order = apiV1.order(addressDefaultSid, offerDefaultSidId, user);
     }
 
-    @CaseId(2575)
+    @TmsLink("2575")
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -70,7 +66,7 @@ public class CheckoutCompletionV3Test extends RestBase {
         });
     }
 
-    @CaseId(2576)
+    @TmsLink("2576")
     @Story("Завершение заказа")
     @Test(description = "Завершение чужого заказа",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -82,7 +78,7 @@ public class CheckoutCompletionV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2577)
+    @TmsLink("2577")
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа c чужим шипментом",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -93,7 +89,7 @@ public class CheckoutCompletionV3Test extends RestBase {
         checkError(response, "invalid_current_shipments", "Вы уже оформляете заказ в другом магазине");
     }
 
-    @CaseId(2578)
+    @TmsLink("2578")
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа без выбранного способа оплаты",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -110,7 +106,7 @@ public class CheckoutCompletionV3Test extends RestBase {
         assertEquals(response.as(ErrorV3Response.class).getTitle(), "Не выбран способ оплаты", "'title' в сообщении об ощибке отличается от ожидаемого");
     }
 
-    @CaseId(2579)
+    @TmsLink("2579")
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа без выбранного окна доставки",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -128,7 +124,7 @@ public class CheckoutCompletionV3Test extends RestBase {
         assertEquals(response.as(ErrorV3Response.class).getTitle(), "Выберите время доставки из METRO.", "'title' в сообщении об ощибке отличается от ожидаемого");
     }
 
-    @CaseId(2580)
+    @TmsLink("2580")
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа неавторизованным пользователем",
             groups = {API_INSTAMART_REGRESS, "api-v3"},

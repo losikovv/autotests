@@ -5,7 +5,6 @@
   </listeners>
   <test verbose="1" name="QASE" parallel="classes" thread-count="1">
     <classes>
-      <class name="ru.instamart.test.api.ActualizeQaseTest"/>
       <class name="ru.instamart.test.api.GenerateDataTest"/>
       <class name="ru.instamart.test.api.PrepareStageTest"/>
     </classes>

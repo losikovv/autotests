@@ -13,7 +13,7 @@ import ru.instamart.api.request.shifts.PlanningAreasRequest;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -29,7 +29,7 @@ public class ShiftsPlanningPeriodsTest extends RestBase {
     }
 
 
-    @CaseId(154)
+    @TmsLink("154")
     @Story("Вывод списка плановых периодов")
     @Test(groups = {"api-shifts"},
             dataProvider = "planningPeriodFilters",

@@ -33,8 +33,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 import shipment_pricing.OrderPricing;
 import shipment_pricing.ShipmentPriceServiceGrpc;
 import workflow.*;
@@ -82,7 +82,7 @@ public class WorkflowTest extends RestBase {
         shopperApp.authorisation(UserManager.getShp6Universal1());
     }
 
-    @CaseId(101)
+    @TmsLink("101")
     @Test(description = "Создание маршрутных листов с одинаковым ARRIVE сегментом",
             groups = "dispatch-workflow-smoke")
     public void createWorkflowWithSameArriveSegment() {
@@ -98,7 +98,7 @@ public class WorkflowTest extends RestBase {
         cancelWorkflow(clientWorkflow, shipmentUuid);
     }
 
-    @CaseId(44)
+    @TmsLink("44")
     @Test(description = "Получение стоимости сегментов",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithSameArriveSegment")
@@ -142,7 +142,7 @@ public class WorkflowTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(48)
+    @TmsLink("48")
     @Test(description = "Создание маршрутного листа с существующим сегментом",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getShipmentPrice")
@@ -154,7 +154,7 @@ public class WorkflowTest extends RestBase {
         checkGrpcError(responseForCreation, "Has active workflow with intersection segments", HAS_ACTIVE_WORKFLOW_WITH_INTERSECTION_SEGMENTS.toString());
     }
 
-    @CaseId(141)
+    @TmsLink("141")
     @Test(description = "Отмена маршрутного листа по uuid шимпента",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithExistingSegment")
@@ -169,7 +169,7 @@ public class WorkflowTest extends RestBase {
         Assert.assertFalse(response.getWorkflowIdsList().isEmpty(), "Маршрутные листы не удалились");
     }
 
-    @CaseId(73)
+    @TmsLink("73")
     @Test(description = "Создание маршрутного листа для такси",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelExistingWorkflow")
@@ -194,7 +194,7 @@ public class WorkflowTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(82)
+    @TmsLink("82")
     @Test(description = "Обогащение идентификатором смены и видом транспорта",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowForTaxi")
@@ -212,7 +212,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(shift.getTransport(), WorkflowOuterClass.Shift.Transport.CAR_VALUE);
     }
 
-    @CaseId(90)
+    @TmsLink("90")
     @Test(description = "Обогащение названием и адресом магазина нескольких сегментов с разными магазинами",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithTransport")
@@ -239,7 +239,7 @@ public class WorkflowTest extends RestBase {
     }
 
     @Skip
-    @CaseId(120)
+    @TmsLink("120")
     @Test(description = "Создание отложенного назначения отдельно от родительского",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithDifferentStores")
@@ -251,7 +251,7 @@ public class WorkflowTest extends RestBase {
         checkGrpcError(response, "Parent assignment not available", PARENT_NOT_AVAILABLE.toString());
     }
 
-    @CaseIDs(value = {@CaseId(37), @CaseId(123), @CaseId(93)})
+    @TmsLinks(value = {@TmsLink("37"), @TmsLink("123"), @TmsLink("93")})
     @Test(description = "Создание маршрутного листа за 30 секунд от текущего времени",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithDifferentStores")
@@ -275,7 +275,7 @@ public class WorkflowTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(57)
+    @TmsLink("57")
     @Test(description = "Получение назначений в статусе offered/seen",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflow30SecToNow")
@@ -289,7 +289,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(shopperAssignments.get(0).getWorkflowId(), String.valueOf(workflowId));
     }
 
-    @CaseId(118)
+    @TmsLink("118")
     @Test(description = "Создание отложенного назначения отдельно от родительского",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getShopperAssignments")
@@ -303,7 +303,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(childWorkflowUuid).getPostponedParentUuid(), workflowUuid);
     }
 
-    @CaseId(20)
+    @TmsLink("20")
     @Test(description = "Пометка назначения как просмотренного",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithParentWorkflow")
@@ -314,7 +314,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), SEEN);
     }
 
-    @CaseId(21)
+    @TmsLink("21")
     @Test(description = "Пометка назначения как принятого",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "markWorkflowAsSeen")
@@ -326,7 +326,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), ACCEPTED);
     }
 
-    @CaseId(65)
+    @TmsLink("65")
     @Test(description = "Получение активных маршрутных листов в статусах queued/in progress",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "markWorkflowAsAccepted")
@@ -340,7 +340,7 @@ public class WorkflowTest extends RestBase {
         cancelWorkflow(clientWorkflow, shipmentUuid);
     }
 
-    @CaseId(129)
+    @TmsLink("129")
     @Test(description = "Автостарт маршрутного листа при принятии назначения с отправкой геопозиции",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getWorkflows")
@@ -359,7 +359,7 @@ public class WorkflowTest extends RestBase {
         checkFieldIsNotEmpty(segments.get(0).getFactStartedAt(), "время начала маршрута");
     }
 
-    @CaseIDs(value = {@CaseId(23), @CaseId(108)})
+    @TmsLinks(value = {@TmsLink("23"), @TmsLink("108")})
     @Test(description = "Начало первого сегмента маршрутного листа в статусе Queued",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "acceptWorkflowWithCoordinates")
@@ -390,7 +390,7 @@ public class WorkflowTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(111)
+    @TmsLink("111")
     @Test(description = "Проверка геолокации при окончании arrive/delivery сегментов",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflow")
@@ -417,7 +417,7 @@ public class WorkflowTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(111)
+    @TmsLink("111")
     @Test(description = "Отсуствие проверки геолокации при окончании arrive/delivery сегментов",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflowWithLongDistance")
@@ -442,7 +442,7 @@ public class WorkflowTest extends RestBase {
         cancelWorkflow(clientWorkflow, shipmentUuid);
     }
 
-    @CaseId(103)
+    @TmsLink("103")
     @Test(description = "Создание маршрутного листа с сегментом, который был пройден в отклонненом маршрутном листе",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflowWithLongDistanceWithoutCheck")
@@ -458,7 +458,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(assignments.get(0).getStatus(), OFFERED);
     }
 
-    @CaseId(22)
+    @TmsLink("22")
     @Test(description = "Отклонение назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithPassedSegment")
@@ -469,7 +469,7 @@ public class WorkflowTest extends RestBase {
         checkCanceledWorkflow(workflowUuid, workflowId, DECLINED, kafka);
     }
 
-    @CaseId(125)
+    @TmsLink("125")
     @Test(description = "Отмена отложенного назначения при отклонении родительского назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOfferedWorkflow")
@@ -486,7 +486,7 @@ public class WorkflowTest extends RestBase {
         checkCanceledWorkflow(childWorkflowUuid, AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(childWorkflowUuid).getWorkflowId(), CANCELED, kafka);
     }
 
-    @CaseId(142)
+    @TmsLink("142")
     @Test(description = "Отмена ранее отмененного маршрутного листа по uuid шимпента",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOfferedParentWorkflow")
@@ -501,7 +501,7 @@ public class WorkflowTest extends RestBase {
         Assert.assertTrue(response.getWorkflowIdsList().isEmpty(), "Пришли маршрутные листы");
     }
 
-    @CaseId(143)
+    @TmsLink("143")
     @Test(description = "Создание маршрутного листа для заказа в статусе pending_rejection_requests",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelNonExistentWorkflow")
@@ -513,7 +513,7 @@ public class WorkflowTest extends RestBase {
         checkGrpcError(responseForCreation, "Has pending cancellations", HAS_PENDING_CANCELLATION.toString());
     }
 
-    @CaseId(130)
+    @TmsLink("130")
     @Test(description = "Отсутствие автостарта маршрутного листа при принятии назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithPendingCancellation")
@@ -530,7 +530,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(workflows.get(workflows.size() - 1).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.QUEUED);
     }
 
-    @CaseId(68)
+    @TmsLink("68")
     @Test(description = "Сортировка маршрутных листов по времени",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "acceptWorkflowWithWorkflowInProgress")
@@ -557,7 +557,7 @@ public class WorkflowTest extends RestBase {
         cancelWorkflow(clientWorkflow, shipmentUuid);
     }
 
-    @CaseId(132)
+    @TmsLink("132")
     @Test(description = "Автостарт следующего маршрутного листа при отмене текущего маршрутного листа",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getAssignmentsByTime")
@@ -588,7 +588,7 @@ public class WorkflowTest extends RestBase {
     }
 
     @Skip
-    @CaseId(97)
+    @TmsLink("97")
     @Test(description = "Отмена заказа для назначения в статусе offered",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "startQueuedWorkflowAfterCancellingPrevious")
@@ -604,7 +604,7 @@ public class WorkflowTest extends RestBase {
     }
 
     @Skip
-    @CaseId(98)
+    @TmsLink("98")
     @Test(description = "Отмена заказа для назначения в статусе in progress",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOrderWithOfferedWorkflow")
@@ -622,7 +622,7 @@ public class WorkflowTest extends RestBase {
     }
 
     @Skip
-    @CaseId(98)
+    @TmsLink("98")
     @Test(description = "Отмена заказа для назначения в статусе queued",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOrderWithWorkflow")
@@ -650,7 +650,7 @@ public class WorkflowTest extends RestBase {
     }
 
     @Skip
-    @CaseId(97)
+    @TmsLink("97")
     @Test(description = "Отмена заказа для назначения в статусе seen",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOrderWithQueuedWorkflow")

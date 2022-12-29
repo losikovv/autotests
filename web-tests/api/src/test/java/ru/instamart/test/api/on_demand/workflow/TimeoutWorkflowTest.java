@@ -21,7 +21,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import shipment_pricing.ShipmentPriceServiceGrpc;
 import workflow.AssignmentChangedOuterClass;
 import workflow.ServiceGrpc;
@@ -65,7 +65,7 @@ public class TimeoutWorkflowTest extends RestBase {
     }
 
     @Skip //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
-    @CaseId(35)
+    @TmsLink("35")
     @Test(description = "Таймаут назначения",
             groups = "dispatch-workflow-smoke")
     public void checkStatusAfterTimeout() {
@@ -80,7 +80,7 @@ public class TimeoutWorkflowTest extends RestBase {
     }
 
     @Skip //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
-    @CaseId(125)
+    @TmsLink("125")
     @Test(description = "Таймаут отложенного назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkStatusAfterTimeout")
@@ -103,7 +103,7 @@ public class TimeoutWorkflowTest extends RestBase {
     }
 
     @Skip //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
-    @CaseId(126)
+    @TmsLink("126")
     @Test(description = "Отмена отложенного назначения при timeout родительского назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkChildWorkflowStatusAfterTimeout")
@@ -124,7 +124,7 @@ public class TimeoutWorkflowTest extends RestBase {
     }
 
     @Skip
-    @CaseId(144)
+    @TmsLink("144")
     @Test(description = "Обновление таймингов in_progress маршрутного листа с текущим сегментом arrive/delivery",
             groups = "dispatch-workflow-smoke")
     public void updateTimingsForWorkflowInProgress() {
@@ -143,7 +143,7 @@ public class TimeoutWorkflowTest extends RestBase {
     }
 
     @Skip //TODO Требует уточнения условий
-    @CaseId(148)
+    @TmsLink("148")
     @Test(description = "Обновление таймингов маршрутного листа в очереди",
             groups = "dispatch-workflow-smoke")
             //dependsOnMethods = "updateTimingsForWorkflowInProgress")

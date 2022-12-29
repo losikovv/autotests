@@ -22,7 +22,7 @@ import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class MergedShipmentsV2Test extends RestBase {
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
-    @CaseId(1029)
+    @TmsLink("1029")
     @Story("Мердж подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление в подзаказ другого подзаказа")
@@ -60,7 +60,7 @@ public class MergedShipmentsV2Test extends RestBase {
         checkResponseJsonSchema(responseForMerge, OrderV2Response.class);
     }
 
-    @CaseId(1030)
+    @TmsLink("1030")
     @Story("Мердж подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление в подзаказ подзаказа из другого магазина",
@@ -74,7 +74,7 @@ public class MergedShipmentsV2Test extends RestBase {
         Assert.assertTrue(response.asString().contains("\"store_id\":\"Дозаказать можно только из того же магазина\""));
     }
 
-    @CaseId(1031)
+    @TmsLink("1031")
     @Story("Мердж подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление в подзаказ подзаказа с алкоголем",
@@ -90,7 +90,7 @@ public class MergedShipmentsV2Test extends RestBase {
         Assert.assertTrue(responseWithMerge.asString().contains("\"shipping_category_id\":\"В заказе алкоголь. Его нельзя добавить к заказу с доставкой\""), "Пришел неверный текст ошибки");
     }
 
-    @CaseId(1474)
+    @TmsLink("1474")
     @Story("Статус мержа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о статусе мержа для существующего заказа",
@@ -102,7 +102,7 @@ public class MergedShipmentsV2Test extends RestBase {
         checkResponseJsonSchema(response, MergeStatusV2Response.class);
     }
 
-    @CaseId(1475)
+    @TmsLink("1475")
     @Story("Статус мержа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о статусе мержа для несуществующего заказа")
@@ -112,7 +112,7 @@ public class MergedShipmentsV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(2046)
+    @TmsLink("2046")
     @Story("Мердж подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление в подзаказ подзаказа с аптечной продукцией",

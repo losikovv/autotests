@@ -3,6 +3,7 @@ package ru.instamart.test.api.self_fee;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.SelfFeeBase;
 import ru.instamart.api.enums.SessionType;
@@ -11,7 +12,6 @@ import ru.instamart.api.request.self_fee.SelfFeeV1Request;
 import ru.instamart.api.response.self_fee.RegistryResponse;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.Group.SELF_FEE;
@@ -23,7 +23,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Self-Fee")
 public class SelfFeeTest extends SelfFeeBase {
 
-    @CaseId(315)
+    @TmsLink("315")
     @Story("Доступ к разделу (авторизация)")
     @Test(groups = {SELF_FEE},
             description = "Получение списка реестров с ролью расчётной группы")
@@ -39,7 +39,7 @@ public class SelfFeeTest extends SelfFeeBase {
         assertTrue(registryResponse.getResult().size() > 0, "result is empty");
     }
 
-    @CaseId(316)
+    @TmsLink("316")
     @Story("Доступ к разделу (авторизация)")
     @Test(groups = {SELF_FEE},
             description = "Неуспешное получение списка реестров с ролью, отличной от роли расчётной группы")

@@ -13,8 +13,8 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.PaymentsV2Request;
 import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -33,7 +33,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
-    @CaseIDs(value = {@CaseId(509), @CaseId(510)})
+    @TmsLinks(value = {@TmsLink("509"), @TmsLink("510")})
     @Story("Начало авторизации")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение номера транзакции для заказа",
@@ -47,7 +47,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
         transactionNumber = creditCardAuthorizationV2Response.getCreditCardAuthorization().getTransactionNumber();
     }
 
-    @CaseIDs(value = {@CaseId(512), @CaseId(1033)})
+    @TmsLinks(value = {@TmsLink("512"), @TmsLink("1033")})
     @Story("Продолжение авторизации")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Продолжение авторизации с невалидными данными",
@@ -59,7 +59,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
         checkError(response, errorMessage);
     }
 
-    @CaseId(513)
+    @TmsLink("513")
     @Story("Продолжение авторизации")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Продолжение авторизации с невалидным токеном авторизации",
@@ -71,7 +71,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
         checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 
-    @CaseIDs(value = {@CaseId(515), @CaseId(1041)})
+    @TmsLinks(value = {@TmsLink("515"), @TmsLink("1041")})
     @Story("Финальный шаг авторизации карты")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Завершение авторизации карты с невалидными данными",

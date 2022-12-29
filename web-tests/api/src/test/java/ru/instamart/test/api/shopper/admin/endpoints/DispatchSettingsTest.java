@@ -17,7 +17,7 @@ import ru.instamart.api.response.shopper.admin.OperationalZoneDispatchSettingRes
 import ru.instamart.api.response.shopper.admin.StoreDispatchSettingsResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.Group.API_SHOPPER_PROD;
@@ -30,7 +30,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 @Feature("Endpoints")
 public class DispatchSettingsTest extends RestBase {
     @Story("Dispatch settings")
-    @CaseId(104)
+    @TmsLink("104")
     @Test(description = "Получение конфига с валидным токеном",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void dispatchSettings200() {
@@ -41,7 +41,7 @@ public class DispatchSettingsTest extends RestBase {
     }
 
     @Story("Dispatch settings")
-    @CaseId(104)
+    @TmsLink("104")
     @Test(description = "Получение конфига с несуществующим zoneId",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void dispatchSettings404() {
@@ -53,7 +53,7 @@ public class DispatchSettingsTest extends RestBase {
     }
 
     @Story("Dispatch settings")
-    @CaseId(104)
+    @TmsLink("104")
     @Test(description = "Получение конфига с не валидным токеном",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void dispatchSettings401() {
@@ -78,7 +78,7 @@ public class DispatchSettingsTest extends RestBase {
     }
 
     @Story("Dispatch settings")
-    @CaseId(189)
+    @TmsLink("189")
     @Test(description = "Изменение настроек диспатчеризации",
             groups = {API_SHOPPER_REGRESS})
     public void putDispatchSettings() {

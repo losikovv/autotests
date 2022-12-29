@@ -7,7 +7,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.*;
@@ -21,7 +20,7 @@ public final class CheckoutPaymentMethodsTests {
     private final ApiHelper helper = new ApiHelper();
 
     @Issue("B2C-9776")
-    @CaseId(3616)
+    @TmsLink("3616")
     @Story("Способы оплаты")
     @Test(description = "Сброс способа оплаты 'Картой курьеру' при выборе 'Бесконтактная доставка'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -62,7 +61,7 @@ public final class CheckoutPaymentMethodsTests {
     }
 
     @Issue("B2C-9777")
-    @CaseId(3637)
+    @TmsLink("3637")
     @Story("Способы оплаты")
     @Test(description = "Проверка предвыбора метода 'Оплатить онлайн' при выборе самовывоза", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -90,7 +89,7 @@ public final class CheckoutPaymentMethodsTests {
     }
 
     @Issues({@Issue("B2C-9732"), @Issue("B2C-9730")})
-    @CaseId(3649)
+    @TmsLink("3649")
     @Story("Способы оплаты")
     @Test(description = "Проверка добавления новой карты оплаты", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -128,7 +127,7 @@ public final class CheckoutPaymentMethodsTests {
     }
 
     @Issue("B2C-9732")
-    @CaseId(3642)
+    @TmsLink("3642")
     @Story("Способы оплаты")
     @Test(description = "Проверка появления кнопки 'Оплатить' при способе оплаты 'Картой онлайн'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -165,7 +164,7 @@ public final class CheckoutPaymentMethodsTests {
         checkoutNew().checkConfirmPayActive();
     }
 
-    @CaseId(3643)
+    @TmsLink("3643")
     @Story("Способы оплаты")
     @Test(description = "Проверка появления кнопки 'Заказать' при способе оплаты 'Картой курьеру'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -194,7 +193,7 @@ public final class CheckoutPaymentMethodsTests {
         checkoutNew().checkConfirmOrderActive();
     }
 
-    @CaseId(3822)
+    @TmsLink("3822")
     @Story("Способы оплаты")
     @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Доставка)", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -230,7 +229,7 @@ public final class CheckoutPaymentMethodsTests {
         checkout().checkCheckoutButtonIsVisible();
     }
 
-    @CaseId(3827)
+    @TmsLink("3827")
     @Story("Способы оплаты")
     @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Самовывоз)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -269,7 +268,7 @@ public final class CheckoutPaymentMethodsTests {
         checkout().checkCheckoutButtonIsVisible();
     }
 
-    @CaseId(3885)
+    @TmsLink("3885")
     @Test(description = "Проверка удаления карты оплаты", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testRemovePaymentCard() {

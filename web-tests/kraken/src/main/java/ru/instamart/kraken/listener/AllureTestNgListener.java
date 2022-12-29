@@ -36,7 +36,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static ru.instamart.kraken.service.testit.Utils.filterTestWithParameters;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -238,12 +237,7 @@ public abstract class AllureTestNgListener implements ISuiteListener, ITestListe
         final var testsForRun = TestItService.INSTANCE.getClient().getTestFromTestRun();
 
         return methods.stream().filter(method -> {
-            final var caseID = Utils.extractCaseID(method.getMethod().getConstructorOrMethod().getMethod(), null);
-
-            if (caseID.matches("\\{.*}")) {
-                return filterTestWithParameters(testsForRun, caseID);
-            }
-
+            final var caseID = Utils.extractCaseID(method.getMethod().getConstructorOrMethod().getMethod());
             return testsForRun.contains(caseID);
         }).collect(Collectors.toList());
     }

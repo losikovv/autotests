@@ -6,7 +6,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.SMOKE_STF;
@@ -17,7 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Профиль пользователя")
 public final class UserProfileTests {
 
-    @CaseId(1524)
+    @TmsLink("1524")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации меню профиля Sbermarket", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateSbermarketTenantProfileMenu() {
@@ -36,7 +36,7 @@ public final class UserProfileTests {
         shop().interactHeader().interactAccountMenu().checkFAQLinkExists();
     }
 
-    @CaseId(1525)
+    @TmsLink("1525")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Профиль' в меню профиля", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateUserProfileButton() {
@@ -50,7 +50,7 @@ public final class UserProfileTests {
         pages().checkPageIsAvailable();
     }
 
-    @CaseId(1527)
+    @TmsLink("1527")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateTermsButton() {
@@ -64,7 +64,7 @@ public final class UserProfileTests {
         pages().checkPageIsAvailable();
     }
 
-    @CaseId(1528)
+    @TmsLink("1528")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateDeliveryButton() {
@@ -78,7 +78,7 @@ public final class UserProfileTests {
         pages().checkPageIsAvailable();
     }
 
-    @CaseId(1530)
+    @TmsLink("1530")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateFaqButton() {
@@ -92,7 +92,7 @@ public final class UserProfileTests {
         pages().checkPageIsAvailable();
     }
 
-    @CaseId(1531)
+    @TmsLink("1531")
     @Story("навигация в меню пользователя")
     @Test(description = "Тест доступности страниц профиля пользователя", groups = {REGRESSION_STF, SMOKE_STF})
     public void successCheckProfilePagesAreAvailable() {
@@ -108,7 +108,7 @@ public final class UserProfileTests {
         pages().checkPageIsAvailable();
     }
 
-    @CaseId(1532)
+    @TmsLink("1532")
     @Story("Заказы")
     @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateDefaultOrderHistory() {
@@ -128,7 +128,7 @@ public final class UserProfileTests {
         userShipments().checkGoToShoppingButton();
     }
 
-    @CaseId(2559)
+    @TmsLink("2559")
     @Story("Данные профиля пользователя")
     @Test(description = "Добавление имени и фамилии для новых пользователей", groups = {REGRESSION_STF, SMOKE_STF})
     public void addFullName() {
@@ -147,7 +147,7 @@ public final class UserProfileTests {
         userEdit().checkFullName(userData.getName(), userEdit().getName());
     }
 
-    @CaseId(2560)
+    @TmsLink("2560")
     @Story("Данные профиля пользователя")
     @Test(description = "Добавление E-mail для новых пользователей", groups = REGRESSION_STF)
     public void addEmail() {
@@ -165,7 +165,7 @@ public final class UserProfileTests {
         //TODO: Переход из почты по ссылке, для подтверждения и смены ящика
     }
 
-    @CaseId(2561)
+    @TmsLink("2561")
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = {REGRESSION_STF, SMOKE_STF})
     public void changeFullName() {
@@ -196,7 +196,7 @@ public final class UserProfileTests {
         userEdit().checkFullName(fullName, userEdit().getName());
     }
 
-    @CaseId(2562)
+    @TmsLink("2562")
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение E-mail для существующих пользователей", groups = REGRESSION_STF)
     public void changeEmail() {
@@ -214,7 +214,7 @@ public final class UserProfileTests {
         //TODO: Переход из почты по ссылке, для подтверждения и смены ящика
     }
 
-    @CaseId(2563)
+    @TmsLink("2563")
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение телефона для существующих пользователей", groups = {REGRESSION_STF, SMOKE_STF})
     public void changePhone() {
@@ -231,7 +231,7 @@ public final class UserProfileTests {
         userEdit().checkPhone(newUser.getPhone(), StringUtil.getPhone(userEdit().getPhone()));
     }
 
-    @CaseId(2564)
+    @TmsLink("2564")
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение E-mail на тот, который уже есть в системе", groups = REGRESSION_STF)
     public void changeToExistingEmail() {

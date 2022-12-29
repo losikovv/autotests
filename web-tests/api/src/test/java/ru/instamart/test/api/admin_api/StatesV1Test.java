@@ -17,7 +17,7 @@ import ru.instamart.jdbc.dao.stf.SpreeStatesDao;
 import ru.instamart.jdbc.entity.stf.SpreeStatesEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +38,7 @@ public class StatesV1Test extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(2067)
+    @TmsLink("2067")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение списка регионов")
     public void getAllStates() {
@@ -49,7 +49,7 @@ public class StatesV1Test extends RestBase {
         compareTwoObjects(statesFromResponse.size(), SpreeStatesDao.INSTANCE.getCount());
     }
 
-    @CaseId(2068)
+    @TmsLink("2068")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание нового региона")
     public void createState() {
@@ -63,7 +63,7 @@ public class StatesV1Test extends RestBase {
         stateId = state.getId();
     }
 
-    @CaseId(2069)
+    @TmsLink("2069")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание нового региона с пустым названием")
     public void createStateWithEmptyName() {
@@ -74,7 +74,7 @@ public class StatesV1Test extends RestBase {
         compareTwoObjects(error, "не может быть пустым");
     }
 
-    @CaseId(2070)
+    @TmsLink("2070")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование региона",
             dependsOnMethods = "createState")
@@ -91,7 +91,7 @@ public class StatesV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2071)
+    @TmsLink("2071")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование региона с пустым именем",
             dependsOnMethods = "createState")
@@ -102,7 +102,7 @@ public class StatesV1Test extends RestBase {
         compareTwoObjects(error, "не может быть пустым");
     }
 
-    @CaseId(2694)
+    @TmsLink("2694")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование несуществующего региона")
     public void editNonExistentState() {
@@ -111,7 +111,7 @@ public class StatesV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2693)
+    @TmsLink("2693")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение региона",
             dependsOnMethods = {"editStateWithoutName", "editState"})
@@ -122,7 +122,7 @@ public class StatesV1Test extends RestBase {
         compareTwoObjects(response.as(StateV1Response.class).getState().getName(), name);
     }
 
-    @CaseId(2695)
+    @TmsLink("2695")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение несуществующего региона")
     public void getNonExistentState() {
@@ -132,7 +132,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @Skip //todo починить 403 (похоже не хватает какой-то роли админу)
-    @CaseId(2072)
+    @TmsLink("2072")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление региона",
             dependsOnMethods = "getState")
@@ -142,7 +142,7 @@ public class StatesV1Test extends RestBase {
         Assert.assertTrue(SpreeStatesDao.INSTANCE.findById(stateId).isEmpty(), "Регион не удалился");
     }
 
-    @CaseId(2696)
+    @TmsLink("2696")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление несуществующего региона")
     public void deleteNonExistentState() {

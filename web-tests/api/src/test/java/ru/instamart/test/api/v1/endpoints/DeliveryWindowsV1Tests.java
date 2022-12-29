@@ -3,6 +3,7 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.BeforeClass;
@@ -19,7 +20,6 @@ import ru.instamart.api.response.v1.DeliveryWindowV1Response;
 import ru.instamart.api.response.v1.DeliveryWindowsV1Response;
 import ru.instamart.jdbc.dao.stf.DeliveryWindowsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
 
 
     @Story("Окна доставки")
-    @CaseId(1145)
+    @TmsLink("1145")
     @Test(description = "Получение списка окон доставки для магазина на конкретную дату",
             groups = {"api-instamart-smoke",API_INSTAMART_PROD, "api-v1"})
     public void getDeliveryWindows() {
@@ -60,7 +60,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     }
 
     @Story("Окна доставки")
-    @CaseId(1146)
+    @TmsLink("1146")
     @Test(description = "Получение списка окон доставки для несуществуюшего магазина",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getDeliveryWindowsForNonExistingStore() {
@@ -69,7 +69,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     }
 
     @Story("Окна доставки")
-    @CaseId(1147)
+    @TmsLink("1147")
     @Test(description = "Генерация окон доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void generateDeliveryWindows() {
@@ -78,7 +78,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     }
 
     @Story("Окна доставки")
-    @CaseId(1148)
+    @TmsLink("1148")
     @Test(description = "Генерация окон доставки для несуществующего магазина",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void generateDeliveryWindowsForNonExistingStore() {
@@ -87,7 +87,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     }
 
     @Story("Окна доставки")
-    @CaseId(1149)
+    @TmsLink("1149")
     @Test(description = "Редактирование окна доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getDeliveryWindows")
@@ -113,7 +113,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     }
 
     @Story("Окна доставки")
-    @CaseId(1150)
+    @TmsLink("1150")
     @Test(description = "Редактирование несуществующего окна доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void editNonExistingDeliveryWindow() {
@@ -128,7 +128,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     }
 
     @Story("Окна доставки")
-    @CaseId(1151)
+    @TmsLink("1151")
     @Test(description = "Редактирование окна доставки c невалидными значениями",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getDeliveryWindows")
@@ -152,7 +152,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     }
 
     @Story("Окна доставки")
-    @CaseId(2135)
+    @TmsLink("2135")
     @Test(description = "Получение списка типов окон доставки",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getDeliveryWindowKinds() {

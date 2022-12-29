@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.stf.checkout;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -11,7 +12,6 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -34,7 +34,7 @@ public final class CheckoutDeliverySlotsTests {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseId(2648)
+    @TmsLink("2648")
     @Story("Корзина")
     @Test(description = "Изменение ранее выбранного слота доставки", groups = REGRESSION_STF)
     public void successChangePreviousDeliverySlotAndOrder() {
@@ -96,7 +96,7 @@ public final class CheckoutDeliverySlotsTests {
         userShipment().checkDeliveryIntervalCorrect("Завтра, " + deliveryTime);
     }
 
-    @CaseId(2649)
+    @TmsLink("2649")
     @Story("Корзина")
     @Test(description = "Невозможность завершения заказа при невыбранном слоте доставки", groups = REGRESSION_STF)
     public void failedContinueWithUnselectedDeliverySlot() {

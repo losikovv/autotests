@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.admin.orders;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -10,7 +11,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.shopper.app.ShipmentSHP;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -29,7 +29,7 @@ public final class AdministrationOrdersEditTests {
         Assert.assertNotNull(shipment, "Не удалось получить заказ");
     }
 
-    @CaseId(133)
+    @TmsLink("133")
     @Test(description = "В шапке указан выбранный юзером слот доставки", groups = REGRESSION_ADMIN)
     public void checkDeliverySlotVisible() {
         login().goToPage();
@@ -48,7 +48,7 @@ public final class AdministrationOrdersEditTests {
         shipmentPageDelivery().checkSavedDeliveryIntervalVisible();
     }
 
-    @CaseId(135)
+    @TmsLink("135")
     @Test(description = "Проверка успешного изменения времени доставки", groups = REGRESSION_ADMIN)
     public void checkEditDeliverySlot() {
         login().goToPage();
@@ -79,7 +79,7 @@ public final class AdministrationOrdersEditTests {
         shipmentPageDelivery().checkSavedDeliveryIntervalTextContains(newDeliveryInterval);
     }
 
-    @CaseId(137)
+    @TmsLink("137")
     @Test(description = "В интервале указан лимит доступных слотов - занятые/общее кол-во слотов", groups = REGRESSION_ADMIN)
     public void checkSlotsLimitDisplayedInInterval() {
         login().goToPage();

@@ -3,8 +3,8 @@ task apiShopperSmoke(type: Test) {
         suites 'src/test/resources/suite/api-shopper.xml'
         includeGroups 'api-shopper-smoke'
     }
-    systemProperty 'qase.Project', 'SHAPI'
-    systemProperty 'qase.Title', 'Shopper API Smoke'
+    environment 'PROJECT_ID', 'SHAPI'
+    environment 'TEST_RUN_NAME', 'Shopper API Smoke'
 //    systemProperty 'one_session', 'true'
 }
 
@@ -13,8 +13,8 @@ task apiShopperRegress(type: Test) {
         suites 'src/test/resources/suite/api-shopper.xml'
         includeGroups 'api-shopper-smoke', 'api-shopper-regress'
     }
-    systemProperty 'qase.Project', 'SHAPI'
-    systemProperty 'qase.Title', 'Shopper API Regress'
+    environment 'PROJECT_ID', 'SHAPI'
+    environment 'TEST_RUN_NAME', 'Shopper API Regress'
 //    systemProperty 'one_session', 'true'
 }
 
@@ -34,8 +34,8 @@ task apiV2InstamartRegress(type: Test) {
             failOnPassedAfterRetry = false
         }
     }
-    systemProperty 'qase.Project', 'INAPI'
-    systemProperty 'qase.Title', 'Instamart API Regress'
+    environment 'PROJECT_ID', 'INAPI'
+    environment 'TEST_RUN_NAME', 'Instamart API Regress'
 }
 
 task apiV1InstamartRegress(type: Test) {
@@ -54,8 +54,8 @@ task apiV1InstamartRegress(type: Test) {
             failOnPassedAfterRetry = false
         }
     }
-    systemProperty 'qase.Project', 'INAPI'
-    systemProperty 'qase.Title', 'Instamart API Regress'
+    environment 'PROJECT_ID', 'INAPI'
+    environment 'TEST_RUN_NAME', 'Instamart API Regress'
 }
 
 task apiV3InstamartRegress(type: Test) {
@@ -74,8 +74,8 @@ task apiV3InstamartRegress(type: Test) {
             failOnPassedAfterRetry = false
         }
     }
-    systemProperty 'qase.Project', 'INAPI'
-    systemProperty 'qase.Title', 'Instamart API Regress'
+    environment 'PROJECT_ID', 'INAPI'
+    environment 'TEST_RUN_NAME', 'Instamart API Regress'
 }
 
 task apiInstamartSmoke(type: Test) {
@@ -83,8 +83,8 @@ task apiInstamartSmoke(type: Test) {
         suites 'src/test/resources/suite/api-all.xml'
         includeGroups 'api-instamart-smoke'
     }
-    systemProperty 'qase.Project', 'INAPI'
-    systemProperty 'qase.Title', 'Instamart API Smoke'
+    environment 'PROJECT_ID', 'INAPI'
+    environment 'TEST_RUN_NAME', 'Instamart API Smoke'
 }
 
 task apiV2BFF(type: Test) {
@@ -94,8 +94,8 @@ task apiV2BFF(type: Test) {
     }
     environment 'URL_STF_BACKEND', 'stf-kraken.k-stage.sbermarket.tech'
     systemProperty 'bff', 'true'
-    systemProperty 'qase.Project', 'INAPI'
-    systemProperty 'qase.Title', 'BFF API v2'
+    environment 'PROJECT_ID', 'INAPI'
+    environment 'TEST_RUN_NAME', 'BFF API v2'
 }
 
 task apiv3Smoke(type: Test) {
@@ -103,8 +103,8 @@ task apiv3Smoke(type: Test) {
         suites 'src/test/resources/suite/api-v3.xml'
         includeGroups 'api-instamart-smoke'
     }
-    systemProperty 'qase.Project', 'INAPI'
-    systemProperty 'qase.Title', 'Smoke endpoints Api v3'
+    environment 'PROJECT_ID', 'INAPI'
+    environment 'TEST_RUN_NAME', 'Smoke endpoints Api v3'
 }
 
 task apiV3Notifications(type: Test) {
@@ -113,8 +113,8 @@ task apiV3Notifications(type: Test) {
         includeGroups 'api-instamart-smoke', 'api-instamart-regress'
     }
     environment 'P_ENV', "sbermarket-staging_mannschaft"
-    systemProperty 'qase.Project', 'INAPI'
-    systemProperty 'qase.Title', 'API v3 Notifications'
+    environment 'PROJECT_ID', 'INAPI'
+    environment 'TEST_RUN_NAME', 'API v3 Notifications'
 }
 
 task apiRetailerE2E(type: Test) {
@@ -133,8 +133,8 @@ task apiInstamartProduction(type: Test) {
     }
     environment 'P_ENV', "sbermarket-production"
     environment 'DEFAULT_SID', '18'
-    systemProperty 'qase.Project', 'INAPI'
-    systemProperty 'qase.Title', 'Instamart API Regress'
+    environment 'PROJECT_ID', 'INAPI'
+    environment 'TEST_RUN_NAME', 'Instamart API Regress'
 }
 
 task apiShopperProduction(type: Test) {
@@ -144,8 +144,8 @@ task apiShopperProduction(type: Test) {
     }
     environment 'P_ENV', "sbermarket-production"
     environment 'DEFAULT_SID', '18'
-    systemProperty 'qase.Project', 'SHAPI'
-    systemProperty 'qase.Title', 'Shopper API Regress'
+    environment 'PROJECT_ID', 'SHAPI'
+    environment 'TEST_RUN_NAME', 'Shopper API Regress'
     systemProperty 'one_session', 'true'
 }
 
@@ -155,8 +155,8 @@ task apiScango(type: Test) {
         includeGroups 'api-sg'
     }
     environment 'P_ENV', "sbermarket-scango"
-    systemProperty 'qase.Project', 'INAPI'
-    systemProperty 'qase.Title', 'Instamart API Scan&Go'
+    environment 'PROJECT_ID', 'INAPI'
+    environment 'TEST_RUN_NAME', 'Instamart API Scan&Go'
 }
 
 task apiSelfFee(type: Test) {
@@ -165,6 +165,6 @@ task apiSelfFee(type: Test) {
         includeGroups 'api-selffee'
     }
     environment 'P_ENV', "hr_ops_selffee-custom"
-    systemProperty 'qase.Project', 'FNS'
-    systemProperty 'qase.Title', 'HR OPS. Self-Fee'
+    environment 'PROJECT_ID', 'FNS'
+    environment 'TEST_RUN_NAME', 'HR OPS. Self-Fee'
 }

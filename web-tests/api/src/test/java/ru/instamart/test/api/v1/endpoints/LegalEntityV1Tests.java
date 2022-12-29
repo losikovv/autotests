@@ -3,7 +3,7 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -24,7 +24,7 @@ public class LegalEntityV1Tests extends RestBase {
     }
 
     @Story("Web")
-    @CaseId(625)
+    @TmsLink("625")
     @Test(description = "Загрузка реквизитов компании из Контур-Фокус",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getWithoutLegalEntity() {

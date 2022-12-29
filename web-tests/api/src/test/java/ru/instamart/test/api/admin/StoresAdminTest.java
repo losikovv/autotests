@@ -24,8 +24,8 @@ import ru.instamart.jdbc.entity.stf.StoresEntity;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.Objects;
 
@@ -54,7 +54,7 @@ public class StoresAdminTest extends RestBase {
         }
     }
 
-    @CaseId(1189)
+    @TmsLink("1189")
     @Story("Магазины ритейлеров")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание нового магазина")
@@ -69,7 +69,7 @@ public class StoresAdminTest extends RestBase {
         checkStoreInDb(store, storeFromDb, storeConfigs);
     }
 
-    @CaseId(1190)
+    @TmsLink("1190")
     @Story("Магазины ритейлеров")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование нового магазина",
@@ -85,7 +85,7 @@ public class StoresAdminTest extends RestBase {
     }
 
     @Skip
-    @CaseIDs(value = {@CaseId(1210), @CaseId(1211), @CaseId(1212), @CaseId(1213), @CaseId(1214), @CaseId(1215), @CaseId(1216)})
+    @TmsLinks(value = {@TmsLink("1210"), @TmsLink("1211"), @TmsLink("1212"), @TmsLink("1213"), @TmsLink("1214"), @TmsLink("1215"), @TmsLink("1216")})
     @Story("Магазины ритейлеров")
     @JsonDataProvider(path = "data/json_admin/admin_negative_stores_data.json", type = RestDataProvider.StoresAdminTestDataRoot.class)
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},

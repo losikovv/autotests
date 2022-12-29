@@ -21,7 +21,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -44,7 +44,7 @@ public class OrderTimeToThrowTest extends RestBase {
         shiftsApi.startOfShift(StartPointsTenants.METRO_9);
     }
 
-    @CaseId(50)
+    @TmsLink("50")
     @Test(groups = {"dispatch-orderservice-smoke"},
             description = "On-demand заказ не хранится в буфере до момента time_to_throw")
     public void createOrder() {
@@ -70,7 +70,7 @@ public class OrderTimeToThrowTest extends RestBase {
     }
 
 
-    @CaseId(51)
+    @TmsLink("51")
     @Test(enabled = false,
             groups = {"dispatch-orderservice-smoke"},
             description = "Проверка расчёта time_to_throw")

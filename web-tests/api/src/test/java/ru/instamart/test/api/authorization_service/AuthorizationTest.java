@@ -3,6 +3,7 @@ package ru.instamart.test.api.authorization_service;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,7 +14,6 @@ import ru.instamart.api.request.authorization_service.AuthorizationRequest;
 import ru.instamart.api.request.authorization_service.PolicyRequest;
 import ru.instamart.api.request.authorization_service.RealmRequest;
 import ru.instamart.api.response.authorization_service.AuthorizationResponse;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -30,7 +30,7 @@ public class AuthorizationTest {
         Response response = RealmRequest.POST(AuthorizationServiceHelper.getInitialRealm());
     }
 
-    @CaseId(17)
+    @TmsLink("17")
     @Test(groups = {"api-authorization-service"},
             description = "Авторизация")
     public void postAuthorization200() {
@@ -50,7 +50,7 @@ public class AuthorizationTest {
 
     }
 
-    @CaseId(18)
+    @TmsLink("18")
     @Test(groups = {"api-authorization-service"},
             description = "Авторизация с неверными правами доступа")
     public void postAuthorizationWrongPermissons() {

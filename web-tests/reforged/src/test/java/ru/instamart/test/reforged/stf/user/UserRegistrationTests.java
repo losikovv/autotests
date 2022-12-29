@@ -10,7 +10,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.core.annotation.CookieProvider;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -19,7 +19,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Регистрация пользователя")
 public final class UserRegistrationTests {
 
-    @CaseId(1552)
+    @TmsLink("1552")
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами", groups = {STARTING_X, REGRESSION_STF})
     public void noRegWithEmptyRequisites() {
@@ -31,7 +31,7 @@ public final class UserRegistrationTests {
         shop().interactAuthModal().checkPhoneErrorIsVisible();
     }
 
-    @CaseId(1541)
+    @TmsLink("1541")
     @Story("Регистрация на лендинге")
     @Test(description = "Регистрация нового пользователя на лендинге", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF, "MRAutoCheck"})
     public void successRegOnLanding() {
@@ -41,7 +41,7 @@ public final class UserRegistrationTests {
         home().checkLogoutButtonDisplayed();
     }
 
-    @CaseId(1543)
+    @TmsLink("1543")
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
     public void successRegOnMainPage() {
@@ -51,7 +51,7 @@ public final class UserRegistrationTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(1542)
+    @TmsLink("1542")
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Тест регистрации из адресной модалки феникса", groups = {STARTING_X, REGRESSION_STF})
     @Skip() // Для незарегистрированного пользователя теперь появляется большое окно выбора адреса, там нет авторизации
@@ -63,7 +63,7 @@ public final class UserRegistrationTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(748)
+    @TmsLink("748")
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Тест регистрации при переходе из корзины в чекаут", groups = {STARTING_X, REGRESSION_STF})
     public void successRegFromCart() {
@@ -86,7 +86,7 @@ public final class UserRegistrationTests {
         checkout().checkCheckoutButtonIsVisible();
     }
 
-    @CaseId(1545)
+    @TmsLink("1545")
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
     public void successRegWithoutMailingCheckbox() {
@@ -98,7 +98,7 @@ public final class UserRegistrationTests {
         home().checkLogoutButtonDisplayed();
     }
 
-    @CaseId(2622)
+    @TmsLink("2622")
     @Story("Регистрация из корзины")
     @Test(description = "Регистрация при попытке перехода из корзины в чекаут", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})

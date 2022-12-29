@@ -10,7 +10,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ExternalPartnersV2Request;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -28,7 +28,7 @@ public class ExternalPartnersV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
-    @CaseId(270)
+    @TmsLink("270")
     @Test(//Прайм -10% частично выпилен с прода DMND-1912
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Отправка запроса без store_id")
@@ -38,7 +38,7 @@ public class ExternalPartnersV2Test extends RestBase {
         checkError(response, "Отсутствует обязательный параметр 'store_id'");
     }
 
-    @CaseId(269)
+    @TmsLink("269")
     @Test(//Прайм -10% частично выпилен с прода DMND-1912
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Отправка запроса c store_id")
@@ -47,7 +47,7 @@ public class ExternalPartnersV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(810)
+    @TmsLink("810")
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Подписка SberPrime неактивна")
@@ -56,7 +56,7 @@ public class ExternalPartnersV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(1086)
+    @TmsLink("1086")
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Подписка SberPrime активна")

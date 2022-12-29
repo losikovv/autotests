@@ -1,6 +1,7 @@
 package ru.instamart.test.api.ris_exporter;
 
 import io.qameta.allure.Epic;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,7 +12,6 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.ris_exporter.CategoriesRisRequest;
 import ru.instamart.api.response.ris_exporter.CategoriesRisResponse;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -26,7 +26,7 @@ public class CategoriesRisTest extends RestBase {
         SessionFactory.createSessionToken(SessionType.RIS_EXPORTER, UserManager.getRisUser());
     }
 
-    @CaseId(424)
+    @TmsLink("424")
     @Test(  groups = {"api-ris-exporter"},
             description = "Получение категорий по storeId")
     public void getCategories200() {
@@ -36,7 +36,7 @@ public class CategoriesRisTest extends RestBase {
         checkResponseJsonSchema(response, CategoriesRisResponse.class);
     }
 
-    @CaseId(426)
+    @TmsLink("426")
     @Test(  groups = {"api-ris-exporter"},
             description = "Получение категорий по неверному storeId")
     public void getCategories404() {
@@ -45,7 +45,7 @@ public class CategoriesRisTest extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(434)
+    @TmsLink("434")
     @Test(  groups = {"api-ris-exporter"},
             description = "Проверка количества категорий",
             dataProviderClass = RestDataProvider.class,

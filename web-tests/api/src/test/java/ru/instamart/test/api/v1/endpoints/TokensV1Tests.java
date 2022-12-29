@@ -9,7 +9,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.TokensV1Request;
 import ru.instamart.api.response.v1.TokensV1Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -22,7 +22,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Токены")
 public class TokensV1Tests extends RestBase {
 
-    @CaseId(2367)
+    @TmsLink("2367")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение токенов пользователя")
     public void getTokens() {
@@ -32,7 +32,7 @@ public class TokensV1Tests extends RestBase {
         checkResponseJsonSchema(response, TokensV1Response.class);
     }
 
-    @CaseId(2368)
+    @TmsLink("2368")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение токенов неавторизованного пользователя")
     public void getTokensWithoutAuth() {

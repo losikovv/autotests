@@ -11,7 +11,7 @@ import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.shopper.admin.ScangoEnginesResponse;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.Group.API_SHOPPER_PROD;
@@ -25,7 +25,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class ShopperScanGoTest extends RestBase {
 
     @Story("Scan&Go")
-    @CaseId(103)
+    @TmsLink("103")
     @Test(description = "Получение конфига с валидным токеном",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void shopperScanGo200() {
@@ -36,7 +36,7 @@ public class ShopperScanGoTest extends RestBase {
     }
 
     @Story("Scan&Go")
-    @CaseId(103)
+    @TmsLink("103")
     @Test(description = "Получение конфига с не валидным токеном",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void shopperScanGo401() {

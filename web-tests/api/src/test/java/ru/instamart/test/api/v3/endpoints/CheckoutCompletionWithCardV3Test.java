@@ -1,9 +1,6 @@
 package ru.instamart.test.api.v3.endpoints;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -20,15 +17,14 @@ import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Collections;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.kraken.data.PaymentCards.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.kraken.data.PaymentCards.testCard;
+import static ru.instamart.kraken.data.PaymentCards.testCardWithSpasibo;
 
 @Epic("ApiV3")
 @Feature("Чекаут")
@@ -53,7 +49,7 @@ public class CheckoutCompletionWithCardV3Test extends RestBase {
         apiV1.addDeliveryWindow();
     }
 
-    @CaseIDs(value = {@CaseId(2584), @CaseId(2620)})
+    @TmsLinks(value = {@TmsLink("2584"), @TmsLink("2620")})
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа при выборе \"Оплата картой\"",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -69,7 +65,7 @@ public class CheckoutCompletionWithCardV3Test extends RestBase {
                     "Пришел неверный uuid заказа");});
     }
 
-    @CaseId(2651)
+    @TmsLink("2651")
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа со списанием бонусов СберСпасибо",
             groups = {API_INSTAMART_REGRESS, "api-v3"})

@@ -9,7 +9,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.SMOKE_STF;
@@ -22,7 +22,7 @@ public class ShoppingTestsForExistingUser {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(1616)
+    @TmsLink("1616")
     @Story("Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной")
     @Test(description = "Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной",
             groups = REGRESSION_STF)
@@ -42,7 +42,7 @@ public class ShoppingTestsForExistingUser {
         checkout().checkPageError404();
     }
 
-    @CaseId(1617)
+    @TmsLink("1617")
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")
     @Test(description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
             groups = REGRESSION_STF)
@@ -69,7 +69,7 @@ public class ShoppingTestsForExistingUser {
         shop().interactCart().checkOrderButtonIsNotEnabled();
     }
 
-    @CaseId(2606)
+    @TmsLink("2606")
     @Story("Тест набора корзины до суммы, достаточной для оформления заказа")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа", groups = {REGRESSION_STF, SMOKE_STF})
@@ -97,7 +97,7 @@ public class ShoppingTestsForExistingUser {
         checkoutNew().checkDeliverySlotsVisible();
     }
 
-    @CaseId(1619)
+    @TmsLink("1619")
     @Story("Тест на подтягивание адреса и мердж корзины из профиля при авторизации")
     @Test(description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации", groups = REGRESSION_STF)
     public void successMergeShipAddressAndCartAfterAuthorisation() {

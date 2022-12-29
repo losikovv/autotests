@@ -3,6 +3,7 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -14,7 +15,6 @@ import ru.instamart.api.response.v1.ApiClientV1Response;
 import ru.instamart.api.response.v1.ApiClientsV1Response;
 import ru.instamart.jdbc.dao.stf.ApiClientsDao;
 import ru.instamart.kraken.data.Generate;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class ApiClientsV1Tests extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(2697)
+    @TmsLink("2697")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение API клиентов")
     public void getApiClients() {
@@ -45,7 +45,7 @@ public class ApiClientsV1Tests extends RestBase {
         checkResponseJsonSchema(response, ApiClientsV1Response.class);
     }
 
-    @CaseId(2698)
+    @TmsLink("2698")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение API клиентов со второй страницы")
     public void getApiClientsFromSecondPage() {
@@ -54,7 +54,7 @@ public class ApiClientsV1Tests extends RestBase {
         checkResponseJsonSchema(response, ApiClientsV1Response.class);
     }
 
-    @CaseId(2699)
+    @TmsLink("2699")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание API клиента")
     public void createApiClient() {
@@ -78,7 +78,7 @@ public class ApiClientsV1Tests extends RestBase {
         checkApiClient(apiClient, apiClientFromResponse);
     }
 
-    @CaseId(2700)
+    @TmsLink("2700")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание API клиента без client_id")
     public void createApiClientWithoutClientId() {
@@ -98,7 +98,7 @@ public class ApiClientsV1Tests extends RestBase {
         Assert.assertTrue(response.asString().contains("\"client_id\":[\"не может быть пустым\"]"), "Пришел неверный текст ошибки");
     }
 
-    @CaseId(2701)
+    @TmsLink("2701")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование API клиента",
             dependsOnMethods = "createApiClient")
@@ -122,7 +122,7 @@ public class ApiClientsV1Tests extends RestBase {
         checkApiClient(apiClient, apiClientFromResponse);
     }
 
-    @CaseId(2702)
+    @TmsLink("2702")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование несуществующего API клиента")
     public void editNonExistentApiClient() {
@@ -136,7 +136,7 @@ public class ApiClientsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2705)
+    @TmsLink("2705")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение API клиента",
             dependsOnMethods = "editApiClient")
@@ -148,7 +148,7 @@ public class ApiClientsV1Tests extends RestBase {
         checkApiClient(apiClient, apiClientFromResponse);
     }
 
-    @CaseId(2703)
+    @TmsLink("2703")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение несуществующего API клиента")
     public void getNonExistentApiClient() {
@@ -157,7 +157,7 @@ public class ApiClientsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2704)
+    @TmsLink("2704")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение API клиентов по запросу",
             dependsOnMethods = "editApiClient")
@@ -169,7 +169,7 @@ public class ApiClientsV1Tests extends RestBase {
         apiClientsFromResponse.forEach(a -> compareTwoObjects(a.getClientId(), apiClient.getApiClient().getClientId()));
     }
 
-    @CaseId(2706)
+    @TmsLink("2706")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление API клиента",
             dependsOnMethods = "getSpecificApiClients")
@@ -181,7 +181,7 @@ public class ApiClientsV1Tests extends RestBase {
         });
     }
 
-    @CaseId(2707)
+    @TmsLink("2707")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление несуществующего API клиента",
             dependsOnMethods = "getSpecificApiClients")

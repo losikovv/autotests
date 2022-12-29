@@ -14,7 +14,7 @@ import ru.instamart.api.response.v2.FeedbacksV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertNull;
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
@@ -33,7 +33,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2304)
+    @TmsLink("2304")
     @Story("Получение списка отзывов без авторизации")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение списка отзывов без обязательных параметров")
@@ -52,7 +52,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2304)
+    @TmsLink("2304")
     @Story("Получение списка отзывов без авторизации")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение списка отзывов без обязательных параметров")
@@ -69,7 +69,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
     }
 
     @Skip //TODO: исправить после решения ошибки
-    @CaseId(2303)
+    @TmsLink("2303")
     @Story("Создание отзыва на товар без авторизации")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва на товар")
@@ -87,7 +87,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2302)
+    @TmsLink("2302")
     @Story("Проверка, может ли пользователь опубликовать отзыв без авторизации")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверка, может ли пользователь опубликовать отзыв")
@@ -97,7 +97,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2308)
+    @TmsLink("2308")
     @Story("Получить актуальный отзыв на товар")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить актуальный отзыв на товар")
@@ -116,7 +116,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2309)
+    @TmsLink("2309")
     @Story("Получить актуальный отзыв на товар")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить актуальный отзыв на товар")

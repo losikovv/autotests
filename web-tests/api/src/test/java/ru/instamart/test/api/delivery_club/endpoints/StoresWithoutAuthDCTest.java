@@ -3,7 +3,7 @@ package ru.instamart.test.api.delivery_club.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -32,7 +32,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         SessionFactory.clearSession(SessionType.DELIVERY_CLUB);
     }
 
-    @CaseId(591)
+    @TmsLink("591")
     @Story("Получение информации из магазинов")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение доступных слотов без авторизации")
@@ -41,7 +41,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(592)
+    @TmsLink("592")
     @Story("Получение информации из магазинов")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение всех слотов без авторизации")
@@ -50,7 +50,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(593)
+    @TmsLink("593")
     @Story("Получение информации из магазинов")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение стоков без авторизации")
@@ -59,7 +59,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(594)
+    @TmsLink("594")
     @Story("Заказ")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Создание нотификации для заказа без авторизации")
@@ -68,7 +68,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(595)
+    @TmsLink("595")
     @Story("Получение информации из магазинов")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение зон доставки без авторизации")
@@ -77,7 +77,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(596)
+    @TmsLink("596")
     @Story("Заказ")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Создание заказа без авторизации")
@@ -86,7 +86,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(597)
+    @TmsLink("597")
     @Story("Получение информации из магазинов")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение категорий продуктов без авторизации")
@@ -95,7 +95,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(598)
+    @TmsLink("598")
     @Story("Получение информации из магазинов")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение продуктов без авторизации")
@@ -104,7 +104,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(599)
+    @TmsLink("599")
     @Story("Заказ")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение информации о заказе по номеру без авторизации")
@@ -113,7 +113,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(600)
+    @TmsLink("600")
     @Story("Заказ")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Изменение статуса заказа без авторизации")

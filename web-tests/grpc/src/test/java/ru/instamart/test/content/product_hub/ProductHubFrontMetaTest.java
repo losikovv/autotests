@@ -11,7 +11,7 @@ import product_hub_front_meta.ProductHubFrontMetaGrpc;
 import product_hub_front_meta.ProductHubFrontMetaOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,7 +36,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         client = ProductHubFrontMetaGrpc.newBlockingStub(channel);
     }
 
-    @CaseId(186)
+    @TmsLink("186")
     @Test(  description = "Получение всех категорий",
             groups = "grpc-product-hub")
     public void getAllCategories() {
@@ -56,7 +56,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         log.debug("expected retailer IDs:" + expectedRetailerIds);
     }
 
-    @CaseId(187)
+    @TmsLink("187")
     @Test(  description = "Получение всех категорий без указания поля \"limit\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -69,7 +69,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         client.getAllCategories(request);
     }
 
-    @CaseId(188)
+    @TmsLink("188")
     @Test(  description = "Получение всех магазинов по диапазону продуктов",
             groups = "grpc-product-hub")
     public void getAllCategoriesWithStores() {
@@ -83,7 +83,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         assertEquals(response.getCategoriesList().size(), 1, "Количество категорий вернулось больше или меньше лимита");
     }
 
-    @CaseId(189)
+    @TmsLink("189")
     @Test(  description = "Получение всех магазинов по диапазону продуктов без поля \"limit\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -97,7 +97,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         client.getAllCategoriesWithStores(request);
     }
 
-    @CaseId(190)
+    @TmsLink("190")
     @Test(  description = "Получение всех категорий ритейлеров по id категории",
             groups = "grpc-product-hub",
             dependsOnMethods = "getAllCategories")
@@ -120,7 +120,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         softAssert.assertAll();
     }
 
-    @CaseId(191)
+    @TmsLink("191")
     @Test(  description = "Получение всех категорий ритейлеров по id категории с пустым значением поля \"category_ids\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -132,7 +132,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         client.getCategoriesByCategoryIDs(request);
     }
 
-    @CaseId(192)
+    @TmsLink("192")
     @Test(  description = "Получение фильтров по id категории",
             groups = "grpc-product-hub",
             dependsOnMethods = "getAllCategories")
@@ -152,7 +152,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         log.debug("expected attribute keys:" + expectedAttributeKeys);
     }
 
-    @CaseId(193)
+    @TmsLink("193")
     @Test(  description = "Получение фильтров по id категории с пустым значением поля \"category_ids\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -164,7 +164,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         client.getCategoryFiltersByCategoryIDs(request);
     }
 
-    @CaseId(194)
+    @TmsLink("194")
     @Test(  description = "Получение аттрибутов по ключу аттрибутов",
             groups = "grpc-product-hub",
             dependsOnMethods = "getCategoryFiltersByCategoryIDs")
@@ -187,7 +187,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         softAssert.assertAll();
     }
 
-    @CaseId(195)
+    @TmsLink("195")
     @Test(  description = "Получение аттрибутов по ключу аттрибутов без заданного значения в поле \"attribute_keys\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -199,7 +199,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         client.getAttributesByKeys(request);
     }
 
-    @CaseId(196)
+    @TmsLink("196")
     @Test(  description = "Получение всех аттрибутов в указанном диапазоне продуктов",
             groups = "grpc-product-hub")
     public void getAllAttributes() {
@@ -213,7 +213,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         assertEquals(response.getAttributesCount(), 10, "Вернулось другое количество атрибутов");
     }
 
-    @CaseId(197)
+    @TmsLink("197")
     @Test(  description = "Получение всех аттрибутов в указанном диапазоне продуктов без поля \"limit\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -226,7 +226,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         client.getAllAttributes(request);
     }
 
-    @CaseId(198)
+    @TmsLink("198")
     @Test(  description = "Получение всех словарей продуктов в заданном диапазоне",
             groups = "grpc-product-hub")
     public void getAllDictionaries() {
@@ -242,7 +242,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         expectedDictionaryKey = response.getDictionaries(0).getKey();
     }
 
-    @CaseId(199)
+    @TmsLink("199")
     @Test(  description = "Получение всех словарей продуктов в заданном диапазоне без поля \"limit\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -255,7 +255,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         client.getAllDictionaries(request);
     }
 
-    @CaseId(200)
+    @TmsLink("200")
     @Test(  description = "Проверка получения словарных ценностей по ключу словаря",
             groups = "grpc-product-hub",
             dependsOnMethods = "getAllDictionaries")
@@ -271,7 +271,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         assertFalse(response.getDictionaryValuesList().isEmpty(), "Не вернулись словарные ценности");
     }
 
-    @CaseId(201)
+    @TmsLink("201")
     @Test(  description = "Проверка получения словарных ценностей по ключу словаря с пустым значением в поле \"dictionary_key\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -286,7 +286,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         client.getAllDictionaryValues(request);
     }
 
-    @CaseId(202)
+    @TmsLink("202")
     @Test(  description = "Получение данных по магазинам с помощью id ритейлера",
             groups = "grpc-product-hub",
             dependsOnMethods = "getAllCategories")
@@ -304,7 +304,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         softAssert.assertAll();
     }
 
-    @CaseId(203)
+    @TmsLink("203")
     @Test(  description = "Получение данных по магазинам с помощью пустого значения в поле \"retailer_ids\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,

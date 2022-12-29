@@ -1,6 +1,6 @@
 package ru.instamart.test.api.surge;
 
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -17,7 +17,7 @@ import static org.testng.Assert.assertTrue;
 public class SurgeTest extends RestBase {
     private final String storeUuid = "49303be3-8524-4ee2-8e23-17253b8300d8";
 
-    @CaseId(1)
+    @TmsLink("1")
     @Test(description = "Активация режима HDM в магазине",
             groups = {"surge-api"},
             priority = 1)
@@ -31,7 +31,7 @@ public class SurgeTest extends RestBase {
         assertEquals(response.as(SurgeResponse.class).getData().getActive(), Boolean.TRUE, "Активация режима HDM в магазине не верул true");
     }
 
-    @CaseId(2)
+    @TmsLink("2")
     @Test(description = "Повторная активация режима HDM в магазине",
             groups = {"surge-api"},
             priority = 2
@@ -41,7 +41,7 @@ public class SurgeTest extends RestBase {
         response.then().statusCode(204);
     }
 
-    @CaseId(3)
+    @TmsLink("3")
     @Test(description = "Получение признака активного режима HDM в магазине (Active = true)",
             groups = {"surge-api"},
             dependsOnMethods = "putStoresTrue",
@@ -56,7 +56,7 @@ public class SurgeTest extends RestBase {
         assertEquals(response.as(SurgeResponse.class).getData().getActive(), Boolean.TRUE, "Активация режима HDM в магазине не верул true");
     }
 
-    @CaseId(4)
+    @TmsLink("4")
     @Test(description = "Деактивация режима HDM в магазине",
             groups = {"surge-api"},
             priority = 4
@@ -71,7 +71,7 @@ public class SurgeTest extends RestBase {
         assertEquals(response.as(SurgeResponse.class).getData().getActive(), Boolean.FALSE, "Активация режима HDM в магазине не вернул false");
     }
 
-    @CaseId(13)
+    @TmsLink("13")
     @Test(description = "Получение признака не активного режима HDM в магазине (Active = false)",
             groups = {"surge-api"},
             dependsOnMethods = "putStoresFalse",
@@ -86,7 +86,7 @@ public class SurgeTest extends RestBase {
         assertEquals(response.as(SurgeResponse.class).getData().getActive(), Boolean.FALSE, "Активация режима HDM в магазине не вернул false");
     }
 
-    @CaseId(5)
+    @TmsLink("5")
     @Test(description = "Проверка ошибки при запросе с hdmEnabled = false для магазина отсутствующего в БД",
             groups = {"surge-api"}
     )
@@ -100,7 +100,7 @@ public class SurgeTest extends RestBase {
         assertEquals(response.as(ErrorSurgeResponse.class).getMessage(), "cannot find delivery area by given UUID", "Невалидная ошибка");
     }
 
-    @CaseId(6)
+    @TmsLink("6")
     @Test(description = "Проверка ошибки при запросе с пустым телом запроса",
             groups = {"surge-api"}
     )
@@ -114,7 +114,7 @@ public class SurgeTest extends RestBase {
         assertTrue(response.as(ErrorSurgeResponse.class).getMessage().startsWith("request arguments are invalid"), "Невалидная ошибка");
     }
 
-    @CaseId(7)
+    @TmsLink("7")
     @Test(description = "Проверка ошибки при запросе с невалидным uuid",
             groups = {"surge-api"}
     )
@@ -127,7 +127,7 @@ public class SurgeTest extends RestBase {
         assertTrue(response.as(ErrorSurgeResponse.class).getMessage().contains("invalid UUID"), "невалидная ошибка");
     }
 
-    @CaseId(8)
+    @TmsLink("8")
     @Test(description = "Проверка ошибки, при запросе с параметром  hdmEnabled типа string",
             groups = {"surge-api"}
     )
@@ -141,7 +141,7 @@ public class SurgeTest extends RestBase {
         assertTrue(response.as(ErrorSurgeResponse.class).getMessage().contains("Unmarshal type error: expected=bool, got=string, field=hdmEnabled"), "Not valid error");
     }
 
-    @CaseId(9)
+    @TmsLink("9")
     @Test(description = "Проверка ошибки, при запросе c невалидным токеном авторизации",
             groups = {"surge-api"}
     )
@@ -156,7 +156,7 @@ public class SurgeTest extends RestBase {
         assertEquals(response.as(ErrorSurgeResponse.class).getMessage(), "invalid or expired jwt", "Not valid error");
     }
 
-    @CaseId(10)
+    @TmsLink("10")
     @Test(description = "Проверка ошибки, при запросе c недостаточными правами",
             groups = {"surge-api"}
     )
@@ -171,7 +171,7 @@ public class SurgeTest extends RestBase {
         assertEquals(response.as(ErrorSurgeResponse.class).getMessage(), "user does not have permission 'hdm-enable'", "Not valid error");
     }
 
-    @CaseId(11)
+    @TmsLink("11")
     @Test(description = "Проверка ошибки, при запросе методом Post",
             groups = {"surge-api"}
     )

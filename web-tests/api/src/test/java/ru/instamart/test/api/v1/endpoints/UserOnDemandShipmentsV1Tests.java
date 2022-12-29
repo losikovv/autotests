@@ -15,7 +15,7 @@ import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,7 +44,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseId(1303)
+    @TmsLink("1303")
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе ready - заказ задерживается",
             groups = {"api-instamart-smoke", "api-v1"})
     public void getReadyUserShipmentWithDelay()  {
@@ -56,7 +56,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseId(1336)
+    @TmsLink("1336")
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе collecting - заказ задерживается",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getReadyUserShipmentWithDelay")
@@ -68,7 +68,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы пользователя")
-    @CaseId(1337)
+    @TmsLink("1337")
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе shipping - заказ задерживается",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getCollectingUserShipmentWithDelay")

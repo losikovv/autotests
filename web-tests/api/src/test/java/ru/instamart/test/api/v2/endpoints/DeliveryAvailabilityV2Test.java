@@ -1,8 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -12,8 +10,6 @@ import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.request.v2.DeliveryAvailabilityV2Request;
 import ru.instamart.api.response.v2.DeliveryAvailabilityV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -25,7 +21,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Проверка доступности магазина по координатам")
 public class DeliveryAvailabilityV2Test extends RestBase {
 
-    @CaseIDs(value = {@CaseId(1478), @CaseId(1479), @CaseId(1480)})
+    @TmsLinks(value = {@TmsLink("1478"), @TmsLink("1479"), @TmsLink("1480")})
     @Parameters({"lat", "lon"})
     @Test(dataProvider = "deliveryAvailabilityV2TestData",
             dataProviderClass = RestDataProvider.class,
@@ -40,7 +36,7 @@ public class DeliveryAvailabilityV2Test extends RestBase {
                         "Статус доставки вне зоны доставки available равен true"));
     }
 
-    @CaseId(1477)
+    @TmsLink("1477")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Указаны координаты")
     public void testWithLatAndLon() {

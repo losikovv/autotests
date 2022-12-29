@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.stf.checkout;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -10,7 +11,6 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.data.BonusPrograms.aeroflot;
 import static ru.instamart.kraken.data.BonusPrograms.mnogoru;
@@ -31,7 +31,7 @@ public final class CheckoutBonusesTests {
         this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
     }
 
-    @CaseId(1702)
+    @TmsLink("1702")
     @Story("Тест успешного добавления всех доступных бонусных программ в чекауте")
     @Test(description = "Тест успешного добавления всех доступных бонусных программ в чекауте", groups = REGRESSION_STF)
     public void successAddBonusPrograms() {
@@ -56,7 +56,7 @@ public final class CheckoutBonusesTests {
         checkout().checkBonusCardApplied(aeroflot().getName());
     }
 
-    @CaseId(1703)
+    @TmsLink("1703")
     @Story("Тест выбора добавленных бонусных программ в чекауте")
     @Test(description = "Тест выбора добавленных бонусных программ в чекауте", groups = REGRESSION_STF)
     public void successSelectBonusPrograms() {
@@ -89,7 +89,7 @@ public final class CheckoutBonusesTests {
         checkout().checkBonusCardActive(aeroflot().getName());
     }
 
-    @CaseId(1704)
+    @TmsLink("1704")
     @Story("Тест удаления всех бонусных программ в чекауте")
     @Test(description = "Тест удаления всех бонусных программ в чекауте", groups = REGRESSION_STF)
     public void successDeleteBonusPrograms() {
@@ -125,7 +125,7 @@ public final class CheckoutBonusesTests {
         checkout().checkBonusCardNotApplied(aeroflot().getName());
     }
 
-    @CaseId(1705)
+    @TmsLink("1705")
     @Story("Тест не добавлять бонусы при нажатии кнопки отмена")
     @Test(description = "Тест не добавлять бонусы при нажатии кнопки отмена", groups = REGRESSION_STF)
     public void noAddBonusProgramOnCancel() {
@@ -142,7 +142,7 @@ public final class CheckoutBonusesTests {
         checkout().checkBonusCardNotApplied(mnogoru().getName());
     }
 
-    @CaseId(1706)
+    @TmsLink("1706")
     @Story("Тест на недобавление бонусов при закрытии модалки")
     @Test(description = "Тест на недобавление бонусов при закрытии модалки", groups = REGRESSION_STF)
     public void noAddBonusProgramOnModalClose()  {
@@ -159,7 +159,7 @@ public final class CheckoutBonusesTests {
         checkout().checkBonusCardNotApplied(mnogoru().getName());
     }
 
-    @CaseId(1707)
+    @TmsLink("1707")
     @Story("Тест не добавлять бонусы при отсутствии номера карты")
     @Test(description = "Тест не добавлять бонусы при отсутствии номера карты", groups = REGRESSION_STF)
     public void noAddBonusProgramWithEmptyCardNumber() {
@@ -179,7 +179,7 @@ public final class CheckoutBonusesTests {
         checkout().checkBonusCardNotApplied(mnogoru().getName());
     }
 
-    @CaseId(1708)
+    @TmsLink("1708")
     @Story("Тест не добавлять бонусы с некорректным номером карты")
     @Test(description = "Тест не добавлять бонусы с некорректным номером карты", groups = REGRESSION_STF)
     public void noAddBonusProgramWithWrongCardNumber() {
@@ -201,7 +201,7 @@ public final class CheckoutBonusesTests {
         checkout().checkBonusCardNotApplied(mnogoru().getName());
     }
 
-    @CaseId(1736)
+    @TmsLink("1736")
     @Story("Тест успешного редактирования карты ритейлера")
     @Test(description = "Тест успешного редактирования карты ритейлера", groups = REGRESSION_STF)
     public void successEditBonusProgram() {
@@ -232,7 +232,7 @@ public final class CheckoutBonusesTests {
         checkout().interactEditLoyaltyCardModal().checkCardNumberInputValue(cardNumber);
     }
 
-    @CaseId(1710)
+    @TmsLink("1710")
     @Story("Тест на невозможность редактировать бонусов при нажатии кнопки отмена")
     @Test(description = "Тест на невозможность редактировать бонусов при нажатии кнопки отмена", groups = REGRESSION_STF)
     public void noEditBonusProgramOnCancel() {
@@ -260,7 +260,7 @@ public final class CheckoutBonusesTests {
         checkout().interactEditLoyaltyCardModal().checkCardNumberInputValue(mnogoru().getCardNumber());
     }
 
-    @CaseId(1711)
+    @TmsLink("1711")
     @Story("Тест на отсутствие возможности редактировать бонусы при закрытии модалки")
     @Test(description = "Тест на отсутствие возможности редактировать бонусы при закрытии модалки", groups = REGRESSION_STF)
     public void noEditBonusProgramOnModalClose() {
@@ -288,7 +288,7 @@ public final class CheckoutBonusesTests {
         checkout().interactEditLoyaltyCardModal().checkCardNumberInputValue(mnogoru().getCardNumber());
     }
 
-    @CaseId(1713)
+    @TmsLink("1713")
     @Story("Тест на отсутсвие возможности редактировать бонусы с пустым номером карты")
     @Test(description = "Тест на отсутсвие возможности редактировать бонусы с пустым номером карты", groups = REGRESSION_STF)
     public void noEditBonusProgramWithEmptyCardNumber() {
@@ -318,7 +318,7 @@ public final class CheckoutBonusesTests {
         checkout().interactEditLoyaltyCardModal().checkCardNumberInputValue(mnogoru().getCardNumber());
     }
 
-    @CaseId(1714)
+    @TmsLink("1714")
     @Story("Тест на не удаление бонусов при нажатии кнопки отмена")
     @Test(description = "Тест на не удаление бонусов при нажатии кнопки отмена", groups = REGRESSION_STF)
     public void noDeleteBonusProgramOnCancel() {
@@ -346,7 +346,7 @@ public final class CheckoutBonusesTests {
         checkout().interactEditLoyaltyCardModal().checkCardNumberInputValue(mnogoru().getCardNumber());
     }
 
-    @CaseId(1715)
+    @TmsLink("1715")
     @Story("Тест на не удаление бонусов при закрытии модалки")
     @Test(description = "Тест на не удаление бонусов при закрытии модалки", groups = REGRESSION_STF)
     public void noDeleteBonusProgramOnModalClose() {

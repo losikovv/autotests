@@ -21,7 +21,7 @@ import ru.instamart.jdbc.dao.orders_service.PlaceSettingsDao;
 import ru.instamart.jdbc.entity.order_service.PlaceSettingsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -55,7 +55,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
     }
 
-    @CaseId(23)
+    @TmsLink("23")
     @Test(description = "Список сотрудников",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShoppers200() {
@@ -64,7 +64,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkResponseJsonSchema(response, ShoppersSHPResponse.class);
     }
 
-    @CaseId(24)
+    @TmsLink("24")
     @Test(description = "Список магазинов",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getStores200() {
@@ -73,7 +73,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkResponseJsonSchema(response, StoresSHPResponse.class);
     }
 
-    @CaseId(25)
+    @TmsLink("25")
     @Test(description = "Список расписаний",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRouteSchedules200() {
@@ -82,7 +82,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkResponseJsonSchema(response, RouteSchedulesSHPResponse.class);
     }
 
-    @CaseId(26)
+    @TmsLink("26")
     @Test(description = "Список операционных зон",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getOperationalZones200() {
@@ -91,7 +91,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkResponseJsonSchema(response, OperationalZonesSHPResponse.class);
     }
 
-    @CaseId(27)
+    @TmsLink("27")
     @Test(description = "Список ретейлеров",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRetailers200() {
@@ -100,7 +100,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkResponseJsonSchema(response, RetailersSHPResponse.class);
     }
 
-    @CaseId(28)
+    @TmsLink("28")
     @Test(description = "Список доставок",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShipments200() {
@@ -108,7 +108,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(29)
+    @TmsLink("29")
     @Test(description = "Список смен",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShifts200() {
@@ -117,7 +117,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkResponseJsonSchema(response, ShiftsSHPResponse.class);
     }
 
-    @CaseId(31)
+    @TmsLink("31")
     @Test(description = "Список тарифов",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getTariffs200() {
@@ -126,7 +126,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkResponseJsonSchema(response, TariffsSHPResponse.class);
     }
 
-    @CaseId(84)
+    @TmsLink("84")
     @Test(description = "Создание расписания на день",
             groups = {API_SHOPPER_REGRESS})
     public void postRouteSchedules200() {
@@ -146,7 +146,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(85)
+    @TmsLink("85")
     @Test(description = "Создание маршрута",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRouteSchedules200")
@@ -161,7 +161,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         assertEquals(driverId, route.getDriver().getId(), "ИД водителя не совпадает");
     }
 
-    @CaseId(30)
+    @TmsLink("30")
     @Test(description = "Получение инфы о маршруте",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRoutes200")
@@ -173,7 +173,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         assertEquals(routeId, response.as(RouteSHPResponse.class).getRoute().getId(), "ИД маршрута не совпадает");
     }
 
-    @CaseId(32)
+    @TmsLink("32")
     @Test(description = "Изменение расписания",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRouteSchedules200")
@@ -189,7 +189,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(37)
+    @TmsLink("37")
     @Test(description = "Получение всех доступных ролей",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRoles200() {
@@ -198,7 +198,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkResponseJsonSchema(response, RolesSHPResponse.class);
     }
 
-    @CaseId(86)
+    @TmsLink("86")
     @Test(description = "Создание тарифа",
             groups = {API_SHOPPER_REGRESS})
     public void postTariffs200() {
@@ -209,7 +209,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         tariffId = tariff.getId();
     }
 
-    @CaseId(88)
+    @TmsLink("88")
     @Test(description = "Создание смены",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postTariffs200")
@@ -227,7 +227,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(33)
+    @TmsLink("33")
     @Test(description = "Создание назначения в смену",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postShifts200")
@@ -254,7 +254,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(34)
+    @TmsLink("34")
     @Test(description = "Изменение назначения в смену",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postShiftAssignments200")
@@ -277,7 +277,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(35)
+    @TmsLink("35")
     @Test(description = "Изменение маршрута",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRoutes200")
@@ -292,7 +292,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(36)
+    @TmsLink("36")
     @Test(description = "Создание блокировки для маршрута",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = "postRoutes200")
@@ -301,7 +301,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(41)
+    @TmsLink("41")
     @Test(description = "Удаление блокировки для маршрута",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = {"postRoutesLock200"})
@@ -310,7 +310,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(38)
+    @TmsLink("38")
     @Test(description = "Удаление маршрута",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = {"postRoutes200", "getRoute200", "postRoutesLock200", "putRoutes200"})
@@ -319,7 +319,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(40)
+    @TmsLink("40")
     @Test(description = "Изменения` шоппера",
             groups = {API_SHOPPER_REGRESS})
     public void patchShopper200() {
@@ -333,7 +333,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(42)
+    @TmsLink("42")
     @Test(description = "Создание видимости для маршрута",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = {"postRoutes200"})
@@ -342,7 +342,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(89)
+    @TmsLink("89")
     @Test(description = "Создание видимости для маршрута",
             groups = {API_SHOPPER_REGRESS},
             dependsOnMethods = {"postRoutesVisibility200"})
@@ -365,7 +365,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     }
 
     @Story("Dispatch settings")
-    @CaseId(159)
+    @TmsLink("159")
     @Test(description = "Получение настроек сервиса RES",
             groups = {API_SHOPPER_REGRESS})
     public void getEstimatorSettings() {
@@ -379,7 +379,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     }
 
     @Story("Dispatch settings")
-    @CaseId(189)
+    @TmsLink("189")
     @Test(description = "Изменение настроек сервиса RES",
             groups = {API_SHOPPER_REGRESS})
     public void putEstimatorSettings() {

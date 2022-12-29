@@ -9,7 +9,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.UserPermissionsV1Request;
 import ru.instamart.api.response.v1.UserPermissionsV1Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -22,7 +22,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Доступы пользователя")
 public class UserPermissionsV1Test extends RestBase {
 
-    @CaseId(1832)
+    @TmsLink("1832")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о страницах в админке")
     public void getUserPermissions() {
@@ -32,7 +32,7 @@ public class UserPermissionsV1Test extends RestBase {
         checkResponseJsonSchema(response, UserPermissionsV1Response.class);
     }
 
-    @CaseId(1833)
+    @TmsLink("1833")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о страницах в админке")
     public void getUserPermissionsWithoutAuth() {

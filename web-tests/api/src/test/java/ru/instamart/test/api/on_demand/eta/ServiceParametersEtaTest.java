@@ -13,7 +13,7 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.eta.ServiceParametersEtaResponse;
 import ru.instamart.jdbc.dao.eta.ServiceParametersDao;
 import ru.instamart.jdbc.entity.eta.ServiceParametersEntity;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -27,7 +27,7 @@ public class ServiceParametersEtaTest extends EtaBase {
     private ServiceParametersEtaResponse serviceParameters;
     private int courierSpeed;
 
-    @CaseId(25)
+    @TmsLink("25")
     @Story("Параметры сервиса")
     @Test(description = "Получение параметров сервисов",
             groups = "ondemand-eta")
@@ -39,7 +39,7 @@ public class ServiceParametersEtaTest extends EtaBase {
         serviceParameters = response.as(ServiceParametersEtaResponse.class);
     }
 
-    @CaseId(26)
+    @TmsLink("26")
     @Story("Параметры сервиса")
     @Test(description = "Изменение параметров сервисов",
             groups = "ondemand-eta",
@@ -57,7 +57,7 @@ public class ServiceParametersEtaTest extends EtaBase {
         softAssert.assertAll();
     }
 
-    @CaseId(228)
+    @TmsLink("228")
     @Story("Параметры сервиса")
     @Test(description = "Получение ошибки не поддерживаемого медиа типа",
             groups = "ondemand-eta",

@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf_prod.checkout_new;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,7 +10,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
@@ -34,7 +34,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
         this.helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseId(3691)
+    @TmsLink("3691")
     @Test(description = "Проверка отсутствия предвыбранного способа замены товара при первом чекауте", groups = {STF_PROD_S})
     public void testCheckReplacementPolicyNotSelectedFirstTime() {
         shop().goToPage();
@@ -49,7 +49,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
         checkoutNew().checkSelectedReplacementPolicy(NOT_SELECTED.getName());
     }
 
-    @CaseId(3632)
+    @TmsLink("3632")
     @Test(description = "Проверка что поле 'Замена товара' является обязательным при первом заказе", groups = {STF_PROD_S})
     public void testCheckReplacementPolicyRequired() {
         shop().goToPage();
@@ -81,7 +81,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
         checkoutNew().checkReplacementPolicyErrorDescriptionContains("Выберите вариант замены");
     }
 
-    @CaseId(3629)
+    @TmsLink("3629")
     @Test(description = "Проверка что поля телефон и e-mail обязательны и валидируются при потере фокуса", groups = {STF_PROD_S})
     public void testCheckPhoneAndEmailRequiredFields() {
         shop().goToPage();

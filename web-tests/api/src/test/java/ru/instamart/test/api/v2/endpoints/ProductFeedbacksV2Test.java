@@ -19,7 +19,7 @@ import ru.instamart.api.response.v2.FeedbacksV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
@@ -41,7 +41,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2297)
+    @TmsLink("2297")
     @Story("Получение списка отзывов")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение списка отзывов без обязательных параметров")
@@ -62,7 +62,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     }
 
     @Skip
-    @CaseId(2307)
+    @TmsLink("2307")
     @Story("Получение списка отзывов")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение списка отзывов без обязательных параметров")
@@ -78,7 +78,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2301)
+    @TmsLink("2301")
     @Story("Проверка, может ли пользователь опубликовать отзыв")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверка, может ли пользователь опубликовать отзыв")
@@ -90,7 +90,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2308)
+    @TmsLink("2308")
     @Story("Получить актуальный отзыв на товар")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить актуальный отзыв на товар")
@@ -109,7 +109,7 @@ public class ProductFeedbacksV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2309)
+    @TmsLink("2309")
     @Story("Получить актуальный отзыв на товар")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить актуальный отзыв на товар")

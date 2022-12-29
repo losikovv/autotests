@@ -2,7 +2,7 @@ package ru.instamart.test.api.shopper.admin.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -30,7 +30,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         SessionFactory.clearSession(SessionType.SHOPPER_ADMIN);
     }
 
-    @CaseId(74)
+    @TmsLink("74")
     @Test(description = "Список сотрудников без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShoppers401() {
@@ -38,7 +38,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(75)
+    @TmsLink("75")
     @Test(description = "Список магазинов без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getStores401() {
@@ -46,7 +46,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(76)
+    @TmsLink("76")
     @Test(description = "Список маршрутов без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRouteSchedules401() {
@@ -54,7 +54,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(77)
+    @TmsLink("77")
     @Test(description = "Список операционных зон без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getOperationalZones401() {
@@ -62,7 +62,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(78)
+    @TmsLink("78")
     @Test(description = "Список ретейлеров без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRetailers401() {
@@ -70,7 +70,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(79)
+    @TmsLink("79")
     @Test(description = "Список доставок без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShipments401() {
@@ -78,7 +78,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(80)
+    @TmsLink("80")
     @Test(description = "Список смен без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShifts401() {
@@ -86,7 +86,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(82)
+    @TmsLink("82")
     @Test(description = "Список тарифов без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getTariffs401() {
@@ -94,7 +94,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(81)
+    @TmsLink("81")
     @Test(description = "Маршрут без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRoute401() {
@@ -102,7 +102,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(83)
+    @TmsLink("83")
     @Test(description = "Изменение расписания без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void patchRouteSchedule401() {

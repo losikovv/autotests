@@ -3,14 +3,13 @@ package ru.instamart.test.api.v3.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.model.v2.AddressV2;
-import ru.instamart.api.model.v3.CheckoutDeliveryWindowV3;
 import ru.instamart.api.model.v3.ErrorV3;
 import ru.instamart.api.request.v3.CheckoutV3Request;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
@@ -21,8 +20,6 @@ import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +29,6 @@ import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.api.helper.ApiV3Helper.checkFlipper;
 
 @Epic("ApiV3")
 @Feature("Чекаут")
@@ -52,7 +48,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
         order = apiV1.getMultiRetailerOrder();
     }
 
-    @CaseId(2670)
+    @TmsLink("2670")
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения с доставки на самовывоз",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -72,7 +68,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
         compareTwoObjects(response.as(OrderV3Response.class).getOrder().getShippingMethodKind(), ShippingMethodV2.PICKUP.getMethod());
     }
 
-    @CaseId(2671)
+    @TmsLink("2671")
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения с самовывоза на доставку",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -93,7 +89,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
         compareTwoObjects(response.as(OrderV3Response.class).getOrder().getShippingMethodKind(), ShippingMethodV2.BY_COURIER.getMethod());
     }
 
-    @CaseId(2673)
+    @TmsLink("2673")
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения в body указав только \"kind\": \"by_courier\"",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -111,7 +107,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
         checkError(response, "ship_address_id", "Для способа доставки курьером, требуется указать ship_address_id");
     }
 
-    @CaseId(2674)
+    @TmsLink("2674")
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения в body указав только \"kind\": \"pickup\"",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -129,7 +125,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
         checkError(response, "pickup_store_id", "Для способа доставки самовывоз, требуется указать pickup_store_id");
     }
 
-    @CaseId(2675)
+    @TmsLink("2675")
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения для чужого заказа",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -149,7 +145,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2676)
+    @TmsLink("2676")
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения для чужого шипмента",
             groups = {API_INSTAMART_REGRESS, "api-v3"})

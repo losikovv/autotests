@@ -9,7 +9,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
@@ -24,7 +24,7 @@ public final class ShoppingCatalogTests {
     private final ApiHelper helper = new ApiHelper();
 
     @Issue("B2C-9789")
-    @CaseId(302)
+    @TmsLink("302")
     @Test(description = "Добавление товара в корзину из плитки (+удаление)", groups = REGRESSION_BUSINESS)
     public void testAddedAndRemoveProductFromShop() {
         var company = JuridicalData.juridical();
@@ -58,7 +58,7 @@ public final class ShoppingCatalogTests {
     }
 
     @Issue("B2C-9789")
-    @CaseId(303)
+    @TmsLink("303")
     @Test(description = "Добавление товара в корзину из карточки товара (+удаление)", groups = REGRESSION_BUSINESS)
     public void testAddedAndRemoveProductFromProductCard() {
         var company = JuridicalData.juridical();
@@ -103,7 +103,7 @@ public final class ShoppingCatalogTests {
         shop().interactCart().checkCartEmpty();
     }
 
-    @CaseId(290)
+    @TmsLink("290")
     @Test(description = "Проверка обязательной авторизации при добавлении товара в корзину", groups = REGRESSION_BUSINESS)
     public void testNeedAuthAddToFavourites() {
         shop().goToPage();

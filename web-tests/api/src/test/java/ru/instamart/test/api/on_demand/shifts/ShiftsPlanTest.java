@@ -18,7 +18,7 @@ import ru.instamart.jdbc.dao.shifts.ShiftsDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class ShiftsPlanTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
     }
 
-    @CaseId(28)
+    @TmsLink("28")
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
             description = "Событие \"Начать смену\". Партнер на границе территории смены (с включенной проверкой геолокации)")
@@ -70,7 +70,7 @@ public class ShiftsPlanTest extends RestBase {
         });
     }
 
-    @CaseId(38)
+    @TmsLink("38")
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "startShift200",
@@ -88,7 +88,7 @@ public class ShiftsPlanTest extends RestBase {
         });
     }
 
-    @CaseId(75)
+    @TmsLink("75")
     @Story("Пауза смены")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "startShift",
@@ -105,7 +105,7 @@ public class ShiftsPlanTest extends RestBase {
         });
     }
 
-    @CaseId(77)
+    @TmsLink("77")
     @Story("Пауза смены")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "pauseShifts200",
@@ -123,7 +123,7 @@ public class ShiftsPlanTest extends RestBase {
     }
 
     @Skip
-    @CaseId(55)
+    @TmsLink("55")
     @Story("Завершение смены")
     @Test(groups = {"api-shifts"},
             description = "Завершение смены досрочно, более чем 10 мин до планового окончания, с указанием причины")

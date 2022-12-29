@@ -22,8 +22,8 @@ import ru.instamart.api.response.v2.ProductsV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,7 +43,7 @@ public final class ProductsV2Test extends RestBase {
     private ProductV2 product;
 
     @Skip(onServer = Server.STAGING)
-    @CaseIDs(value = {@CaseId(265), @CaseId(869)})
+    @TmsLinks(value = {@TmsLink("265"), @TmsLink("869")})
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
@@ -63,7 +63,7 @@ public final class ProductsV2Test extends RestBase {
         });
     }
 
-    @CaseId(560)
+    @TmsLink("560")
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте c невалидным id",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -74,7 +74,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(262)
+    @TmsLink("262")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, API_INSTAMART_REGRESS, "api-v2", "api-bff"})
@@ -91,7 +91,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2708)
+    @TmsLink("2708")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "В категории больше 3 дефолтных фильтров",
             groups = {API_INSTAMART_PROD, API_INSTAMART_REGRESS, "api-v2"})
@@ -109,7 +109,7 @@ public final class ProductsV2Test extends RestBase {
         });
     }
 
-    @CaseId(263)
+    @TmsLink("263")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Несуществующий sid",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -122,7 +122,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(264)
+    @TmsLink("264")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -143,7 +143,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(638)
+    @TmsLink("638")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по популярности",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -160,7 +160,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(639)
+    @TmsLink("639")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по возрастанию цены",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -177,7 +177,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(640)
+    @TmsLink("640")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по убыванию цены",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -194,7 +194,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(806)
+    @TmsLink("806")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -216,7 +216,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(807)
+    @TmsLink("807")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по бренду продукты",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"})
@@ -240,7 +240,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(808)
+    @TmsLink("808")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -264,7 +264,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING) //todo починить 400 на стейдже "empty category_ids"
-    @CaseId(809)
+    @TmsLink("809")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные по выгодному весу",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -281,7 +281,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1175)
+    @TmsLink("1175")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по категории со второй страницы",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -302,7 +302,7 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1176)
+    @TmsLink("1176")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу со второй страницы",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
@@ -331,7 +331,7 @@ public final class ProductsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1177)
+    @TmsLink("1177")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу с несуществующей страницы",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})

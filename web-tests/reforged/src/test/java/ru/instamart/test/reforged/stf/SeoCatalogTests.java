@@ -9,7 +9,7 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.seo;
@@ -20,7 +20,7 @@ public final class SeoCatalogTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(1802)
+    @TmsLink("1802")
     @Test(description = "Тест доступности страницы SEO-каталога", groups = REGRESSION_STF)
     public void successCheckSeoPage() {
         seo().goToPage();
@@ -28,7 +28,7 @@ public final class SeoCatalogTests {
         seo().checkPageOpened();
     }
 
-    @CaseId(1803)
+    @TmsLink("1803")
     @Test(description = "Тест доступности товаров на странице SEO-каталога", groups = REGRESSION_STF)
     public void successCheckProductsOnSeoCatalog() {
         seo().goToPage();
@@ -36,7 +36,7 @@ public final class SeoCatalogTests {
         seo().checkProductVisible();
     }
 
-    @CaseId(1804)
+    @TmsLink("1804")
     @Test(description = "Тест открытия карточки товара на странице SEO-каталога", groups = REGRESSION_STF)
     public void successOpenItemCardOnSeoCatalog() {
         seo().goToPage();
@@ -45,7 +45,7 @@ public final class SeoCatalogTests {
         seo().interactProductCard().checkProductCardVisible();
     }
 
-    @CaseId(1805)
+    @TmsLink("1805")
     @Test(description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога", groups = REGRESSION_STF)
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
         seo().goToPage();
@@ -63,7 +63,7 @@ public final class SeoCatalogTests {
     }
 
     @Run(onServer = Server.PRODUCTION)
-    @CaseId(1582)
+    @TmsLink("1582")
     @Test(description = "Добавление товара в корзину из SEO-каталога", groups = REGRESSION_STF)
     public void successAddItemToCartFromSEOCatalog() {
         var userData = UserManager.getQaUser();
@@ -83,7 +83,7 @@ public final class SeoCatalogTests {
         seo().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(2589)
+    @TmsLink("2589")
     @Test(description = "Работоспособность сортировки товаров(сначала дешевые)", groups = REGRESSION_STF)
     public void successSortProductsViaCheap() {
         seo().goToPage("auchan/c/new-sladosti/piechienie/ovsianoie");

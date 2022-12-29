@@ -3,6 +3,7 @@ package ru.instamart.test.api.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -15,7 +16,6 @@ import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.jdbc.dao.stf.CitiesDao;
 import ru.instamart.jdbc.entity.stf.CitiesEntity;
 import ru.instamart.kraken.data.Generate;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;
 
@@ -40,7 +40,7 @@ public class CitiesAdminTest extends RestBase {
         admin.auth();
     }
 
-    @CaseId(1133)
+    @TmsLink("1133")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка всех городов")
     public void getAllCities() {

@@ -3,13 +3,13 @@ package ru.instamart.test.reforged.admin.retailer;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -27,7 +27,7 @@ public final class AdministrationRetailerEditTests {
         apiHelper.createRetailerInAdmin(retailerName);
     }
 
-    @CaseId(1417)
+    @TmsLink("1417")
     @Story("Страница ритейлеров")
     @Test(description = "Кнопка 'Настройки' раскрывает сайдбар с настройками ритейлера", groups = REGRESSION_ADMIN)
     public void openRetailerSettingsSidebar() {
@@ -46,7 +46,7 @@ public final class AdministrationRetailerEditTests {
         retailer().interactiveSettings().checkRetailerNameInputValue(retailerName);
     }
 
-    @CaseId(1418)
+    @TmsLink("1418")
     @Story("Страница ритейлеров")
     @Test(description = "Кнопка 'Внешний вид' раскрывает сайдбар с редактированием внешнего вида ритейлера", groups = REGRESSION_ADMIN)
     public void openRetailerAppearanceSidebar() {
@@ -65,7 +65,7 @@ public final class AdministrationRetailerEditTests {
         retailer().interactiveAppearance().checkUploadLogoButtonVisible();
     }
 
-    @CaseId(1429)
+    @TmsLink("1429")
     @Story("Страница ритейлеров")
     @Test(description = "Кнопка 'Ранжировать список' раскрывает сайдбар с ранжированием списка ритейлеров", groups = REGRESSION_ADMIN)
     public void openRankListSidebar() {

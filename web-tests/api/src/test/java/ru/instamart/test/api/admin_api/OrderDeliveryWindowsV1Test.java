@@ -20,7 +20,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
@@ -47,7 +47,7 @@ public final class OrderDeliveryWindowsV1Test extends RestBase {
         apiV2.cancelOrder(order.getNumber());
     }
 
-    @CaseId(2846)
+    @TmsLink("2846")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Получение списка окон доставок заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -65,7 +65,7 @@ public final class OrderDeliveryWindowsV1Test extends RestBase {
         });
     }
 
-    @CaseId(2847)
+    @TmsLink("2847")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка окон доставок заказа неавторизованным пользователем",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -76,7 +76,7 @@ public final class OrderDeliveryWindowsV1Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(2848)
+    @TmsLink("2848")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка окон доставок заказа пользователем без прав администратора",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -87,7 +87,7 @@ public final class OrderDeliveryWindowsV1Test extends RestBase {
         checkStatusCode403(response);
     }
 
-    @CaseId(2849)
+    @TmsLink("2849")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка окон доставок несуществующего заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})

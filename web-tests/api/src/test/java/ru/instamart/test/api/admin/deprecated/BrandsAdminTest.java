@@ -3,6 +3,7 @@ package ru.instamart.test.api.admin.deprecated;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -16,7 +17,6 @@ import ru.instamart.api.request.admin.BrandsAdminRequest;
 import ru.instamart.jdbc.dao.stf.SpreeBrandsDao;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;
 
@@ -46,7 +46,7 @@ public final class BrandsAdminTest extends RestBase {
         }
     }
 
-    @CaseId(1945)
+    @TmsLink("1945")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение всех брендов")
@@ -55,7 +55,7 @@ public final class BrandsAdminTest extends RestBase {
         checkStatusCode(response, 200, ContentType.HTML);
     }
 
-    @CaseId(1946)
+    @TmsLink("1946")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание бренда")
@@ -80,7 +80,7 @@ public final class BrandsAdminTest extends RestBase {
 
     }
 
-    @CaseId(1947)
+    @TmsLink("1947")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование бренда",
@@ -104,7 +104,7 @@ public final class BrandsAdminTest extends RestBase {
         });
     }
 
-    @CaseId(1948)
+    @TmsLink("1948")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление бренда",

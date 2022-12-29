@@ -7,7 +7,7 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -18,7 +18,7 @@ public final class MultiretailerSearchTests {
     private final ApiHelper apiHelper = new ApiHelper();
     private final String searchText = "сыр";
 
-    @CaseId(3847)
+    @TmsLink("3847")
     @Test(description = "Недоступность межритейлерного поиска при невыбранном адресе", groups = {STF_PROD_S})
     public void testMultisearchUnavailableWithoutSetAddress() {
         home().goToPage();
@@ -29,7 +29,7 @@ public final class MultiretailerSearchTests {
         home().interactMultisearchHeader().checkMultisearchInputNotVisible();
     }
 
-    @CaseId(3848)
+    @TmsLink("3848")
     @Test(description = "Тест успешной отработки межритейлерного саджестора", groups = {STF_PROD_S})
     public void testMultisearchPositiveInSuggester() {
         final UserData userData = UserManager.getQaUser();
@@ -51,7 +51,7 @@ public final class MultiretailerSearchTests {
         home().interactMultisearchHeader().checkSearchResultsContains(searchText);
     }
 
-    @CaseId(3849)
+    @TmsLink("3849")
     @Test(description = "Открытие карточки товара из межритейлерного саджестора", groups = {STF_PROD_S})
     public void testOpenProductCardFromMultisearchSuggester() {
         final UserData userData = UserManager.getQaUser();
@@ -74,7 +74,7 @@ public final class MultiretailerSearchTests {
         home().interactMultisearchHeader().interactProductCard().checkProductCardVisible();
     }
 
-    @CaseId(3850)
+    @TmsLink("3850")
     @Test(description = "Добавление товара в корзину из межритейлерного саджестора", groups = {STF_PROD_S})
     public void testAddProductToCartFromMultisearchSuggester() {
         final UserData userData = UserManager.getQaUser();
@@ -101,7 +101,7 @@ public final class MultiretailerSearchTests {
         home().interactMultisearchHeader().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(3851)
+    @TmsLink("3851")
     @Test(description = "Успешная отработки межритейлерного поиска", groups = {STF_PROD_S})
     public void testMultisearchPositiveOnPage() {
         final UserData userData = UserManager.getQaUser();
@@ -126,7 +126,7 @@ public final class MultiretailerSearchTests {
         multiSearch().checkSearchResultsContains(searchText);
     }
 
-    @CaseId(3852)
+    @TmsLink("3852")
     @Test(description = "Открытие карточки товара в межритейлерном поиске", groups = {STF_PROD_S})
     public void testOpenProductCardFromMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
@@ -152,7 +152,7 @@ public final class MultiretailerSearchTests {
         multiSearch().interactProductCard().checkProductCardVisible();
     }
 
-    @CaseId(3853)
+    @TmsLink("3853")
     @Test(description = "Добавление товара в корзину в межритейлерном поиске", groups = {STF_PROD_S})
     public void testAddProductToCartFromMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
@@ -179,7 +179,7 @@ public final class MultiretailerSearchTests {
         multiSearch().interactMultisearchHeader().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(3854)
+    @TmsLink("3854")
     @Test(description = "Добавление товара в любимые в межритейлерном поиске", groups = {STF_PROD_S})
     public void testAddProductToFavouritesFromMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
@@ -206,7 +206,7 @@ public final class MultiretailerSearchTests {
         userFavorites().checkNotEmptyFavoritesProd();
     }
 
-    @CaseId(3855)
+    @TmsLink("3855")
     @Test(description = "Переключения слага ритейлера в межритейлерном поиске", groups = {STF_PROD_S})
     public void testSwitchRetailerOnMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
@@ -235,7 +235,7 @@ public final class MultiretailerSearchTests {
         multiSearch().checkIfProductsListChanged(productListNames);
     }
 
-    @CaseId(3856)
+    @TmsLink("3856")
     @Test(description = "Переключение категорий в межритейлерном поиске", groups = {STF_PROD_S})
     public void testCategoryFiltersOnMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
@@ -264,7 +264,7 @@ public final class MultiretailerSearchTests {
         multiSearch().checkIfProductsListChanged(productListNames);
     }
 
-    @CaseId(3858)
+    @TmsLink("3858")
     @Test(description = "Недоступность межритейлерного поиска при самовывозе на главной", groups = {STF_PROD_S})
     public void testCheckMultisearchNotAvailableOnMainPageViaPickup() {
         final UserData userData = UserManager.getQaUser();
@@ -284,7 +284,7 @@ public final class MultiretailerSearchTests {
         home().interactMultisearchHeader().checkMultisearchInputNotVisible();
     }
 
-    @CaseId(3859)
+    @TmsLink("3859")
     @Test(description = "Недоступность межритейлерного поиска при самовывозе в результатах поиска", groups = {STF_PROD_S})
     public void testCheckMultisearchNotAvailableOnMultiearchPageViaPickup() {
         final UserData userData = UserManager.getQaUser();
@@ -314,7 +314,7 @@ public final class MultiretailerSearchTests {
         shop().interactHeader().checkSearchButtonVisible();
     }
 
-    @CaseId(3860)
+    @TmsLink("3860")
     @Test(description = "Переключение слага ритейлера в межритейлерном саджесторе", groups = {STF_PROD_S})
     public void testSwitchRetailerInSuggester() {
         final UserData userData = UserManager.getQaUser();
@@ -342,7 +342,7 @@ public final class MultiretailerSearchTests {
         home().interactMultisearchHeader().checkIfProductsListChanged(firstRetailerProductNames);
     }
 
-    @CaseId(3857)
+    @TmsLink("3857")
     @Test(description = "Переключение слага ритейлера при переходе на товары из блоков 'С этим товаром смотрят' и 'Похожие'", groups = {STF_PROD_S})
     public void testAddProductToCartFromFromRecommendationsViaAnotherProductCard() {
         final UserData userData = UserManager.getQaUser();

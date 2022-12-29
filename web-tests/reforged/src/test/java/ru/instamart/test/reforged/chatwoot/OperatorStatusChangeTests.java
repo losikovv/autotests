@@ -2,10 +2,10 @@ package ru.instamart.test.reforged.chatwoot;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.CHATWOOT;
 import static ru.instamart.reforged.chatwoot.ChatwootRouter.dialogs;
@@ -16,7 +16,7 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.*;
 @Feature("Смена статусов в чатвуте")
 public final class OperatorStatusChangeTests {
 
-    @CaseId(27)
+    @TmsLink("27")
     @Test(description = "После логина в чатвут оператор в статусе оффлайн", groups = {CHATWOOT})
     public void offlineByDefaultTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -43,7 +43,7 @@ public final class OperatorStatusChangeTests {
         dialogs().interactLeftMenu().interactAccountMenu().checkStateNotAvailable(OFFLINE.getName());
     }
 
-    @CaseId(74)
+    @TmsLink("74")
     @Test(description = "Переход в статус в Сети", groups = {CHATWOOT})
     public void switchToOnLineTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -78,7 +78,7 @@ public final class OperatorStatusChangeTests {
         dialogs().interactLeftMenu().interactAccountMenu().checkStateNotAvailable(OFFLINE.getName());
     }
 
-    @CaseId(75)
+    @TmsLink("75")
     @Test(description = "Переход в статус Ожидание", groups = {CHATWOOT})
     public void switchToWaitTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -137,7 +137,7 @@ public final class OperatorStatusChangeTests {
         dialogs().checkLoadCompleteMsgVisible();
     }
 
-    @CaseId(76)
+    @TmsLink("76")
     @Test(description = "Переход в статус Обед", groups = {CHATWOOT})
     public void switchToDinnerTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -179,7 +179,7 @@ public final class OperatorStatusChangeTests {
         dialogs().interactLeftMenu().checkAccountMenuIndicatorColor(DINNER.getColorCode());
     }
 
-    @CaseId(77)
+    @TmsLink("77")
     @Test(description = "Переход в статус Тех.перерыв", groups = {CHATWOOT})
     public void switchToTechBreakTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -222,7 +222,7 @@ public final class OperatorStatusChangeTests {
         dialogs().interactLeftMenu().checkAccountMenuIndicatorColor(TECH_BREAK.getColorCode());
     }
 
-    @CaseId(78)
+    @TmsLink("78")
     @Test(description = "Проверка невозможности перехода в статусы Обед и Тех.перерыв при наличии чатов в работе", groups = {CHATWOOT})
     public void unableToSwitchDinnerAndTechBreakWithActiveConversations() {
         UserData userData = UserManager.getOperatorUser();

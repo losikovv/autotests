@@ -8,7 +8,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
@@ -21,7 +21,7 @@ public final class ShoppingYouBoughtBeforeTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(2943)
+    @TmsLink("2943")
     @Test(description = "Товар отображается в блоке 'Вы покупали ранее', если отправлен на сборку", groups = REGRESSION_STF)
     public void testYouBoughtBeforeDisplayed() {
         final UserData shoppingCartUser = UserManager.getQaUser();
@@ -42,7 +42,7 @@ public final class ShoppingYouBoughtBeforeTests {
         userShipments().checkProductListsEquals(firstCategoryProductNames);
     }
 
-    @CaseId(2944)
+    @TmsLink("2944")
     @Test(description = "Товары, купленные у ретейлера отображаются для любого магазина данного ретейлера", groups = REGRESSION_STF)
     public void testYouBoughtBeforeDisplayedForAnotherShopSameRetailer() {
         final UserData shoppingCartUser = UserManager.getQaUser();
@@ -67,7 +67,7 @@ public final class ShoppingYouBoughtBeforeTests {
         shop().checkFirstCategoryIs(shop().getFirstCategoryTitle(), "Вы покупали ранее");
     }
 
-    @CaseId(2945)
+    @TmsLink("2945")
     @Test(description = "Товары не отображаются, если выбран другой ретейлер", groups = REGRESSION_STF)
     public void testYouBoughtBeforeNotDisplayedForAnotherRetailer() {
         final UserData shoppingCartUser = UserManager.getQaUser();
@@ -89,7 +89,7 @@ public final class ShoppingYouBoughtBeforeTests {
         shop().checkYouBoughtBeforeCategoryNotDisplayed();
     }
 
-    @CaseId(2946)
+    @TmsLink("2946")
     @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя ранее не было сформированных заказов", groups = REGRESSION_STF)
     public void testYouBoughtBeforeNotDisplayedIfNoPreviousOrders() {
         final UserData shoppingCartUser = UserManager.getQaUser();
@@ -104,7 +104,7 @@ public final class ShoppingYouBoughtBeforeTests {
         shop().checkYouBoughtBeforeCategoryNotDisplayed();
     }
 
-    @CaseId(2947)
+    @TmsLink("2947")
     @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя отменен заказ и этот заказ единственный", groups = REGRESSION_STF)
     public void testYouBoughtBeforeNotDisplayedIfOrderCancelled() {
         final UserData shoppingCartUser = UserManager.getQaUser();

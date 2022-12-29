@@ -2,6 +2,8 @@ package ru.instamart.test.reforged.stf_prod.checkout_new;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
+import io.qameta.allure.TmsLinks;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -11,8 +13,6 @@ import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
@@ -39,7 +39,7 @@ public final class CheckoutPromoCodesTests {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseId(3612)
+    @TmsLink("3612")
     @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {STF_PROD_S})
     public void testApplyFreeDeliveryPromo() {
         shop().goToPage();
@@ -69,7 +69,7 @@ public final class CheckoutPromoCodesTests {
         checkoutNew().checkAmountDecreaseAfterApplyPromo(amountWithoutPromo);
     }
 
-    @CaseIDs(value = {@CaseId(3689), @CaseId(3646), @CaseId(3781)})
+    @TmsLinks(value = {@TmsLink("3689"), @TmsLink("3646"), @TmsLink("3781")})
     @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {STF_PROD_S})
     public void testSuccessApplyPromo() {
         shop().goToPage();
@@ -102,7 +102,7 @@ public final class CheckoutPromoCodesTests {
         checkoutNew().checkPromoCodeValue(promoCode);
     }
 
-    @CaseId(3645)
+    @TmsLink("3645")
     @Test(description = "Проверка применения несуществующего промокода", groups = {STF_PROD_S})
     public void testApplyNonExistPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);

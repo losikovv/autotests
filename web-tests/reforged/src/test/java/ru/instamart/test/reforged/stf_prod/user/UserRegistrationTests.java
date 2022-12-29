@@ -8,7 +8,7 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.Metrics;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -18,7 +18,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public final class UserRegistrationTests {
 
     @Metrics
-    @CaseId(1541)
+    @TmsLink("1541")
     @Story("Регистрация на лендинге")
     @Test(description = "Регистрация нового пользователя на лендинге", groups = {STF_PROD_S})
     public void successRegOnLanding() {
@@ -29,7 +29,7 @@ public final class UserRegistrationTests {
     }
 
     @Metrics
-    @CaseId(1543)
+    @TmsLink("1543")
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {STF_PROD_S})
     public void successRegOnMainPage() {
@@ -40,7 +40,7 @@ public final class UserRegistrationTests {
     }
 
     @Metrics
-    @CaseId(1545)
+    @TmsLink("1545")
     @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = {STF_PROD_S})
     public void successRegWithoutMailingCheckbox() {
         home().goToPage();
@@ -52,7 +52,7 @@ public final class UserRegistrationTests {
     }
 
     @Metrics
-    @CaseId(2622)
+    @TmsLink("2622")
     @Story("Регистрация из корзины")
     @Test(description = "Регистрация при попытке перехода из корзины в чекаут", groups = {STF_PROD_S})
     public void successRegFromCartWithQuantityAndAmountCheck() {

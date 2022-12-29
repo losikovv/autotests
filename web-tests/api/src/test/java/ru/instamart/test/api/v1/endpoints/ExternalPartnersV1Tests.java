@@ -22,7 +22,7 @@ import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class ExternalPartnersV1Tests extends RestBase {
     private Long subscriptionId;
 
 
-    @CaseId(1433)
+    @TmsLink("1433")
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"}, description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
@@ -52,7 +52,7 @@ public class ExternalPartnersV1Tests extends RestBase {
         compareTwoObjects(services.size(), 0);
     }
 
-    @CaseId(1434)
+    @TmsLink("1434")
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Подписка SberPrime активна",
@@ -68,7 +68,7 @@ public class ExternalPartnersV1Tests extends RestBase {
         subscriptionId = response.as(ExternalPartnersServicesV2Response.class).getServices().get(0).getSubscription().getId();
     }
 
-    @CaseId(2509)
+    @TmsLink("2509")
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о подписке",
@@ -87,7 +87,7 @@ public class ExternalPartnersV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1493)
+    @TmsLink("1493")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Отправка запроса c store_id",
             dependsOnMethods = "getActiveSubscription")
@@ -105,7 +105,7 @@ public class ExternalPartnersV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1494)
+    @TmsLink("1494")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Отправка запроса c store_id",
             dependsOnMethods = "getSberPrimeBannersWithSubscription")

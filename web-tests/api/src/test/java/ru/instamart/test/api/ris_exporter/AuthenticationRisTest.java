@@ -1,7 +1,7 @@
 package ru.instamart.test.api.ris_exporter;
 
 import io.qameta.allure.Epic;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -16,7 +16,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Epic("Аутентификация")
 public class AuthenticationRisTest extends RestBase {
 
-    @CaseId(422)
+    @TmsLink("422")
     @Test(  groups = {"api-ris-exporter"},
             description = "Аутентификация")
     public void authentication200() {
@@ -26,7 +26,7 @@ public class AuthenticationRisTest extends RestBase {
         checkFieldIsNotEmpty(response.as(TokenRisResponse.class).getToken(),"token");
     }
 
-    @CaseId(423)
+    @TmsLink("423")
     @Test(  groups = {"api-ris-exporter"},
             description = "Аутентификация с неверными кредами")
     public void authentication401() {

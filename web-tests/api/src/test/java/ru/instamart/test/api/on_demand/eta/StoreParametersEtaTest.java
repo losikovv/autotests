@@ -12,7 +12,7 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.eta.StoreParametersEtaResponse;
 import ru.instamart.jdbc.dao.eta.StoreParametersDao;
 import ru.instamart.jdbc.entity.eta.StoreParametersEntity;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -25,7 +25,7 @@ public class StoreParametersEtaTest extends EtaBase {
 
     private StoreParametersEtaResponse storeParameters;
 
-    @CaseId(29)
+    @TmsLink("29")
     @Story("Параметры магазинов")
     @Test(description = "Получение параметров магазина",
             groups = "ondemand-eta")
@@ -38,7 +38,7 @@ public class StoreParametersEtaTest extends EtaBase {
         compareTwoObjects(storeParameters.getId(), STORE_UUID);
     }
 
-    @CaseId(30)
+    @TmsLink("30")
     @Story("Параметры магазинов")
     @Test(description = "Обновление параметров магазина",
             groups = "ondemand-eta",
@@ -51,7 +51,7 @@ public class StoreParametersEtaTest extends EtaBase {
         compareTwoObjects(storeParametersFromDb.getAvgPositionsPerPlace(), storeParameters.getAvgPositionsPerPlace());
     }
 
-    @CaseId(219)
+    @TmsLink("219")
     @Story("Параметры магазинов")
     @Test(description = "Получение ошибки не существующего магазина",
             groups = "ondemand-eta")
@@ -64,7 +64,7 @@ public class StoreParametersEtaTest extends EtaBase {
         compareTwoObjects(parameters.getMessage(), String.format("магазин id = %s не существует", storeId));
     }
 
-    @CaseId(227)
+    @TmsLink("227")
     @Story("Параметры магазинов")
     @Test(description = "Получение ошибки не валидного uuid магазина",
             groups = "ondemand-eta")
@@ -76,7 +76,7 @@ public class StoreParametersEtaTest extends EtaBase {
         compareTwoObjects(parameters.getMessage(), "Invalid storeID, must be a valid UUID");
     }
 
-    @CaseId(230)
+    @TmsLink("230")
     @Story("Параметры магазинов")
     @Test(description = "Получение ошибки не поддерживаемого медиа типа",
             groups = "ondemand-eta",

@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import tagmanager.TagManagerGrpc;
 import tagmanager.Tagmanager;
 
@@ -38,7 +38,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Владелец")
-    @CaseId(3)
+    @TmsLink("3")
     @Test(description = "Создание владельца с валидными данными",
             groups = {"grpc-tag-manager"})
     public void createOwner() {
@@ -58,7 +58,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Владелец")
-    @CaseId(4)
+    @TmsLink("4")
     @Test(description = "Создание владельца с существующим именем",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "createOwner",
@@ -76,7 +76,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Владелец")
-    @CaseId(8)
+    @TmsLink("8")
     @Test(description = "Получение списка владельцев",
             groups = {"grpc-tag-manager"})
     public void getOwners() {
@@ -92,7 +92,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(17)
+    @TmsLink("17")
     @Test(description = "Создание тега с валидными данными",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "createOwner")
@@ -112,7 +112,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(18)
+    @TmsLink("18")
     @Test(description = "Создание тега с существующим именем",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "createTag",
@@ -129,7 +129,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(24)
+    @TmsLink("24")
     @Test(description = "Создание тега с несуществующим id владельца",
             groups = {"grpc-tag-manager"},
             expectedExceptions = StatusRuntimeException.class,
@@ -145,7 +145,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(31)
+    @TmsLink("31")
     @Test(description = "Удаление существующего тега",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "getTagsByOwner")
@@ -159,7 +159,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(34)
+    @TmsLink("34")
     @Test(description = "Проверка, что с удаленным тегом удаляются все привязки тега",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "deleteTag")
@@ -170,7 +170,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(26)
+    @TmsLink("26")
     @Test(description = "Получение списка тегов владельца",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "createDuplicateTag")
@@ -187,7 +187,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(29)
+    @TmsLink("29")
     @Test(description = "Получение списка тегов владельца по несуществующему id владельца",
             groups = {"grpc-tag-manager"},
             expectedExceptions = StatusRuntimeException.class,
@@ -201,7 +201,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(55)
+    @TmsLink("55")
     @Test(description = "Получение списка привязок тега",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "bindTag")
@@ -218,7 +218,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(148)
+    @TmsLink("148")
     @Test(description = "Получение списка привязанных тегов по владельцу и сущности",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "bindTag")
@@ -236,7 +236,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(152)
+    @TmsLink("152")
     @Test(description = "Получение списка тегов по сущности и несуществующему владельцу",
             groups = {"grpc-tag-manager"},
             expectedExceptions = StatusRuntimeException.class,
@@ -251,7 +251,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(150)
+    @TmsLink("150")
     @Test(description = "Получение списка тегов по несуществующей сущности и владельцу",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "bindTag")
@@ -265,7 +265,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(35)
+    @TmsLink("35")
     @Test(description = "Привязка тега к сущности с валидными данными",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "createTag")
@@ -288,7 +288,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(38)
+    @TmsLink("38")
     @Test(description = "Привязка тега с существующей привязкой",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "bindTag")
@@ -311,7 +311,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(37)
+    @TmsLink("37")
     @Test(description = "Привязка к несуществующему тегу",
             groups = {"grpc-tag-manager"},
             expectedExceptions = StatusRuntimeException.class,
@@ -329,7 +329,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(40)
+    @TmsLink("40")
     @Test(description = "Привязка тега к нескольким сущностям",
             groups = {"grpc-tag-manager"})
     public void bindTagMultiply() {
@@ -365,7 +365,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(158)
+    @TmsLink("158")
     @Test(description = "Получение списка привязанных тегов по владельцу и нескольким сущностям",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "bindTagMultiply")
@@ -393,7 +393,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(171)
+    @TmsLink("171")
     @Test(description = "Получение списка привязанных тегов по владельцу и нескольким сущностям, когда у какой-либо сущности несколько тегов",
             groups = {"grpc-tag-manager"})
     public void getTagsByItemsMultiply() {
@@ -416,7 +416,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(163)
+    @TmsLink("163")
     @Test(description = "Получение списка, когда часть сущностей существуют, а часть нет",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "bindTagMultiply")
@@ -447,7 +447,7 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
-    @CaseId(48)
+    @TmsLink("48")
     @Test(description = "Отвязка сущности от тега с валидными данными",
             groups = {"grpc-tag-manager"},
             dependsOnMethods = "createOwner")

@@ -21,7 +21,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.StoreZonesCoordinates;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -49,7 +49,7 @@ public class StoreZonesV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2795)
+    @TmsLink("2795")
     @Story("Зоны магазинов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение зон дефолтного магазина")
@@ -62,7 +62,7 @@ public class StoreZonesV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2796)
+    @TmsLink("2796")
     @Story("Зоны магазинов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение пустого списка зон магазина (у магазина нет зон)")
@@ -79,7 +79,7 @@ public class StoreZonesV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2797)
+    @TmsLink("2797")
     @Story("Зоны магазинов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение списка зон магазина, несуществующий магазин")
@@ -90,7 +90,7 @@ public class StoreZonesV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2798)
+    @TmsLink("2798")
     @Story("Зоны магазинов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Добавление зон в магазин")
@@ -107,7 +107,7 @@ public class StoreZonesV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2799)
+    @TmsLink("2799")
     @Story("Зоны магазинов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Добавление зон в магазин. Негативный. Магазин не существует")
@@ -119,7 +119,7 @@ public class StoreZonesV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2800)
+    @TmsLink("2800")
     @Story("Зоны магазинов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Загрузка файла с зонами")
@@ -135,7 +135,7 @@ public class StoreZonesV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2801)
+    @TmsLink("2801")
     @Story("Зоны магазинов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование зон магазина")
@@ -165,7 +165,7 @@ public class StoreZonesV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2802)
+    @TmsLink("2802")
     @Story("Зоны магазинов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление зон магазина")

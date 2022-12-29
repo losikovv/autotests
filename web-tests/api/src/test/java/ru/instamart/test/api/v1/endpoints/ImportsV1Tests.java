@@ -21,8 +21,8 @@ import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.jdbc.entity.stf.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,7 +48,7 @@ public class ImportsV1Tests extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(1903)
+    @TmsLink("1903")
     @Story("Фильтры")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта фильтров")
@@ -62,7 +62,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1903)
+    @TmsLink("1903")
     @Story("Фильтры")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта фильтров")
@@ -72,7 +72,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, FiltersFilesV1Response.class);
     }
 
-    @CaseId(1904)
+    @TmsLink("1904")
     @Story("Цены")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта цен")
@@ -86,7 +86,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1904)
+    @TmsLink("1904")
     @Story("Цены")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта цен")
@@ -96,7 +96,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, PricesFilesV1Response.class);
     }
 
-    @CaseId(1905)
+    @TmsLink("1905")
     @Story("Изображения продуктов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта изображений продуктов")
@@ -110,7 +110,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1905)
+    @TmsLink("1905")
     @Story("Изображения продуктов")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта изображений продуктов")
@@ -120,7 +120,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, ProductsImagesArchivesV1Response.class);
     }
 
-    @CaseId(1906)
+    @TmsLink("1906")
     @Story("Штрихкоды")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта штрихкодов")
@@ -134,7 +134,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1906)
+    @TmsLink("1906")
     @Story("Штрихкоды")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта штрихкодов")
@@ -144,7 +144,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, EansFilesV1Response.class);
     }
 
-    @CaseId(1907)
+    @TmsLink("1907")
     @Story("Офферы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта офферов")
@@ -158,7 +158,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1907)
+    @TmsLink("1907")
     @Story("Офферы")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта офферов")
@@ -168,7 +168,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, OffersFilesV1Response.class);
     }
 
-    @CaseId(1908)
+    @TmsLink("1908")
     @Story("Продукты")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта продуктов")
@@ -182,7 +182,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1908)
+    @TmsLink("1908")
     @Story("Продукты")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта продуктов")
@@ -192,7 +192,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, ProductsFilesV1Response.class);
     }
 
-    @CaseId(1909)
+    @TmsLink("1909")
     @Story("Стоки")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта стоков")
@@ -206,7 +206,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1909)
+    @TmsLink("1909")
     @Story("Стоки")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта стоков")
@@ -216,7 +216,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, StocksFilesV1Response.class);
     }
 
-    @CaseId(1910)
+    @TmsLink("1910")
     @Story("Мастер каталог")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта мастер каталога")
@@ -230,7 +230,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1910)
+    @TmsLink("1910")
     @Story("Мастер каталог")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта мастер каталога")
@@ -240,7 +240,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, MasterCategoriesFilesV1Response.class);
     }
 
-    @CaseId(1911)
+    @TmsLink("1911")
     @Story("Мастер каталог")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта аттрибутов мастер каталога")
@@ -254,7 +254,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1911)
+    @TmsLink("1911")
     @Story("Мастер каталог")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта аттрибутов мастер каталога")
@@ -264,7 +264,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, MasterCategoryAttributesFilesV1Response.class);
     }
 
-    @CaseId(1912)
+    @TmsLink("1912")
     @Story("Бренды")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта брендов")
@@ -278,7 +278,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1912)
+    @TmsLink("1912")
     @Story("Бренды")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта брендов")
@@ -288,7 +288,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, BrandsFilesV1Response.class);
     }
 
-    @CaseId(1913)
+    @TmsLink("1913")
     @Story("Категории")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта категорий")
@@ -302,7 +302,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1913)
+    @TmsLink("1913")
     @Story("Категории")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта категорий")
@@ -312,7 +312,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, TaxonsFilesV1Response.class);
     }
 
-    @CaseId(1914)
+    @TmsLink("1914")
     @Story("Иконки категорий")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта иконок категорий")
@@ -326,7 +326,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1914)
+    @TmsLink("1914")
     @Story("Иконки категорий")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта иконок категорий")
@@ -336,7 +336,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, TaxonsImagesFilesV1Response.class);
     }
 
-    @CaseId(1915)
+    @TmsLink("1915")
     @Story("Мета страниц")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о файлах импорта мета страницы")
@@ -350,7 +350,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
-    @CaseId(1915)
+    @TmsLink("1915")
     @Story("Мета страниц")
     @Test(groups = {API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о файлах импорта мета страницы")
@@ -360,7 +360,7 @@ public class ImportsV1Tests extends RestBase {
         checkResponseJsonSchema(response, PageMetasFilesV1Response.class);
     }
 
-    @CaseId(1928)
+    @TmsLink("1928")
     @Story("Продукты")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт нового продукта")
@@ -387,7 +387,7 @@ public class ImportsV1Tests extends RestBase {
         SpreeProductsDao.INSTANCE.delete(spreeProductsEntity.getId());
     }
 
-    @CaseId(1929)
+    @TmsLink("1929")
     @Story("Офферы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт нового оффера")
@@ -426,7 +426,7 @@ public class ImportsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1930)
+    @TmsLink("1930")
     @Story("Офферы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт стоков оффера",
@@ -458,7 +458,7 @@ public class ImportsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseIDs(value = {@CaseId(1931), @CaseId(1932), @CaseId(1933)})
+    @TmsLinks(value = {@TmsLink("1931"), @TmsLink("1932"), @TmsLink("1933")})
     @Story("Фильтры")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт фильтров",
@@ -491,7 +491,7 @@ public class ImportsV1Tests extends RestBase {
         SpreeProductFiltersDao.INSTANCE.delete(productsFilterFromDb.getId());
     }
 
-    @CaseId(1949)
+    @TmsLink("1949")
     @Story("Цены")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт цен",
@@ -523,7 +523,7 @@ public class ImportsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1950)
+    @TmsLink("1950")
     @Story("Штрихкоды")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт штрихкодов",
@@ -554,7 +554,7 @@ public class ImportsV1Tests extends RestBase {
         EansDao.INSTANCE.delete(eanFromDb.getId());
     }
 
-    @CaseId(1951)
+    @TmsLink("1951")
     @Story("Бренды")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт брендов")
@@ -581,7 +581,7 @@ public class ImportsV1Tests extends RestBase {
         SpreeBrandsDao.INSTANCE.delete(brandFromDb.getId());
     }
 
-    @CaseId(1952)
+    @TmsLink("1952")
     @Story("Изображения продуктов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт изображений продуктов")
@@ -605,7 +605,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(ImagesDraftsDao.INSTANCE.getCount("13626"), 2);
     }
 
-    @CaseId(1953)
+    @TmsLink("1953")
     @Story("Иконки категорий")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт иконок категорий")
@@ -636,7 +636,7 @@ public class ImportsV1Tests extends RestBase {
         SpreeTaxonsDao.INSTANCE.updateTaxonIcon(null, null, null, 66080700);
     }
 
-    @CaseId(1954)
+    @TmsLink("1954")
     @Story("Категории")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт категорий с неверным файлом")
@@ -659,7 +659,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(status, ImportStatusV1.FAILED.getValue());
     }
 
-    @CaseId(1955)
+    @TmsLink("1955")
     @Story("Мастер каталог")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт мастер каталога с неверным файлом")
@@ -682,7 +682,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(status, ImportStatusV1.FAILED.getValue());
     }
 
-    @CaseId(1956)
+    @TmsLink("1956")
     @Story("Мастер каталог")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Импорт аттрибутов мастер каталога с неверным файлом")

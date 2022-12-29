@@ -18,7 +18,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -49,7 +49,7 @@ public class StoreSchedulesV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Шаблоны слотов")
-    @CaseId(2803)
+    @TmsLink("2803")
     @Test(description = "Получение шаблонов слотов. Шаблоны присутствуют",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getStoreSchedules() {
@@ -63,7 +63,7 @@ public class StoreSchedulesV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Шаблоны слотов")
-    @CaseId(2804)
+    @TmsLink("2804")
     @Test(description = "Получение шаблонов слотов. Шаблоны отсутствуют (не загружены)",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getStoreSchedulesEmpty() {
@@ -81,7 +81,7 @@ public class StoreSchedulesV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Шаблоны слотов")
-    @CaseId(2805)
+    @TmsLink("2805")
     @Test(description = "Получение шаблонов слотов. Магазин не существует",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getStoreSchedulesIncorrectSid() {
@@ -93,7 +93,7 @@ public class StoreSchedulesV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Шаблоны слотов")
-    @CaseId(2806)
+    @TmsLink("2806")
     @Test(description = "Добавление шаблонов слотов",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postStoreSchedules() {
@@ -111,7 +111,7 @@ public class StoreSchedulesV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Шаблоны слотов")
-    @CaseId(2807)
+    @TmsLink("2807")
     @Test(description = "Редактирование/Удаление шаблонов слотов",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void putStoreSchedules() {

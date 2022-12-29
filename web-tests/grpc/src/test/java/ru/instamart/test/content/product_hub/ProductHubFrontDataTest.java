@@ -11,7 +11,7 @@ import product_hub_front_data.ProductHubFrontDataGrpc;
 import product_hub_front_data.ProductHubFrontDataOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.stream.Collectors;
 
@@ -30,7 +30,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(204)
+    @TmsLink("204")
     @Test(description = "Получение продуктов по SKU",
             groups = {"grpc-product-hub"})
     public void getProductsBySKU() {
@@ -46,7 +46,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(205)
+    @TmsLink("205")
     @Test(description = "Получение продуктов по SKU без SKU",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -60,7 +60,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты с офферами")
-    @CaseId(206)
+    @TmsLink("206")
     @Test(description = "Получение продуктов с офферами по SKU",
             groups = {"grpc-product-hub"})
     public void getProductsWithOfferBySKU() {
@@ -78,7 +78,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты с офферами")
-    @CaseId(207)
+    @TmsLink("207")
     @Test(description = "Получение продуктов с офферами по SKU без store id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -94,7 +94,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(208)
+    @TmsLink("208")
     @Test(description = "Получение продуктов по EAN",
             groups = {"grpc-product-hub"})
     public void getProductsByEan() {
@@ -110,7 +110,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(209)
+    @TmsLink("209")
     @Test(description = "Получение продуктов по EAN с пустым EAN",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -124,7 +124,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты с офферами")
-    @CaseId(210)
+    @TmsLink("210")
     @Test(description = "Получение продуктов с офферами по EAN",
             groups = {"grpc-product-hub"})
     public void getProductsWithOffersByEan() {
@@ -142,7 +142,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты с офферами")
-    @CaseId(211)
+    @TmsLink("211")
     @Test(description = "Получение продуктов с офферами по EAN без store id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -158,7 +158,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(212)
+    @TmsLink("212")
     @Test(description = "Получение продуктов по permalink",
             groups = {"grpc-product-hub"})
     public void getProductsByPermalinks() {
@@ -174,7 +174,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(214)
+    @TmsLink("214")
     @Test(description = "Получение продуктов по permalink без permalink",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -189,7 +189,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты c офферами")
-    @CaseId(215)
+    @TmsLink("215")
     @Test(description = "Получение продуктов с офферами по permalink",
             groups = {"grpc-product-hub"})
     public void getProductsWithOfferByPermalinks() {
@@ -207,7 +207,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты c офферами")
-    @CaseId(213)
+    @TmsLink("213")
     @Test(description = "Получение продуктов с офферами по permalink без store_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -223,7 +223,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты c офферами")
-    @CaseId(216)
+    @TmsLink("216")
     @Test(description = "Получение продуктов с офферами по id оффера", enabled = false, //todo использовать продукт с оффером
             groups = {"grpc-product-hub"})
     public void getProductsWithOfferByOfferId() {
@@ -240,7 +240,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Стоки")
-    @CaseId(218)
+    @TmsLink("218")
     @Test(description = "Получение стоков продукта",
             groups = {"grpc-product-hub"})
     public void getStocks() {
@@ -260,7 +260,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Стоки")
-    @CaseId(219)
+    @TmsLink("219")
     @Test(description = "Получение стоков продукта без SKU",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -278,7 +278,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Офферы")
-    @CaseId(220)
+    @TmsLink("220")
     @Test(description = "Получение офферов продукта",
             groups = {"grpc-product-hub"})
     public void getOffers() {
@@ -300,7 +300,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Офферы")
-    @CaseId(221)
+    @TmsLink("221")
     @Test(description = "Получение офферов продукта без SKU ретейлера",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -318,7 +318,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Цены")
-    @CaseId(222)
+    @TmsLink("222")
     @Test(description = "Получение цен продукта",
             groups = {"grpc-product-hub"})
     public void getPrices() {
@@ -338,7 +338,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Цены")
-    @CaseId(223)
+    @TmsLink("223")
     @Test(description = "Получение цен продукта без SKU",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,

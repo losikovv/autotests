@@ -3,9 +3,9 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.login;
@@ -15,7 +15,7 @@ import static ru.instamart.reforged.admin.AdminRout.main;
 @Feature("Страница логина")
 public final class AdministrationLoginTests {
 
-    @CaseId(440)
+    @TmsLink("440")
     @Story("Тест неуспешной авторизации с пустыми полями")
     @Test(description = "Тест неуспешной авторизации с пустыми полями", groups = REGRESSION_ADMIN)
     public void noAuthWithEmptyFields() {
@@ -27,7 +27,7 @@ public final class AdministrationLoginTests {
         login().checkErrorEmptyPassword();
     }
 
-    @CaseId(441)
+    @TmsLink("441")
     @Story("Тест неуспешной авторизации с некорректным логином")
     @Test(description = "Тест неуспешной авторизации с некорректным логином", groups = REGRESSION_ADMIN)
     public void noAuthWithIncorrectUsername() {
@@ -38,7 +38,7 @@ public final class AdministrationLoginTests {
         login().checkErrorInvalidEmail();
     }
 
-    @CaseId(442)
+    @TmsLink("442")
     @Story("Тест неуспешной авторизации с несуществующим логином")
     @Test(description = "Тест неуспешной авторизации с несуществующим логином", groups = REGRESSION_ADMIN)
     public void noAuthWithNonExistingUser() {
@@ -49,7 +49,7 @@ public final class AdministrationLoginTests {
         login().checkErrorInvalidEmailOrPassword();
     }
 
-    @CaseId(443)
+    @TmsLink("443")
     @Story("Тест неуспешной авторизации с коротким паролем")
     @Test(description = "Тест неуспешной авторизации с коротким паролем", groups = REGRESSION_ADMIN)
     public void noAuthWithShortPassword() {
@@ -60,7 +60,7 @@ public final class AdministrationLoginTests {
         login().checkErrorShortPassword();
     }
 
-    @CaseId(444)
+    @TmsLink("444")
     @Story("Тест неуспешной авторизации с неверным паролем")
     @Test(description = "Тест неуспешной авторизации с неверным паролем", groups = REGRESSION_ADMIN)
     public void noAuthWithWrongPassword() {
@@ -71,7 +71,7 @@ public final class AdministrationLoginTests {
         login().checkErrorInvalidEmailOrPassword();
     }
 
-    @CaseId(415)
+    @TmsLink("415")
     @Story("Тест успешной авторизации")
     @Test(description = "Тест успешной авторизации", groups = {REGRESSION_ADMIN, "smoke"})
     public void successAuthOnAdminLoginPage() {
@@ -83,7 +83,7 @@ public final class AdministrationLoginTests {
         main().interactAuthoredHeader().checkAdminAuth();
     }
 
-    @CaseId(2)
+    @TmsLink("2")
     @Story("Тест логаута из админки")
     @Test(description = "Тест логаута из админки", groups = {REGRESSION_ADMIN, "smoke"})
     public void successLogoutFromAdminPage() {
@@ -99,7 +99,7 @@ public final class AdministrationLoginTests {
         login().checkTitle();
     }
 
-    @CaseId(417)
+    @TmsLink("417")
     @Story("Тест недоступности админки пользователю без админ. прав")
     @Test(description = "Тест недоступности админки пользователю без админ. прав", groups = {REGRESSION_ADMIN, "smoke"})
     public void loginWithoutAdminPermission() {

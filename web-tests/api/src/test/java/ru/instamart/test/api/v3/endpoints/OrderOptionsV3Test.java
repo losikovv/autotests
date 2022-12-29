@@ -9,7 +9,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.request.v3.OrderOptionsV3Request;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -18,7 +18,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Опции заказа")
 public final class OrderOptionsV3Test extends RestBase {
 
-    @CaseId(853)
+    @TmsLink("853")
     @Story("Опции доставки")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "goods",
@@ -29,7 +29,7 @@ public final class OrderOptionsV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(855)
+    @TmsLink("855")
     @Story("Опции доставки")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "sber_devices",
@@ -40,7 +40,7 @@ public final class OrderOptionsV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(1898)
+    @TmsLink("1898")
     @Story("Опции доставки")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Aliexpress",
@@ -51,7 +51,7 @@ public final class OrderOptionsV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(1900)
+    @TmsLink("1900")
     @Story("Опции доставки")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Auchan",
@@ -62,7 +62,7 @@ public final class OrderOptionsV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(854)
+    @TmsLink("854")
     @Story("Опции доставки")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "metro_marketplace",
@@ -74,7 +74,7 @@ public final class OrderOptionsV3Test extends RestBase {
 
     }
 
-    @CaseId(677)
+    @TmsLink("677")
     @Story("Опции самовывоза")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "metro_marketplace",
@@ -85,7 +85,7 @@ public final class OrderOptionsV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(1902)
+    @TmsLink("1902")
     @Story("Опции доставки")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Auchan",

@@ -15,8 +15,8 @@ import ru.instamart.jdbc.dao.routeestimator.RegionSettingsDao;
 import ru.instamart.jdbc.dao.routeestimator.RouteEstimatorSettingsDao;
 import ru.instamart.jdbc.entity.routeestimator.RegionSettingsEntity;
 import ru.instamart.jdbc.entity.routeestimator.RouteEstimatorSettingsEntity;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static com.google.protobuf.util.Durations.toSeconds;
 import static org.testng.Assert.assertEquals;
@@ -43,7 +43,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         clientRes = estimator.RouteEstimatorGrpc.newBlockingStub(channel);
     }
 
-    @CaseIDs({@CaseId(1), @CaseId(34)})
+    @TmsLinks({@TmsLink("1"), @TmsLink("34")})
     @Test(description = "Расчёт времени подлёта через 2GIS для пешего и вело универсалов", dataProvider = "transportType", dataProviderClass = DispatchDataProvider.class,
             groups = "ondemand-res-smoke")
     @Parameters("Тип транспорта")
@@ -56,7 +56,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(9)
+    @TmsLink("9")
     @Test(description = "Расчёт времени подлёта через 2GIS для авто универсала",
             groups = "ondemand-res-smoke")
     public void estimateArriveSegmentCar() {
@@ -69,7 +69,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(11)
+    @TmsLink("11")
     @Test(description = "Расчёт времени подлёта для пешего универсала через фоллбек (расстояние между точками меньше 50 метров)",
             groups = "ondemand-res-smoke")
     public void estimateArriveSegmentFallbackPedestrian() {
@@ -84,7 +84,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(40)
+    @TmsLink("40")
     @Test(description = "Расчёт времени подлёта для вело универсала через фоллбек (расстояние между точками меньше 50 метров)",
             groups = "ondemand-res-smoke")
     public void estimateArriveSegmentFallbackBike() {
@@ -99,7 +99,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseIDs({@CaseId(2), @CaseId(35)})
+    @TmsLinks({@TmsLink("2"), @TmsLink("35")})
     @Test(description = "Расчёт времени сборки для пешего и вело универсалов", dataProvider = "transportType", dataProviderClass = DispatchDataProvider.class,
             groups = "ondemand-res-smoke")
     public void estimateAssemblySegmentPedestrianBike(Estimator.PerformerVehicle type) {
@@ -114,7 +114,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(7)
+    @TmsLink("7")
     @Test(description = "Расчёт времени сборки для авто универсалов",
             groups = "ondemand-res-smoke")
     public void estimateAssemblySegmentCarUniversal() {
@@ -129,7 +129,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseIDs({@CaseId(4), @CaseId(36)})
+    @TmsLinks({@TmsLink("4"), @TmsLink("36")})
     @Test(description = "Расчёт времени передачи от сборки в доставку для пешего и вело универсалов", dataProvider = "transportType", dataProviderClass = DispatchDataProvider.class,
             groups = "ondemand-res-smoke")
     public void estimateTransferFromAssemblyToDeliverySegment(Estimator.PerformerVehicle type) {
@@ -144,7 +144,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(8)
+    @TmsLink("8")
     @Test(description = "Расчёт времени передачи от сборки в доставку для авто универсалов",
             groups = "ondemand-res-smoke")
     public void estimateTransferFromAssemblyToDeliverySegmentCar() {
@@ -159,7 +159,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseIDs({@CaseId(23), @CaseId(37)})
+    @TmsLinks({@TmsLink("23"), @TmsLink("37")})
     @Test(description = "Расчёт времени получения заказа в доставку для пешего и вело универсалов", dataProvider = "transportType", dataProviderClass = DispatchDataProvider.class,
             groups = "ondemand-res-smoke")
     public void estimateReceivingForDeliverySegmentPedestrianBike(Estimator.PerformerVehicle type) {
@@ -174,7 +174,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(3)
+    @TmsLink("3")
     @Test(description = "Расчёт времени получения заказа в доставку для авто универсалов",
             groups = "ondemand-res-smoke")
     public void estimateReceivingForDeliverySegmentCar() {
@@ -189,7 +189,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseIDs({@CaseId(5), @CaseId(38)})
+    @TmsLinks({@TmsLink("5"), @TmsLink("38")})
     @Test(description = "Расчёт времени доставки через 2GIS для пешего и вело универсалов", dataProvider = "transportType", dataProviderClass = DispatchDataProvider.class,
             groups = "ondemand-res-smoke")
     public void estimateDeliverySegmentPedestrian(Estimator.PerformerVehicle type) {
@@ -201,7 +201,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(12)
+    @TmsLink("12")
     @Test(description = "Расчёт времени доставки через 2GIS для авто универсала",
             groups = "ondemand-res-smoke")
     public void estimateDeliverySegmentCar() {
@@ -214,7 +214,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(14)
+    @TmsLink("14")
     @Test(description = "Расчёт времени доставки через фоллбек для пешего универсала (расстояние меньше 50 метров)",
             groups = "ondemand-res-smoke")
     public void estimateDeliverySegmentFallbackPedestrian() {
@@ -229,7 +229,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(42)
+    @TmsLink("42")
     @Test(description = "Расчёт времени доставки через фоллбек для вело универсала (расстояние меньше 50 метров)",
             groups = "ondemand-res-smoke")
     public void estimateDeliverySegmentFallbackBike() {
@@ -244,7 +244,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseIDs({@CaseId(6), @CaseId(39)})
+    @TmsLinks({@TmsLink("6"), @TmsLink("39")})
     @Test(description = "Расчёт времени передачи заказа клиенту для пешего универсала", dataProvider = "transportType", dataProviderClass = DispatchDataProvider.class,
             groups = "ondemand-res-smoke")
     public void estimatePassToClientSegment(Estimator.PerformerVehicle type) {
@@ -259,7 +259,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
         });
     }
 
-    @CaseId(24)
+    @TmsLink("24")
     @Test(description = "Расчёт времени передачи заказа клиенту для авто универсала",
             groups = "ondemand-res-smoke")
     public void estimatePassToClientSegmentCar() {

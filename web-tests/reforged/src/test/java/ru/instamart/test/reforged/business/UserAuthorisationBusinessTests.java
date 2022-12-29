@@ -9,7 +9,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
@@ -18,7 +18,7 @@ import static ru.instamart.reforged.business.page.BusinessRouter.business;
 @Feature("Регистрация и авторизация B2B")
 public final class UserAuthorisationBusinessTests {
 
-    @CaseId(230)
+    @TmsLink("230")
     @Story("Авторизация")
     @Test(description = "Вход по мобильному телефону (B2B)", groups = {"smoke", REGRESSION_BUSINESS})
     public void successAuthOnMainPage() {
@@ -32,7 +32,7 @@ public final class UserAuthorisationBusinessTests {
 
     @Run(onServer = Server.PREPROD)
     @Issue("DEVB2B-1977")
-    @CaseId(231)
+    @TmsLink("231")
     @Story("Авторизация")
     @Skip
     @Test(description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", REGRESSION_BUSINESS})

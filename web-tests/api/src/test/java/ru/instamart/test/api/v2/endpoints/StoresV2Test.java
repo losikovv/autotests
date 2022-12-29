@@ -16,7 +16,7 @@ import ru.instamart.api.response.v2.StoresV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
@@ -57,7 +57,7 @@ public final class StoresV2Test extends RestBase {
                 "Не вернулись магазины по указанным координатам");
     }
 
-    @CaseId(197)
+    @TmsLink("197")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем магазин")
     public void testGetStoresWithInvalidSid() {
@@ -81,7 +81,7 @@ public final class StoresV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(196)
+    @TmsLink("196")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем магазин")
     public void testGetStoresWithDefaultSid() {
@@ -91,7 +91,7 @@ public final class StoresV2Test extends RestBase {
         Allure.step("Проверка id у store", () -> compareTwoObjects(response.as(StoreV2Response.class).getStore().getId(), EnvironmentProperties.DEFAULT_SID));
     }
 
-    @CaseId(188)
+    @TmsLink("188")
     @JsonDataProvider(path = "data/json_v2/api_v2_negative_store_data.json", type = RestDataProvider.StoreDataRoot.class)
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "json",
@@ -103,7 +103,7 @@ public final class StoresV2Test extends RestBase {
         checkError(response, "lat and lon params are both required");
     }
 
-    @CaseId(189)
+    @TmsLink("189")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получение списка магазинов с указанием lat и lon")
     public void getStoresWithLatAndLon() {
@@ -125,7 +125,7 @@ public final class StoresV2Test extends RestBase {
         });
     }
 
-    @CaseId(190)
+    @TmsLink("190")
     @JsonDataProvider(path = "data/json_v2/api_v2_positive_store_data.json", type = RestDataProvider.StoreDataRoot.class)
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "json",
@@ -165,7 +165,7 @@ public final class StoresV2Test extends RestBase {
         assertTrue(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
     }
 
-    @CaseId(2213)
+    @TmsLink("2213")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "forMapFailedTestParams",
             dataProviderClass = RestDataProvider.class,
@@ -176,7 +176,7 @@ public final class StoresV2Test extends RestBase {
         checkError(response, errorMessage);
     }
 
-    @CaseId(2212)
+    @TmsLink("2212")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение магазинов для вывода на карте")
     public void testForMap() {

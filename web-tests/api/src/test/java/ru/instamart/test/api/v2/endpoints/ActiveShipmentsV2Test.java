@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -17,7 +18,6 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -54,7 +54,7 @@ public class ActiveShipmentsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING) //todo не работает с 1 сидом на стейджах
-    @CaseId(1387)
+    @TmsLink("1387")
     @Story("Текущий подзаказ")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение текущего подзаказа для конкретного магазина")
@@ -69,7 +69,7 @@ public class ActiveShipmentsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING) //todo не работает с 1 сидом на стейджах
-    @CaseId(1388)
+    @TmsLink("1388")
     @Story("Текущий подзаказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение текущего подзаказа")

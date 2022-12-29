@@ -9,7 +9,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -33,7 +33,7 @@ public final class OrderRepeatTests {
         this.helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseId(2614)
+    @TmsLink("2614")
     @Test(description = "Добавление в корзину товаров из истории заказов", groups = {STF_PROD_S})
     public void successRepeatLastOrderFromOrderHistory() {
         shop().goToPage();
@@ -52,7 +52,7 @@ public final class OrderRepeatTests {
         shop().interactCart().getFirstRetailer().compareItemsInCart(2);
     }
 
-    @CaseId(1669)
+    @TmsLink("1669")
     @Test(description = "Повтор крайнего заказа со страницы заказа", groups = {STF_PROD_S})
     public void successRepeatOrderFromOrderDetails() {
         shop().goToPage();

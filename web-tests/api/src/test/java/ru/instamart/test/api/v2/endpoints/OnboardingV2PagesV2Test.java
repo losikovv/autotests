@@ -10,7 +10,7 @@ import ru.instamart.api.request.v2.OnboardingV2PagesV2Request;
 import ru.instamart.api.response.v2.OnboardingPagesV2Response;
 import ru.instamart.jdbc.dao.stf.OnboardingV2PagesDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Онбординг (Сториз)")
 public class OnboardingV2PagesV2Test extends RestBase {
 
-    @CaseId(821)
+    @TmsLink("821")
     @Test(description = "Получение экранов онбординга при старте приложения",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getOnboardingPages() {

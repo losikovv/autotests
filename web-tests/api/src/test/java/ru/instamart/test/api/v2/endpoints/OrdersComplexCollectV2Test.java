@@ -19,7 +19,7 @@ import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.api.response.v2.OrdersV2Response;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -47,7 +47,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
         SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(orderNumber, getDbDeliveryDateFrom(0L));
     }
 
-    @CaseId(306)
+    @TmsLink("306")
     @Story("История заказов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение истории заказов (1-ая страница)")
@@ -65,7 +65,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1406)
+    @TmsLink("1406")
     @Story("История заказов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о предыдущем заказе")
@@ -78,7 +78,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
         compareTwoObjects(order, orderFromResponse);
     }
 
-    @CaseId(307)
+    @TmsLink("307")
     @Story("История заказов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о предыдущем заказе. Нет предыдущих заказов",
@@ -91,7 +91,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     }
 
     @Deprecated
-    @CaseId(637)
+    @TmsLink("637")
     @Story("Получение списка отмененных позиций по заказу")
     @Test(groups = {},
             description = "Получение списка отмененных позиций по заказу для существующего id")
@@ -102,7 +102,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     }
 
     @Deprecated
-    @CaseId(325)
+    @TmsLink("325")
     @Story("Получение списка отмененных позиций по подзаказу")
     @Test(groups = {},
             description = "Получение списка отмененных позиций по подзаказу для существующего id")
@@ -113,7 +113,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     }
 
     @Deprecated
-    @CaseId(327)
+    @TmsLink("327")
     @Story("Получение списка замененных позиций по заказу")
     @Test(groups = {},
             description = "Получение списка замененных позиций по заказу по существующему id")
@@ -125,7 +125,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
 
 
     @Deprecated
-    @CaseId(329)
+    @TmsLink("329")
     @Story("Получение списка замененных позиций по подзаказуу")
     @Test(groups = {},
             description = "Получение списка замененных позиций по подзаказу по существующему id")

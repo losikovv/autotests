@@ -25,8 +25,8 @@ import ru.instamart.jdbc.dao.stf.ShipmentReviewWindowClosesDao;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(order.getNumber(), getDbDeliveryDateFrom(0L));
     }
 
-    @CaseIDs(value = {@CaseId(468), @CaseId(1164)})
+    @TmsLinks(value = {@TmsLink("468"), @TmsLink("1164")})
     @Story("Получение доступных для отправки отзыва подзаказов")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Автоматическое получение последнего шипмента без оценки при старте приложения. Заказ на аккаунте совершен.")
@@ -80,7 +80,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         });
     }
 
-    @CaseIDs(value = {@CaseId(472), @CaseId(1186)})
+    @TmsLinks(value = {@TmsLink("472"), @TmsLink("1186")})
     @Story("Создание отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с существующим номером",
@@ -103,7 +103,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         });
     }
 
-    @CaseIDs(value = {@CaseId(1182), @CaseId(1185)})
+    @TmsLinks(value = {@TmsLink("1182"), @TmsLink("1185")})
     @Story("Создание отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с существующим номером и галочкой 'Связаться со мной'",
@@ -127,7 +127,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         });
     }
 
-    @CaseId(475)
+    @TmsLink("475")
     @Story("Создание отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с существующим номером и комментарием")
@@ -148,7 +148,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         });
     }
 
-    @CaseId(476)
+    @TmsLink("476")
     @Story("Создание отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с несколькими значениями для review[issue_ids]")
@@ -178,7 +178,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         });
     }
 
-    @CaseId(477)
+    @TmsLink("477")
     @Story("Создание отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с [images_attributes]")
@@ -196,7 +196,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     }
 
-    @CaseId(1187)
+    @TmsLink("1187")
     @Story("Создание отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва на заказ с уже существующим отзывом")
@@ -219,7 +219,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         });
     }
 
-    @CaseId(1184)
+    @TmsLink("1184")
     @Story("Создание отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва на заказ с токеном другого юзера")
@@ -233,7 +233,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkError(response, "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(1183)
+    @TmsLink("1183")
     @Story("Создание отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва без токена")
@@ -247,7 +247,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 
-    @CaseId(1179)
+    @TmsLink("1179")
     @Story("Получение последнего подзаказа для отзыва")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение последнего подзаказа для отзыва - Отзыв уже оставлен ранее")
@@ -263,7 +263,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkError(response, "ActiveRecord::RecordNotFound");
     }
 
-    @CaseId(1180)
+    @TmsLink("1180")
     @Story("Получение последнего подзаказа для отзыва")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение последнего подзаказа для отзыва - Окно с отзывом закрыто дважды")
@@ -278,7 +278,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkError(response, "ActiveRecord::RecordNotFound");
     }
 
-    @CaseId(1162)
+    @TmsLink("1162")
     @Story("Закрытие окна заказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Успешное закрытие окна заказа")
@@ -287,7 +287,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkStatusCode(response, 204);
     }
 
-    @CaseId(1823)
+    @TmsLink("1823")
     @Story("Закрытие окна заказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Закрытие окна заказа в 256 раз")
@@ -301,7 +301,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         compareTwoObjects(error.getErrorMessages().get(0).getMessage(), "может иметь значение меньшее или равное 255");
     }
 
-    @CaseId(1171)
+    @TmsLink("1171")
     @Story("Закрытие окна заказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Закрытие окна заказа неавторизованным пользователем")
@@ -312,7 +312,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 
-    @CaseId(1173)
+    @TmsLink("1173")
     @Story("Закрытие окна заказа")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Закрытие окна заказа для несуществующего заказа")

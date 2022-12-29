@@ -20,7 +20,7 @@ import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import workflow.ServiceGrpc;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
@@ -63,7 +63,7 @@ public class ShiftsWorkflowTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
     }
 
-    @CaseId(168)
+    @TmsLink("168")
     @Story("Завершение смены")
     @Test(groups = {"api-shifts"},
             description = "Получение ошибки при завершении активной смены с активным маршрутным листом")

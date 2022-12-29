@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import shippingcalc.GetSwitchbackExperimentsRequest;
 import shippingcalc.SetSwitchbackExperimentsRequest;
 import shippingcalc.ShippingcalcGrpc;
@@ -35,7 +35,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC));
     }
 
-    @CaseId(293)
+    @TmsLink("293")
     @Story("Set Switchback Experiments")
     @Test(description = "Запись switchback-интервала",
             groups = "ondemand-shippingcalc")
@@ -50,7 +50,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
         Allure.step("Проверка успешного выполнения запроса", () -> assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ"));
     }
 
-    @CaseId(296)
+    @TmsLink("296")
     @Story("Set Switchback Experiments")
     @Test(description = "Перезапись всех switchback-интервалов",
             groups = "ondemand-shippingcalc",
@@ -68,7 +68,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
         Allure.step("Проверка успешного выполнения запроса", () -> assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ"));
     }
 
-    @CaseId(310)
+    @TmsLink("310")
     @Story("Set Switchback Experiments")
     @Test(description = "Получение ошибки при записи одинаковых switchback-интервалов",
             groups = "ondemand-shippingcalc",
@@ -85,7 +85,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
         clientShippingCalc.setSwitchbackExperiments(request);
     }
 
-    @CaseId(298)
+    @TmsLink("298")
     @Story("Set Switchback Experiments")
     @Test(description = "Получение ошибки при записи switchback-интервалов с некорректным типом источника",
             groups = "ondemand-shippingcalc",
@@ -100,7 +100,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
         clientShippingCalc.setSwitchbackExperiments(request);
     }
 
-    @CaseId(297)
+    @TmsLink("297")
     @Story("Get Switchback Experiments")
     @Test(description = "Получение списка switchback-интервалов",
             groups = "ondemand-shippingcalc",

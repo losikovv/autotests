@@ -15,7 +15,7 @@ import ru.instamart.api.common.EtaBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.eta.DisableEtaIntervalsDao;
 import ru.instamart.jdbc.entity.eta.DisableEtaIntervalsEntity;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +39,7 @@ public class DisableEtaTest extends EtaBase {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));
     }
 
-    @CaseId(240)
+    @TmsLink("240")
     @Story("Disable ETA")
     @Test(description = "Загрузка корректных интервалов отключения ЕТА",
             groups = "ondemand-eta")
@@ -56,7 +56,7 @@ public class DisableEtaTest extends EtaBase {
         Allure.step("Проверка успешного выполнения запроса", () -> compareTwoObjects(response.toString(), ""));
     }
 
-    @CaseId(255)
+    @TmsLink("255")
     @Story("Disable ETA")
     @Test(description = "Загрузка корректных интервалов отключения слота",
             groups = "ondemand-eta")
@@ -73,7 +73,7 @@ public class DisableEtaTest extends EtaBase {
         Allure.step("Проверка успешного выполнения запроса", () -> compareTwoObjects(response.toString(), ""));
     }
 
-    @CaseId(256)
+    @TmsLink("256")
     @Story("Disable ETA")
     @Test(description = "Загрузка корректных интервалов отключения ЕТА и слота",
             groups = "ondemand-eta")
@@ -94,7 +94,7 @@ public class DisableEtaTest extends EtaBase {
         });
     }
 
-    @CaseId(257)
+    @TmsLink("257")
     @Story("Disable ETA")
     @Test(description = "Загрузка корректных интервалов в несколько магазинов",
             groups = "ondemand-eta")
@@ -112,7 +112,7 @@ public class DisableEtaTest extends EtaBase {
         Allure.step("Проверка успешного выполнения запроса", () -> compareTwoObjects(response.toString(), ""));
     }
 
-    @CaseId(243)
+    @TmsLink("243")
     @Story("Disable ETA")
     @Test(description = "Удаление старых интервалов при загрузке новых, которые пересекаются по времени",
             groups = "ondemand-eta",
@@ -136,7 +136,7 @@ public class DisableEtaTest extends EtaBase {
         });
     }
 
-    @CaseId(241)
+    @TmsLink("241")
     @Story("Disable ETA")
     @Test(description = "Получение ошибки при загрузке интервалов c пустым списком магазинов",
             groups = "ondemand-eta",
@@ -152,7 +152,7 @@ public class DisableEtaTest extends EtaBase {
         clientEta.disableEta(request);
     }
 
-    @CaseId(258)
+    @TmsLink("258")
     @Story("Disable ETA")
     @Test(description = "Получение ошибки при загрузке интервалов с не валидным store.uuid",
             groups = "ondemand-eta",
@@ -169,7 +169,7 @@ public class DisableEtaTest extends EtaBase {
         clientEta.disableEta(request);
     }
 
-    @CaseId(242)
+    @TmsLink("242")
     @Story("Disable ETA")
     @Test(description = "Получение ошибки при загрузке интервалов без указания временных границ",
             groups = "ondemand-eta",
@@ -185,7 +185,7 @@ public class DisableEtaTest extends EtaBase {
         clientEta.disableEta(request);
     }
 
-    @CaseId(254)
+    @TmsLink("254")
     @Story("Disable ETA")
     @Test(description = "Получение ошибки при загрузке интервалов без отключения ЕТА и слота",
             groups = "ondemand-eta",
@@ -202,7 +202,7 @@ public class DisableEtaTest extends EtaBase {
         clientEta.disableEta(request);
     }
 
-    @CaseId(259)
+    @TmsLink("259")
     @Story("Check Slot Disable")
     @Test(description = "Получение списка выключенных слотов в магазине",
             groups = "ondemand-eta",
@@ -222,7 +222,7 @@ public class DisableEtaTest extends EtaBase {
         });
     }
 
-    @CaseId(260)
+    @TmsLink("260")
     @Story("Check Slot Disable")
     @Test(description = "Получение списка выключенных слотов в нескольких магазинах",
             groups = "ondemand-eta",
@@ -247,7 +247,7 @@ public class DisableEtaTest extends EtaBase {
         });
     }
 
-    @CaseId(265)
+    @TmsLink("265")
     @Story("Check Slot Disable")
     @Test(description = "Получение пустого списка при отсутствии интервалов выключенных слотов в магазине",
             groups = "ondemand-eta")
@@ -260,7 +260,7 @@ public class DisableEtaTest extends EtaBase {
         Allure.step("Проверка получения пустого списка выключенных слотов", () -> assertEquals(response.getDisableIntervalsByStoreCount(), 0, "Не пустой список"));
     }
 
-    @CaseId(263)
+    @TmsLink("263")
     @Story("Check Slot Disable")
     @Test(description = "Получение ошибки при отправке запроса с пустым списком магазинов",
             groups = "ondemand-eta",
@@ -271,7 +271,7 @@ public class DisableEtaTest extends EtaBase {
         clientEta.checkSlotDisable(request);
     }
 
-    @CaseId(264)
+    @TmsLink("264")
     @Story("Check Slot Disable")
     @Test(description = "Получение ошибки при отправке запроса с не валидным store.uuid",
             groups = "ondemand-eta",

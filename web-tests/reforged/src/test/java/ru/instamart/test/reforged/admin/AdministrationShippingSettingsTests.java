@@ -2,19 +2,19 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.api.model.v1.*;
+import ru.instamart.api.model.v1.ShippingMethodV1;
 import ru.instamart.api.request.admin.ShippingMethodsRequest.ShippingMethod;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.Calculators;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.Rules;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -65,7 +65,7 @@ public final class AdministrationShippingSettingsTests {
         login().auth(UserManager.getDefaultAdminAllRoles());
     }
 
-    @CaseId(527)
+    @TmsLink("527")
     @Test(description = "При клике на 'Калькулятор цены' отображается выпадающий список с типами", groups = REGRESSION_ADMIN)
     public void testPriceCalculator() {
         helper.createMarketingRule(shippingMethod.getId());
@@ -77,7 +77,7 @@ public final class AdministrationShippingSettingsTests {
         shippingMethod().checkValueInSelector("Цена с учетом сложности");
     }
 
-    @CaseId(528)
+    @TmsLink("528")
     @Test(description = "Выбор калькулятора 'Фиксированная цена'", groups = REGRESSION_ADMIN)
     public void testSelectFixPriceCalculator() {
         helper.createNominalRule(shippingMethod.getId());
@@ -92,13 +92,13 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @Skip
-    @CaseId(529)
+    @TmsLink("529")
     @Test(description = "Валидация полей калькулятора 'Фиксированная цена'", groups = REGRESSION_ADMIN)
     public void testValidateFixPriceCalculator() {
         //Одно и тоже с 528
     }
 
-    @CaseId(530)
+    @TmsLink("530")
     @Test(description = "Выбор калькулятора 'Цена с учётом сложности'", groups = REGRESSION_ADMIN)
     public void testSelectCalculatorPriceWithDifficulty() {
         final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
@@ -124,14 +124,14 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @Skip
-    @CaseId(530)
+    @TmsLink("530")
     @Test(description = "Валидация полей калькулятора 'Цена с учётом сложности'", groups = REGRESSION_ADMIN)
     public void testValidatePriceWithDifficulty() {
         //Одно и тоже с 529
     }
 
     //TODO: Сейчас это создает кучу данных в базе, удалять пока что не представляется возможным.
-    @CaseId(511)
+    @TmsLink("511")
     @Skip
     @Test(description = "Создать новый способ доставки", groups = REGRESSION_ADMIN)
     public void testCreateNewDelivery() {
@@ -146,14 +146,14 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @Skip
-    @CaseId(525)
+    @TmsLink("525")
     @Test(description = "Редактировать способ доставки", groups = REGRESSION_ADMIN)
     public void testEditDeliveryMethod() {
         //Одно и тоже с 528, 530
     }
 
     //Нельзя добавить только маркетинговое правило
-    @CaseId(512)
+    @TmsLink("512")
     @Skip
     @Test(description = "Добавить правило маркетинговой стоимости доставки", groups = REGRESSION_ADMIN)
     public void testAddMarketingRule() {
@@ -171,7 +171,7 @@ public final class AdministrationShippingSettingsTests {
     }
 
     //Нельзя добавить только номинальное правило
-    @CaseId(513)
+    @TmsLink("513")
     @Skip
     @Test(description = "Добавить правило номинальной стоимости доставки", groups = REGRESSION_ADMIN)
     public void testAddNominalRule() {
@@ -188,7 +188,7 @@ public final class AdministrationShippingSettingsTests {
         shippingMethod().interactFlashAlert().checkSuccessFlashVisible();
     }
 
-    @CaseId(522)
+    @TmsLink("522")
     @Test(description = "Удалить правило маркетинговой стоимости доставки", groups = REGRESSION_ADMIN)
     public void testRemoveMarketingRule() {
         helper.createMarketingRule(shippingMethod.getId());
@@ -197,7 +197,7 @@ public final class AdministrationShippingSettingsTests {
         shippingMethod().deleteMarketingRule();
     }
 
-    @CaseId(523)
+    @TmsLink("523")
     @Test(description = "Удалить правило номинальной стоимости доставки", groups = REGRESSION_ADMIN)
     public void testRemoveNominalRule() {
         helper.createNominalRule(shippingMethod.getId());
@@ -206,7 +206,7 @@ public final class AdministrationShippingSettingsTests {
         shippingMethod().deleteNominalRule();
     }
 
-    @CaseId(516)
+    @TmsLink("516")
     @Test(description = "При клике на 'Тип правила' отображается выпадающий список с типами", groups = REGRESSION_ADMIN)
     public void testPriceRules() {
         helper.createMarketingRule(shippingMethod.getId());
@@ -221,7 +221,7 @@ public final class AdministrationShippingSettingsTests {
         shippingMethod().checkValueInSelector("Заказ c 5-20 апреля 2021");
     }
 
-    @CaseId(517)
+    @TmsLink("517")
     @Test(description = "Выбор правила 'Интервал стоимости заказа' и установка интервала", groups = REGRESSION_ADMIN)
     public void testInterval() {
         final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
@@ -239,7 +239,7 @@ public final class AdministrationShippingSettingsTests {
         shippingMethod().clickToSubmitChanges();
     }
 
-    @CaseId(520)
+    @TmsLink("520")
     @Test(description = "Выбор правила 'Периодический заказ' и заполнение полей с днями и суммой", groups = REGRESSION_ADMIN)
     public void testPeriodic() {
         final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
@@ -257,7 +257,7 @@ public final class AdministrationShippingSettingsTests {
         shippingMethod().clickToSubmitChanges();
     }
 
-    @CaseId(526)
+    @TmsLink("526")
     @Test(description = "Валидация полей интервала стоимости заказа", groups = REGRESSION_ADMIN)
     public void testValidateInterval() {
         final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());

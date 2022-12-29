@@ -18,7 +18,7 @@ import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
@@ -46,7 +46,7 @@ public class NotificationsNegativeV3Test extends RestBase {
     }
 
     @Story("Негативные тесты")
-    @CaseId(1448)
+    @TmsLink("1448")
     @Test(description = "Ошибка 405 (Интеграция для учета)",
             groups = {"api-instamart-smoke", "api-v3"},
             dataProvider = "notificationTypes",
@@ -61,7 +61,7 @@ public class NotificationsNegativeV3Test extends RestBase {
     }
 
     @Story("Негативные тесты")
-    @CaseId(1504)
+    @TmsLink("1504")
     @Test(description = "Ошибка 405 (Не применяется)",
             groups = {"api-instamart-smoke", "api-v3"},
             dataProvider = "notificationTypes",
@@ -76,7 +76,7 @@ public class NotificationsNegativeV3Test extends RestBase {
     }
 
     @Story("Негативные тесты")
-    @CaseId(1503)
+    @TmsLink("1503")
     @Test(description = "Передан неизвестный статус негатив.", groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void postNotificationsUnknown422() {
         Response response = NotificationsV3Request.POST(orderShopper.getShipments().get(0).getNumber(), "order.unknown");

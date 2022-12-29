@@ -1,7 +1,7 @@
 package ru.instamart.test.content.salut_token;
 
 import io.qameta.allure.Epic;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,7 +24,7 @@ public class SalutTokenTest extends GrpcBase {
         client = TokenGeneratorGrpc.newBlockingStub(channel);
     }
 
-    @CaseId(1)
+    @TmsLink("1")
     @Test(  description = "Get token",
             groups = "grpc-salut-token")
     public void getToken() {

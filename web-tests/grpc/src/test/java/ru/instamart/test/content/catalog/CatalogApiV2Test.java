@@ -4,9 +4,7 @@ import catalog.Catalog;
 import catalog_api_v2.CatalogAPIV2ServiceGrpc;
 import catalog_api_v2.CatalogApiV2;
 import io.grpc.StatusRuntimeException;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -18,8 +16,6 @@ import ru.instamart.jdbc.dao.stf.OffersDao;
 import ru.instamart.jdbc.entity.stf.OffersEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Tenant;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("Catalog Microservice")
@@ -38,7 +34,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(176)
+    @TmsLink("176")
     @Test(description = "Получение карточки товара",
             groups = {"grpc-product-hub"})
     public void getProduct() {
@@ -58,7 +54,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(177)
+    @TmsLink("177")
     @Test(description = "Получение карточки товара без product_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -73,7 +69,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(241)
+    @TmsLink("241")
     @Test(description = "Получение карточки товара без tenant_id",
             groups = {"grpc-product-hub"})
     //       expectedExceptions = StatusRuntimeException.class,
@@ -94,7 +90,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(242)
+    @TmsLink("242")
     @Test(description = "Получение карточки товара с пустым product_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -110,7 +106,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(244)
+    @TmsLink("244")
     @Test(description = "Получение карточки товара с пустой строкой tenant_id",
             groups = {"grpc-product-hub"})
     //        expectedExceptions = StatusRuntimeException.class,
@@ -132,7 +128,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseIDs(value = {@CaseId(248), @CaseId(249)})
+    @TmsLinks(value = {@TmsLink("248"), @TmsLink("249")})
     @Test(description = "Получение списка товаров", enabled = false, //ждет обновления от Дмитрия Дьячкова после изменения логики
             groups = {"grpc-product-hub"},
             dataProvider = "catalogProductListData",
@@ -145,7 +141,7 @@ public class CatalogApiV2Test extends GrpcBase {
 
 
     @Story("Продукты")
-    @CaseId(179)
+    @TmsLink("179")
     @Test(description = "Получение списка товаров с пустым sid",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -165,7 +161,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(178)
+    @TmsLink("178")
     @Test(description = "Проверка ручки листинга продуктов",
             groups = {"grpc-product-hub"})
     public void getProductList() {
@@ -188,7 +184,7 @@ public class CatalogApiV2Test extends GrpcBase {
 
 
     @Story("Продукты")
-    @CaseId(245)
+    @TmsLink("245")
     @Test(description = "Получение списка товаров без sid",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -207,7 +203,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(246)
+    @TmsLink("246")
     @Test(description = "Проверка ручки листинга продуктов с пустой строкой поля tid",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -227,7 +223,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(247)
+    @TmsLink("247")
     @Test(description = "Получение списка товаров без tid",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
@@ -246,7 +242,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(250)
+    @TmsLink("250")
     @Test(description = "Проверка ручки листинга продуктов с пустым значением поля \"tenant_id\"",
             groups = {"grpc-product-hub"})
     public void getProductListWithEmptyTenantId() {
@@ -268,7 +264,7 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(251)
+    @TmsLink("251")
     @Test(description = "Проверка ручки листинга продуктов без передачи поля \"tenant_id\"",
             groups = {"grpc-product-hub"})
     public void getProductListWithoutTenantId() {

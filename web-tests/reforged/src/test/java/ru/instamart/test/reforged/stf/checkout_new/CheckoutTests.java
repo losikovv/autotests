@@ -1,9 +1,6 @@
 package ru.instamart.test.reforged.stf.checkout_new;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Issues;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -13,7 +10,6 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.*;
@@ -29,7 +25,7 @@ public final class CheckoutTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(3595)
+    @TmsLink("3595")
     @Test(description = "Выбранный способ 'Доставка'/'Самовывоз' сохраняется если открыть страницу в новой вкладке", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testPaymentMethodSaveIfOpenCheckoutInNewTab() {
@@ -68,7 +64,7 @@ public final class CheckoutTests {
     }
 
     @Issues({@Issue("B2C-9732"), @Issue("B2C-9730")})
-    @CaseId(3623)
+    @TmsLink("3623")
     @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentAndDelivery() {
@@ -135,7 +131,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3624)
+    @TmsLink("3624")
     @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayToCourierAndDelivery() {
@@ -194,7 +190,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3839)
+    @TmsLink("3839")
     @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithNewCard() {
@@ -273,7 +269,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3838)
+    @TmsLink("3838")
     @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithSberSpasibo() {
@@ -351,7 +347,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3840)
+    @TmsLink("3840")
     @Test(description = "Тест полного оформления заказа с оплатой наличными (Доставка)", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCash() {
@@ -412,7 +408,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3647)
+    @TmsLink("3647")
     @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Cамовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentAndPickup() {
@@ -478,7 +474,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3648)
+    @TmsLink("3648")
     @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayOnCashDeskAndPickup() {
@@ -530,7 +526,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3841)
+    @TmsLink("3841")
     @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithNewCardAndPickup() {
@@ -607,7 +603,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3842)
+    @TmsLink("3842")
     @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithSberSpasiboAndPickup() {
@@ -684,7 +680,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3622)
+    @TmsLink("3622")
     @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCashAndPickup() {
@@ -743,7 +739,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3625)
+    @TmsLink("3625")
     @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Самовывоз | Алкоголь и продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentIncludeAlcoAndPickup() {
@@ -825,7 +821,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3843)
+    @TmsLink("3843")
     @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Алкоголь и продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCashIncludeAlcoAndPickup() {
@@ -899,7 +895,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3844)
+    @TmsLink("3844")
     @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Алкоголь и продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayOnCashDeskIncludeAlcoAndPickup() {
@@ -973,7 +969,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3845)
+    @TmsLink("3845")
     @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только алкоголь)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayOnCashDeskOnlyAlcoAndPickup() {
@@ -1045,7 +1041,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3884)
+    @TmsLink("3884")
     @Test(description = "Тест перехода на v3 чекаут с незалогиненного нового юзера", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testAuthAndForwardV3CheckoutFromCartNewUser() {

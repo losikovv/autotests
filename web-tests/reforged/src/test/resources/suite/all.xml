@@ -3,7 +3,7 @@
 <suite name="Custom UI suite" configfailurepolicy="continue">
     <listeners>
         <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
-        <listener class-name="ru.instamart.reforged.core.listener.AllUiListener"/>
+        <listener class-name="ru.instamart.reforged.core.listener.UiDefaultListener"/>
     </listeners>
     <method-selectors>
         <method-selector>

@@ -3,6 +3,7 @@ package ru.instamart.test.api.shadowcat;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -16,7 +17,6 @@ import ru.instamart.api.model.shadowcat.OrderSC;
 import ru.instamart.api.request.shadowcat.CalculateRequest;
 import ru.instamart.api.request.shadowcat.ConditionRequest;
 import ru.instamart.api.response.shadowcat.ErrorShadowcatResponse;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode204or404;
@@ -32,7 +32,7 @@ public class CalculateNegativeTest extends ShadowcatRestBase {
     private static final String code = PromotionType.DISCOUNT.getCode();
     private static OrderSC order;
 
-    @CaseId(11)
+    @TmsLink("11")
     @Story("Негативные тесты")
     @Test(description = "Неудачный расчет скидки для сложных condition ",
             groups = {"api-shadowcat"}, dataProvider = "TwoStepCondition",
@@ -47,7 +47,7 @@ public class CalculateNegativeTest extends ShadowcatRestBase {
         compareTwoObjects(orderRes.getDetail(), condition.getErrorMessage());
     }
 
-    @CaseId(12)
+    @TmsLink("12")
     @Story("Негативные тесты")
     @Test(description = "Неудачный расчет скидки по condition",
             groups = {"api-shadowcat"}, dataProvider = "SimpleCondition",

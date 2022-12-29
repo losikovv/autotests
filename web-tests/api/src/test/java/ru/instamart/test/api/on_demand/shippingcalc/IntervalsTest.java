@@ -9,8 +9,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 import shippingcalc.GetIntervalsSurgeRequest;
 import shippingcalc.SetIntervalsSurgeRequest;
 import shippingcalc.ShippingcalcGrpc;
@@ -47,7 +47,7 @@ public class IntervalsTest extends ShippingCalcBase {
                 .build();
     }
 
-    @CaseIDs(value = {@CaseId(284), @CaseId(282)})
+    @TmsLinks(value = {@TmsLink("284"), @TmsLink("282")})
     @Story("Set Intervals Surge")
     @Test(description = "Перезапись всех интервалов",
             groups = "ondemand-shippingcalc")
@@ -61,7 +61,7 @@ public class IntervalsTest extends ShippingCalcBase {
         Allure.step("Проверка успешного выполнения запроса", () -> compareTwoObjects(response.toString(), ""));
     }
 
-    @CaseId(285)
+    @TmsLink("285")
     @Story("Set Intervals Surge")
     @Test(description = "Получение ошибки при отрицательных значениях в правой и левой границах",
             groups = "ondemand-shippingcalc",
@@ -80,7 +80,7 @@ public class IntervalsTest extends ShippingCalcBase {
         clientShippingCalc.setIntervalsSurge(request);
     }
 
-    @CaseId(279)
+    @TmsLink("279")
     @Story("Set Intervals Surge")
     @Test(description = "Получение списка интервалов surge",
             groups = "ondemand-shippingcalc",

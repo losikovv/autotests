@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -10,11 +11,10 @@ import ru.instamart.jdbc.dao.stf.SpreePagesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.StaticPages;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
-import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.home;
 
 @Epic("Админка STF")
 @Feature("Работа со статическими страницами")
@@ -22,7 +22,7 @@ public final class AdministrationPagesSectionTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(507)
+    @TmsLink("507")
     @Story("Тест на проверку элементов на вкладке статических страниц")
     @Test(description = "Тест на проверку элементов на вкладке статических страниц", groups = {REGRESSION_ADMIN, "smoke"})
     public void validatePagesRootPage() {
@@ -34,7 +34,7 @@ public final class AdministrationPagesSectionTests {
         pages().checkTableEntry();
     }
 
-    @CaseId(13)
+    @TmsLink("13")
     @Story("Тест создания и удаления статической страницы")
     @Test(description = "Тест создания и удаления статической страницы", groups = REGRESSION_ADMIN)
     public void createDeletePage() {
@@ -60,7 +60,7 @@ public final class AdministrationPagesSectionTests {
         pages().checkDeleteAlertVisible();
     }
 
-    @CaseId(14)
+    @TmsLink("14")
     @Story("Тест редактирования статической страницы")
     @Test(description = "Тест редактирования статической страницы", groups = REGRESSION_ADMIN)
     public void createAndEditStaticPage() {

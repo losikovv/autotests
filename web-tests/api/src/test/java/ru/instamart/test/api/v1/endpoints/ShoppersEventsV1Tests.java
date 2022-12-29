@@ -18,7 +18,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -49,7 +49,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2149)
+    @TmsLink("2149")
     @Test(description = "Healthcheck магазина",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void checkStores(){
@@ -58,7 +58,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2150)
+    @TmsLink("2150")
     @Test(description = "Обновление способа оплаты",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void updateOrderPaymentTool(){
@@ -79,7 +79,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2153)
+    @TmsLink("2153")
     @Test(description = "Добавление нового товара",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "updateOrderPaymentTool")
@@ -125,7 +125,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2154)
+    @TmsLink("2154")
     @Test(description = "Отмена товара",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "addNewLineItem")
@@ -150,7 +150,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2155)
+    @TmsLink("2155")
     @Test(description = "Восстановление товара",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "cancelLineItem")
@@ -178,7 +178,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2156)
+    @TmsLink("2156")
     @Test(description = "Изменение товара",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "restoreLineItem")
@@ -216,7 +216,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2157)
+    @TmsLink("2157")
     @Test(description = "Возврат товара",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "updateLineItem")
@@ -241,7 +241,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2158)
+    @TmsLink("2158")
     @Test(description = "Начало сборки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "returnLineItem")
@@ -255,7 +255,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2159)
+    @TmsLink("2159")
     @Test(description = "Изменение сборки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createAssembly")
@@ -284,7 +284,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2160)
+    @TmsLink("2160")
     @Test(description = "Разбор сборки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "updateAssembly")
@@ -297,7 +297,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2161)
+    @TmsLink("2161")
     @Test(description = "Подтверждение сборки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "destroyAssembly")
@@ -312,7 +312,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2162)
+    @TmsLink("2162")
     @Test(description = "Оплата сборки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "destroyAssembly")
@@ -325,7 +325,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2163)
+    @TmsLink("2163")
     @Test(description = "Начало доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "purchaseAssembly")
@@ -338,7 +338,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2164)
+    @TmsLink("2164")
     @Test(description = "Приостановка доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "startShippingAssembly")
@@ -351,7 +351,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2165)
+    @TmsLink("2165")
     @Test(description = "Окончание доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "stopShippingAssembly")
@@ -366,7 +366,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2150)
+    @TmsLink("2150")
     @Test(description = "Создание чека",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "shipAssembly")

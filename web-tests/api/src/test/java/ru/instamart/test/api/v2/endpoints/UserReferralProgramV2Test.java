@@ -4,8 +4,8 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
@@ -27,7 +27,7 @@ public class UserReferralProgramV2Test extends RestBase {
 
     private Long userDbId;
 
-    @CaseIDs(value = {@CaseId(551), @CaseId(552)})
+    @TmsLinks(value = {@TmsLink("551"), @TmsLink("552")})
     @Story("Реферальная программа пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Существующий пользователь",
@@ -43,7 +43,7 @@ public class UserReferralProgramV2Test extends RestBase {
         compareTwoObjects(userReferralProgramResponse.getShortTutorial(), "С 31 января баллы не начисляются. Потратить накопленные баллы можно до 28 февраля включительно.");
     }
 
-    @CaseIDs(value = {@CaseId(553), @CaseId(554)})
+    @TmsLinks(value = {@TmsLink("553"), @TmsLink("554")})
     @Story("Реферальная программа пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Несуществующий пользователь",

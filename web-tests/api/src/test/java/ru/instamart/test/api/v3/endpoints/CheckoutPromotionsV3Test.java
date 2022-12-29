@@ -3,6 +3,7 @@ package ru.instamart.test.api.v3.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -28,7 +29,6 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +60,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         promoСode = getPromotionCode();
     }
 
-    @CaseId(2607)
+    @TmsLink("2607")
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"})
@@ -75,7 +75,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2608)
+    @TmsLink("2608")
     @Story("Промокоды")
     @Test(description = "Запрос на применение истекшего промокода",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"})
@@ -86,7 +86,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         checkError(response, "promotion_errors", "Данный промокод истек");
     }
 
-    @CaseId(2610)
+    @TmsLink("2610")
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода к чужому заказу",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"})
@@ -98,7 +98,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2611)
+    @TmsLink("2611")
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода к чужому шипменту",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"})
@@ -109,7 +109,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         checkError(response, "invalid_current_shipments", "Вы уже оформляете заказ в другом магазине");
     }
 
-    @CaseId(2612)
+    @TmsLink("2612")
     @Story("Промокоды")
     @Test(description = "Запрос на применение несуществующего промокода",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"})
@@ -119,7 +119,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         checkError(response, "promotion_errors", "Промокод не существует");
     }
 
-    @CaseId(2613)
+    @TmsLink("2613")
     @Story("Промокоды")
     @Test(description = "Запрос на применение нескольких прокодов",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"})
@@ -136,7 +136,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         compareTwoObjects(responseWithSecondPromo.as(OrderV3Response.class).getOrder().getPromotionCodes().get(0).getValue(), promoCodes.get(1).getValue());
     }
 
-    @CaseId(2615)
+    @TmsLink("2615")
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода, когда не выполнены условия для применения",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"})
@@ -150,7 +150,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         checkError(response, "promotion_errors", "Код работает с заказами от 3 000 ₽. Наберите еще немного.");
     }
 
-    @CaseId(2619)
+    @TmsLink("2619")
     @Story("Промокоды")
     @Test(description = "Удаление промокода",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"},
@@ -162,7 +162,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         compareTwoObjects(response.as(OrderV3Response.class).getOrder().getPromotionCodes().size(), 0);
     }
 
-    @CaseId(2616)
+    @TmsLink("2616")
     @Story("Промокоды")
     @Test(description = "Удаление промокода по чужому заказу",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"},
@@ -175,7 +175,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2990)
+    @TmsLink("2990")
     @Story("Промокоды")
     @Test(description = "Удаление несуществующего промокода",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"},
@@ -187,7 +187,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Промокод не существует");
     }
 
-    @CaseId(2614)
+    @TmsLink("2614")
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода без авторизации",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"},
@@ -198,7 +198,7 @@ public class CheckoutPromotionsV3Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(2618)
+    @TmsLink("2618")
     @Story("Промокоды")
     @Test(description = "Удаление промокода без авторизации",
             groups = {API_INSTAMART_REGRESS, "debug", "api-v3"},

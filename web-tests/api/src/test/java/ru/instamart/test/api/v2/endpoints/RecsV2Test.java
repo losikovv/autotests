@@ -13,7 +13,7 @@ import ru.instamart.api.response.v2.RecsV2Response;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.UUID;
 
@@ -30,7 +30,7 @@ public final class RecsV2Test extends RestBase {
 
     @Skip // TODO: нужно включить после доработки получения реков по номеру закоза
     @Story("Полные рекомендации (recs)")
-    @CaseId(974)
+    @TmsLink("974")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Запрос рекомендаций с обязательными параметрами",
             dataProvider = "recsData",
@@ -42,7 +42,7 @@ public final class RecsV2Test extends RestBase {
     }
 
     @Story("Полные рекомендации (recs)")
-    @CaseId(975)
+    @TmsLink("975")
     @JsonDataProvider(path = "data/json_v2/api_v2_negative_recs_data.json", type = RestDataProvider.RecsV2TestDataRoot.class)
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Запрос рекомендаций с отсутствующим обязательным параметром",

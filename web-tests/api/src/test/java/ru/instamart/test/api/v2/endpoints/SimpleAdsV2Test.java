@@ -20,8 +20,8 @@ import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,7 +40,7 @@ public final class SimpleAdsV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
-    @CaseId(282)
+    @TmsLink("282")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Упрощенный запрос нативной рекламы с обязательными параметрами")
     public void simpleAdsTest() {
@@ -124,7 +124,7 @@ public final class SimpleAdsV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseIDs(value = {@CaseId(284), @CaseId(1087), @CaseId(1088), @CaseId(1089)})
+    @TmsLinks(value = {@TmsLink("284"), @TmsLink("1087"), @TmsLink("1088"), @TmsLink("1089")})
     @JsonDataProvider(path = "data/json_v2/api_v2_blank_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "json",
@@ -139,7 +139,7 @@ public final class SimpleAdsV2Test extends RestBase {
 
     @Issue("INFRADEV-12226")
     @Skip(onServer = Server.PRODUCTION)
-    @CaseIDs(value = {@CaseId(283), @CaseId(1090)})
+    @TmsLinks(value = {@TmsLink("283"), @TmsLink("1090")})
     @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "json",
@@ -153,7 +153,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @Skip() //todo Рекомендаций нет
-    @CaseId(285)
+    @TmsLink("285")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Запрос проверки существующего изображения")
     public void simpleAdsGetExistingImageTest() {
@@ -193,7 +193,7 @@ public final class SimpleAdsV2Test extends RestBase {
         checkContentTypeImage(responseImage);
     }
 
-    @CaseId(286)
+    @TmsLink("286")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Запрос проверки не существующего изображения")
     public void simpleAdsGetNotExistingImageTest() {

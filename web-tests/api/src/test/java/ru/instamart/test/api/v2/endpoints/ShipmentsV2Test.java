@@ -18,7 +18,7 @@ import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -52,7 +52,7 @@ public class ShipmentsV2Test extends RestBase {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }
 
-    @CaseId(339)
+    @TmsLink("339")
     @Story("Получить время доставки")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Получить время доставки с существующим id")
@@ -63,7 +63,7 @@ public class ShipmentsV2Test extends RestBase {
         checkResponseJsonSchema(response, DeliveryWindowsV2Response.class);
     }
 
-    @CaseId(340)
+    @TmsLink("340")
     @Story("Получить время доставки")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить время доставки с несуществующим id")
@@ -170,7 +170,7 @@ public class ShipmentsV2Test extends RestBase {
         assertNotEquals(deliveryWindowsV2.getDeliveryWindows().size(), 0, "delivery windows is empty");
     }
 
-    @CaseId(363)
+    @TmsLink("363")
     @Story("Получить окно доставки для подзаказа для указанного дня")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id")
@@ -180,7 +180,7 @@ public class ShipmentsV2Test extends RestBase {
         checkResponseJsonSchema(response, ShippingRatesV2Response.class);
     }
 
-    @CaseId(364)
+    @TmsLink("364")
     @Story("Получить окно доставки для подзаказа для указанного дня")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить окно доставки для подзаказа для указанного дня с несуществующим id")
@@ -225,7 +225,7 @@ public class ShipmentsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(367)
+    @TmsLink("367")
     @Story("Получить окно доставки для подзаказа для указанного дня")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             dataProvider = "dateFormats",
@@ -241,7 +241,7 @@ public class ShipmentsV2Test extends RestBase {
         Allure.step("Проверка доступных дней доставки", () -> assertTrue(shippingRates.getMeta().getAvailableDays().size() > 0, "Период доставки не пустой"));
     }
 
-    @CaseId(368)
+    @TmsLink("368")
     @Story("Получить ближайшие окна доставки")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Получить ближайшие окна доставки с существующим id")
@@ -251,7 +251,7 @@ public class ShipmentsV2Test extends RestBase {
         checkResponseJsonSchema(response, NextDeliveriesV2Response.class);
     }
 
-    @CaseId(369)
+    @TmsLink("369")
     @Story("Получить ближайшие окна доставки")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить ближайшие окна доставки с несуществующим id")
@@ -261,7 +261,7 @@ public class ShipmentsV2Test extends RestBase {
         checkError(response, "Магазин не существует");
     }
 
-    @CaseId(370)
+    @TmsLink("370")
     @Story("Получить ближайшие окна доставки")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными")
@@ -286,7 +286,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @Skip
     @Issue("STF-9822")
-    @CaseId(371)
+    @TmsLink("371")
     @Story("Получить ближайшие окна доставки")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными")
@@ -302,7 +302,7 @@ public class ShipmentsV2Test extends RestBase {
         compareTwoObjects(response.as(NextDeliveriesV2Response.class).getNextDeliveries().size(), 0);
     }
 
-    @CaseId(785)
+    @TmsLink("785")
     @Story("Получения статуса шипмента")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получения статуса шипмента с существующим shipmentNumber")
@@ -313,7 +313,7 @@ public class ShipmentsV2Test extends RestBase {
         Allure.step("Проверка статуса", () -> assertEquals(response.as(StateV2Response.class).getState(), StateV2.PENDING.getValue(), "Статус доставки не совпадает"));
     }
 
-    @CaseId(786)
+    @TmsLink("786")
     @Story("Получения статуса шипмента")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получения статуса шипмента с несуществующим shipmentNumber")
@@ -323,7 +323,7 @@ public class ShipmentsV2Test extends RestBase {
         checkError(response, "Доставка не существует");
     }
 
-    @CaseId(787)
+    @TmsLink("787")
     @Story("Получения статуса шипмента")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получения статуса шипмента с пустым shipmentNumber")
@@ -332,7 +332,7 @@ public class ShipmentsV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(298)
+    @TmsLink("298")
     @Story("Повтор подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Повтор существующего подзаказа")
@@ -353,7 +353,7 @@ public class ShipmentsV2Test extends RestBase {
         });
     }
 
-    @CaseId(299)
+    @TmsLink("299")
     @Story("Повтор подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Повтор несуществующего подзаказа")

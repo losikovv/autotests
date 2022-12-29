@@ -3,7 +3,7 @@
 <suite name="Keycloak admin tests" data-provider-thread-count="5" configfailurepolicy="continue">
     <listeners>
         <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
-        <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
+        <listener class-name="ru.instamart.reforged.core.listener.UiDefaultListener"/>
     </listeners>
     <method-selectors>
         <method-selector>

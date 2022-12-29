@@ -12,8 +12,8 @@ import ru.instamart.kraken.data.PromoData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.data_provider.PromoCodeProvider;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
@@ -34,9 +34,9 @@ public final class OrdersPromoCodesTests {
         helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseIDs(value = {@CaseId(1638), @CaseId(1639), @CaseId(1640),
-            @CaseId(1645), @CaseId(1646), @CaseId(1647),
-            @CaseId(1648), @CaseId(1649)})
+    @TmsLinks(value = {@TmsLink("1638"), @TmsLink("1639"), @TmsLink("1640"),
+            @TmsLink("1645"), @TmsLink("1646"), @TmsLink("1647"),
+            @TmsLink("1648"), @TmsLink("1649")})
     @Story("Тест применения промокода со скидкой")
     @Test(description = "Тест применения различных промокодов",
             dataProviderClass = PromoCodeProvider.class,
@@ -94,7 +94,7 @@ public final class OrdersPromoCodesTests {
         userShipment().checkPromoCodeVisible();
     }
 
-    @CaseId(1641)
+    @TmsLink("1641")
     @Story("Тест применения промокода")
     @Test(description = "Тест применения промокода со фиксированной ограниченной скидкой", groups = REGRESSION_STF)
     public void successOrderWithPromoCodeFixedDiscountWithBorders() {
@@ -146,7 +146,7 @@ public final class OrdersPromoCodesTests {
         userShipments().checkUserShipmentPromocodeCorrect(100.0);
     }
 
-    @CaseId(1642)
+    @TmsLink("1642")
     @Story("Тест применения промокода")
     @Test(description = "Тест применения промокода на первый заказ старым пользователем", groups = REGRESSION_STF)
     public void failedOrderForOldUserWithFirstOrderPromo() {
@@ -202,7 +202,7 @@ public final class OrdersPromoCodesTests {
         checkout().checkPromoCodeNotApplied();
     }
 
-    @CaseId(2640)
+    @TmsLink("2640")
     @Story("Тест применения промокода")
     @Test(description = "Тест применения несуществующего промокода", groups = REGRESSION_STF)
     public void failedOrderWithNonExistingPromo() {

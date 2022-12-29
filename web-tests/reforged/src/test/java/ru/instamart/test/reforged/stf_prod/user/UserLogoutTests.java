@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
@@ -17,7 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Feature("Деавторизация пользователя")
 public final class UserLogoutTests {
 
-    @CaseId(1473)
+    @TmsLink("1473")
     @Story("Позитивный кейс")
     @Test(description = "Тест успешной быстрой деавторизации", groups = {STF_PROD_S})
     public void successQuickLogout() {
@@ -35,7 +35,7 @@ public final class UserLogoutTests {
         home().checkLoginButtonIsVisible();
     }
 
-    @CaseId(1474)
+    @TmsLink("1474")
     @Story("Позитивный кейс")
     @Test(description = "Тест успешной деавторизации", groups = {STF_PROD_S})
     public void successManualLogout() {
@@ -48,7 +48,7 @@ public final class UserLogoutTests {
         home().checkLoginButtonIsVisible();
     }
 
-    @CaseId(2548)
+    @TmsLink("2548")
     @Story("Позитивный кейс")
     @Test(description = "Тест сброса адреса доставки и корзины после деавторизации", groups = {STF_PROD_S})
     public void noShipAddressAndEmptyCartAfterLogout() {

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -15,7 +15,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Проверка каталога товаров")
 public final class ShoppingCatalogTests {
 
-    @CaseId(1595)
+    @TmsLink("1595")
     @Test(description = "Тест работы cо шторкой каталога", groups = REGRESSION_STF)
     public void successValidateCatalogDrawer() {
         shop().goToPage();
@@ -35,7 +35,7 @@ public final class ShoppingCatalogTests {
         shop().interactCategoryMenu().clickToClose();
     }
 
-    @CaseId(2583)
+    @TmsLink("2583")
     @Test(description = "Тест открытия категории 1 уровня из шторки каталога", groups = {"MRAutoCheck", REGRESSION_STF})
     public void successGoToDepartmentFromCatalogDrawer() {
         shop().goToPage();
@@ -58,7 +58,7 @@ public final class ShoppingCatalogTests {
         seo().checkPageIsAvailable();
     }
 
-    @CaseId(2584)
+    @TmsLink("2584")
     @Test(description = "Тест открытия категории 2 уровня из шторки каталога", groups = REGRESSION_STF)
     public void successGoToTaxonFromCatalogDrawer() {
         shop().goToPage();
@@ -82,7 +82,7 @@ public final class ShoppingCatalogTests {
         seo().checkPageIsAvailable();
     }
 
-    @CaseId(2582)
+    @TmsLink("2582")
     @Test(description = "Тест открывания/закрывания карточки продукта на главной", groups = REGRESSION_STF)
     public void successOperateItemCardOnRetailerPage() {
         shop().goToPage();
@@ -104,7 +104,7 @@ public final class ShoppingCatalogTests {
         shop().interactProductCard().checkProductCardIsNotVisible();
     }
 
-    @CaseId(1599)
+    @TmsLink("1599")
     @Test(description = "Тест открывания/закрывания карточки продукта в department-категории", groups = REGRESSION_STF)
     public void successOperateItemCardOnDepartmentPage() {
         shop().goToPage();
@@ -134,7 +134,7 @@ public final class ShoppingCatalogTests {
         seo().interactProductCard().checkProductCardIsNotVisible();
     }
 
-    @CaseId(1600)
+    @TmsLink("1600")
     @Test(description = "Тест открывания/закрывания карточки продукта в taxon-категории", groups = REGRESSION_STF)
     public void successOperateItemCardOnTaxonPage() {
         shop().goToPage();
@@ -165,7 +165,7 @@ public final class ShoppingCatalogTests {
         seo().interactProductCard().checkProductCardIsNotVisible();
     }
 
-    @CaseId(1601)
+    @TmsLink("1601")
     @Test(description = "Тест открывания/закрывания карточки продукта в выдаче поиска", groups = REGRESSION_STF)
     public void successOperateItemCardOnSearchPage() {
         shop().goToPage();
@@ -190,7 +190,7 @@ public final class ShoppingCatalogTests {
         search().interactProductCard().checkProductCardIsNotVisible();
     }
 
-    @CaseId(3519)
+    @TmsLink("3519")
     @Test(description = "Проверка открытия модального окна карточки товара при переходе по прямой ссылке", groups = REGRESSION_STF)
     public void openProductCardByLink() {
         shop().goToPage();
@@ -208,7 +208,7 @@ public final class ShoppingCatalogTests {
         seo().checkProductGridVisible();
     }
 
-    @CaseId(3520)
+    @TmsLink("3520")
     @Test(description = "Проверка корректного открытия карточки товара при обновлении страницы", groups = REGRESSION_STF)
     public void openProductCardAfterRefresh() {
         shop().goToPage();
@@ -222,7 +222,7 @@ public final class ShoppingCatalogTests {
         seo().checkProductGridVisible();
     }
 
-    @CaseId(2578)
+    @TmsLink("2578")
     //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Переход в витрину магазина с главной страницы сайта", groups = REGRESSION_STF)
@@ -239,7 +239,7 @@ public final class ShoppingCatalogTests {
         shop().interactHeader().checkLoginIsVisible();
     }
 
-    @CaseId(2593)
+    @TmsLink("2593")
     @Test(description = "Корректное отображение информации о товаре (основные элементы)", groups = REGRESSION_STF)
     public void productSnippetAndCardInfo() {
         shop().goToPage();
@@ -258,7 +258,7 @@ public final class ShoppingCatalogTests {
         shop().interactProductCard().checkGeneralInfoDisplayed();
     }
 
-    //@CaseId(2593)
+    //@TmsLink("2593")
     @Test(description = "Корректное отображение информации о товаре (элементы товара без скидки)", groups = REGRESSION_STF)
     public void productSnippetAndCardInfoItemWithoutDiscount() {
         shop().goToPage();
@@ -273,7 +273,7 @@ public final class ShoppingCatalogTests {
         shop().interactProductCard().checkFullPrice(snippetPrice, shop().interactProductCard().getPrice());
     }
 
-    //@CaseId(2593)
+    //@TmsLink("2593")
     @Test(description = "Корректное отображение информации о товаре (элементы товара со скидкой)", groups = REGRESSION_STF)
     public void productSnippetAndCardInfoItemWithDiscount() {
         shop().goToPage();

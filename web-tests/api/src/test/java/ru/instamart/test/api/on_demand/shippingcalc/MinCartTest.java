@@ -1,10 +1,7 @@
 package ru.instamart.test.api.on_demand.shippingcalc;
 
 import io.grpc.StatusRuntimeException;
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,8 +16,6 @@ import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
 import ru.instamart.redis.RedisService;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.*;
 
 import java.util.List;
@@ -78,7 +73,7 @@ public class MinCartTest extends ShippingCalcBase {
         surgeDisabled = ShippingCalcHelper.getInstance().isSurgeDisabled();
     }
 
-    @CaseIDs(value = {@CaseId(411), @CaseId(415)})
+    @TmsLinks(value = {@TmsLink("411"), @TmsLink("415")})
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина с валидными данными",
             groups = "ondemand-shippingcalc")
@@ -92,7 +87,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
     }
 
-    @CaseId(499)
+    @TmsLink("499")
     @Story("Get Delivery Conditions")
     @Test(description = "Создание оффера, фиксирующего условия доставки",
             groups = "ondemand-shippingcalc")
@@ -124,7 +119,7 @@ public class MinCartTest extends ShippingCalcBase {
         Allure.step("Проверяем базовую цену в лесенке", () -> compareTwoObjects(secondResponse.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), deliveryPriceGlobalFromCache.longValue()));
     }
 
-    @CaseId(412)
+    @TmsLink("412")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для нескольких магазинов",
             groups = "ondemand-shippingcalc")
@@ -180,7 +175,7 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(411)
+    @TmsLink("411")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки по глобальной стратегии",
             groups = "ondemand-shippingcalc")
@@ -194,7 +189,7 @@ public class MinCartTest extends ShippingCalcBase {
         Allure.step("Проверяем базовую цену в лесенке", () -> compareTwoObjects(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), deliveryPriceGlobal.longValue()));
     }
 
-    @CaseIDs({@CaseId(414), @CaseId(526)})
+    @TmsLinks({@TmsLink("414"), @TmsLink("526")})
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина с повышенным спросом",
             groups = "ondemand-shippingcalc")
@@ -215,7 +210,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890, 20890);
     }
 
-    @CaseId(528)
+    @TmsLink("528")
     @Story("Get Delivery Conditions")
     @Test(description = "Наценка по параметрам свитчбек-эксперимента региона",
             groups = "ondemand-shippingcalc")
@@ -236,7 +231,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, 20890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF);
     }
 
-    @CaseId(529)
+    @TmsLink("529")
     @Story("Get Delivery Conditions")
     @Test(description = "Отсутствие наценки по параметрам свитчбек-эксперимента региона при не попадании в временной интервал",
             groups = "ondemand-shippingcalc")
@@ -257,7 +252,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890, 20890);
     }
 
-    @CaseId(509)
+    @TmsLink("509")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для не on-demand магазина с не нулевой мин. корзиной",
             groups = "ondemand-shippingcalc")
@@ -277,7 +272,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
     }
 
-    @CaseIDs({@CaseId(525), @CaseId(530)})
+    @TmsLinks({@TmsLink("525"), @TmsLink("530")})
     @Story("Get Delivery Conditions")
     @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
             groups = "ondemand-shippingcalc")
@@ -298,7 +293,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, 20890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF);
     }
 
-    @CaseId(507)
+    @TmsLink("507")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса с флагом SURGE_DISABLED",
             groups = "ondemand-shippingcalc")
@@ -319,7 +314,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsSurgeOff(response, 0f, 19900, 9900);
     }
 
-    @CaseId(449)
+    @TmsLink("449")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для не on-demand магазина",
             groups = "ondemand-shippingcalc")
@@ -335,7 +330,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsSurgeOff(response, 0f, 19900, 9900);
     }
 
-    @CaseId(424)
+    @TmsLink("424")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для новых клиентов",
             groups = "ondemand-shippingcalc")
@@ -351,7 +346,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsSurgeOff(response, 0f, 19900, 9900);
     }
 
-    @CaseId(440)
+    @TmsLink("440")
     @Story("Get Delivery Conditions")
     @Test(description = "Кэширование surgelevel на уровне customer+store",
             groups = "ondemand-shippingcalc",
@@ -370,7 +365,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890, 20890);
     }
 
-    @CaseId(458)
+    @TmsLink("458")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для самовывоза",
             groups = "ondemand-shippingcalc")
@@ -392,7 +387,7 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(420)
+    @TmsLink("420")
     @Story("Get Delivery Conditions")
     @Test(description = "Проверка прохождений условий в правилах мин корзины",
             groups = "ondemand-shippingcalc")
@@ -417,7 +412,7 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(416)
+    @TmsLink("416")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина у которого не нашли связку",
             groups = "ondemand-shippingcalc")
@@ -438,7 +433,7 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(417)
+    @TmsLink("417")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение ошибки при пустом stores",
             groups = "ondemand-shippingcalc",
@@ -463,7 +458,7 @@ public class MinCartTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryConditions(request);
     }
 
-    @CaseId(418)
+    @TmsLink("418")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение ошибки при пустом tenant",
             groups = "ondemand-shippingcalc",
@@ -492,7 +487,7 @@ public class MinCartTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryConditions(request);
     }
 
-    @CaseId(419)
+    @TmsLink("419")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение ошибки при невалидном delivery_type",
             groups = "ondemand-shippingcalc",
@@ -521,7 +516,7 @@ public class MinCartTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryConditions(request);
     }
 
-    @CaseId(573)
+    @TmsLink("573")
     @Story("Get Delivery Conditions")
     @Test(description = "Прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и попадании в вайтлист",
             groups = "ondemand-shippingcalc")
@@ -551,7 +546,7 @@ public class MinCartTest extends ShippingCalcBase {
         assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 4900, "Не ожидаемая базовая цена в лесенке");
     }
 
-    @CaseId(428)
+    @TmsLink("428")
     @Story("Get Delivery Conditions")
     @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и не попадании в вайтлист",
             groups = "ondemand-shippingcalc")
@@ -581,7 +576,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
     }
 
-    @CaseId(508)
+    @TmsLink("508")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина при пустых customer.id и customer.anonymous_id",
             groups = "ondemand-shippingcalc")
@@ -609,7 +604,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkDeliveryConditions(response, STORE_ID, 0, 1, 3);
     }
 
-    @CaseIDs(value = {@CaseId(391), @CaseId(453)})
+    @TmsLinks(value = {@TmsLink("391"), @TmsLink("453")})
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины с валидными данными",
             groups = "ondemand-shippingcalc")
@@ -621,7 +616,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, STORE_ID, minCartAmountThird);
     }
 
-    @CaseId(498)
+    @TmsLink("498")
     @Story("Get Min Cart Amounts")
     @Test(description = "Создание оффера, фиксирующего стоимость мин. корзины",
             groups = "ondemand-shippingcalc")
@@ -647,7 +642,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(secondResponse, STORE_ID_GLOBAL, minCartAmountGlobalFromCache);
     }
 
-    @CaseId(392)
+    @TmsLink("392")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины по нескольким магазинам",
             groups = "ondemand-shippingcalc")
@@ -693,7 +688,7 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(438)
+    @TmsLink("438")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины по глобальной стратегии",
             groups = "ondemand-shippingcalc")
@@ -705,7 +700,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, STORE_ID_GLOBAL, minCartAmountGlobal);
     }
 
-    @CaseId(413)
+    @TmsLink("413")
     @Story("Get Min Cart Amounts")
     @Test(description = "Проверка прохождений условий в правилах мин корзины",
             groups = "ondemand-shippingcalc")
@@ -722,7 +717,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(secondResponse, STORE_ID, minCartAmountThird);
     }
 
-    @CaseIDs({@CaseId(451), @CaseId(535)})
+    @TmsLinks({@TmsLink("451"), @TmsLink("535")})
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины для магазина с повышенным спросом",
             groups = "ondemand-shippingcalc")
@@ -739,7 +734,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT);
     }
 
-    @CaseId(531)
+    @TmsLink("531")
     @Story("Get Min Cart Amounts")
     @Test(description = "Наценка по параметрам свитчбек-эксперимента региона",
             groups = "ondemand-shippingcalc")
@@ -756,7 +751,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF);
     }
 
-    @CaseId(532)
+    @TmsLink("532")
     @Story("Get Min Cart Amounts")
     @Test(description = "Отсутствие наценки по параметрам свитчбек-эксперимента региона при не попадании в временной интервал",
             groups = "ondemand-shippingcalc")
@@ -773,7 +768,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT);
     }
 
-    @CaseId(504)
+    @TmsLink("504")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение не нулевой минимальной корзины для не on_demand магазина",
             groups = "ondemand-shippingcalc")
@@ -790,7 +785,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird);
     }
 
-    @CaseIDs({@CaseId(534), @CaseId(533)})
+    @TmsLinks({@TmsLink("534"), @TmsLink("533")})
     @Story("Get Min Cart Amounts")
     @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
             groups = "ondemand-shippingcalc")
@@ -807,7 +802,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF);
     }
 
-    @CaseId(506)
+    @TmsLink("506")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины без повышенного спроса с флагом SURGE_DISABLED",
             groups = "ondemand-shippingcalc")
@@ -824,7 +819,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird);
     }
 
-    @CaseId(497)
+    @TmsLink("497")
     @Story("Get Min Cart Amounts")
     @Test(description = "Кэширование surgelevel на уровне customer+store",
             groups = "ondemand-shippingcalc",
@@ -837,7 +832,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT);
     }
 
-    @CaseId(452)
+    @TmsLink("452")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины без повышенного спроса для не on_demand магазина",
             groups = "ondemand-shippingcalc")
@@ -849,7 +844,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, 0);
     }
 
-    @CaseId(454)
+    @TmsLink("454")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины для магазина без повышенного спроса для новых клиентов",
             groups = "ondemand-shippingcalc")
@@ -861,7 +856,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird);
     }
 
-    @CaseId(457)
+    @TmsLink("457")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины без повышенного спроса для самовывоза",
             groups = "ondemand-shippingcalc")
@@ -878,7 +873,7 @@ public class MinCartTest extends ShippingCalcBase {
         Allure.step("Проверяем отсутствия наценки surge для самовывоза", () -> compareTwoObjects(response.getMinCartAmounts(0).getAmountSelfDelivery(), 0L));
     }
 
-    @CaseId(450)
+    @TmsLink("450")
     @Story("Get Min Cart Amounts")
     @Test(description = "Проверка наличия мин. корзины для доставки курьером и самовывоза",
             groups = "ondemand-shippingcalc")
@@ -901,7 +896,7 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(393)
+    @TmsLink("393")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение пустого списка для магазина у которого не нашли связку",
             groups = "ondemand-shippingcalc")
@@ -914,7 +909,7 @@ public class MinCartTest extends ShippingCalcBase {
         Allure.step("Проверяем пустое значение", () -> compareTwoObjects(response.getMinCartAmounts(0).getAmountSelfDelivery(), 0L));
     }
 
-    @CaseId(398)
+    @TmsLink("398")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение ошибки при невалидном delivery_type",
             groups = "ondemand-shippingcalc",
@@ -941,7 +936,7 @@ public class MinCartTest extends ShippingCalcBase {
         clientShippingCalc.getMinCartAmounts(request);
     }
 
-    @CaseId(589)
+    @TmsLink("589")
     @Story("Get Min Cart Amounts")
     @Test(description = "Прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и попадании в вайтлист",
             groups = "ondemand-shippingcalc")
@@ -970,7 +965,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, STORE_ID, minCartAmountFirst);
     }
 
-    @CaseId(395)
+    @TmsLink("395")
     @Story("Get Min Cart Amounts")
     @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и не попадании в вайтлист",
             groups = "ondemand-shippingcalc")
@@ -999,7 +994,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, STORE_ID, minCartAmountThird);
     }
 
-    @CaseId(505)
+    @TmsLink("505")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение нулевой минимальной корзины при пустых customer.id и customer.anonymous_id",
             groups = "ondemand-shippingcalc")
@@ -1025,7 +1020,7 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, STORE_ID, 0);
     }
 
-    @CaseId(396)
+    @TmsLink("396")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение пустого списка при пустом stores",
             groups = "ondemand-shippingcalc",
@@ -1048,7 +1043,7 @@ public class MinCartTest extends ShippingCalcBase {
         clientShippingCalc.getMinCartAmounts(request);
     }
 
-    @CaseId(397)
+    @TmsLink("397")
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение пустого списка при пустом tenant",
             groups = "ondemand-shippingcalc",

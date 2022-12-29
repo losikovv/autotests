@@ -9,7 +9,7 @@ import ru.instamart.api.model.v3.FeatureFlagV3;
 import ru.instamart.api.request.v3.FeatureFlagsV3Request;
 import ru.instamart.api.response.v3.FeatureFlagV3Response;
 import ru.instamart.api.response.v3.FeatureFlagsV3Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -20,7 +20,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class FeatureFlagsV3Test extends RestBase {
     private FeatureFlagV3 featureFlag;
 
-    @CaseId(2604)
+    @TmsLink("2604")
     @Test(  groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Получение списка фича-флагов")
     public void getFeatureFlags() {
@@ -30,7 +30,7 @@ public class FeatureFlagsV3Test extends RestBase {
         featureFlag = response.as(FeatureFlagsV3Response.class).getFeatureFlags().get(0);
     }
 
-    @CaseId(2605)
+    @TmsLink("2605")
     @Test(  groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Получение фича-флага по ключу",
             dependsOnMethods = "getFeatureFlags")

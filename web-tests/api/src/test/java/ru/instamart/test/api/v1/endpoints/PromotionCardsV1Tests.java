@@ -20,8 +20,8 @@ import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.Objects;
@@ -47,7 +47,7 @@ public class PromotionCardsV1Tests extends RestBase {
         storeIds = List.of(EnvironmentProperties.DEFAULT_SID, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
-    @CaseId(2263)
+    @TmsLink("2263")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение списка In App баннеров")
     public void getPromotionCards() {
@@ -59,7 +59,7 @@ public class PromotionCardsV1Tests extends RestBase {
         compareTwoObjects(promotionCards.size(), countFromDb);
     }
 
-    @CaseId(2264)
+    @TmsLink("2264")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание In App баннера",
             dependsOnMethods = "getPromotionCards")
@@ -88,7 +88,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @JsonDataProvider(path = "data/json_v1/api_v1_negative_promotion_card_data.json", type = RestDataProvider.PromotionCardsV1TestDataRoot.class)
-    @CaseIDs(value = {@CaseId(2265), @CaseId(2266), @CaseId(2267), @CaseId(2268)})
+    @TmsLinks(value = {@TmsLink("2265"), @TmsLink("2266"), @TmsLink("2267"), @TmsLink("2268")})
     @Test(description = "Создание In App баннера с невалидными параметрами",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProvider = "jsonWithoutParallel",
@@ -99,7 +99,7 @@ public class PromotionCardsV1Tests extends RestBase {
         Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
     }
 
-    @CaseId(2269)
+    @TmsLink("2269")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение In App баннера",
             dependsOnMethods = "createPromotionCard")
@@ -115,7 +115,7 @@ public class PromotionCardsV1Tests extends RestBase {
         checkPromotionCard(promotionCard, promotionCardFromResponse, storeIds);
     }
 
-    @CaseId(2270)
+    @TmsLink("2270")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение несуществующего In App баннера",
             dependsOnMethods = "createPromotionCard")
@@ -125,7 +125,7 @@ public class PromotionCardsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2271)
+    @TmsLink("2271")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение In App баннера",
             dependsOnMethods = "editPromotionCard")
@@ -137,7 +137,7 @@ public class PromotionCardsV1Tests extends RestBase {
         checkPromotionCard(promotionCard, promotionCardFromResponse, storeIds);
     }
 
-    @CaseId(2272)
+    @TmsLink("2272")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение несуществующего In App баннера")
     public void getNonExistentPromotionCard() {
@@ -146,7 +146,7 @@ public class PromotionCardsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2273)
+    @TmsLink("2273")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение позиции In App баннера",
             dependsOnMethods = "getPromotionCard")
@@ -157,7 +157,7 @@ public class PromotionCardsV1Tests extends RestBase {
         compareTwoObjects(promotionCardFromDb.getPosition(), 22);
     }
 
-    @CaseId(2274)
+    @TmsLink("2274")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение позиции несуществующего In App баннера")
     public void changeNonExistentPromotionCardPosition() {
@@ -167,7 +167,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING) //todo починить 401
-    @CaseId(2275)
+    @TmsLink("2275")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление In App баннера",
             dependsOnMethods = "changePromotionCardPosition")
@@ -178,7 +178,7 @@ public class PromotionCardsV1Tests extends RestBase {
         Assert.assertTrue(PromotionCardsDao.INSTANCE.findById(promotionCardId).isEmpty(), "Промо-карточка не удалилась");
     }
 
-    @CaseId(2276)
+    @TmsLink("2276")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление несуществующего In App баннера",
             dependsOnMethods = "changePromotionCardPosition")
