@@ -2,10 +2,10 @@ package ru.instamart.test.reforged.chatwoot;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.CHATWOOT;
 import static ru.instamart.reforged.chatwoot.ChatwootRouter.dialogs;
@@ -17,7 +17,7 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.WAITING;
 @Feature("Маршрутизация чатов для роли Оператор")
 public final class ChatRoutingForOperatorTests {
 
-    @CaseId(52)
+    @TmsLink("52")
     @Test(description = "Чаты на оператора в статусе Оффлайн не маршрутизируются", groups = {CHATWOOT})
     public void routingDisableIfOfflineTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -41,7 +41,7 @@ public final class ChatRoutingForOperatorTests {
         dialogs().checkConversationsListIsEmpty();
     }
 
-    @CaseId(53)
+    @TmsLink("53")
     @Test(description = "Чаты на оператора в статусе Ожидание не маршрутизируются", groups = {CHATWOOT})
     public void routingDisableIfWaitingTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -69,7 +69,7 @@ public final class ChatRoutingForOperatorTests {
         dialogs().checkConversationsListIsEmpty();
     }
 
-    @CaseId(57)
+    @TmsLink("57")
     @Test(description = "Новые чаты маршрутизируются на оператора пока у него есть свободные слоты", groups = {CHATWOOT})
     public void chatRoutingDuringLimitNotReachedTest() {
         UserData userData = UserManager.getOperatorUser();

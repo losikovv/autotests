@@ -14,7 +14,7 @@ import ru.instamart.api.response.v1.*;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -35,7 +35,7 @@ public class SettingsV1Test extends RestBase {
         admin.authApiWithAdminNewRoles();
     }
 
-    @CaseId(2535)
+    @TmsLink("2535")
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
@@ -48,7 +48,7 @@ public class SettingsV1Test extends RestBase {
         compareTwoObjects(companySettings.getPreferences().getCompanyName(), "ООО «Инстамарт Сервис»");
     }
 
-    @CaseId(2536)
+    @TmsLink("2536")
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
@@ -64,7 +64,7 @@ public class SettingsV1Test extends RestBase {
         compareTwoObjects(companySettingsFromResponse.getPreferences().getCompanyBank(), companyBank);
     }
 
-    @CaseId(2537)
+    @TmsLink("2537")
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о фича-флагах")
@@ -75,7 +75,7 @@ public class SettingsV1Test extends RestBase {
         featureSettings = response.as(FeatureSettingsV1Response.class).getFeatureSettings();
     }
 
-    @CaseId(2538)
+    @TmsLink("2538")
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
@@ -90,7 +90,7 @@ public class SettingsV1Test extends RestBase {
         compareTwoObjects(featureSettingsFromResponse.getApplePayAdminSettings(), featureSettings.getApplePayAdminSettings());
     }
 
-    @CaseId(2539)
+    @TmsLink("2539")
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации об общих настройках")
@@ -101,7 +101,7 @@ public class SettingsV1Test extends RestBase {
         generalSettings = response.as(GeneralSettingsV1Response.class).getGeneralSettings();
     }
 
-    @CaseId(2540)
+    @TmsLink("2540")
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
@@ -116,7 +116,7 @@ public class SettingsV1Test extends RestBase {
         compareTwoObjects(response.as(GeneralSettingsV1Response.class).getGeneralSettings().getEmails().getFeedbackEmail(), feedbackEmail);
     }
 
-    @CaseId(2541)
+    @TmsLink("2541")
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о логистической плотности")
@@ -126,7 +126,7 @@ public class SettingsV1Test extends RestBase {
         checkResponseJsonSchema(response, LogisticDensitiesV1Response.class);
     }
 
-    @CaseId(2542)
+    @TmsLink("2542")
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
@@ -141,7 +141,7 @@ public class SettingsV1Test extends RestBase {
 
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2543)
+    @TmsLink("2543")
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о настройках смс")
@@ -153,7 +153,7 @@ public class SettingsV1Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2544)
+    @TmsLink("2544")
     @Story("Конфигурация системы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование информации о настройках смс",

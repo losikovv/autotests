@@ -1,14 +1,8 @@
 package ru.instamart.test.api.v2.endpoints;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
-import org.testng.Assert;
-import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.util.CryptCard;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -21,6 +15,8 @@ import ru.instamart.api.request.v2.CreditCardsV2Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.api.response.v2.CreditCardV2Response;
 import ru.instamart.api.response.v2.CreditCardsV2Response;
+import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.util.CryptCard;
 
 import java.util.UUID;
 
@@ -47,7 +43,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @Skip
     @Issue("STF-6633")
-    @CaseId(500)
+    @TmsLink("500")
     @Story("Добавить новую карту")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Добавить новую карту с указанием обязательных параметров")
@@ -78,7 +74,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @Skip
     @Issue("STF-6633")
-    @CaseId(501)
+    @TmsLink("501")
     @Story("Добавить новую карту")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Добавить новую карту с дополнительным полем title")
@@ -107,7 +103,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @Skip
     @Issue("STF-6633")
-    @CaseId(502)
+    @TmsLink("502")
     @Story("Добавить новую карту")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Добавить новую карту с дополнительным полем title")
@@ -129,7 +125,7 @@ public class CreditCardsV2Test extends RestBase {
         //TODO Добавить проверки после фикса задачи
     }
 
-    @CaseId(495)
+    @TmsLink("495")
     @Story("Получение списка всех банковских карт")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "У пользователя нет добавленных карт")
@@ -142,7 +138,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @Skip
     @Issue("STF-6633")
-    @CaseId(496)
+    @TmsLink("496")
     @Story("Получение списка всех банковских карт")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "У пользователя одна добавленная карта",
@@ -157,7 +153,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @Skip
     @Issue("STF-6633")
-    @CaseId(497)
+    @TmsLink("497")
     @Story("Получение списка всех банковских карт")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "У пользователя несколько добавленных карт",
@@ -170,7 +166,7 @@ public class CreditCardsV2Test extends RestBase {
         softAssert.assertTrue(creditCardsV2Response.getCreditCards().size() > 1, "credit_cards вернулся пустым или один");
     }
 
-    @CaseId(506)
+    @TmsLink("506")
     @Story("Получение списка всех банковских карт")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Удаление карты по не существующим ID"
@@ -183,7 +179,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @Skip
     @Issue("STF-6633")
-    @CaseId(505)
+    @TmsLink("505")
     @Story("Получение списка всех банковских карт")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Удаление карты по существующему ID",

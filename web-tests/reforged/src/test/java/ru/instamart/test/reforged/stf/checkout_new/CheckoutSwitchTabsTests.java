@@ -3,13 +3,13 @@ package ru.instamart.test.reforged.stf.checkout_new;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.*;
@@ -23,7 +23,7 @@ public final class CheckoutSwitchTabsTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(3596)
+    @TmsLink("3596")
     @Story("Переключение доставка/самовывоз")
     @Test(description = "Замена метода 'Доставка' на метод 'Самовывоз'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -60,7 +60,7 @@ public final class CheckoutSwitchTabsTests {
         checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
     }
 
-    @CaseId(3597)
+    @TmsLink("3597")
     @Story("Переключение доставка/самовывоз")
     @Test(description = "Замена метода 'Самовывоз' на метод 'Доставка'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -103,7 +103,7 @@ public final class CheckoutSwitchTabsTests {
         checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
     }
 
-    @CaseId(3610)
+    @TmsLink("3610")
     @Story("Переключение доставка/самовывоз")
     @Test(description = "Попытка переключения с самовывоза на доставку при заказе имеющем алкоголь", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})

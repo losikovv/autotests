@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.SMOKE_STF;
@@ -19,7 +19,7 @@ public final class OrderEvaluationTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(3220)
+    @TmsLink("3220")
     @Test(description = "Оценка заказа | положительная", groups = {REGRESSION_STF, SMOKE_STF})
     public void orderPositiveEvaluation() {
         UserData userData = UserManager.getQaUser();
@@ -37,7 +37,7 @@ public final class OrderEvaluationTests {
         shop().interactOrderEvaluation().checkOrderEvaluationModalNotDisplayed();
     }
 
-    @CaseId(3221)
+    @TmsLink("3221")
     @Test(description = "Оценка заказа | отрицательная", groups = {REGRESSION_STF, SMOKE_STF})
     public void orderNegativeEvaluation() {
         UserData userData = UserManager.getQaUser();
@@ -55,7 +55,7 @@ public final class OrderEvaluationTests {
         shop().interactOrderEvaluation().checkOrderEvaluationModalNotDisplayed();
     }
 
-    @CaseId(3223)
+    @TmsLink("3223")
     @Test(description = "Выбор тегов для оценки заказа", groups = {REGRESSION_STF, SMOKE_STF})
     public void orderNegativeEvaluationTags() {
         UserData userData = UserManager.getQaUser();
@@ -76,7 +76,7 @@ public final class OrderEvaluationTests {
         shop().interactOrderEvaluation().checkOrderEvaluationModalNotDisplayed();
     }
 
-    @CaseId(3224)
+    @TmsLink("3224")
     @Test(description = "Оценка заказа с комментарием", groups = {REGRESSION_STF, SMOKE_STF})
     public void orderEvaluationComment() {
         UserData userData = UserManager.getQaUser();
@@ -96,7 +96,7 @@ public final class OrderEvaluationTests {
         shop().interactOrderEvaluation().checkOrderEvaluationModalNotDisplayed();
     }
 
-    @CaseId(3225)
+    @TmsLink("3225")
     @Test(description = "Оценка заказа с фото", groups = {REGRESSION_STF, SMOKE_STF})
     public void orderEvaluationPhoto() {
         UserData userData = UserManager.getQaUser();

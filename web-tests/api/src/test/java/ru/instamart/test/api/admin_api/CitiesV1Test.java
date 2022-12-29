@@ -1,9 +1,6 @@
 package ru.instamart.test.api.admin_api;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -19,7 +16,6 @@ import ru.instamart.jdbc.dao.stf.CitiesDao;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +39,7 @@ public class CitiesV1Test extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(1133)
+    @TmsLink("1133")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка всех городов")
     public void getAllCities() {
@@ -57,7 +53,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(1124)
+    @TmsLink("1124")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Создание города c обязательными параметрами")
     public void createCityWithRequiredParams() {
@@ -78,7 +74,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(1125)
+    @TmsLink("1125")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Создание города со всеми возможными параметрами")
     public void createCityWithAllParams() {
@@ -97,7 +93,7 @@ public class CitiesV1Test extends RestBase {
         checkCity(cityFromResponse, city);
     }
 
-    @CaseId(1126)
+    @TmsLink("1126")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Создание города c пустыми обязательными параметрами")
     public void createCityWithEmptyRequiredParams() {
@@ -108,7 +104,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(1127)
+    @TmsLink("1127")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование города с обязательными параметрами",
@@ -131,7 +127,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(1128)
+    @TmsLink("1128")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование города c пустыми обязательными параметрами",
@@ -144,7 +140,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(1129)
+    @TmsLink("1129")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование города со всеми возможными параметрами",
@@ -166,7 +162,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(2470)
+    @TmsLink("2470")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование несуществующего города")
@@ -178,7 +174,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(2466)
+    @TmsLink("2466")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Блокировка города для изменений города",
@@ -192,7 +188,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(1130)
+    @TmsLink("1130")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Блокировка города для изменений города",
@@ -207,7 +203,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(2467)
+    @TmsLink("2467")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение города",
@@ -222,7 +218,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(2469)
+    @TmsLink("2469")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение несуществующего города")
@@ -234,7 +230,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(1131)
+    @TmsLink("1131")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление города",
@@ -247,7 +243,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(1132)
+    @TmsLink("1132")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление заблокированного для изменений города",
@@ -261,7 +257,7 @@ public class CitiesV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
-    @CaseId(2471)
+    @TmsLink("2471")
     @Story("Список городов в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление несуществующего города")

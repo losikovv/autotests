@@ -3,7 +3,7 @@ package ru.instamart.test.api.v1.contracts;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -27,7 +27,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class OperationalZonesV1ContractTests extends RestBase {
 
     @Story("Операционные зоны")
-    @CaseId(112)
+    @TmsLink("112")
     @Test(  description = "Контрактный тест списка операционных зон",
             groups = {"api-instamart-smoke", "api-v1"})
     public void getOperationalZones() {
@@ -39,7 +39,7 @@ public class OperationalZonesV1ContractTests extends RestBase {
     }
 
     @Story("Операционные зоны")
-    @CaseId(113)
+    @TmsLink("113")
     @Test(  description = "Контрактный тест операционной зоны",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dataProviderClass = RestDataProvider.class,

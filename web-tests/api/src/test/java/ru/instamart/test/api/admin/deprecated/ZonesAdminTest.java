@@ -17,8 +17,8 @@ import ru.instamart.jdbc.entity.stf.SpreeZonesEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.Optional;
 
@@ -39,7 +39,7 @@ public class ZonesAdminTest extends RestBase {
         admin.auth();
     }
 
-    @CaseId(1887)
+    @TmsLink("1887")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка торговых зон")
     public void getAllZones() {
@@ -47,7 +47,7 @@ public class ZonesAdminTest extends RestBase {
         checkStatusCode(response, 200, ContentType.HTML);
     }
 
-    @CaseIDs(value = {@CaseId(2060), @CaseId(2061)})
+    @TmsLinks(value = {@TmsLink("2060"), @TmsLink("2061")})
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание новой торговой зоны",
@@ -62,7 +62,7 @@ public class ZonesAdminTest extends RestBase {
         zoneId = createdZone.getId();
     }
 
-    @CaseId(2064)
+    @TmsLink("2064")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание новой торговой зоны без имени")
@@ -77,7 +77,7 @@ public class ZonesAdminTest extends RestBase {
         Assert.assertNull(createdZone, "В БД создалась зона");
     }
 
-    @CaseIDs(value = {@CaseId(2062), @CaseId(2063)})
+    @TmsLinks(value = {@TmsLink("2062"), @TmsLink("2063")})
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование торговой зоны",
@@ -95,7 +95,7 @@ public class ZonesAdminTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2065)
+    @TmsLink("2065")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование торговой зоны с пустым имени",
@@ -113,7 +113,7 @@ public class ZonesAdminTest extends RestBase {
         checkFieldIsNotEmpty(createdZone.get().getName(), "имя торговой зоны в БД");
     }
 
-    @CaseId(2066)
+    @TmsLink("2066")
     @Skip(onServer = Server.STAGING)
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление торговой зоны",

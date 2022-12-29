@@ -9,7 +9,6 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 import java.util.Set;
@@ -32,7 +31,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(2116)
+    @TmsLink("2116")
     @Test(description = "Поиск заказа по фильтру Номер заказа",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderNumberByShipmentNumberFilterTest() {
@@ -115,7 +114,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     //TODO: сделать датапикер
     //Заказ очень долго летит и начинает отображаться в админке через 20-40 сек
     //Если выгребать текущие, то в таблице нет данных о дате создания
-    @CaseId(2117)
+    @TmsLink("2117")
     @Test(description = "Поиск заказа по дате создания заказа, фильтр Создание заказа",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderFilterByCreateDate() {
@@ -144,7 +143,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     }
 
     //TODO: сделать датапикер
-    @CaseId(2118)
+    @TmsLink("2118")
     @Test(description = "Поиск заказа по дате доставки, фильтр Доставка заказа",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderFilterByDeliveryDate() {
@@ -170,7 +169,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkAllShipmentInTableBetweenDate(TimeUtil.convertStringToDateWithTime(dateStart), TimeUtil.convertStringToDateWithTime(dateEnd));
     }
 
-    @CaseId(2119)
+    @TmsLink("2119")
     @Test(description = "Поиск заказов по весу, фильтр Вес заказа",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderFilterByWeight() {
@@ -223,7 +222,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkAllShipmentInTableBetweenWeight(1.2, 10.5);
     }
 
-    @CaseId(2120)
+    @TmsLink("2120")
     @Test(description = "Поиск заказов по фильтру Платформа",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void platformFilterTest() {
@@ -259,7 +258,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkPlatformFiltersNotSelected();
     }
 
-    @CaseId(2121)
+    @TmsLink("2121")
     @Test(description = "Фильтрация заказов по ритейлеру",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void retailerFilterTest() {
@@ -294,7 +293,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkRequestsWasLoad();
     }
 
-    @CaseId(2143)
+    @TmsLink("2143")
     @Test(description = "Фильтрация заказов по базовому магазину",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void basicStoreFilterTest() {
@@ -328,7 +327,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkRequestsWasLoad();
     }
 
-    @CaseId(2122)
+    @TmsLink("2122")
     @Test(description = "Фильтрация заказов по магазину",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void storeFilterTest() {
@@ -359,7 +358,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkRequestsWasLoad();
     }
 
-    @CaseId(2123)
+    @TmsLink("2123")
     @Test(description = "Фильтрация заказов по Способу оплаты",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void paymentMethodsFilterTest() {
@@ -393,7 +392,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     @Skip(onServer = Server.PRODUCTION)
     //Заказы отображаются не сразу в админке
     @Flaky
-    @CaseId(2124)
+    @TmsLink("2124")
     @Test(description = "Фильтрация заказов по промокоду",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void promoCodeFiltersTest() {
@@ -421,7 +420,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         shipmentPage().checkPromoCodeData(promoCode);
     }
 
-    @CaseId(2161)
+    @TmsLink("2161")
     // Все из-за того, что планировали все увести на диспач
     // и потом выпилить этот фильтр и перей/ти на статусы джобов
     @Flaky
@@ -458,7 +457,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkCollectingStatusNotSelected();
     }
 
-    @CaseId(2137)
+    @TmsLink("2137")
     // Все из-за того, что планировали все увести на диспач
     // и потом выпилить этот фильтр и перей/ти на статусы джобов
     @Flaky
@@ -494,7 +493,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkDeliveryStatusNotSelected();
     }
 
-    @CaseId(2159)
+    @TmsLink("2159")
     @Test(description = "Фильтрация заказов по кол-ву позиций в заказе",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderFilterByItems() {
@@ -546,7 +545,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkAllShipmentInTableBetweenItems(1, 10);
     }
 
-    @CaseId(2160)
+    @TmsLink("2160")
     @Flaky
     @Issue("GARM-1371") // пятисотит статус оплаты overpaid
     @Test(description = "Фильтрация заказов по статусу оплаты",
@@ -619,7 +618,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkPaymentStatusFiltersNotSelected();
     }
 
-    @CaseId(2136)
+    @TmsLink("2136")
     @Test(description = "Фильтрация заказов с помощью быстрого фильтра",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void quickFiltersTest() {
@@ -654,7 +653,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkQuickFiltersNotSelected();
     }
 
-    @CaseId(2071)
+    @TmsLink("2071")
     @Test(description = "Фильтр Статус заказа - выпадающий список с множественным выбором",
             groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void orderStatusFilterTest() {
@@ -694,7 +693,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     }
 
     //TODO SA-1970 Фильтр 'Статус сборки', SA-1971 Фильтр 'Статус доставки' не реализованы. Сроков нет
-    @CaseId(2063)
+    @TmsLink("2063")
     @Issues(value = {@Issue("SA-1970"), @Issue("SA-1971"), @Issue("GARM-1379")}) //выводятся заказы и с назначенными курьерами/сборщиками
     @Flaky
     @Test(description = "Быстрый фильтр: Без назначений",
@@ -721,7 +720,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkAllShipmentInTableHasCourierIn(Set.of("Нет исполнителя"));
     }
 
-    @CaseId(2064)
+    @TmsLink("2064")
     @Test(description = "Быстрый фильтр: Неоплаченные",
             groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersNotPaidTest() {
@@ -744,7 +743,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(NOT_PAID.getName()));
     }
 
-    @CaseId(2066)
+    @TmsLink("2066")
     @Test(description = "Быстрый фильтр: Завершенные",
             groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersCompletedTest() {
@@ -769,7 +768,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkAllShipmentInTableHasShippingStatusIn(Set.of(SHIPMENT_SHIPPED.getName(), CLIENT_CANCELLED.getName()));
     }
 
-    @CaseId(2067)
+    @TmsLink("2067")
     @Test(description = "Быстрый фильтр: Незавершенные",
             groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersNotCompletedTest() {
@@ -800,7 +799,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkAllShipmentInTableHasShippingStatusIn(Set.of(SHIPMENT_SHIPPING.getName()));
     }
 
-    @CaseId(2068)
+    @TmsLink("2068")
     @Test(description = "Быстрый фильтр: B2B клиенты",
             groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersB2BTest() {
@@ -826,7 +825,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkAllShipmentInTableHasCustomerIn(Set.of("Ivan Petrov", "Pavel Nep", "Ольга Медведева", "йй йй", "Алексей Павлов", "test test", ""));
     }
 
-    @CaseId(2070)
+    @TmsLink("2070")
     @Test(description = "Быстрые фильтры - множественный выбор", groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersComplexUsingTest() {
         login().goToPage();

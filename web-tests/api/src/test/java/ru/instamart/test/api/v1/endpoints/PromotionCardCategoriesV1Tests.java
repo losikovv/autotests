@@ -10,7 +10,7 @@ import ru.instamart.api.request.v1.PromotionCardCategoriesV1Request;
 import ru.instamart.api.response.v1.PromotionCardCategoriesV1Response;
 import ru.instamart.jdbc.dao.stf.PromotionCardCategoriesDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -23,7 +23,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class PromotionCardCategoriesV1Tests extends RestBase {
 
     @Story("Промо-карточки")
-    @CaseId(2136)
+    @TmsLink("2136")
     @Test(description = "Получение списка категорий промокарточек",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getPromotionCardsCategories() {

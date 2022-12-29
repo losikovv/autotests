@@ -14,7 +14,7 @@ import ru.instamart.jdbc.dao.stf.SpreeManufacturingCountriesDao;
 import ru.instamart.jdbc.entity.stf.SpreeManufacturingCountriesEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -33,7 +33,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
         admin.auth();
     }
 
-    @CaseId(1886)
+    @TmsLink("1886")
     @Skip
     @Story("Список стран производства в настройках")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка всех стран производства")
@@ -42,7 +42,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
         checkStatusCode(response, 200, ContentType.HTML);
     }
 
-    @CaseId(1879)
+    @TmsLink("1879")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание новой страны производства только с обязательными параметрами")
@@ -57,7 +57,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
         admin.deleteManufacturingCountries(name.toLowerCase());
     }
 
-    @CaseId(1880)
+    @TmsLink("1880")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание новой страны производства со всеми параметрами")
@@ -73,7 +73,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
         compareTwoObjects(manufacturingCountryFromDb.getPermalink(), country.getPermalink());
     }
 
-    @CaseId(1881)
+    @TmsLink("1881")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание страны производства без обязательных параметров")
@@ -83,7 +83,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
         checkStatusCode400(response);
     }
 
-    @CaseId(1882)
+    @TmsLink("1882")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование страны производства со всеми параметрами",
@@ -100,7 +100,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
         compareTwoObjects(manufacturingCountryFromDb.getPermalink(), permalink);
     }
 
-    @CaseId(1883)
+    @TmsLink("1883")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование страны производства со всеми параметрами",
@@ -116,7 +116,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
         compareTwoObjects(manufacturingCountryFromDb.getPermalink(), permalink);
     }
 
-    @CaseId(1885)
+    @TmsLink("1885")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление страны производства",

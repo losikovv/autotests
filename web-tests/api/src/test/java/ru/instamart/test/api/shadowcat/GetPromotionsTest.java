@@ -9,7 +9,7 @@ import ru.instamart.api.common.ShadowcatRestBase;
 import ru.instamart.api.model.shadowcat.Promotion;
 import ru.instamart.api.request.shadowcat.PromotionRequest.Promotions;
 import ru.instamart.api.response.shadowcat.PromotionsResponse;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import static ru.instamart.api.enums.shadowcat.PromotionType.DISCOUNT;
 public class GetPromotionsTest extends ShadowcatRestBase {
     private static int promoId;
 
-    @CaseId(3)
+    @TmsLink("3")
     @Test(description = "Получение списка промоакций",
             groups = {"api-shadowcat"},
             priority = 1)
@@ -34,7 +34,7 @@ public class GetPromotionsTest extends ShadowcatRestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(4)
+    @TmsLink("4")
     @Test(description = "Получение одной промоакций",
             groups = {"api-shadowcat"},
             priority = 2,

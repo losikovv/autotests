@@ -5,7 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Generate;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.HR_OPS_PARTNERS;
 import static ru.instamart.reforged.hr_ops_partners.page.HRPartnersRouter.home;
@@ -14,7 +14,7 @@ import static ru.instamart.reforged.hr_ops_partners.page.HRPartnersRouter.home;
 @Feature("Лендинг")
 public final class HomePageRespondTests {
 
-    @CaseId(13)
+    @TmsLink("13")
     @Story("Главная страница")
     @Test(description = "PM-13. Отклик на вакансию (шаг 1-2)", groups = {HR_OPS_PARTNERS})
     public void testHomePageRespond1_2() {
@@ -29,7 +29,7 @@ public final class HomePageRespondTests {
         home().checkPageContains("docs/personal_partners_policy.pdf");
     }
 
-    @CaseId(13)
+    @TmsLink("13")
     @Story("Главная страница")
     @Test(description = "PM-13. Отклик на вакансию (шаг 3-4)", groups = {HR_OPS_PARTNERS})
     public void testHomePageRespond3_4() {
@@ -59,7 +59,7 @@ public final class HomePageRespondTests {
         home().interactApplyForm().checkNamePhoneErrorText("Номер должен начинаться с \"+7 (9..\"");
     }
 
-    @CaseId(13)
+    @TmsLink("13")
     @Story("Главная страница")
     @Test(description = "PM-13. Отклик на вакансию (шаг 5)", groups = {HR_OPS_PARTNERS})
     public void testHomePageRespond5() {

@@ -12,7 +12,7 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -24,7 +24,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class ShipmentsOtherAuthV2Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(785)
+    @TmsLink("785")
     @Story("Получения статуса шипмента")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получения статуса шипмента с существующим shipmentNumber другого пользователя")

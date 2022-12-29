@@ -3,11 +3,11 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -18,7 +18,7 @@ public final class AdministrationUserCompaniesTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(23)
+    @TmsLink("23")
     @Test(description = "Корректное отображение списка компаний пользователя", groups = REGRESSION_ADMIN)
     public void testUserCompanyList() {
         var userData = UserManager.getQaUser();
@@ -41,7 +41,7 @@ public final class AdministrationUserCompaniesTests {
         userCompanies().checkCompanyNameInRow(1, companyData.getJuridicalName());
     }
 
-    @CaseId(24)
+    @TmsLink("24")
     @Test(description = "Редактирование компании пользователя", groups = REGRESSION_ADMIN)
     public void testUserCompanyEdit() {
         var userData = UserManager.getQaUser();
@@ -97,7 +97,7 @@ public final class AdministrationUserCompaniesTests {
     }
 
     @Issue("DEVB2B-2814")
-    @CaseId(25)
+    @TmsLink("25")
     @Test(description = "Добавление новой компании пользователя", groups = REGRESSION_ADMIN)
     public void testAddUserCompany() {
         var userData = UserManager.getQaUser();

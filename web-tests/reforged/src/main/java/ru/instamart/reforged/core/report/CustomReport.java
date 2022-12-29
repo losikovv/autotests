@@ -59,7 +59,7 @@ public final class CustomReport {
     }
 
     /**
-     * Создаем скриншот для добавления его в Qase
+     * Создаем скриншот для добавления его в TestIT
      */
     public static File takeScreenshotFile() {
         return ((TakesScreenshot) Kraken.getWebDriver()).getScreenshotAs(OutputType.FILE);

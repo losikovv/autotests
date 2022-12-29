@@ -1,13 +1,9 @@
 package ru.instamart.test.reforged.admin;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -16,7 +12,7 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Feature("Работа с промокодами")
 public final class AdministrationPromocodesTests {
 
-    @CaseId(1535)
+    @TmsLink("1535")
     @Story("Выдача промо под ролью call_center_dept")
     @Test(description = "Выдача промокода на бесплатную доставку", groups = {REGRESSION_ADMIN, OD_REGRESS, PHOENIX_SMOKE})
     public void freeDeliveryPromoIssuing() {
@@ -50,7 +46,7 @@ public final class AdministrationPromocodesTests {
         shipmentPage().checkCompensationPromoPending();
     }
 
-    @CaseId(1530)
+    @TmsLink("1530")
     @Story("Выдача промо под ролью call_center_dept")
     @Test(description = "Выдача промокода на сумму <= 1000 руб.", groups = {REGRESSION_ADMIN, OD_REGRESS, PHOENIX_SMOKE})
     public void below1000PromoIssuing() {
@@ -93,7 +89,7 @@ public final class AdministrationPromocodesTests {
         shipmentPage().checkCompensationPromoPending();
     }
 
-    @CaseIDs(value = {@CaseId(1531), @CaseId(1537)})
+    @TmsLinks(value = {@TmsLink("1531"), @TmsLink("1537")})
     @Story("Выдача промо под ролью call_center_dept")
     @Test(description = "Отправка промокода на сумму > 1000 руб. на утверждение", groups = {REGRESSION_ADMIN, OD_REGRESS, PHOENIX_SMOKE})
     public void above1000PromoIssuingOnApprove() {
@@ -136,7 +132,7 @@ public final class AdministrationPromocodesTests {
         shipmentPage().checkCompensationPromoOnApprove();
     }
 
-    @CaseId(1572)
+    @TmsLink("1572")
     @Story("Выдача промо под ролью call_center_dept_leader")
     @Test(description = "Выдача промокода на сумму > 1000 руб.", groups = {REGRESSION_ADMIN, OD_REGRESS, PHOENIX_SMOKE})
     public void above1000PromoIssuing() {
@@ -179,7 +175,7 @@ public final class AdministrationPromocodesTests {
         shipmentPage().checkCompensationPromoPending();
     }
 
-    @CaseIDs(value = {@CaseId(1574), @CaseId(1635)})
+    @TmsLinks(value = {@TmsLink("1574"), @TmsLink("1635")})
     @Story("Выдача промо под ролью call_center_dept_leader")
     @Test(description = "Отображение данных о выданном промокоде на странице деталей заказа", groups = {REGRESSION_ADMIN, OD_REGRESS, PHOENIX_SMOKE})
     public void checkCompensationPromoInfo() {
@@ -238,7 +234,7 @@ public final class AdministrationPromocodesTests {
         shipmentPage().assertAll();
     }
 
-    @CaseId(1803)
+    @TmsLink("1803")
     @Story("Выдача промо под ролью call_center_dept_leader")
     @Test(description = "При клике на кнопку 'Отказать' появляется модальное окно отклонения заявки", groups = {REGRESSION_ADMIN, OD_REGRESS, PHOENIX_SMOKE})
     public void checkCancelPromoModalDisplayed() {

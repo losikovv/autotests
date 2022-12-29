@@ -4,8 +4,8 @@ task apiShadowcat(type: Test) {
         suites 'src/test/resources/suite/api-shadowcat.xml'
         includeGroups 'api-shadowcat'
     }
-    systemProperty 'qase.Project', 'DS'
-    systemProperty 'qase.Title', 'Shadowcat API Regress'
+    environment 'PROJECT_ID', 'DS'
+    environment 'TEST_RUN_NAME', 'Shadowcat API Regress'
 }
 
 task apiSurge(type: Test) {
@@ -13,8 +13,8 @@ task apiSurge(type: Test) {
         suites 'src/test/resources/suite/surge-api.xml'
         includeGroups 'surge-api'
     }
-    systemProperty 'qase.Project', 'SURGE'
-    systemProperty 'qase.Title', 'Surge API Regress'
+    environment 'PROJECT_ID', 'SURGE'
+    environment 'TEST_RUN_NAME', 'Surge API Regress'
 }
 
 task apiRisExporter(type: Test) {
@@ -22,8 +22,8 @@ task apiRisExporter(type: Test) {
         suites 'src/test/resources/suite/api-ris-exporter.xml'
         includeGroups 'api-ris-exporter'
     }
-    systemProperty 'qase.Project', 'PB'
-    systemProperty 'qase.Title', 'Ris-Exporter API Regress'
+    environment 'PROJECT_ID', 'PB'
+    environment 'TEST_RUN_NAME', 'Ris-Exporter API Regress'
 }
 
 task apiAuthorizationService(type: Test) {
@@ -31,8 +31,8 @@ task apiAuthorizationService(type: Test) {
         suites 'src/test/resources/suite/api-authorization-service.xml'
         includeGroups 'api-authorization-service'
     }
-    systemProperty 'qase.Project', 'CS'
-    systemProperty 'qase.Title', 'Authorization Service API Regress'
+    environment 'PROJECT_ID', 'CS'
+    environment 'TEST_RUN_NAME', 'Authorization Service API Regress'
 }
 
 task onDemandShifts(type: Test) {
@@ -43,8 +43,8 @@ task onDemandShifts(type: Test) {
     environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
     environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
     environment 'P_ENV', "service-shifts"
-    systemProperty 'qase.Project', 'ODFS'
-    systemProperty 'qase.Title', 'Shifts Autotests'
+    environment 'PROJECT_ID', 'ODFS'
+    environment 'TEST_RUN_NAME', 'Shifts Autotests'
 }
 
 task onDemandDispatch(type: Test) {
@@ -55,8 +55,8 @@ task onDemandDispatch(type: Test) {
     environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
     environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
     environment 'P_ENV', "service-orderservice"
-    systemProperty 'qase.Project', 'DSPTCH'
-    systemProperty 'qase.Title', 'Dispatch 2.0 Autotests'
+    environment 'PROJECT_ID', 'DSPTCH'
+    environment 'TEST_RUN_NAME', 'Dispatch 2.0 Autotests'
 }
 
 task onDemandWorkflow(type: Test) {
@@ -67,8 +67,8 @@ task onDemandWorkflow(type: Test) {
     environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
     environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
     environment 'P_ENV', "service-workflow"
-    systemProperty 'qase.Project', 'ODW'
-    systemProperty 'qase.Title', 'Workflow Autotests'
+    environment 'PROJECT_ID', 'ODW'
+    environment 'TEST_RUN_NAME', 'Workflow Autotests'
 }
 
 task onDemandETA(type: Test) {
@@ -76,8 +76,8 @@ task onDemandETA(type: Test) {
         suites 'src/test/resources/suite/on_demand/eta.xml'
         includeGroups 'ondemand-eta'
     }
-    systemProperty 'qase.Project', 'ETA'
-    systemProperty 'qase.Title', 'ETA Autotests'
+    environment 'PROJECT_ID', 'ETA'
+    environment 'TEST_RUN_NAME', 'ETA Autotests'
 }
 
 task onDemandShippingCalc(type: Test) {
@@ -85,8 +85,8 @@ task onDemandShippingCalc(type: Test) {
         suites 'src/test/resources/suite/on_demand/shippingcalc.xml'
         includeGroups 'ondemand-shippingcalc'
     }
-    systemProperty 'qase.Project', 'SHPCALC'
-    systemProperty 'qase.Title', 'ShippingCalc Autotests'
+    environment 'PROJECT_ID', 'SHPCALC'
+    environment 'TEST_RUN_NAME', 'ShippingCalc Autotests'
 }
 
 task onDemandCandidates(type: Test) {
@@ -95,8 +95,8 @@ task onDemandCandidates(type: Test) {
         includeGroups 'dispatch-candidates-smoke'
     }
     environment 'P_ENV', "service-candidates"
-    systemProperty 'qase.Project', 'ODSC'
-    systemProperty 'qase.Title', 'On Demand Candidates Smoke'
+    environment 'PROJECT_ID', 'ODSC'
+    environment 'TEST_RUN_NAME', 'On Demand Candidates Smoke'
 }
 
 task onDemandSurgeLevel(type: Test) {
@@ -104,8 +104,8 @@ task onDemandSurgeLevel(type: Test) {
         suites 'src/test/resources/suite/on_demand/surgelevel.xml'
         includeGroups 'ondemand-surgelevel'
     }
-    systemProperty 'qase.Project', 'SURGE'
-    systemProperty 'qase.Title', 'SurgeLevel Autotests'
+    environment 'PROJECT_ID', 'SURGE'
+    environment 'TEST_RUN_NAME', 'SurgeLevel Autotests'
 }
 
 task onDemandRes(type: Test) {
@@ -113,6 +113,6 @@ task onDemandRes(type: Test) {
         suites 'src/test/resources/suite/on_demand/routeestimator.xml'
         includeGroups 'ondemand-res-smoke'
     }
-    systemProperty 'qase.Project', 'RES'
-    systemProperty 'qase.Title', 'RES Autotests'
+    environment 'PROJECT_ID', 'RES'
+    environment 'TEST_RUN_NAME', 'RES Autotests'
 }

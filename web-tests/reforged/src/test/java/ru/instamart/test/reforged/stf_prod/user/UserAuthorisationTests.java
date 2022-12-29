@@ -7,7 +7,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.BasicProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
@@ -17,7 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Feature("Авторизация")
 public final class UserAuthorisationTests {
 
-    @CaseId(2735)
+    @TmsLink("2735")
     @Story("Авторизация через VK")
     @Issue("B2C-11803")
     @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {STF_PROD_S})
@@ -42,7 +42,7 @@ public final class UserAuthorisationTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(1460)
+    @TmsLink("1460")
     @Story("Авторизация через Mail.ru")
     @Issue("B2C-11803")
     @Test(description = "Тест успешной авторизация через MailRu", groups = {STF_PROD_S})
@@ -69,8 +69,8 @@ public final class UserAuthorisationTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    //@CaseId(1459)
-    @CaseId(3522)
+    //@TmsLink("1459")
+    @TmsLink("3522")
     @Story("Авторизация через SberID")
     @Test(description = "Тест перехода на сайт Sber ID", groups = {STF_PROD_S})
     public void checkCorrectTransitionToSberIdSite() {

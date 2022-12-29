@@ -22,7 +22,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.TimeUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -56,7 +56,7 @@ public class ShipmentReturnsV1Test extends RestBase {
     }
 
     @Skip // TODO: Сейчас 500-ая
-    @CaseId(2311)
+    @TmsLink("2311")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             //undefined method `shipments' for nil:NilClass , уточнить у Манаса, что еще требуется
             description = "Полный возврат средств за заказ включая доставку и сборку на стр. возвратов (sberpayments)")
@@ -91,7 +91,7 @@ public class ShipmentReturnsV1Test extends RestBase {
     }
 
     @Skip
-    @CaseId(2312)
+    @TmsLink("2312")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Отображение истории возвратов на стр. возвратов (sberpayments)",
             dependsOnMethods = "postShipmentReturns")
@@ -105,7 +105,7 @@ public class ShipmentReturnsV1Test extends RestBase {
 
     @Issue("B2C-6444")
     @Skip
-    @CaseId(2313)
+    @TmsLink("2313")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Детализация истории возвратов на стр. возвратов (sberpayments)",
             dependsOnMethods = "postShipmentReturns")

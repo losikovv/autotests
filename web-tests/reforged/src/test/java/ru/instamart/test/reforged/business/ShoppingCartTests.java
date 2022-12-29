@@ -11,8 +11,8 @@ import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
@@ -25,7 +25,7 @@ public final class ShoppingCartTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(261)
+    @TmsLink("261")
     @Test(description = "Отображение TOTAL НДС", groups = {"smoke", REGRESSION_BUSINESS, "all-cart"})
     public void testTotalVatDisplayed() {
         var company = JuridicalData.juridical();
@@ -44,7 +44,7 @@ public final class ShoppingCartTests {
         business().interactHeaderMultisearch().interactCart().checkTotalVatDisplayed();
     }
 
-    @CaseId(263)
+    @TmsLink("263")
     @Test(description = "Отображение TOTAL НДС мультизаказ", groups = {"smoke", REGRESSION_BUSINESS, "all-cart"})
     public void testTotalVatDisplayedMultiply() {
         var company = JuridicalData.juridical();
@@ -63,7 +63,7 @@ public final class ShoppingCartTests {
         business().interactHeaderMultisearch().interactCart().checkTotalVatDisplayed();
     }
 
-    @CaseId(725)
+    @TmsLink("725")
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Issue("ATST-2251")
     @Skip
@@ -99,7 +99,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().interactTransferCartModal().checkErrorTextContains("Нужного магазина нет на витрине для бизнеса.");
     }
 
-    @CaseIDs({@CaseId(726), @CaseId(729)})
+    @TmsLinks({@TmsLink("726"), @TmsLink("729")})
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Issue("ATST-2251")
     @Skip
@@ -139,7 +139,7 @@ public final class ShoppingCartTests {
 
     }
 
-    @CaseId(730)
+    @TmsLink("730")
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Issue("ATST-2251")
     @Skip
@@ -189,7 +189,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkRetailersCount(2);
     }
 
-    @CaseId(731)
+    @TmsLink("731")
     @Test(description = "Изменение количества товаров в корзине вводом числа", groups = {"smoke", REGRESSION_BUSINESS, "all-cart"})
     public void testChangeItemCountFromKeyboard() {
         var company = JuridicalData.juridical();

@@ -14,7 +14,7 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.kraken.listener.Run;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -40,7 +40,7 @@ public final class OrdersRetailerCardsTests {
     }
 
     @Run(onTenant = Tenant.SBERMARKET, onServer = Server.PRODUCTION)
-    @CaseId(1633)
+    @TmsLink("1633")
     @Test(description = "Тест заказа с картой Вкусвилл (только Sbermarket)", groups = REGRESSION_STF)
     public void successOrderWithVkusvillRetailerCard() {
         shop().goToPage();

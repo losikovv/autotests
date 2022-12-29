@@ -2,10 +2,10 @@ package ru.instamart.test.reforged.chatwoot;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.CHATWOOT;
 import static ru.instamart.reforged.chatwoot.ChatwootRouter.*;
@@ -15,7 +15,7 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.ONLINE;
 @Feature("Рабочее место оператора")
 public final class OperatorWorkplaceTests {
 
-    @CaseId(117)
+    @TmsLink("117")
     @Test(description = "После разлогина чаты в работе падают в общую очередь распределения", groups = {CHATWOOT})
     public void chatsUnassignedAutomaticallyOnLogoutClose() {
         UserData userData = UserManager.getOperatorUser();

@@ -4,6 +4,7 @@ import candidates.StoreChangedOuterClass;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -13,10 +14,8 @@ import ru.instamart.jdbc.dao.routeestimator.RegionSettingsDao;
 import ru.instamart.jdbc.dao.routeestimator.RouteEstimatorSettingsDao;
 import ru.instamart.jdbc.entity.routeestimator.RegionSettingsEntity;
 import ru.instamart.jdbc.entity.routeestimator.RouteEstimatorSettingsEntity;
-import ru.sbermarket.qase.annotation.CaseId;
 import settings.Settings;
 import settings.SettingsServiceGrpc;
-
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.helper.OrderServiceHelper.publishShopperStoreChangedEvent;
@@ -42,7 +41,7 @@ public class GrpcSettingsTest extends GrpcBase {
         clientRes = settings.SettingsServiceGrpc.newBlockingStub(channel);
     }
 
-    @CaseId(29)
+    @TmsLink("29")
     @Test(description = "Получение коэффициентов RES по региону",
             groups = "ondemand-res-smoke")
     public void getRegionSettings() {
@@ -64,7 +63,7 @@ public class GrpcSettingsTest extends GrpcBase {
         });
     }
 
-    @CaseId(30)
+    @TmsLink("30")
     @Test(description = "Получение коэффициентов RES для региона, которого нет в базе",
             groups = "ondemand-res-smoke")
     public void getNewRegionSettings() {
@@ -86,7 +85,7 @@ public class GrpcSettingsTest extends GrpcBase {
         });
     }
 
-    @CaseId(30)
+    @TmsLink("30")
     @Test(description = "Изменение коэффициентов RES по региону",
             groups = "ondemand-res-smoke")
     public void putRegionSettings() {
@@ -133,7 +132,7 @@ public class GrpcSettingsTest extends GrpcBase {
         });
     }
 
-    @CaseId(31)
+    @TmsLink("31")
     @Test(description = "Получение настроек RES по магазину",
             groups = "ondemand-res-smoke")
     public void getStoreSettings() {
@@ -154,7 +153,7 @@ public class GrpcSettingsTest extends GrpcBase {
         });
     }
 
-    @CaseId(33)
+    @TmsLink("33")
     @Test(description = "Изменение настроек RES для магазина",
             groups = "ondemand-res-smoke")
     public void putStoreSettings() {
@@ -188,7 +187,7 @@ public class GrpcSettingsTest extends GrpcBase {
         });
     }
 
-    @CaseId(44)
+    @TmsLink("44")
     @Test(description = "При изменении настроек по магазину не обнуляем тайминги для сборки",
             groups = "ondemand-res-smoke")
     public void checkAssemblySettingsAfterGrpcUpdate() {

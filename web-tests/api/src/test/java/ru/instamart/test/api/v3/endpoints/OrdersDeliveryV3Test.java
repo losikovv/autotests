@@ -9,7 +9,7 @@ import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.OrderV3;
 import ru.instamart.api.request.v3.OrderV3Request;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -18,7 +18,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Заказы")
 public class OrdersDeliveryV3Test extends RestBase {
 
-    @CaseId(858)
+    @TmsLink("858")
     @Story("Доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "goods",
@@ -35,7 +35,7 @@ public class OrdersDeliveryV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(860)
+    @TmsLink("860")
     @Story("Доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "sber_devices",
@@ -53,7 +53,7 @@ public class OrdersDeliveryV3Test extends RestBase {
     }
 
 
-    @CaseId(859)
+    @TmsLink("859")
     @Story("Доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "metro_marketplace",
@@ -70,7 +70,7 @@ public class OrdersDeliveryV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(1916)
+    @TmsLink("1916")
     @Story("Доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Aliexpress",
@@ -87,7 +87,7 @@ public class OrdersDeliveryV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(1917)
+    @TmsLink("1917")
     @Story("Доставка")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "Auchan",

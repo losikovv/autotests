@@ -15,7 +15,7 @@ import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.jdbc.entity.stf.SpreeProductsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -26,7 +26,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Продукты")
 public class ProductsV1Tests extends RestBase {
 
-    @CaseId(45)
+    @TmsLink("45")
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
             groups = {API_INSTAMART_REGRESS, "api-instamart-smoke", "api-v1"})
@@ -44,7 +44,7 @@ public class ProductsV1Tests extends RestBase {
     }
 
     @Skip
-    @CaseId(45)
+    @TmsLink("45")
     @Issue("STF-9811")
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
@@ -55,7 +55,7 @@ public class ProductsV1Tests extends RestBase {
         checkResponseJsonSchema(response, ProductV1Response.class);
     }
 
-    @CaseId(1381)
+    @TmsLink("1381")
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте c несуществующим permalink",
             groups = {API_INSTAMART_REGRESS, "api-instamart-smoke", API_INSTAMART_PROD, "api-v1"})

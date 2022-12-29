@@ -2,13 +2,13 @@ package ru.instamart.test.reforged.business;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
@@ -19,7 +19,7 @@ public final class CheckoutTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(738)
+    @TmsLink("738")
     @Test(description = "Способ оплаты корп. картой в чекауте", groups = {"smoke", REGRESSION_BUSINESS, "all-order"})
     public void addBusinessCardInCheckout() {
         var company = JuridicalData.juridical();

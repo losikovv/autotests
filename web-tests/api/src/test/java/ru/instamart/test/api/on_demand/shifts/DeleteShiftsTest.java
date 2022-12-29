@@ -3,6 +3,7 @@ package ru.instamart.test.api.on_demand.shifts;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -10,7 +11,6 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 
@@ -31,7 +31,7 @@ public class DeleteShiftsTest extends RestBase {
         planningPeriodId = shiftsApi.createSecondDaysShift().getId();
     }
 
-    @CaseId(59)
+    @TmsLink("59")
     @Story("Удаление смены")
     @Test(groups = {"api-shifts"},
             description = "Удаление смены со статусом new, до начала смены более чем указано в параметре BEFORE_SHIFT_DELETE_TIMEOUT_MINUTES = 1440")

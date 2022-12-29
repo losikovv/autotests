@@ -13,7 +13,7 @@ import ru.instamart.jdbc.dao.stf.PromoCardsRetailersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 @Feature("Next")
 public class NextV1Tests extends RestBase {
 
-    @CaseId(2317)
+    @TmsLink("2317")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение фронтенд конфигурации")
     public void getAppConfig() {
@@ -37,7 +37,7 @@ public class NextV1Tests extends RestBase {
         checkResponseJsonSchema(response, AppConfigV1Response.class);
     }
 
-    @CaseId(2318)
+    @TmsLink("2318")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение динамического пути для next js роутинга")
     public void getDynamicRouteType() {
@@ -46,7 +46,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @Deprecated //Ручка выключена.
-    @CaseId(2319)
+    @TmsLink("2319")
     @Test(description = "Получение данных для серверного рендеринга / страницы")
     public void getPageServer() {
         final Response response = NextV1Request.Server.GET("metro?sid=" + EnvironmentProperties.DEFAULT_SID);
@@ -54,7 +54,7 @@ public class NextV1Tests extends RestBase {
         checkResponseJsonSchema(response, PageServerV1Response.class);
     }
 
-    @CaseId(2320)
+    @TmsLink("2320")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение данных для серверного рендеринга / футер")
     public void getPageFooter() {
@@ -68,7 +68,7 @@ public class NextV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2321)
+    @TmsLink("2321")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение данных для head из браузера")
     public void getPageBrowserHead() {
@@ -77,7 +77,7 @@ public class NextV1Tests extends RestBase {
         checkResponseJsonSchema(response, PageBrowserHeadV1Response.class);
     }
 
-    @CaseId(2322)
+    @TmsLink("2322")
     @Skip
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение данных для рельсовых flash из браузера")
@@ -87,7 +87,7 @@ public class NextV1Tests extends RestBase {
         checkResponseJsonSchema(response, PageFlashesV1Response.class);
     }
 
-    @CaseId(2323)
+    @TmsLink("2323")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение данных для страницы реферальной программы")
     public void getReferralProgram() {
@@ -96,7 +96,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2324)
+    @TmsLink("2324")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение промо-карточек ретейлера")
     public void getRetailerPromoCards() {
@@ -108,7 +108,7 @@ public class NextV1Tests extends RestBase {
         compareTwoObjects(retailerPromoCards.size(), retailerPromoCardsFromDbCount);
     }
 
-    @CaseId(2325)
+    @TmsLink("2325")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение промо-карточек несуществующего ретейлера")
     public void getNonExistentRetailerPromoCards() {
@@ -117,7 +117,7 @@ public class NextV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2326)
+    @TmsLink("2326")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение Welcome-баннеров ретейлера")
     public void getWelcomeBanners() {
@@ -126,7 +126,7 @@ public class NextV1Tests extends RestBase {
         checkResponseJsonSchema(response, RetailerWelcomeBannerV1Response.class);
     }
 
-    @CaseId(2327)
+    @TmsLink("2327")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение Welcome-баннеров несуществующего ретейлера")
     public void getWelcomeBannersOfNonExistentRetailer() {
@@ -135,7 +135,7 @@ public class NextV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2328)
+    @TmsLink("2328")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение продукта с категориями и настройками для несуществующего permalink")
     public void getProductByNonExistentPermalink() {
@@ -143,7 +143,7 @@ public class NextV1Tests extends RestBase {
         checkStatusCode404(response); // TODO: поправить, если получится узнать, как получить ответ (сейчас для существующего permalink не работает)
     }
 
-    @CaseId(2329)
+    @TmsLink("2329")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение параметров редиректа для несуществующего permalink")
     public void getRedirectParamsByNonExistentPermalink() {
@@ -151,7 +151,7 @@ public class NextV1Tests extends RestBase {
         checkStatusCode404(response); // TODO: поправить, если получится узнать, как получить ответ (сейчас для существующего permalink не работает)
     }
 
-    @CaseId(2330)
+    @TmsLink("2330")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение сессии")
     public void getSession() {
@@ -160,7 +160,7 @@ public class NextV1Tests extends RestBase {
         checkResponseJsonSchema(response, NextSessionV1Response.class);
     }
 
-    @CaseId(2331)
+    @TmsLink("2331")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение списка активных трекеров")
     public void getTrackers() {

@@ -4,8 +4,8 @@ task sberUiSmoke(type: Test) {
         includeGroups 'smoke'
         threadCount 6
     }
-    systemProperty 'qase.Project', 'STF'
-    systemProperty 'qase.Title', 'STF UI Smoke'
+    environment 'PROJECT_ID', 'STF'
+    environment 'TEST_RUN_NAME', 'STF UI Smoke'
 }
 
 task uiSmokeProduction(type: Test) {
@@ -14,8 +14,8 @@ task uiSmokeProduction(type: Test) {
         includeGroups 'stf_prod_smoke'
     }
     environment 'P_ENV', "sbermarket-production"
-    systemProperty 'qase.Project', 'STF'
-    systemProperty 'qase.Title', 'STF UI Production Smoke'
+    environment 'PROJECT_ID', 'STF'
+    environment 'TEST_RUN_NAME', 'STF UI Production Smoke'
 }
 
 task sberRegression(type: Test) {
@@ -24,8 +24,8 @@ task sberRegression(type: Test) {
         includeGroups 'regression', 'smoke'
         threadCount 15
     }
-    systemProperty 'qase.Project', 'STF'
-    systemProperty 'qase.Title', 'STF UI Regression'
+    environment 'PROJECT_ID', 'STF'
+    environment 'TEST_RUN_NAME', 'STF UI Regression'
 }
 
 task sbermarketUiCustom(type: Test) {

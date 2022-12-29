@@ -14,7 +14,7 @@ import ru.instamart.api.response.v2.UserDataV2Response;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -44,7 +44,7 @@ public final class SessionsV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(1436)
+    @TmsLink("1436")
     @Story("Валидация данных по сессионному токену")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Токен существующего пользователя")
@@ -57,7 +57,7 @@ public final class SessionsV2Test extends RestBase {
         compareTwoObjects(userDataResponse.getUser().getEmail(), SpreeUsersDao.INSTANCE.getEmailByPhone(userData.getPhone()));
     }
 
-    @CaseId(1437)
+    @TmsLink("1437")
     @Story("Валидация данных по сессионному токену")
     @Test(groups = {API_INSTAMART_REGRESS},
             description = "Невалидный токен")

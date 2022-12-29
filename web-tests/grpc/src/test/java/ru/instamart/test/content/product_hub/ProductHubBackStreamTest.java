@@ -10,7 +10,7 @@ import product_hub_back_stream.ProductHubBackStreamGrpc;
 import product_hub_back_stream.ProductHubBackStreamOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 
@@ -26,7 +26,7 @@ public class ProductHubBackStreamTest extends GrpcBase {
         client = ProductHubBackStreamGrpc.newBlockingStub(channel);
     }
 
-    @CaseId(185)
+    @TmsLink("185")
     @Test(description = "Получение данных по продуктам",
             groups = "grpc-product-hub")
     public void getProducts() {
@@ -45,7 +45,7 @@ public class ProductHubBackStreamTest extends GrpcBase {
                 "Вернулся другой cursor ID");
     }
 
-    @CaseId(184)
+    @TmsLink("184")
     @Test(description = "Получение продуктов с пустым массивом запрашиваемых данных",
             groups = "grpc-product-hub")
     public void getProductsWithEmptyData() {

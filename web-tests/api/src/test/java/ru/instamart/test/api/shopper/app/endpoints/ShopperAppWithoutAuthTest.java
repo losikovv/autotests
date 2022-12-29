@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -33,7 +33,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Начало сборки")
-    @CaseId(48)
+    @TmsLink("48")
     @Test(description = "Создаём сборку без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void postAssembly401() {
@@ -42,7 +42,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о сборках")
-    @CaseId(49)
+    @TmsLink("49")
     @Test(description = "Получаем сборку по номеру без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getAssembly401() {
@@ -51,7 +51,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(50)
+    @TmsLink("50")
     @Test(description = "Получаем все заказы для сборщика без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShopperShipments401() {
@@ -60,7 +60,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(105)
+    @TmsLink("105")
     @Test(description = "Получаем все заказы для сборщика без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShopperShipment401() {
@@ -69,7 +69,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о сборках")
-    @CaseId(52)
+    @TmsLink("52")
     @Test(description = "Получаем все сборки сборщика без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShopperAssemblies401() {
@@ -78,7 +78,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Процесс сборки")
-    @CaseId(53)
+    @TmsLink("53")
     @Test(description = "Собираем товар(PATCH) без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void patchAssemblyItem401() {
@@ -87,7 +87,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Процесс сборки")
-    @CaseId(53)
+    @TmsLink("53")
     @Test(description = "Собираем товар(PUT) без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void putAssemblyItem401() {
@@ -96,7 +96,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Хелпдеск")
-    @CaseId(54)
+    @TmsLink("54")
     @Test(description = "Получаем тикеты хелпдеска без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getHelpdeskTickets401() {
@@ -105,7 +105,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(55)
+    @TmsLink("55")
     @Test(description = "Получаем заказ по номеру без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShipment401() {
@@ -114,7 +114,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о сборках")
-    @CaseId(56)
+    @TmsLink("56")
     @Test(description = "Получаем предзамены для позиций в сборке без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getAssemblyItemPrereplacements401() {
@@ -123,7 +123,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(57)
+    @TmsLink("57")
     @Test(description = "Получаем инфу о стоках товаров в заказе без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShipmentStock401() {
@@ -132,7 +132,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Оплата")
-    @CaseId(58)
+    @TmsLink("58")
     @Test(description = "Оплачиваем заказ через LifePay без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void putAssemblyLifePay401() {
@@ -141,7 +141,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(59)
+    @TmsLink("59")
     @Test(description = "Получаем маркетинговые пробники для заказа без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShipmentMarketingSampleItems401() {
@@ -150,7 +150,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о сотруднике")
-    @CaseId(60)
+    @TmsLink("60")
     @Test(description = "Получаем инфу о сборщике без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShopper401() {
@@ -159,7 +159,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о маршрутах")
-    @CaseId(61)
+    @TmsLink("61")
     @Test(description = "Получаем маршруты без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getRoutes401() {
@@ -168,7 +168,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о сотруднике")
-    @CaseId(62)
+    @TmsLink("62")
     @Test(description = "Получаем смены сборщика без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShopperOperationShifts401() {
@@ -177,7 +177,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(63)
+    @TmsLink("63")
     @Test(description = "Получаем все заказы для водителя без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getDriverShipments401() {
@@ -186,7 +186,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о причинах")
-    @CaseId(64)
+    @TmsLink("64")
     @Test(description = "Получаем причины отмен без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getCancelReasons401() {
@@ -195,7 +195,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о причинах")
-    @CaseId(65)
+    @TmsLink("65")
     @Test(description = "Получаем причины уточнения без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getClarifyReasons401() {
@@ -204,7 +204,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о причинах")
-    @CaseId(66)
+    @TmsLink("66")
     @Test(description = "Получаем причины возврата без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getReturnReasons401() {
@@ -213,7 +213,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение марс токена (стоки метро)")
-    @CaseId(67)
+    @TmsLink("67")
     @Test(description = "Получаем марс токен (стоки метро) без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getMarsToken401() {
@@ -222,7 +222,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(68)
+    @TmsLink("68")
     @Test(description = "Получаем все заказы для упаковщика без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getPackerShipments401() {
@@ -231,7 +231,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Получение информации о сборках")
-    @CaseId(69)
+    @TmsLink("69")
     @Test(description = "Получаем все сборки упаковщика без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getPackerAssemblies401() {
@@ -240,7 +240,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Поиск")
-    @CaseId(70)
+    @TmsLink("70")
     @Test(description = "Поиск товаров без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getStoreOffers401() {
@@ -251,7 +251,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Авторизация")
-    @CaseId(71)
+    @TmsLink("71")
     @Test(description = "Обновление авторизации без авторизации",
             groups = {API_SHOPPER_REGRESS //, API_SHOPPER_PROD - ожидает B2C-7772
             })
@@ -261,7 +261,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Авторизация")
-    @CaseId(72)
+    @TmsLink("72")
     @Test(description = "Авторизация по номеру телефона и неправильному коду из смс",
             groups = {API_SHOPPER_REGRESS //, API_SHOPPER_PROD - ожидает B2C-7772
             })
@@ -271,7 +271,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Авторизация")
-    @CaseId(73)
+    @TmsLink("73")
     @Test(description = "Авторизация по незарегистрированному номеру телефона и коду из смс",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void postOtpsAuthorizations422WrongPhone() {
@@ -280,7 +280,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Сборки/отгрузки")
-    @CaseId(73)
+    @TmsLink("73")
     @Test(description = "Shopper shipments active get",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void postOtpsAuthorizations4011one() {
@@ -289,7 +289,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Интеграция shp -> stf")
-    @CaseId(4)
+    @TmsLink("4")
     @Test(description = "Тест на импорт заказов из stf с filed order number",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void orderImport401() {
@@ -298,7 +298,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Маршрут")
-    @CaseId(106)
+    @TmsLink("106")
     @Test(description = "Запрос назначенных маршрутов без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void nextUncompletedRoute401() {
@@ -307,7 +307,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Сборки/отгрузки")
-    @CaseId(108)
+    @TmsLink("108")
     @Test(description = "Список активных сборок/отгрузок магазина текущего партнёра для универсалов",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void shopperDriverActive401() {
@@ -316,7 +316,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Notifications")
-    @CaseId(107)
+    @TmsLink("107")
     @Test(description = "Отметка о прочтении уведомления без авторизации PATCH",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShopperNotificationsPatch401() {
@@ -325,7 +325,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     }
 
     @Story("Notifications")
-    @CaseId(107)
+    @TmsLink("107")
     @Test(description = "Отметка о прочтении уведомления без авторизации PUT",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getShopperNotificationsPut401() {

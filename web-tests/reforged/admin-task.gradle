@@ -3,8 +3,8 @@ task adminUiSmoke(type: Test) {
         suites 'src/test/resources/suite/smoke/admin.xml'
         includeGroups 'smoke'
     }
-    systemProperty 'qase.Project', 'SA'
-    systemProperty 'qase.Title', 'Admin UI Smoke'
+    environment 'PROJECT_ID', 'SA'
+    environment 'TEST_RUN_NAME', 'Admin UI Smoke'
 }
 
 task adminUiRegress(type: Test) {
@@ -12,8 +12,8 @@ task adminUiRegress(type: Test) {
         suites 'src/test/resources/suite/regress/admin.xml'
         includeGroups 'regression'
     }
-    systemProperty 'qase.Project', 'SA'
-    systemProperty 'qase.Title', 'Admin UI Regression'
+    environment 'PROJECT_ID', 'SA'
+    environment 'TEST_RUN_NAME', 'Admin UI Regression'
 }
 
 
@@ -23,8 +23,8 @@ task uiAdminSmokeProduction(type: Test) {
         includeGroups 'prod_admin_smoke'
     }
     environment 'P_ENV', "sbermarket-production"
-    systemProperty 'qase.Project', 'STF'
-    systemProperty 'qase.Title', 'Admin UI Production Smoke'
+    environment 'PROJECT_ID', 'STF'
+    environment 'TEST_RUN_NAME', 'Admin UI Production Smoke'
 }
 
 task adminKeycloak(type: Test) {
@@ -33,8 +33,8 @@ task adminKeycloak(type: Test) {
         includeGroups 'admin_keycloak'
     }
     environment 'ADMIN_URL', 'https://stf-kraken-admin.k-stage.sbmt.io/'
-    systemProperty 'qase.Project', 'CS'
-    systemProperty 'qase.Title', 'STF admin keycloak tests'
+    environment 'PROJECT_ID', 'CS'
+    environment 'TEST_RUN_NAME', 'STF admin keycloak tests'
 }
 
 task adminKeycloakProd(type: Test) {
@@ -43,8 +43,8 @@ task adminKeycloakProd(type: Test) {
         includeGroups 'prod_admin_smoke'
     }
     environment 'P_ENV', "sbermarket-production"
-    systemProperty 'qase.Project', 'CS'
-    systemProperty 'qase.Title', 'STF admin keycloak tests'
+    environment 'PROJECT_ID', 'CS'
+    environment 'TEST_RUN_NAME', 'STF admin keycloak tests'
 }
 
 task adminOnDemandSmoke(type: Test) {
@@ -58,8 +58,8 @@ task adminOnDemandSmoke(type: Test) {
     environment 'SHP_NAMESPACE', 'paas-content-shopper-6'
     environment 'SHP_LABEL', 'app.kubernetes.io/component=pg-exporter'
     systemProperty 'service', 'paas-content-operations-shifts'
-    systemProperty 'qase.Project', 'SA'
-    systemProperty 'qase.Title', 'On-Demand Admin Smoke'
+    environment 'PROJECT_ID', 'SA'
+    environment 'TEST_RUN_NAME', 'On-Demand Admin Smoke'
 }
 
 task adminOnDemandRegress(type: Test) {
@@ -73,8 +73,8 @@ task adminOnDemandRegress(type: Test) {
     environment 'SHP_NAMESPACE', 'paas-content-shopper-6'
     environment 'SHP_LABEL', 'app.kubernetes.io/component=pg-exporter'
     systemProperty 'service', 'paas-content-operations-shifts'
-    systemProperty 'qase.Project', 'SA'
-    systemProperty 'qase.Title', 'On-Demand Admin Regress'
+    environment 'PROJECT_ID', 'SA'
+    environment 'TEST_RUN_NAME', 'On-Demand Admin Regress'
 }
 
 task adminUiCustom(type: Test) {

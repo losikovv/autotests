@@ -2,6 +2,7 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -11,7 +12,6 @@ import ru.instamart.api.response.v3.DepartmentV3Response;
 import ru.instamart.api.response.v3.DepartmentsV3Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -24,7 +24,7 @@ public class DepartmentsV3Test extends RestBase {
     private final Integer sid = EnvironmentProperties.DEFAULT_SID;
 
     @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
-    @CaseId(2364)
+    @TmsLink("2364")
     @Test(  groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Получение списка департаментов")
     public void getDepartments()  {
@@ -35,7 +35,7 @@ public class DepartmentsV3Test extends RestBase {
     }
 
     @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
-    @CaseId(2365)
+    @TmsLink("2365")
     @Test(  groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Получение информации о категории",
             dependsOnMethods = "getDepartments")

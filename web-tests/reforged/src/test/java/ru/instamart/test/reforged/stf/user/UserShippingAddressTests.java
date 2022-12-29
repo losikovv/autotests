@@ -11,8 +11,8 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
@@ -29,7 +29,7 @@ public final class UserShippingAddressTests {
     private final String testAddress = Addresses.Moscow.testAddress();
     private final String outOfZoneAddress = Addresses.Moscow.outOfZoneAddress();
 
-    @CaseId(1558)
+    @TmsLink("1558")
     @Story("Дефолтные настройки адреса доставки")
     @Test(description = "Тест на то, что по дефолту на витрине ритейлера не выбран адрес", groups = {STARTING_X, REGRESSION_STF, "MRAutoCheck"})
     public void noShippingAddressByDefault() {
@@ -37,7 +37,7 @@ public final class UserShippingAddressTests {
         shop().interactHeader().checkIsShippingAddressNotSet();
     }
 
-    @CaseId(1559)
+    @TmsLink("1559")
     @Story("Дефолтные настройки адреса доставки")
     //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
@@ -50,7 +50,7 @@ public final class UserShippingAddressTests {
         home().interactAddressModal().checkYmapsReady();
     }
 
-    @CaseId(31)
+    @TmsLink("31")
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Тест отмены ввода адреса доставки на витрине ритейлера", groups = {STARTING_X, REGRESSION_STF})
     public void noShippingAddressSetOnClose() {
@@ -63,7 +63,7 @@ public final class UserShippingAddressTests {
         shop().interactHeader().checkIsShippingAddressNotSet();
     }
 
-    @CaseId(2567)
+    @TmsLink("2567")
     @Story("Зона доставки")
     @Test(description = "Тест на отсутствие доступных магазинов по адресу вне зоны доставки", groups = {STARTING_X, REGRESSION_STF})
     public void noAvailableShopsOutOfDeliveryZone() {
@@ -86,7 +86,7 @@ public final class UserShippingAddressTests {
         home().interactAddressModal().checkIsAddressOutOfZone();
     }
 
-    @CaseId(32)
+    @TmsLink("32")
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Тест ввода адреса доставки на витрине ритейлера", groups = {STARTING_X, REGRESSION_STF})
     public void successSetShippingAddressOnRetailerPage() {
@@ -102,7 +102,7 @@ public final class UserShippingAddressTests {
         );
     }
 
-    @CaseId(33)
+    @TmsLink("33")
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Тест отмены изменения адреса доставки", groups = {STARTING_X, REGRESSION_STF})
     public void noChangeShippingAddressOnCancel() {
@@ -126,7 +126,7 @@ public final class UserShippingAddressTests {
         );
     }
 
-    @CaseId(34)
+    @TmsLink("34")
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Тест изменения адреса доставки", groups = {STARTING_X, REGRESSION_STF})
     public void successChangeShippingAddress() {
@@ -149,7 +149,7 @@ public final class UserShippingAddressTests {
         );
     }
 
-    @CaseId(1569)
+    @TmsLink("1569")
     @Story("Зона доставки")
     @Test(description = "Тест на успешный выбор нового адреса в модалке феникса, после ввода адреса," +
             " по которому нет доставки текущего ритейлера", groups = {STARTING_X, REGRESSION_STF})
@@ -171,7 +171,7 @@ public final class UserShippingAddressTests {
         );
     }
 
-    @CaseId(1570)
+    @TmsLink("1570")
     @Story("Зона доставки")
     @Test(description = "Тест на успешный выбор нового адреса в модалке феникса, после ввода адреса вне зоны доставки", groups = {STARTING_X, REGRESSION_STF})
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
@@ -194,7 +194,7 @@ public final class UserShippingAddressTests {
         shop().interactHeader().checkIsSetAddressEqualToInput(defaultAddress, shop().interactHeader().getShippingAddressFromHeader());
     }
 
-    @CaseId(35)
+    @TmsLink("35")
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Тест изменения адреса на предыдущий из списка адресной модалки", groups = {STARTING_X, REGRESSION_STF})
     public void successChangeShippingAddressToRecent() {
@@ -216,7 +216,7 @@ public final class UserShippingAddressTests {
                 shop().interactHeader().getShippingAddressFromHeader());
     }
 
-    @CaseId(1567)
+    @TmsLink("1567")
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Тест на ввод адреса в модалке, после добавления товара из каталога", groups = {STARTING_X, REGRESSION_STF})
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
@@ -230,7 +230,7 @@ public final class UserShippingAddressTests {
         shop().checkSnippet();
     }
 
-    @CaseIDs({@CaseId(2568), @CaseId(2570)})
+    @TmsLinks({@TmsLink("2568"), @TmsLink("2570")})
     @Story("Сохранение и изменение адреса доставки")
     //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
@@ -260,7 +260,7 @@ public final class UserShippingAddressTests {
         );
     }
 
-    @CaseId(2573)
+    @TmsLink("2573")
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Автовыбор магазина того же ретейлера после изменения адреса доставки", groups = {STARTING_X, REGRESSION_STF})
     public void testAutoSelectAddressAfterChangeShipmentAddress() {
@@ -283,7 +283,7 @@ public final class UserShippingAddressTests {
         shop().checkPageContains("metro?sid=12");
     }
 
-    @CaseIDs({@CaseId(2576), @CaseId(2574)})
+    @TmsLinks({@TmsLink("2576"), @TmsLink("2574")})
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Сохранение адреса за пользователем при оформлении заказа", groups = {STARTING_X, REGRESSION_STF})
     public void saveAddressForNextOrder() {
@@ -356,7 +356,7 @@ public final class UserShippingAddressTests {
         checkout().assertAll();
     }
 
-    @CaseId(2575)
+    @TmsLink("2575")
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Сохранение нескольких адресов за пользователем при оформлении заказа", groups = {STARTING_X, REGRESSION_STF})
     public void testSuccessFewAddressesOnCheckout() {
@@ -415,7 +415,7 @@ public final class UserShippingAddressTests {
         );
     }
 
-    @CaseId(2577)
+    @TmsLink("2577")
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Редактирование параметров сохраненного адреса", groups = {STARTING_X, REGRESSION_STF})
     public void editSavedParamsAddressOnCheckoutPage() {
@@ -526,7 +526,7 @@ public final class UserShippingAddressTests {
         checkout().assertAll();
     }
 
-    @CaseId(1568)
+    @TmsLink("1568")
     @Test(description = "Тест на успешный выбор нового магазина в модалке феникса, после изменения адреса доставки", groups = {STARTING_X, REGRESSION_STF})
     public void successSelectNewStoreAfterShipAddressChange() {
         shop().goToPage(ShopUrl.VKUSVILL);
@@ -540,7 +540,7 @@ public final class UserShippingAddressTests {
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
     }
 
-    @CaseId(2569)
+    @TmsLink("2569")
     @Test(description = "Ввод адреса доступен в каталоге магазина (новый пользователь)", groups = {STARTING_X, REGRESSION_STF})
     public void successSelectAddressAfterRegistration() {
         final var userData = UserManager.getQaUser();
@@ -561,7 +561,7 @@ public final class UserShippingAddressTests {
         );
     }
 
-    @CaseId(2571)
+    @TmsLink("2571")
     @Test(description = "Адрес и магазин сохраняется при авторизации пользователя с ранее выбранным другим адресом и магазином", groups = {STARTING_X, REGRESSION_STF})
     public void saveAddressAfterAuth() {
         final var userData = UserManager.getQaUser();
@@ -587,7 +587,7 @@ public final class UserShippingAddressTests {
         );
     }
 
-    @CaseId(2572)
+    @TmsLink("2572")
     @Test(description = "Выбранный адрес не попадает в зону доставки ритейлера", groups = {STARTING_X, REGRESSION_STF})
     public void selectedAddressIsOutOfDeliveryRange() {
         shop().goToPage();

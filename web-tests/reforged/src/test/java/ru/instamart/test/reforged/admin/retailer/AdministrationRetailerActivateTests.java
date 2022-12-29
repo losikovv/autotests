@@ -1,17 +1,12 @@
 package ru.instamart.test.reforged.admin.retailer;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -43,7 +38,7 @@ public final class AdministrationRetailerActivateTests {
         apiHelper.deleteOperationalZonesInShopper(cityNameFirst);
     }
 
-    @CaseId(213)
+    @TmsLink("213")
     @Story("Страница ретейлеров")
     @Test(description = "Ретейлер без действующих магазинов недоступен", groups = REGRESSION_ADMIN)
     public void retailerInaccessibilityWithoutActiveStores() {
@@ -63,7 +58,7 @@ public final class AdministrationRetailerActivateTests {
         retailers().checkRetailerInactive(retailerName);
     }
 
-    @CaseId(214)
+    @TmsLink("214")
     @Story("Страница ретейлеров")
     @Test(description = "Ритейлер доступен, если у него есть 1 или более действующих магазинов", groups = REGRESSION_ADMIN)
     public void retailerAccessibilityWithActiveStore() {
@@ -95,7 +90,7 @@ public final class AdministrationRetailerActivateTests {
         retailers().checkRetailerActive(retailerName);
     }
 
-    @CaseIDs(value = {@CaseId(541), @CaseId(542)})
+    @TmsLinks(value = {@TmsLink("541"), @TmsLink("542")})
     @Story("Страница ретейлеров")
     @Test(description = "Активация, деактивация магазина", groups = REGRESSION_ADMIN)
     public void shopActivateAndDeactivate() {

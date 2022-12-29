@@ -3,12 +3,12 @@ package ru.instamart.test.reforged.stf.checkout_new;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.*;
@@ -24,7 +24,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(3691)
+    @TmsLink("3691")
     @Story("Контакты и замены")
     @Test(description = "Проверка отсутствия предвыбранного способа замены товара при первом чекауте", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -45,7 +45,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
         checkoutNew().checkSelectedReplacementPolicy(NOT_SELECTED.getName());
     }
 
-    @CaseId(3632)
+    @TmsLink("3632")
     @Story("Контакты и замены")
     @Test(description = "Проверка что поле 'Замена товара' является обязательным при первом заказе", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -83,7 +83,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
         checkoutNew().checkReplacementPolicyErrorDescriptionContains("Выберите вариант замены");
     }
 
-    @CaseId(3631)
+    @TmsLink("3631")
     @Story("Контакты и замены")
     @Test(description = "Проверка что значение поля 'Замена товара' предвыбрано при повторных чекаутах", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -113,7 +113,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     }
 
 
-    @CaseId(3628)
+    @TmsLink("3628")
     @Story("Контакты и замены")
     @Test(description = "Проверка отображения в блоке Контакты номера телефона из профиля при первом заказе", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -138,7 +138,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
         checkoutNew().checkContactsEmail(userData.getEmail());
     }
 
-    @CaseId(3629)
+    @TmsLink("3629")
     @Story("Контакты и замены")
     @Test(description = "Проверка что поля телефон и e-mail обязательны и валидируются при потере фокуса", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})

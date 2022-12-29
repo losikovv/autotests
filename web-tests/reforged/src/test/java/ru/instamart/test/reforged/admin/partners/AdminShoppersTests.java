@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.admin.partners;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.shopper.admin.ShopperV1;
@@ -11,11 +12,10 @@ import ru.instamart.kraken.data.Vehicles;
 import ru.instamart.kraken.data.VehiclesData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.data_provider.CarTypeProvider;
-import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.Group.*;
 import java.util.Set;
 
+import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -25,7 +25,7 @@ public final class AdminShoppersTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(2042)
+    @TmsLink("2042")
     @Test(description = "Создание партнера",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shoppersCreateTest() {
@@ -66,7 +66,7 @@ public final class AdminShoppersTests {
         shoppersEdit().assertAll();
     }
 
-    @CaseId(2043)
+    @TmsLink("2043")
     @Test(description = "Редактирование партнера",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shoppersEditTest() {
@@ -117,7 +117,7 @@ public final class AdminShoppersTests {
         shoppersEdit().checkAddUniformButtonVisible();
     }
 
-    @CaseId(2045)
+    @TmsLink("2045")
     @Test(description = "Редактирование транспорта в карточке партнера",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS},
             dataProviderClass = CarTypeProvider.class,
@@ -202,7 +202,7 @@ public final class AdminShoppersTests {
         shoppersEdit().interactAlert().checkSuccessFlashVisible();
     }
 
-    @CaseId(1870)
+    @TmsLink("1870")
     @Test(description = "Добавление тегов к партнеру",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void addTagsToShoppersTest() {
@@ -264,7 +264,7 @@ public final class AdminShoppersTests {
         shoppers().interactAddTagModal().checkTagSelectedExcludeInTagsList(tags);
     }
 
-    @CaseId(1871)
+    @TmsLink("1871")
     @Test(description = "Удаление связки партнер/тег",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void deleteTagsFromShoppersTest() {
@@ -321,7 +321,7 @@ public final class AdminShoppersTests {
         shoppers().checkTagWithNameNotVisible(firstTagName);
     }
 
-    @CaseId(1872)
+    @TmsLink("1872")
     @Test(description = "Отображение 3+ тегов",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void addMultipleTagsToShoppersTest() {
@@ -408,7 +408,7 @@ public final class AdminShoppersTests {
         shoppers().checkCollapseTagListButtonText("Еще 1");
     }
 
-    @CaseId(1873)
+    @TmsLink("1873")
     @Test(description = "Фильтрация по тегам",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void filterShoppersOnTagsTest() {

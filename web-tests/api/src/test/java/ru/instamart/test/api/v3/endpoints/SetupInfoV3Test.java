@@ -2,7 +2,7 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -16,7 +16,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Магазины")
 public class SetupInfoV3Test extends RestBase {
 
-    @CaseId(670)
+    @TmsLink("670")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Справка об интеграции")
     public void getSetupInfo() {
@@ -24,7 +24,7 @@ public class SetupInfoV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(671)
+    @TmsLink("671")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступный магазины")
     public void getSetupInfoStores() {

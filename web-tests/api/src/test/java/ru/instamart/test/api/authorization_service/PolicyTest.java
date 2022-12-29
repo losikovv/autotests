@@ -17,7 +17,7 @@ import ru.instamart.api.request.authorization_service.RealmRequest;
 import ru.instamart.api.response.authorization_service.PolicyErrorResponse;
 import ru.instamart.api.response.authorization_service.PolicyResponse;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -33,7 +33,7 @@ public class PolicyTest extends RestBase {
         Response response = RealmRequest.POST(AuthorizationServiceHelper.getInitialRealm());
     }
 
-    @CaseId(1)
+    @TmsLink("1")
     @Test(groups = {"api-authorization-service"},
             description = "Создание политики")
     public void putPolicy200() {
@@ -52,7 +52,7 @@ public class PolicyTest extends RestBase {
         });
     }
 
-    @CaseId(3)
+    @TmsLink("3")
     @Test(groups = {"api-authorization-service"},
             description = "Создание политики. DryRun = true")
     public void getPolicyDryRunTrue200() {
@@ -96,7 +96,7 @@ public class PolicyTest extends RestBase {
         });
     }
 
-    @CaseId(4)
+    @TmsLink("4")
     @Test(groups = {"api-authorization-service"},
             description = "Создание политики. DryRun = false")
     public void getPolicyDryRunFalse200() {
@@ -138,7 +138,7 @@ public class PolicyTest extends RestBase {
         });
     }
 
-    @CaseId(5)
+    @TmsLink("5")
     @Test(groups = {"api-authorization-service"},
             description = "Создание политики с неверным сервисом")
     public void getPolicyWithWrongService422() {
@@ -178,7 +178,7 @@ public class PolicyTest extends RestBase {
 
     }
 
-    @CaseId(35)
+    @TmsLink("35")
     @Test(groups = {"api-authorization-service"},
             description = "Создание политики с некорректным access type")
     public void getPolicyWithWrongAccessType422() {
@@ -216,7 +216,7 @@ public class PolicyTest extends RestBase {
         });
     }
 
-    @CaseId(36)
+    @TmsLink("36")
     @Test(groups = {"api-authorization-service"},
             description = "Создание политики с дублирующимися ролями")
     public void getPolicyWithDuplicatedRoles422() {
@@ -262,7 +262,7 @@ public class PolicyTest extends RestBase {
         });
     }
 
-    @CaseId(6)
+    @TmsLink("6")
     @Test(groups = {"api-authorization-service"},
             description = "Получение списка политик")
     public void getPolicy200() {
@@ -272,7 +272,7 @@ public class PolicyTest extends RestBase {
         checkResponseJsonSchema(response, PolicyResponse.class);
     }
 
-    @CaseId(7)
+    @TmsLink("7")
     @Test(groups = {"api-authorization-service"},
             description = "Получение списка политик с неверным realm")
     public void getPolicyWithWrongRealm200() {
@@ -287,7 +287,7 @@ public class PolicyTest extends RestBase {
         });
     }
 
-    @CaseId(8)
+    @TmsLink("8")
     @Test(groups = {"api-authorization-service"},
             description = "Обновление политики с пустыми списками ролей и прав доступа")
     public void updatePolicyWithEmptyRolesAndPermissions200() {
@@ -314,7 +314,7 @@ public class PolicyTest extends RestBase {
 
     }
 
-    @CaseId(9)
+    @TmsLink("9")
     @Test(groups = {"api-authorization-service"},
             description = "Обновление политики с пустым списком ролей")
     public void updatePolicyWithEmptyRoles200() {
@@ -361,7 +361,7 @@ public class PolicyTest extends RestBase {
 
     }
 
-    @CaseId(10)
+    @TmsLink("10")
     @Test(groups = {"api-authorization-service"},
             description = "Обновление политики с пустым списком прав доступа")
     public void updatePolicyWithEmptyPermissions200() {
@@ -400,7 +400,7 @@ public class PolicyTest extends RestBase {
 
     }
 
-    @CaseId(39)
+    @TmsLink("39")
     @Test(groups = {"api-authorization-service"},
             description = "Добавление условия с типом Date")
     public void updatePolicyWithDateCondition200() {
@@ -444,7 +444,7 @@ public class PolicyTest extends RestBase {
 
     }
 
-    @CaseId(40)
+    @TmsLink("40")
     @Test(groups = {"api-authorization-service"},
             description = "Проверка валидации соответствия типов атрибутов при сохранении условий")
     public void checkAttributeTypeValidation() {

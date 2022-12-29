@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -10,19 +11,19 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v2.CategoriesV2Request;
 import ru.instamart.api.response.v2.CategoriesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNull;
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
 @Feature("Получение категорий")
 public final class CategoriesV2Test extends RestBase {
 
-    @CaseId(1459)
+    @TmsLink("1459")
     @Story("Получение полной иерархии категорий")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Существующий id")
@@ -32,7 +33,7 @@ public final class CategoriesV2Test extends RestBase {
         checkResponseJsonSchema(response, CategoriesV2Response.class);
     }
 
-    @CaseId(1460)
+    @TmsLink("1460")
     @Story("Получение полной иерархии категорий")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Не существующий id")

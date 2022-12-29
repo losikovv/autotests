@@ -1,9 +1,6 @@
 package ru.instamart.test.reforged.selgros;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.listener.Skip;
@@ -13,7 +10,6 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.curl.Curl;
 import ru.instamart.reforged.core.service.curl.CurlService;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.kraken.config.CoreProperties.BASIC_AUTH_PASSWORD;
@@ -26,7 +22,7 @@ import static ru.instamart.reforged.selgros.page.SelgrosRouter.selgros;
 @Feature("Базовые тесты тенанта селгрос")
 public final class BasicSelgrosTests {
 
-    @CaseId(2781)
+    @TmsLink("2781")
     @Story("Валидация элементов")
     @CookieProvider(cookies = {"FORWARD_FEATURE_SELGROS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест валидности элементов и ссылок в шапке Selgros", groups = "regression")
@@ -53,7 +49,7 @@ public final class BasicSelgrosTests {
         selgros().assertAll();
     }
 
-    @CaseId(2782)
+    @TmsLink("2782")
     @Story("Валидация элементов")
     @CookieProvider(cookies = {"FORWARD_FEATURE_SELGROS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(description = "Тест валидности элементов и ссылок в подвале Selgros", groups = "regression")
@@ -90,7 +86,7 @@ public final class BasicSelgrosTests {
     @DoNotOpenBrowser
     @Issue("FEP-3229")
     @Skip
-    @CaseId(2783)
+    @TmsLink("2783")
     @Story("Витрины ретейлеров")
     @Test(dataProviderClass = StaticPage.class,
             dataProvider = "selgrosUnavailableRetailersSpree",
@@ -106,7 +102,7 @@ public final class BasicSelgrosTests {
     }
 
     @DoNotOpenBrowser
-    @CaseId(2783)
+    @TmsLink("2783")
     @Story("Витрины ретейлеров")
     @Test(description = "Тест доступности витрин ретейлеров Selgros", groups = "regression")
     public void successCheckSelgrosAvailableRetailers() {
@@ -119,7 +115,7 @@ public final class BasicSelgrosTests {
     }
 
     @DoNotOpenBrowser
-    @CaseId(2784)
+    @TmsLink("2784")
     @Story("Статические страницы")
     @Test(
             dataProviderClass = StaticPage.class,

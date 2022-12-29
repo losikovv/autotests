@@ -11,8 +11,8 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.data_provider.StoreProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -31,7 +31,7 @@ public final class OrdersRetailersTests {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseIDs(value = {@CaseId(1627), @CaseId(1628), @CaseId(1629), @CaseId(1630), @CaseId(1631)})
+    @TmsLinks(value = {@TmsLink("1627"), @TmsLink("1628"), @TmsLink("1629"), @TmsLink("1630"), @TmsLink("1631")})
     @Test(  description = "Тестовые заказы в ритейлерах Москвы",
             groups = REGRESSION_STF,
             dataProviderClass = StoreProvider.class,

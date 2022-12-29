@@ -3,11 +3,11 @@ package ru.instamart.test.reforged.admin_prod;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.TimeUtil;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -16,7 +16,7 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Feature("Управление заказами")
 public final class AdministrationShipmentsSectionTests {
 
-    @CaseId(175)
+    @TmsLink("175")
     @Story("Тест на корректное отображение элементов страницы со списком заказов в админке")
     @Test(description = "Тест на корректное отображение элементов страницы со списком заказов в админке", groups = PROD_ADMIN_SMOKE)
     public void validateDefaultAdminShipmentsPage() {
@@ -39,7 +39,7 @@ public final class AdministrationShipmentsSectionTests {
         shipments().checkCustomerSurName();
     }
 
-    @CaseId(172)
+    @TmsLink("172")
     @Story("Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ")
     @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ", groups = PROD_ADMIN_SMOKE)
     public void validateFilterDateAndTimeAdminShipmentsPage() {

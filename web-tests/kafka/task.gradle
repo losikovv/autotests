@@ -5,6 +5,6 @@ task kafkaDispatch(type: Test) {
     }
     environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
     environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
-    systemProperty 'qase.Project', 'DSPTCH'
-    systemProperty 'qase.Title', 'On Demand. Dispatch 2.0'
+    environment 'PROJECT_ID', 'DSPTCH'
+    environment 'TEST_RUN_NAME', 'On Demand. Dispatch 2.0'
 }

@@ -13,8 +13,8 @@ import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.UUID;
 
@@ -65,7 +65,7 @@ public final class SimpleRecsV2Test extends RestBase {
                 .build();
     }
 
-    @CaseIDs(value = {@CaseId(287), @CaseId(1094), @CaseId(1095), @CaseId(1096), @CaseId(1097), @CaseId(1098)})
+    @TmsLinks(value = {@TmsLink("287"), @TmsLink("1094"), @TmsLink("1095"), @TmsLink("1096"), @TmsLink("1097"), @TmsLink("1098")})
     @Story("Упрощенные рекомендации (simple-recs)")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Упрощенный запрос блока рекомендаций с обязательными параметрами",
@@ -81,7 +81,7 @@ public final class SimpleRecsV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.PRODUCTION)//баг - https://sbermarket.slack.com/archives/C019EM4EFNK/p1645693894111519
-    @CaseId(1921)
+    @TmsLink("1921")
     @Story("Упрощенные рекомендации (simple-recs)")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Упрощенный запрос блока рекомендаций без context.user.ext")
@@ -118,7 +118,7 @@ public final class SimpleRecsV2Test extends RestBase {
         checkResponseJsonSchema(response, SimpleRecsV2Response.class);
     }
 
-    @CaseIDs(value = {@CaseId(289), @CaseId(1099), @CaseId(1100)})
+    @TmsLinks(value = {@TmsLink("289"), @TmsLink("1099"), @TmsLink("1100")})
     @JsonDataProvider(path = "data/json_v2/api_v2_blank_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Упрощенный запрос блока рекомендаций с отсутствующим обязательным параметром",
@@ -134,7 +134,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     @Issue("INFRADEV-12226")
     @Skip(onServer = Server.PRODUCTION)
-    @CaseIDs(value = {@CaseId(288), @CaseId(1102)})
+    @TmsLinks(value = {@TmsLink("288"), @TmsLink("1102")})
     @Story("Упрощенные рекомендации (simple-recs)")
     @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
@@ -151,7 +151,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     }
 
-    @CaseId(844)
+    @TmsLink("844")
     @Story("Упрощенные рекомендации (simple-recs)")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Упрощенный запрос блока рекомендаций coпутствующих товаров")
@@ -161,7 +161,7 @@ public final class SimpleRecsV2Test extends RestBase {
         checkResponseJsonSchema(response, SimpleRecsV2Response.class);
     }
 
-    @CaseId(845)
+    @TmsLink("845")
     @Story("Упрощенные рекомендации (simple-recs)")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Упрощенный запрос блока рекомендаций товаров-заменителей")

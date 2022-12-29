@@ -11,7 +11,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ExternalAnalyticsV2Request;
 import ru.instamart.api.response.v2.ExternalAnalyticsV2Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
@@ -29,7 +29,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
-    @CaseId(791)
+    @TmsLink("791")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение идентификатора устройства для аналитики с токеном")
     public void testGetDeviceIdWithToken() {
@@ -42,7 +42,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
         });
     }
 
-    @CaseId(946)
+    @TmsLink("946")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение идентификатора устройства для аналитики без токена")
     public void testGetDeviceIdWithoutToken() {

@@ -11,8 +11,8 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.ReplacePolicyProvider;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -36,7 +36,7 @@ public final class OrdersReplacementsTests {
         this.helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseIDs(value = {@CaseId(1634), @CaseId(1635), @CaseId(1636), @CaseId(1637)})
+    @TmsLinks(value = {@TmsLink("1634"), @TmsLink("1635"), @TmsLink("1636"), @TmsLink("1637")})
     @Story("Тест заказа с политикой Звонить / Заменять")
     @Test(description = "Тест заказа с политикой Звонить / Заменять",
             groups = REGRESSION_STF,

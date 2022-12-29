@@ -15,7 +15,7 @@ import ru.instamart.api.request.v2.ShipmentReviewRatesV2Request;
 import ru.instamart.api.response.v2.ShipmentReviewRatesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -39,7 +39,7 @@ public class ShipmentReviewRatesV2Test extends RestBase {
         K8sHelper.changeToShip(shipmentNumber);
     }
 
-    @CaseId(2642)
+    @TmsLink("2642")
     @Test(description = "Оценить заказ | доставка + сборка",
             groups = {API_INSTAMART_REGRESS, "api-v2"})
     public void postShipmentReviewRates200() {
@@ -56,7 +56,7 @@ public class ShipmentReviewRatesV2Test extends RestBase {
         });
     }
 
-    @CaseId(2790)
+    @TmsLink("2790")
     @Test(description = "Оценить заказ | несуществующий номер заказа",
             groups = {API_INSTAMART_REGRESS, "api-v2"})
     public void postShipmentReviewRates404() {

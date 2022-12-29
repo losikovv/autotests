@@ -2,10 +2,10 @@ package ru.instamart.test.reforged.chatwoot;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.CHATWOOT;
 import static ru.instamart.reforged.chatwoot.ChatwootRouter.dialogs;
@@ -16,7 +16,7 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.ONLINE;
 @Feature("Массовое закрытие чатов")
 public final class MassChatCloseTests {
 
-    @CaseId(118)
+    @TmsLink("118")
     @Test(description = "Массовое закрытие чатов", groups = {CHATWOOT})
     public void massChatClose() {
         UserData userData = UserManager.getSVCCUser();

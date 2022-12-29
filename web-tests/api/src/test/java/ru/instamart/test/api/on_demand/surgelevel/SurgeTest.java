@@ -15,8 +15,6 @@ import ru.instamart.jdbc.entity.surgelevel.DemandEntity;
 import ru.instamart.jdbc.entity.surgelevel.StoreEntity;
 import ru.instamart.jdbc.entity.surgelevel.SupplyEntity;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import surgelevel.Surgelevel;
 import surgelevelevent.Surgelevelevent;
 import surgelevelevent.Surgelevelevent.SurgeEvent.Method;
@@ -27,14 +25,17 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static events.CandidateChangesOuterClass.*;
+import static events.CandidateChangesOuterClass.CandidateChanges;
+import static events.CandidateChangesOuterClass.WorkflowStatus;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.SurgeLevelHelper.*;
-import static ru.instamart.kraken.enums.ScheduleType.*;
+import static ru.instamart.kraken.enums.ScheduleType.DISPATCH;
+import static ru.instamart.kraken.enums.ScheduleType.YANDEX;
 import static ru.instamart.kraken.util.DistanceUtil.distance;
-import static ru.instamart.kraken.util.TimeUtil.*;
+import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
+import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDateMinusMinutes;
 
 @Epic("Surgelevel")
 @Feature("Автоматический расчет surge")
@@ -110,7 +111,7 @@ public class SurgeTest extends RestBase {
         ThreadUtil.simplyAwait(surgeEventOutdate - SHORT_TIMEOUT);
     }
 
-    @CaseId(24)
+    @TmsLink("24")
     @Story("Surge Calculation")
     @Test(description = "Отсутствие расчета surgelevel для не ON_DEMAND магазинов",
             groups = "ondemand-surgelevel",
@@ -123,7 +124,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(36)
+    @TmsLink("36")
     @Story("Surge Calculation")
     @Test(description = "Отсутствие расчета surgelevel при disabled=true в конфиге",
             groups = "ondemand-surgelevel",
@@ -136,7 +137,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseIDs({@CaseId(14), @CaseId(23), @CaseId(25), @CaseId(163), @CaseId(32)})
+    @TmsLinks({@TmsLink("14"), @TmsLink("23"), @TmsLink("25"), @TmsLink("163"), @TmsLink("32")})
     @Story("Demand")
     @Test(description = "Добавление demand при получении события с новым ON_DEMAND заказом",
             groups = "ondemand-surgelevel")
@@ -152,7 +153,7 @@ public class SurgeTest extends RestBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, surgeCalculationCount.get() > 1 ? pastSurgeLevel : 0, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
-    @CaseId(40)
+    @TmsLink("40")
     @Story("Demand")
     @Test(description = "Отсутствие изменения surgelevel при получении ранее полученного ON_DEMAND заказа",
             groups = "ondemand-surgelevel",
@@ -163,7 +164,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка отсутствия изменения surgelevel", () -> compareTwoObjects(currentSurgeLevel, ResultDao.INSTANCE.findResult(STORE_ID).getSurgeLevel().floatValue()));
     }
 
-    @CaseId(16)
+    @TmsLink("16")
     @Story("Demand")
     @Test(description = "Отсутствие добавления demand при получении события с новым не ON_DEMAND заказом",
             groups = "ondemand-surgelevel")
@@ -174,7 +175,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка отсутствия добавления demand", () -> assertNull(DemandDao.INSTANCE.findDemand(STORE_ID, shipmentUuid), "Заказ добавился в demand"));
     }
 
-    @CaseIDs({@CaseId(133), @CaseId(135), @CaseId(43), @CaseId(165), @CaseId(44)})
+    @TmsLinks({@TmsLink("133"), @TmsLink("135"), @TmsLink("43"), @TmsLink("165"), @TmsLink("44")})
     @Story("Demand")
     @Test(description = "Добавление demand для нескольких магазинов при получении события с новым ON_DEMAND заказом",
             groups = "ondemand-surgelevel")
@@ -209,7 +210,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(141)
+    @TmsLink("141")
     @Story("Demand")
     @Test(description = "Отсутствие добавления demand для outer-магазинов при distance > STORE_RADIUS",
             groups = "ondemand-surgelevel")
@@ -232,7 +233,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(126)
+    @TmsLink("126")
     @Story("Supply")
     @Test(description = "Отсутствие добавления supply при получении не on-demand кандидата",
             groups = "ondemand-surgelevel")
@@ -244,7 +245,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка отсутствия добавления supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, candidateUuid), "Кандидат добавился в supply"));
     }
 
-    @CaseId(127)
+    @TmsLink("127")
     @Story("Supply")
     @Test(description = "Отсутствие удаления supply при получении события с UNCHANGED кандидатом",
             groups = "ondemand-surgelevel",
@@ -259,7 +260,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка отсутствия удаления supply", () -> assertNotNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID_DELIVERY_AREA), "Кандидат удалился из supply"));
     }
 
-    @CaseId(138)
+    @TmsLink("138")
     @Story("Supply")
     @Test(description = "Отсутствие добавления supply при пустых координатах кандидата",
             groups = "ondemand-surgelevel")
@@ -270,7 +271,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка отсутствия добавления supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, candidateUuid), "Кандидат добавился в supply"));
     }
 
-    @CaseId(144)
+    @TmsLink("144")
     @Story("Supply")
     @Test(description = "Отсутствие добавления supply с фейковыми координатами кандидата",
             groups = "ondemand-surgelevel")
@@ -281,7 +282,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка отсутствия supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID_FAKE_GPS), "Кандидат добавился в supply"));
     }
 
-    @CaseId(145)
+    @TmsLink("145")
     @Story("Supply")
     @Test(description = "Добавление supply при получении настоящих координат кандидата, когда до этого были фейковые",
             groups = "ondemand-surgelevel",
@@ -298,7 +299,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(143)
+    @TmsLink("143")
     @Story("Supply")
     @Test(description = "Удаление всего supply кандидата при получении фейковых координат",
             groups = "ondemand-surgelevel",
@@ -315,7 +316,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseIDs({@CaseId(123), @CaseId(125)})
+    @TmsLinks({@TmsLink("123"), @TmsLink("125")})
     @Story("Delivery Area Supply")
     @Test(description = "Добавление supply при получении кандидата по delivery_area",
             groups = "ondemand-surgelevel")
@@ -332,7 +333,7 @@ public class SurgeTest extends RestBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, surgeCalculationCount.get() > 1 ? pastSurgeLevel : 0, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
-    @CaseId(137)
+    @TmsLink("137")
     @Story("Delivery Area Supply")
     @Test(description = "Добавление supply для нескольких магазинов при получении кандидата по delivery_area",
             groups = "ondemand-surgelevel")
@@ -356,7 +357,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseIDs({@CaseId(20), @CaseId(166)})
+    @TmsLinks({@TmsLink("20"), @TmsLink("166")})
     @Story("Radius Supply")
     @Test(description = "Добавление supply при получении кандидата по координатам в близи от магазина",
             groups = "ondemand-surgelevel")
@@ -373,7 +374,7 @@ public class SurgeTest extends RestBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, surgeCalculationCount.get() > 1 ? pastSurgeLevel : 0, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
-    @CaseId(140)
+    @TmsLink("140")
     @Story("Radius Supply")
     @Test(description = "Отсутствие удаления supply при уходе кандидата по координатам недостаточно далеко от магазина",
             groups = "ondemand-surgelevel",
@@ -384,7 +385,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка supply", () -> assertNotNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID), "Кандидат удалился из supply"));
     }
 
-    @CaseId(167)
+    @TmsLink("167")
     @Story("Surge Calculation")
     @Test(description = "Отсутствие расчета surgelevel с радиусом в конфиге не null",
             groups = "ondemand-surgelevel")
@@ -396,7 +397,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка отсутствия добавления supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, candidateUuid), "Кандидат добавился в supply"));
     }
 
-    @CaseId(167)
+    @TmsLink("167")
     @Story("Supply")
     @Test(description = "Обновление кандидата и вызов расчета surgelevel при получении новых координат не смотря на не достижение CANDIDATE_MOVEMENT_THRESHOLD",
             groups = "ondemand-surgelevel",
@@ -412,7 +413,7 @@ public class SurgeTest extends RestBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
-    @CaseId(49)
+    @TmsLink("49")
     @Story("Radius Supply")
     @Test(description = "Удаление supply при уходе кандидата по координатам вдаль от магазина",
             groups = "ondemand-surgelevel",
@@ -428,7 +429,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(22)
+    @TmsLink("22")
     @Story("Radius Supply")
     @Test(description = "Отсутствие добавления supply при получении кандидата по координатам не в близи от магазина",
             groups = "ondemand-surgelevel")
@@ -441,7 +442,7 @@ public class SurgeTest extends RestBase {
     }
 
 
-    @CaseIDs({@CaseId(41), @CaseId(136), @CaseId(45)})
+    @TmsLinks({@TmsLink("41"), @TmsLink("136"), @TmsLink("45")})
     @Story("Radius Supply")
     @Test(description = "Добавление supply для нескольких магазинов при получении кандидата в близи от этих магазинов",
             groups = "ondemand-surgelevel")
@@ -477,7 +478,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(157)
+    @TmsLink("157")
     @Story("Workflow")
     @Test(description = "Проверка supply при получении in_progress МЛ",
             groups = "ondemand-surgelevel")
@@ -494,7 +495,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseIDs({@CaseId(158), @CaseId(159)})
+    @TmsLinks({@TmsLink("158"), @TmsLink("159")})
     @Story("Workflow")
     @Test(description = "Удаление supply при уходе от изначальной точки и отсутствие добавления к магазинам по пути, если далеко от точки прибытия in_progress МЛ",
             groups = "ondemand-surgelevel",
@@ -511,7 +512,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(160)
+    @TmsLink("160")
     @Story("Workflow")
     @Test(description = "Добавление supply при вхождении в радиус к точке прибытия in_progress МЛ",
             groups = "ondemand-surgelevel",
@@ -527,7 +528,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(162)
+    @TmsLink("162")
     @Story("Workflow")
     @Test(description = "Отсутствие влияния in_progress МЛ на кандидата с delivery_area",
             groups = "ondemand-surgelevel")
@@ -547,7 +548,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(161)
+    @TmsLink("161")
     @Story("Workflow")
     @Test(description = "Отсутствие влияния не in_progress МЛ на кандидата",
             groups = "ondemand-surgelevel")

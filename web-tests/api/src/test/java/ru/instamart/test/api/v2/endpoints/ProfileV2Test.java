@@ -16,7 +16,7 @@ import ru.instamart.api.request.v2.ProfileV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.ProfileV2Response;
 import ru.instamart.kraken.data.Generate;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.UUID;
 
@@ -42,7 +42,7 @@ public class ProfileV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
-    @CaseId(159)
+    @TmsLink("159")
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"})
     public void getProfile200() {
@@ -68,7 +68,7 @@ public class ProfileV2Test extends RestBase {
 
     }
 
-    @CaseId(150)
+    @TmsLink("150")
     @Test(description = "Обновление профиля пользователя",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"})
     public void putProfile200() {
@@ -94,7 +94,7 @@ public class ProfileV2Test extends RestBase {
         });
     }
 
-    @CaseId(151)
+    @TmsLink("151")
     @Test(description = "Обновление профиля пользователя с невалидными данными",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"})
     public void putProfile422() {

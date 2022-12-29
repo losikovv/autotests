@@ -17,7 +17,7 @@ import ru.instamart.api.response.authorization_service.RealmPostResponse;
 import ru.instamart.api.response.authorization_service.RealmPutErrorResponse;
 import ru.instamart.api.response.authorization_service.RealmResponse;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
@@ -36,7 +36,7 @@ public class RealmTest {
         Response response = RealmRequest.POST(AuthorizationServiceHelper.getInitialRealm());
     }
 
-    @CaseId(19)
+    @TmsLink("19")
     @Test(groups = {"api-authorization-service"},
             description = "Получение информации о рилме")
     public void getRealm200() {
@@ -48,7 +48,7 @@ public class RealmTest {
 
     }
 
-    @CaseId(20)
+    @TmsLink("20")
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма")
     public void createRealm200() {
@@ -74,7 +74,7 @@ public class RealmTest {
 
     }
 
-    @CaseId(21)
+    @TmsLink("21")
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма без сервисов")
     public void createRealmWithoutServices200() {
@@ -95,7 +95,7 @@ public class RealmTest {
 
     }
 
-    @CaseId(22)
+    @TmsLink("22")
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма. DryRun = true")
     public void createRealmDryRunTrue200() {
@@ -121,7 +121,7 @@ public class RealmTest {
 
     }
 
-    @CaseId(28)
+    @TmsLink("28")
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма с неверным сервисом")
     public void createRealmWithWrongServices400() {
@@ -141,7 +141,7 @@ public class RealmTest {
 
     }
 
-    @CaseId(23)
+    @TmsLink("23")
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма. DryRun = false")
     public void createRealmDryRunFalse200() {
@@ -167,7 +167,7 @@ public class RealmTest {
 
     }
 
-    @CaseId(24)
+    @TmsLink("24")
     @Test(groups = {"api-authorization-service"},
             description = "Обновление рилма")
     public void updateRealm200() {
@@ -195,7 +195,7 @@ public class RealmTest {
         });
     }
 
-    @CaseId(25)
+    @TmsLink("25")
     @Test(groups = {"api-authorization-service"},
             description = "Обновление неверного рилма")
     public void updateRealmWrongRealm422() {
@@ -216,7 +216,7 @@ public class RealmTest {
 
     }
 
-    @CaseId(26)
+    @TmsLink("26")
     @Test(groups = {"api-authorization-service"},
             description = "Обновление рилма. DryRun = true")
     public void updateRealmDryRunTrue200() {
@@ -244,7 +244,7 @@ public class RealmTest {
         });
     }
 
-    @CaseId(27)
+    @TmsLink("27")
     @Test(groups = {"api-authorization-service"},
             description = "Обновление рилма. DryRun = false")
     public void updateRealmDryRunFalse200() {
@@ -272,7 +272,7 @@ public class RealmTest {
         });
     }
 
-    @CaseId(41)
+    @TmsLink("41")
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма с заданным user_type")
     public void createRealmWithUserType200() {
@@ -307,7 +307,7 @@ public class RealmTest {
 
     }
 
-    @CaseId(42)
+    @TmsLink("42")
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма с именем в uppercase")
     public void createRealWithWrongName() {

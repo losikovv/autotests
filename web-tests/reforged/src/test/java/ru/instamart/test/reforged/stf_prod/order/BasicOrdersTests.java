@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
@@ -11,7 +12,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.*;
@@ -32,7 +32,7 @@ public final class BasicOrdersTests {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseId(1681)
+    @TmsLink("1681")
     @Test(description = "Тест заказа с любимыми товарами", groups = {STF_PROD_S})
     public void successOrderWithFavProducts() {
         userData = UserManager.getQaUser();
@@ -85,7 +85,7 @@ public final class BasicOrdersTests {
 
     }
 
-    @CaseId(2623)
+    @TmsLink("2623")
     @Issue("B2C-12077")
     @Story("Отмена заказа")
     @Test(description = "Отмена заказа", groups = {STF_PROD_S})
@@ -111,7 +111,7 @@ public final class BasicOrdersTests {
         userShipments().checkStatusWasCanceledProd();
     }
 
-    @CaseId(2624)
+    @TmsLink("2624")
     @Story("Заказ")
     @Test(description = "Добавление товаров в активный заказ", groups = {STF_PROD_S})
     public void successAddItemsInActiveOrder() {
@@ -138,7 +138,7 @@ public final class BasicOrdersTests {
     }
 
     @Skip
-    @CaseId(2626)
+    @TmsLink("2626")
     @Story("Заказ")
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = {STF_PROD_S})
     public void successCancelMultiOrderViaCancelOneOrder() {

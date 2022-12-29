@@ -25,7 +25,7 @@ import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +57,7 @@ public class PaymentToolsV3Test extends RestBase {
         anotherUserOrderNumber = SpreeOrdersDao.INSTANCE.getOrderOfAnotherUser(Long.parseLong(user.getId())).getNumber();
     }
 
-    @CaseId(2476)
+    @TmsLink("2476")
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты по своему заказу",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -68,7 +68,7 @@ public class PaymentToolsV3Test extends RestBase {
         paymentTool = response.as(PaymentToolsV3Response.class).getPaymentTools().get(0);
     }
 
-    @CaseId(2477)
+    @TmsLink("2477")
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты по чужому заказу",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -79,7 +79,7 @@ public class PaymentToolsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2479)
+    @TmsLink("2479")
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты по несуществующему заказу",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -90,7 +90,7 @@ public class PaymentToolsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Заказ не существует");
     }
 
-    @CaseId(2481)
+    @TmsLink("2481")
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по своему заказу",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -111,7 +111,7 @@ public class PaymentToolsV3Test extends RestBase {
         checkOrderPaymentTools(orderFromResponse, paymentTool);
     }
 
-    @CaseId(2482)
+    @TmsLink("2482")
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по чужому заказу",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -131,7 +131,7 @@ public class PaymentToolsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2483)
+    @TmsLink("2483")
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по несуществующему заказу",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -151,7 +151,7 @@ public class PaymentToolsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Заказ не существует");
     }
 
-    @CaseId(2486)
+    @TmsLink("2486")
     @Story("Способы оплаты")
     @Test(description = "Сохранение несуществующего способа оплаты",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -170,7 +170,7 @@ public class PaymentToolsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Платежное средство не существует");
     }
 
-    @CaseId(2529)
+    @TmsLink("2529")
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты с шипментом не относящимся к заказу",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -189,7 +189,7 @@ public class PaymentToolsV3Test extends RestBase {
         checkError(response, "invalid_current_shipments", "Вы уже оформляете заказ в другом магазине");
     }
 
-    @CaseId(2530)
+    @TmsLink("2530")
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты с несуществующим шипментом",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -208,7 +208,7 @@ public class PaymentToolsV3Test extends RestBase {
         checkError(response, "invalid_current_shipments", "Вы уже оформляете заказ в другом магазине");
     }
 
-    @CaseId(2484)
+    @TmsLink("2484")
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по просроченному заказу",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -228,7 +228,7 @@ public class PaymentToolsV3Test extends RestBase {
         checkError(response, "not_correct_order_state", "Заказ должен быть со статусом 'В корзине'");
     }
 
-    @CaseId(2485)
+    @TmsLink("2485")
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты неавторизованным пользователем",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -247,7 +247,7 @@ public class PaymentToolsV3Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(2478)
+    @TmsLink("2478")
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты неавторизованным пользователем",
             groups = {API_INSTAMART_REGRESS, "api-v3"},

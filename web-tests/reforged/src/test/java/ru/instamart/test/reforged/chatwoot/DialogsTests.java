@@ -2,11 +2,11 @@ package ru.instamart.test.reforged.chatwoot;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.CHATWOOT;
 import static ru.instamart.reforged.chatwoot.ChatwootRouter.dialogs;
@@ -17,7 +17,7 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.ONLINE;
 @Feature("Диалоги")
 public final class DialogsTests {
 
-    @CaseId(32)
+    @TmsLink("32")
     @Test(description = "Назначенные на оператора чаты отображаются во вкладке Мои диалоги", groups = {CHATWOOT})
     public void assignedChatsAvailableOnOperatorMyTabTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -46,7 +46,7 @@ public final class DialogsTests {
         dialogs().checkConversationsCount(3);
     }
 
-    @CaseId(114)
+    @TmsLink("114")
     @Test(description = "Ручное добавление атрибутов чата - Номер доставки", groups = {CHATWOOT})
     public void editAttributesTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -89,7 +89,7 @@ public final class DialogsTests {
         dialogs().clickCompleteConversation();
     }
 
-    @CaseId(38)
+    @TmsLink("38")
     @Test(description = "Невозможность завершить чат без указания Тематики", groups = {CHATWOOT})
     public void needFillTopicToCompleteCo() {
         UserData userData = UserManager.getOperatorUser();
@@ -124,7 +124,7 @@ public final class DialogsTests {
         dialogs().checkEditConversationButtonVisible();
     }
 
-    @CaseId(102)
+    @TmsLink("102")
     @Test(description = "Завершение чата", groups = {CHATWOOT})
     public void chatCompleteConversationTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -168,7 +168,7 @@ public final class DialogsTests {
         dialogs().checkConversationNotVisible(firstChatName);
     }
 
-    @CaseId(125)
+    @TmsLink("125")
     @Test(description = "Переоткрытие чата оператором", groups = {CHATWOOT})
     public void reopenChatTest() {
         UserData userData = UserManager.getOperatorUser();

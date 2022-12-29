@@ -3,7 +3,7 @@ package ru.instamart.test.api.v2.e2e;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
@@ -29,7 +29,7 @@ public final class RetailerE2ETests extends RestBase {
     }
 
     @Story("Тесты оформления заказа у каждого ретейлера")
-    @CaseId(104)
+    @TmsLink("104")
     @Test(  dataProvider = "storeOfEachRetailer",
             dataProviderClass = RestDataProvider.class,
             description = "Тест заказов у каждого ретейлера",

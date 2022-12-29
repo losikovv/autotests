@@ -1,8 +1,6 @@
 package ru.instamart.test.reforged.stf.shopping;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -10,8 +8,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.*;
@@ -27,7 +23,7 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @Issue("B2C-10717")
-    @CaseId(1571)
+    @TmsLink("1571")
     @Test(description = "Тест валидации дефолтной корзины", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void successValidateDefaultCart() {
         shop().goToPage();
@@ -50,7 +46,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartClose();
     }
 
-    @CaseId(1572)
+    @TmsLink("1572")
     @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
@@ -68,7 +64,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(1573)
+    @TmsLink("1573")
     @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getQaUser();
@@ -91,7 +87,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(1574)
+    @TmsLink("1574")
     @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void successChangeItemQuantityInCart() {
@@ -125,7 +121,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkAmountEquals(orderAmount, shop().interactCart().getOrderAmount());
     }
 
-    @CaseId(1575)
+    @TmsLink("1575")
     @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "USER_ADULT_18_PLUS_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void successChangeItemQuantityInCartViaItemCard() {
@@ -170,7 +166,7 @@ public final class ShoppingCartTests {
         shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
     }
 
-    @CaseId(1576)
+    @TmsLink("1576")
     @Test(description = "Тест на удаление товаров из корзины", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void successRemoveItemsFromCart() {
@@ -195,7 +191,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartEmpty();
     }
 
-    @CaseId(1577)
+    @TmsLink("1577")
     @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void successAddItemToCartFromCatalogSnippet() {
         final UserData shoppingCartUser = UserManager.getQaUser();
@@ -221,7 +217,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartEmpty();
     }
 
-    @CaseId(1578)
+    @TmsLink("1578")
     @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void successChangeMinOrderSum() {
         final var shoppingCartUser = UserManager.getQaUser();
@@ -253,7 +249,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkFirstMinAmountLessThanRepeated(firstOrderMinAmount, repeatedOrderMinAmount);
     }
 
-    @CaseId(2616)
+    @TmsLink("2616")
     @Test(description = "Добавление/удаление товара из карточки товара", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void testAddedAndRemoveProductFromProductCard() {
         var userData = UserManager.getQaUser();
@@ -272,7 +268,7 @@ public final class ShoppingCartTests {
         shop().interactProductCard().checkBuyButtonVisible();
     }
 
-    @CaseId(2618)
+    @TmsLink("2618")
     @Test(description = "Добавление/удаление товара из раздела 'Скидки'", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void testAddProductFromSale() {
         var userData = UserManager.getQaUser();
@@ -295,7 +291,7 @@ public final class ShoppingCartTests {
         seo().interactCart().checkCartEmpty();
     }
 
-    @CaseId(2619)
+    @TmsLink("2619")
     @Test(description = "Добавление товара после изменения адреса доставки", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void testAddProductAfterChangeAddress() {
         var userData = UserManager.getQaUser();
@@ -316,7 +312,7 @@ public final class ShoppingCartTests {
         shop().interactCart().getFirstItem().compareItemQuantityInCart(6);
     }
 
-    @CaseIDs(value = {@CaseId(2620), @CaseId(2937), @CaseId(2938)})
+    @TmsLinks(value = {@TmsLink("2620"), @TmsLink("2937"), @TmsLink("2938")})
     @Test(description = "Многократное добавление и удаление одной позиции", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void testMultipleAddAndRemoveProduct() {
         var userData = UserManager.getQaUser();
@@ -351,7 +347,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartEmpty();
     }
 
-    @CaseId(2605)
+    @TmsLink("2605")
     @Test(description = "Тест успешного добавления товара в пустую корзину", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testSuccessAddItemInEmptyCart() {
@@ -373,7 +369,7 @@ public final class ShoppingCartTests {
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 
-    @CaseId(2607)
+    @TmsLink("2607")
     @Test(description = "Изменение количества единиц товаров в корзине", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testAddProductsInCart() {
@@ -403,7 +399,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
     }
 
-    @CaseId(2609)
+    @TmsLink("2609")
     @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testAddressAndCartGetFromProfileAuth() {
@@ -440,7 +436,7 @@ public final class ShoppingCartTests {
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 
-    @CaseId(2610)
+    @TmsLink("2610")
     @Test(description = "Удаление позиции товара", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void testRemoveProduct() {
         var userData = UserManager.getQaUser();
@@ -470,7 +466,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
     }
 
-    @CaseId(1572)
+    @TmsLink("1572")
     @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void testAddToCartNonAuthUser() {
         shop().goToPage();
@@ -491,7 +487,7 @@ public final class ShoppingCartTests {
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 
-    @CaseId(2611)
+    @TmsLink("2611")
     @Test(description = "Удаление всех товаров в корзине", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testRemoveRetailerFromCart() {
@@ -514,7 +510,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartEmpty();
     }
 
-    @CaseId(2612)
+    @TmsLink("2612")
     @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
@@ -536,7 +532,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkItemsCount(itemsCountInRetailer, 3);
     }
 
-    @CaseId(2613)
+    @TmsLink("2613")
     @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testAutoRemoveRetailerAfterRemoveAllProducts() {
@@ -562,7 +558,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkRetailerNotVisible("METRO");
     }
 
-    @CaseId(2617)
+    @TmsLink("2617")
     @Test(description = "Добавление/удаление товара из категории", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void testAddRemoveProductFromCategory() {
         var userData = UserManager.getQaUser();
@@ -591,7 +587,7 @@ public final class ShoppingCartTests {
         seo().interactCart().checkCartEmpty();
     }
 
-    @CaseId(3042)
+    @TmsLink("3042")
     @Test(description = "Добавление товара в корзину из seo-каталога", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void testAddProductFromSEOCategory() {
         seoIncognito().goToPage();
@@ -604,7 +600,7 @@ public final class ShoppingCartTests {
         seoIncognito().interactHeader().interactAddress().checkAddressModalVisible();
     }
 
-    @CaseId(2615)
+    @TmsLink("2615")
     @Test(description = "Добавление товара в корзину из блока рекомендаций на карточке товара", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
     public void successAddToCardFromProductCardRecommendations() {
         var userData = UserManager.getQaUser();

@@ -3,12 +3,12 @@ package ru.instamart.test.reforged.admin.retailer;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.login;
@@ -18,7 +18,7 @@ import static ru.instamart.reforged.admin.AdminRout.regions;
 @Feature("Управление регионами ретейлера")
 public final class AdministrationRetailerRegionsTests {
 
-    @CaseId(469)
+    @TmsLink("469")
     @Story("Тест добавления нового региона для магазинов в админке")
     @Test(description = "Создать новый регион",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
@@ -39,7 +39,7 @@ public final class AdministrationRetailerRegionsTests {
         regions().checkRegionInTableVisible(regionName);
     }
 
-    @CaseId(470)
+    @TmsLink("470")
     @Test(description = "Настройки региона",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void regionSetting() {
@@ -52,7 +52,7 @@ public final class AdministrationRetailerRegionsTests {
         regions().interactRegionsAddModal().checkAddNewRegionModalVisible();
     }
 
-    @CaseId(472)
+    @TmsLink("472")
     @Story("Валидация страницы регионов")
     @Test(description = "Валидация страницы регионов",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS, PROD_ADMIN_SMOKE})

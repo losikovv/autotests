@@ -1,8 +1,6 @@
 package ru.instamart.test.api.v1.endpoints;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -23,8 +21,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -54,7 +50,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(629)
+    @TmsLink("629")
     @Test(description = "Поиск компании по ИНН",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getCompaniesByINN() {
@@ -64,7 +60,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(630)
+    @TmsLink("630")
     @Test(description = "Переход на страницу компании",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getCompaniesByID() {
@@ -74,7 +70,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(631)
+    @TmsLink("631")
     @Test(description = "Смена наименования компании",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void putCompanyName() {
@@ -86,7 +82,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(632)
+    @TmsLink("632")
     @Test(description = "Добавление комментария менеджера",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void putManagerComment() {
@@ -98,7 +94,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(633)
+    @TmsLink("633")
     @Test(description = "Смена ссылки на компанию в CRM",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void putLinkToCrm() {
@@ -110,7 +106,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(634)
+    @TmsLink("634")
     @Test(description = "Добавление постоплаты в качества способа оплаты",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void putPostpay() {
@@ -122,7 +118,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(635)
+    @TmsLink("635")
     @Test(description = "Добавление предоплаты в качества способа оплаты",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void putPrepay() {
@@ -134,7 +130,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(636)
+    @TmsLink("636")
     @Test(description = "Добавление оплаты по депозиту в качества способа оплаты",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void putDeposit() {
@@ -147,7 +143,7 @@ public class CompaniesV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING) //todo починить 422 "Должен быть с ролью b2b"
     @Story("Admin Web")
-    @CaseId(650)
+    @TmsLink("650")
     @Test(description = "Добавление менеджера в компанию",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postCompanyManager() {
@@ -163,7 +159,7 @@ public class CompaniesV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Admin Web")
-    @CaseId(651)
+    @TmsLink("651")
     @Test(description = "Удаление менеджера из компании",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
     dependsOnMethods = "postCompanyManager")
@@ -175,7 +171,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(652)
+    @TmsLink("652")
     @Test(description = "Добавление договора купли-продажи",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postSalesContract() {
@@ -190,7 +186,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(653)
+    @TmsLink("653")
     @Test(description = "Ошибка при добавлении договора при активном договоре",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
     dependsOnMethods = "postSalesContract")
@@ -202,7 +198,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(654)
+    @TmsLink("654")
     @Test(description = "Изменение даты подписания договора",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "postSalesContract")
@@ -226,7 +222,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(655)
+    @TmsLink("655")
     @Test(description = "Архивация договора купли-продажи",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = {"postSalesContractWhenHasActiveContract", "putSalesContractDate"})
@@ -237,7 +233,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(656)
+    @TmsLink("656")
     @Test(description = "Ошибка при добавлении договора с уже использованным в  текущем году номером",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "postArchiveSalesContract")
@@ -249,7 +245,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(2122)
+    @TmsLink("2122")
     @Test(description = "Обновление счета компании - нет контрагентов",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
     dependsOnMethods = "postArchiveSalesContract")
@@ -260,7 +256,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(2123)
+    @TmsLink("2123")
     @Test(description = "Обновление счета компании - баланс больше нуля",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void refreshPaymentAccountWithBalance() {
@@ -271,7 +267,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(2124)
+    @TmsLink("2124")
     @Test(description = "Обновление счета компании - баланс меньше нуля",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void refreshPaymentAccountWithoutBalance() {
@@ -282,7 +278,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(2202)
+    @TmsLink("2202")
     @Test(description = "Добавление работника в компанию",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void addCompanyEmployee() {
@@ -304,7 +300,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(2203)
+    @TmsLink("2203")
     @Test(description = "Добавление работника в несуществующую компанию",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void addEmployeeToNonExistentCompany() {
@@ -314,7 +310,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(2204)
+    @TmsLink("2204")
     @Test(description = "Добавление несуществующего работника в компанию",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void addNonexistentCompanyEmployee() {
@@ -326,7 +322,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseIDs(value = {@CaseId(2205), @CaseId(2206)})
+    @TmsLinks(value = {@TmsLink("2205"), @TmsLink("2206")})
     @Test(description = "Подтверждение работника",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProvider = "booleanData",
@@ -341,7 +337,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(2207)
+    @TmsLink("2207")
     @Test(description = "Подтверждение несуществующего работника",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void editNonExistentCompanyEmployee() {
@@ -351,7 +347,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(2208)
+    @TmsLink("2208")
     @Test(description = "Удаление работника",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "editCompanyEmployee")
@@ -362,7 +358,7 @@ public class CompaniesV1Tests extends RestBase {
     }
 
     @Story("Admin Web")
-    @CaseId(2209)
+    @TmsLink("2209")
     @Test(description = "Удаление несуществующего работника",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void deleteNonExistentCompanyEmployee() {

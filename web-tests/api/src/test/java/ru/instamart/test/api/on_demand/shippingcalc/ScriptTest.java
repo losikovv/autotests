@@ -10,7 +10,7 @@ import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.shippingcalc.ScriptsDao;
 import ru.instamart.jdbc.entity.shippingcalc.ScriptsEntity;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import shippingcalc.*;
 
 import java.util.Objects;
@@ -36,7 +36,7 @@ public class ScriptTest extends ShippingCalcBase {
         strategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
     }
 
-    @CaseId(38)
+    @TmsLink("38")
     @Story("Create Script")
     @Test(description = "Создание скрипта с валидными данными",
             groups = "ondemand-shippingcalc")
@@ -47,7 +47,7 @@ public class ScriptTest extends ShippingCalcBase {
         checkScript(scriptId, "autotest", "TestOk");
     }
 
-    @CaseId(1)
+    @TmsLink("1")
     @Story("Create Script")
     @Test(description = "Создание скрипта с невалидными данными",
             groups = "ondemand-shippingcalc")
@@ -58,7 +58,7 @@ public class ScriptTest extends ShippingCalcBase {
         checkScript(secondScriptId, "autotest", "TestFailed");
     }
 
-    @CaseId(4)
+    @TmsLink("4")
     @Story("Create Script")
     @Test(description = "Получение ошибки, при создании скрипта с пустым именем",
             groups = "ondemand-shippingcalc",
@@ -69,7 +69,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.createScript(request);
     }
 
-    @CaseId(10)
+    @TmsLink("10")
     @Story("Create Script")
     @Test(description = "Получение ошибки, при создании скрипта с пустым телом скрипта",
             groups = "ondemand-shippingcalc",
@@ -80,7 +80,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.createScript(request);
     }
 
-    @CaseId(13)
+    @TmsLink("13")
     @Story("Create Script")
     @Test(description = "Получение ошибки, при создании скрипта с пустым автором",
             groups = "ondemand-shippingcalc",
@@ -91,7 +91,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.createScript(request);
     }
 
-    @CaseId(15)
+    @TmsLink("15")
     @Story("Update Script")
     @Test(description = "Обновление существующего скрипта с валидными данными",
             groups = "ondemand-shippingcalc",
@@ -102,7 +102,7 @@ public class ScriptTest extends ShippingCalcBase {
         checkUpdatedScript(secondScriptId, "autotest-update", "TestOk");
     }
 
-    @CaseId(18)
+    @TmsLink("18")
     @Story("Update Script")
     @Test(description = "Обновление существующего скрипта с невалидными данными",
             groups = "ondemand-shippingcalc",
@@ -113,7 +113,7 @@ public class ScriptTest extends ShippingCalcBase {
         checkUpdatedScript(scriptId, "autotest-update-with-rule", "TestFailed");
     }
 
-    @CaseId(16)
+    @TmsLink("16")
     @Story("Update Script")
     @Test(description = "Получение ошибки, при обновлении несуществующего скрипта с валидными данными",
             groups = "ondemand-shippingcalc",
@@ -124,7 +124,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.updateScript(request);
     }
 
-    @CaseId(20)
+    @TmsLink("20")
     @Story("Update Script")
     @Test(description = "Получение ошибки, при обновлении существующего скрипта с пустым именем",
             groups = "ondemand-shippingcalc",
@@ -136,7 +136,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.updateScript(request);
     }
 
-    @CaseId(26)
+    @TmsLink("26")
     @Story("Update Script")
     @Test(description = "Получение ошибки, при обновлении существующего скрипта с пустым телом скрипта",
             groups = "ondemand-shippingcalc",
@@ -148,7 +148,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.updateScript(request);
     }
 
-    @CaseId(29)
+    @TmsLink("29")
     @Story("Update Script")
     @Test(description = "Получение ошибки, при обновлении существующего скрипта с пустым автором",
             groups = "ondemand-shippingcalc",
@@ -160,7 +160,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.updateScript(request);
     }
 
-    @CaseId(34)
+    @TmsLink("34")
     @Story("Get Script")
     @Test(description = "Получение существующего скрипта",
             groups = "ondemand-shippingcalc",
@@ -178,7 +178,7 @@ public class ScriptTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(35)
+    @TmsLink("35")
     @Story("Get Script")
     @Test(description = "Получение ошибки при отправке запроса с несуществующим скриптом",
             groups = "ondemand-shippingcalc",
@@ -192,7 +192,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.getScript(request);
     }
 
-    @CaseId(36)
+    @TmsLink("36")
     @Story("Get Script")
     @Test(description = "Получение ошибки при запросе удаленного скрипта",
             groups = "ondemand-shippingcalc",
@@ -207,7 +207,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.getScript(request);
     }
 
-    @CaseId(127)
+    @TmsLink("127")
     @Story("Get Scripts")
     @Test(description = "Получение списка скриптов",
             groups = "ondemand-shippingcalc",
@@ -228,7 +228,7 @@ public class ScriptTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(135)
+    @TmsLink("135")
     @Story("Delete Script")
     @Test(description = "Удаление существующего скрипта без привязки к правилам",
             groups = "ondemand-shippingcalc",
@@ -244,7 +244,7 @@ public class ScriptTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(134)
+    @TmsLink("134")
     @Story("Delete Script")
     @Test(description = "Получение ошибки, при удалении скрипта, привязанного к правилу",
             groups = "ondemand-shippingcalc",
@@ -257,7 +257,7 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.deleteScript(request);
     }
 
-    @CaseId(131)
+    @TmsLink("131")
     @Story("Delete Script")
     @Test(description = "Получение ошибки, при удалении несуществующего скрипта",
             groups = "ondemand-shippingcalc",

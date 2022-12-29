@@ -21,7 +21,7 @@ import ru.instamart.api.response.v1.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -53,7 +53,7 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
-    @CaseId(114)
+    @TmsLink("114")
     @Test(description = "Контрактный тест списка заказов",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrders() {
@@ -64,7 +64,7 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
-    @CaseId(115)
+    @TmsLink("115")
     @Test(description = "Контрактный тест инфы о заказе",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getOrder() {
@@ -75,7 +75,7 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
-    @CaseId(116)
+    @TmsLink("116")
     @Test(description = "Контрактный тест инфы о шипменте",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getShipment() {
@@ -88,7 +88,7 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
-    @CaseId(117)
+    @TmsLink("117")
     @Test(description = "Контрактный тест списка офферов в шипменте",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getShipmentOffers() {
@@ -99,7 +99,7 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
-    @CaseId(118)
+    @TmsLink("118")
     @Test(description = "Контрактный тест списка лайн айтемов в шимпенте по его номеру",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getLineItemsByShipmentNumber() {
@@ -117,7 +117,7 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
-    @CaseId(2073)
+    @TmsLink("2073")
     @Test(description = "Контрактный тест списка лайн айтемов в шимпенте по номеру заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getLineItemsByOrderNumber() {
@@ -130,7 +130,7 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
-    @CaseId(119)
+    @TmsLink("119")
     @Test(description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getLineItemsByShipmentNumber")
@@ -142,7 +142,7 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
-    @CaseId(120)
+    @TmsLink("120")
     @Test(description = "Контрактный тест списка сэмплов в шипменте",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getShipment")
@@ -154,7 +154,7 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
-    @CaseId(121)
+    @TmsLink("121")
     @Test(description = "Контрактный тест списка способов оплаты в заказе",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getShopperOrderAvailablePaymentTools() {

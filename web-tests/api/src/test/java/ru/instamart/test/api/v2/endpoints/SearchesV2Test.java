@@ -16,8 +16,8 @@ import ru.instamart.api.response.v2.TopPhrasesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
@@ -31,7 +31,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 @Feature("Поиск")
 public class SearchesV2Test extends RestBase {
 
-    @CaseId(271)
+    @TmsLink("271")
     @Test(description = "Получаем поисковые подсказки",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getSearchSuggestions200() {
@@ -40,7 +40,7 @@ public class SearchesV2Test extends RestBase {
         checkFieldIsNotEmpty(response.as(SearchSuggestionsV2Response.class).getSuggestion(), "поисковые подсказки");
     }
 
-    @CaseId(272)
+    @TmsLink("272")
     @Test(description = "Получаем поисковые подсказки в несуществующем магазине",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getSearchSuggestions404() {
@@ -49,7 +49,7 @@ public class SearchesV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseIDs(value = {@CaseId(273), @CaseId(1431), @CaseId(278)})
+    @TmsLinks(value = {@TmsLink("273"), @TmsLink("1431"), @TmsLink("278")})
     @Test(description = "Получаем поисковые подсказки по слову - позитивные сценарии",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "positiveQuery",
@@ -60,7 +60,7 @@ public class SearchesV2Test extends RestBase {
         checkResponseJsonSchema(response, SearchSuggestionsV2Response.class);
     }
 
-    @CaseIDs(value = {@CaseId(276), @CaseId(277), @CaseId(279)})
+    @TmsLinks(value = {@TmsLink("276"), @TmsLink("277"), @TmsLink("279")})
     @Test(description = "Получаем поисковые подсказки по слову - негативные сценарии",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "negativeQuery",
@@ -72,7 +72,7 @@ public class SearchesV2Test extends RestBase {
         checkSearchSuggestionsNegative(suggestion);
     }
 
-    @CaseId(274)
+    @TmsLink("274")
     @Test(description = "Получаем поисковые подсказки по слову для несуществующего магазина",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getSearchSuggestionsWithQueryAndNonExistentShop() {
@@ -81,7 +81,7 @@ public class SearchesV2Test extends RestBase {
         checkError(response, "Магазин не существует");
     }
 
-    @CaseId(275)
+    @TmsLink("275")
     @Test(description = "Получаем поисковые подсказки c пустым запросом",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "emptyQueries",
@@ -93,7 +93,7 @@ public class SearchesV2Test extends RestBase {
                 () -> assertNull(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "Вернулись продукты в поисковых подсказках"));
     }
 
-    @CaseId(2472)
+    @TmsLink("2472")
     @Story("Список популярных запросов")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Список популярных запросов без sid")
@@ -103,7 +103,7 @@ public class SearchesV2Test extends RestBase {
         checkError(response, "Отсутствует обязательный параметр 'sid'");
     }
 
-    @CaseId(2473)
+    @TmsLink("2473")
     @Story("Список популярных запросов")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Список популярных запросов с несуществующим sid")
@@ -113,7 +113,7 @@ public class SearchesV2Test extends RestBase {
         checkError(response, "Магазин не существует");
     }
 
-    @CaseId(2474)
+    @TmsLink("2474")
     @Story("Список популярных запросов")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Список популярных запросов с существующим sid")

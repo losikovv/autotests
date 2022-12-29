@@ -22,8 +22,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class ShipmentsV1Test extends RestBase {
         admin.authApi();
     }
 
-    @CaseIDs(value = {@CaseId(2092), @CaseId(2093)})
+    @TmsLinks(value = {@TmsLink("2092"), @TmsLink("2093")})
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с разными статусами",
@@ -67,7 +67,7 @@ public class ShipmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2094)
+    @TmsLink("2094")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с разными типами платежей",
@@ -90,7 +90,7 @@ public class ShipmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2095)
+    @TmsLink("2095")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с ограничением по весу",
@@ -109,7 +109,7 @@ public class ShipmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2096)
+    @TmsLink("2096")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы для определенной операционной зоны",
@@ -128,7 +128,7 @@ public class ShipmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2097)
+    @TmsLink("2097")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с определенным количеством товаров",
@@ -147,7 +147,7 @@ public class ShipmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseIDs(value = {@CaseId(2098), @CaseId(2099), @CaseId(2100), @CaseId(2101), @CaseId(2102)})
+    @TmsLinks(value = {@TmsLink("2098"), @TmsLink("2099"), @TmsLink("2100"), @TmsLink("2101"), @TmsLink("2102")})
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с разными статусами оплаты",
@@ -166,7 +166,7 @@ public class ShipmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2103)
+    @TmsLink("2103")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по id магазина",
@@ -185,7 +185,7 @@ public class ShipmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2104)
+    @TmsLink("2104")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по id ритейлера",
@@ -203,7 +203,7 @@ public class ShipmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2105)
+    @TmsLink("2105")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по номеру заказа",
@@ -219,7 +219,7 @@ public class ShipmentsV1Test extends RestBase {
         compareTwoObjects(shipments.get(0).getOrder().getNumber(), orderNumber);
     }
 
-    @CaseId(2106)
+    @TmsLink("2106")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по api-client id",
@@ -235,7 +235,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2107)
+    @TmsLink("2107")
     @Story("Cписок заказов")
     @Test(description = "Заказы по имени шоппера",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -252,7 +252,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2108)
+    @TmsLink("2108")
     @Story("Cписок заказов")
     @Test(description = "Заказы по имени водителя",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -268,7 +268,7 @@ public class ShipmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2109)
+    @TmsLink("2109")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по окнам доставки",
@@ -282,7 +282,7 @@ public class ShipmentsV1Test extends RestBase {
         checkResponseJsonSchema(response, AdminShipmentsV1Response.class);
     }
 
-    @CaseId(2110)
+    @TmsLink("2110")
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по датам завершения",
@@ -296,7 +296,7 @@ public class ShipmentsV1Test extends RestBase {
         checkResponseJsonSchema(response, AdminShipmentsV1Response.class);
     }
 
-    @CaseId(2128)
+    @TmsLink("2128")
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Редактирование комментария к заказу",
@@ -310,7 +310,7 @@ public class ShipmentsV1Test extends RestBase {
         compareTwoObjects(response.as(AdminShipmentV1Response.class).getShipment().getAssemblyComment(), comment);
     }
 
-    @CaseId(2129)
+    @TmsLink("2129")
     @Skip //TODO ATST-2003
     @Story("Заказы")
     @Test(description = "Возврат на диспетчеризацию",
@@ -321,7 +321,7 @@ public class ShipmentsV1Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(2130)
+    @TmsLink("2130")
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Редактирование комментария к несуществующему заказу",
@@ -332,7 +332,7 @@ public class ShipmentsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2131)
+    @TmsLink("2131")
     @Skip //TODO ATST-2003
     @Story("Заказы")
     @Test(description = "Возврат на диспетчеризацию несуществующего заказа",
@@ -343,7 +343,7 @@ public class ShipmentsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2134)
+    @TmsLink("2134")
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Получение документов для несуществующего заказа", //TODO:Добавить позитивные тесты, когда станут понятны предусловия

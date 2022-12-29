@@ -2,7 +2,7 @@ package ru.instamart.test.api.v2.e2e;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.RestAssured;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class StoreE2ETests extends RestBase {
         RestDataProvider.getAvailableStores();
     }
 
-    @CaseId(105)
+    @TmsLink("105")
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест категорий на главных страницах всех магазинов",
@@ -46,7 +46,7 @@ public class StoreE2ETests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(106)
+    @TmsLink("106")
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест продуктов на главных страницах всех магазинов",
@@ -63,7 +63,7 @@ public class StoreE2ETests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(107)
+    @TmsLink("107")
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест количества товаров в таксонах",
@@ -88,7 +88,7 @@ public class StoreE2ETests extends RestBase {
         apiV2.cancelCurrentOrder();
     }
 
-    @CaseId(108)
+    @TmsLink("108")
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех магазинах",

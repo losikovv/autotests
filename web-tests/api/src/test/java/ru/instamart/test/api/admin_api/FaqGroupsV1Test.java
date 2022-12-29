@@ -21,7 +21,7 @@ import ru.instamart.jdbc.dao.stf.SpreeFaqGroupsDao;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class FaqGroupsV1Test extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(2193)
+    @TmsLink("2193")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка групп FAQ")
     public void getAllFaqGroups() {
         final Response response = FaqGroupsV1Request.GET();
@@ -54,7 +54,7 @@ public class FaqGroupsV1Test extends RestBase {
         compareTwoObjects(faqGroups.size(), SpreeFaqGroupsDao.INSTANCE.getCount());
     }
 
-    @CaseId(2194)
+    @TmsLink("2194")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание группы FAQ")
     public void createFaqGroup() {
@@ -67,7 +67,7 @@ public class FaqGroupsV1Test extends RestBase {
         compareTwoObjects(faqGroupResponse.getName(), name);
     }
 
-    @CaseId(2195)
+    @TmsLink("2195")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание группы FAQ с пустым названием")
     public void createFaqGroupWithEmptyName() {
@@ -77,7 +77,7 @@ public class FaqGroupsV1Test extends RestBase {
         compareTwoObjects(error.getErrors().getName(), "не может быть пустым");
     }
 
-    @CaseId(2196)
+    @TmsLink("2196")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование группы FAQ",
             dependsOnMethods = "createFaqGroup")
@@ -89,7 +89,7 @@ public class FaqGroupsV1Test extends RestBase {
         compareTwoObjects(response.as(FaqGroupV1Response.class).getFaqGroup().getName(), name);
     }
 
-    @CaseId(2197)
+    @TmsLink("2197")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование группы FAQ с пустым названием",
             dependsOnMethods = "editFaqGroup")
@@ -100,7 +100,7 @@ public class FaqGroupsV1Test extends RestBase {
         compareTwoObjects(error.getErrors().getName(), "не может быть пустым");
     }
 
-    @CaseId(2506)
+    @TmsLink("2506")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование несуществующей группы FAQ")
     public void editNonExistentFaqGroup() {
@@ -109,7 +109,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2508)
+    @TmsLink("2508")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение позиции группы FAQ",
             dependsOnMethods = "editFaqGroupWithEmptyName")
@@ -118,7 +118,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkStatusCode(response, 204);
     }
 
-    @CaseId(2504)
+    @TmsLink("2504")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение группы FAQ",
             dependsOnMethods = "changeFaqGroupPosition")
@@ -133,7 +133,7 @@ public class FaqGroupsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2506)
+    @TmsLink("2506")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение несуществующей группы FAQ")
     public void getNonExistentFaqGroup() {
@@ -142,7 +142,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2517)
+    @TmsLink("2517")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание FAQ",
             dependsOnMethods = "getFaqGroup")
@@ -156,7 +156,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkFaq(faqResponse, text, faqGroupId, 0);
     }
 
-    @CaseId(2518)
+    @TmsLink("2518")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование FAQ",
             dependsOnMethods = "createFaq")
@@ -169,7 +169,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkFaq(faqResponse, text, faqGroupId, 0);
     }
 
-    @CaseId(2519)
+    @TmsLink("2519")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование несуществующего FAQ",
             dependsOnMethods = "createFaqGroup")
@@ -180,7 +180,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2521)
+    @TmsLink("2521")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение позиции FAQ",
             dependsOnMethods = "editFaq")
@@ -189,7 +189,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkStatusCode(response, 204);
     }
 
-    @CaseId(2520)
+    @TmsLink("2520")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение FAQ",
             dependsOnMethods = "updateFaqPosition")
@@ -201,7 +201,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkFaq(faqResponse, text, faqGroupId, 45);
     }
 
-    @CaseId(2522)
+    @TmsLink("2522")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение несуществующего FAQ",
             dependsOnMethods = "createFaqGroup")
@@ -211,7 +211,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2523)
+    @TmsLink("2523")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение всех FAQ",
             dependsOnMethods = "updateFaqPosition")
@@ -223,7 +223,7 @@ public class FaqGroupsV1Test extends RestBase {
         compareTwoObjects(faqsFromResponse.size(), SpreeFaqDao.INSTANCE.getCount(faqGroupId));
     }
 
-    @CaseId(2524)
+    @TmsLink("2524")
     @Skip(onServer = Server.STAGING)
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление FAQ",
@@ -234,7 +234,7 @@ public class FaqGroupsV1Test extends RestBase {
         Assert.assertTrue(SpreeFaqDao.INSTANCE.findById(faqId).isEmpty(), "FAQ не удалился");
     }
 
-    @CaseId(2525)
+    @TmsLink("2525")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление несуществующего FAQ",
             dependsOnMethods = "createFaqGroup")
@@ -244,7 +244,7 @@ public class FaqGroupsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2198)
+    @TmsLink("2198")
     @Skip(onServer = Server.STAGING)
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление группы FAQ",
@@ -255,7 +255,7 @@ public class FaqGroupsV1Test extends RestBase {
         Assert.assertTrue(SpreeFaqGroupsDao.INSTANCE.findById(faqGroupId).isEmpty(), "Не удалилась группа FAQ");
     }
 
-    @CaseId(2507)
+    @TmsLink("2507")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление несуществующей группы FAQ")
     public void deleteNonExistentFaqGroup() {

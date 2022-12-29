@@ -10,7 +10,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.ris_exporter.CategoriesRisRequest;
 import ru.instamart.api.request.ris_exporter.ProductsRisRequest;
 import ru.instamart.api.request.ris_exporter.StockRisRequest;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
@@ -22,7 +22,7 @@ public class WithoutAuthenticationRisTest extends RestBase {
         SessionFactory.clearSession(SessionType.RIS_EXPORTER);
     }
 
-    @CaseId(430)
+    @TmsLink("430")
     @Test(  groups = {"api-ris-exporter"},
             description = "Получение категорий без авторизации")
     public void getCategories401() {
@@ -31,7 +31,7 @@ public class WithoutAuthenticationRisTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(431)
+    @TmsLink("431")
     @Test(  groups = {"api-ris-exporter"},
             description = "Получение списка продуктов без авторизации")
     public void getProducts401() {
@@ -40,7 +40,7 @@ public class WithoutAuthenticationRisTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(432)
+    @TmsLink("432")
     @Test(  groups = {"api-ris-exporter"},
             description = "Получение остатка на складах без авторизации")
     public void getStock401() {

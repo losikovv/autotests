@@ -3,7 +3,7 @@ package ru.instamart.test.api.delivery_club.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -25,7 +25,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Delivery Club")
 public class AuthenticationDCTest extends RestBase {
 
-    @CaseId(562)
+    @TmsLink("562")
     @Story("Авторизация")
     @Test(  groups = {"api-instamart-smoke"},
             description = "Получение токена")
@@ -42,7 +42,7 @@ public class AuthenticationDCTest extends RestBase {
         assertTrue(localDateTimeFromResponse.isAfter(dateNow.plusMinutes(14).withNano(0)), "Токен истекает позже");
     }
 
-    @CaseId(573)
+    @TmsLink("573")
     @Story("Авторизация")
     @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
                 description = "Клиент не авторизован")

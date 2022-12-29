@@ -7,7 +7,7 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.SMOKE_STF;
@@ -20,14 +20,14 @@ public final class UserFavoritesTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
 
-    @CaseId(1263)
+    @TmsLink("1263")
     @Test(description = "Тест недоступности страницы любимых товаров неавторизованному юзеру", groups = {REGRESSION_STF, SMOKE_STF})
     public void noAccessToFavoritesForUnauthorizedUser() {
         userFavorites().goToPage();
         userFavorites().checkForbiddenPageUrl(userFavorites().pageUrl());
     }
 
-    @CaseId(1265)
+    @TmsLink("1265")
     @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {REGRESSION_STF, SMOKE_STF})
     public void noFavoriteItemsByDefault() {
         shop().goToPage();
@@ -39,7 +39,7 @@ public final class UserFavoritesTests {
         userFavorites().checkEmptyFavorites();
     }
 
-    @CaseId(1266)
+    @TmsLink("1266")
     @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAddFavoriteOnItemCard() {
         shop().goToPage();
@@ -55,7 +55,7 @@ public final class UserFavoritesTests {
         userFavorites().checkNotEmptyFavorites();
     }
 
-    @CaseId(1267)
+    @TmsLink("1267")
     @Test(description = "Удаление любимого товара из карточки товара и проверка списка", groups = {REGRESSION_STF, SMOKE_STF})
     public void successDeleteFavoriteOnItemCard() {
         final UserData userData = UserManager.getQaUser();
@@ -74,7 +74,7 @@ public final class UserFavoritesTests {
         userFavorites().checkCountChange(userFavorites().getFavoritesCount(), 1);
     }
 
-    @CaseId(1268)
+    @TmsLink("1268")
     @Test(description = "Удаление всех любимых товаров", groups = {REGRESSION_STF, SMOKE_STF})
     public void successCleanupFavorites() {
         final UserData userData = UserManager.getQaUser();
@@ -92,7 +92,7 @@ public final class UserFavoritesTests {
         userFavorites().checkEmptyFavorites();
     }
 
-    @CaseId(1270)
+    @TmsLink("1270")
     @Test(description = "Проверка работоспособности подгрузки товаров по мере прокрутки списка в Любимых товарах", groups = {REGRESSION_STF, SMOKE_STF})
     public void successShowMoreLoad() {
         final UserData userData = UserManager.getQaUser();
@@ -114,7 +114,7 @@ public final class UserFavoritesTests {
         userFavorites().checkCountLess(initCount, userFavorites().getFavoritesCount());
     }
 
-    @CaseId(1271)
+    @TmsLink("1271")
     @Test(description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным", groups = REGRESSION_STF)
     public void successRegAfterAddFavoriteOnCatalog() {
         shop().goToPage();
@@ -124,7 +124,7 @@ public final class UserFavoritesTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(1272)
+    @TmsLink("1272")
     @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
@@ -135,7 +135,7 @@ public final class UserFavoritesTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(1492)
+    @TmsLink("1492")
     @Test(description = "Тест добавления товаров в корзину из списка любимых товаров", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAddFavoriteProductToCart() {
         final UserData userData = UserManager.getQaUser();
@@ -156,7 +156,7 @@ public final class UserFavoritesTests {
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(1494)
+    @TmsLink("1494")
     @Test(description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров", groups = REGRESSION_STF)
     public void successAddFavoriteProductsFromCardToCart() {
         final UserData userData = UserManager.getQaUser();
@@ -178,7 +178,7 @@ public final class UserFavoritesTests {
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(2604)
+    @TmsLink("2604")
     @Test(description = "Открывается карточка товара, которого нет в наличии", groups = REGRESSION_STF)
     public void testOpenCartOutOfStockProduct() {
         final var userData = UserManager.getQaUser();

@@ -20,7 +20,7 @@ import ru.instamart.api.response.v3.ProductsV3Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +42,7 @@ public class ProductsV3Test extends RestBase {
     private ProductV3 product;
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1368)
+    @TmsLink("1368")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -58,7 +58,7 @@ public class ProductsV3Test extends RestBase {
         product = products.get(0);
     }
 
-    @CaseId(2709)
+    @TmsLink("2709")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "В категории больше или равно 3 дефолтных фильтров",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -75,7 +75,7 @@ public class ProductsV3Test extends RestBase {
         });
     }
 
-    @CaseId(1369)
+    @TmsLink("1369")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Несуществующий sid",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -88,7 +88,7 @@ public class ProductsV3Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1370)
+    @TmsLink("1370")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -109,7 +109,7 @@ public class ProductsV3Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1371)
+    @TmsLink("1371")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по популярности",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -125,7 +125,7 @@ public class ProductsV3Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1372)
+    @TmsLink("1372")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по возрастанию цены",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -141,7 +141,7 @@ public class ProductsV3Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1373)
+    @TmsLink("1373")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по убыванию цены",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -157,7 +157,7 @@ public class ProductsV3Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1374)
+    @TmsLink("1374")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
             groups = {API_INSTAMART_REGRESS, "api-v3"}) //, API_INSTAMART_PROD, "api-v3"}) todo отключили по ошибке каталога https://mattermost.sbermarket.tech/sbermarket/pl/rkm4xshmy3gj9p3eygj15trpwh
@@ -177,7 +177,7 @@ public class ProductsV3Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1375)
+    @TmsLink("1375")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по бренду продукты",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -200,7 +200,7 @@ public class ProductsV3Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1376)
+    @TmsLink("1376")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -224,7 +224,7 @@ public class ProductsV3Test extends RestBase {
 
     @Skip
     @Issue("STF-9817")
-    @CaseId(1377)
+    @TmsLink("1377")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные по выгодному весу",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -241,7 +241,7 @@ public class ProductsV3Test extends RestBase {
 
     @Skip
     @Issue("STF-9817")
-    @CaseId(1378)
+    @TmsLink("1378")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по категории с последней страницы",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -264,7 +264,7 @@ public class ProductsV3Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(1379)
+    @TmsLink("1379")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу со второй страницы",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})
@@ -291,7 +291,7 @@ public class ProductsV3Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1380)
+    @TmsLink("1380")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу с несуществующей страницы",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"})

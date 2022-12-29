@@ -15,7 +15,7 @@ import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.jdbc.dao.shifts.ShiftsDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -48,7 +48,7 @@ public class ShiftsCancelTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
     }
 
-    @CaseId(30)
+    @TmsLink("30")
     @Story("Отмена смены")
     @Test(groups = {"api-shifts"},
             description = "Партнер отменяет new смену")
@@ -62,7 +62,7 @@ public class ShiftsCancelTest extends RestBase {
         });
     }
 
-    @CaseId(71)
+    @TmsLink("71")
     @Story("Отмена смены")
     @Test(groups = {"api-shifts"},
             description = "Отменить ready to start смену")

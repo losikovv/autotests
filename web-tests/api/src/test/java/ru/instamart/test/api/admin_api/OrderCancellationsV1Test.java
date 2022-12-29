@@ -23,7 +23,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
@@ -59,7 +59,7 @@ public final class OrderCancellationsV1Test extends RestBase {
         apiV2.cancelOrder(order.getNumber());
     }
 
-    @CaseId(2836)
+    @TmsLink("2836")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Получение списка отмен отмененного заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -84,7 +84,7 @@ public final class OrderCancellationsV1Test extends RestBase {
         );
     }
 
-    @CaseId(2837)
+    @TmsLink("2837")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Получение списка отмен неотмененного заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -100,7 +100,7 @@ public final class OrderCancellationsV1Test extends RestBase {
                 "Для неотмененного заказа блок отмен в ответе не пуст");
     }
 
-    @CaseId(2838)
+    @TmsLink("2838")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка отмен неавторизованным пользователем",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -111,7 +111,7 @@ public final class OrderCancellationsV1Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(2839)
+    @TmsLink("2839")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка отмен пользователем без прав администратора",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -122,7 +122,7 @@ public final class OrderCancellationsV1Test extends RestBase {
         checkStatusCode403(response);
     }
 
-    @CaseId(2840)
+    @TmsLink("2840")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка отмен несуществующего заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -134,7 +134,7 @@ public final class OrderCancellationsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2841)
+    @TmsLink("2841")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Успешная отмена заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -164,7 +164,7 @@ public final class OrderCancellationsV1Test extends RestBase {
         });
     }
 
-    @CaseId(2842)
+    @TmsLink("2842")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка отмены заказа неавторизованным пользователем",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -175,7 +175,7 @@ public final class OrderCancellationsV1Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(2843)
+    @TmsLink("2843")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка отмены заказа пользователем без прав администратора",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -186,7 +186,7 @@ public final class OrderCancellationsV1Test extends RestBase {
         checkStatusCode403(response);
     }
 
-    @CaseId(2844)
+    @TmsLink("2844")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка отмены несуществующего заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -198,7 +198,7 @@ public final class OrderCancellationsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2845)
+    @TmsLink("2845")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка отмены заказа - некорректный запрос",
             groups = {API_INSTAMART_REGRESS, "api-v1"})

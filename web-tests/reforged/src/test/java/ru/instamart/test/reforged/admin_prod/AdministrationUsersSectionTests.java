@@ -3,10 +3,10 @@ package ru.instamart.test.reforged.admin_prod;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -15,7 +15,7 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Feature("Управление юзерами")
 public final class AdministrationUsersSectionTests {
 
-    @CaseId(19)
+    @TmsLink("19")
     @Story("Тест поиска пользователя в админке")
     @Test(description = "Работоспособность поиска в списке юзеров", groups =  PROD_ADMIN_SMOKE)
     public void successSearchUser() {

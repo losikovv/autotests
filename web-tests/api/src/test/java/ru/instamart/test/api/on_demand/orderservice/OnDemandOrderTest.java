@@ -14,7 +14,7 @@ import ru.instamart.jdbc.dao.orders_service.OrdersDao;
 import ru.instamart.jdbc.entity.order_service.OrdersEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 @Epic("On Demand")
 @Feature("DISPATCH")
@@ -31,7 +31,7 @@ public class OnDemandOrderTest extends RestBase {
         );
     }
 
-    @CaseId(47)
+    @TmsLink("47")
     @Test(groups = {"dispatch-orderservice-smoke"},
             description = "Получение данных on-demand заказа")
     public void getOnDemandOrder() {

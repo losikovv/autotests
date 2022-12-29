@@ -7,7 +7,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
@@ -21,7 +21,7 @@ public final class OrderEvaluationTests {
     private final ApiHelper helper = new ApiHelper();
 
     @Skip
-    @CaseId(3220)
+    @TmsLink("3220")
     @Test(description = "Оценка заказа | положительная", groups = {STF_PROD_S})
     public void orderPositiveEvaluation() {
         UserData userData = UserManager.getQaUser();
@@ -40,7 +40,7 @@ public final class OrderEvaluationTests {
     }
 
     @Skip
-    @CaseId(3221)
+    @TmsLink("3221")
     @Test(description = "Оценка заказа | отрицательная", groups = {STF_PROD_S})
     public void orderNegativeEvaluation() {
         UserData userData = UserManager.getQaUser();
@@ -59,7 +59,7 @@ public final class OrderEvaluationTests {
     }
 
     @Skip
-    @CaseId(3223)
+    @TmsLink("3223")
     @Test(description = "Выбор тегов для оценки заказа", groups = {STF_PROD_S})
     public void orderNegativeEvaluationTags() {
         UserData userData = UserManager.getQaUser();
@@ -81,7 +81,7 @@ public final class OrderEvaluationTests {
     }
 
     @Skip
-    @CaseId(3224)
+    @TmsLink("3224")
     @Test(description = "Оценка заказа с комментарием", groups = {STF_PROD_S})
     public void orderEvaluationComment() {
         UserData userData = UserManager.getQaUser();
@@ -102,7 +102,7 @@ public final class OrderEvaluationTests {
     }
 
     @Skip
-    @CaseId(3225)
+    @TmsLink("3225")
     @Test(description = "Оценка заказа с фото", groups = {STF_PROD_S})
     public void orderEvaluationPhoto() {
         UserData userData = UserManager.getQaUser();

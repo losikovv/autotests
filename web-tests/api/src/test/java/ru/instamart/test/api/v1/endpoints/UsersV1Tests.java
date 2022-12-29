@@ -13,7 +13,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.UsersV1Request;
 import ru.instamart.api.response.v1.UsersV1Response;
 import ru.instamart.kraken.data.user.UserData;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -30,7 +30,7 @@ public class UsersV1Tests extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(2369)
+    @TmsLink("2369")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение данных пользователя по емейлу")
     public void getUsers() {
@@ -41,7 +41,7 @@ public class UsersV1Tests extends RestBase {
         compareTwoObjects(response.as(UsersV1Response.class).getUsers().get(0).getEmail(), user.getEmail());
     }
 
-    @CaseId(2370)
+    @TmsLink("2370")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение данных пользователя с пустым емейлом")
     public void getUsersWithEmptyEmail() {
@@ -50,7 +50,7 @@ public class UsersV1Tests extends RestBase {
         checkErrorText(response, "Не указан обязательный параметр email");
     }
 
-    @CaseId(2371)
+    @TmsLink("2371")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение данных пользователя с несуществующим емейлом")
     public void getUsersWithNonExistentEmail() {

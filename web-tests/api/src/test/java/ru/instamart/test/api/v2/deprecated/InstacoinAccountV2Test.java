@@ -5,7 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -30,7 +30,7 @@ public class InstacoinAccountV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
-    @CaseId(555)
+    @TmsLink("555")
     @Deprecated
     @Story("Бонусный счет пользователя")
     @Test(description = "У пользователя нет бонусов")
@@ -41,7 +41,7 @@ public class InstacoinAccountV2Test extends RestBase {
         compareTwoObjects(0.0, response.as(InstacoinAccountV2Response.class).getInstacoinAccount().getAmount());
     }
 
-    @CaseId(557)
+    @TmsLink("557")
     @Deprecated
     @Skip
     @Story("Бонусный счет пользователя")

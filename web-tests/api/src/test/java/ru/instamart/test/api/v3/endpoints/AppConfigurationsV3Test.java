@@ -2,13 +2,13 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.request.v3.AppConfigurationsV3Request;
 import ru.instamart.api.response.v3.AppConfigurationCompanyV3Response;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -19,7 +19,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Конфигурация приложения")
 public class AppConfigurationsV3Test extends RestBase {
 
-    @CaseId(2361)
+    @TmsLink("2361")
     @Test(  groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Получение настроек организации")
     public void getCompanyDetails200() {
@@ -28,7 +28,7 @@ public class AppConfigurationsV3Test extends RestBase {
         checkResponseJsonSchema(response, AppConfigurationCompanyV3Response.class);
     }
 
-    @CaseId(2362)
+    @TmsLink("2362")
     @Test(  groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Получение настроек организации без авторизации")
     public void getCompanyDetails401() {

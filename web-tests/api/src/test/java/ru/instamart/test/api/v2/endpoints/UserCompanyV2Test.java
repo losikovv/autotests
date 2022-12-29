@@ -23,7 +23,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
@@ -49,7 +49,7 @@ public class UserCompanyV2Test extends RestBase {
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
     }
 
-    @CaseId(2254)
+    @TmsLink("2254")
     @Story("Получить данные по уже добавленной компании")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получить данные по уже добавленной компании с пустым ИНН")
@@ -59,7 +59,7 @@ public class UserCompanyV2Test extends RestBase {
         checkError(response, "Отсутствует обязательный параметр 'inn'");
     }
 
-    @CaseId(2253)
+    @TmsLink("2253")
     @Story("Получить данные по уже добавленной компании")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получить данные по уже добавленной компании с несуществующим ИНН")
@@ -70,7 +70,7 @@ public class UserCompanyV2Test extends RestBase {
         assertNull(companyV2Response.getCompany(), "Данные компании не null");
     }
 
-    @CaseId(2252)
+    @TmsLink("2252")
     @Skip(onServer = Server.STAGING)
     @Story("Получить данные по уже добавленной компании")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
@@ -86,7 +86,7 @@ public class UserCompanyV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2279)
+    @TmsLink("2279")
     @Story("Привязка заказа к компании")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Привязка заказа к компании с существующим orderNumber")
@@ -98,7 +98,7 @@ public class UserCompanyV2Test extends RestBase {
         checkError(response, "Компания не существует");
     }
 
-    @CaseId(2278)
+    @TmsLink("2278")
     @Story("Привязка заказа к компании")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Привязка заказа к компании с существующим ID")
@@ -108,7 +108,7 @@ public class UserCompanyV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(2277)
+    @TmsLink("2277")
     @Story("Привязка заказа к компании")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Привязка заказа к компании с существующим ID и orderNumber")
@@ -124,7 +124,7 @@ public class UserCompanyV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2344)
+    @TmsLink("2344")
     @Story("Получить факт наличия компаний у пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получить факт наличия компаний у пользователя с компанией")
@@ -134,7 +134,7 @@ public class UserCompanyV2Test extends RestBase {
         assertTrue(response.as(CompaniesExistV2Response.class).isCompaniesExist(), "Компания отсутствует");
     }
 
-    @CaseId(2341)
+    @TmsLink("2341")
     @Story("Прикрепить пользователя к компании")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Прикрепить пользователя к компании с невалидными company_security_code")
@@ -150,7 +150,7 @@ public class UserCompanyV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2342)
+    @TmsLink("2342")
     @Story("Прикрепить пользователя к компании")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Прикрепить пользователя к компании с невалидными inn")

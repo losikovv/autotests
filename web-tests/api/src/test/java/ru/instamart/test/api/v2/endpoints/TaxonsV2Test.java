@@ -13,7 +13,7 @@ import ru.instamart.api.request.v2.TaxonsV2Request;
 import ru.instamart.api.response.v2.TaxonV2Response;
 import ru.instamart.api.response.v2.TaxonsV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.Set;
@@ -30,7 +30,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public final class TaxonsV2Test extends RestBase {
     private int taxonId;
 
-    @CaseId(249)
+    @TmsLink("249")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем таксоны (подкатегории)")
     public void getTaxons() {
@@ -42,7 +42,7 @@ public final class TaxonsV2Test extends RestBase {
         taxonId = taxons.get(0).getId();
     }
 
-    @CaseId(249)
+    @TmsLink("249")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dependsOnMethods = "getTaxons",
             description = "Получаем таксон (подкатегорию)")

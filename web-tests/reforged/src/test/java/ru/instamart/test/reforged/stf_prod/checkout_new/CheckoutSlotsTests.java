@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf_prod.checkout_new;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,7 +10,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
@@ -34,7 +34,7 @@ public final class CheckoutSlotsTests {
         this.helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseId(3638)
+    @TmsLink("3638")
     @Test(description = "Выбор слота доставки", groups = {STF_PROD_S})
     public void testSelectDeliverySlot() {
         shop().goToPage();
@@ -133,7 +133,7 @@ public final class CheckoutSlotsTests {
         checkoutNew().checkSelectedSlotCostContainsText(slotCost);
     }
 
-    @CaseId(3634)
+    @TmsLink("3634")
     @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {STF_PROD_S})
     public void testSelectSlotRequired() {
         shop().goToPage();

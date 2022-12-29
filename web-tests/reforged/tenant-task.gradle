@@ -20,8 +20,8 @@ task businessSmoke(type: Test) {
         includeGroups 'smoke'
     }
     environment 'P_ENV', 'business-preprod'
-    systemProperty 'qase.Project', 'B2B'
-    systemProperty 'qase.Title', 'B2B UI Smoke'
+    environment 'PROJECT_ID', 'B2B'
+    environment 'TEST_RUN_NAME', 'B2B UI Smoke'
 }
 
 task businessRegression(type: Test) {
@@ -30,8 +30,8 @@ task businessRegression(type: Test) {
         includeGroups 'regression'
     }
     environment 'P_ENV', 'business-preprod'
-    systemProperty 'qase.Project', 'B2B'
-    systemProperty 'qase.Title', 'B2B UI Regression'
+    environment 'PROJECT_ID', 'B2B'
+    environment 'TEST_RUN_NAME', 'B2B UI Regression'
 }
 
 task businessUiCustom(type: Test) {
@@ -63,6 +63,6 @@ task partnersUiCustom(type: Test) {
         threadCount 3
     }
     environment 'P_ENV', 'hr_ops_partners-custom'
-    systemProperty 'qase.Project', 'PM'
-    systemProperty 'qase.Title', 'PM UI Regression'
+    environment 'PROJECT_ID', 'PM'
+    environment 'TEST_RUN_NAME', 'PM UI Regression'
 }

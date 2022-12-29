@@ -3,6 +3,7 @@ package ru.instamart.test.api.admin_api;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,7 +11,6 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.DictionariesV1Request;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
@@ -24,7 +24,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
         SessionFactory.clearSession(SessionType.API_V1);
     }
 
-    @CaseId(1818)
+    @TmsLink("1818")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря api_clients без авторизации")
@@ -33,7 +33,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(1819)
+    @TmsLink("1819")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря payment_methods без авторизации")
@@ -42,7 +42,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(1820)
+    @TmsLink("1820")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря payment_states без авторизации")
@@ -51,7 +51,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(1821)
+    @TmsLink("1821")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря shipment_combined_states без авторизации")
@@ -60,7 +60,7 @@ public class DictionariesWithoutAuthV1Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(1822)
+    @TmsLink("1822")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря tenants без авторизации")

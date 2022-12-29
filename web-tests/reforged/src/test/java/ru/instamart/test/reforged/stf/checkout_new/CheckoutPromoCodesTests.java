@@ -1,16 +1,12 @@
 package ru.instamart.test.reforged.stf.checkout_new;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
@@ -25,7 +21,7 @@ public final class CheckoutPromoCodesTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(3612)
+    @TmsLink("3612")
     @Story("Промокоды")
     @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {REGRESSION_STF,SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -66,7 +62,7 @@ public final class CheckoutPromoCodesTests {
         checkoutNew().checkAmountDecreaseAfterApplyPromo(amountWithoutPromo);
     }
 
-    @CaseId(3612)
+    @TmsLink("3612")
     @Story("Промокоды")
     @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Самовывоз", groups = {REGRESSION_STF,SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -111,7 +107,7 @@ public final class CheckoutPromoCodesTests {
         checkoutNew().checkAmountDecreaseAfterApplyPromo(amountWithoutPromo);
     }
 
-    @CaseIDs(value = {@CaseId(3689), @CaseId(3646), @CaseId(3781)})
+    @TmsLinks(value = {@TmsLink("167215"), @TmsLink("167216"), @TmsLink("167218")})
     @Story("Промокоды")
     @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -153,7 +149,7 @@ public final class CheckoutPromoCodesTests {
         checkoutNew().checkPromoAppliedLabelVisible();
     }
 
-    @CaseId(3645)
+    @TmsLink("3645")
     @Story("Промокоды")
     @Test(description = "Проверка применения несуществующего промокода", groups = {REGRESSION_STF,SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})

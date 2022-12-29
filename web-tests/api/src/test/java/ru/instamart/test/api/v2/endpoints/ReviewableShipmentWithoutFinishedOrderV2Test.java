@@ -7,8 +7,8 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
@@ -30,7 +30,7 @@ import static ru.instamart.kraken.data.user.UserManager.getDefaultApiUser;
 @Epic("ApiV2")
 @Feature("Отзывы о заказе")
 public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
-    @CaseIDs(value = {@CaseId(466), @CaseId(1165)})
+    @TmsLinks(value = {@TmsLink("466"), @TmsLink("1165")})
     @Story("Получение последнего подзаказа для отзыва")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Получение последнего подзаказа для отзыва - Заказа на аккаунте не было")
@@ -41,7 +41,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
         checkError(response, "ActiveRecord::RecordNotFound");
     }
 
-    @CaseId(467)
+    @TmsLink("467")
     @Story("Получение последнего подзаказа для отзыва")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение последнего подзаказа для отзыва - Последний подзаказ без оценки но старше 7 дней")
@@ -53,7 +53,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     }
 
 
-    @CaseId(473)
+    @TmsLink("473")
     @Story("Создание отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Создание отзыва о заказе с несуществующим номером")
@@ -66,7 +66,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
         checkError(response, "Доставка не существует");
     }
 
-    @CaseId(1166)
+    @TmsLink("1166")
     @Story("Получение последнего подзаказа для отзыва")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение последнего подзаказа для отзыва без авторизации")
@@ -78,7 +78,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING) //todo починить на стейдже Index 0 out of bounds for length 0
-    @CaseId(1174)
+    @TmsLink("1174")
     @Story("Закрытие окна заказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Закрытие окна заказа для недоставленного заказа")
@@ -91,7 +91,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
         compareTwoObjects(error.getErrorMessages().get(0).getMessage(), "Оценка доступна только для доставленных заказов");
     }
 
-    @CaseId(1163)
+    @TmsLink("1163")
     @Story("Закрытие окна заказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Закрытие окна заказа для несуществующего заказа")

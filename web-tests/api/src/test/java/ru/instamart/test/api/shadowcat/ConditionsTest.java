@@ -2,8 +2,8 @@ package ru.instamart.test.api.shadowcat;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
-import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,7 +14,6 @@ import ru.instamart.api.enums.shadowcat.SimpleCondition;
 import ru.instamart.api.enums.shadowcat.TwoStepCondition;
 import ru.instamart.api.request.shadowcat.ConditionRequest;
 import ru.instamart.api.request.shadowcat.ConditionRequest.AddTwoStepConditionRule;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode204or404;
 import static ru.instamart.api.request.shadowcat.ConditionRequest.ConditionSimple.PUT;
@@ -24,7 +23,7 @@ import static ru.instamart.api.request.shadowcat.ConditionRequest.ConditionSimpl
 public class ConditionsTest extends ShadowcatRestBase {
     private static final int promoId = PromotionType.DISCOUNT.getId();
 
-    @CaseId(14)
+    @TmsLink("14")
     @Test(description = "Добавление простых condition",
             groups = {"api-shadowcat"}, dataProvider = "SimpleCondition",
             dataProviderClass = ShadowcatDataProvider.class)
@@ -32,7 +31,7 @@ public class ConditionsTest extends ShadowcatRestBase {
         final Response response = PUT(promoId, condition);
         checkStatusCode204or404(response);
     }
-    @CaseId(15)
+    @TmsLink("15")
     @Test(description = "Добавление двухэтапных condition",
             groups = {"api-shadowcat"}, dataProvider = "TwoStepCondition",
             dataProviderClass = ShadowcatDataProvider.class)

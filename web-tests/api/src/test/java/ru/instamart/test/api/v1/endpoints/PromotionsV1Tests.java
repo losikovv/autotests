@@ -15,7 +15,7 @@ import ru.instamart.api.response.v1.PromotionV1Response;
 import ru.instamart.api.response.v1.PromotionsV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeActivatorsDao;
 import ru.instamart.jdbc.entity.stf.SpreeActivatorsEntity;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -34,7 +34,7 @@ public class PromotionsV1Tests extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(1430)
+    @TmsLink("1430")
     @Story("Бесплатная доставка")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о бесплатной доставке")
@@ -44,7 +44,7 @@ public class PromotionsV1Tests extends RestBase {
         checkResponseJsonSchema(response, FreeDeliveryV1Response.class);
     }
 
-    @CaseId(2245)
+    @TmsLink("2245")
     @Story("Компенсации")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о промо-акциях")
@@ -55,7 +55,7 @@ public class PromotionsV1Tests extends RestBase {
         promotionId = response.as(PromotionsV1Response.class).getPromotions().get(0).getId();
     }
 
-    @CaseId(2245)
+    @TmsLink("2245")
     @Story("Компенсации")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о промо-акции по id",

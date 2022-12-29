@@ -3,6 +3,7 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
@@ -27,7 +28,6 @@ import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,7 +60,7 @@ public class CheckoutV1Tests extends RestBase {
     }
 
     @Story("Checkout")
-    @CaseId(2034)
+    @TmsLink("2034")
     @Test(description = "Добавление информации о политике замен",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dataProvider = "replacementPolicies",
@@ -75,7 +75,7 @@ public class CheckoutV1Tests extends RestBase {
     }
 
     @Story("Checkout")
-    @CaseId(2035)
+    @TmsLink("2035")
     @Test(description = "Добавление информации о несуществующей политике замен",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"})
     public void addNonExistentReplacementPolicies() {
@@ -86,7 +86,7 @@ public class CheckoutV1Tests extends RestBase {
     }
 
     @Story("Checkout")
-    @CaseId(2036)
+    @TmsLink("2036")
     @Test(description = "Добавление несуществующего окна доставки",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = {"addReplacementPolicies", "addNonExistentReplacementPolicies"})
@@ -104,7 +104,7 @@ public class CheckoutV1Tests extends RestBase {
     }
 
     @Story("Checkout")
-    @CaseId(2037)
+    @TmsLink("2037")
     @Test(description = "Добавление окна доставки",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "addNonExistentDeliveryWindow")
@@ -125,7 +125,7 @@ public class CheckoutV1Tests extends RestBase {
     }
 
     @Story("Checkout")
-    @CaseId(2038)
+    @TmsLink("2038")
     @Test(description = "Завершение заказа для физического лица c некорректным способом оплаты",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "addDeliveryWindow")
@@ -139,7 +139,7 @@ public class CheckoutV1Tests extends RestBase {
     }
 
     @Story("Checkout")
-    @CaseId(2039)
+    @TmsLink("2039")
     @Test(description = "Завершение заказа для физического лица",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "completeOrderForPersonWithWrongParams")
@@ -164,7 +164,7 @@ public class CheckoutV1Tests extends RestBase {
     }
 
     @Story("Checkout")
-    @CaseId(2040)
+    @TmsLink("2040")
     @Test(description = "Завершение заказа для бизнеса",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "completeOrderForPerson")

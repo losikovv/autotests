@@ -23,8 +23,8 @@ import ru.instamart.api.response.v2.NextDeliveriesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -55,7 +55,7 @@ public class ShipmentsV1Tests extends RestBase {
     }
 
 
-    @CaseId(1390)
+    @TmsLink("1390")
     @Story("Окна доставки")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение окна доставки для подзаказа для указанного дня с существующим id")
@@ -65,7 +65,7 @@ public class ShipmentsV1Tests extends RestBase {
         checkResponseJsonSchema(response, ShippingRatesV1Response.class);
     }
 
-    @CaseId(1391)
+    @TmsLink("1391")
     @Story("Окна доставки")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение окна доставки для несуществующего подзаказа для указанного дня")
@@ -75,7 +75,7 @@ public class ShipmentsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseIDs(value = {@CaseId(1392), @CaseId(1393), @CaseId(1394), @CaseId(1395), @CaseId(1396), @CaseId(1397), @CaseId(1400), @CaseId(1398), @CaseId(1399)})
+    @TmsLinks(value = {@TmsLink("1392"), @TmsLink("1393"), @TmsLink("1394"), @TmsLink("1395"), @TmsLink("1396"), @TmsLink("1397"), @TmsLink("1400"), @TmsLink("1398"), @TmsLink("1399")})
     @Story("Окна доставки")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dataProvider = "dateFormats",
@@ -89,7 +89,7 @@ public class ShipmentsV1Tests extends RestBase {
         checkResponseJsonSchema(response, ShippingRatesV1Response.class);
     }
 
-    @CaseId(1402)
+    @TmsLink("1402")
     @Story("Окна доставки")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение ближайших окон доставки для несуществующего магазина")
@@ -99,7 +99,7 @@ public class ShipmentsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseIDs(value = {@CaseId(1403), @CaseId(1404), @CaseId(1405)})
+    @TmsLinks(value = {@TmsLink("1403"), @TmsLink("1404"), @TmsLink("1405")})
     @Story("Окна доставки")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение ближайших окон доставки с корректными данными",
@@ -112,7 +112,7 @@ public class ShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы")
-    @CaseId(43)
+    @TmsLink("43")
     @Test(description = "Получение информации о мультиритейлерном заказе",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getMultireteilerOrder() {
@@ -123,7 +123,7 @@ public class ShipmentsV1Tests extends RestBase {
     }
 
     @Story("Заказы")
-    @CaseId(2133)
+    @TmsLink("2133")
     @Test(description = "Изменение подзаказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getMultireteilerOrder")
@@ -140,7 +140,7 @@ public class ShipmentsV1Tests extends RestBase {
         compareTwoObjects(response.as(ShipmentV1Response.class).getShipment().getStoreId(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
-    @CaseId(1557)
+    @TmsLink("1557")
     @Story("Мерж заказов")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение статуса мержа",
@@ -153,7 +153,7 @@ public class ShipmentsV1Tests extends RestBase {
         compareTwoObjects(mergeShipment.getShipmentId(), (long) lineItem.getShipmentId());
     }
 
-    @CaseId(2775)
+    @TmsLink("2775")
     @Story("Мерж заказов")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение статуса мержа для несуществующего заказа")
@@ -163,7 +163,7 @@ public class ShipmentsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(1559)
+    @TmsLink("1559")
     @Story("Удаление подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Удаление существующего подзаказа",
@@ -175,7 +175,7 @@ public class ShipmentsV1Tests extends RestBase {
         checkStatusCode404(responseAfterRemoval);
     }
 
-    @CaseId(1560)
+    @TmsLink("1560")
     @Story("Удаление подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Удаление несуществующего подзаказа без токена заказа",

@@ -19,7 +19,7 @@ import ru.instamart.api.response.v2.PaymentToolsV2Response;
 import ru.instamart.api.response.v2.PaymentToolsWithTypesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -40,7 +40,7 @@ public class PaymentToolsV2Test extends RestBase {
         orderNumber = apiV2.createOrder().getNumber();
     }
 
-    @CaseId(1115)
+    @TmsLink("1115")
     @Story("Способы оплаты")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Получить способы оплаты")
@@ -56,7 +56,7 @@ public class PaymentToolsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(682)
+    @TmsLink("682")
     @Story("Способы оплаты с типами")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Существующий номер заказа")
@@ -78,7 +78,7 @@ public class PaymentToolsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(820)
+    @TmsLink("820")
     @Story("Способы оплаты с типами")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Несуществующий номер заказа")
@@ -89,7 +89,7 @@ public class PaymentToolsV2Test extends RestBase {
     }
 
     @Skip
-    @CaseId(1116)
+    @TmsLink("1116")
     @Story("Способы оплаты")
     @Deprecated
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
@@ -116,7 +116,7 @@ public class PaymentToolsV2Test extends RestBase {
     }
 
     @Skip
-    @CaseId(1117)
+    @TmsLink("1117")
     @Story("Способы оплаты")
     @Deprecated
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
@@ -127,7 +127,7 @@ public class PaymentToolsV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(2217)
+    @TmsLink("2217")
     @Story("Способы оплаты")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Несуществующий номер заказа")
@@ -137,7 +137,7 @@ public class PaymentToolsV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(2216)
+    @TmsLink("2216")
     @Story("Способы оплаты")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Существующий номер заказа")

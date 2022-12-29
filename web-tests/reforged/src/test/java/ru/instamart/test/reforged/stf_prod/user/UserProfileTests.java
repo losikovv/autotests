@@ -6,7 +6,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -15,7 +15,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Профиль пользователя")
 public final class UserProfileTests {
 
-    @CaseId(1524)
+    @TmsLink("1524")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации меню профиля Sbermarket", groups = {STF_PROD_S})
     public void successValidateSbermarketTenantProfileMenu() {
@@ -34,7 +34,7 @@ public final class UserProfileTests {
         shop().interactHeader().interactAccountMenu().checkFAQLinkExists();
     }
 
-    @CaseId(1525)
+    @TmsLink("1525")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Профиль' в меню профиля", groups = {STF_PROD_S})
     public void successValidateUserProfileButton() {
@@ -48,7 +48,7 @@ public final class UserProfileTests {
         userEdit().checkPageIsAvailable();
     }
 
-    @CaseId(1527)
+    @TmsLink("1527")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = {STF_PROD_S})
     public void successValidateTermsButton() {
@@ -62,7 +62,7 @@ public final class UserProfileTests {
         terms().checkPageIsAvailable();
     }
 
-    @CaseId(1528)
+    @TmsLink("1528")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = {STF_PROD_S})
     public void successValidateDeliveryButton() {
@@ -76,7 +76,7 @@ public final class UserProfileTests {
         delivery().checkPageIsAvailable();
     }
 
-    @CaseId(1530)
+    @TmsLink("1530")
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = {STF_PROD_S})
     public void successValidateFaqButton() {
@@ -90,7 +90,7 @@ public final class UserProfileTests {
         faq().checkPageIsAvailable();
     }
 
-    @CaseId(1531)
+    @TmsLink("1531")
     @Story("навигация в меню пользователя")
     @Test(description = "Тест доступности страниц профиля пользователя", groups = {STF_PROD_S})
     public void successCheckProfilePagesAreAvailable() {
@@ -106,7 +106,7 @@ public final class UserProfileTests {
         userShipments().checkPageIsAvailable();
     }
 
-    @CaseId(1532)
+    @TmsLink("1532")
     @Story("Заказы")
     @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = {STF_PROD_S})
     public void successValidateDefaultOrderHistory() {
@@ -126,7 +126,7 @@ public final class UserProfileTests {
         userShipments().checkGoToShoppingButton();
     }
 
-    @CaseId(2559)
+    @TmsLink("2559")
     @Story("Данные профиля пользователя")
     @Test(description = "Добавление имени и фамилии для новых пользователей", groups = {STF_PROD_S})
     public void addFullName() {
@@ -145,7 +145,7 @@ public final class UserProfileTests {
         userEdit().checkFullName(userData.getName(), userEdit().getName());
     }
 
-    @CaseId(2561)
+    @TmsLink("2561")
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = {STF_PROD_S})
     public void changeFullName() {
@@ -176,7 +176,7 @@ public final class UserProfileTests {
         userEdit().checkFullName(fullName, userEdit().getName());
     }
 
-    @CaseId(2563)
+    @TmsLink("2563")
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение телефона для существующих пользователей", groups = {STF_PROD_S})
     public void changePhone() {

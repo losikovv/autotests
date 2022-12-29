@@ -9,8 +9,8 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.time.LocalDateTime;
 
@@ -38,7 +38,7 @@ public final class UserShipmentTests {
     // Отображение стоимости доставки "Сборка" + "Доставка" (отдельно) или "Сборка и доставка" (одной суммой) зависит от настройки выбранного слота
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(3144)
+    @TmsLink("3144")
     @Test(description = "Объединение корзины при повторе заказа", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testMergingCartIfRepeatOrder() {
         final var userData = UserManager.getQaUser();
@@ -92,7 +92,7 @@ public final class UserShipmentTests {
         checkoutNew().checkDeliverySlotsVisible();
     }
 
-    @CaseId(1258)
+    @TmsLink("1258")
     @Test(description = "Повторение заказа", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testRepeatOrder() {
         final var userData = UserManager.getQaUser();
@@ -138,7 +138,7 @@ public final class UserShipmentTests {
         userShipment().checkProductsList(firstShipmentLineItems);
     }
 
-    @CaseId(3036)
+    @TmsLink("3036")
     @Test(description = "Отмена заказа со страницы заказа", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testCancelOrder() {
         final var userData = UserManager.getQaUser();
@@ -172,7 +172,7 @@ public final class UserShipmentTests {
         userShipment().checkShipmentStateCancelled();
     }
 
-    @CaseId(3146)
+    @TmsLink("3146")
     @Test(description = "Отображение информации о заказе | заказ в статусе Принят", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testShipmentReadyView() {
         final var userData = UserManager.getQaUser();
@@ -222,7 +222,7 @@ public final class UserShipmentTests {
         userShipment().checkCancelOrderButtonVisible();
     }
 
-    @CaseId(3149)
+    @TmsLink("3149")
     @Test(description = "Отображение информации о заказе | заказ в статусе Собирается", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testShipmentCollectingView() {
         final var userData = UserManager.getQaUser();
@@ -273,7 +273,7 @@ public final class UserShipmentTests {
         userShipment().checkCancelOrderButtonVisible();
     }
 
-    @CaseId(3147)
+    @TmsLink("3147")
     @Test(description = "Отображение информации о заказе | заказ в статусе Собран", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testShipmentCollectedView() {
         final var userData = UserManager.getQaUser();
@@ -323,7 +323,7 @@ public final class UserShipmentTests {
         userShipment().checkCancelOrderButtonVisible();
     }
 
-    @CaseId(3148)
+    @TmsLink("3148")
     @Test(description = "Отображение информации о заказе | заказ в статусе В пути", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testShipmentShippingView() {
         final var userData = UserManager.getQaUser();
@@ -373,7 +373,7 @@ public final class UserShipmentTests {
         userShipment().checkCancelOrderButtonInvisible();
     }
 
-    @CaseId(3150)
+    @TmsLink("3150")
     @Test(description = "Отображение информации о заказе | заказ в статусе Получен", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testShipmentShippedView() {
         final var userData = UserManager.getQaUser();
@@ -426,7 +426,7 @@ public final class UserShipmentTests {
         userShipment().checkCancelOrderButtonInvisible();
     }
 
-    @CaseId(3151)
+    @TmsLink("3151")
     @Test(description = "Отображение информации о заказе | заказ в статусе Отменен", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testShipmentCancelledView() {
         final var userData = UserManager.getQaUser();
@@ -474,7 +474,7 @@ public final class UserShipmentTests {
         userShipment().checkCancelOrderButtonInvisible();
     }
 
-    @CaseId(3703)
+    @TmsLink("3703")
     @Test(description = "Отображение информации об оценке заказа | заказ НЕ оценен", groups = {REGRESSION_STF, JORMUNGANDR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotRatedShipmentView() {
@@ -500,7 +500,7 @@ public final class UserShipmentTests {
         userShipment().hoverThirdStar();
     }
 
-    @CaseId(3704)
+    @TmsLink("3704")
     @Test(description = "Отображение информации об оценке заказа | заказ Оценен", groups = {REGRESSION_STF, JORMUNGANDR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testRatedShipmentView() {
@@ -527,7 +527,7 @@ public final class UserShipmentTests {
         userShipment().checkRateText("Ваша оценка — отлично");
     }
 
-    @CaseId(3705)
+    @TmsLink("3705")
     @Test(description = "Отображение информации об оценке заказа | заказ Не оценен, время для оценки прошло", groups = {REGRESSION_STF, JORMUNGANDR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTooLateToRatedShipmentView() {
@@ -551,7 +551,7 @@ public final class UserShipmentTests {
         userShipment().checkRateText("Время для оценки заказа закончилось");
     }
 
-    @CaseId(3802)
+    @TmsLink("3802")
     @Test(description = "Оценка заказа с экрана информации о заказе", groups = {REGRESSION_STF, JORMUNGANDR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testRateShipment() {
@@ -581,7 +581,7 @@ public final class UserShipmentTests {
         userShipment().checkRateText("Ваша оценка — отлично");
     }
 
-    @CaseId(3153)
+    @TmsLink("3153")
     @Test(description = "Фильтр товаров 'Собрано' на экране информации о заказе", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testCollectedFilter() {
         final var userData = UserManager.getQaUser();
@@ -608,7 +608,7 @@ public final class UserShipmentTests {
         userShipment().checkFirstEmptyFilteredMessage("Все собранные без замен товары появятся здесь");
     }
 
-    @CaseId(3154)
+    @TmsLink("3154")
     @Test(description = "Фильтр товаров 'Замены' на экране информации о заказе", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testReplacementFilter() {
         final var userData = UserManager.getQaUser();
@@ -639,7 +639,7 @@ public final class UserShipmentTests {
                 "Стоимость заказа будет скорректирована с учетом замен");
     }
 
-    @CaseId(3155)
+    @TmsLink("3155")
     @Test(description = "Фильтр товаров 'Отмены' на экране информации о заказе", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testCancelFilter() {
         final var userData = UserManager.getQaUser();
@@ -671,7 +671,7 @@ public final class UserShipmentTests {
                 "Стоимость заказа будет скорректирована с учетом отмен");
     }
 
-    @CaseId(3536)
+    @TmsLink("3536")
     @Test(description = "Вывод информации о дозаказе / заказ доставлен или отменен", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testAdditionalOrderInfoIfMainOrderCompleteCancel() {
         final var userData = UserManager.getQaUser();
@@ -694,7 +694,7 @@ public final class UserShipmentTests {
         userShipment().checkAdditionalOrderInfoNotVisible();
     }
 
-    @CaseId(3565)
+    @TmsLink("3565")
     @Test(description = "Вывод информации о дозаказе / редактирование заказа в магазине запрещено", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testAdditionalOrderInfoEditOffInStore() {
         final var userData = UserManager.getQaUser();
@@ -716,7 +716,7 @@ public final class UserShipmentTests {
         userShipment().checkAdditionalOrderText("В этом магазине нельзя добавить товары к заказу");
     }
 
-    @CaseId(3533)
+    @TmsLink("3533")
     @Test(description = "Вывод информации о дозаказе / кончилось время для редактирования заказа", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testAdditionalOrderInfoEditOutOfTime() {
         final var userData = UserManager.getQaUser();
@@ -738,7 +738,7 @@ public final class UserShipmentTests {
         userShipment().checkAdditionalOrderText("К нему не получится добавить товары");
     }
 
-    @CaseIDs({@CaseId(3535), @CaseId(2062)})
+    @TmsLinks({@TmsLink("3535"), @TmsLink("2062")})
     @Test(description = "Вывод информации о дозаказе / в заказе есть алкоголь", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testAdditionalOrderInfoEditAlcohol() {
         final var userData = UserManager.getQaUser();
@@ -791,7 +791,7 @@ public final class UserShipmentTests {
                 "Реализация зарезервированной алкогольной продукции происходит по цене в торговом зале на дату самовывоза заказа и может отличаться от цены товара на сайте.");
     }
 
-    @CaseId(3033)
+    @TmsLink("3033")
     @Test(description = "Открытие карточки товара по нажатию на товар", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testOpenProductCard() {
         final var userData = UserManager.getQaUser();

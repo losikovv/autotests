@@ -18,7 +18,7 @@ import ru.instamart.api.response.v1.LineItemsV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeLineItemsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -41,7 +41,7 @@ public class LineItemsV1Test extends RestBase {
         }
     }
 
-    @CaseId(57)
+    @TmsLink("57")
     @Story("Товары в заказе")
     @Test(description = "Получение информации о товарах в заказе",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
@@ -54,7 +54,7 @@ public class LineItemsV1Test extends RestBase {
         compareTwoObjects(receivedLineItem, lineItemFromResponse);
     }
 
-    @CaseId(52)
+    @TmsLink("52")
     @Story("Товары в заказе")
     @Test(description = "Добавление товара в заказ",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"})
@@ -71,7 +71,7 @@ public class LineItemsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(53)
+    @TmsLink("53")
     @Story("Товары в заказе")
     @Test(description = "Изменение количества товаров в заказе",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
@@ -88,7 +88,7 @@ public class LineItemsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1520)
+    @TmsLink("1520")
     @Story("Товары в заказе")
     @Test(description = "Удаление товара из заказа",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
@@ -101,7 +101,7 @@ public class LineItemsV1Test extends RestBase {
         }
     }
 
-    @CaseId(1521)
+    @TmsLink("1521")
     @Story("Товары в заказе")
     @Test(description = "Получение информации о товарах в несуществующем заказе",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
@@ -112,7 +112,7 @@ public class LineItemsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(1522)
+    @TmsLink("1522")
     @Story("Товары в заказе")
     @Test(description = "Добавление несуществующего товара в заказ",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
@@ -122,7 +122,7 @@ public class LineItemsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(1523)
+    @TmsLink("1523")
     @Story("Товары в заказе")
     @Test(description = "Изменение количества товаров в несуществующем заказе",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
@@ -134,7 +134,7 @@ public class LineItemsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(1524)
+    @TmsLink("1524")
     @Story("Товары в заказе")
     @Test(description = "Удаление товара из заказа",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},

@@ -11,7 +11,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.HdeV1Request;
 import ru.instamart.api.response.v1.TicketsV1Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -27,7 +27,7 @@ public class HdeV1Test extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(2510)
+    @TmsLink("2510")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение тикетов хелпдеска без параметров")
     public void getHdeTickets() {
@@ -36,7 +36,7 @@ public class HdeV1Test extends RestBase {
         checkResponseJsonSchema(response, TicketsV1Response.class);
     }
 
-    @CaseId(2513)
+    @TmsLink("2513")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение тикетов хелпдеска по email")
     public void getHdeTicketsByEmail() {

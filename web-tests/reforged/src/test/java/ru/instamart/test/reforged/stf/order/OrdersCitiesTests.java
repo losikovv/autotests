@@ -10,8 +10,8 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.data_provider.CityProvider;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -29,9 +29,9 @@ public final class OrdersCitiesTests {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseIDs(value = {@CaseId(1650), @CaseId(1651), @CaseId(1652), @CaseId(1653), @CaseId(1654), @CaseId(1655),
-            @CaseId(1656), @CaseId(1657), @CaseId(1658), @CaseId(1659), @CaseId(1660), @CaseId(1661),
-            @CaseId(1662), @CaseId(1663), @CaseId(1664), @CaseId(1665)})
+    @TmsLinks(value = {@TmsLink("1650"), @TmsLink("1651"), @TmsLink("1652"), @TmsLink("1653"), @TmsLink("1654"), @TmsLink("1655"),
+            @TmsLink("1656"), @TmsLink("1657"), @TmsLink("1658"), @TmsLink("1659"), @TmsLink("1660"), @TmsLink("1661"),
+            @TmsLink("1662"), @TmsLink("1663"), @TmsLink("1664"), @TmsLink("1665")})
     @Test(description = "Тест заказа в METRO в разных городах",
             groups = {REGRESSION_STF},
             dataProviderClass = CityProvider.class,

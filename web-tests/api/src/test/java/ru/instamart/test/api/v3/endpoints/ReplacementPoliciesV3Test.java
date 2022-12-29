@@ -16,7 +16,7 @@ import ru.instamart.api.response.v3.ReplacementPoliciesV3Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.Collections;
 
@@ -43,7 +43,7 @@ public class ReplacementPoliciesV3Test extends RestBase {
         order = apiV1.getMultiRetailerOrder();
     }
 
-    @CaseId(2210)
+    @TmsLink("2210")
     @Story("Способы замены товаров")
     @Test(description = "Запрос на получение способов замены товаров",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -54,7 +54,7 @@ public class ReplacementPoliciesV3Test extends RestBase {
         replacementPolicyId = response.as(ReplacementPoliciesV3Response.class).getReplacementPolicies().get(0).getId();
     }
 
-    @CaseId(2211)
+    @TmsLink("2211")
     @Story("Способы замены товаров")
     @Test(description = "Запрос на выбор способа замены товаров",
             groups = {API_INSTAMART_REGRESS, "api-v3"},

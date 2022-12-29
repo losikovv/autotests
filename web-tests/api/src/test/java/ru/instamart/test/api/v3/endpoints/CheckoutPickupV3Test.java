@@ -1,8 +1,6 @@
 package ru.instamart.test.api.v3.endpoints;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -18,8 +16,6 @@ import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Collections;
 
@@ -53,7 +49,7 @@ public class CheckoutPickupV3Test extends RestBase {
         order = apiV1.getMultiRetailerOrder();
     }
 
-    @CaseIDs(value = {@CaseId(2026), @CaseId(2028)})
+    @TmsLinks(value = {@TmsLink("2026"), @TmsLink("2028")})
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с заказом, созданным данным пользователем, самовывоз",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -62,7 +58,7 @@ public class CheckoutPickupV3Test extends RestBase {
         checkStatusCode(response, 204);
     }
 
-    @CaseIDs(value = {@CaseId(2012), @CaseId(2014)})
+    @TmsLinks(value = {@TmsLink("2012"), @TmsLink("2014")})
     @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом, доступным для пользователя, самовывоз",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -72,7 +68,7 @@ public class CheckoutPickupV3Test extends RestBase {
         checkStatusCode(response, 204);
     }
 
-    @CaseId(2047)
+    @TmsLink("2047")
     @Story("Получение данных заказа")
     @Test(description = "Получение данных о заказе, содержащем алкоголь",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -92,7 +88,7 @@ public class CheckoutPickupV3Test extends RestBase {
         checkOrder(response, order, user, ShippingMethodV2.PICKUP.getMethod(), true);
     }
 
-    @CaseId(2516)
+    @TmsLink("2516")
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по заказу c алкоголем",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -115,7 +111,7 @@ public class CheckoutPickupV3Test extends RestBase {
         checkOrderPaymentTools(orderFromResponse, paymentTool);
     }
 
-    @CaseId(2672)
+    @TmsLink("2672")
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения с самовывоза на доставку для заказа с алкоголем",
             groups = {API_INSTAMART_REGRESS, "api-v3"},

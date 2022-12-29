@@ -15,8 +15,8 @@ import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
 import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
 import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 import shippingcalc.*;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannelWith(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC, 1024 * 1024 * 10));
     }
 
-    @CaseIDs(value = {@CaseId(46), @CaseId(60), @CaseId(74), @CaseId(335), @CaseId(339), @CaseId(333)})
+    @TmsLinks(value = {@TmsLink("46"), @TmsLink("60"), @TmsLink("74"), @TmsLink("335"), @TmsLink("339"), @TmsLink("333")})
     @Story("Create Strategy")
     @Test(description = "Создание стратегии с валидными данными",
             groups = "ondemand-shippingcalc")
@@ -62,7 +62,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkStrategy(localStrategyId, "autotest", 2, 2, 0, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseIDs(value = {@CaseId(63), @CaseId(61), @CaseId(445)})
+    @TmsLinks(value = {@TmsLink("63"), @TmsLink("61"), @TmsLink("445")})
     @Story("Create Strategy")
     @Test(description = "Создание стратегии с несколькими правилами на разные скрипты",
             groups = "ondemand-shippingcalc",
@@ -108,7 +108,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkStrategy(strategyIdWithDifferentScriptsInRules, "autotest", 3, 3, 1, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseIDs(value = {@CaseId(191), @CaseId(62), @CaseId(71), @CaseId(337), @CaseId(340)})
+    @TmsLinks(value = {@TmsLink("191"), @TmsLink("62"), @TmsLink("71"), @TmsLink("337"), @TmsLink("340")})
     @Story("Create Strategy")
     @Test(description = "Создание стратегии с несколькими правилами и несколькими условиями в этих правилах",
             groups = "ondemand-shippingcalc")
@@ -194,7 +194,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkStrategy(strategyIdWithMultipleRulesAndConditions, "autotest", 6, 10, 2, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(446)
+    @TmsLink("446")
     @Story("Create Strategy")
     @Test(description = "Создание глобальной стратегии",
             groups = "ondemand-shippingcalc")
@@ -205,7 +205,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkGlobalStrategy(globalStrategyId, "autotest", 2, 2, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(434)
+    @TmsLink("434")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки, при создании глобальной стратегии для типа доставки, который уже имеет глобальную стратегию",
             groups = "ondemand-shippingcalc",
@@ -217,7 +217,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(378)
+    @TmsLink("378")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки валидации параметров скрипта при создании стратегии",
             groups = "ondemand-shippingcalc",
@@ -228,7 +228,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(430)
+    @TmsLink("430")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки, при создании локальной стратегии, если у правил мин. корзины нет условия Always",
             groups = "ondemand-shippingcalc",
@@ -263,7 +263,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(432)
+    @TmsLink("432")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки, при создании глобальной стратегии, если отсутствует условие Always для правил мин. корзины",
             groups = "ondemand-shippingcalc",
@@ -298,7 +298,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(435)
+    @TmsLink("435")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки, при создании глобальной стратегии, если отсутствует условие Always для правил цены",
             groups = "ondemand-shippingcalc",
@@ -333,7 +333,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(179)
+    @TmsLink("179")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии имени стратегии",
             groups = "ondemand-shippingcalc",
@@ -344,7 +344,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(180)
+    @TmsLink("180")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии идентификатора создателя",
             groups = "ondemand-shippingcalc",
@@ -355,7 +355,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(183)
+    @TmsLink("183")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии правил стратегии",
             groups = "ondemand-shippingcalc",
@@ -382,7 +382,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(66)
+    @TmsLink("66")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при несуществующем скрипте",
             groups = "ondemand-shippingcalc",
@@ -393,7 +393,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(184)
+    @TmsLink("184")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии скрипта",
             groups = "ondemand-shippingcalc",
@@ -428,7 +428,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(186)
+    @TmsLink("186")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии параметров скрипта",
             groups = "ondemand-shippingcalc",
@@ -439,7 +439,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(187)
+    @TmsLink("187")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии условий правила",
             groups = "ondemand-shippingcalc",
@@ -471,7 +471,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(188)
+    @TmsLink("188")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии параметров условий",
             groups = "ondemand-shippingcalc",
@@ -482,7 +482,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(336)
+    @TmsLink("336")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии правила на минимальную корзину",
             groups = "ondemand-shippingcalc",
@@ -510,7 +510,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(338)
+    @TmsLink("338")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии условий минимальной корзины",
             groups = "ondemand-shippingcalc",
@@ -542,7 +542,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(379)
+    @TmsLink("379")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки валидации параметров скрипта при обновлении стратегии",
             groups = "ondemand-shippingcalc",
@@ -554,7 +554,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(401)
+    @TmsLink("401")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при не уникальном приоритете в правилах",
             groups = "ondemand-shippingcalc",
@@ -599,7 +599,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(402)
+    @TmsLink("402")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при не уникальном приоритете в правилах минимальной корзины",
             groups = "ondemand-shippingcalc",
@@ -643,7 +643,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseId(403)
+    @TmsLink("403")
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при не уникальном значении минимальной корзины",
             groups = "ondemand-shippingcalc",
@@ -687,7 +687,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
-    @CaseIDs(value = {@CaseId(81), @CaseId(91), @CaseId(205), @CaseId(342), @CaseId(346), @CaseId(363)})
+    @TmsLinks(value = {@TmsLink("81"), @TmsLink("91"), @TmsLink("205"), @TmsLink("342"), @TmsLink("346"), @TmsLink("363")})
     @Story("Update Strategy")
     @Test(description = "Обновление существующей стратегии с валидными данными",
             groups = "ondemand-shippingcalc",
@@ -698,7 +698,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkUpdatedStrategy(localStrategyId, "autotest-update", 4, 4, 2, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseIDs(value = {@CaseId(94), @CaseId(92), @CaseId(334)})
+    @TmsLinks(value = {@TmsLink("94"), @TmsLink("92"), @TmsLink("334")})
     @Story("Update Strategy")
     @Test(description = "Обновление существующей стратегии с несколькими правилами на разные скрипты",
             groups = "ondemand-shippingcalc",
@@ -743,7 +743,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkUpdatedStrategy(strategyIdWithDifferentScriptsInRules, "autotest-update", 6, 6, 3, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseIDs(value = {@CaseId(206), @CaseId(93), @CaseId(102), @CaseId(344), @CaseId(347)})
+    @TmsLinks(value = {@TmsLink("206"), @TmsLink("93"), @TmsLink("102"), @TmsLink("344"), @TmsLink("347")})
     @Story("Update Strategy")
     @Test(description = "Обновление стратегии с несколькими правилами и несколькими условиями в этих правилах",
             groups = "ondemand-shippingcalc",
@@ -829,7 +829,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkUpdatedStrategy(strategyIdWithMultipleRulesAndConditions, "autotest-update", 12, 20, 11, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(442)
+    @TmsLink("442")
     @Story("Update Strategy")
     @Test(description = "Нельзя изменить поле global, при обновлении стратегии",
             groups = "ondemand-shippingcalc",
@@ -840,7 +840,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkUpdatedGlobalStrategy(globalStrategyId, "autotest-update", 4, 4, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(431)
+    @TmsLink("431")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки, при обновлении локальной стратегии, если отсутствует правило мин. корзины с условием Always",
             groups = "ondemand-shippingcalc",
@@ -876,7 +876,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(433)
+    @TmsLink("433")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки, при обновлении глобальной стратегии, если отсутствует правило мин. корзины с условием Always",
             groups = "ondemand-shippingcalc",
@@ -912,7 +912,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(436)
+    @TmsLink("436")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки, при обновлении глобальной стратегии, если отсутствует правило цены с условием Always",
             groups = "ondemand-shippingcalc",
@@ -948,7 +948,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(192)
+    @TmsLink("192")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии имени стратегии",
             groups = "ondemand-shippingcalc",
@@ -960,7 +960,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseIDs(value = {@CaseId(83), @CaseId(204)})
+    @TmsLinks(value = {@TmsLink("83"), @TmsLink("204")})
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при обновлении несуществующей стратегии",
             groups = "ondemand-shippingcalc",
@@ -971,7 +971,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(193)
+    @TmsLink("193")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии идентификатора создателя",
             groups = "ondemand-shippingcalc",
@@ -983,7 +983,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(196)
+    @TmsLink("196")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии правил стратегии",
             groups = "ondemand-shippingcalc",
@@ -1011,7 +1011,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(97)
+    @TmsLink("97")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при обновлении существующей стратегии с правилом на несуществующий скрипт",
             groups = "ondemand-shippingcalc",
@@ -1023,7 +1023,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(197)
+    @TmsLink("197")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии скрипта",
             groups = "ondemand-shippingcalc",
@@ -1059,7 +1059,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(199)
+    @TmsLink("199")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии условий правила",
             groups = "ondemand-shippingcalc",
@@ -1071,7 +1071,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(200)
+    @TmsLink("200")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии условий правила",
             groups = "ondemand-shippingcalc",
@@ -1104,7 +1104,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(201)
+    @TmsLink("201")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии параметров условий",
             groups = "ondemand-shippingcalc",
@@ -1116,7 +1116,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(343)
+    @TmsLink("343")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии правила на минимальную корзину",
             groups = "ondemand-shippingcalc",
@@ -1145,7 +1145,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(404)
+    @TmsLink("404")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при не уникальном приоритете в правилах",
             groups = "ondemand-shippingcalc",
@@ -1191,7 +1191,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(405)
+    @TmsLink("405")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при не уникальном приоритете в правилах минимальной корзины",
             groups = "ondemand-shippingcalc",
@@ -1236,7 +1236,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(406)
+    @TmsLink("406")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при не уникальном значении минимальной корзины",
             groups = "ondemand-shippingcalc",
@@ -1281,7 +1281,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(345)
+    @TmsLink("345")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии условий минимальной корзины",
             groups = "ondemand-shippingcalc",
@@ -1314,7 +1314,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(372)
+    @TmsLink("372")
     @Story("Update Strategy")
     @Test(description = "Получение ошибки, при обновлении удаленной стратегии",
             groups = "ondemand-shippingcalc",
@@ -1326,7 +1326,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
-    @CaseId(138)
+    @TmsLink("138")
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину с валидными данными",
             groups = "ondemand-shippingcalc",
@@ -1337,7 +1337,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkBind(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(141)
+    @TmsLink("141")
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к нескольким магазинам в массиве binds",
             groups = "ondemand-shippingcalc",
@@ -1362,7 +1362,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkBind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(139)
+    @TmsLink("139")
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину, у которого уже есть связка",
             groups = "ondemand-shippingcalc",
@@ -1375,7 +1375,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkUnbind(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(366)
+    @TmsLink("366")
     @Skip // deprecated
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину с флагом replace_all",
@@ -1393,7 +1393,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkUnbind(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(348)
+    @TmsLink("348")
     @Story("Bind Strategy")
     @Test(description = "Получении ошибки при привязке без id стратегии",
             groups = "ondemand-shippingcalc",
@@ -1404,7 +1404,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.bindStrategy(request);
     }
 
-    @CaseId(349)
+    @TmsLink("349")
     @Story("Bind Strategy")
     @Test(description = "Получении ошибки при привязке без сущности binds",
             groups = "ondemand-shippingcalc",
@@ -1419,7 +1419,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.bindStrategy(request);
     }
 
-    @CaseId(144)
+    @TmsLink("144")
     @Story("Bind Strategy")
     @Test(description = "Получении ошибки при привязке без магазина",
             groups = "ondemand-shippingcalc",
@@ -1431,7 +1431,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.bindStrategy(request);
     }
 
-    @CaseId(146)
+    @TmsLink("146")
     @Story("Bind Strategy")
     @Test(description = "Получении ошибки при привязке без тенанта",
             groups = "ondemand-shippingcalc",
@@ -1443,7 +1443,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.bindStrategy(request);
     }
 
-    @CaseId(364)
+    @TmsLink("364")
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину без типа доставки",
             groups = "ondemand-shippingcalc",
@@ -1461,7 +1461,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkBind(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.AUCHAN.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(376)
+    @TmsLink("376")
     @Story("Bind Strategy")
     @Test(description = "Получение ошибки при привязке к удаленной стратегии",
             groups = "ondemand-shippingcalc",
@@ -1473,7 +1473,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.bindStrategy(request);
     }
 
-    @CaseId(455)
+    @TmsLink("455")
     @Story("Unbind Strategy")
     @Skip // deprecated
     @Test(description = "Получение ошибки доступа при попытке отвязать стратегию",
@@ -1486,7 +1486,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.unbindStrategy(request);
     }
 
-    @CaseId(155)
+    @TmsLink("155")
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от магазина с валидными данными",
             groups = "ondemand-shippingcalc",
@@ -1497,7 +1497,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkUnbind(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(158)
+    @TmsLink("158")
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от нескольких магазинов в массиве binds",
             groups = "ondemand-shippingcalc",
@@ -1522,7 +1522,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkUnbind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(159)
+    @TmsLink("159")
     @Story("Unbind Strategy")
     @Test(description = "Получении ошибки при отвязке без id стратегии",
             groups = "ondemand-shippingcalc",
@@ -1533,7 +1533,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.unbindStrategy(request);
     }
 
-    @CaseId(350)
+    @TmsLink("350")
     @Story("Unbind Strategy")
     @Test(description = "Получении ошибки при отвязке без сущности binds",
             groups = "ondemand-shippingcalc",
@@ -1548,7 +1548,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.unbindStrategy(request);
     }
 
-    @CaseId(161)
+    @TmsLink("161")
     @Story("Unbind Strategy")
     @Test(description = "Получении ошибки при отвязке без магазина",
             groups = "ondemand-shippingcalc",
@@ -1560,7 +1560,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.unbindStrategy(request);
     }
 
-    @CaseId(163)
+    @TmsLink("163")
     @Story("Unbind Strategy")
     @Test(description = "Получении ошибки при отвязке без тенанта",
             groups = "ondemand-shippingcalc",
@@ -1572,7 +1572,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.unbindStrategy(request);
     }
 
-    @CaseId(365)
+    @TmsLink("365")
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от магазина без типа доставки",
             groups = "ondemand-shippingcalc",
@@ -1590,7 +1590,7 @@ public class StrategyTest extends ShippingCalcBase {
         checkUnbind(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.AUCHAN.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseId(118)
+    @TmsLink("118")
     @Story("Get Strategy")
     @Test(description = "Получение существующей стратегии",
             groups = "ondemand-shippingcalc",
@@ -1614,7 +1614,7 @@ public class StrategyTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(120)
+    @TmsLink("120")
     @Story("Get Strategy")
     @Test(description = "Получение ошибки при отправке запроса с несуществующей стратегией",
             groups = "ondemand-shippingcalc",
@@ -1628,7 +1628,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.getStrategy(request);
     }
 
-    @CaseId(375)
+    @TmsLink("375")
     @Story("Get Strategy")
     @Test(description = "Получение ошибки при запросе удаленной стратегии",
             groups = "ondemand-shippingcalc",
@@ -1643,7 +1643,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.getStrategy(request);
     }
 
-    @CaseId(124)
+    @TmsLink("124")
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий без фильтров",
             groups = "ondemand-shippingcalc",
@@ -1662,7 +1662,7 @@ public class StrategyTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(256)
+    @TmsLink("256")
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий с комбинированным фильтром (имя, тип доставки, магазины)",
             groups = "ondemand-shippingcalc",
@@ -1687,7 +1687,7 @@ public class StrategyTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(251)
+    @TmsLink("251")
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий с фильтром по имени",
             groups = "ondemand-shippingcalc",
@@ -1707,7 +1707,7 @@ public class StrategyTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(253)
+    @TmsLink("253")
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий с фильтром по типу доставки",
             groups = "ondemand-shippingcalc",
@@ -1727,7 +1727,7 @@ public class StrategyTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(254)
+    @TmsLink("254")
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий с фильтром по магазину",
             groups = "ondemand-shippingcalc",
@@ -1748,7 +1748,7 @@ public class StrategyTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(172)
+    @TmsLink("172")
     @Story("Get Strategies For Store")
     @Test(description = "Получение стратегии для магазина",
             groups = "ondemand-shippingcalc",
@@ -1771,7 +1771,7 @@ public class StrategyTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(175)
+    @TmsLink("175")
     @Story("Get Strategies For Store")
     @Test(description = "Получение пустого списка при отсутствии искомой стратегии",
             groups = "ondemand-shippingcalc")
@@ -1787,7 +1787,7 @@ public class StrategyTest extends ShippingCalcBase {
         Allure.step("Проверка стратегии в ответе", () -> compareTwoObjects(response.getStrategyCount(), 0));
     }
 
-    @CaseId(351)
+    @TmsLink("351")
     @Story("Get Strategies For Store")
     @Test(description = "Получение ошибки при отсутствии магазина",
             groups = "ondemand-shippingcalc",
@@ -1802,7 +1802,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.getStrategiesForStore(request);
     }
 
-    @CaseId(362)
+    @TmsLink("362")
     @Story("Get Strategies For Store")
     @Test(description = "Получение стратегий при отсутствии тенанта и способа доставки",
             groups = "ondemand-shippingcalc",
@@ -1824,7 +1824,7 @@ public class StrategyTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(353)
+    @TmsLink("353")
     @Story("Get Strategies For Store")
     @Test(description = "Получение ошибки при не валидном способе доставки",
             groups = "ondemand-shippingcalc",
@@ -1840,7 +1840,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.getStrategiesForStore(request);
     }
 
-    @CaseId(367)
+    @TmsLink("367")
     @Story("Delete Strategy")
     @Test(description = "Удаление стратегии без биндов",
             groups = "ondemand-shippingcalc",
@@ -1862,7 +1862,7 @@ public class StrategyTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(369)
+    @TmsLink("369")
     @Story("Delete Strategy")
     @Test(description = "Получение ошибки при удалении стратегии с биндами",
             groups = "ondemand-shippingcalc",
@@ -1874,7 +1874,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.deleteStrategy(request);
     }
 
-    @CaseId(437)
+    @TmsLink("437")
     @Story("Delete Strategy")
     @Test(description = "Получение ошибки, при удалении глобальной стратегии",
             groups = "ondemand-shippingcalc",
@@ -1886,7 +1886,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.deleteStrategy(request);
     }
 
-    @CaseId(373)
+    @TmsLink("373")
     @Story("Delete Strategy")
     @Test(description = "Получение ошибки при удалении несуществующей стратегии",
             groups = "ondemand-shippingcalc",

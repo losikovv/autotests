@@ -19,7 +19,7 @@ import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.Objects;
 
@@ -66,7 +66,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Начало сборки")
-    @CaseId(4)
+    @TmsLink("4")
     @Test(description = "Проверяем импортировался ли заказ",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void createOrderImport() {
@@ -76,7 +76,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Начало сборки")
-    @CaseId(13)
+    @TmsLink("13")
     @Test(description = "Создаём сборку",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void postAssembly200() {
@@ -93,7 +93,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о сборках")
-    @CaseId(3)
+    @TmsLink("3")
     @Test(description = "Получаем сборку по номеру",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
@@ -109,7 +109,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(5)
+    @TmsLink("5")
     @Test(description = "Получаем все заказы для сборщика",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getShopperShipments200() {
@@ -119,7 +119,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(105)
+    @TmsLink("105")
     @Test(description = "Получаем все заказы для сборщика",
             groups = {API_SHOPPER_REGRESS}) //, API_SHOPPER_PROD}) TODO приходит пустой ответ на проде
     public void getShopperShipment200() {
@@ -130,7 +130,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
 
 
     @Story("Получение информации о сборках")
-    @CaseId(6)
+    @TmsLink("6")
     @Test(description = "Получаем все сборки сборщика",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
@@ -141,7 +141,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Процесс сборки")
-    @CaseId(7)
+    @TmsLink("7")
     @Test(description = "Собираем товар PATCH",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = {"postAssembly200", "getAssembly200"})
@@ -152,7 +152,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Процесс сборки")
-    @CaseId(7)
+    @TmsLink("7")
     @Test(description = "Собираем товар PUT",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = {"postAssembly200", "getAssembly200"})
@@ -163,7 +163,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Хелпдеск")
-    @CaseId(102)
+    @TmsLink("102")
     @Test(description = "Создаем новый тикет в хелпдеске",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void createHelpdeskTicket() {
@@ -175,7 +175,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Хелпдеск")
-    @CaseId(8)
+    @TmsLink("8")
     @Test(description = "Получаем тикеты хелпдеска",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = {"createHelpdeskTicket"})
@@ -188,7 +188,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(9)
+    @TmsLink("9")
     @Test(description = "Получаем заказ по номеру",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getShipment200() {
@@ -198,7 +198,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о сборках")
-    @CaseId(17)
+    @TmsLink("17")
     @Test(description = "Получаем предзамены для позиций в сборке",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
@@ -209,7 +209,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(22)
+    @TmsLink("22")
     @Test(description = "Получаем инфу о стоках товаров в заказе",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getShipmentStock200() {
@@ -219,7 +219,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Оплата")
-    @CaseId(44)
+    @TmsLink("44")
     @Test(description = "Оплачиваем заказ через LifePay",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
@@ -229,7 +229,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(45)
+    @TmsLink("45")
     @Test(description = "Получаем маркетинговые пробники для заказа",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD},
             dependsOnMethods = "postAssembly200")
@@ -241,7 +241,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Сборки/отгрузки")
-    @CaseId(73)
+    @TmsLink("73")
     @Test(description = "Список активных отгрузок магазина текущего партнёра",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void activeShipments200() {
@@ -251,7 +251,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Сборки/отгрузки")
-    @CaseId(108)
+    @TmsLink("108")
     @Test(description = "Список активных сборок/отгрузок магазина текущего партнёра для универсалов",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void shopperDriverActive200() {

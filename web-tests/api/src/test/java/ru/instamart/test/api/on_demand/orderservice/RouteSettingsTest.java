@@ -18,7 +18,7 @@ import ru.instamart.jdbc.entity.order_service.PlaceSettingsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
@@ -35,7 +35,7 @@ public class RouteSettingsTest extends RestBase {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
     }
 
-    @CaseId(165)
+    @TmsLink("165")
     @Story("Routing settings")
     @Test(description = "Установка маршрутизатизации на диспатч",
             groups = {API_SHOPPER_REGRESS, "dispatch-orderservice-smoke"})
@@ -59,7 +59,7 @@ public class RouteSettingsTest extends RestBase {
         });
     }
 
-    @CaseId(165)
+    @TmsLink("165")
     @Story("Routing settings")
     @Test(description = "Установка маршрутизации на револьверную",
             groups = {API_SHOPPER_REGRESS, "dispatch-orderservice-smoke"})

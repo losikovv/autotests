@@ -2,11 +2,11 @@ package ru.instamart.test.reforged.chatwoot;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.CHATWOOT;
 import static ru.instamart.reforged.chatwoot.ChatwootRouter.dialogs;
@@ -16,7 +16,7 @@ import static ru.instamart.reforged.chatwoot.ChatwootRouter.login;
 @Feature("Авторизация")
 public final class AuthorizationTests {
 
-    @CaseId(66)
+    @TmsLink("66")
     @Test(description = "Авторизация в чатвут зарегистрированного пользователя", groups = {CHATWOOT})
     public void authorizationTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -40,7 +40,7 @@ public final class AuthorizationTests {
         dialogs().interactLeftMenu().interactAccountMenu().checkActiveUserState("Оффлайн");
     }
 
-    @CaseId(71)
+    @TmsLink("71")
     @Test(description = "Разлогин из чатвута", groups = {CHATWOOT})
     public void logoutTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -66,7 +66,7 @@ public final class AuthorizationTests {
         login().checkSubmitDisabled();
     }
 
-    @CaseId(124)
+    @TmsLink("124")
     @Test(description = "Невозможность авторизации с неверным паролем", groups = {CHATWOOT})
     public void authorizationTestNegative() {
         UserData userData = UserManager.getOperatorUser();

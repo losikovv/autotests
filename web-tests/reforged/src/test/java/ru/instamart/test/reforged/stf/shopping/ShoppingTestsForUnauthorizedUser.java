@@ -6,7 +6,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
@@ -16,7 +16,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Заказ")
 public final class ShoppingTestsForUnauthorizedUser {
 
-    @CaseId(1622)
+    @TmsLink("1622")
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")
     @Test(description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
             groups = REGRESSION_STF)
@@ -42,7 +42,7 @@ public final class ShoppingTestsForUnauthorizedUser {
         shop().interactCart().checkOrderButtonIsNotEnabled();
     }
 
-    @CaseId(1623)
+    @TmsLink("1623")
     @Story("Тест набора корзины до суммы, достаточной для заказа")
     @Test(description = "Тест набора корзины до суммы, достаточной для заказа", groups = REGRESSION_STF)
     public void successCollectItemsForOrder() {
@@ -66,7 +66,7 @@ public final class ShoppingTestsForUnauthorizedUser {
         home().interactMultisearchHeader().checkUserActionsButtonVisible();
     }
 
-    @CaseId(2608)
+    @TmsLink("2608")
     @Test(description = "Тест недоступности пустого чекаута по прямой ссылке", groups = REGRESSION_STF)
     public void testCheckoutNoAccessForUserWithoutCart() {
         shop().goToPage();
@@ -78,7 +78,7 @@ public final class ShoppingTestsForUnauthorizedUser {
         shop().interactHeader().checkMinAmountAlertVisible();
     }
 
-    @CaseId(2301)
+    @TmsLink("2301")
     @Test(description = "Тест недоступности чекаута неавторизованному пользователю", groups = REGRESSION_STF)
     public void testCheckoutNoAccessForGuest() {
         home().goToPage();

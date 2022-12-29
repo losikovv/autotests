@@ -3,7 +3,7 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -40,7 +40,7 @@ public class UserCompaniesV1Tests extends RestBase {
     }
 
     @Story("Web")
-    @CaseId(616)
+    @TmsLink("616")
     @Test(description = "Список компаний пользователя",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getUserCompanies() {
@@ -51,7 +51,7 @@ public class UserCompaniesV1Tests extends RestBase {
     }
 
     @Story("Web")
-    @CaseId(617)
+    @TmsLink("617")
     @Test(description = "Компания пользователя",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getCompanyByID(){
@@ -61,7 +61,7 @@ public class UserCompaniesV1Tests extends RestBase {
     }
 
     @Story("Web")
-    @CaseId(618)
+    @TmsLink("618")
     @Test(description = "Персональный менеджер компании",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getCompanyWithoutManager(){
@@ -71,7 +71,7 @@ public class UserCompaniesV1Tests extends RestBase {
     }
 
     @Story("Web")
-    @CaseId(619)
+    @TmsLink("619")
     @Test(description = "Список сотрудников компании",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getCompanyEmployees() {
@@ -81,7 +81,7 @@ public class UserCompaniesV1Tests extends RestBase {
     }
 
     @Story("Web")
-    @CaseId(620)
+    @TmsLink("620")
     @Test(description = "Баланс  компании",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getPaymentAccount() {
@@ -91,7 +91,7 @@ public class UserCompaniesV1Tests extends RestBase {
     }
 
     @Story("Web")
-    @CaseId(621)
+    @TmsLink("621")
     @Test(description = "Обновление баланса компании",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postRefreshPaymentAccountError() {
@@ -102,7 +102,7 @@ public class UserCompaniesV1Tests extends RestBase {
     }
 
     @Story("Web")
-    @CaseId(622)
+    @TmsLink("622")
     @Test(description = "Ошибка при повторной регистрации компании",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postCompanyRegistrationError(){
@@ -113,7 +113,7 @@ public class UserCompaniesV1Tests extends RestBase {
     }
 
     @Story("Web")
-    @CaseId(623)
+    @TmsLink("623")
     @Test(description = "Статус регистрации компании (зарегистрирована)",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getCompanyPresence() {

@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.surgelevel.*;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import surgelevel.v2.SurgelevelV2;
 
 import java.util.Objects;
@@ -36,7 +36,7 @@ public class GrpcV2Test extends GrpcBase {
         client = surgelevel.v2.ServiceGrpc.newBlockingStub(channel);
     }
 
-    @CaseId(52)
+    @TmsLink("52")
     @Story("Set Config")
     @Test(description = "Изменить дефолтную конфигурацию",
             groups = "ondemand-surgelevel")
@@ -57,7 +57,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getConfig().getFormula().getScript());
     }
 
-    @CaseId(50)
+    @TmsLink("50")
     @Story("Get Config")
     @Test(description = "Получить дефолтную конфигурацию",
             groups = "ondemand-surgelevel",
@@ -75,7 +75,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getConfig().getFormula().getScript());
     }
 
-    @CaseId(88)
+    @TmsLink("88")
     @Story("Save Region")
     @Test(description = "Сохранение региона",
             groups = "ondemand-surgelevel")
@@ -93,7 +93,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getRegion(0).getConfig().getInheritance(0).getFormula());
     }
 
-    @CaseId(112)
+    @TmsLink("112")
     @Story("Find Region")
     @Test(description = "Поиск региона",
             groups = "ondemand-surgelevel",
@@ -112,7 +112,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getRegion(0).getConfig().getInheritance(0).getFormula());
     }
 
-    @CaseId(62)
+    @TmsLink("62")
     @Story("Save Retailer")
     @Test(description = "Сохранение ритейлера",
             groups = "ondemand-surgelevel")
@@ -130,7 +130,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getRetailer(0).getConfig().getInheritance(0).getFormula());
     }
 
-    @CaseId(117)
+    @TmsLink("117")
     @Story("Find Retailer")
     @Test(description = "Поиск ритейлера",
             groups = "ondemand-surgelevel",
@@ -149,7 +149,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getRetailer(0).getConfig().getInheritance(0).getFormula());
     }
 
-    @CaseId(71)
+    @TmsLink("71")
     @Story("Save Store")
     @Test(description = "Сохранение магазина",
             groups = "ondemand-surgelevel")
@@ -180,7 +180,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getStore(0).getConfig().getInheritance(0).getFormula());
     }
 
-    @CaseId(102)
+    @TmsLink("102")
     @Story("Find Store")
     @Test(description = "Поиск магазина",
             groups = "ondemand-surgelevel",
@@ -205,7 +205,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getStore(0).getConfig().getInheritance(0).getFormula());
     }
 
-    @CaseId(79)
+    @TmsLink("79")
     @Story("Save Formula")
     @Test(description = "Сохранени формулы",
             groups = "ondemand-surgelevel")
@@ -225,7 +225,7 @@ public class GrpcV2Test extends GrpcBase {
         check.equals(response.getFormula(0).getScript(), FORMULA_SCRIPT);
     }
 
-    @CaseId(109)
+    @TmsLink("109")
     @Story("Find Formula")
     @Test(description = "Поиск формулы",
             groups = "ondemand-surgelevel",
@@ -242,7 +242,7 @@ public class GrpcV2Test extends GrpcBase {
         check.equals(response.getFormula(0).getScript(), FORMULA_SCRIPT);
     }
 
-    @CaseId(97)
+    @TmsLink("97")
     @Story("Call Formula")
     @Test(description = "Выполнение формулы",
             groups = "ondemand-surgelevel")

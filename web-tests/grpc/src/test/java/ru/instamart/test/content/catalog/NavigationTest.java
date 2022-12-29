@@ -3,7 +3,7 @@ package ru.instamart.test.content.catalog;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import lombok.extern.slf4j.Slf4j;
 import navigation.Navigation;
 import navigation.NavigationServiceGrpc;
@@ -29,7 +29,7 @@ public class NavigationTest extends GrpcBase {
         client = NavigationServiceGrpc.newBlockingStub(channel);
     }
 
-    @CaseId(150)
+    @TmsLink("150")
     @Test(groups = {"grpc-product-hub"},
             description = "Проверка построения дерева продуктов")
     public void getMenuTree() {
@@ -48,7 +48,7 @@ public class NavigationTest extends GrpcBase {
     }
 
 
-    @CaseId(151)
+    @TmsLink("151")
     @Test(groups = {"grpc-product-hub"},
             description = "Проверка построения дерева продуктов без поля \"store_id\"",
             expectedExceptions = StatusRuntimeException.class,
@@ -62,7 +62,7 @@ public class NavigationTest extends GrpcBase {
         client.getMenuTree(request);
     }
 
-    @CaseId(152)
+    @TmsLink("152")
     @Test(groups = {"grpc-product-hub"},
             description = "Получение хлебных крошек по ID категории",
             dependsOnMethods = "getMenuTree")
@@ -77,7 +77,7 @@ public class NavigationTest extends GrpcBase {
         softAssert.assertAll();
     }
 
-    @CaseId(153)
+    @TmsLink("153")
     @Test(groups = {"grpc-product-hub"},
             description = "Получение хлебных крошек без указания ID категории ",
             expectedExceptions = StatusRuntimeException.class,
@@ -90,7 +90,7 @@ public class NavigationTest extends GrpcBase {
     }
 
 
-    @CaseId(154)
+    @TmsLink("154")
     @Test(groups = {"grpc-product-hub"},
             description = "Проверка построения дерева категорий",
             dependsOnMethods = "getMenuTree")
@@ -106,7 +106,7 @@ public class NavigationTest extends GrpcBase {
         softAssert.assertAll();
     }
 
-    @CaseId(155)
+    @TmsLink("155")
     @Test(groups = {"grpc-product-hub"},
             description = "Проверка построения дерева категорий с пустым значением у поля \"category_id\"")
     public void emptyCategoryID() {
@@ -117,7 +117,7 @@ public class NavigationTest extends GrpcBase {
         assertTrue(response.getCategoriesCount() > 0, "Вернулся пустой массив категорий");
     }
 
-    @CaseId(224)
+    @TmsLink("224")
     @Test(groups = {"grpc-product-hub"},
             description = "Проверка построения дерева продуктов без поля \"tenant_id\"",
             expectedExceptions = StatusRuntimeException.class,
@@ -130,7 +130,7 @@ public class NavigationTest extends GrpcBase {
         client.getMenuTree(request);
     }
 
-    @CaseId(225)
+    @TmsLink("225")
     @Test(groups = {"grpc-product-hub"},
             description = "Проверка построения дерева продуктов с пустым значением в поле \"store_id\"",
             expectedExceptions = StatusRuntimeException.class,
@@ -144,7 +144,7 @@ public class NavigationTest extends GrpcBase {
         client.getMenuTree(request);
     }
 
-    @CaseId(226)
+    @TmsLink("226")
     @Test(groups = {"grpc-product-hub"},
             description = "Проверка построения дерева продуктов с пустым значением в поле \"tenant_id\"",
             expectedExceptions = StatusRuntimeException.class,
@@ -158,7 +158,7 @@ public class NavigationTest extends GrpcBase {
         client.getMenuTree(request);
     }
 
-    @CaseId(227)
+    @TmsLink("227")
     @Test(groups = {"grpc-product-hub"}, enabled = false, //ждет обновления от Дмитрия Дьячкова после изменения логики
             description = "Проверка построения дерева продуктов без поля \"tree_depth\"")
     public void withoutTreeDepth() {

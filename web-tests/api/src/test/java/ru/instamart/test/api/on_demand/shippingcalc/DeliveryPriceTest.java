@@ -15,8 +15,6 @@ import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
 import ru.instamart.redis.RedisService;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.*;
 
 import java.util.UUID;
@@ -89,7 +87,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         plannedSurgeFeature = ShippingCalcHelper.getInstance().isPlannedSurgeFeatureEnabled();
     }
 
-    @CaseIDs(value = {@CaseId(355), @CaseId(356), @CaseId(289), @CaseId(321), @CaseId(322), @CaseId(328), @CaseId(330), @CaseId(383), @CaseId(427), @CaseId(512)})
+    @TmsLinks(value = {@TmsLink("355"), @TmsLink("356"), @TmsLink("289"), @TmsLink("321"), @TmsLink("322"), @TmsLink("328"), @TmsLink("330"), @TmsLink("383"), @TmsLink("427"), @TmsLink("512")})
     @Story("Get Delivery Price")
     @Test(description = "Получение цены по локальной стратегии",
             groups = "ondemand-shippingcalc")
@@ -104,7 +102,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
-    @CaseIDs(value = {@CaseId(242), @CaseId(381)})
+    @TmsLinks(value = {@TmsLink("242"), @TmsLink("381")})
     @Story("Get Delivery Price")
     @Test(description = "Получение цены по глобальной стратегии",
             groups = "ondemand-shippingcalc")
@@ -119,7 +117,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, globalStrategyId, 10001, minCartAmountGlobal, 1, 0, 0, 0);
     }
 
-    @CaseIDs(value = {@CaseId(248), @CaseId(325), @CaseId(329), @CaseId(382)})
+    @TmsLinks(value = {@TmsLink("248"), @TmsLink("325"), @TmsLink("329"), @TmsLink("382")})
     @Story("Get Delivery Price")
     @Test(description = "Получение цены по более приоритетному правилу в стратегии",
             groups = "ondemand-shippingcalc")
@@ -134,7 +132,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, conditionStrategyId, 0, minCartAmountThird, 1, 0, 1, 0);
     }
 
-    @CaseId(237)
+    @TmsLink("237")
     @Story("Get Delivery Price")
     @Test(description = "Получение ошибки при расчете цены для магазина, для которого не смогли найти стратегию",
             groups = "ondemand-shippingcalc",
@@ -150,7 +148,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
-    @CaseId(380)
+    @TmsLink("380")
     @Story("Get Delivery Price")
     @Test(description = "Получение цены доставки для мультизаказа",
             groups = "ondemand-shippingcalc")
@@ -211,7 +209,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 29800, minCartAmountFirst, 3, 4, 0, 1);
     }
 
-    @CaseIDs(value = {@CaseId(240), @CaseId(274), @CaseId(359)})
+    @TmsLinks(value = {@TmsLink("240"), @TmsLink("274"), @TmsLink("359")})
     @Story("Get Delivery Price")
     @Test(description = "Создание оффера, фиксирующего стоимость доставки",
             groups = "ondemand-shippingcalc",
@@ -246,7 +244,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         Allure.step("Проверяем новую расчитанную цену", () -> checkDeliveryPrice(newResponse, localStrategyId, 9900, minCartAmountFirst, 3, 4, 0, 0));
     }
 
-    @CaseId(501)
+    @TmsLink("501")
     @Story("Get Delivery Price")
     @Test(description = "Проверка сохранения pricedShipment",
             groups = "ondemand-shippingcalc",
@@ -313,7 +311,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         });
     }
 
-    @CaseIDs({@CaseId(288), @CaseId(513), @CaseId(541)})
+    @TmsLinks({@TmsLink("288"), @TmsLink("513"), @TmsLink("541")})
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены с наценкой surge",
             groups = "ondemand-shippingcalc")
@@ -335,7 +333,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990);
     }
 
-    @CaseId(291)
+    @TmsLink("291")
     @Story("Get Delivery Price")
     @Test(description = "Сохранение цены с наценкой в оффер",
             groups = "ondemand-shippingcalc",
@@ -366,7 +364,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(537)
+    @TmsLink("537")
     @Story("Get Delivery Price")
     @Test(description = "Наценка по параметрам свитчбек-эксперимента региона",
             groups = "ondemand-shippingcalc")
@@ -389,7 +387,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
 
     }
 
-    @CaseId(538)
+    @TmsLink("538")
     @Story("Get Delivery Price")
     @Test(description = "Отсутствие наценки по параметрам свитчбек-эксперимента региона при не попадании в временной интервал",
             groups = "ondemand-shippingcalc")
@@ -411,7 +409,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990);
     }
 
-    @CaseId(515)
+    @TmsLink("515")
     @Story("Get Delivery Price")
     @Test(description = "Проверка прокидывания не нулевой корзины для не on-demand магазина",
             groups = "ondemand-shippingcalc")
@@ -432,7 +430,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
-    @CaseIDs({@CaseId(540), @CaseId(539)})
+    @TmsLinks({@TmsLink("540"), @TmsLink("539")})
     @Story("Get Delivery Price")
     @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
             groups = "ondemand-shippingcalc")
@@ -454,7 +452,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF);
     }
 
-    @CaseId(511)
+    @TmsLink("511")
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены без наценки surge с флагом SURGE_DISABLED",
             groups = "ondemand-shippingcalc")
@@ -476,7 +474,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPriceSurgeOff(response, 0f, 0);
     }
 
-    @CaseIDs({@CaseId(421), @CaseId(514)})
+    @TmsLinks({@TmsLink("421"), @TmsLink("514")})
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены без наценки surge для не on-demand заказа",
             groups = "ondemand-shippingcalc")
@@ -493,7 +491,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPriceSurgeOff(response, 0f, 0);
     }
 
-    @CaseId(422)
+    @TmsLink("422")
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены без наценки surge для новых клиентов",
             groups = "ondemand-shippingcalc")
@@ -510,7 +508,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPriceSurgeOff(response, 0f, 0);
     }
 
-    @CaseId(422)
+    @TmsLink("422")
     @Story("Get Delivery Price")
     @Test(description = "Кэширование surgelevel на уровне customer+store",
             groups = "ondemand-shippingcalc",
@@ -530,7 +528,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         Allure.step("Проверяем получение изначального уровня surge и наценки по нему", () -> checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 10990));
     }
 
-    @CaseIDs({@CaseId(456), @CaseId(516)})
+    @TmsLinks({@TmsLink("456"), @TmsLink("516")})
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены без наценки surge для самовывоза",
             groups = "ondemand-shippingcalc")
@@ -547,7 +545,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPriceSurgeOff(response, 0f, 0);
     }
 
-    @CaseId(320)
+    @TmsLink("320")
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены с наценкой слота surge_delivery_window_addition для planned магазина",
             groups = "ondemand-shippingcalc")
@@ -562,7 +560,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 29900, 0, 3, 4, 0, 0);
     }
 
-    @CaseId(570)
+    @TmsLink("570")
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены с наценкой слота surge_delivery_window_addition для ondemand магазина",
             groups = "ondemand-shippingcalc")
@@ -582,7 +580,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 29900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
-    @CaseId(571)
+    @TmsLink("571")
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены без наценки слота surge_delivery_window_addition для ondemand магазина",
             groups = "ondemand-shippingcalc")
@@ -602,7 +600,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
-    @CaseId(572)
+    @TmsLink("572")
     @Story("Get Delivery Price")
     @Test(description = "Прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и попадании в вайтлист",
             groups = "ondemand-shippingcalc")
@@ -617,7 +615,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 0, minCartAmountFirst, 1, 0, 1, 0);
     }
 
-    @CaseId(389)
+    @TmsLink("389")
     @Story("Get Delivery Price")
     @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и не попадании в вайтлист",
             groups = "ondemand-shippingcalc")
@@ -632,7 +630,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
-    @CaseId(517)
+    @TmsLink("517")
     @Story("Get Delivery Price")
     @Test(description = "Проверка прокидывания нулевой корзины при пустых customer.id и customer.anonymous_id",
             groups = "ondemand-shippingcalc")
@@ -647,7 +645,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 0, 0, 1, 0, 1, 0);
     }
 
-    @CaseIDs(value = {@CaseId(357), @CaseId(326), @CaseId(332)})
+    @TmsLinks(value = {@TmsLink("357"), @TmsLink("326"), @TmsLink("332")})
     @Story("Get Delivery Price")
     @Test(description = "Проверка расчета по самому дорогому правилу стратегии, когда не прошли ни по какому условию",
             groups = "ondemand-shippingcalc")
@@ -674,7 +672,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         });
     }
 
-    @CaseIDs(value = {@CaseId(360), @CaseId(331)})
+    @TmsLinks(value = {@TmsLink("360"), @TmsLink("331")})
     @Story("Get Delivery Price")
     @Test(description = "Проверка добавления ценовых компонентов из параметров скрипта",
             groups = "ondemand-shippingcalc")
@@ -690,7 +688,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         Allure.step("Проверяем наценку за перевес", () -> assertEquals(response.getShipments(0).getPriceExplanation().getPriceComponents(3).getPrice(), 5000, "Не ожидаемая наценка за перевес"));
     }
 
-    @CaseId(208)
+    @TmsLink("208")
     @Story("Get Delivery Price")
     @Test(description = "Получение ошибки при пустом order_id",
             groups = "ondemand-shippingcalc",
@@ -706,7 +704,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
-    @CaseId(220)
+    @TmsLink("220")
     @Story("Get Delivery Price")
     @Test(description = "Получение ошибки при пустом shipment_id",
             groups = "ondemand-shippingcalc",
@@ -722,7 +720,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
-    @CaseId(231)
+    @TmsLink("231")
     @Story("Get Delivery Price")
     @Test(description = "Получение ошибки при пустом positions_count",
             groups = "ondemand-shippingcalc",
@@ -763,7 +761,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
-    @CaseId(225)
+    @TmsLink("225")
     @Story("Get Delivery Price")
     @Test(description = "Получение ошибки при пустом store_id",
             groups = "ondemand-shippingcalc",
@@ -779,7 +777,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
-    @CaseId(232)
+    @TmsLink("232")
     @Story("Get Delivery Price")
     @Test(description = "Получение ошибки при пустом массиве shipments",
             groups = "ondemand-shippingcalc",
@@ -807,7 +805,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
-    @CaseId(214)
+    @TmsLink("214")
     @Story("Get Delivery Price")
     @Test(description = "Получение ошибки при пустом delivery_type",
             groups = "ondemand-shippingcalc",
@@ -823,7 +821,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
-    @CaseIDs(value = {@CaseId(385), @CaseId(388)})
+    @TmsLinks(value = {@TmsLink("385"), @TmsLink("388")})
     @Story("Get Delivery Price")
     @Test(description = "Получение цены доставки при прохождении условия ORDER_DISTANCE_RANGE",
             groups = "ondemand-shippingcalc")
@@ -838,7 +836,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, conditionStrategyId, 9900, minCartAmountThird, 1, 0, 1, 0);
     }
 
-    @CaseId(386)
+    @TmsLink("386")
     @Story("Get Delivery Price")
     @Test(description = "Получение цены доставки при прохождении условия PLATFORMS",
             groups = "ondemand-shippingcalc")
@@ -853,7 +851,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, conditionStrategyId, 14900, minCartAmountThird, 1, 0, 1, 0);
     }
 
-    @CaseId(407)
+    @TmsLink("407")
     @Story("Get Delivery Price")
     @Test(description = "Получение цены доставки при прохождении условия REGISTERED_AFTER",
             groups = "ondemand-shippingcalc")
@@ -868,7 +866,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, conditionStrategyId, 19900, minCartAmountThird, 1, 0, 1, 0);
     }
 
-    @CaseId(494)
+    @TmsLink("494")
     @Story("Get Delivery Price")
     @Test(description = "Получение цены доставки при прохождении условия ON_DEMAND",
             groups = "ondemand-shippingcalc")
@@ -883,7 +881,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, conditionStrategyId, 29900, minCartAmountThird, 2, 0, 1, 0);
     }
 
-    @CaseId(495)
+    @TmsLink("495")
     @Story("Get Delivery Price")
     @Test(description = "Получение цены доставки при прохождении условия CLIENT_API",
             groups = "ondemand-shippingcalc")
@@ -927,7 +925,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, conditionStrategyId, 39900, 0, 2, 0, 1, 0);
     }
 
-    @CaseId(387)
+    @TmsLink("387")
     @Story("Get Delivery Price")
     @Test(description = "Получение цены доставки при прохождении комбинации условий",
             groups = "ondemand-shippingcalc")

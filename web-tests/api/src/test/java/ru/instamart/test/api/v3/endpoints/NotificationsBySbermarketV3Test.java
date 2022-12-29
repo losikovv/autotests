@@ -20,7 +20,7 @@ import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -51,7 +51,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(1461)
+    @TmsLink("1461")
     @Test(description = "Canceled после создания (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void canceledOrder() {
@@ -66,7 +66,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(1462)
+    @TmsLink("1462")
     @Test(description = "Canceled после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void canceledOrderInWork() {
@@ -84,7 +84,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(1464)
+    @TmsLink("1464")
     @Test(description = "Canceled после order.ready_for_delivery (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void canceledOrderReadyForDelivery() {
@@ -105,7 +105,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(1466)
+    @TmsLink("1466")
     @Test(description = "In_work после создания (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderInWork() {
@@ -120,7 +120,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(1468)
+    @TmsLink("1468")
     @Test(description = "Ready_for_delivery после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderReadyForDelivery() {
@@ -142,7 +142,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2835)
+    @TmsLink("2835")
     @Test(description = "Ошибка 405 Delivering (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderDelivering() {
@@ -167,7 +167,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2601)
+    @TmsLink("2601")
     @Test(description = "Canceled после отмены (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void cancelAfterCancel() {
@@ -184,7 +184,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2189)
+    @TmsLink("2189")
     @Test(description = "Повторная отправка in_work негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderInWorkRepeat() {
@@ -201,7 +201,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2190)
+    @TmsLink("2190")
     @Test(description = "In_work после ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderInWorkAfterReadyForDelivery() {
@@ -225,7 +225,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2192)
+    @TmsLink("2192")
     @Test(description = "In_work после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderInWorkAfterCancel() {
@@ -243,7 +243,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2186)
+    @TmsLink("2186")
     @Test(description = "Повторная отправка ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderReadyForDeliveryRepeat() {
@@ -267,7 +267,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2992)
+    @TmsLink("2992")
     @Test(description = "Ready_for_delivery после оформления заказа негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderReadyForDeliveryAfterCreate() {
@@ -282,7 +282,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2188)
+    @TmsLink("2188")
     @Test(description = "Ready_for_delivery после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void orderReadyForDeliveryAfterCancel() {
@@ -300,7 +300,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(2710)
+    @TmsLink("2710")
     @Test(description = "Валидация in_work (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationInWork() {
@@ -315,7 +315,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(3035)
+    @TmsLink("3035")
     @Test(description = "Валидация in_work + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationInWorkAll() {
@@ -372,7 +372,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(2716)
+    @TmsLink("2716")
     @Test(description = "Валидация canceled (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationCanceled() {
@@ -387,7 +387,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(3036)
+    @TmsLink("3036")
     @Test(description = "Валидация canceled + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationCanceledAll() {
@@ -444,7 +444,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(2712)
+    @TmsLink("2712")
     @Test(description = "Валидация ready_for_delivery (без changed) (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDelivery() {
@@ -483,7 +483,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(3041)
+    @TmsLink("3041")
     @Test(description = "Валидация ready_for_delivery (changed true) (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryTrue() {
@@ -523,7 +523,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(3042)
+    @TmsLink("3042")
     @Test(description = "Валидация ready_for_delivery (changed false) (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryFalse() {
@@ -545,7 +545,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
-    @CaseId(3045)
+    @TmsLink("3045")
     @Test(description = "Валидация ready_for_delivery + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryAll() {
@@ -609,7 +609,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2711)
+    @TmsLink("2711")
     @Test(description = "Валидация in_work негатив (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationInWorkNegative() {
@@ -629,7 +629,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(2717)
+    @TmsLink("2717")
     @Test(description = "Валидация canceled негатив (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationCanceledNegative() {
@@ -648,7 +648,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(3044)
+    @TmsLink("3044")
     @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryFalseWithoutOrderId() {
@@ -680,7 +680,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(3044)
+    @TmsLink("3044")
     @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryFalseWithoutOriginalOrderId() {
@@ -712,7 +712,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
-    @CaseId(3044)
+    @TmsLink("3044")
     @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void validationReadyForDeliveryFalseWithoutChanged() {

@@ -3,13 +3,13 @@ package ru.instamart.test.reforged.stf.checkout_new;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_NOT_B2B_SID;
@@ -26,7 +26,7 @@ public final class CheckoutAddressTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(3594)
+    @TmsLink("3594")
     @Story("Адрес")
     @Test(description = "Проверка того, что поле 'Кв, офис' является обязательным к заполнению", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -70,7 +70,7 @@ public final class CheckoutAddressTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 
-    @CaseId(3780)
+    @TmsLink("3780")
     @Story("Адрес")
     @Test(description = "Проверка отображения правильного адреса доставки, выбранного ранее", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -96,7 +96,7 @@ public final class CheckoutAddressTests {
         checkoutNew().checkDeliveryAddress(fullAddress);
     }
 
-    @CaseId(3796)
+    @TmsLink("3796")
     @Story("Адрес")
     @Test(description = "Проверка появления бабла 'Оплата картой курьеру недоступна'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -136,7 +136,7 @@ public final class CheckoutAddressTests {
         checkoutNew().checkCardToCourierBubbleVisible();
     }
 
-    @CaseId(3820)
+    @TmsLink("3820")
     @Story("Адрес")
     @Test(description = "Проверка сохранения новоВведенного адреса при перезаходе на чекаут", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -187,7 +187,7 @@ public final class CheckoutAddressTests {
         checkoutNew().checkDeliveryAddress(addressFromTitle);
     }
 
-    @CaseId(3821)
+    @TmsLink("3821")
     @Story("Адрес")
     @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Доставка)", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -222,7 +222,7 @@ public final class CheckoutAddressTests {
         checkout().checkCheckoutButtonIsVisible();
     }
 
-    @CaseId(3825)
+    @TmsLink("3825")
     @Story("Адрес")
     @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Самовывоз)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -260,7 +260,7 @@ public final class CheckoutAddressTests {
         checkout().checkCheckoutButtonIsVisible();
     }
 
-    @CaseId(3823)
+    @TmsLink("3823")
     @Story("Адрес")
     @Test(description = "Проверка отсутствия кнопки 'Заказываю для бизнеса' при отключенной связке с b2b у магазина (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -284,7 +284,7 @@ public final class CheckoutAddressTests {
         checkoutNew().checkB2BTransitionButtonNotVisible();
     }
 
-    @CaseId(3826)
+    @TmsLink("3826")
     @Story("Адрес")
     @Test(description = "Проверка отсутствия кнопки 'Заказываю для бизнеса' при отключенной связке с b2b у магазина (Самовывоз)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
@@ -312,7 +312,7 @@ public final class CheckoutAddressTests {
         checkoutNew().checkB2BTransitionButtonNotVisible();
     }
 
-    @CaseId(3941)
+    @TmsLink("3941")
     @Story("Адрес")
     @Test(description = "Проверка перехода на v1 чек-аут через способо оплаты 'По счету для бизнеса' (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})

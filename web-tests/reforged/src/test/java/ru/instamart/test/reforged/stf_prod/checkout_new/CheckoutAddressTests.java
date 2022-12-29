@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf_prod.checkout_new;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,7 +10,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
@@ -35,7 +35,7 @@ public final class CheckoutAddressTests {
         this.helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseId(3594)
+    @TmsLink("3594")
     @Test(description = "Проверка того, что поле 'Кв, офис' является обязательным к заполнению", groups = {STF_PROD_S})
     public void testCheckRequiredFields() {
         shop().goToPage();
@@ -74,7 +74,7 @@ public final class CheckoutAddressTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 
-    @CaseId(3821)
+    @TmsLink("3821")
     @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Доставка)", groups = {STF_PROD_S})
     public void testTransitionOnB2BViaCheckoutFromDelivery() {
         shop().goToPage();

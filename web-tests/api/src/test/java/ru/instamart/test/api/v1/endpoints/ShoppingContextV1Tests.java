@@ -14,8 +14,8 @@ import ru.instamart.api.request.v1.ShoppingContextV1Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkAddressInDb;
@@ -33,7 +33,7 @@ public class ShoppingContextV1Tests extends RestBase {
         apiV1.authByPhone(user);
     }
 
-    @CaseIDs(value = {@CaseId(1554), @CaseId(1555)})
+    @TmsLinks(value = {@TmsLink("1554"), @TmsLink("1555")})
     @Story("Настройки параметров покупок")
     @Test(groups = {"api-instamart-smoke", "api-v1"},
             description = "Добавление адреса",
@@ -46,7 +46,7 @@ public class ShoppingContextV1Tests extends RestBase {
         checkAddressInDb(address, user);
     }
 
-    @CaseId(1556)
+    @TmsLink("1556")
     @Story("Настройки параметров покупок")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение существующего адреса",

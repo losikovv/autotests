@@ -13,7 +13,7 @@ import ru.instamart.api.request.admin.TaxonomiesAdminRequest;
 import ru.instamart.jdbc.dao.stf.SpreeTaxonomiesDao;
 import ru.instamart.jdbc.entity.stf.SpreeTaxonomiesEntity;
 import ru.instamart.kraken.data.Generate;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
@@ -33,14 +33,14 @@ public class TaxonomiesAdminTest extends RestBase {
         admin.auth();
     }
 
-    @CaseId(1887)
+    @TmsLink("1887")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка категорий")
     public void getAllTaxonomies() {
         final Response response = TaxonomiesAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);
     }
 
-    @CaseId(1888)
+    @TmsLink("1888")
     @Issue("INFRADEV-16984")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание новой категорий")
@@ -52,7 +52,7 @@ public class TaxonomiesAdminTest extends RestBase {
         checkFieldIsNotEmpty(taxonomyId, "id категории");
     }
 
-    @CaseId(1889)
+    @TmsLink("1889")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание новой категорий с пустым названием")
     public void createTaxonomyWithEmptyName() {
@@ -62,7 +62,7 @@ public class TaxonomiesAdminTest extends RestBase {
         Assert.assertNull(taxonomyId, "Создалась категория с пустым названием");
     }
 
-    @CaseId(1890)
+    @TmsLink("1890")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование категории",
             dependsOnMethods = "createTaxonomy")
@@ -74,7 +74,7 @@ public class TaxonomiesAdminTest extends RestBase {
         compareTwoObjects(taxonomyFromDb.getName(), name);
     }
 
-    @CaseId(1891)
+    @TmsLink("1891")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование категории с пустым названием",
             dependsOnMethods = "editTaxonomy")
@@ -85,7 +85,7 @@ public class TaxonomiesAdminTest extends RestBase {
         compareTwoObjects(taxonomyFromDb.getName(), name);
     }
 
-    @CaseId(1892)
+    @TmsLink("1892")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление категории",
             dependsOnMethods = "editTaxonomyWithEmptyName")

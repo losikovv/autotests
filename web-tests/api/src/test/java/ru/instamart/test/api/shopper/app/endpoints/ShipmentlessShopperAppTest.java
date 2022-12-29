@@ -16,7 +16,7 @@ import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -36,7 +36,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
 
 
     @Story("Получение информации о сотруднике")
-    @CaseId(10)
+    @TmsLink("10")
     @Test(description = "Получаем инфу о сборщике",
             groups = {API_SHOPPER_SMOKE, "MRAutoCheck", API_SHOPPER_PROD})
     public void getShopper200() {
@@ -46,7 +46,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о маршрутах")
-    @CaseId(11)
+    @TmsLink("11")
     @Test(description = "Получаем маршруты",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getRoutes200() {
@@ -55,7 +55,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о сотруднике")
-    @CaseId(12)
+    @TmsLink("12")
     @Test(description = "Получаем смены сборщика",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getShopperOperationShifts200() {
@@ -64,7 +64,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(14)
+    @TmsLink("14")
     @Test(description = "Получаем все заказы для водителя",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getDriverShipments200() {
@@ -73,7 +73,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о причинах")
-    @CaseId(15)
+    @TmsLink("15")
     @Test(description = "Получаем причины отмен",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getCancelReasons200() {
@@ -83,7 +83,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о причинах")
-    @CaseId(15)
+    @TmsLink("15")
     @Test(description = "Получаем причины уточнения",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getClarifyReasons200() {
@@ -93,7 +93,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о причинах")
-    @CaseId(15)
+    @TmsLink("15")
     @Test(description = "Получаем причины возврата",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getReturnReasons200() {
@@ -103,7 +103,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение марс токена (стоки метро)")
-    @CaseId(16)
+    @TmsLink("16")
     @Test(description = "Получаем марс токен (стоки метро)",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getMarsToken200() {
@@ -113,7 +113,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о заказах")
-    @CaseId(18)
+    @TmsLink("18")
     @Test(description = "Получаем все заказы для упаковщика",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getPackerShipments200() {
@@ -125,7 +125,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о сборках")
-    @CaseId(19)
+    @TmsLink("19")
     @Test(description = "Получаем все сборки упаковщика",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getPackerAssemblies200() {
@@ -135,7 +135,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о приложении")
-    @CaseId(20)
+    @TmsLink("20")
     @Test(description = "Получаем инфу о текущей версии приложения",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void getCurrentAppVersion200() {
@@ -147,7 +147,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Поиск")
-    @CaseId(21)
+    @TmsLink("21")
     @Test(description = "Поиск товаров",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void getStoreOffers200() {
@@ -159,7 +159,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Авторизация")
-    @CaseId(43)
+    @TmsLink("43")
     @Test(description = "Обновление авторизации",
             groups = {API_SHOPPER_SMOKE})
     public void postAuthRefresh200() {
@@ -171,7 +171,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Авторизация")
-    @CaseId(46)
+    @TmsLink("46")
     @Test(description = "Отправка запроса для получения смс кодом для авторизации",
             groups = {API_SHOPPER_SMOKE, API_SHOPPER_PROD})
     public void postOtpsTokens200() {
@@ -180,7 +180,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Авторизация")
-    @CaseId(47)
+    @TmsLink("47")
     @Test(description = "Авторизация по номеру телефона и коду из смс",
             groups = {API_SHOPPER_SMOKE},
             dependsOnMethods = "postOtpsTokens200")
@@ -194,7 +194,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Маршрут")
-    @CaseId(106)
+    @TmsLink("106")
     @Test(description = "Запрос назначенных маршрутов без авторизации",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void nextUncompletedRoute200() {

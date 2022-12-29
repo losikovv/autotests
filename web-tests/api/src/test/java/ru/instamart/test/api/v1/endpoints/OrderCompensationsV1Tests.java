@@ -21,7 +21,7 @@ import ru.instamart.jdbc.entity.stf.OrderCompensationsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.Optional;
 
@@ -54,7 +54,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         order = apiV1.getMultiRetailerOrder();
     }
 
-    @CaseId(2246)
+    @TmsLink("2246")
     @Story("Компенсации")
     @Test(groups = {"api-instamart-smoke", "api-v1"},
             description = "Получение информации о промо-компенсациях")
@@ -65,7 +65,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         compensationPromotionsId =  response.as(CompensationPromotionsV1Response.class).getCompensationPromotions().get(0).getId();
     }
 
-    @CaseId(2247)
+    @TmsLink("2247")
     @Story("Компенсация по заказу")
     @Test(groups = {"api-instamart-smoke", "api-v1"},
             description = "Получение информации о доступной компенсациях для заказа")
@@ -78,7 +78,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         promoTypeId = compensations.getPromoTypes().get(0).getId();
     }
 
-    @CaseId(2247)
+    @TmsLink("2247")
     @Story("Компенсация по заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о доступной компенсациях для несуществующего заказа")
@@ -88,7 +88,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2248)
+    @TmsLink("2248")
     @Story("Компенсация по заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание компенсации",
@@ -112,7 +112,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         checkOrderCompensations(orderCompensationFromDb, compensation);
     }
 
-    @CaseId(2255)
+    @TmsLink("2255")
     @Story("Компенсация по заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание компенсации с несуществующим промо",
@@ -132,7 +132,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         Assert.assertTrue(response.asString().contains("Промоакция не найдена, промокод не может быть создан"), "Пришел неверный текст ошибки");
     }
 
-    @CaseId(2249)
+    @TmsLink("2249")
     @Story("Компенсация по заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Подтверждение уже подтвержденной компенсации",
@@ -143,7 +143,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         Assert.assertTrue(response.asString().contains("Промокод уже утверждён или не требует утверждения"), "Пришел неверный текст ошибки");
     }
 
-    @CaseId(2250)
+    @TmsLink("2250")
     @Story("Компенсация по заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Подтверждение компенсации",
@@ -160,7 +160,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         checkOrderCompensations(orderCompensationFromDb, compensation);
     }
 
-    @CaseId(2256)
+    @TmsLink("2256")
     @Story("Компенсация по заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Подтверждение несуществующей компенсации",
@@ -171,7 +171,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2251)
+    @TmsLink("2251")
     @Story("Компенсация по заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о созданной компенсации по заказу",
@@ -184,7 +184,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         checkOrderCompensations(orderCompensationFromDb, compensation);
     }
 
-    @CaseId(2257)
+    @TmsLink("2257")
     @Story("Компенсация по заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о несуществующей компенсации по заказу")

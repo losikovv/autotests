@@ -10,8 +10,8 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.*;
@@ -24,7 +24,7 @@ public final class ShoppingCartTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(1571)
+    @TmsLink("1571")
     @Issue("B2C-10717")
     @Test(description = "Тест валидации дефолтной корзины", groups = {STF_PROD_S})
     public void successValidateDefaultCart() {
@@ -48,7 +48,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartClose();
     }
 
-    @CaseId(1572)
+    @TmsLink("1572")
     @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {STF_PROD_S})
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
@@ -70,7 +70,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(1573)
+    @TmsLink("1573")
     @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {STF_PROD_S})
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getQaUser();
@@ -92,7 +92,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(1574)
+    @TmsLink("1574")
     @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = {STF_PROD_S})
     public void successChangeItemQuantityInCart() {
         home().goToPage();
@@ -124,7 +124,7 @@ public final class ShoppingCartTests {
         shop().checkItemQuantity(StringUtil.doubleToString(itemQuantity));
     }
 
-    @CaseId(1575)
+    @TmsLink("1575")
     @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {STF_PROD_S})
     public void successChangeItemQuantityInCartViaItemCard() {
         home().goToPage();
@@ -179,7 +179,7 @@ public final class ShoppingCartTests {
         shop().interactCart().getFirstItem().compareItemQuantityInCart(StringUtil.doubleToString(itemQuantity));
     }
 
-    @CaseId(1576)
+    @TmsLink("1576")
     @Test(description = "Тест на удаление товаров из корзины", groups = {STF_PROD_S})
     public void successRemoveItemsFromCart() {
         final UserData shoppingCartUser = UserManager.getQaUser();
@@ -204,7 +204,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartEmpty();
     }
 
-    @CaseId(2616)
+    @TmsLink("2616")
     @Test(description = "Добавление/удаление товара из карточки товара", groups = {STF_PROD_S})
     public void testAddedAndRemoveProductFromProductCard() {
         var userData = UserManager.getQaUser();
@@ -223,7 +223,7 @@ public final class ShoppingCartTests {
         shop().interactProductCard().checkBuyButtonVisible();
     }
 
-    @CaseIDs(value = {@CaseId(2620), @CaseId(2937), @CaseId(2938)})
+    @TmsLinks(value = {@TmsLink("2620"), @TmsLink("2937"), @TmsLink("2938")})
     @Test(description = "Многократное добавление и удаление одной позиции", groups = {"regression", "all-cart"})
     public void testMultipleAddAndRemoveProduct() {
         var userData = UserManager.getQaUser();
@@ -257,7 +257,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartEmpty();
     }
 
-    @CaseId(2605)
+    @TmsLink("2605")
     @Test(description = "Тест успешного добавления товара в пустую корзину", groups = {STF_PROD_S})
     public void testSuccessAddItemInEmptyCart() {
         var userData = UserManager.getQaUser();
@@ -278,7 +278,7 @@ public final class ShoppingCartTests {
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 
-    @CaseId(2607)
+    @TmsLink("2607")
     @Test(description = "Изменение количества единиц товаров в корзине", groups = {STF_PROD_S})
     public void testAddProductsInCart() {
         var userData = UserManager.getQaUser();
@@ -306,7 +306,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
     }
 
-    @CaseId(2609)
+    @TmsLink("2609")
     @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = {STF_PROD_S})
     public void testAddressAndCartGetFromProfileAuth() {
         var userData = UserManager.getQaUser();
@@ -348,7 +348,7 @@ public final class ShoppingCartTests {
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 
-    @CaseId(2611)
+    @TmsLink("2611")
     @Test(description = "Удаление всех товаров в корзине", groups = {STF_PROD_S})
     public void testRemoveRetailerFromCart() {
         var userData = UserManager.getQaUser();
@@ -370,7 +370,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartEmpty();
     }
 
-    @CaseId(2612)
+    @TmsLink("2612")
     @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = {STF_PROD_S})
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
@@ -396,7 +396,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkItemsCount(itemsCountInRetailer, 1);
     }
 
-    @CaseId(2613)
+    @TmsLink("2613")
     @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = {STF_PROD_S})
     public void testAutoRemoveRetailerAfterRemoveAllProducts() {
         var userData = UserManager.getQaUser();

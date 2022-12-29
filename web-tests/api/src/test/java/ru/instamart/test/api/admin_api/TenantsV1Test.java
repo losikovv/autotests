@@ -9,7 +9,7 @@ import ru.instamart.api.model.v1.AdminTenantV1;
 import ru.instamart.api.request.v1.TenantsV1Request;
 import ru.instamart.api.response.v1.TenantsV1Response;
 import ru.instamart.jdbc.dao.stf.TenantsDao;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Тенанты")
 public class TenantsV1Test extends RestBase {
 
-    @CaseId(2515)
+    @TmsLink("2515")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение списка тенантов")
     public void getTenants() {

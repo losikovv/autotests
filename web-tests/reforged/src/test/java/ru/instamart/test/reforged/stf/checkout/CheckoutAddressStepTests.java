@@ -2,13 +2,13 @@ package ru.instamart.test.reforged.stf.checkout;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
+import io.qameta.allure.TmsLinks;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -19,7 +19,7 @@ public final class CheckoutAddressStepTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
+    @TmsLinks({@TmsLink("1698"), @TmsLink("1699"), @TmsLink("1700"), @TmsLink("1701")})
     @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = REGRESSION_STF)
     public void successFillAllFieldsAndProceedNext() {
         var data = TestVariables.testAddressData();

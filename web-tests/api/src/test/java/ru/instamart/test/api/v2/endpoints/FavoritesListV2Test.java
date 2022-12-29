@@ -15,7 +15,7 @@ import ru.instamart.api.response.v2.FavoritesItemV2Response;
 import ru.instamart.api.response.v2.FavoritesListItemsV2Response;
 import ru.instamart.api.response.v2.FavoritesSkuListItemV2Response;
 import ru.instamart.api.response.v2.ProductSkuV2Response;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
@@ -104,7 +104,7 @@ public class FavoritesListV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(788)
+    @TmsLink("788")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем пустой список любимых товаров без обязательного параметра sid")
     public void testEmptyFavoritesList400() {
@@ -113,7 +113,7 @@ public class FavoritesListV2Test extends RestBase {
         checkError(response, "Отсутствует обязательный параметр 'sid'");
     }
 
-    @CaseId(788)
+    @TmsLink("788")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем пустой список любимых товаров без обязательного параметра sid")
     public void testEmptyFavoritesListWithSidParams400() {
@@ -122,7 +122,7 @@ public class FavoritesListV2Test extends RestBase {
         checkError(response, "Отсутствует обязательный параметр 'sid'");
     }
 
-    @CaseId(524)
+    @TmsLink("524")
     @Story("Список SKU товаров из избранного")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Список SKU товаров из избранного. В избранном нет товаров")
@@ -133,7 +133,7 @@ public class FavoritesListV2Test extends RestBase {
         assertTrue(productSkuV2Response.getProductsSku().isEmpty(), "Избранное не пустое");
     }
 
-    @CaseId(526)
+    @TmsLink("526")
     @Story("Добавить товар в избранное")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Добавить товар в избранное с несуществующим id")
@@ -143,7 +143,7 @@ public class FavoritesListV2Test extends RestBase {
         checkError(response, "Продукт не существует");
     }
 
-    @CaseId(528)
+    @TmsLink("528")
     @Story("Удаление товара из избранного")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Удаление товара из избранного с несуществующим id")

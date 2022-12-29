@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf_prod.checkout_new;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,7 +10,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
@@ -35,7 +35,7 @@ public final class CheckoutTests {
         this.helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseId(3624)
+    @TmsLink("3624")
     @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = {STF_PROD_S})
     public void testCheckoutCompleteWithPayToCourierAndDelivery() {
         shop().goToPage();
@@ -91,7 +91,7 @@ public final class CheckoutTests {
         userShipment().checkTotalCostVisible();
     }
 
-    @CaseId(3840)
+    @TmsLink("3840")
     @Test(description = "Тест полного оформления заказа с оплатой наличными (Доставка)", groups = {STF_PROD_S})
     public void testCheckoutCompleteWithCash() {
         shop().goToPage();

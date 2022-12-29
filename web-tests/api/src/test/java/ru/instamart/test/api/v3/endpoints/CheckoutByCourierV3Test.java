@@ -1,8 +1,6 @@
 package ru.instamart.test.api.v3.endpoints;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -25,8 +23,6 @@ import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +62,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         apiV1.authByPhone(user);
     }
 
-    @CaseIDs(value = {@CaseId(2023), @CaseId(2025), @CaseId(2027), @CaseId(2029)})
+    @TmsLinks(value = {@TmsLink("2023"), @TmsLink("2025"), @TmsLink("2027"), @TmsLink("2029")})
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с заказом созданным данным пользователем, доставка курьером",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -78,7 +74,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkStatusCode(response, 204);
     }
 
-    @CaseId(2006)
+    @TmsLink("2006")
     @Story("Получение данных заказа")
     @Test(description = "Получение данных для несуществующего заказа",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -89,7 +85,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Заказ не существует");
     }
 
-    @CaseId(2005)
+    @TmsLink("2005")
     @Story("Получение данных заказа")
     @Test(description = "Получение данных о заказе другого пользователя",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -100,7 +96,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseIDs(value = {@CaseId(2007), @CaseId(2008), @CaseId(2009), @CaseId(2010), @CaseId(2011), @CaseId(2013), @CaseId(2015)})
+    @TmsLinks(value = {@TmsLink("2007"), @TmsLink("2008"), @TmsLink("2009"), @TmsLink("2010"), @TmsLink("2011"), @TmsLink("2013"), @TmsLink("2015")})
     @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом, доступным для пользователя, курьерская доставка",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -114,7 +110,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkStatusCode(response, 204);
     }
 
-    @CaseId(2004)
+    @TmsLink("2004")
     @Test(description = "Получение полных данных при вводе реального номера заказа",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
     @Story("Получение данных заказа")
@@ -130,7 +126,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkOrder(response, order, user, ShippingMethodV2.BY_COURIER.getMethod(), false);
     }
 
-    @CaseId(2033)
+    @TmsLink("2033")
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с указанием существующего и несуществующего шипментов",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -143,7 +139,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkError(response, "not_order_shipments", "Указаны невалидные шипменты для текущего заказа");
     }
 
-    @CaseId(2031)
+    @TmsLink("2031")
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с пустым полем shipment_numbers",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -156,7 +152,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkErrors(response, "parameter_missing", "shipment_numbers", "Отсутствует обязательный параметр");
     }
 
-    @CaseId(2032)
+    @TmsLink("2032")
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с указанием несуществующего шипмента",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -169,7 +165,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkError(response, "not_order_shipments", "Указаны невалидные шипменты для текущего заказа");
     }
 
-    @CaseId(2030)
+    @TmsLink("2030")
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию со стоимостью заказа ниже минимально допустимой",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -184,7 +180,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         compareTwoObjects(response.as(ErrorV3Response.class).getType(), "add_products_to_gain_min_order_amount");
     }
 
-    @CaseId(2017)
+    @TmsLink("2017")
     @Story("Валидация")
     @Test(description = "Запрос на валидацию со стоимостью заказа ниже минимально допустимой",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -203,7 +199,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         compareTwoObjects(response.as(ErrorV3Response.class).getType(), "missing_shipments_on_checkout");
     }
 
-    @CaseId(2018)
+    @TmsLink("2018")
     @Story("Валидация")
     @Test(description = "Запрос на валидацию, когда не выбран магазин для оформления",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -226,7 +222,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkError(response, "missing_shipments_on_checkout", "Не выбран магазин для оформления заказа");
     }
 
-    @CaseId(2016)
+    @TmsLink("2016")
     @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом без статуса в 'В корзине'",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -240,7 +236,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkError(response, "not_correct_order_state", "Заказ должен быть со статусом 'В корзине'");
     }
 
-    @CaseId(2057)
+    @TmsLink("2057")
     @Story("Валидация")
     @Test(description = "Запрос на валидацию когда в ордере нет шипментов",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -254,7 +250,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkError(response, "missing_shipments_on_checkout", "Не выбран магазин для оформления заказа");
     }
 
-    @CaseId(2019)
+    @TmsLink("2019")
     @Story("Валидация")
     @Test(description = "Запрос на валидацию когда shipment не в валидном статусе",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -270,7 +266,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkError(response, "unavailable_shipment_state", "Доставка не в валидном статусе");
     }
 
-    @CaseId(2021)
+    @TmsLink("2021")
     @Story("Валидация")
     @Test(description = "Запрос на валидацию, когда shipments относятся к разным магазинам",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -289,7 +285,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         checkError(response, "missing_shipments_on_checkout", "Не выбран магазин для оформления заказа");
     }
 
-    @CaseId(2022)
+    @TmsLink("2022")
     @Story("Валидация")
     @Test(description = "Запрос на валидацию на старом чек-ауте",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -304,7 +300,7 @@ public class CheckoutByCourierV3Test extends RestBase {
         compareTwoObjects(response.as(ErrorsV3.class).getErrors(), "Оформить на новом чекауте не получится, сейчас мы вернем вас в старый интерфейс");
     }
 
-    @CaseId(2020)
+    @TmsLink("2020")
     @Story("Валидация")
     @Test(description = "Запрос на валидацию без подтвержденного номера телефона",
             groups = {API_INSTAMART_REGRESS, "api-v3"})

@@ -1,9 +1,6 @@
 package ru.instamart.test.api.on_demand.shifts;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,15 +15,12 @@ import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
@@ -66,7 +60,7 @@ public class CreateShiftsTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
     }
 
-    @CaseIDs({@CaseId(1), @CaseId(123)})
+    @TmsLinks({@TmsLink("1"), @TmsLink("123")})
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
             description = "Создание смены с ПП в будущем")
@@ -92,7 +86,7 @@ public class CreateShiftsTest extends RestBase {
         });
     }
 
-    @CaseId(10)
+    @TmsLink("10")
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "creationOfShift201",
@@ -120,7 +114,7 @@ public class CreateShiftsTest extends RestBase {
         });
     }
 
-    @CaseId(11)
+    @TmsLink("11")
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "creationOfShiftInZeroGuaranteedPayroll",
@@ -146,7 +140,7 @@ public class CreateShiftsTest extends RestBase {
         checkStatusCode(response, 422);
     }
 
-    @CaseId(137)
+    @TmsLink("137")
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "creationOfShift201",
@@ -174,7 +168,7 @@ public class CreateShiftsTest extends RestBase {
         });
     }
 
-    @CaseId(137)
+    @TmsLink("137")
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "createTwoShifts422",

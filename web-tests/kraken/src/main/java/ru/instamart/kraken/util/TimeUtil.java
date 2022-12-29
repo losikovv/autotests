@@ -5,6 +5,7 @@ import com.google.protobuf.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.Date;
 import java.util.Locale;
 
 import static java.time.format.DateTimeFormatter.ISO_INSTANT;
@@ -271,5 +272,10 @@ public final class TimeUtil {
         final var end = dateEnd.toEpochSecond();
         final var cur = date.toEpochSecond();
         return cur >= start && cur <= end;
+    }
+
+    public static OffsetDateTime dateToOffsetDateTime(final Long time) {
+        final var date = new Date(time);
+        return date.toInstant().atOffset(ZoneOffset.UTC);
     }
 }

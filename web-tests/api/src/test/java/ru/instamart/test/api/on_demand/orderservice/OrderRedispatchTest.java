@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.UUID;
 
@@ -30,7 +30,7 @@ public class OrderRedispatchTest extends RestBase {
     }
 
     @Skip
-    @CaseId(160)
+    @TmsLink("160")
     @Test(description = "Редиспатч работает для заказа в статусе Ручная диспатчеризация",
             groups = "dispatch-orderservice-smoke")
     public void redispatchForAManualOrder() {
@@ -46,7 +46,7 @@ public class OrderRedispatchTest extends RestBase {
     }
 
     @Skip
-    @CaseId(160)
+    @TmsLink("160")
     @Test(description = "Редиспатч не работает для магазина с выключенным диспатчем",
             groups = "dispatch-orderservice-smoke",
             expectedExceptions = StatusRuntimeException.class,

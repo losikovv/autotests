@@ -6,7 +6,7 @@ import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -44,7 +44,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     }
 
     @Story("Маркетинговые сэмплы")
-    @CaseId(978)
+    @TmsLink("978")
     @Test(description = "Получение списка всех маркетинговых сэмплов",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getMarketingSamples() {
@@ -56,7 +56,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     }
 
     @Story("Маркетинговые сэмплы")
-    @CaseId(977)
+    @TmsLink("977")
     @Test(description = "Создание нового маркетингового сэмпла",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void createMarketingSample() {
@@ -72,7 +72,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     }
 
     @Story("Маркетинговые сэмплы")
-    @CaseId(983)
+    @TmsLink("983")
     @Test(description = "Получение маркетингового сэмпла",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createMarketingSample")
@@ -85,7 +85,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     }
 
     @Story("Маркетинговые сэмплы")
-    @CaseId(979)
+    @TmsLink("979")
     @Test(description = "Изменение маркетингового сэмпла",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = {"createMarketingSample", "getMarketingSample"})
@@ -104,7 +104,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
     @Story("Маркетинговые сэмплы")
-    @CaseId(980)
+    @TmsLink("980")
     @Test(description = "Удаление маркетингового сэмпла",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = {"createMarketingSample", "getMarketingSample", "editMarketingSample"})
@@ -116,7 +116,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     }
 
     @Story("Маркетинговые сэмплы")
-    @CaseId(981)
+    @TmsLink("981")
     @Test(description = "Изменение несуществующего маркетингового сэмпла",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void editNonExistingMarketingSample() {
@@ -127,7 +127,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
     @Story("Маркетинговые сэмплы")
-    @CaseId(982)
+    @TmsLink("982")
     @Test(description = "Удаление несуществующего маркетингового сэмпла",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void deleteNonExistingMarketingSample() {
@@ -136,7 +136,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     }
 
     @Story("Маркетинговые сэмплы")
-    @CaseId(984)
+    @TmsLink("984")
     @Test(description = "Получение несуществующего маркетингового сэмпла",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getNonExistingMarketingSample() {

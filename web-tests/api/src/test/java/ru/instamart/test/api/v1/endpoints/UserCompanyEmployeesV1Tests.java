@@ -13,7 +13,7 @@ import ru.instamart.api.request.v1.b2b.UserCompanyEmployeesV1Request;
 import ru.instamart.api.response.v1.b2b.CompanyV1Response;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -35,7 +35,7 @@ public class UserCompanyEmployeesV1Tests extends RestBase {
 
 
     @Story("Web")
-    @CaseId(1263)
+    @TmsLink("1263")
     @Test(description = "Выход пользователя из компании",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void deleteUserFromCompany() {

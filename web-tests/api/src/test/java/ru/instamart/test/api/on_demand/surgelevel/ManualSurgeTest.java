@@ -16,8 +16,8 @@ import ru.instamart.jdbc.dao.surgelevel.ResultDao;
 import ru.instamart.jdbc.dao.surgelevel.StoreDao;
 import ru.instamart.jdbc.entity.surgelevel.ResultEntity;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 import surgelevel.ServiceGrpc;
 import surgelevel.Surgelevel;
 import surgelevelevent.Surgelevelevent;
@@ -55,7 +55,7 @@ public class ManualSurgeTest extends GrpcBase {
         addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID, null);
     }
 
-    @CaseId(146)
+    @TmsLink("146")
     @Story("Save Result")
     @Test(description = "Ручное выставление surgelevel",
             groups = "ondemand-surgelevel")
@@ -77,7 +77,7 @@ public class ManualSurgeTest extends GrpcBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, 0, 0, Method.MANUAL);
     }
 
-    @CaseIDs({@CaseId(155), @CaseId(42)})
+    @TmsLinks({@TmsLink("155"), @TmsLink("42")})
     @Story("Manual Surge")
     @Test(description = "Перерасчет surgelevel при наступлении expiredAt",
             groups = "ondemand-surgelevel",
@@ -89,7 +89,7 @@ public class ManualSurgeTest extends GrpcBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, SURGE_LEVEL - 1, 0, 0, Method.ACTUAL);
     }
 
-    @CaseId(147)
+    @TmsLink("147")
     @Story("Save Result")
     @Test(description = "Ручное выставление surgelevel нескольким магазинам",
             groups = "ondemand-surgelevel",
@@ -120,7 +120,7 @@ public class ManualSurgeTest extends GrpcBase {
         });
     }
 
-    @CaseId(156)
+    @TmsLink("156")
     @Story("Manual Surge")
     @Test(description = "Отсутствие перерасчета surgelevel, если не наступило expiredAt",
             groups = "ondemand-surgelevel",
@@ -135,7 +135,7 @@ public class ManualSurgeTest extends GrpcBase {
         });
     }
 
-    @CaseId(148)
+    @TmsLink("148")
     @Story("Save Result")
     @Test(description = "Получение ошибки при выставлении expiredAt в прошлом",
             groups = "ondemand-surgelevel",
@@ -154,7 +154,7 @@ public class ManualSurgeTest extends GrpcBase {
         client.saveResult(request);
     }
 
-    @CaseId(149)
+    @TmsLink("149")
     @Story("Save Result")
     @Test(description = "Получение ошибки при выставлении expiredAt больше чем на 7 дней",
             groups = "ondemand-surgelevel",
@@ -173,7 +173,7 @@ public class ManualSurgeTest extends GrpcBase {
         client.saveResult(request);
     }
 
-    @CaseId(150)
+    @TmsLink("150")
     @Story("Save Result")
     @Test(description = "Получение ошибки при пустом store",
             groups = "ondemand-surgelevel",
@@ -189,7 +189,7 @@ public class ManualSurgeTest extends GrpcBase {
         client.saveResult(request);
     }
 
-    @CaseId(151)
+    @TmsLink("151")
     @Story("Save Result")
     @Test(description = "Получение ошибки при пустом result",
             groups = "ondemand-surgelevel",
@@ -204,7 +204,7 @@ public class ManualSurgeTest extends GrpcBase {
         client.saveResult(request);
     }
 
-    @CaseId(152)
+    @TmsLink("152")
     @Story("Save Result")
     @Test(description = "Получение ошибки с невалидным store.id",
             groups = "ondemand-surgelevel",

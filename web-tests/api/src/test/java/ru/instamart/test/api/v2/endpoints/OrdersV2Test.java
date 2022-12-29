@@ -25,8 +25,8 @@ import ru.instamart.jdbc.dao.stf.UserIdDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class OrdersV2Test extends RestBase {
         promoCode = getPromotionCode();
     }
 
-    @CaseId(1419)
+    @TmsLink("1419")
     @Story("Получение заказов")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получаем заказы")
@@ -88,7 +88,7 @@ public class OrdersV2Test extends RestBase {
         assertNotNull(response.as(LineItemsV2Response.class).getLineItems(), "Не вернулись товары заказа");
     }
 
-    @CaseIDs({@CaseId(313), @CaseId(838)})
+    @TmsLinks({@TmsLink("313"), @TmsLink("838")})
     @Story("Применение промокода")
     @Test(groups = {"api-instamart-smoke", "api-v2"},
             description = "Существующий id")
@@ -101,7 +101,7 @@ public class OrdersV2Test extends RestBase {
         checkFieldIsNotEmpty(order.getPromotionCodes(), "промокоды");
     }
 
-    @CaseId(314)
+    @TmsLink("314")
     @Story("Применение промокода")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Несуществующий номер заказа")
@@ -110,7 +110,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(840)
+    @TmsLink("840")
     @Story("Применение промокода")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Несуществующий промокод")
@@ -121,7 +121,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Промокод не существует");
     }
 
-    @CaseId(839)
+    @TmsLink("839")
     @Story("Применение промокода")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Истекший промокод")
@@ -131,7 +131,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Данный промокод истек");
     }
 
-    @CaseId(1111)
+    @TmsLink("1111")
     @Story("Применение промокода")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Заказ с пустой корзиной")
@@ -142,7 +142,7 @@ public class OrdersV2Test extends RestBase {
         SessionFactory.clearSession(SessionType.API_V2);
     }
 
-    @CaseId(315)
+    @TmsLink("315")
     @Story("Удаление промокода")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Существующий id")
@@ -161,7 +161,7 @@ public class OrdersV2Test extends RestBase {
 
     }
 
-    @CaseId(316)
+    @TmsLink("316")
     @Story("Удаление промокода")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Несуществующий id заказа")
@@ -178,7 +178,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(318)
+    @TmsLink("318")
     @Story("Удаление промокода")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Несуществующий promoCode")
@@ -286,7 +286,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Доставка не существует");
     }
 
-    @CaseId(331)
+    @TmsLink("331")
     @Story("Добавление позиции к заказу")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Добавление позиции к заказу с обязательными полями")
@@ -301,7 +301,7 @@ public class OrdersV2Test extends RestBase {
 
     }
 
-    @CaseId(332)
+    @TmsLink("332")
     @Story("Добавление позиции к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "ordersLineItems",
@@ -313,7 +313,7 @@ public class OrdersV2Test extends RestBase {
         checkErrorTextIsNotEmpty(response);
     }
 
-    @CaseId(333)
+    @TmsLink("333")
     @Story("Редактирование позиции заказа")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Редактирование позиции заказа с существующим id")
@@ -334,7 +334,7 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(334)
+    @TmsLink("334")
     @Story("Редактирование позиции заказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "changeLineItems",
@@ -346,7 +346,7 @@ public class OrdersV2Test extends RestBase {
         checkErrorTextIsNotEmpty(response);
     }
 
-    @CaseId(335)
+    @TmsLink("335")
     @Story("Удаление позиции заказа")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Успешное удаление позиции заказа")
@@ -361,7 +361,7 @@ public class OrdersV2Test extends RestBase {
         checkResponseJsonSchema(response, LineItemV2Response.class);
     }
 
-    @CaseId(336)
+    @TmsLink("336")
     @Story("Удаление позиции заказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Удаление несуществующей позиции заказа")
@@ -371,7 +371,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Позиция не существует");
     }
 
-    @CaseId(337)
+    @TmsLink("337")
     @Story("Заполнение информации о заказе")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Заполнение информации о заказе с существующим id")
@@ -395,7 +395,7 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(338)
+    @TmsLink("338")
     @Story("Заполнение информации о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dataProvider = "fillingInOrderInformationDp",
@@ -417,7 +417,7 @@ public class OrdersV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(341)
+    @TmsLink("341")
     @Story("Отмена заказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Отмена заказа с существующим номером заказа")
@@ -436,7 +436,7 @@ public class OrdersV2Test extends RestBase {
 
     }
 
-    @CaseId(342)
+    @TmsLink("342")
     @Story("Отмена заказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Отмена заказа с несуществующим номером заказа")
@@ -447,7 +447,7 @@ public class OrdersV2Test extends RestBase {
     }
 
 
-    @CaseId(343)
+    @TmsLink("343")
     @Story("Завершение заказа")
     @Test(groups = {"api-instamart-smoke", "api-v2", "api-bff"},
             description = "Завершение заказа с существующим id")
@@ -481,7 +481,7 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(344)
+    @TmsLink("344")
     @Story("Завершение заказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Завершение заказа с несуществующим id")
@@ -521,7 +521,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(347)
+    @TmsLink("347")
     @Story("Очистка подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Очистка подзаказа с существующим id")
@@ -546,7 +546,7 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(348)
+    @TmsLink("348")
     @Story("Очистка подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Очистка подзаказа с несуществующим id")
@@ -556,7 +556,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Доставка не существует");
     }
 
-    @CaseId(812)
+    @TmsLink("812")
     @Story("Создание нового заказа")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Создание нового заказа")
@@ -570,7 +570,7 @@ public class OrdersV2Test extends RestBase {
         compareTwoObjects(order.getOrder().getTotal(), 0.0);
     }
 
-    @CaseId(300)
+    @TmsLink("300")
     @Story("Получение данных о заказе")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение данных о заказе по номеру")
@@ -585,7 +585,7 @@ public class OrdersV2Test extends RestBase {
         compareTwoObjects(order, orderFromResponse);
     }
 
-    @CaseId(301)
+    @TmsLink("301")
     @Story("Получение данных о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение данных о заказе по несуществующему номеру")
@@ -595,7 +595,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(303)
+    @TmsLink("303")
     @Story("Получение текущего заказа")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение текущего заказа пользователем, у которого есть заказ")
@@ -605,7 +605,7 @@ public class OrdersV2Test extends RestBase {
         checkResponseJsonSchema(response, OrderV2Response.class);
     }
 
-    @CaseId(302)
+    @TmsLink("302")
     @Story("Получение текущего заказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение текущего заказа пользователем, у которого нет заказа")
@@ -617,7 +617,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "У пользователя нет текущего заказа");
     }
 
-    @CaseId(304)
+    @TmsLink("304")
     @Story("Мердж заказа без авторизации с текущим заказом пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Мердж существующего заказа без авторизации с текущим заказом пользователя")
@@ -633,7 +633,7 @@ public class OrdersV2Test extends RestBase {
         compareTwoObjects(unauthorizedOrder, orderFromResponse.getOrder());
     }
 
-    @CaseId(305)
+    @TmsLink("305")
     @Story("Мердж заказа без авторизации с текущим заказом пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Мердж несуществующего заказа без авторизации с текущим заказом пользователя")
@@ -643,7 +643,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(305)
+    @TmsLink("305")
     @Story("Мердж заказа без авторизации с текущим заказом пользователя")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Мердж несуществующего заказа без авторизации с текущим заказом пользователя")
@@ -655,7 +655,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated //Оплата инстакоинами выпилена
     @Skip
-    @CaseId(816)
+    @TmsLink("816")
     @Story("Применение бонуса")
     @Test(description = "Использование бонусов для оплаты. Заказ нельзя оплатить бонусами")
     public void checkOrderPayInstacoin() {
@@ -673,7 +673,7 @@ public class OrdersV2Test extends RestBase {
 
     @Skip
     @Issue("B2C-8558")
-    @CaseId(835)
+    @TmsLink("835")
     @Story("Бонусы спасибо")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение информации о возможности оплатить бонусами")
@@ -683,7 +683,7 @@ public class OrdersV2Test extends RestBase {
         checkResponseJsonSchema(response, SpasiboV2Response.class);
     }
 
-    @CaseId(1432)
+    @TmsLink("1432")
     @Story("Бонусы спасибо")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение информации о возможности оплатить бонусами для несуществующего заказа")
@@ -693,7 +693,7 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(2142)
+    @TmsLink("2142")
     @Story("Бонусы спасибо")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получение информации о возможности оплатить бонусами для чужого заказа")

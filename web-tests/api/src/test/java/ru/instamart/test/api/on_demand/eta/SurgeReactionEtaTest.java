@@ -13,7 +13,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.helper.EtaHelper;
 import ru.instamart.jdbc.dao.eta.DisableEtaIntervalsDao;
 import ru.instamart.jdbc.dao.eta.StoreParametersDao;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -55,7 +55,7 @@ public class SurgeReactionEtaTest extends RestBase {
         }
     }
 
-    @CaseId(270)
+    @TmsLink("270")
     @Story("ETA surge reaction")
     @Test(description = "Автоматическое создание интервала отключения ЕТА и слотов, при повышенном сурдже",
             groups = "ondemand-eta")
@@ -81,7 +81,7 @@ public class SurgeReactionEtaTest extends RestBase {
         });
     }
 
-    @CaseId(271)
+    @TmsLink("271")
     @Story("ETA surge reaction")
     @Test(description = "Интервал отключения ЕТА и слотов не создается автоматически, если у магазина выключен флаг surge_enabled",
             groups = "ondemand-eta")
@@ -99,7 +99,7 @@ public class SurgeReactionEtaTest extends RestBase {
         });
     }
 
-    @CaseId(272)
+    @TmsLink("272")
     @Story("ETA surge reaction")
     @Test(description = "Интервал отключения ЕТА и слотов не создается автоматически, если сурдж у магазина не попадет в интервалы SURGE_INTERVALS",
             groups = "ondemand-eta")
@@ -117,7 +117,7 @@ public class SurgeReactionEtaTest extends RestBase {
         });
     }
 
-    @CaseId(273)
+    @TmsLink("273")
     @Story("ETA surge reaction")
     @Test(description = "Интервал отключения ЕТА и слотов не создается автоматически, если у магазина уже есть интервал на текущее время",
             groups = "ondemand-eta",

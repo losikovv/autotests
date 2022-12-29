@@ -2,11 +2,11 @@ package ru.instamart.test.reforged.chatwoot;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
 import ru.instamart.kraken.util.TimeUtil;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.CHATWOOT;
 import static ru.instamart.reforged.chatwoot.ChatwootRouter.dialogs;
@@ -17,7 +17,7 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.ONLINE;
 @Feature("Ручная приостановка чатов")
 public final class ManualHoldoverTests {
 
-    @CaseId(2)
+    @TmsLink("2")
     @Test(description = "Приостановка чата до указанного оператором времени", groups = {CHATWOOT})
     public void holdoverConversationTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -61,7 +61,7 @@ public final class ManualHoldoverTests {
         dialogs().checkLastSystemChatMessageContains("Разговор был помечен как отложенный Оператор Автотест");
     }
 
-    @CaseId(1)
+    @TmsLink("1")
     @Test(description = "Заморозка чата на 20 минут", groups = {CHATWOOT})
     public void freezeConversationTest() {
         UserData userData = UserManager.getOperatorUser();
@@ -97,7 +97,7 @@ public final class ManualHoldoverTests {
         dialogs().checkLastSystemChatMessageContains("Разговор был помечен как отложенный Оператор Автотест");
     }
 
-    @CaseId(8)
+    @TmsLink("8")
     @Test(description = "Приостановленный чат отображается в очереди чатов 'Отложенные'", groups = {CHATWOOT})
     public void holdoverFilterTest() {
         UserData userData = UserManager.getOperatorUser();

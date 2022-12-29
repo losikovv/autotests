@@ -2,12 +2,12 @@ package ru.instamart.test.api.admin_api;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v1.admin.CurrenciesV1Request;
 import ru.instamart.api.response.v1.CurrenciesV1Response;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -18,7 +18,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Валюта")
 public class CurrenciesV1Test extends RestBase {
 
-    @CaseId(2475)
+    @TmsLink("2475")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о валютах")
     public void getCurrencies() {

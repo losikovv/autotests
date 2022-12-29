@@ -11,7 +11,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.SMOKE_STF;
@@ -24,7 +24,7 @@ public final class ShoppingSearchTests {
 
     ApiHelper apiHelper = new ApiHelper();
 
-    @CaseId(1609)
+    @TmsLink("1609")
     @Story("Проверка наличия элементов")
     @Test(description = "Тест валидации элементов поиска", groups = REGRESSION_STF)
     public void successValidateSearch() {
@@ -35,7 +35,7 @@ public final class ShoppingSearchTests {
         shop().assertAll();
     }
 
-    @CaseId(2585)
+    @TmsLink("2585")
     @Story("Негативные сценарии")
     @Test(description = "Тест поиска по запросу, не возвращающему результатов", groups = REGRESSION_STF)
     public void successSearchForNonExistingItem() {
@@ -52,7 +52,7 @@ public final class ShoppingSearchTests {
         search().checkEmptySearchPlaceholderVisible();
     }
 
-    @CaseId(2586)
+    @TmsLink("2586")
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров", groups = REGRESSION_STF)
     public void successSearchItem() {
@@ -70,7 +70,7 @@ public final class ShoppingSearchTests {
         search().checkSearchProductGridVisible();
     }
 
-    @CaseId(2587)
+    @TmsLink("2587")
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {REGRESSION_STF, SMOKE_STF})
     public void successSearchItemUsingCategorySuggests() {
@@ -89,7 +89,7 @@ public final class ShoppingSearchTests {
         search().checkSearchTitle("сыры");
     }
 
-    @CaseId(2588)
+    @TmsLink("2588")
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {REGRESSION_STF, SMOKE_STF})
     public void successSearchItemUsingSuggests() {
@@ -107,7 +107,7 @@ public final class ShoppingSearchTests {
         search().interactProductCard().checkProductCardVisible();
     }
 
-    @CaseId(2989)
+    @TmsLink("2989")
     @Story("Позитивные сценарии")
     @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {REGRESSION_STF, SMOKE_STF})
     public void changeAmountOnButtonSearchResult() {
@@ -129,7 +129,7 @@ public final class ShoppingSearchTests {
 
     // В этом тесте выполняется по два раза swipeScrollTabHeadersRight/swipeScrollTabHeadersLeft
     //    // Потому что при одиночном скроле категория "Все сразу" не скрывается
-    @CaseId(2991)
+    @TmsLink("2991")
     @Story("Позитивные сценарии")
     @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {REGRESSION_STF})
     public void swipeCategoryItemInSuggester() {
@@ -151,7 +151,7 @@ public final class ShoppingSearchTests {
         shop().interactHeader().checkCategoryAllVisible();
     }
 
-    @CaseId(3105)
+    @TmsLink("3105")
     @Story("Позитивные сценарии")
     @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {REGRESSION_STF, SMOKE_STF})
     public void clearSearchBar() {
@@ -169,7 +169,7 @@ public final class ShoppingSearchTests {
         shop().interactHeader().checkSearchBarEmpty();
     }
 
-    @CaseId(1615)
+    @TmsLink("1615")
     @Story("Негативные сценарии")
     @Test(description = "Тест поиска по очень длинному запросу, не возвращающему результатов", groups = REGRESSION_STF)
     public void successSearchItemWithLongQuery() {
@@ -186,7 +186,7 @@ public final class ShoppingSearchTests {
         search().checkEmptySearchPlaceholderVisible();
     }
 
-    @CaseId(1581)
+    @TmsLink("1581")
     @Test(description = "Добавление товара в корзину из поиска товаров", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage();
@@ -210,7 +210,7 @@ public final class ShoppingSearchTests {
         search().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(2589)
+    @TmsLink("2589")
     @Test(description = "Работоспособность сортировки товаров", groups = {REGRESSION_STF, SMOKE_STF})
     public void successApplySort() {
         final UserData userData = UserManager.getQaUser();
@@ -233,7 +233,7 @@ public final class ShoppingSearchTests {
         search().checkPriceAscSortCorrect();
     }
 
-    @CaseId(2590)
+    @TmsLink("2590")
     @Test(description = "Фильтрация товаров", groups = {REGRESSION_STF})
     public void successApplyFilters() {
         shop().goToPage();
@@ -269,7 +269,7 @@ public final class ShoppingSearchTests {
         search().checkQuantitiesNotEquals(discountFilterProductsQuantity, someFilterProductsQuantity);
     }
 
-    @CaseId(2591)
+    @TmsLink("2591")
     @Test(description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности", groups = {REGRESSION_STF})
     public void successApplyFiltersAndSortCheapAsc() {
         shop().goToPage();
@@ -295,7 +295,7 @@ public final class ShoppingSearchTests {
         search().checkPageScrolled();
     }
 
-    @CaseId(2591)
+    @TmsLink("2591")
     @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {REGRESSION_STF})
     public void successApplyFiltersAndSortExpensiveDesc() {
         shop().goToPage();
@@ -326,7 +326,7 @@ public final class ShoppingSearchTests {
         search().checkSearchImgLoaded();
     }
 
-    @CaseId(2592)
+    @TmsLink("2592")
     @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = {REGRESSION_STF})
     public void successApplyOtherFilters() {
 
@@ -339,7 +339,7 @@ public final class ShoppingSearchTests {
         search().checkFilterDisabled("Стерилизованное");
     }
 
-    @CaseId(2737)
+    @TmsLink("2737")
     @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {REGRESSION_STF})
     public void alcoholSearchModalClose() {
         final UserData userData = UserManager.getQaUser();

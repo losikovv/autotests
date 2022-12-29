@@ -15,8 +15,8 @@ import ru.instamart.api.request.v2.ProductFeedbacksV2Request;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -33,7 +33,7 @@ public class ProductFeedbacksCreateV2Test extends RestBase {
     }
 
     @Skip //TODO: возвращает 500
-    @CaseIDs({@CaseId(2298), @CaseId(2299)})
+    @TmsLinks({@TmsLink("2298"), @TmsLink("2299")})
     @Story("Создание отзыва на товар")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             dataProvider = "sendProductFeedbacks",

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import static ru.instamart.reforged.business.page.BusinessRouter.*;
 @Feature("Лендинг")
 public final class LandingTests {
 
-    @CaseId(25)
+    @TmsLink("25")
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Skip
     @Test(description = "Ссылка на лендинг для неавторизованного юзера", groups = {"smoke", REGRESSION_BUSINESS})
@@ -31,7 +31,7 @@ public final class LandingTests {
         business().checkLandingVisible();
     }
 
-    @CaseId(26)
+    @TmsLink("26")
     @Test(description = "Переход на страницу лендинга", groups = {"smoke", REGRESSION_BUSINESS})
     public void basicLandingCheck() {
         business().goToPage();
@@ -47,7 +47,7 @@ public final class LandingTests {
         business().checkButtonCertificatesDisplayed();
     }
 
-    @CaseId(27)
+    @TmsLink("27")
     @Test(description = "Добавление компании с лендинга", groups = {"smoke", REGRESSION_BUSINESS})
     public void addCompanyFromLanding() {
         var user = UserManager.getQaUser();
@@ -75,7 +75,7 @@ public final class LandingTests {
         companies().checkCompaniesListContains(company.getJuridicalName());
     }
 
-    @CaseId(28)
+    @TmsLink("28")
     @Test(description = "Заказать обратный звонок с лендинга", groups = {"smoke", REGRESSION_BUSINESS})
     public void getCallback() {
         var user = UserManager.getQaUser();
@@ -93,7 +93,7 @@ public final class LandingTests {
         business().interactHeader().checkCallbackConfirmDisplayed();
     }
 
-    @CaseId(733)
+    @TmsLink("733")
     @Test(description = "Отображение всех доступных ритейлеров в блоке 'до 20% от чека' на лендинге.", groups = {"smoke", REGRESSION_BUSINESS})
     public void retailersOnLanding() {
         business().goToPage();

@@ -22,7 +22,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.Objects;
 
@@ -68,7 +68,7 @@ public class ShopperAppE2ETest extends RestBase {
     }
 
     @Story("Сборка заказа")
-    @CaseId(1)
+    @TmsLink("1")
     @Test(description = "Собираем все позиции в заказе",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void simpleCollect() {
@@ -90,7 +90,7 @@ public class ShopperAppE2ETest extends RestBase {
     }
 
     @Story("Сборка заказа")
-    @CaseId(2)
+    @TmsLink("2")
     @Test(description = "Собираем/отменяем/заменяем позиции в заказе",
             groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void complexCollect() {
@@ -131,7 +131,7 @@ public class ShopperAppE2ETest extends RestBase {
     }
 
     @Story("Сборка заказа")
-    @CaseId(110)
+    @TmsLink("110")
     @Test(description = "Дублирование существующего чека",
             groups = {API_SHOPPER_REGRESS})
     public void simpleCollectNonUniqueFiscalNumber() {

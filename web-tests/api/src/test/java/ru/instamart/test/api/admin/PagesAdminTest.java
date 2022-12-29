@@ -4,8 +4,8 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.http.ContentType;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -36,7 +36,7 @@ public class PagesAdminTest extends RestBase {
         admin.auth();
     }
 
-    @CaseId(1144)
+    @TmsLink("1144")
     @Story("Статические страницы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение всех страниц")
     public void getAllPage() {
@@ -44,7 +44,7 @@ public class PagesAdminTest extends RestBase {
         checkStatusCode(response, 200, ContentType.HTML);
     }
 
-    @CaseIDs(value = {@CaseId(1135), @CaseId(1140)})
+    @TmsLinks(value = {@TmsLink("1135"), @TmsLink("1140")})
     @Story("Статические страницы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание новой статической страницы с обязательными параметрами",
@@ -58,7 +58,7 @@ public class PagesAdminTest extends RestBase {
         id = pageFromDb.getId();
     }
 
-    @CaseId(1141)
+    @TmsLink("1141")
     @Story("Статические страницы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Создание новой статической страницы без обязательных параметров")
     public void createPageWithoutRequiresParams() {
@@ -66,7 +66,7 @@ public class PagesAdminTest extends RestBase {
         checkStatusCode400(response);
     }
 
-    @CaseIDs(value = {@CaseId(1136), @CaseId(1142)})
+    @TmsLinks(value = {@TmsLink("1136"), @TmsLink("1142")})
     @Story("Статические страницы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование статической страницы с обязательными параметрами",
@@ -82,7 +82,7 @@ public class PagesAdminTest extends RestBase {
         checkPageInDb(page, pageFromDb, visible, position);
     }
 
-    @CaseId(1143)
+    @TmsLink("1143")
     @Story("Статические страницы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование статической страницы без обязательных параметров",
@@ -92,7 +92,7 @@ public class PagesAdminTest extends RestBase {
         checkStatusCode400(response);
     }
 
-    @CaseId(1137)
+    @TmsLink("1137")
     @Story("Статические страницы")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление страницы",

@@ -20,7 +20,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
@@ -47,7 +47,7 @@ public final class OrderSidebarV1Test extends RestBase {
         apiV2.cancelOrder(order.getNumber());
     }
 
-    @CaseId(2850)
+    @TmsLink("2850")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Получение информации для сайдбара заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -64,7 +64,7 @@ public final class OrderSidebarV1Test extends RestBase {
         });
     }
 
-    @CaseId(2851)
+    @TmsLink("2851")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения информации для сайдбара заказа неавторизованным пользователем",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -75,7 +75,7 @@ public final class OrderSidebarV1Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(2852)
+    @TmsLink("2852")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения информации для сайдбара заказа пользователем без прав администратора",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -86,7 +86,7 @@ public final class OrderSidebarV1Test extends RestBase {
         checkStatusCode403(response);
     }
 
-    @CaseId(2853)
+    @TmsLink("2853")
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения информации для сайдбара несуществующего заказа",
             groups = {API_INSTAMART_REGRESS, "api-v1"})

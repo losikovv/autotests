@@ -37,8 +37,7 @@ ext.versions = [
         logback: '1.2.11',
         julToSlf4j: '1.7.36',
 
-        qase:'1.0.5',
-        testit: '0.1',
+        testit: '0.2.1',
 ]
 
 ext.lib = [
@@ -89,6 +88,5 @@ ext.lib = [
         logback: "ch.qos.logback:logback-classic:$versions.logback",
         julToSlf4j: "org.slf4j:jul-to-slf4j:$versions.julToSlf4j",
 
-        qase:"ru.sbermarket.qase:qase:$versions.qase",
         testit:"ru.testit:testit-api-client:$versions.testit",
 ]

@@ -23,8 +23,8 @@ import ru.instamart.jdbc.dao.stf.OffersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.Comparator;
 import java.util.List;
@@ -50,7 +50,7 @@ public class OffersV1Tests extends RestBase {
     }
 
     @Story("Поиск товаров")
-    @CaseId(111)
+    @TmsLink("111")
     @Test(description = "Контрактный тест поиска товаров в магазине",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dataProviderClass = RestDataProvider.class,
@@ -63,7 +63,7 @@ public class OffersV1Tests extends RestBase {
     }
 
     @Story("Поиск товаров")
-    @CaseId(1382)
+    @TmsLink("1382")
     @Test(description = "Поиск товаров в магазине по SKU",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "getOffer")
@@ -77,7 +77,7 @@ public class OffersV1Tests extends RestBase {
 
     @Skip
     @Story("Поиск товаров")
-    @CaseId(1383)
+    @TmsLink("1383")
     @Test(description = "Поиск товаров в магазине по нескольким SKU",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dependsOnMethods = "getOffer")
@@ -101,7 +101,7 @@ public class OffersV1Tests extends RestBase {
     }
 
     @Story("Поиск товаров")
-    @CaseId(1384)
+    @TmsLink("1384")
     @Test(description = "Поиск товаров в магазине без SKU",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getOfferWithoutSkus() {
@@ -111,7 +111,7 @@ public class OffersV1Tests extends RestBase {
     }
 
     @Story("Поиск товаров")
-    @CaseId(1385)
+    @TmsLink("1385")
     @Test(description = "Поиск товаров в несуществующем магазине по SKU",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getOfferForNonExistentStore() {
@@ -121,7 +121,7 @@ public class OffersV1Tests extends RestBase {
     }
 
     @Story("Поиск товаров")
-    @CaseId(1386)
+    @TmsLink("1386")
     @Test(description = "Поиск товаров в магазине по несуществующему SKU",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getOfferByNonExistentSkus() {
@@ -131,7 +131,7 @@ public class OffersV1Tests extends RestBase {
     }
 
     @Story("Офферы")
-    @CaseIDs(value = {@CaseId(2221), @CaseId(2222)})
+    @TmsLinks(value = {@TmsLink("2221"), @TmsLink("2222")})
     @Test(description = "Создание оффера",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProvider = "priceTypes",
@@ -157,7 +157,7 @@ public class OffersV1Tests extends RestBase {
         checkOffer(offer, offerFromResponse, false);
     }
 
-    @CaseId(2223)
+    @TmsLink("2223")
     @Story("Офферы")
     @Test(description = "Редактирование оффера",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
@@ -182,7 +182,7 @@ public class OffersV1Tests extends RestBase {
         checkOffer(offer, offerFromResponse, true);
     }
 
-    @CaseId(2224)
+    @TmsLink("2224")
     @Story("Офферы")
     @Test(description = "Редактирование несуществующего оффера",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -192,7 +192,7 @@ public class OffersV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2225)
+    @TmsLink("2225")
     @Story("Офферы")
     @Test(description = "Удаление оффера",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
@@ -203,7 +203,7 @@ public class OffersV1Tests extends RestBase {
         checkFieldIsNotEmpty(OffersDao.INSTANCE.findById(offerFromResponse.getId()).get().getDeletedAt(), "дата удаления");
     }
 
-    @CaseId(2226)
+    @TmsLink("2226")
     @Story("Офферы")
     @Test(description = "Удаление несуществующего оффера",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
@@ -214,7 +214,7 @@ public class OffersV1Tests extends RestBase {
     }
 
     @Skip
-    @CaseId(2227)
+    @TmsLink("2227")
     @Issue("FEP-3655")
     @Story("Офферы")
     @Test(description = "Получение оффера",
@@ -226,7 +226,7 @@ public class OffersV1Tests extends RestBase {
         checkResponseJsonSchema(response, OffersV1Response.class);
     }
 
-    @CaseId(2228)
+    @TmsLink("2228")
     @Story("Офферы")
     @Test(description = "Получение оффера по несуществующему permalink",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})

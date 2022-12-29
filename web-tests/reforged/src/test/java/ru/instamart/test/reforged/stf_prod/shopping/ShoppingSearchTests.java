@@ -10,7 +10,7 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.search;
@@ -22,7 +22,7 @@ public final class ShoppingSearchTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
 
-    @CaseId(2587)
+    @TmsLink("2587")
     @Skip //раскатили новый поиск
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {STF_PROD_S})
@@ -42,7 +42,7 @@ public final class ShoppingSearchTests {
         search().checkSearchTitleProd("сыры");
     }
 
-    @CaseId(2588)
+    @TmsLink("2588")
     @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {STF_PROD_S})
@@ -61,7 +61,7 @@ public final class ShoppingSearchTests {
         search().interactProductCard().checkProductCardVisible();
     }
 
-    @CaseId(2989)
+    @TmsLink("2989")
     @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {STF_PROD_S})
@@ -84,7 +84,7 @@ public final class ShoppingSearchTests {
 
     // В этом тесте выполняется по два раза swipeScrollTabHeadersRight/swipeScrollTabHeadersLeft
     //    // Потому что при одиночном скроле категория "Все сразу" не скрывается
-    @CaseId(2991)
+    @TmsLink("2991")
     @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {STF_PROD_S})
@@ -107,7 +107,7 @@ public final class ShoppingSearchTests {
         shop().interactHeader().checkCategoryAllVisible();
     }
 
-    @CaseId(3105)
+    @TmsLink("3105")
     @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {STF_PROD_S})
@@ -126,7 +126,7 @@ public final class ShoppingSearchTests {
         shop().interactHeader().checkSearchBarEmpty();
     }
 
-    @CaseId(1581)
+    @TmsLink("1581")
     @Test(description = "Добавление товара в корзину из поиска товаров", groups = {STF_PROD_S})
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage();
@@ -150,7 +150,7 @@ public final class ShoppingSearchTests {
         search().interactCart().checkCartNotEmpty();
     }
 
-    @CaseId(2589)
+    @TmsLink("2589")
     @Skip
     @Test(description = "Работоспособность сортировки товаров", groups = {STF_PROD_S})
     public void successApplySort() {

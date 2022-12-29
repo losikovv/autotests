@@ -3,13 +3,13 @@ package ru.instamart.test.reforged.admin.retailer;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -40,7 +40,7 @@ public final class AdministrationRetailerTests {
         apiHelper.setupStoreForActivation(thirdStore);
     }
 
-    @CaseId(535)
+    @TmsLink("535")
     @Story("Страница ретейлеров")
     @Test(description = "На страницу выводится весь список ретейлеров с информацией об их доступности и датах их создания", groups = REGRESSION_ADMIN)
     public void successViewRetailerPage() {
@@ -55,7 +55,7 @@ public final class AdministrationRetailerTests {
         retailers().retailerCreateDateCompare(retailersQuantity);
     }
 
-    @CaseId(184)
+    @TmsLink("184")
     @Story("Страница ретейлеров")
     @Test(description = "Корректное отображение страницы загрузки зон", groups = REGRESSION_ADMIN)
     public void successViewRetailerZones() {
@@ -87,7 +87,7 @@ public final class AdministrationRetailerTests {
         zonePage().checkDownloadButtonVisible();
     }
 
-    @CaseId(536)
+    @TmsLink("536")
     @Story("Страница ретейлеров")
     @Test(description = "Cортировка городов по кол-ву магазинов в каждом и по алфавиту", groups = REGRESSION_ADMIN)
     public void storesQuantityAndAlphabetSortCities() {
@@ -103,7 +103,7 @@ public final class AdministrationRetailerTests {
         retailers().checkIfStoreAlphabeticallySorted();
     }
 
-    @CaseId(537)
+    @TmsLink("537")
     @Story("Страница ретейлеров")
     @Test(description = "Cортировка городов по дате создания", groups = REGRESSION_ADMIN)
     public void storesCreateDateSortCities() {
@@ -118,7 +118,7 @@ public final class AdministrationRetailerTests {
         retailers().checkStoreSortViaCreationDateCorrect();
     }
 
-    @CaseId(558)
+    @TmsLink("558")
     @Story("Страница ретейлеров")
     @Test(description = "При клике на адрес магазина происходит переход на его страницу", groups = REGRESSION_ADMIN)
     public void successTransitOnStorePageViaClickOnAddress() {
@@ -139,7 +139,7 @@ public final class AdministrationRetailerTests {
         store().checkAddressCorrect(address);
     }
 
-    @CaseId(532)
+    @TmsLink("532")
     @Story("Страница ретейлеров")
     @Test(description = "Поиск ретейлера", groups = REGRESSION_ADMIN)
     public void retailerSearch() {
@@ -163,7 +163,7 @@ public final class AdministrationRetailerTests {
         retailers().checkRetailerSearchCorrect(retailerName);
     }
 
-    @CaseId(533)
+    @TmsLink("533")
     @Story("Страница ретейлеров")
     @Test(description = "Сортировка по названию", groups = REGRESSION_ADMIN)
     public void retailerSortViaName() {
@@ -190,7 +190,7 @@ public final class AdministrationRetailerTests {
         retailers().assertAll();
     }
 
-    @CaseId(557)
+    @TmsLink("557")
     @Story("Страница ретейлеров")
     @Test(description = "Сортировка по дате создания", groups = REGRESSION_ADMIN)
     public void retailerSortViaDate() {
@@ -217,7 +217,7 @@ public final class AdministrationRetailerTests {
         retailers().assertAll();
     }
 
-    @CaseId(534)
+    @TmsLink("534")
     @Story("Страница ретейлеров")
     @Test(description = "Сохранение и воспроизведение фильтров и сортировок в URL", groups = REGRESSION_ADMIN)
     public void saveSortViaUrl() {
@@ -249,7 +249,7 @@ public final class AdministrationRetailerTests {
         retailers().assertAll();
     }
 
-    @CaseId(538)
+    @TmsLink("538")
     @Story("Страница ретейлеров")
     @Test(description = "Кнопка 'Добавить ритейлера' ведёт на страницу создания нового ритейлера", groups = REGRESSION_ADMIN)
     public void successTransitToRetailerCreatePage() {
@@ -265,7 +265,7 @@ public final class AdministrationRetailerTests {
         retailerAdd().checkNameInputVisible();
     }
 
-    @CaseId(539)
+    @TmsLink("539")
     @Story("Страница ретейлеров")
     @Test(description = "Кнопка 'Добавить магазин' ведёт на страницу создания нового магазина ритейлера", groups = REGRESSION_ADMIN)
     public void successTransitToRetailerStoreCreatePage() {
@@ -281,7 +281,7 @@ public final class AdministrationRetailerTests {
         shopAdd().checkRegionInputVisible();
     }
 
-    @CaseId(580)
+    @TmsLink("580")
     @Story("Страница ретейлеров")
     @Test(description = "Фильтрация ритейлеров по доступности", groups = REGRESSION_ADMIN)
     public void retailerFilterViaAvailability() {
@@ -316,7 +316,7 @@ public final class AdministrationRetailerTests {
         retailers().assertAll();
     }
 
-    @CaseId(581)
+    @TmsLink("581")
     @Story("Страница ретейлеров")
     @Test(description = "Фильтрация ритейлеров и магазинов по региону", groups = REGRESSION_ADMIN)
     public void retailerFilterViaRegion() {

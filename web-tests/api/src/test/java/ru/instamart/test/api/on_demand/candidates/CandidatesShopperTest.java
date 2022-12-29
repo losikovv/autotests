@@ -4,6 +4,7 @@ import candidates.CandidatesGrpc;
 import candidates.CandidatesOuterClass;
 import candidates.CandidatesOuterClass.CandidateRole;
 import io.qameta.allure.Allure;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,8 +12,6 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_CANDIDATES;
@@ -50,7 +49,7 @@ public class CandidatesShopperTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
     }
 
-    @CaseId(34)
+    @TmsLink("34")
     @Test(description = "Отсутствие необходимого транспорта у кандидата",
             groups = "dispatch-candidates-smoke")
     public void lackOfTransportCandidatesShopper() {
@@ -71,7 +70,7 @@ public class CandidatesShopperTest extends RestBase {
                 "UUID кандидата вернулся пустым"));
     }
 
-    @CaseId(39)
+    @TmsLink("39")
     @Test(description = "Отсутствие необходимого транспорта у кандидата",
             groups = "dispatch-candidates-smoke")
     public void lackOfTransportCandidatesNonShopper() {
@@ -92,7 +91,7 @@ public class CandidatesShopperTest extends RestBase {
     }
 
 
-    @CaseId(79)
+    @TmsLink("79")
     @Test(description = "Отсутствие необходимого транспорта у кандидата", groups = "dispatch-candidates-smoke")
     public void lackOfNecessaryTransportCandidates() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()

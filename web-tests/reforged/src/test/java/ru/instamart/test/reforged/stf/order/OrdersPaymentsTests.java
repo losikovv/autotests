@@ -14,8 +14,8 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -41,7 +41,7 @@ public final class OrdersPaymentsTests {
         this.helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseId(1624)
+    @TmsLink("1624")
     @Story("Тест заказа с оплатой картой онлайн")
     @Test(description = "Тест заказа с оплатой картой онлайн", groups = {REGRESSION_STF})
     public void successOrderWithCardOnline() {
@@ -84,7 +84,7 @@ public final class OrdersPaymentsTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 
-    @CaseId(1625)
+    @TmsLink("1625")
     @Story("Тест заказа с оплатой картой курьеру")
     @Test(description = "Тест заказа с оплатой картой курьеру", groups = {REGRESSION_STF})
     public void successOrderWithCardCourier() {
@@ -122,7 +122,7 @@ public final class OrdersPaymentsTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 
-    @CaseId(1626)
+    @TmsLink("1626")
     @Story("Тест заказа с оплатой банковским переводом")
     @Test(description = "Тест заказа с оплатой банковским переводом", groups = REGRESSION_STF)
     public void successOrderWithBankTransfer() {
@@ -174,7 +174,7 @@ public final class OrdersPaymentsTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 
-    @CaseIDs({@CaseId(3238), @CaseId(3235)})
+    @TmsLinks({@TmsLink("3238"), @TmsLink("3235")})
     @Story("Ошибки валидации")
     @Test(description = "Добавление новой карты после попытки ввода некорректного номера карты", groups = REGRESSION_STF)
     public void testAddPaymentCardAfterCardNumberValidation() {
@@ -224,7 +224,7 @@ public final class OrdersPaymentsTests {
         checkout().interactAddPaymentCardModal().checkModalWindowNotVisible();
     }
 
-    @CaseIDs({@CaseId(3236), @CaseId(3239)})
+    @TmsLinks({@TmsLink("3236"), @TmsLink("3239")})
     @Story("Ошибки валидации")
     @Test(description = "Добавление новой карты. Некорректная дата окончания действия карты", groups = REGRESSION_STF)
     public void testAddPaymentCardAfterCardExpireDataValidation() {
@@ -276,7 +276,7 @@ public final class OrdersPaymentsTests {
         checkout().interactAddPaymentCardModal().checkModalWindowNotVisible();
     }
 
-    @CaseIDs({@CaseId(3239), @CaseId(3237)})
+    @TmsLinks({@TmsLink("3239"), @TmsLink("3237")})
     @Story("Ошибки валидации")
     @Test(description = "Добавление новой карты после попытки ввода некорректного имя держателя", groups = REGRESSION_STF)
     public void testAddPaymentCardAfterCardHolderValidation() {

@@ -1,8 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -15,8 +13,6 @@ import ru.instamart.api.model.v2.AvailableProviderV2;
 import ru.instamart.api.request.v2.AuthProvidersV2Request;
 import ru.instamart.api.response.v2.AvailableProvidersForAttachV2Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.UUID;
 
@@ -33,7 +29,7 @@ public final class AuthProviderV2Test extends RestBase {
     String uid3 = UUID.randomUUID().toString();
     String uid4 = UUID.randomUUID().toString();
 
-    @CaseId(168)
+    @TmsLink("168")
     @Test(dataProvider = "authProviders",
             dataProviderClass = RestDataProvider.class,
             groups = {API_INSTAMART_PROD},
@@ -44,7 +40,7 @@ public final class AuthProviderV2Test extends RestBase {
         checkFieldIsNotEmpty(response.as(SessionsV2Response.class).getSession(), "сессия");
     }
 
-    @CaseId(168)
+    @TmsLink("168")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Авторизуемся через стороннего провайдера")
     public void postAuthProviderSessions200() {
@@ -53,7 +49,7 @@ public final class AuthProviderV2Test extends RestBase {
         checkResponseJsonSchema(response, SessionsV2Response.class);
     }
 
-    @CaseId(827)
+    @TmsLink("827")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение списка провайдеров для пользователя")
     public void getProvidersList() {
@@ -72,7 +68,7 @@ public final class AuthProviderV2Test extends RestBase {
         });
     }
 
-    @CaseId(1476)
+    @TmsLink("1476")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получение списка провайдеров для пользователя без авторизации")
     public void getProvidersListWithoutAuth() {
@@ -82,7 +78,7 @@ public final class AuthProviderV2Test extends RestBase {
         checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 
-    @CaseIDs(value = {@CaseId(790), @CaseId(1481), @CaseId(1482), @CaseId(1483)})
+    @TmsLinks(value = {@TmsLink("790"), @TmsLink("1481"), @TmsLink("1482"), @TmsLink("1483")})
     @Test(dataProvider = "authProvidersWithParams",
             dataProviderClass = RestDataProvider.class,
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},

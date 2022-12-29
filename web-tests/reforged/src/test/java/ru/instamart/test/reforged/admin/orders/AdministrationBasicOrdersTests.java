@@ -3,9 +3,9 @@ package ru.instamart.test.reforged.admin.orders;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.OD_REGRESS;
 import static ru.instamart.reforged.admin.AdminRout.login;
@@ -19,7 +19,7 @@ import static ru.instamart.reforged.admin.AdminRout.orders;
 @Story("Страница 'Список заказов' admin/spa/orders")
 public final class AdministrationBasicOrdersTests {
 
-    @CaseId(1499)
+    @TmsLink("1499")
     @Test(description = "Корректное отображение страницы (/admin/orders). Админ со старыми ролями", groups = {OD_REGRESS})
     public void basicOrdersPageTestOldRoles() {
         login().goToPage();
@@ -41,7 +41,7 @@ public final class AdministrationBasicOrdersTests {
         orders().checkApplyFiltersButtonVisible();
     }
 
-    @CaseId(1499)
+    @TmsLink("1499")
     @Test(description = "Корректное отображение страницы (/admin/orders). Админ с новыми ролями", groups = {OD_REGRESS})
     public void basicOrdersPageTestNewRoles() {
         login().goToPage();

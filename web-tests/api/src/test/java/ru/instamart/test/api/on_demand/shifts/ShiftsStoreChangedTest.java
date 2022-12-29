@@ -17,7 +17,7 @@ import ru.instamart.jdbc.dao.shifts.PlanningPeriodsDao;
 import ru.instamart.jdbc.dao.shifts.ShopsDao;
 import ru.instamart.jdbc.dto.shifts.PlanningPeriodFilters;
 import ru.instamart.jdbc.entity.shifts.PlanningPeriodEntity;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import shifts.ImportPlanningPeriods;
 
 import java.util.*;
@@ -83,7 +83,7 @@ public class ShiftsStoreChangedTest extends RestBase {
         }
     }
 
-    @CaseId(177)
+    @TmsLink("177")
     @Story("Создание зон планирования из стрима магазинов")
     @Test(groups = {"api-shifts"},
             description = "Создание зоны планирования для магазина с быстрой доставкой и территорией доставки")
@@ -94,7 +94,7 @@ public class ShiftsStoreChangedTest extends RestBase {
         );
     }
 
-    @CaseId(178)
+    @TmsLink("178")
     @Story("Создание зон планирования из стрима магазинов")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "createStore",
@@ -131,7 +131,7 @@ public class ShiftsStoreChangedTest extends RestBase {
     }
 
 
-    @CaseId(81)
+    @TmsLink("81")
     @Story("Импорт плановых периодов")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "importPlanningPeriodForUniversalAutoUniversal",
@@ -187,7 +187,7 @@ public class ShiftsStoreChangedTest extends RestBase {
         );
     }
 
-    @CaseId(81)
+    @TmsLink("81")
     @Story("Импорт плановых периодов")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "importPlanningPeriod200",
@@ -245,7 +245,7 @@ public class ShiftsStoreChangedTest extends RestBase {
         });
     }
 
-    @CaseId(136)
+    @TmsLink("136")
     @Story("Импорт плановых периодов")
     @Test(groups = {"api-shifts"},
             description = "Добавление плановых периодов для всех существующих ролей")
@@ -363,7 +363,7 @@ public class ShiftsStoreChangedTest extends RestBase {
         );
     }
 
-    @CaseId(204)
+    @TmsLink("204")
     @Story("Импорт плановых периодов")
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "createStore",

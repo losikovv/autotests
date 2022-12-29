@@ -10,7 +10,7 @@ import ru.instamart.api.helper.AuthorizationServiceHelper;
 import ru.instamart.api.request.authorization_service.PermissionsRequest;
 import ru.instamart.api.request.authorization_service.RealmRequest;
 import ru.instamart.api.response.authorization_service.PermissionsResponse;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -25,7 +25,7 @@ public class PermissionsTest {
         Response response = RealmRequest.POST(AuthorizationServiceHelper.getInitialRealm());
     }
 
-    @CaseId(11)
+    @TmsLink("11")
     @Test(groups = {"api-authorization-service"},
             description = "Получение списка прав доступа")
     public void getPermissions200() {
@@ -37,7 +37,7 @@ public class PermissionsTest {
 
     }
 
-    @CaseId(12)
+    @TmsLink("12")
     @Test(groups = {"api-authorization-service"},
             description = "Получение списка прав доступа для неверного ресурса")
     public void getPermissionsWithWrongResource200() {
@@ -52,7 +52,7 @@ public class PermissionsTest {
         });
     }
 
-    @CaseId(13)
+    @TmsLink("13")
     @Test(groups = {"api-authorization-service"},
             description = "Получение списка прав доступа для неверной роли")
     public void getPermissionsWithWrongRole200() {

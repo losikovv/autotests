@@ -3,10 +3,10 @@ package ru.instamart.test.reforged.admin.orders;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -20,7 +20,7 @@ import static ru.instamart.reforged.admin.enums.ShipmentStatuses.SHIPMENT_READY;
 @Story("Страница 'Список заказов' admin/spa/orders. Карточка заказа в таблице ")
 public final class AdministrationShipmentInTableTests {
 
-    @CaseId(2101)
+    @TmsLink("2101")
     @Test(description = "Переход в карточку магазина со страницы Список заказов",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void storeNameLinkLeadsToStorePageTest() {
@@ -41,7 +41,7 @@ public final class AdministrationShipmentInTableTests {
         store().checkStoreNameContains(storeName);
     }
 
-    @CaseId(2109)
+    @TmsLink("2109")
     @Test(description = "Быстрый переход в карточку заказа со страницы Список заказов",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderNumberLinkLeadsToOrderEditPageTest() {
@@ -71,7 +71,7 @@ public final class AdministrationShipmentInTableTests {
 
     @Skip
     //Скачивание 500 на стейджах
-    @CaseId(2110)
+    @TmsLink("2110")
     @Test(description = "Скачать накладную заказа",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void downloadAnOrderWaybillTest() {
@@ -83,7 +83,7 @@ public final class AdministrationShipmentInTableTests {
         orders().checkOrdersLoaded();
     }
 
-    @CaseId(2111)
+    @TmsLink("2111")
     @Test(description = "Переход в карточку заказа через дополнительное меню на странице Список заказов",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentDropdownMenuTestShipmentInfo() {
@@ -105,7 +105,7 @@ public final class AdministrationShipmentInTableTests {
         shipmentPage().checkPageContains(orderNumber);
     }
 
-    @CaseId(2112)
+    @TmsLink("2112")
     @Test(description = "Переход в платежи заказа через дополнительное меню",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentPaymentStatusLeadsPaymentsTest() {
@@ -128,7 +128,7 @@ public final class AdministrationShipmentInTableTests {
     //TODO: Магазин = Диспатч 2.0, статус заказа = оформлен, статус сборки = собирается и назначен на исполнителя
     //Нужно оформлять такой заказ по другому не найти
     @Skip
-    @CaseId(2162)
+    @TmsLink("2162")
     @Test(description = "Переход на просмотр местоположения курьера на карте",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentDropdownMenuTestShowOnMap() {
@@ -150,7 +150,7 @@ public final class AdministrationShipmentInTableTests {
 
     }
 
-    @CaseId(2113)
+    @TmsLink("2113")
     @Test(description = "Переход на страницу переноса слота заказа из таблица заказов",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentDeliveryTimeLeadsShipmentPageDeliveryTest() {
@@ -173,7 +173,7 @@ public final class AdministrationShipmentInTableTests {
         shipmentPageDelivery().interactAlert().checkSuccessFlashVisible();
     }
 
-    @CaseId(2114)
+    @TmsLink("2114")
     @Test(description = "Переход к реквизитам клиента со страницы Список заказов",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentClientNameLeadsClientEditPageTest() {
@@ -196,7 +196,7 @@ public final class AdministrationShipmentInTableTests {
     //TODO: создать заказ в магазине с включенным Диспатч 2.0
     //у заказов созданных без включенного диспатча будет выдавать ошибку
     //вывести партнера на смену в магазин где собран заказ
-    @CaseId(2129)
+    @TmsLink("2129")
     @Test(description = "Удаление назначенного универсала",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentDropdownMenuTestAssignment() {

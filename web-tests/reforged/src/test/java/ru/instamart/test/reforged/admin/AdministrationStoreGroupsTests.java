@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,7 +19,6 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -56,7 +56,7 @@ public class AdministrationStoreGroupsTests {
         api.deleteRetailerWithStores(retailer.getName());
     }
 
-    @CaseId(569)
+    @TmsLink("569")
     @Test(description = "Добавление группы", groups = REGRESSION_ADMIN)
     public void checkAddNewGroup() {
         login().goToPage();
@@ -83,7 +83,7 @@ public class AdministrationStoreGroupsTests {
         storeEdit().checkStoreGroupsContains(storeLabel.getTitle());
     }
 
-    @CaseId(570)
+    @TmsLink("570")
     @Test(description = "Изменение назначенной группы", groups = REGRESSION_ADMIN)
     public void checkEditGroup() {
         api.createStoreLabel(storeLabel);
@@ -111,7 +111,7 @@ public class AdministrationStoreGroupsTests {
         storeEdit().checkStoreGroupsContains(storeLabel.getTitle());
     }
 
-    @CaseId(571)
+    @TmsLink("571")
     @Test(description = "Удаление назначенной магазину группы", groups = REGRESSION_ADMIN)
     public void checkDeleteGroup() {
         api.createStoreLabel(storeLabel);
@@ -136,7 +136,7 @@ public class AdministrationStoreGroupsTests {
         storeEdit().checkStoreGroupsNotContains(storeLabel.getTitle());
     }
 
-    @CaseId(577)
+    @TmsLink("577")
     @Test(description = "Назначение группы магазину", groups = REGRESSION_ADMIN)
     public void checkAddGroupToStore() {
         api.createStoreLabel(storeLabel);

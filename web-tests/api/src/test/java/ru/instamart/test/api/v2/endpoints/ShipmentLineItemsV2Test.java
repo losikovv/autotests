@@ -26,8 +26,8 @@ import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.Objects;
@@ -77,7 +77,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         }
     }
 
-    @CaseIDs(value = {@CaseId(1003), @CaseId(1004)})
+    @TmsLinks(value = {@TmsLink("1003"), @TmsLink("1004")})
     @Story("Добавление товара в заказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара из этого же магазина")
@@ -97,7 +97,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1006)
+    @TmsLink("1006")
     @Story("Добавление товара в заказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление того же товара",
@@ -122,7 +122,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(1011)
+    @TmsLink("1011")
     @Story("Добавление товара в заказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара с превышением веса",
@@ -133,7 +133,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         checkErrorField(response, "invalid_shipment_state_collecting", "Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
-    @CaseIDs(value = {@CaseId(1008), @CaseId(1012), @CaseId(2045)})
+    @TmsLinks(value = {@TmsLink("1008"), @TmsLink("1012"), @TmsLink("2045")})
     @Story("Добавление товара в заказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление товара c невалидным productId",
@@ -146,7 +146,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         checkErrorField(response, field, errorMessage);
     }
 
-    @CaseId(1009)
+    @TmsLink("1009")
     @Story("Добавление товара в заказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара - время редактирования заказа истекло",
@@ -158,7 +158,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         checkErrorField(response, "invalid_shipment_state_collecting", "Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
-    @CaseId(1152)
+    @TmsLink("1152")
     @Story("Добавление товара в заказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара - редактирование запрещено",
@@ -171,7 +171,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 0);
     }
 
-    @CaseId(1010)
+    @TmsLink("1010")
     @Story("Добавление товара в заказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара с превышение количества товаров",
@@ -185,7 +185,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         checkErrorField(response, "invalid_shipment_state_collecting", "Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
-    @CaseId(1005)
+    @TmsLink("1005")
     @Story("Добавление товара в заказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара - заказ собирается",
@@ -198,7 +198,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         checkErrorField(response, "invalid_shipment_state_collecting", "Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
-    @CaseId(1007)
+    @TmsLink("1007")
     @Story("Добавление товара в заказ")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара - заказ отменен",

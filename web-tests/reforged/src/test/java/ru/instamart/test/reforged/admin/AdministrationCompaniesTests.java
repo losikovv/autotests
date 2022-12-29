@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Company;
@@ -9,7 +10,6 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.TimeUtil;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -20,7 +20,7 @@ public final class AdministrationCompaniesTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(477)
+    @TmsLink("477")
     @Test(description = "Тест поиска компании по ИНН", groups = REGRESSION_ADMIN)
     public void testSearchCompany() {
         var userData = UserManager.getQaUser();
@@ -40,7 +40,7 @@ public final class AdministrationCompaniesTests {
         companies().checkFirstCompanyINN(company.getInn());
     }
 
-    @CaseId(478)
+    @TmsLink("478")
     @Test(description = "Тест создание компании через админку (ИП)", groups = REGRESSION_ADMIN)
     public void testAddUserCompanyIP() {
         var userData = UserManager.getQaUser();
@@ -64,7 +64,7 @@ public final class AdministrationCompaniesTests {
         companies().checkFirstCompanyINN(company.getInn());
     }
 
-    @CaseId(479)
+    @TmsLink("479")
     @Test(description = "Тест создание компании через админку (ЮЛ)", groups = REGRESSION_ADMIN)
     public void testAddUserCompanyOOO() {
         var userData = UserManager.getQaUser();
@@ -88,7 +88,7 @@ public final class AdministrationCompaniesTests {
         companies().checkFirstCompanyINN(company.getInn());
     }
 
-    @CaseId(480)
+    @TmsLink("480")
     @Test(description = "Тест добавление менеджера к компании", groups = REGRESSION_ADMIN)
     public void testAddCompanyManager() {
         var managerData = UserManager.getQaUser();
@@ -119,7 +119,7 @@ public final class AdministrationCompaniesTests {
         company().checkCompanyManagersListSize(1);
     }
 
-    @CaseId(481)
+    @TmsLink("481")
     @Test(description = "Тест удаление менеджера компании", groups = REGRESSION_ADMIN)
     public void testDeleteCompanyManager() {
         var userData = UserManager.getQaUser();
@@ -151,7 +151,7 @@ public final class AdministrationCompaniesTests {
         company().checkCompanyManagersNotDisplayed();
     }
 
-    @CaseId(482)
+    @TmsLink("482")
     @Test(description = "Тест добавление договора (с указанной датой)", groups = REGRESSION_ADMIN)
     public void testAddContractOneStep() {
         var userData = UserManager.getQaUser();
@@ -198,7 +198,7 @@ public final class AdministrationCompaniesTests {
         company().checkNoticeTextEquals("Уже имеется активный договор");
     }
 
-    @CaseId(482)
+    @TmsLink("482")
     @Test(description = "Тест добавление и редактирование договора", groups = REGRESSION_ADMIN)
     public void testAddContractTwoStep() {
         var userData = UserManager.getQaUser();
@@ -263,7 +263,7 @@ public final class AdministrationCompaniesTests {
     }
 
 
-    @CaseId(483)
+    @TmsLink("483")
     @Test(description = "Тест обновление баланса (положительный баланс)", groups = REGRESSION_ADMIN)
     public void testBalanceRefreshPositiveBalance() {
         login().goToPage();
@@ -286,7 +286,7 @@ public final class AdministrationCompaniesTests {
         company().checkBalanceRefreshDateTime("Дата обновления:" + TimeUtil.getDateTimeViaSlash());
     }
 
-    @CaseId(483)
+    @TmsLink("483")
     @Test(description = "Тест обновление баланса (отрицательный баланс)", groups = REGRESSION_ADMIN)
     public void testBalanceRefreshNegativeBalance() {
         login().goToPage();
@@ -309,7 +309,7 @@ public final class AdministrationCompaniesTests {
         company().checkBalanceRefreshDateTime("Дата обновления:" + TimeUtil.getDateTimeViaSlash());
     }
 
-    @CaseId(484)
+    @TmsLink("484")
     @Test(description = "Тест обновление кода безопасности", groups = REGRESSION_ADMIN)
     public void testSecurityCodeRefresh() {
         var userData = UserManager.getQaUser();
@@ -339,7 +339,7 @@ public final class AdministrationCompaniesTests {
         //TODO Добавить проверку отправленного письма после выполнения https://jira.sbmt.io/browse/INFRADEV-8877
     }
 
-    @CaseId(485)
+    @TmsLink("485")
     @Test(description = "Тест работа кнопки 'Подтвердить компанию'", groups = REGRESSION_ADMIN)
     public void testConfirmCompany() {
         var userData = UserManager.getQaUser();
@@ -388,7 +388,7 @@ public final class AdministrationCompaniesTests {
         companies().checkFirstCompanyStatus("Требует одобрения");
     }
 
-    @CaseId(487)
+    @TmsLink("487")
     @Test(description = "Тест удаление представителя компании", groups = REGRESSION_ADMIN)
     public void testDeleteCompanyEmployee() {
         var userData = UserManager.getQaUser();
@@ -418,7 +418,7 @@ public final class AdministrationCompaniesTests {
         company().checkCompanyEmployeesNotDisplayed();
     }
 
-    @CaseId(488)
+    @TmsLink("488")
     @Test(description = "Тест подтверждение юзера", groups = REGRESSION_ADMIN)
     public void testConfirmCompanyEmployee() {
         var userData = UserManager.getQaUser();
@@ -458,7 +458,7 @@ public final class AdministrationCompaniesTests {
         company().checkCompanyEmployeesListSize(1);
     }
 
-    @CaseId(490)
+    @TmsLink("490")
     @Test(description = "Тест удаление договора", groups = REGRESSION_ADMIN)
     public void testDeleteContract() {
         var userData = UserManager.getQaUser();
@@ -512,7 +512,7 @@ public final class AdministrationCompaniesTests {
         company().checkContractNumberInputVisible();
     }
 
-    @CaseId(491)
+    @TmsLink("491")
     @Test(description = "Тест редактирование названия", groups = REGRESSION_ADMIN)
     public void testCompanyEditName() {
         var userData = UserManager.getQaUser();

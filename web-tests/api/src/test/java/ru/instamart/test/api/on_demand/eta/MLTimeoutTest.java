@@ -15,7 +15,7 @@ import ru.instamart.jdbc.entity.eta.ServiceParametersEntity;
 import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
 import ru.instamart.redis.RedisService;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.List;
 import java.util.UUID;
@@ -43,7 +43,7 @@ public class MLTimeoutTest extends EtaBase {
         ));
     }
 
-    @CaseId(62)
+    @TmsLink("62")
     @Story("Store ETA")
     @Test(description = "Проверка отсутствия ошибки, в случае, если ML не возвращает ответ по таймауту",
             groups = "ondemand-eta")
@@ -53,7 +53,7 @@ public class MLTimeoutTest extends EtaBase {
         checkStoreEta(response, STORE_UUID_WITH_ML, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(61)
+    @TmsLink("61")
     @Story("Basket ETA")
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML не возвращает ответ по таймауту",
             groups = "ondemand-eta")

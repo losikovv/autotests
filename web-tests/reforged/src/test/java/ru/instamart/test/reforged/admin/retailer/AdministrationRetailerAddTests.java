@@ -2,13 +2,13 @@ package ru.instamart.test.reforged.admin.retailer;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
+import io.qameta.allure.TmsLinks;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -29,8 +29,8 @@ public final class AdministrationRetailerAddTests {
         apiHelper.deleteRetailerByNameInAdmin(retailerName);
     }
 
-    @CaseIDs
-            ({@CaseId(206), @CaseId(207), @CaseId(208)})
+    @TmsLinks
+            ({@TmsLink("206"), @TmsLink("207"), @TmsLink("208")})
     @Test(description = "Проверка обязательности заполнения полей", groups = REGRESSION_ADMIN)
     public void checkRequiredFields() {
         login().goToPage();
@@ -53,7 +53,7 @@ public final class AdministrationRetailerAddTests {
         retailerAdd().checkImportKeyInputErrorText("Обязательное поле");
     }
 
-    @CaseId(206)
+    @TmsLink("206")
     @Test(description = "Поле Название обязательное для заполнения при создании ритейлера", groups = REGRESSION_ADMIN)
     public void checkRetailerNameRequiredAfterClear() {
         login().goToPage();
@@ -74,7 +74,7 @@ public final class AdministrationRetailerAddTests {
         retailerAdd().checkNameInputErrorText("Обязательное поле");
     }
 
-    @CaseId(207)
+    @TmsLink("207")
     @Test(description = "Поле URL обязательное для заполнения", groups = REGRESSION_ADMIN)
     public void checkURLRequiredAfterClear() {
         login().goToPage();
@@ -95,7 +95,7 @@ public final class AdministrationRetailerAddTests {
         retailerAdd().checkURLInputErrorText("Обязательное поле");
     }
 
-    @CaseId(208)
+    @TmsLink("208")
     @Test(description = "Поле Ключ в файле импорта обязательное для заполнения", groups = REGRESSION_ADMIN)
     public void checkImportKeyRequiredAfterClear() {
         login().goToPage();
@@ -116,7 +116,7 @@ public final class AdministrationRetailerAddTests {
         retailerAdd().checkImportKeyInputErrorText("Обязательное поле");
     }
 
-    @CaseId(209)
+    @TmsLink("209")
     @Test(description = "Поле Ключ в файле импорта заполнять только числовым значением", groups = REGRESSION_ADMIN)
     public void checkImportKeyDigitalOnly() {
         login().goToPage();
@@ -148,8 +148,8 @@ public final class AdministrationRetailerAddTests {
         retailerAdd().checkImportKeyInputErrorNotVisible();
     }
 
-    @CaseIDs({
-            @CaseId(211), @CaseId(215), @CaseId(217)})
+    @TmsLinks({
+            @TmsLink("211"), @TmsLink("215"), @TmsLink("217")})
     @Test(description = "Успешное создание ритейлера со всеми заполненными данными", groups = REGRESSION_ADMIN)
     public void successAddNewRetailer() {
         login().goToPage();

@@ -4,8 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.openqa.selenium.Cookie;
 import org.testng.IInvokedMethod;
+import org.testng.ISuite;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import ru.instamart.kraken.listener.AllureTestNgListener;
+import ru.instamart.kraken.service.testit.TestItService;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.annotation.CookieProvider;
@@ -30,11 +33,33 @@ public class UiDefaultListener extends AllureTestNgListener {
             addCookie(method);
     }
 
+    @Override
+    public void onStart(ITestContext context) {
+        super.onStart(context);
+        TestItService.INSTANCE.startTestRun();
+    }
+
+    @Override
+    public void onTestFailure(ITestResult result) {
+        super.onTestFailure(result);
+        fireRetryTest(result);
+    }
+
+    @Override
+    public void onFinish(ISuite suite) {
+        TestItService.INSTANCE.completeTestRun();
+        super.onFinish(suite);
+    }
+
     protected void tearDown(final Method method, final ITestResult result) {
         if (method.isAnnotationPresent(DoNotOpenBrowser.class) || !Kraken.isAlive()) {
             return;
         }
+        if (result.isSuccess()) {
+            TestItService.INSTANCE.updateTest(result);
+        }
         if (!result.isSuccess()) {
+            TestItService.INSTANCE.updateTest(result, CustomReport.takeScreenshotFile());
             //CustomReport.addSourcePage();
             CustomReport.addBrowserLog();
             CustomReport.addCookieLog();
@@ -45,7 +70,7 @@ public class UiDefaultListener extends AllureTestNgListener {
         CustomReport.addSystemLog();
     }
 
-    protected void addCookie(final IInvokedMethod method) {
+    private void addCookie(final IInvokedMethod method) {
         try {
             final var doNotOpenBrowser = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(DoNotOpenBrowser.class);
             if (isNull(doNotOpenBrowser)) {

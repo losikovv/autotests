@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
@@ -18,14 +18,14 @@ public final class UserFavoritesTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
 
-    @CaseId(1263)
+    @TmsLink("1263")
     @Test(description = "Тест недоступности страницы любимых товаров неавторизованному юзеру", groups = {STF_PROD_S})
     public void noAccessToFavoritesForUnauthorizedUser() {
         userFavorites().goToPage();
         userFavorites().checkForbiddenPageUrl(userFavorites().pageUrl());
     }
 
-    @CaseId(1265)
+    @TmsLink("1265")
     @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {STF_PROD_S})
     public void noFavoriteItemsByDefault() {
         shop().goToPage();
@@ -37,7 +37,7 @@ public final class UserFavoritesTests {
         userFavorites().checkEmptyFavoritesProd();
     }
 
-    @CaseId(1266)
+    @TmsLink("1266")
     @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {STF_PROD_S})
     public void successAddFavoriteOnItemCard() {
         shop().goToPage();
@@ -53,7 +53,7 @@ public final class UserFavoritesTests {
         userFavorites().checkNotEmptyFavoritesProd();
     }
 
-    @CaseId(1267)
+    @TmsLink("1267")
     @Test(description = "Удаление любимого товара из карточки товара и проверка списка", groups = {STF_PROD_S})
     public void successDeleteFavoriteOnItemCard() {
         final var userData = UserManager.getQaUser();
@@ -71,7 +71,7 @@ public final class UserFavoritesTests {
         userFavorites().checkCountChange(userFavorites().getFavoritesCount(), 1);
     }
 
-    @CaseId(1268)
+    @TmsLink("1268")
     @Test(description = "Удаление всех любимых товаров", groups = {STF_PROD_S})
     public void successCleanupFavorites() {
         final var userData = UserManager.getQaUser();
@@ -88,7 +88,7 @@ public final class UserFavoritesTests {
         userFavorites().checkEmptyFavoritesProd();
     }
 
-    @CaseId(1270)
+    @TmsLink("1270")
     @Test(description = "Проверка работоспособности подгрузки товаров по мере прокрутки списка в Любимых товарах", groups = {STF_PROD_S})
     public void successShowMoreLoad() {
         final var userData = UserManager.getQaUser();
@@ -110,7 +110,7 @@ public final class UserFavoritesTests {
         userFavorites().checkCountLess(initCount, userFavorites().getFavoritesCount());
     }
 
-    @CaseId(1272)
+    @TmsLink("1272")
     @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
             groups = {STF_PROD_S})
     public void successAuthAfterAddFavoriteOnItemCard() {
@@ -122,7 +122,7 @@ public final class UserFavoritesTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(1492)
+    @TmsLink("1492")
     @Test(description = "Тест добавления товаров в корзину из списка любимых товаров",
             groups = {STF_PROD_S})
     public void successAddFavoriteProductToCart() {

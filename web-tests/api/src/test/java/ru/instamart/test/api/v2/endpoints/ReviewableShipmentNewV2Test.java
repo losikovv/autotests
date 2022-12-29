@@ -13,7 +13,7 @@ import ru.instamart.api.request.v2.SeparatReviewsV2Request;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
@@ -37,7 +37,7 @@ public class ReviewableShipmentNewV2Test extends RestBase {
         Allure.step("Обновление даты доставки в БД", ()->SpreeShipmentsDao.INSTANCE.updateShipmentsByNumber(pastZoneDbDate, shipmentNumber));
     }
 
-    @CaseId(2337)
+    @TmsLink("2337")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о заказе | заказ старше 7 дней")
     public void getReviewableShipment() {

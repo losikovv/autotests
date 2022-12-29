@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -11,7 +12,6 @@ import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -34,7 +34,7 @@ public final class AdministrationPaymentsTests {
         SpreeOrdersDao.INSTANCE.updateShipmentState(orderNumber, StateV2.CANCELED.getValue());
     }
 
-    @CaseId(492)
+    @TmsLink("492")
     @Story("Тест создания платежа через SberPay")
     @Test(description = "Добавление нового платежа SberPay", groups = REGRESSION_ADMIN)
     public void successPaymentViaSberPay() {
@@ -72,7 +72,7 @@ public final class AdministrationPaymentsTests {
         shipmentPagePayments().assertAll();
     }
 
-    @CaseId(497)
+    @TmsLink("497")
     @Story("Отображение дебетового сальдо, если баланс больше нуля")
     @Test(description = "Отображение дебетового сальдо, если баланс больше нуля", groups = REGRESSION_ADMIN)
     public void checkDebitBalanceVisibleTest() {

@@ -15,7 +15,7 @@ import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
@@ -32,7 +32,7 @@ public class OperationalZonesV1Test extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(1505)
+    @TmsLink("1505")
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Создание региона (операционной зоны)")
     @Test(description = "Успешное создание региона (операционной зоны)",
@@ -51,7 +51,7 @@ public class OperationalZonesV1Test extends RestBase {
         zoneId = operationalZone.getId();
     }
 
-    @CaseId(1506)
+    @TmsLink("1506")
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Создание региона (операционной зоны)")
     @Test(description = "Создание региона с некорректным названием",
@@ -64,7 +64,7 @@ public class OperationalZonesV1Test extends RestBase {
         checkStatusCode(response, statusCode);
     }
 
-    @CaseId(1507)
+    @TmsLink("1507")
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Редактирование региона (операционной зоны)")
     @Test(description = "Успешное редактирование региона (операционной зоны)",
@@ -83,7 +83,7 @@ public class OperationalZonesV1Test extends RestBase {
         checkResponseJsonSchema(response, OperationalZoneV1Response.class);
     }
 
-    @CaseId(1508)
+    @TmsLink("1508")
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Редактирование региона (операционной зоны)")
     @Test(description = "Редактирование региона с некорректным названием",
@@ -97,7 +97,7 @@ public class OperationalZonesV1Test extends RestBase {
         checkStatusCode(response, statusCode);
     }
 
-    @CaseId(1509)
+    @TmsLink("1509")
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Редактирование региона (операционной зоны)")
     @Test(description = "Редактирование несуществующего региона",
@@ -108,7 +108,7 @@ public class OperationalZonesV1Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(2514)
+    @TmsLink("2514")
     @Story("Список регионов (операционные зоны)")
     @Test(description = "Получение списка регионов",
             groups = {API_INSTAMART_REGRESS, "api-v1"})

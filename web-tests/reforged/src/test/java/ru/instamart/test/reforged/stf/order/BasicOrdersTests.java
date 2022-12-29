@@ -1,9 +1,6 @@
 package ru.instamart.test.reforged.stf.order;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
@@ -14,8 +11,6 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.annotation.CookieProvider;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.SMOKE_STF;
@@ -36,7 +31,7 @@ public final class BasicOrdersTests {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseId(1674)
+    @TmsLink("1674")
     @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {REGRESSION_STF})
     public void successCompleteCheckoutWithNewJuridical() {
         userData = UserManager.getQaUser();
@@ -85,7 +80,7 @@ public final class BasicOrdersTests {
         userShipments().checkPageContains(userShipments().pageUrl());
     }
 
-    @CaseIDs(value = {@CaseId(1672), @CaseId(2627)})
+    @TmsLinks(value = {@TmsLink("1672"), @TmsLink("2627")})
     @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {REGRESSION_STF})
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getQaUser();
@@ -138,7 +133,7 @@ public final class BasicOrdersTests {
         userShipments().checkPageContains(userShipments().pageUrl());
     }
 
-    @CaseIDs(value = {@CaseId(2066), @CaseId(3043), @CaseId(2641)})
+    @TmsLinks(value = {@TmsLink("2066"), @TmsLink("3043"), @TmsLink("2641")})
     @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = REGRESSION_STF)
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         userData = UserManager.getQaUser();
@@ -186,7 +181,7 @@ public final class BasicOrdersTests {
         userShipments().checkPageContains(userShipments().pageUrl());
     }
 
-    @CaseId(1681)
+    @TmsLink("1681")
     @Test(description = "Тест заказа с любимыми товарами", groups = {REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void successOrderWithFavProducts() {
@@ -231,7 +226,7 @@ public final class BasicOrdersTests {
         userShipments().checkPageContains(userShipments().pageUrl());
     }
 
-    @CaseId(1673)
+    @TmsLink("1673")
     @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {REGRESSION_STF})
     public void successOrderWithCardCourier() {
         userData = UserManager.getQaUser();
@@ -272,7 +267,7 @@ public final class BasicOrdersTests {
         userShipments().checkPageContains(userShipments().pageUrl());
     }
 
-    @CaseId(2558)
+    @TmsLink("2558")
     @Story("Данные профиля пользователя")
     @Test(description = "Автоматическая подстановка данных в аккаунт после прохождения чекаута", groups = REGRESSION_STF)
     public void updateUserDataAfterCheckout() {
@@ -325,7 +320,7 @@ public final class BasicOrdersTests {
         userEdit().checkFullName(userEdit().getName(), userData.getName());
     }
 
-    @CaseId(2623)
+    @TmsLink("2623")
     @Issue("B2C-12077")
     @Story("Отмена заказа")
     @Test(description = "Отмена заказа", groups = {REGRESSION_STF, SMOKE_STF})
@@ -351,7 +346,7 @@ public final class BasicOrdersTests {
         userShipment().checkShipmentStateCancelled();
     }
 
-    @CaseId(2624)
+    @TmsLink("2624")
     @Story("Заказ")
     @Test(description = "Добавление товаров в активный заказ", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAddItemsInActiveOrder() {
@@ -377,7 +372,7 @@ public final class BasicOrdersTests {
         userShipment().checkProductListContains(StringUtil.cutThreeDotsFromEnd(itemName));
     }
 
-    @CaseId(2625)
+    @TmsLink("2625")
     @Story("Заказ")
     @Skip
     @Test(description = "Успешное оформление мультизаказа", groups = REGRESSION_STF)
@@ -436,7 +431,7 @@ public final class BasicOrdersTests {
         userShipments().checkPageContains(userShipments().pageUrl());
     }
 
-    @CaseId(2626)
+    @TmsLink("2626")
     @Story("Заказ")
     @Skip
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = {REGRESSION_STF, SMOKE_STF})
@@ -460,7 +455,7 @@ public final class BasicOrdersTests {
         userShipments().checkAllOrderStatusWasCanceled();
     }
 
-    @CaseId(2628)
+    @TmsLink("2628")
     @Story("Заказ")
     @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (добавлена карта c 3ds)", groups = REGRESSION_STF)
     public void successCompleteCheckoutWithNewPaymentCard3DSAlreadyIn() {

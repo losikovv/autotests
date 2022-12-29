@@ -67,13 +67,14 @@ public final class UserInfoService {
     @Data
     @Builder
     public static final class UserInfo {
+        private final String tmsUser = System.getenv("USER_NAME");
         private String gitName;
         private String gitEmail;
         private String computerName;
 
         @Override
         public String toString() {
-            return "(gitName=" + gitName + " gitEmail=" + gitEmail + " computerName=" + computerName + ")";
+            return "(gitName=" + gitName + " gitEmail=" + gitEmail + " computerName=" + computerName + " tmsUser=" + tmsUser + ")";
         }
     }
 }

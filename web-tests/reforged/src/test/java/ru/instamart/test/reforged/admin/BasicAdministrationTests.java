@@ -1,12 +1,8 @@
 package ru.instamart.test.reforged.admin;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Flaky;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -16,7 +12,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.home;
 @Feature("Базовый функционал и навигация в админке")
 public final class BasicAdministrationTests {
 
-    @CaseId(419)
+    @TmsLink("419")
     @Story("Тест доступности корневых разделов админки")
     @Test(description = "Тест доступности корневых разделов админки", groups = {REGRESSION_ADMIN, "smoke"})
     public void successCheckAdminSectionsAvailability() {
@@ -43,7 +39,7 @@ public final class BasicAdministrationTests {
         pages().checkPageIsAvailable();
     }
 
-    @CaseId(420)
+    @TmsLink("420")
     @Story("Тест доступности вьюхи oktell")
     @Test(description = "Тест доступности вьюхи oktell", groups = REGRESSION_ADMIN)
     public void successCheckOktellViewAvailability() {
@@ -54,7 +50,7 @@ public final class BasicAdministrationTests {
         home().checkPageIsAvailable();
     }
 
-    @CaseId(416)
+    @TmsLink("416")
     @Story("Проверка наличия элементов в шапке админки")
     @Test(description = "Проверка наличия элементов в шапке админки", groups = REGRESSION_ADMIN)
     public void successValidateHeader() {
@@ -68,7 +64,7 @@ public final class BasicAdministrationTests {
     }
 
     @Flaky
-    @CaseId(4)
+    @TmsLink("4")
     @Story("Тест валидности ссылок навигационного меню в шапке админки")
     @Test(description = "Тест валидности ссылок навигационного меню в шапке админки", groups = {REGRESSION_ADMIN, "smoke"})
     public void successValidateNavigationMenu() {

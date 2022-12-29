@@ -7,9 +7,7 @@ import candidates.CandidatesOuterClass.Candidate.EmploymentType;
 import candidates.CandidatesOuterClass.CandidateLastLocation;
 import candidates.CandidatesOuterClass.CandidateTransport;
 import io.grpc.StatusRuntimeException;
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -29,8 +27,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import workflow.ServiceGrpc;
 
 import java.sql.Timestamp;
@@ -115,7 +111,7 @@ public class CandidatesTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
     }
 
-    @CaseId(24)
+    @TmsLink("24")
     @Test(enabled = false, description = "Кандидаты находятся в пределах радиуса вокруг координаты магазина", groups = "dispatch-candidates-smoke")
     public void candidatesAreWithinARadius() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -131,7 +127,7 @@ public class CandidatesTest extends RestBase {
                 assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым"));
     }
 
-    @CaseId(24)
+    @TmsLink("24")
     @Test(description = "Превышение даты/времени последней фиксации геолокации при фильтрации",
             groups = "dispatch-candidates-smoke",
             expectedExceptions = StatusRuntimeException.class,
@@ -148,7 +144,7 @@ public class CandidatesTest extends RestBase {
         clientCandidates.selectCandidates(requestBody);
     }
 
-    @CaseId(25)
+    @TmsLink("25")
     @Test(description = "Кандидаты находятся вне  радиуса вокруг координаты магазина", groups = "dispatch-candidates-smoke")
     public void candidatesAreOutOfRadius() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -163,7 +159,7 @@ public class CandidatesTest extends RestBase {
         Allure.step("Проверка кандидатов. Кандидаты вернулись", () -> assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() <= 0, "UUID кандидата вернулся"));
     }
 
-    @CaseId(26)
+    @TmsLink("26")
     @Test(description = "Устаревшая информация о геопозиции кандидатов", groups = "dispatch-candidates-smoke")
     public void candidatesAreOutOfRadiusShifts() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -180,7 +176,7 @@ public class CandidatesTest extends RestBase {
                         "UUID кандидатов пришел не пустым"));
     }
 
-    @CaseId(45)
+    @TmsLink("45")
     @Test(description = "Отбор кандидатов по дате/времени последней фиксации геопозиции", groups = "dispatch-candidates-smoke")
     public void candidatesAreWithinADateTime() {
         final var timestamp = toTimestamp(createdAt).getSeconds();
@@ -203,7 +199,7 @@ public class CandidatesTest extends RestBase {
     }
 
 
-    @CaseId(30)
+    @TmsLink("30")
     @Test(description = "Отбор кандидатов по транспорту", groups = "dispatch-candidates-smoke")
     public void transportCandidate() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -219,7 +215,7 @@ public class CandidatesTest extends RestBase {
                 "UUID кандидата вернулся пустым"));
     }
 
-    @CaseId(28)
+    @TmsLink("28")
     @Test(description = "Отбор кандидатов по роли", groups = "dispatch-candidates-smoke")
     public void roleCandidate() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -235,7 +231,7 @@ public class CandidatesTest extends RestBase {
                 "UUID кандидата вернулся пустым"));
     }
 
-    @CaseId(29)
+    @TmsLink("29")
     @Test(description = "Отсутствие необходимой роли у кандидата", groups = "dispatch-candidates-smoke")
     public void withoutRoleCandidate() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -252,8 +248,8 @@ public class CandidatesTest extends RestBase {
                         "UUID кандидата вернулся"));
     }
 
-    @CaseIDs(
-            {@CaseId(31), @CaseId(79)}
+    @TmsLinks(
+            {@TmsLink("31"), @TmsLink("79")}
     )
     @Test(description = "Отсутствие необходимого транспорта у кандидата", groups = "dispatch-candidates-smoke")
     public void lackOfTransportCandidates() {
@@ -274,7 +270,7 @@ public class CandidatesTest extends RestBase {
                         "UUID кандидата вернулся"));
     }
 
-    @CaseId(32)
+    @TmsLink("32")
     @Test(description = "Отбор сборщиков в активной смене", groups = "dispatch-candidates-smoke")
     public void selectionShoppers() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -287,7 +283,7 @@ public class CandidatesTest extends RestBase {
     }
 
     @Skip
-    @CaseId(38)
+    @TmsLink("38")
     @Test(description = "Отбор кандидатов по нескольким фильтрам", groups = "dispatch-candidates-smoke")
     public void selectionByManyFilters() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -311,7 +307,7 @@ public class CandidatesTest extends RestBase {
         });
     }
 
-    @CaseIDs({@CaseId(44), @CaseId(92)})
+    @TmsLinks({@TmsLink("44"), @TmsLink("92")})
     @Test(enabled = false,
             description = "Проверка полей 'role' и 'transport' в ответе (смена в сервисе смен)",
             groups = "dispatch-candidates-smoke")
@@ -331,7 +327,7 @@ public class CandidatesTest extends RestBase {
     }
 
 
-    @CaseId(120)
+    @TmsLink("120")
     @Test(description = "Отбор кандидатов по очереди", groups = "dispatch-candidates-smoke")
     public void selectionByQueueSize() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -347,7 +343,7 @@ public class CandidatesTest extends RestBase {
                 "UUID кандидата вернулся пустым"));
     }
 
-    @CaseIDs({@CaseId(81), @CaseId(83)})
+    @TmsLinks({@TmsLink("81"), @TmsLink("83")})
     @Test(description = "Отбор кандидатов по всем параметрам в фильтре", groups = "dispatch-candidates-smoke")
     public void selectionByFilters() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
@@ -376,7 +372,7 @@ public class CandidatesTest extends RestBase {
         });
     }
 
-    @CaseIDs({@CaseId(86), @CaseId(85)})
+    @TmsLinks({@TmsLink("86"), @TmsLink("85")})
     @Test(enabled = false,
             description = "Отбор кандидатов по всем параметрам в фильтре", groups = "dispatch-candidates-smoke")
     public void selectionByAllFilters() {
@@ -401,7 +397,7 @@ public class CandidatesTest extends RestBase {
                 "UUID кандидата вернулся пустым"));
     }
 
-    @CaseId(101)
+    @TmsLink("101")
     @Test(description = "Отбор сборщиков в активной смене", groups = "dispatch-candidates-smoke")
     public void blockingShoppers() {
         List<String> candidates = Arrays.asList(user.getUuid(), user2.getUuid(), user3.getUuid(), user4.getUuid());
@@ -415,7 +411,7 @@ public class CandidatesTest extends RestBase {
         //TODO актуализировать проверки
     }
 
-    @CaseId(107)
+    @TmsLink("107")
     @Test(groups = {"dispatch-candidates-smoke"},
             description = "Отправить запрос на изменение статуса нескольких кандидатов в разных статусах")
     public void changeStatusSeveralCandidates() {
@@ -431,7 +427,7 @@ public class CandidatesTest extends RestBase {
     }
 
 
-    @CaseIDs({@CaseId(110), @CaseId(111), @CaseId(112), @CaseId(115), @CaseId(116)})
+    @TmsLinks({@TmsLink("110"), @TmsLink("111"), @TmsLink("112"), @TmsLink("115"), @TmsLink("116")})
     @Test(groups = {"dispatch-candidates-smoke"},
             description = "Checking the Shift ID in the Response")
     public void checkingShiftInResponse() {
@@ -455,7 +451,7 @@ public class CandidatesTest extends RestBase {
         });
     }
 
-    @CaseId(129)
+    @TmsLink("129")
     @Test(groups = {"dispatch-candidates-smoke"},
             description = "Checking the Shift ID in the Response")
     public void selectionCandidatesWithActiveML() {

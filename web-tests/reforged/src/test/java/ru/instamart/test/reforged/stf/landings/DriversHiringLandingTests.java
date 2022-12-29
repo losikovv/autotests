@@ -3,7 +3,7 @@ package ru.instamart.test.reforged.stf.landings;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.STARTING_X;
@@ -13,7 +13,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.driversHiring;
 @Feature("Проверка лендингов")
 public final class DriversHiringLandingTests {
 
-    @CaseId(1686)
+    @TmsLink("1686")
     @Test(description = "Тест лендинга найма водителей Сбермаркета", groups = {STARTING_X, REGRESSION_STF})
     public void successValidateSbermarketDriversHiringLanding() {
         driversHiring().goToPage();

@@ -11,7 +11,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +41,7 @@ public class OrdersPrereplacementsTests {
         productWithOnlyOneReplacementId = SpreeProductsDao.INSTANCE.getOfferIdByPermalink(productWithOnlyOneReplacementLink, DEFAULT_PREREPLACEMENT_SID);
     }
 
-    @CaseId(3267)
+    @TmsLink("3267")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Выбор предзамены - один товар", groups = {REGRESSION_STF})
     public void selectPrereplacementFromAlertPopup() {
@@ -71,7 +71,7 @@ public class OrdersPrereplacementsTests {
         shop().interactCart().getFirstItem().checkReplacementItemNameEquals(itemForReplaceName);
     }
 
-    @CaseId(3268)
+    @TmsLink("3268")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Выбор предзамены из корзины", groups = {REGRESSION_STF})
     public void selectPrereplacementFromCart() {
@@ -110,7 +110,7 @@ public class OrdersPrereplacementsTests {
         shop().interactCart().getFirstItem().checkPrereplacementAnySuiteDisplayed();
     }
 
-    @CaseId(3269)
+    @TmsLink("3269")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Изменение выбранных предзамен", groups = {REGRESSION_STF})
     public void editPrereplacement() {
@@ -149,7 +149,7 @@ public class OrdersPrereplacementsTests {
         shop().interactCart().getFirstItem().checkReplacementItemNameEquals(itemForReplaceName);
     }
 
-    @CaseId(3270)
+    @TmsLink("3270")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Удаление выбранных предзамен", groups = {REGRESSION_STF})
     public void removePrereplacement() {
@@ -179,7 +179,7 @@ public class OrdersPrereplacementsTests {
         shop().interactCart().getFirstItem().checkReplaceButtonDisplayed();
     }
 
-    @CaseId(3271)
+    @TmsLink("3271")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "При открытии модалки из попапа отображается весь список товаров с рекомендованными предзаменами", groups = {REGRESSION_STF})
     public void checkOnlyProductsWithRelacementViewInModal() {
@@ -206,7 +206,7 @@ public class OrdersPrereplacementsTests {
                 2);
     }
 
-    @CaseId(3273)
+    @TmsLink("3273")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Попап при добавлении товара с предзаменами в корзину", groups = {REGRESSION_STF})
     public void alertDisplayedWhenAddingProduct() {
@@ -226,7 +226,7 @@ public class OrdersPrereplacementsTests {
         shop().interactHeader().checkPrereplacementPopupDisplayed();
     }
 
-    @CaseId(3274)
+    @TmsLink("3274")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Повторное отображение попапа при добавлении товара в корзину", groups = {REGRESSION_STF})
     public void alertDisplayedWhenAddingAnotherProduct() {
@@ -256,7 +256,7 @@ public class OrdersPrereplacementsTests {
         shop().interactHeader().checkPrereplacementPopupDisplayed();
     }
 
-    @CaseId(3275)
+    @TmsLink("3275")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Выбор предзамены - любой товар", groups = {REGRESSION_STF})
     public void selectAnyWillPrereplacementFromAlertPopup() {
@@ -285,7 +285,7 @@ public class OrdersPrereplacementsTests {
         shop().interactCart().getFirstItem().checkPrereplacementAnySuiteDisplayed();
     }
 
-    @CaseId(3276)
+    @TmsLink("3276")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Отображение товаров с доступными предзаменами в корзине", groups = {REGRESSION_STF})
     public void cartPrereplacementCheck() {
@@ -302,7 +302,7 @@ public class OrdersPrereplacementsTests {
         shop().interactCart().getFirstItem().checkReplaceButtonDisplayed();
     }
 
-    @CaseId(3277)
+    @TmsLink("3277")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Отображение товара с единственной предзаменой в модалке", groups = {REGRESSION_STF})
     public void onlyOneReplacementCheck() {
@@ -325,7 +325,7 @@ public class OrdersPrereplacementsTests {
         shop().interactHeader().interactPrereplacementModal().checkAnyWillSuitButtonNotDisplayed();
     }
 
-    @CaseId(3278)
+    @TmsLink("3278")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Отображение товара с несколькими предзаменами в модалке", groups = {REGRESSION_STF})
     public void severalReplacementCheck() {

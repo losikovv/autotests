@@ -22,7 +22,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,7 +49,7 @@ public class ShippingMethodsV1Tests extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
-    @CaseId(2137)
+    @TmsLink("2137")
     @Test(description = "Получение списка способов доставки",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getShippingMethodKinds() {
@@ -62,7 +62,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         }
     }
 
-    @CaseId(2137)
+    @TmsLink("2137")
     @Test(description = "Получение списка способов доставки",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getAdminShippingMethodKinds() {
@@ -75,7 +75,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         }
     }
 
-    @CaseId(2776)
+    @TmsLink("2776")
     @Test(description = "Получение списка способов доставки",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getShippingMethods() {
@@ -88,7 +88,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         }
     }
 
-    @CaseId(2777)
+    @TmsLink("2777")
     @Test(description = "Создание способа доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void createShippingMethod() {
@@ -110,7 +110,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2778)
+    @TmsLink("2778")
     @Test(description = "Получение способа доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createShippingMethod")
@@ -125,7 +125,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2779)
+    @TmsLink("2779")
     @Test(description = "Получение списка правил",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getRuleTypes() {
@@ -134,7 +134,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         checkResponseJsonSchema(response, RuleTypesV1Response.class);
     }
 
-    @CaseId(2780)
+    @TmsLink("2780")
     @Test(description = "Получение списка калькуляторов цен",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getCalculatorTypes() {
@@ -143,7 +143,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         checkResponseJsonSchema(response, CalculatorTypesV1Response.class);
     }
 
-    @CaseId(2781)
+    @TmsLink("2781")
     @Test(description = "Создание маркетингового правила",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createShippingMethod")
@@ -154,7 +154,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         marketingPricerId = response.as(PricerV1Response.class).getPricer().getId();
     }
 
-    @CaseId(2782)
+    @TmsLink("2782")
     @Test(description = "Получение маркетингового правила",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createMarketingRule")
@@ -167,7 +167,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         compareTwoObjects(pricers.get(0).getId(), marketingPricerId);
     }
 
-    @CaseId(2783)
+    @TmsLink("2783")
     @Test(description = "Создание правила номинальной стоимости доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createShippingMethod")
@@ -178,7 +178,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         nominalCostPricerId = response.as(PricerV1Response.class).getPricer().getId();
     }
 
-    @CaseId(2784)
+    @TmsLink("2784")
     @Test(description = "Получение правил номинальной стоимости доставки",
             groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createNominalCostRule")

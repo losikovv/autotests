@@ -26,8 +26,8 @@ import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +57,7 @@ public class ShippingRatesV3Test extends RestBase {
         order = apiV1.getMultiRetailerOrder();
     }
 
-    @CaseId(2372)
+    @TmsLink("2372")
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -68,7 +68,7 @@ public class ShippingRatesV3Test extends RestBase {
         deliveryWindow = response.as(ShippingRatesV2Response.class).getShippingRates().get(0).getDeliveryWindow();
     }
 
-    @CaseId(2564)
+    @TmsLink("2564")
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов с номером чужого шипмента",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -79,7 +79,7 @@ public class ShippingRatesV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2565)
+    @TmsLink("2565")
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов с несуществующим шипментом",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -90,7 +90,7 @@ public class ShippingRatesV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Доставка не существует");
     }
 
-    @CaseId(2567)
+    @TmsLink("2567")
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов на 7 дней",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -101,7 +101,7 @@ public class ShippingRatesV3Test extends RestBase {
         compareTwoObjects(response.as(ShippingRatesV2Response.class).getMeta().getAvailableDays().get(6), getFutureDateWithoutTime(6L));
     }
 
-    @CaseId(2568)
+    @TmsLink("2568")
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -130,7 +130,7 @@ public class ShippingRatesV3Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2570)
+    @TmsLink("2570")
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота с указанием чужого заказа",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -151,7 +151,7 @@ public class ShippingRatesV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2571)
+    @TmsLink("2571")
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота с указанием чужого шипмента",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -172,7 +172,7 @@ public class ShippingRatesV3Test extends RestBase {
         checkError(response, "invalid_current_shipments", "Вы уже оформляете заказ в другом магазине");
     }
 
-    @CaseId(2566)
+    @TmsLink("2566")
     @Story("Слоты доставки")
     @Test(description = "Запрос на получение слотов, указав номер шипмента неавторизованного пользователя",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -184,7 +184,7 @@ public class ShippingRatesV3Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseIDs(value = {@CaseId(2572), @CaseId(2573)})
+    @TmsLinks(value = {@TmsLink("2572"), @TmsLink("2573")})
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота без авторизации",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -203,7 +203,7 @@ public class ShippingRatesV3Test extends RestBase {
         checkStatusCode401(response);
     }
 
-    @CaseId(2569)
+    @TmsLink("2569")
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота on demand",
             groups = {API_INSTAMART_REGRESS, "api-v3"},
@@ -234,7 +234,7 @@ public class ShippingRatesV3Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2574)
+    @TmsLink("2574")
     @Story("Слоты доставки")
     @Test(description = "Запрос на выбор слота для уже оформленного заказа",
             groups = {API_INSTAMART_REGRESS, "api-v3"},

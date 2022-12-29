@@ -4,7 +4,7 @@ import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -28,7 +28,7 @@ public class ShelfTest extends GrpcBase {
     }
 
     @Story("Проверка построения полок")
-    @CaseId(182)
+    @TmsLink("182")
     @Test(description = "Проверка построения полок по категории продукта",
             groups = "grpc-product-hub",
             enabled = false) //todo написать предусловие чтобы находить всегда существующий setOriginalCategoryId
@@ -53,7 +53,7 @@ public class ShelfTest extends GrpcBase {
     }
 
     @Story("Проверка построения полок")
-    @CaseId(257)
+    @TmsLink("257")
     @Test(description = "Проверка построения полок по категории продукта с пустым значением поля \"category_id\"",
             groups = "grpc-product-hub",
             enabled = false) //todo ожидаем актуализации тест-кейса от Дмитрия Дьячкова
@@ -74,7 +74,7 @@ public class ShelfTest extends GrpcBase {
     }
 
     @Story("Проверка построения полок")
-    @CaseId(258)
+    @TmsLink("258")
     @Test(description = "Проверка построения полок по категории продукта с пустым полем \"store_id\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -91,7 +91,7 @@ public class ShelfTest extends GrpcBase {
     }
 
     @Story("Проверка построения полок")
-    @CaseId(259)
+    @TmsLink("259")
     @Test(description = "Проверка построения полок по категории продукта без передачи поля \"store_id\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -107,7 +107,7 @@ public class ShelfTest extends GrpcBase {
     }
 
     @Story("Проверка построения полок")
-    @CaseId(260)
+    @TmsLink("260")
     @Test(description = "Проверка построения полок по категории продукта с пустым полем \"tenant_id\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
@@ -124,7 +124,7 @@ public class ShelfTest extends GrpcBase {
     }
 
     @Story("Проверка построения полок")
-    @CaseId(261)
+    @TmsLink("261")
     @Test(description = "Проверка построения полок по категории продукта без поля \"tenant_id\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,

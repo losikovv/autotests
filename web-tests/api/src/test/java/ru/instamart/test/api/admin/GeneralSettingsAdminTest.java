@@ -9,7 +9,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.GeneralSettingsAdminRequest;
 import ru.instamart.jdbc.dao.stf.SpreePreferencesDao;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
@@ -20,7 +20,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode3
 @Feature("Основные настройки")
 public class GeneralSettingsAdminTest extends RestBase {
 
-    @CaseId(1829)
+    @TmsLink("1829")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Изменение основных настроек")
     public void updateGeneralSettings() {
         admin.auth();

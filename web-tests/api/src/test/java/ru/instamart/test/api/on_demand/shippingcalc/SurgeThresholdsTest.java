@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.shippingcalc.SurgeThresholdsDao;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 import shippingcalc.*;
 
 import static org.testng.Assert.*;
@@ -27,7 +27,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC));
     }
 
-    @CaseId(548)
+    @TmsLink("548")
     @Story("Set Surge Thresholds")
     @Test(description = "Добавление нового сюрдж-трешхолда для региона",
             groups = "ondemand-shippingcalc")
@@ -57,7 +57,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(549)
+    @TmsLink("549")
     @Story("Set Surge Thresholds")
     @Test(description = "Обновление сюрдж-трешхолда для региона",
             groups = "ondemand-shippingcalc",
@@ -89,7 +89,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(550)
+    @TmsLink("550")
     @Story("Set Surge Thresholds")
     @Test(description = "Установка сюрдж-трешхолдов для нескольких регионов",
             groups = "ondemand-shippingcalc")
@@ -147,7 +147,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(556)
+    @TmsLink("556")
     @Story("Set Surge Thresholds")
     @Test(description = "Получение ошибки при установлении пустого списка сюрдж-трешхолдов",
             groups = "ondemand-shippingcalc",
@@ -158,7 +158,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         clientShippingCalc.setSurgeThresholds(request);
     }
 
-    @CaseId(557)
+    @TmsLink("557")
     @Story("Set Surge Thresholds")
     @Test(description = "Получение ошибки при установлении  сюрдж-трешхолда с пустыми параметрами",
             groups = "ondemand-shippingcalc",
@@ -173,7 +173,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         clientShippingCalc.setSurgeThresholds(request);
     }
 
-    @CaseId(558)
+    @TmsLink("558")
     @Story("Set Surge Thresholds")
     @Test(description = "Получение ошибки при установлении  сюрдж-трешхолда с пустыми интервалами",
             groups = "ondemand-shippingcalc",
@@ -189,7 +189,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         clientShippingCalc.setSurgeThresholds(request);
     }
 
-    @CaseId(547)
+    @TmsLink("547")
     @Story("Get Surge Thresholds")
     @Test(description = "Получение списка региональных трешхолдов сюрджа",
             groups = "ondemand-shippingcalc",
@@ -201,7 +201,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         Allure.step("Проверка списка трешхолдов в ответе", () -> assertTrue(response.getThresholdsCount() > 0, "В ответе пустой список правил"));
     }
 
-    @CaseId(552)
+    @TmsLink("552")
     @Story("Delete Surge Thresholds")
     @Test(description = "Удаление регионального сюрдж-трешхолда",
             groups = "ondemand-shippingcalc",
@@ -219,7 +219,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(553)
+    @TmsLink("553")
     @Story("Delete Surge Thresholds")
     @Test(description = "Удаление нескольких региональных сюрдж-трешходов",
             groups = "ondemand-shippingcalc",
@@ -240,7 +240,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
         });
     }
 
-    @CaseId(554)
+    @TmsLink("554")
     @Story("Delete Surge Thresholds")
     @Test(description = "Получение ошибки при удалении регионального сюрдж-трешхолда без указания region_id",
             groups = "ondemand-shippingcalc",

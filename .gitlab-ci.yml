@@ -232,7 +232,7 @@ java_gradle:build:
 
 tests:customRun:
   rules:
-    - if: ($CI_PIPELINE_SOURCE == "triggers" || $CI_PIPELINE_SOURCE == "pipelines") && $TRIGGERED_RUN == 'true'
+    - if: ($CI_PIPELINE_SOURCE == "trigger" || $CI_PIPELINE_SOURCE == "pipeline") && $TRIGGERED_RUN == 'true'
       when: always
     - if: $CI_PIPELINE_SOURCE == "web"
       when: always
@@ -320,32 +320,6 @@ tests:Debug:API:
       - web-tests/api/build/reports/
       - web-tests/api/logs/
     expire_in: 1 week
-
-qase:actualize:
-  only:
-    refs:
-      - schedules
-    variables:
-      - $ACTUALIZATION == 'true'
-  stage: tests-api
-  script:
-    - gradle clean build qaseActualize
-  tags:
-    - k8s-stage
-  allow_failure: true
-
-qase:cleanup:
-  only:
-    refs:
-      - schedules
-    variables:
-      - $CLEANUP == 'true'
-  stage: tests-api
-  script:
-    - gradle clean build qaseCleanup
-  tags:
-    - k8s-stage
-  allow_failure: true
 
 generate:data:
   only:

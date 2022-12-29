@@ -3,6 +3,7 @@ package ru.instamart.test.api.admin_api;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -19,7 +20,6 @@ import ru.instamart.api.response.v1.AdjustmentsV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeAdjustmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class AdjustmentsV1Test extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(2545)
+    @TmsLink("2545")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о надбавках к заказу")
@@ -62,7 +62,7 @@ public class AdjustmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2546)
+    @TmsLink("2546")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о надбавках к несуществующему заказу")
@@ -72,7 +72,7 @@ public class AdjustmentsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2547)
+    @TmsLink("2547")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование информации о надбавке к заказу по id",
@@ -82,7 +82,7 @@ public class AdjustmentsV1Test extends RestBase {
         checkStatusCode(response, 204);
     }
 
-    @CaseId(2548)
+    @TmsLink("2548")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование информации о несуществующей надбавке к заказу по id")
@@ -92,7 +92,7 @@ public class AdjustmentsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2549)
+    @TmsLink("2549")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о надбавке к заказу по id",
@@ -110,7 +110,7 @@ public class AdjustmentsV1Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(2550)
+    @TmsLink("2550")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о несуществующей надбавке к заказу по id")
@@ -120,7 +120,7 @@ public class AdjustmentsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2551)
+    @TmsLink("2551")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Закрытие надбавок",
@@ -131,7 +131,7 @@ public class AdjustmentsV1Test extends RestBase {
         compareTwoObjects(SpreeAdjustmentsDao.INSTANCE.findById(adjustmentId).get().getState(), "closed");
     }
 
-    @CaseId(2552)
+    @TmsLink("2552")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Закрытие надбавок несуществующего заказа")
@@ -141,7 +141,7 @@ public class AdjustmentsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2553)
+    @TmsLink("2553")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Открытие надбавок",
@@ -152,7 +152,7 @@ public class AdjustmentsV1Test extends RestBase {
         compareTwoObjects(SpreeAdjustmentsDao.INSTANCE.findById(adjustmentId).get().getState(), "open");
     }
 
-    @CaseId(2554)
+    @TmsLink("2554")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Открытие надбавок несуществующего заказа")
@@ -162,7 +162,7 @@ public class AdjustmentsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2555)
+    @TmsLink("2555")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение статуса надбавки",
@@ -173,7 +173,7 @@ public class AdjustmentsV1Test extends RestBase {
         compareTwoObjects(SpreeAdjustmentsDao.INSTANCE.findById(adjustmentId).get().getState(), "closed");
     }
 
-    @CaseId(2556)
+    @TmsLink("2556")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение статуса несуществующей надбавки")
@@ -183,7 +183,7 @@ public class AdjustmentsV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseId(2557)
+    @TmsLink("2557")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление надбавки",
@@ -194,7 +194,7 @@ public class AdjustmentsV1Test extends RestBase {
         Assert.assertTrue(SpreeAdjustmentsDao.INSTANCE.findById(adjustmentId).isEmpty(), "Надбавка не удалилась");
     }
 
-    @CaseId(2558)
+    @TmsLink("2558")
     @Story("Надбавки к заказу")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление несуществующей надбавки")

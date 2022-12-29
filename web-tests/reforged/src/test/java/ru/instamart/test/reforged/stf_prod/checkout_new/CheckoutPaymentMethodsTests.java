@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf_prod.checkout_new;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,7 +10,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_BUSINESS_ACCOUNT;
@@ -32,7 +32,7 @@ public final class CheckoutPaymentMethodsTests {
         this.helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseId(3822)
+    @TmsLink("3822")
     @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Доставка)", groups = {STF_PROD_S})
     public void testTransitionOnB2BIfSelectBusinessPaymentMethodFromDelivery() {
         shop().goToPage();

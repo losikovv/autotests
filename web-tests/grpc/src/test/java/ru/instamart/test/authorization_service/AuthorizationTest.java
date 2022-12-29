@@ -6,12 +6,12 @@ import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -29,7 +29,7 @@ public class AuthorizationTest extends GrpcBase {
         client = AuthorizationGrpc.newBlockingStub(channel);
     }
 
-    @CaseId(29)
+    @TmsLink("29")
     @Test(description = "Авторизация через GRPC",
             groups = {"grpc-authorization-service"})
     public void authorizationGRPC() {
@@ -49,7 +49,7 @@ public class AuthorizationTest extends GrpcBase {
         });
     }
 
-    @CaseId(30)
+    @TmsLink("30")
     @Test(description = "Авторизация через GRPC с неверными правами доступа",
             groups = {"grpc-authorization-service"})
     public void authorizationWrongPermissonsGRPC() {
@@ -69,7 +69,7 @@ public class AuthorizationTest extends GrpcBase {
         });
     }
 
-    @CaseId(37)
+    @TmsLink("37")
     @Test(description = "Получение condition через GRPC DataFilters",
             groups = {"grpc-authorization-service"})
     public void dataFiltersGRPC() {
@@ -94,7 +94,7 @@ public class AuthorizationTest extends GrpcBase {
         });
     }
 
-    @CaseId(37)
+    @TmsLink("37")
     @Test(description = "Получение condition через GRPC DataFilters с пустым списком ролей",
             groups = {"grpc-authorization-service"},
             expectedExceptions = StatusRuntimeException.class,

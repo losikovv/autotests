@@ -12,7 +12,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
@@ -30,7 +30,7 @@ public class ReviewIssuesWithoutAuthV2Test extends RestBase {
         OrderV2 order = apiV2.getCurrentOrder();
         orderNumber = order.getNumber();
     }
-    @CaseId(1445)
+    @TmsLink("1445")
     @Story("Получение списка возможных проблем для отзыва о заказе")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение списка возможных проблем для отзыва о существующем заказе без авторизации",

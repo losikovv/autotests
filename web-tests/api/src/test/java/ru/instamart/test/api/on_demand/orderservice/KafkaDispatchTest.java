@@ -23,8 +23,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.TmsLinks;
+import io.qameta.allure.TmsLink;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -65,9 +65,9 @@ public class KafkaDispatchTest extends RestBase {
 
     }
 
-    @CaseIDs({
-            @CaseId(99),
-            @CaseId(109)
+    @TmsLinks({
+            @TmsLink("99"),
+            @TmsLink("109")
     })
     @Test(enabled = false,
             groups = {"dispatch-orderservice-smoke"},
@@ -132,7 +132,7 @@ public class KafkaDispatchTest extends RestBase {
     }
 
 
-    @CaseId(46)
+    @TmsLink("46")
     @Test(groups = {"dispatch-orderservice-smoke"},
             description = "Получение данных on-demand заказа")
     public void getOnDemandOrder() {

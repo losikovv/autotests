@@ -3,13 +3,13 @@ package ru.instamart.test.api.admin_api;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v1.DictionariesV1Request;
 import ru.instamart.api.response.v1.dictionaries.*;
-import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -24,7 +24,7 @@ public class DictionariesWithAuthV1Test extends RestBase {
         admin.authApi();
     }
 
-    @CaseId(1813)
+    @TmsLink("1813")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря api_clients")
@@ -34,7 +34,7 @@ public class DictionariesWithAuthV1Test extends RestBase {
         checkResponseJsonSchema(response, DictionariesApiClientsV1Response.class);
     }
 
-    @CaseId(1814)
+    @TmsLink("1814")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря payment_methods")
@@ -44,7 +44,7 @@ public class DictionariesWithAuthV1Test extends RestBase {
         checkResponseJsonSchema(response, DictionariesPaymentMethodsV1Response.class);
     }
 
-    @CaseId(1815)
+    @TmsLink("1815")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря payment_states")
@@ -54,7 +54,7 @@ public class DictionariesWithAuthV1Test extends RestBase {
         checkResponseJsonSchema(response, DictionariesPaymentStatesV1Response.class);
     }
 
-    @CaseId(1816)
+    @TmsLink("1816")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря shipment_combined_states")
@@ -64,7 +64,7 @@ public class DictionariesWithAuthV1Test extends RestBase {
         checkResponseJsonSchema(response, DictionariesShipmentCombinedStatesV1Response.class);
     }
 
-    @CaseId(1817)
+    @TmsLink("1817")
     @Story("Получение словарей")
     @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение словаря tenants")
