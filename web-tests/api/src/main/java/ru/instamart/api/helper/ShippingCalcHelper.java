@@ -384,6 +384,13 @@ public class ShippingCalcHelper {
         assertNotEquals(scriptEntity.getCreatedAt(), scriptEntity.getUpdatedAt(), "Поле updated_at не обновилось");
     }
 
+    @Step("Получаем запрос для проверки результатов теста скрипта")
+    public static GetScriptTestResultsRequest getScriptTestResultsRequest(final Integer scriptId) {
+        return GetScriptTestResultsRequest.newBuilder()
+                .setScriptId(scriptId)
+                .build();
+    }
+
     @Step("Получаем запрос для удаления скрипта")
     public static DeleteScriptRequest getDeleteScriptRequest(final Integer scriptId) {
         return DeleteScriptRequest.newBuilder()
