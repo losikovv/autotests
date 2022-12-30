@@ -228,6 +228,44 @@ public class ScriptTest extends ShippingCalcBase {
         });
     }
 
+    @TmsLink("560")
+    @Story("Test Script")
+    @Test(description = "Проверка результатов теста валидного скрипта",
+            groups = "ondemand-shippingcalc",
+            dependsOnMethods = "createScript")
+    public void testResultValidScript() {
+        var request = getScriptTestResultsRequest(scriptId);
+        var response = clientShippingCalc.getScriptTestResults(request);
+
+        Allure.step("Проверка результатов теста скрипта в ответе", () -> {
+            assertTrue(response.getResultsCount() > 0, "Пустой ответ");
+            assertTrue(response.getAllPassed(), "Прошли не все тесты");
+        });
+    }
+
+    @TmsLink("564")
+    @Story("Test Script")
+    @Test(description = "Получение ошибки, при проверке результатов теста несуществующего скрипта",
+            groups = "ondemand-shippingcalc",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot get script: entity not found")
+    public void testResultNonExistentScript() {
+        var request = getScriptTestResultsRequest(123456789);
+        clientShippingCalc.getScriptTestResults(request);
+    }
+
+    @TmsLink("565")
+    @Story("Test Script")
+    @Test(description = "Получение ошибки, при проверке результатов теста удаленного скрипта",
+            groups = "ondemand-shippingcalc",
+            dependsOnMethods = "deleteScript",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot get script: entity not found")
+    public void testResultDeletedScript() {
+        var request = getScriptTestResultsRequest(secondScriptId);
+        clientShippingCalc.getScriptTestResults(request);
+    }
+
     @TmsLink("135")
     @Story("Delete Script")
     @Test(description = "Удаление существующего скрипта без привязки к правилам",
