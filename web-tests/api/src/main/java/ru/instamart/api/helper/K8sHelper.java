@@ -267,4 +267,10 @@ public class K8sHelper {
         var pod = getPod(namespace, "app.kubernetes.io/component=swissknife");
         return execBashCommandWithPod(command, pod, "app");
     }
+
+    @Step("Выполнение sh команды в chatwoot: {command}")
+    public static void commandChatwoot(final String command) {
+        var pod = getPod("app-chatwoot-ashunicorn", "app=app-chatwoot");
+        execShCommandWithPod(command, pod, "chatwoot-web");
+    }
 }

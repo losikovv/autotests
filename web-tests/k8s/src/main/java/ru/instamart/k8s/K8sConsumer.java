@@ -130,6 +130,17 @@ public final class K8sConsumer {
         return result;
     }
 
+    public static List<String> execShCommandWithPod(final String commands, V1Pod pod, String container) {
+        final List<String> result = new CopyOnWriteArrayList<>();
+
+        try {
+            execShCommandWithPod(pod, commands, container, result::add, true).close();
+        } catch (IOException e) {
+            log.error("Error: {}", e.getMessage());
+        }
+        return result;
+    }
+
     /**
      * Получение логов в list
      */
@@ -210,6 +221,11 @@ public final class K8sConsumer {
 
     private static Closeable execBashCommandWithPod(final V1Pod pod, final String commands, final String container, final Consumer<String> outputFun, final boolean waiting) {
         final var commandExec = new String[]{"/bin/bash", "-c", commands};
+        return execCommandWithPod(pod, commandExec, container, outputFun, waiting);
+    }
+
+    private static Closeable execShCommandWithPod(final V1Pod pod, final String commands, final String container, final Consumer<String> outputFun, final boolean waiting) {
+        final var commandExec = new String[]{"/bin/sh", "-c", commands};
         return execCommandWithPod(pod, commandExec, container, outputFun, waiting);
     }
 
