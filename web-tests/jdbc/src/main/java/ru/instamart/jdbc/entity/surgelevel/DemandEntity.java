@@ -6,6 +6,6 @@ import lombok.Data;
 public class DemandEntity {
     private String storeId;
     private String shipmentId;
-    private String createdAt;
+    private String id;
     private Double distance;
 }

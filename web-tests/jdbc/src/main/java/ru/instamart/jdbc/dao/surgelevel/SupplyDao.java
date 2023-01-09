@@ -1,7 +1,6 @@
 package ru.instamart.jdbc.dao.surgelevel;
 
 import ru.instamart.jdbc.dao.AbstractDao;
-import ru.instamart.jdbc.entity.surgelevel.DemandEntity;
 import ru.instamart.jdbc.entity.surgelevel.SupplyEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
@@ -25,7 +24,7 @@ public class SupplyDao extends AbstractDao<String, SupplyEntity> {
                 if (resultSet.next()) {
                     supply.setStoreId(resultSet.getString("store_id"));
                     supply.setCandidateId(resultSet.getString("candidate_id"));
-                    supply.setCreatedAt(resultSet.getString("created_at"));
+                    supply.setId(resultSet.getString("id"));
                     supply.setDistance(resultSet.getDouble("distance"));
                 } else return null;
             }

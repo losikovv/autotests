@@ -27,7 +27,7 @@ public class DemandDao extends AbstractDao<String, DemandEntity> {
                 if (resultSet.next()) {
                     demand.setStoreId(resultSet.getString("store_id"));
                     demand.setShipmentId(resultSet.getString("shipment_id"));
-                    demand.setCreatedAt(resultSet.getString("created_at"));
+                    demand.setId(resultSet.getString("id"));
                     demand.setDistance(resultSet.getDouble("distance"));
                 } else return null;
             }

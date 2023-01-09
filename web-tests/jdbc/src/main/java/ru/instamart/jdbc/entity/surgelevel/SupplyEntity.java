@@ -6,6 +6,6 @@ import lombok.Data;
 public class SupplyEntity {
     private String storeId;
     private String candidateId;
-    private String createdAt;
+    private String id;
     private Double distance;
 }
