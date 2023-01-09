@@ -6,7 +6,7 @@ import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 
-public interface UseFavoritesElement {
+public interface UserFavoritesElement {
 
     Header header = new Header();
     ProductCard productCart = new ProductCard();
