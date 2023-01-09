@@ -6,7 +6,7 @@ import ru.instamart.reforged.core.Check;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public interface UserFavoritesCheck extends Check, UseFavoritesElement {
+public interface UserFavoritesCheck extends Check, UserFavoritesElement {
 
     @Step("Проверяем что список избранного пуст")
     default void checkEmptyFavorites() {
