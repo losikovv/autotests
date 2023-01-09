@@ -16,7 +16,7 @@ public class AuthorizationServiceRequestBase {
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec()
                 .header("Authorization", "Bearer " + SessionFactory.getSession(SessionType.AUTHORIZATION_SERVICE).getToken())
-                .header("Policy-version", "test");
+                .header("Sbm-Policy-version", "test");
     }
 
     public static RequestSpecification givenWithAuthAndHeaders(String roles, String baseRealm, Integer identity) {
@@ -25,6 +25,6 @@ public class AuthorizationServiceRequestBase {
                 .header("Sbm-Auth-Roles", roles)
                 .header("Sbm-Auth-Type", baseRealm)
                 .header("Sbm-Auth-Identity", identity)
-                .header("Policy-version", "test");
+                .header("Sbm-Policy-version", "test");
     }
 }
