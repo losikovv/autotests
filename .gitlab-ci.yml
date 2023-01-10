@@ -291,7 +291,7 @@ tests:Debug:UI:
   extends: ".template_only_branches"
   stage: tests-ui
   script:
-    - gradle clean build :reforged:debug
+    - gradle clean build uiSmokeProduction
   after_script:
     - bash ./report.sh reforged debug
   tags:
