@@ -1,0 +1,111 @@
+syntax = "proto3";
+
+package events;
+option go_package = "gitlab.sbmt.io/paas/content/operations/surgelevel/pkg/clients/shifts/events/shift_changed_event";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+message ShiftChangedEvent {
+	// дата и время отправки события в формате RFC 3339, например
+	// 2021-10-01T09:30:00+03:00
+	string event_created_at = 1;
+	// идентификатор смены
+	int64 id = 2;
+	// дата создания смены в формате RFC 3339, например 2021-10-01T09:30:00+03:00
+	string created_at = 3;
+	// дата последнего изменения смены в формате RFC 3339, например
+	// 2021-10-01T09:30:00+03:00
+	string updated_at = 4;
+	// идентификатор партнера, для которого создана смена
+	string partner_id = 5;
+	// идентификатор территории доставки, на которой должна проходить смена
+	int64 planning_area_id = 6;
+	// наименованием территории доставки, на которой должна проходить смена
+	string planning_area_name = 17;
+	// признак всплеска в смене
+	bool surged = 18;
+	// максимальная сумма вознаграждения за час для планового периода
+	float max_fix_payroll_per_hour = 19;
+	// роль партнера, для которой создана смена. enum(driver, shopper, universal)
+	string role = 7;
+	// гарантированный платеж
+	float guaranteed_payroll = 8;
+	// общее количество времени в минутах доступное для взятия пауз на смене
+	int32 pauses_limit_minutes = 9;
+	// массив идентификаторов плановых периодов, для которых создана смена
+	repeated PlanningPeriod planning_periods_ids = 10;
+	// плановое время начала смены в формате RFC 3339, например
+	// 2021-10-01T09:30:00+03:00
+	string plan_started_at = 11;
+	// плановое время окончания смены в формате RFC 3339, например
+	// 2021-10-01T10:30:00+03:00
+	string plan_ended_at = 12;
+	// фактическое время начала смены в формате RFC 3339, например
+	// 2021-10-01T09:30:00+03:00
+	string fact_started_at = 13;
+	// фактическое время окончания смены в формате RFC 3339, например
+	// 2021-10-01T09:30:00+03:00
+	string fact_ended_at = 14;
+	// текущий статус смены. enum(new, ready_to_start, in_progress, on_pause,
+	// completed, canceled, deleted)
+	string state = 15;
+	// причина досрочного завершения смены
+	string cancellation_reason = 16;
+	// идентификатор базовго магазина зоны планирования
+	string store_uuid = 20;
+	// территория доставки
+	int64 delivery_area_id = 21;
+	// фича флаг привязки партнера к своей ТД для диспатча
+	bool fixed_on_delivery_area_or_store = 22;
+	// тип маршрутизации
+	string schedule_type = 23;
+	// быстрая доставка / on-demand
+	bool express_delivery = 24;
+	// паузы в смене
+	repeated Pause pauses = 35;
+	// Penalty показывает нужно ли штрафовать партнёра за смену
+	bool penalty = 36;
+	// Флаг, который показывает что смена принадлежит новичку
+	bool is_beginner = 37;
+}
+
+message PlanningPeriod {
+	// идентификатор планового периода
+	int64 id = 2;
+	// гарантированный платеж
+	float guaranteed_payroll = 8;
+	// PeopleNeed максимальное количество человек с гарантией (в БД peoples_count)
+	int32 people_need = 9;
+	// PeopleAvailable текущее количество человек с гарантией (вычисляемое поле fact_people_count)
+	int32 people_available = 10;
+	// Surged is a high demand flag
+	bool surged = 11;
+	// StartDate is a start period timestamp
+	google.protobuf.Timestamp start_date = 12;
+	// Role is a role of the partner for whom the period
+	string role = 13;
+	// GuaranteedPayrolls are payrolls by the role
+	map<string, float> guaranteed_payrolls = 14;
+	// EndDate is a timestamp of period end
+	google.protobuf.Timestamp end_date = 15;
+	// PeopleCountPredicted необходимое количество человек
+	int32 people_count_predicted = 16;
+	// MaxPeopleCount Максимальное количество человек, которые могут взять планируемый период (в БД max_peoples_count)
+	// Если отсутствует (nil/пустое), то ограничение не применяется
+	google.protobuf.UInt32Value max_people_count = 17;
+	// PeopleTotal текущее количество человек (гарантия + без гарантии) (вычисляемое поле people_total)
+	int32 people_total = 18;
+	// ожидаемый доход партнера в рублях
+	float predicted_payroll = 19;
+}
+
+message Pause {
+	// ID паузы
+	uint64 id = 1;
+	// Время начала паузы
+	google.protobuf.Timestamp started_at = 2;
+	// Время окончания паузы
+	optional google.protobuf.Timestamp ended_at = 3;
+	// Длительность паузы в минутах
+	uint32 minutes_count = 4;
+}

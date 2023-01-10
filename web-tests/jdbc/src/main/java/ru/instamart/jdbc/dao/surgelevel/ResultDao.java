@@ -31,7 +31,7 @@ public class ResultDao extends AbstractDao<String, ResultEntity> {
                 } else return null;
             }
         } catch (SQLException e) {
-            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+            fail("Error init ConnectionPgSQLSurgelevelManager. Error: " + e.getMessage());
         }
         return result;
     }

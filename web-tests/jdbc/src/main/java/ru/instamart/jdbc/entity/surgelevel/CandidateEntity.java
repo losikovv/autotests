@@ -11,7 +11,8 @@ public class CandidateEntity {
     private Integer deliveryArea;
     private Boolean busy;
     private Boolean ondemand;
+    private Boolean onshift;
     private Boolean fakegps;
     private String createdAt;
-    private String deletedAt;
+    private String updatedAt;
 }
