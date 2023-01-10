@@ -275,56 +275,6 @@ public final class ShippingcalcOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shippingcalc_LadderStep_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SurgeInterval_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SurgeInterval_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SetIntervalsSurgeRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SetIntervalsSurgeRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SetIntervalsSurgeResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SetIntervalsSurgeResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_GetIntervalsSurgeRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_GetIntervalsSurgeRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_GetIntervalsSurgeResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_GetIntervalsSurgeResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SurgeSwitchbackExperiment_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SurgeSwitchbackExperiment_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SetSwitchbackExperimentsRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SetSwitchbackExperimentsRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SetSwitchbackExperimentsResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SetSwitchbackExperimentsResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_GetSwitchbackExperimentsRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_GetSwitchbackExperimentsRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_GetSwitchbackExperimentsResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_GetSwitchbackExperimentsResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_shippingcalc_GetMinCartAmountsRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -410,45 +360,75 @@ public final class ShippingcalcOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shippingcalc_BindingRule_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_GetSurgeThresholdsRequest_descriptor;
+    internal_static_shippingcalc_SurgeInterval_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_GetSurgeThresholdsRequest_fieldAccessorTable;
+      internal_static_shippingcalc_SurgeInterval_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_GetSurgeThresholdsResponse_descriptor;
+    internal_static_shippingcalc_SurgeSwitchback_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_GetSurgeThresholdsResponse_fieldAccessorTable;
+      internal_static_shippingcalc_SurgeSwitchback_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SetSurgeThresholdsRequest_descriptor;
+    internal_static_shippingcalc_SetSwitchbacksRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SetSurgeThresholdsRequest_fieldAccessorTable;
+      internal_static_shippingcalc_SetSwitchbacksRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SetSurgeThresholdsResponse_descriptor;
+    internal_static_shippingcalc_SetSwitchbacksResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SetSurgeThresholdsResponse_fieldAccessorTable;
+      internal_static_shippingcalc_SetSwitchbacksResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_DeleteSurgeThresholdsRequest_descriptor;
+    internal_static_shippingcalc_GetSwitchbacksRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_DeleteSurgeThresholdsRequest_fieldAccessorTable;
+      internal_static_shippingcalc_GetSwitchbacksRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_DeleteSurgeThresholdsResponse_descriptor;
+    internal_static_shippingcalc_GetSwitchbacksResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_DeleteSurgeThresholdsResponse_fieldAccessorTable;
+      internal_static_shippingcalc_GetSwitchbacksResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SurgeThreshold_descriptor;
+    internal_static_shippingcalc_SurgeParameters_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SurgeThreshold_fieldAccessorTable;
+      internal_static_shippingcalc_SurgeParameters_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shippingcalc_SurgeThresholdParameters_descriptor;
+    internal_static_shippingcalc_SurgeParameters_Parameters_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shippingcalc_SurgeThresholdParameters_fieldAccessorTable;
+      internal_static_shippingcalc_SurgeParameters_Parameters_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_GetSurgeParametersRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_GetSurgeParametersRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_GetSurgeParametersResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_GetSurgeParametersResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_SetSurgeParametersRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_SetSurgeParametersRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_SetSurgeParametersResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_SetSurgeParametersResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_DeleteSurgeParametersRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_DeleteSurgeParametersRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_DeleteSurgeParametersResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_DeleteSurgeParametersResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -628,97 +608,93 @@ public final class ShippingcalcOuterClass {
       "\001\001\022\025\n\010price_to\030\002 \001(\004H\001\210\001\001\022\026\n\016shipping_pr" +
       "ice\030\003 \001(\004\0226\n\020price_components\030\004 \003(\0132\034.sh" +
       "ippingcalc.PriceComponentB\r\n\013_price_from" +
-      "B\013\n\t_price_to\"\213\001\n\rSurgeInterval\022\025\n\rleft_" +
-      "boundary\030\001 \001(\002\022\026\n\016right_boundary\030\002 \001(\002\022\026" +
-      "\n\016price_addition\030\003 \001(\004\022\030\n\020percent_additi" +
-      "on\030\004 \001(\004\022\031\n\021min_cart_addition\030\005 \001(\004\"J\n\030S" +
-      "etIntervalsSurgeRequest\022.\n\tintervals\030\001 \003" +
-      "(\0132\033.shippingcalc.SurgeInterval\"\033\n\031SetIn" +
-      "tervalsSurgeResponse\"\032\n\030GetIntervalsSurg" +
-      "eRequest\"K\n\031GetIntervalsSurgeResponse\022.\n" +
-      "\tintervals\030\001 \003(\0132\033.shippingcalc.SurgeInt" +
-      "erval\"m\n\031SurgeSwitchbackExperiment\022\027\n\017st" +
-      "art_date_time\030\001 \001(\003\022\025\n\rend_date_time\030\002 \001" +
-      "(\003\022\021\n\tregion_id\030\003 \001(\004\022\r\n\005group\030\004 \001(\t\"d\n\037" +
-      "SetSwitchbackExperimentsRequest\022\014\n\004data\030" +
-      "\001 \001(\t\0223\n\004type\030\002 \001(\0162%.shippingcalc.Surge" +
-      "SwitchbackDataType\"\"\n SetSwitchbackExper" +
-      "imentsResponse\"!\n\037GetSwitchbackExperimen" +
-      "tsRequest\"`\n GetSwitchbackExperimentsRes" +
-      "ponse\022<\n\013experiments\030\001 \003(\0132\'.shippingcal" +
-      "c.SurgeSwitchbackExperiment\"\335\001\n\030GetMinCa" +
-      "rtAmountsRequest\022#\n\006stores\030\001 \003(\0132\023.shipp" +
-      "ingcalc.Store\022(\n\010customer\030\002 \001(\0132\026.shippi" +
-      "ngcalc.Customer\022\016\n\006tenant\030\003 \001(\t\0221\n\rdeliv" +
-      "ery_type\030\004 \001(\0162\032.shippingcalc.DeliveryTy" +
-      "pe\022\025\n\rplatform_name\030\005 \001(\t\022\030\n\020platform_ve" +
-      "rsion\030\006 \001(\t\"j\n\005Store\022\n\n\002id\030\001 \001(\t\022\013\n\003lat\030" +
-      "\002 \001(\002\022\013\n\003lon\030\003 \001(\002\022\023\n\013is_ondemand\030\007 \001(\010\022" +
-      "\021\n\tregion_id\030\010 \001(\004\022\023\n\013retailer_id\030\t \001(\004\"" +
-      "R\n\031GetMinCartAmountsResponse\0225\n\020min_cart" +
-      "_amounts\030\001 \003(\0132\033.shippingcalc.MinCartAmo" +
-      "unt\"t\n\rMinCartAmount\022\020\n\010store_id\030\001 \001(\t\022\022" +
-      "\n\006amount\030\002 \001(\004B\002\030\001\022\037\n\027amount_courier_del" +
-      "ivery\030\003 \001(\004\022\034\n\024amount_self_delivery\030\004 \001(" +
-      "\004\"\341\001\n\034GetDeliveryConditionsRequest\022#\n\006st" +
-      "ores\030\001 \003(\0132\023.shippingcalc.Store\022(\n\010custo" +
-      "mer\030\002 \001(\0132\026.shippingcalc.Customer\022\016\n\006ten" +
-      "ant\030\003 \001(\t\0221\n\rdelivery_type\030\004 \001(\0162\032.shipp" +
-      "ingcalc.DeliveryType\022\025\n\rplatform_name\030\005 " +
-      "\001(\t\022\030\n\020platform_version\030\006 \001(\t\"2\n\005Surge\022\r" +
-      "\n\005is_on\030\001 \001(\010\022\r\n\005level\030\002 \001(\002\022\013\n\003ttl\030\003 \001(" +
-      "\003\"\214\001\n\021DeliveryCondition\022\020\n\010store_id\030\001 \001(" +
-      "\t\022\027\n\017min_cart_amount\030\002 \001(\004\022\"\n\005surge\030\003 \001(" +
-      "\0132\023.shippingcalc.Surge\022(\n\006ladder\030\004 \003(\0132\030" +
-      ".shippingcalc.LadderStep\"]\n\035GetDeliveryC" +
-      "onditionsResponse\022<\n\023delivery_conditions" +
-      "\030\001 \003(\0132\037.shippingcalc.DeliveryCondition\"" +
-      "\227\002\n\030CreateBindingRuleRequest\022\023\n\013strategy" +
-      "_id\030\001 \001(\r\022\026\n\ttenant_id\030\002 \001(\tH\000\210\001\001\022\026\n\treg" +
-      "ion_id\030\003 \001(\004H\001\210\001\001\022\030\n\013retailer_id\030\004 \001(\004H\002" +
-      "\210\001\001\022\025\n\010ondemand\030\005 \001(\010H\003\210\001\001\022\025\n\010label_id\030\006" +
-      " \001(\004H\004\210\001\001\022\030\n\013description\030\007 \001(\tH\005\210\001\001B\014\n\n_" +
-      "tenant_idB\014\n\n_region_idB\016\n\014_retailer_idB" +
-      "\013\n\t_ondemandB\013\n\t_label_idB\016\n\014_descriptio" +
-      "n\"\033\n\031CreateBindingRuleResponse\"\305\002\n\030Updat" +
-      "eBindingRuleRequest\022\027\n\017binding_rule_id\030\001" +
-      " \001(\r\022\030\n\013strategy_id\030\002 \001(\rH\000\210\001\001\022\026\n\ttenant" +
-      "_id\030\003 \001(\tH\001\210\001\001\022\026\n\tregion_id\030\004 \001(\004H\002\210\001\001\022\030" +
-      "\n\013retailer_id\030\005 \001(\004H\003\210\001\001\022\025\n\010ondemand\030\006 \001" +
-      "(\010H\004\210\001\001\022\025\n\010label_id\030\007 \001(\004H\005\210\001\001\022\030\n\013descri" +
-      "ption\030\010 \001(\tH\006\210\001\001B\016\n\014_strategy_idB\014\n\n_ten" +
-      "ant_idB\014\n\n_region_idB\016\n\014_retailer_idB\013\n\t" +
-      "_ondemandB\013\n\t_label_idB\016\n\014_description\"\033" +
-      "\n\031UpdateBindingRuleResponse\"\030\n\026GetBindin" +
-      "gRulesRequest\"K\n\027GetBindingRulesResponse" +
-      "\0220\n\rbinding_rules\030\001 \003(\0132\031.shippingcalc.B" +
-      "indingRule\"3\n\030DeleteBindingRuleRequest\022\027" +
-      "\n\017binding_rule_id\030\001 \001(\r\"\033\n\031DeleteBinding" +
-      "RuleResponse\"\350\003\n\013BindingRule\022\n\n\002id\030\001 \001(\r" +
-      "\022\023\n\013strategy_id\030\002 \001(\r\022,\n\010shipping\030\003 \001(\0162" +
-      "\032.shippingcalc.DeliveryType\022\026\n\ttenant_id" +
-      "\030\004 \001(\tH\000\210\001\001\022\026\n\tregion_id\030\005 \001(\004H\001\210\001\001\022\030\n\013r" +
-      "etailer_id\030\006 \001(\004H\002\210\001\001\022\025\n\010ondemand\030\007 \001(\010H" +
-      "\003\210\001\001\022\025\n\010label_id\030\010 \001(\004H\004\210\001\001\022.\n\ncreated_a" +
-      "t\030\t \001(\0132\032.google.protobuf.Timestamp\022.\n\nu" +
-      "pdated_at\030\n \001(\0132\032.google.protobuf.Timest" +
-      "amp\0223\n\ndeleted_at\030\013 \001(\0132\032.google.protobu" +
-      "f.TimestampH\005\210\001\001\022\030\n\013description\030\014 \001(\tH\006\210" +
-      "\001\001B\014\n\n_tenant_idB\014\n\n_region_idB\016\n\014_retai" +
-      "ler_idB\013\n\t_ondemandB\013\n\t_label_idB\r\n\013_del" +
-      "eted_atB\016\n\014_description\"\033\n\031GetSurgeThres" +
-      "holdsRequest\"N\n\032GetSurgeThresholdsRespon" +
-      "se\0220\n\nthresholds\030\001 \003(\0132\034.shippingcalc.Su" +
-      "rgeThreshold\"M\n\031SetSurgeThresholdsReques" +
-      "t\0220\n\nthresholds\030\001 \003(\0132\034.shippingcalc.Sur" +
-      "geThreshold\"\034\n\032SetSurgeThresholdsRespons" +
-      "e\"1\n\034DeleteSurgeThresholdsRequest\022\021\n\treg" +
-      "ion_id\030\001 \003(\004\"\037\n\035DeleteSurgeThresholdsRes" +
-      "ponse\"_\n\016SurgeThreshold\022\021\n\tregion_id\030\001 \001" +
-      "(\004\022:\n\nparameters\030\002 \001(\0132&.shippingcalc.Su" +
-      "rgeThresholdParameters\"J\n\030SurgeThreshold" +
-      "Parameters\022.\n\tintervals\030\001 \003(\0132\033.shipping" +
-      "calc.SurgeInterval*a\n\014DeliveryType\022\010\n\004NO" +
+      "B\013\n\t_price_to\"\335\001\n\030GetMinCartAmountsReque" +
+      "st\022#\n\006stores\030\001 \003(\0132\023.shippingcalc.Store\022" +
+      "(\n\010customer\030\002 \001(\0132\026.shippingcalc.Custome" +
+      "r\022\016\n\006tenant\030\003 \001(\t\0221\n\rdelivery_type\030\004 \001(\016" +
+      "2\032.shippingcalc.DeliveryType\022\025\n\rplatform" +
+      "_name\030\005 \001(\t\022\030\n\020platform_version\030\006 \001(\t\"j\n" +
+      "\005Store\022\n\n\002id\030\001 \001(\t\022\013\n\003lat\030\002 \001(\002\022\013\n\003lon\030\003" +
+      " \001(\002\022\023\n\013is_ondemand\030\007 \001(\010\022\021\n\tregion_id\030\010" +
+      " \001(\004\022\023\n\013retailer_id\030\t \001(\004\"R\n\031GetMinCartA" +
+      "mountsResponse\0225\n\020min_cart_amounts\030\001 \003(\013" +
+      "2\033.shippingcalc.MinCartAmount\"t\n\rMinCart" +
+      "Amount\022\020\n\010store_id\030\001 \001(\t\022\022\n\006amount\030\002 \001(\004" +
+      "B\002\030\001\022\037\n\027amount_courier_delivery\030\003 \001(\004\022\034\n" +
+      "\024amount_self_delivery\030\004 \001(\004\"\341\001\n\034GetDeliv" +
+      "eryConditionsRequest\022#\n\006stores\030\001 \003(\0132\023.s" +
+      "hippingcalc.Store\022(\n\010customer\030\002 \001(\0132\026.sh" +
+      "ippingcalc.Customer\022\016\n\006tenant\030\003 \001(\t\0221\n\rd" +
+      "elivery_type\030\004 \001(\0162\032.shippingcalc.Delive" +
+      "ryType\022\025\n\rplatform_name\030\005 \001(\t\022\030\n\020platfor" +
+      "m_version\030\006 \001(\t\"2\n\005Surge\022\r\n\005is_on\030\001 \001(\010\022" +
+      "\r\n\005level\030\002 \001(\002\022\013\n\003ttl\030\003 \001(\003\"\214\001\n\021Delivery" +
+      "Condition\022\020\n\010store_id\030\001 \001(\t\022\027\n\017min_cart_" +
+      "amount\030\002 \001(\004\022\"\n\005surge\030\003 \001(\0132\023.shippingca" +
+      "lc.Surge\022(\n\006ladder\030\004 \003(\0132\030.shippingcalc." +
+      "LadderStep\"]\n\035GetDeliveryConditionsRespo" +
+      "nse\022<\n\023delivery_conditions\030\001 \003(\0132\037.shipp" +
+      "ingcalc.DeliveryCondition\"\227\002\n\030CreateBind" +
+      "ingRuleRequest\022\023\n\013strategy_id\030\001 \001(\r\022\026\n\tt" +
+      "enant_id\030\002 \001(\tH\000\210\001\001\022\026\n\tregion_id\030\003 \001(\004H\001" +
+      "\210\001\001\022\030\n\013retailer_id\030\004 \001(\004H\002\210\001\001\022\025\n\010ondeman" +
+      "d\030\005 \001(\010H\003\210\001\001\022\025\n\010label_id\030\006 \001(\004H\004\210\001\001\022\030\n\013d" +
+      "escription\030\007 \001(\tH\005\210\001\001B\014\n\n_tenant_idB\014\n\n_" +
+      "region_idB\016\n\014_retailer_idB\013\n\t_ondemandB\013" +
+      "\n\t_label_idB\016\n\014_description\"\033\n\031CreateBin" +
+      "dingRuleResponse\"\305\002\n\030UpdateBindingRuleRe" +
+      "quest\022\027\n\017binding_rule_id\030\001 \001(\r\022\030\n\013strate" +
+      "gy_id\030\002 \001(\rH\000\210\001\001\022\026\n\ttenant_id\030\003 \001(\tH\001\210\001\001" +
+      "\022\026\n\tregion_id\030\004 \001(\004H\002\210\001\001\022\030\n\013retailer_id\030" +
+      "\005 \001(\004H\003\210\001\001\022\025\n\010ondemand\030\006 \001(\010H\004\210\001\001\022\025\n\010lab" +
+      "el_id\030\007 \001(\004H\005\210\001\001\022\030\n\013description\030\010 \001(\tH\006\210" +
+      "\001\001B\016\n\014_strategy_idB\014\n\n_tenant_idB\014\n\n_reg" +
+      "ion_idB\016\n\014_retailer_idB\013\n\t_ondemandB\013\n\t_" +
+      "label_idB\016\n\014_description\"\033\n\031UpdateBindin" +
+      "gRuleResponse\"\030\n\026GetBindingRulesRequest\"" +
+      "K\n\027GetBindingRulesResponse\0220\n\rbinding_ru" +
+      "les\030\001 \003(\0132\031.shippingcalc.BindingRule\"3\n\030" +
+      "DeleteBindingRuleRequest\022\027\n\017binding_rule" +
+      "_id\030\001 \001(\r\"\033\n\031DeleteBindingRuleResponse\"\350" +
+      "\003\n\013BindingRule\022\n\n\002id\030\001 \001(\r\022\023\n\013strategy_i" +
+      "d\030\002 \001(\r\022,\n\010shipping\030\003 \001(\0162\032.shippingcalc" +
+      ".DeliveryType\022\026\n\ttenant_id\030\004 \001(\tH\000\210\001\001\022\026\n" +
+      "\tregion_id\030\005 \001(\004H\001\210\001\001\022\030\n\013retailer_id\030\006 \001" +
+      "(\004H\002\210\001\001\022\025\n\010ondemand\030\007 \001(\010H\003\210\001\001\022\025\n\010label_" +
+      "id\030\010 \001(\004H\004\210\001\001\022.\n\ncreated_at\030\t \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\022.\n\nupdated_at\030\n \001(" +
+      "\0132\032.google.protobuf.Timestamp\0223\n\ndeleted" +
+      "_at\030\013 \001(\0132\032.google.protobuf.TimestampH\005\210" +
+      "\001\001\022\030\n\013description\030\014 \001(\tH\006\210\001\001B\014\n\n_tenant_" +
+      "idB\014\n\n_region_idB\016\n\014_retailer_idB\013\n\t_ond" +
+      "emandB\013\n\t_label_idB\r\n\013_deleted_atB\016\n\014_de" +
+      "scription\"\213\001\n\rSurgeInterval\022\025\n\rleft_boun" +
+      "dary\030\001 \001(\002\022\026\n\016right_boundary\030\002 \001(\002\022\026\n\016pr" +
+      "ice_addition\030\003 \001(\004\022\030\n\020percent_addition\030\004" +
+      " \001(\004\022\031\n\021min_cart_addition\030\005 \001(\004\"\301\001\n\017Surg" +
+      "eSwitchback\0223\n\017start_date_time\030\001 \001(\0132\032.g" +
+      "oogle.protobuf.Timestamp\0221\n\rend_date_tim" +
+      "e\030\002 \001(\0132\032.google.protobuf.Timestamp\022\021\n\tr" +
+      "egion_id\030\003 \001(\003\022\020\n\010vertical\030\004 \001(\005\022\r\n\005grou" +
+      "p\030\005 \001(\t\022\022\n\nparameters\030\006 \001(\t\"Z\n\025SetSwitch" +
+      "backsRequest\022\014\n\004data\030\001 \001(\t\0223\n\004type\030\002 \001(\016" +
+      "2%.shippingcalc.SurgeSwitchbackDataType\"" +
+      "\030\n\026SetSwitchbacksResponse\"\027\n\025GetSwitchba" +
+      "cksRequest\"L\n\026GetSwitchbacksResponse\0222\n\013" +
+      "experiments\030\001 \003(\0132\035.shippingcalc.SurgeSw" +
+      "itchback\"\276\001\n\017SurgeParameters\022\n\n\002id\030\001 \001(\004" +
+      "\022\021\n\tregion_id\030\002 \001(\003\022\020\n\010vertical\030\003 \001(\005\022<\n" +
+      "\nparameters\030\004 \001(\0132(.shippingcalc.SurgePa" +
+      "rameters.Parameters\032<\n\nParameters\022.\n\tint" +
+      "ervals\030\001 \003(\0132\033.shippingcalc.SurgeInterva" +
+      "l\"\033\n\031GetSurgeParametersRequest\"O\n\032GetSur" +
+      "geParametersResponse\0221\n\nparameters\030\001 \003(\013" +
+      "2\035.shippingcalc.SurgeParameters\"N\n\031SetSu" +
+      "rgeParametersRequest\0221\n\nparameters\030\001 \003(\013" +
+      "2\035.shippingcalc.SurgeParameters\"\034\n\032SetSu" +
+      "rgeParametersResponse\"*\n\034DeleteSurgePara" +
+      "metersRequest\022\n\n\002id\030\001 \003(\004\"\037\n\035DeleteSurge" +
+      "ParametersResponse*a\n\014DeliveryType\022\010\n\004NO" +
       "NE\020\000\022\021\n\rSELF_DELIVERY\020\001\022\024\n\020COURIER_DELIV" +
       "ERY\020\002\022\007\n\003B2B\020\003\022\025\n\021B2B_SELF_DELIVERY\020\004*\272\001" +
       "\n\rConditionType\022\n\n\006ALWAYS\020\000\022\022\n\016FIRST_N_O" +
@@ -727,7 +703,7 @@ public final class ShippingcalcOuterClass {
       "\n\tPLATFORMS\020\005\022\024\n\020REGISTERED_AFTER\020\006\022\r\n\tO" +
       "N_DEMAND\020\007\022\016\n\nCLIENT_API\020\010*1\n\013ScriptStat" +
       "e\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SCRIPT_ERROR\020\001*\"\n" +
-      "\027SurgeSwitchbackDataType\022\007\n\003CSV\020\0002\337\025\n\014Sh" +
+      "\027SurgeSwitchbackDataType\022\007\n\003CSV\020\0002\327\023\n\014Sh" +
       "ippingcalc\022[\n\016CreateStrategy\022#.shippingc" +
       "alc.CreateStrategyRequest\032$.shippingcalc" +
       ".CreateStrategyResponse\022[\n\016UpdateStrateg" +
@@ -772,34 +748,28 @@ public final class ShippingcalcOuterClass {
       "eScriptRequest\032\".shippingcalc.DeleteScri" +
       "ptResponse\022a\n\020GetDeliveryPrice\022%.shippin" +
       "gcalc.GetDeliveryPriceRequest\032&.shipping" +
-      "calc.GetDeliveryPriceResponse\022d\n\021SetInte" +
-      "rvalsSurge\022&.shippingcalc.SetIntervalsSu" +
-      "rgeRequest\032\'.shippingcalc.SetIntervalsSu" +
-      "rgeResponse\022d\n\021GetIntervalsSurge\022&.shipp" +
-      "ingcalc.GetIntervalsSurgeRequest\032\'.shipp" +
-      "ingcalc.GetIntervalsSurgeResponse\022y\n\030Set" +
-      "SwitchbackExperiments\022-.shippingcalc.Set" +
-      "SwitchbackExperimentsRequest\032..shippingc" +
-      "alc.SetSwitchbackExperimentsResponse\022y\n\030" +
-      "GetSwitchbackExperiments\022-.shippingcalc." +
-      "GetSwitchbackExperimentsRequest\032..shippi" +
-      "ngcalc.GetSwitchbackExperimentsResponse\022" +
-      "d\n\021GetMinCartAmounts\022&.shippingcalc.GetM" +
-      "inCartAmountsRequest\032\'.shippingcalc.GetM" +
-      "inCartAmountsResponse\022p\n\025GetDeliveryCond" +
-      "itions\022*.shippingcalc.GetDeliveryConditi" +
-      "onsRequest\032+.shippingcalc.GetDeliveryCon" +
-      "ditionsResponse\022g\n\022GetSurgeThresholds\022\'." +
-      "shippingcalc.GetSurgeThresholdsRequest\032(" +
-      ".shippingcalc.GetSurgeThresholdsResponse" +
-      "\022g\n\022SetSurgeThresholds\022\'.shippingcalc.Se" +
-      "tSurgeThresholdsRequest\032(.shippingcalc.S" +
-      "etSurgeThresholdsResponse\022p\n\025DeleteSurge" +
-      "Thresholds\022*.shippingcalc.DeleteSurgeThr" +
-      "esholdsRequest\032+.shippingcalc.DeleteSurg" +
-      "eThresholdsResponseBTP\001ZPgitlab.sbmt.io/" +
-      "paas/content/operations/shippingcalc/pkg" +
-      "/server/grpc/shippingcalcb\006proto3"
+      "calc.GetDeliveryPriceResponse\022d\n\021GetMinC" +
+      "artAmounts\022&.shippingcalc.GetMinCartAmou" +
+      "ntsRequest\032\'.shippingcalc.GetMinCartAmou" +
+      "ntsResponse\022p\n\025GetDeliveryConditions\022*.s" +
+      "hippingcalc.GetDeliveryConditionsRequest" +
+      "\032+.shippingcalc.GetDeliveryConditionsRes" +
+      "ponse\022[\n\016SetSwitchbacks\022#.shippingcalc.S" +
+      "etSwitchbacksRequest\032$.shippingcalc.SetS" +
+      "witchbacksResponse\022[\n\016GetSwitchbacks\022#.s" +
+      "hippingcalc.GetSwitchbacksRequest\032$.ship" +
+      "pingcalc.GetSwitchbacksResponse\022g\n\022GetSu" +
+      "rgeParameters\022\'.shippingcalc.GetSurgePar" +
+      "ametersRequest\032(.shippingcalc.GetSurgePa" +
+      "rametersResponse\022g\n\022SetSurgeParameters\022\'" +
+      ".shippingcalc.SetSurgeParametersRequest\032" +
+      "(.shippingcalc.SetSurgeParametersRespons" +
+      "e\022p\n\025DeleteSurgeParameters\022*.shippingcal" +
+      "c.DeleteSurgeParametersRequest\032+.shippin" +
+      "gcalc.DeleteSurgeParametersResponseBTP\001Z" +
+      "Pgitlab.sbmt.io/paas/content/operations/" +
+      "shippingcalc/pkg/server/grpc/shippingcal" +
+      "cb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1118,216 +1088,192 @@ public final class ShippingcalcOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_LadderStep_descriptor,
         new java.lang.String[] { "PriceFrom", "PriceTo", "ShippingPrice", "PriceComponents", "PriceFrom", "PriceTo", });
-    internal_static_shippingcalc_SurgeInterval_descriptor =
-      getDescriptor().getMessageTypes().get(52);
-    internal_static_shippingcalc_SurgeInterval_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SurgeInterval_descriptor,
-        new java.lang.String[] { "LeftBoundary", "RightBoundary", "PriceAddition", "PercentAddition", "MinCartAddition", });
-    internal_static_shippingcalc_SetIntervalsSurgeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(53);
-    internal_static_shippingcalc_SetIntervalsSurgeRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SetIntervalsSurgeRequest_descriptor,
-        new java.lang.String[] { "Intervals", });
-    internal_static_shippingcalc_SetIntervalsSurgeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(54);
-    internal_static_shippingcalc_SetIntervalsSurgeResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SetIntervalsSurgeResponse_descriptor,
-        new java.lang.String[] { });
-    internal_static_shippingcalc_GetIntervalsSurgeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(55);
-    internal_static_shippingcalc_GetIntervalsSurgeRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_GetIntervalsSurgeRequest_descriptor,
-        new java.lang.String[] { });
-    internal_static_shippingcalc_GetIntervalsSurgeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(56);
-    internal_static_shippingcalc_GetIntervalsSurgeResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_GetIntervalsSurgeResponse_descriptor,
-        new java.lang.String[] { "Intervals", });
-    internal_static_shippingcalc_SurgeSwitchbackExperiment_descriptor =
-      getDescriptor().getMessageTypes().get(57);
-    internal_static_shippingcalc_SurgeSwitchbackExperiment_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SurgeSwitchbackExperiment_descriptor,
-        new java.lang.String[] { "StartDateTime", "EndDateTime", "RegionId", "Group", });
-    internal_static_shippingcalc_SetSwitchbackExperimentsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(58);
-    internal_static_shippingcalc_SetSwitchbackExperimentsRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SetSwitchbackExperimentsRequest_descriptor,
-        new java.lang.String[] { "Data", "Type", });
-    internal_static_shippingcalc_SetSwitchbackExperimentsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(59);
-    internal_static_shippingcalc_SetSwitchbackExperimentsResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SetSwitchbackExperimentsResponse_descriptor,
-        new java.lang.String[] { });
-    internal_static_shippingcalc_GetSwitchbackExperimentsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(60);
-    internal_static_shippingcalc_GetSwitchbackExperimentsRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_GetSwitchbackExperimentsRequest_descriptor,
-        new java.lang.String[] { });
-    internal_static_shippingcalc_GetSwitchbackExperimentsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(61);
-    internal_static_shippingcalc_GetSwitchbackExperimentsResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_GetSwitchbackExperimentsResponse_descriptor,
-        new java.lang.String[] { "Experiments", });
     internal_static_shippingcalc_GetMinCartAmountsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(62);
+      getDescriptor().getMessageTypes().get(52);
     internal_static_shippingcalc_GetMinCartAmountsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetMinCartAmountsRequest_descriptor,
         new java.lang.String[] { "Stores", "Customer", "Tenant", "DeliveryType", "PlatformName", "PlatformVersion", });
     internal_static_shippingcalc_Store_descriptor =
-      getDescriptor().getMessageTypes().get(63);
+      getDescriptor().getMessageTypes().get(53);
     internal_static_shippingcalc_Store_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_Store_descriptor,
         new java.lang.String[] { "Id", "Lat", "Lon", "IsOndemand", "RegionId", "RetailerId", });
     internal_static_shippingcalc_GetMinCartAmountsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(64);
+      getDescriptor().getMessageTypes().get(54);
     internal_static_shippingcalc_GetMinCartAmountsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetMinCartAmountsResponse_descriptor,
         new java.lang.String[] { "MinCartAmounts", });
     internal_static_shippingcalc_MinCartAmount_descriptor =
-      getDescriptor().getMessageTypes().get(65);
+      getDescriptor().getMessageTypes().get(55);
     internal_static_shippingcalc_MinCartAmount_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_MinCartAmount_descriptor,
         new java.lang.String[] { "StoreId", "Amount", "AmountCourierDelivery", "AmountSelfDelivery", });
     internal_static_shippingcalc_GetDeliveryConditionsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(66);
+      getDescriptor().getMessageTypes().get(56);
     internal_static_shippingcalc_GetDeliveryConditionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetDeliveryConditionsRequest_descriptor,
         new java.lang.String[] { "Stores", "Customer", "Tenant", "DeliveryType", "PlatformName", "PlatformVersion", });
     internal_static_shippingcalc_Surge_descriptor =
-      getDescriptor().getMessageTypes().get(67);
+      getDescriptor().getMessageTypes().get(57);
     internal_static_shippingcalc_Surge_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_Surge_descriptor,
         new java.lang.String[] { "IsOn", "Level", "Ttl", });
     internal_static_shippingcalc_DeliveryCondition_descriptor =
-      getDescriptor().getMessageTypes().get(68);
+      getDescriptor().getMessageTypes().get(58);
     internal_static_shippingcalc_DeliveryCondition_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeliveryCondition_descriptor,
         new java.lang.String[] { "StoreId", "MinCartAmount", "Surge", "Ladder", });
     internal_static_shippingcalc_GetDeliveryConditionsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(69);
+      getDescriptor().getMessageTypes().get(59);
     internal_static_shippingcalc_GetDeliveryConditionsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetDeliveryConditionsResponse_descriptor,
         new java.lang.String[] { "DeliveryConditions", });
     internal_static_shippingcalc_CreateBindingRuleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(70);
+      getDescriptor().getMessageTypes().get(60);
     internal_static_shippingcalc_CreateBindingRuleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_CreateBindingRuleRequest_descriptor,
         new java.lang.String[] { "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "Description", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "Description", });
     internal_static_shippingcalc_CreateBindingRuleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(71);
+      getDescriptor().getMessageTypes().get(61);
     internal_static_shippingcalc_CreateBindingRuleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_CreateBindingRuleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_UpdateBindingRuleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(72);
+      getDescriptor().getMessageTypes().get(62);
     internal_static_shippingcalc_UpdateBindingRuleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UpdateBindingRuleRequest_descriptor,
         new java.lang.String[] { "BindingRuleId", "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "Description", "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "Description", });
     internal_static_shippingcalc_UpdateBindingRuleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(73);
+      getDescriptor().getMessageTypes().get(63);
     internal_static_shippingcalc_UpdateBindingRuleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UpdateBindingRuleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetBindingRulesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(74);
+      getDescriptor().getMessageTypes().get(64);
     internal_static_shippingcalc_GetBindingRulesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetBindingRulesRequest_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetBindingRulesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(75);
+      getDescriptor().getMessageTypes().get(65);
     internal_static_shippingcalc_GetBindingRulesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetBindingRulesResponse_descriptor,
         new java.lang.String[] { "BindingRules", });
     internal_static_shippingcalc_DeleteBindingRuleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(76);
+      getDescriptor().getMessageTypes().get(66);
     internal_static_shippingcalc_DeleteBindingRuleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteBindingRuleRequest_descriptor,
         new java.lang.String[] { "BindingRuleId", });
     internal_static_shippingcalc_DeleteBindingRuleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(77);
+      getDescriptor().getMessageTypes().get(67);
     internal_static_shippingcalc_DeleteBindingRuleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteBindingRuleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_BindingRule_descriptor =
-      getDescriptor().getMessageTypes().get(78);
+      getDescriptor().getMessageTypes().get(68);
     internal_static_shippingcalc_BindingRule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_BindingRule_descriptor,
         new java.lang.String[] { "Id", "StrategyId", "Shipping", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "CreatedAt", "UpdatedAt", "DeletedAt", "Description", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "DeletedAt", "Description", });
-    internal_static_shippingcalc_GetSurgeThresholdsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(79);
-    internal_static_shippingcalc_GetSurgeThresholdsRequest_fieldAccessorTable = new
+    internal_static_shippingcalc_SurgeInterval_descriptor =
+      getDescriptor().getMessageTypes().get(69);
+    internal_static_shippingcalc_SurgeInterval_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_GetSurgeThresholdsRequest_descriptor,
+        internal_static_shippingcalc_SurgeInterval_descriptor,
+        new java.lang.String[] { "LeftBoundary", "RightBoundary", "PriceAddition", "PercentAddition", "MinCartAddition", });
+    internal_static_shippingcalc_SurgeSwitchback_descriptor =
+      getDescriptor().getMessageTypes().get(70);
+    internal_static_shippingcalc_SurgeSwitchback_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_SurgeSwitchback_descriptor,
+        new java.lang.String[] { "StartDateTime", "EndDateTime", "RegionId", "Vertical", "Group", "Parameters", });
+    internal_static_shippingcalc_SetSwitchbacksRequest_descriptor =
+      getDescriptor().getMessageTypes().get(71);
+    internal_static_shippingcalc_SetSwitchbacksRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_SetSwitchbacksRequest_descriptor,
+        new java.lang.String[] { "Data", "Type", });
+    internal_static_shippingcalc_SetSwitchbacksResponse_descriptor =
+      getDescriptor().getMessageTypes().get(72);
+    internal_static_shippingcalc_SetSwitchbacksResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_SetSwitchbacksResponse_descriptor,
         new java.lang.String[] { });
-    internal_static_shippingcalc_GetSurgeThresholdsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(80);
-    internal_static_shippingcalc_GetSurgeThresholdsResponse_fieldAccessorTable = new
+    internal_static_shippingcalc_GetSwitchbacksRequest_descriptor =
+      getDescriptor().getMessageTypes().get(73);
+    internal_static_shippingcalc_GetSwitchbacksRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_GetSurgeThresholdsResponse_descriptor,
-        new java.lang.String[] { "Thresholds", });
-    internal_static_shippingcalc_SetSurgeThresholdsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(81);
-    internal_static_shippingcalc_SetSurgeThresholdsRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SetSurgeThresholdsRequest_descriptor,
-        new java.lang.String[] { "Thresholds", });
-    internal_static_shippingcalc_SetSurgeThresholdsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(82);
-    internal_static_shippingcalc_SetSurgeThresholdsResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SetSurgeThresholdsResponse_descriptor,
+        internal_static_shippingcalc_GetSwitchbacksRequest_descriptor,
         new java.lang.String[] { });
-    internal_static_shippingcalc_DeleteSurgeThresholdsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(83);
-    internal_static_shippingcalc_DeleteSurgeThresholdsRequest_fieldAccessorTable = new
+    internal_static_shippingcalc_GetSwitchbacksResponse_descriptor =
+      getDescriptor().getMessageTypes().get(74);
+    internal_static_shippingcalc_GetSwitchbacksResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_DeleteSurgeThresholdsRequest_descriptor,
-        new java.lang.String[] { "RegionId", });
-    internal_static_shippingcalc_DeleteSurgeThresholdsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(84);
-    internal_static_shippingcalc_DeleteSurgeThresholdsResponse_fieldAccessorTable = new
+        internal_static_shippingcalc_GetSwitchbacksResponse_descriptor,
+        new java.lang.String[] { "Experiments", });
+    internal_static_shippingcalc_SurgeParameters_descriptor =
+      getDescriptor().getMessageTypes().get(75);
+    internal_static_shippingcalc_SurgeParameters_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_DeleteSurgeThresholdsResponse_descriptor,
-        new java.lang.String[] { });
-    internal_static_shippingcalc_SurgeThreshold_descriptor =
-      getDescriptor().getMessageTypes().get(85);
-    internal_static_shippingcalc_SurgeThreshold_fieldAccessorTable = new
+        internal_static_shippingcalc_SurgeParameters_descriptor,
+        new java.lang.String[] { "Id", "RegionId", "Vertical", "Parameters", });
+    internal_static_shippingcalc_SurgeParameters_Parameters_descriptor =
+      internal_static_shippingcalc_SurgeParameters_descriptor.getNestedTypes().get(0);
+    internal_static_shippingcalc_SurgeParameters_Parameters_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SurgeThreshold_descriptor,
-        new java.lang.String[] { "RegionId", "Parameters", });
-    internal_static_shippingcalc_SurgeThresholdParameters_descriptor =
-      getDescriptor().getMessageTypes().get(86);
-    internal_static_shippingcalc_SurgeThresholdParameters_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shippingcalc_SurgeThresholdParameters_descriptor,
+        internal_static_shippingcalc_SurgeParameters_Parameters_descriptor,
         new java.lang.String[] { "Intervals", });
+    internal_static_shippingcalc_GetSurgeParametersRequest_descriptor =
+      getDescriptor().getMessageTypes().get(76);
+    internal_static_shippingcalc_GetSurgeParametersRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_GetSurgeParametersRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_shippingcalc_GetSurgeParametersResponse_descriptor =
+      getDescriptor().getMessageTypes().get(77);
+    internal_static_shippingcalc_GetSurgeParametersResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_GetSurgeParametersResponse_descriptor,
+        new java.lang.String[] { "Parameters", });
+    internal_static_shippingcalc_SetSurgeParametersRequest_descriptor =
+      getDescriptor().getMessageTypes().get(78);
+    internal_static_shippingcalc_SetSurgeParametersRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_SetSurgeParametersRequest_descriptor,
+        new java.lang.String[] { "Parameters", });
+    internal_static_shippingcalc_SetSurgeParametersResponse_descriptor =
+      getDescriptor().getMessageTypes().get(79);
+    internal_static_shippingcalc_SetSurgeParametersResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_SetSurgeParametersResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_shippingcalc_DeleteSurgeParametersRequest_descriptor =
+      getDescriptor().getMessageTypes().get(80);
+    internal_static_shippingcalc_DeleteSurgeParametersRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_DeleteSurgeParametersRequest_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_shippingcalc_DeleteSurgeParametersResponse_descriptor =
+      getDescriptor().getMessageTypes().get(81);
+    internal_static_shippingcalc_DeleteSurgeParametersResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_DeleteSurgeParametersResponse_descriptor,
+        new java.lang.String[] { });
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

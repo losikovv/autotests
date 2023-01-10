@@ -139,7 +139,7 @@ public class ShippingCalcHelper {
     @Step("Получаем запрос для получения цены доставки")
     public static GetDeliveryPriceRequest getDeliveryPriceRequest(
             final Integer positionsCount, final String shipmentId, final Boolean isOndemand, final Integer shipmentWeight, final Integer itemsCount, final Integer shipmentPrice,
-            final String storeId, final String status, final Integer regionId, final Integer surgeDeliveryWindowAddition, final Double storeLat, final Double storeLon,
+            final String storeId, final String status, final Integer regionId, final Integer retailerId, final Integer surgeDeliveryWindowAddition, final Double storeLat, final Double storeLon,
             final String customerId, final String anonymousId, final Integer ordersCount, final Integer registeredAt, final Double customerLat, final Double customerLon,
             final String orderId, final Boolean isB2bOrder, final Boolean isPromocode, final String paymentMethod, final Boolean hasPaymentMethod, final Integer deliveryType,
             final String tenantId, final String platformName, final String platformVersion) {
@@ -153,6 +153,7 @@ public class ShippingCalcHelper {
                         .setStoreId(storeId)
                         .setStatus(status)
                         .setRegionId(regionId)
+                        .setRetailerId(retailerId)
                         .setSurgeDeliveryWindowAddition(surgeDeliveryWindowAddition)
                         .setLat(storeLat.floatValue())
                         .setLon(storeLon.floatValue())
@@ -399,7 +400,9 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для получения условий доставки магазина")
-    public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(final String storeId, final Float storeLat, final Float storeLon, final String customerId, final String anonymousId, final Integer ordersCount, final Integer registeredAt, final Float customerLat, final Float customerLon, final String tenant, final Integer deliveryTypeValue, final String platformName, final String platformVersion, final Boolean onDemand, final Integer regionId) {
+    public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(final String storeId, final Float storeLat, final Float storeLon, final String customerId, final String anonymousId, final Integer ordersCount,
+                                                                            final Integer registeredAt, final Float customerLat, final Float customerLon, final String tenant, final Integer deliveryTypeValue,
+                                                                            final String platformName, final String platformVersion, final Boolean onDemand, final Integer regionId, final Integer retailerId) {
         return GetDeliveryConditionsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(storeId)
@@ -407,6 +410,7 @@ public class ShippingCalcHelper {
                         .setLon(storeLon)
                         .setIsOndemand(onDemand)
                         .setRegionId(regionId)
+                        .setRetailerId(retailerId)
                         .build())
                 .setCustomer(Customer.newBuilder()
                         .setId(customerId)
@@ -465,7 +469,9 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для получения мин. корзины магазина")
-    public static GetMinCartAmountsRequest getMinCartAmountsRequest(final String storeId, final Float storeLat, final Float storeLon, final String customerId, final String anonymousId, final Integer ordersCount, final Integer registeredAt, final Float customerLat, final Float customerLon, final String tenant, final Integer deliveryTypeValue, final Boolean onDemand, final Integer regionId) {
+    public static GetMinCartAmountsRequest getMinCartAmountsRequest(final String storeId, final Float storeLat, final Float storeLon, final String customerId, final String anonymousId, final Integer ordersCount,
+                                                                    final Integer registeredAt, final Float customerLat, final Float customerLon, final String tenant, final Integer deliveryTypeValue,
+                                                                    final Boolean onDemand, final Integer regionId, final Integer retailerId) {
         return GetMinCartAmountsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(storeId)
@@ -473,6 +479,7 @@ public class ShippingCalcHelper {
                         .setLon(storeLon)
                         .setIsOndemand(onDemand)
                         .setRegionId(regionId)
+                        .setRetailerId(retailerId)
                         .build())
                 .setCustomer(Customer.newBuilder()
                         .setId(customerId)

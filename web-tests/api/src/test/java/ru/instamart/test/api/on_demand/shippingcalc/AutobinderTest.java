@@ -277,7 +277,7 @@ public class AutobinderTest extends ShippingCalcBase {
     public void getDeliveryPriceAutobinder() {
         String storeId =  UUID.randomUUID().toString();
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, storeId, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, storeId, "NEW", 1, 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -339,7 +339,7 @@ public class AutobinderTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "NOT_FOUND: cannot get delivery price for some shipments, no correct price strategy")
     public void getDeliveryPriceNotSuitableAutobinder() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 2, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 2, 2, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -355,7 +355,7 @@ public class AutobinderTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "NOT_FOUND: cannot get delivery price for some shipments, no correct price strategy")
     public void getDeliveryPriceAutobinderDeleted() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());

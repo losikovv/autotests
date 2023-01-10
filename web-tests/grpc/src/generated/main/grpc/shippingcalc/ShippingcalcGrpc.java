@@ -604,130 +604,6 @@ public final class ShippingcalcGrpc {
     return getGetDeliveryPriceMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.SetIntervalsSurgeRequest,
-      shippingcalc.SetIntervalsSurgeResponse> getSetIntervalsSurgeMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "SetIntervalsSurge",
-      requestType = shippingcalc.SetIntervalsSurgeRequest.class,
-      responseType = shippingcalc.SetIntervalsSurgeResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.SetIntervalsSurgeRequest,
-      shippingcalc.SetIntervalsSurgeResponse> getSetIntervalsSurgeMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.SetIntervalsSurgeRequest, shippingcalc.SetIntervalsSurgeResponse> getSetIntervalsSurgeMethod;
-    if ((getSetIntervalsSurgeMethod = ShippingcalcGrpc.getSetIntervalsSurgeMethod) == null) {
-      synchronized (ShippingcalcGrpc.class) {
-        if ((getSetIntervalsSurgeMethod = ShippingcalcGrpc.getSetIntervalsSurgeMethod) == null) {
-          ShippingcalcGrpc.getSetIntervalsSurgeMethod = getSetIntervalsSurgeMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.SetIntervalsSurgeRequest, shippingcalc.SetIntervalsSurgeResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetIntervalsSurge"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.SetIntervalsSurgeRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.SetIntervalsSurgeResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("SetIntervalsSurge"))
-              .build();
-        }
-      }
-    }
-    return getSetIntervalsSurgeMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetIntervalsSurgeRequest,
-      shippingcalc.GetIntervalsSurgeResponse> getGetIntervalsSurgeMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetIntervalsSurge",
-      requestType = shippingcalc.GetIntervalsSurgeRequest.class,
-      responseType = shippingcalc.GetIntervalsSurgeResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.GetIntervalsSurgeRequest,
-      shippingcalc.GetIntervalsSurgeResponse> getGetIntervalsSurgeMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.GetIntervalsSurgeRequest, shippingcalc.GetIntervalsSurgeResponse> getGetIntervalsSurgeMethod;
-    if ((getGetIntervalsSurgeMethod = ShippingcalcGrpc.getGetIntervalsSurgeMethod) == null) {
-      synchronized (ShippingcalcGrpc.class) {
-        if ((getGetIntervalsSurgeMethod = ShippingcalcGrpc.getGetIntervalsSurgeMethod) == null) {
-          ShippingcalcGrpc.getGetIntervalsSurgeMethod = getGetIntervalsSurgeMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.GetIntervalsSurgeRequest, shippingcalc.GetIntervalsSurgeResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetIntervalsSurge"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.GetIntervalsSurgeRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.GetIntervalsSurgeResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetIntervalsSurge"))
-              .build();
-        }
-      }
-    }
-    return getGetIntervalsSurgeMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.SetSwitchbackExperimentsRequest,
-      shippingcalc.SetSwitchbackExperimentsResponse> getSetSwitchbackExperimentsMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "SetSwitchbackExperiments",
-      requestType = shippingcalc.SetSwitchbackExperimentsRequest.class,
-      responseType = shippingcalc.SetSwitchbackExperimentsResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.SetSwitchbackExperimentsRequest,
-      shippingcalc.SetSwitchbackExperimentsResponse> getSetSwitchbackExperimentsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.SetSwitchbackExperimentsRequest, shippingcalc.SetSwitchbackExperimentsResponse> getSetSwitchbackExperimentsMethod;
-    if ((getSetSwitchbackExperimentsMethod = ShippingcalcGrpc.getSetSwitchbackExperimentsMethod) == null) {
-      synchronized (ShippingcalcGrpc.class) {
-        if ((getSetSwitchbackExperimentsMethod = ShippingcalcGrpc.getSetSwitchbackExperimentsMethod) == null) {
-          ShippingcalcGrpc.getSetSwitchbackExperimentsMethod = getSetSwitchbackExperimentsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.SetSwitchbackExperimentsRequest, shippingcalc.SetSwitchbackExperimentsResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetSwitchbackExperiments"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.SetSwitchbackExperimentsRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.SetSwitchbackExperimentsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("SetSwitchbackExperiments"))
-              .build();
-        }
-      }
-    }
-    return getSetSwitchbackExperimentsMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetSwitchbackExperimentsRequest,
-      shippingcalc.GetSwitchbackExperimentsResponse> getGetSwitchbackExperimentsMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetSwitchbackExperiments",
-      requestType = shippingcalc.GetSwitchbackExperimentsRequest.class,
-      responseType = shippingcalc.GetSwitchbackExperimentsResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.GetSwitchbackExperimentsRequest,
-      shippingcalc.GetSwitchbackExperimentsResponse> getGetSwitchbackExperimentsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.GetSwitchbackExperimentsRequest, shippingcalc.GetSwitchbackExperimentsResponse> getGetSwitchbackExperimentsMethod;
-    if ((getGetSwitchbackExperimentsMethod = ShippingcalcGrpc.getGetSwitchbackExperimentsMethod) == null) {
-      synchronized (ShippingcalcGrpc.class) {
-        if ((getGetSwitchbackExperimentsMethod = ShippingcalcGrpc.getGetSwitchbackExperimentsMethod) == null) {
-          ShippingcalcGrpc.getGetSwitchbackExperimentsMethod = getGetSwitchbackExperimentsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.GetSwitchbackExperimentsRequest, shippingcalc.GetSwitchbackExperimentsResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetSwitchbackExperiments"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.GetSwitchbackExperimentsRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.GetSwitchbackExperimentsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetSwitchbackExperiments"))
-              .build();
-        }
-      }
-    }
-    return getGetSwitchbackExperimentsMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<shippingcalc.GetMinCartAmountsRequest,
       shippingcalc.GetMinCartAmountsResponse> getGetMinCartAmountsMethod;
 
@@ -790,97 +666,159 @@ public final class ShippingcalcGrpc {
     return getGetDeliveryConditionsMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetSurgeThresholdsRequest,
-      shippingcalc.GetSurgeThresholdsResponse> getGetSurgeThresholdsMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.SetSwitchbacksRequest,
+      shippingcalc.SetSwitchbacksResponse> getSetSwitchbacksMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetSurgeThresholds",
-      requestType = shippingcalc.GetSurgeThresholdsRequest.class,
-      responseType = shippingcalc.GetSurgeThresholdsResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "SetSwitchbacks",
+      requestType = shippingcalc.SetSwitchbacksRequest.class,
+      responseType = shippingcalc.SetSwitchbacksResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.GetSurgeThresholdsRequest,
-      shippingcalc.GetSurgeThresholdsResponse> getGetSurgeThresholdsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.GetSurgeThresholdsRequest, shippingcalc.GetSurgeThresholdsResponse> getGetSurgeThresholdsMethod;
-    if ((getGetSurgeThresholdsMethod = ShippingcalcGrpc.getGetSurgeThresholdsMethod) == null) {
+  public static io.grpc.MethodDescriptor<shippingcalc.SetSwitchbacksRequest,
+      shippingcalc.SetSwitchbacksResponse> getSetSwitchbacksMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.SetSwitchbacksRequest, shippingcalc.SetSwitchbacksResponse> getSetSwitchbacksMethod;
+    if ((getSetSwitchbacksMethod = ShippingcalcGrpc.getSetSwitchbacksMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
-        if ((getGetSurgeThresholdsMethod = ShippingcalcGrpc.getGetSurgeThresholdsMethod) == null) {
-          ShippingcalcGrpc.getGetSurgeThresholdsMethod = getGetSurgeThresholdsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.GetSurgeThresholdsRequest, shippingcalc.GetSurgeThresholdsResponse>newBuilder()
+        if ((getSetSwitchbacksMethod = ShippingcalcGrpc.getSetSwitchbacksMethod) == null) {
+          ShippingcalcGrpc.getSetSwitchbacksMethod = getSetSwitchbacksMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.SetSwitchbacksRequest, shippingcalc.SetSwitchbacksResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetSurgeThresholds"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetSwitchbacks"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.GetSurgeThresholdsRequest.getDefaultInstance()))
+                  shippingcalc.SetSwitchbacksRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.GetSurgeThresholdsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetSurgeThresholds"))
+                  shippingcalc.SetSwitchbacksResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("SetSwitchbacks"))
               .build();
         }
       }
     }
-    return getGetSurgeThresholdsMethod;
+    return getSetSwitchbacksMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.SetSurgeThresholdsRequest,
-      shippingcalc.SetSurgeThresholdsResponse> getSetSurgeThresholdsMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetSwitchbacksRequest,
+      shippingcalc.GetSwitchbacksResponse> getGetSwitchbacksMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "SetSurgeThresholds",
-      requestType = shippingcalc.SetSurgeThresholdsRequest.class,
-      responseType = shippingcalc.SetSurgeThresholdsResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "GetSwitchbacks",
+      requestType = shippingcalc.GetSwitchbacksRequest.class,
+      responseType = shippingcalc.GetSwitchbacksResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.SetSurgeThresholdsRequest,
-      shippingcalc.SetSurgeThresholdsResponse> getSetSurgeThresholdsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.SetSurgeThresholdsRequest, shippingcalc.SetSurgeThresholdsResponse> getSetSurgeThresholdsMethod;
-    if ((getSetSurgeThresholdsMethod = ShippingcalcGrpc.getSetSurgeThresholdsMethod) == null) {
+  public static io.grpc.MethodDescriptor<shippingcalc.GetSwitchbacksRequest,
+      shippingcalc.GetSwitchbacksResponse> getGetSwitchbacksMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetSwitchbacksRequest, shippingcalc.GetSwitchbacksResponse> getGetSwitchbacksMethod;
+    if ((getGetSwitchbacksMethod = ShippingcalcGrpc.getGetSwitchbacksMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
-        if ((getSetSurgeThresholdsMethod = ShippingcalcGrpc.getSetSurgeThresholdsMethod) == null) {
-          ShippingcalcGrpc.getSetSurgeThresholdsMethod = getSetSurgeThresholdsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.SetSurgeThresholdsRequest, shippingcalc.SetSurgeThresholdsResponse>newBuilder()
+        if ((getGetSwitchbacksMethod = ShippingcalcGrpc.getGetSwitchbacksMethod) == null) {
+          ShippingcalcGrpc.getGetSwitchbacksMethod = getGetSwitchbacksMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.GetSwitchbacksRequest, shippingcalc.GetSwitchbacksResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetSurgeThresholds"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetSwitchbacks"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.SetSurgeThresholdsRequest.getDefaultInstance()))
+                  shippingcalc.GetSwitchbacksRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.SetSurgeThresholdsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("SetSurgeThresholds"))
+                  shippingcalc.GetSwitchbacksResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetSwitchbacks"))
               .build();
         }
       }
     }
-    return getSetSurgeThresholdsMethod;
+    return getGetSwitchbacksMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.DeleteSurgeThresholdsRequest,
-      shippingcalc.DeleteSurgeThresholdsResponse> getDeleteSurgeThresholdsMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetSurgeParametersRequest,
+      shippingcalc.GetSurgeParametersResponse> getGetSurgeParametersMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "DeleteSurgeThresholds",
-      requestType = shippingcalc.DeleteSurgeThresholdsRequest.class,
-      responseType = shippingcalc.DeleteSurgeThresholdsResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "GetSurgeParameters",
+      requestType = shippingcalc.GetSurgeParametersRequest.class,
+      responseType = shippingcalc.GetSurgeParametersResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.DeleteSurgeThresholdsRequest,
-      shippingcalc.DeleteSurgeThresholdsResponse> getDeleteSurgeThresholdsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.DeleteSurgeThresholdsRequest, shippingcalc.DeleteSurgeThresholdsResponse> getDeleteSurgeThresholdsMethod;
-    if ((getDeleteSurgeThresholdsMethod = ShippingcalcGrpc.getDeleteSurgeThresholdsMethod) == null) {
+  public static io.grpc.MethodDescriptor<shippingcalc.GetSurgeParametersRequest,
+      shippingcalc.GetSurgeParametersResponse> getGetSurgeParametersMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetSurgeParametersRequest, shippingcalc.GetSurgeParametersResponse> getGetSurgeParametersMethod;
+    if ((getGetSurgeParametersMethod = ShippingcalcGrpc.getGetSurgeParametersMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
-        if ((getDeleteSurgeThresholdsMethod = ShippingcalcGrpc.getDeleteSurgeThresholdsMethod) == null) {
-          ShippingcalcGrpc.getDeleteSurgeThresholdsMethod = getDeleteSurgeThresholdsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.DeleteSurgeThresholdsRequest, shippingcalc.DeleteSurgeThresholdsResponse>newBuilder()
+        if ((getGetSurgeParametersMethod = ShippingcalcGrpc.getGetSurgeParametersMethod) == null) {
+          ShippingcalcGrpc.getGetSurgeParametersMethod = getGetSurgeParametersMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.GetSurgeParametersRequest, shippingcalc.GetSurgeParametersResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteSurgeThresholds"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetSurgeParameters"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.DeleteSurgeThresholdsRequest.getDefaultInstance()))
+                  shippingcalc.GetSurgeParametersRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.DeleteSurgeThresholdsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("DeleteSurgeThresholds"))
+                  shippingcalc.GetSurgeParametersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetSurgeParameters"))
               .build();
         }
       }
     }
-    return getDeleteSurgeThresholdsMethod;
+    return getGetSurgeParametersMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.SetSurgeParametersRequest,
+      shippingcalc.SetSurgeParametersResponse> getSetSurgeParametersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetSurgeParameters",
+      requestType = shippingcalc.SetSurgeParametersRequest.class,
+      responseType = shippingcalc.SetSurgeParametersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.SetSurgeParametersRequest,
+      shippingcalc.SetSurgeParametersResponse> getSetSurgeParametersMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.SetSurgeParametersRequest, shippingcalc.SetSurgeParametersResponse> getSetSurgeParametersMethod;
+    if ((getSetSurgeParametersMethod = ShippingcalcGrpc.getSetSurgeParametersMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getSetSurgeParametersMethod = ShippingcalcGrpc.getSetSurgeParametersMethod) == null) {
+          ShippingcalcGrpc.getSetSurgeParametersMethod = getSetSurgeParametersMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.SetSurgeParametersRequest, shippingcalc.SetSurgeParametersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetSurgeParameters"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.SetSurgeParametersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.SetSurgeParametersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("SetSurgeParameters"))
+              .build();
+        }
+      }
+    }
+    return getSetSurgeParametersMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.DeleteSurgeParametersRequest,
+      shippingcalc.DeleteSurgeParametersResponse> getDeleteSurgeParametersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteSurgeParameters",
+      requestType = shippingcalc.DeleteSurgeParametersRequest.class,
+      responseType = shippingcalc.DeleteSurgeParametersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.DeleteSurgeParametersRequest,
+      shippingcalc.DeleteSurgeParametersResponse> getDeleteSurgeParametersMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.DeleteSurgeParametersRequest, shippingcalc.DeleteSurgeParametersResponse> getDeleteSurgeParametersMethod;
+    if ((getDeleteSurgeParametersMethod = ShippingcalcGrpc.getDeleteSurgeParametersMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getDeleteSurgeParametersMethod = ShippingcalcGrpc.getDeleteSurgeParametersMethod) == null) {
+          ShippingcalcGrpc.getDeleteSurgeParametersMethod = getDeleteSurgeParametersMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.DeleteSurgeParametersRequest, shippingcalc.DeleteSurgeParametersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteSurgeParameters"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.DeleteSurgeParametersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.DeleteSurgeParametersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("DeleteSurgeParameters"))
+              .build();
+        }
+      }
+    }
+    return getDeleteSurgeParametersMethod;
   }
 
   /**
@@ -1123,46 +1061,6 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
-     * Установить сразу все интервалы surge
-     * </pre>
-     */
-    public void setIntervalsSurge(shippingcalc.SetIntervalsSurgeRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.SetIntervalsSurgeResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetIntervalsSurgeMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Получить все интервалы surge
-     * </pre>
-     */
-    public void getIntervalsSurge(shippingcalc.GetIntervalsSurgeRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.GetIntervalsSurgeResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetIntervalsSurgeMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Установить сразу все интервалы switchback experiments for surge
-     * </pre>
-     */
-    public void setSwitchbackExperiments(shippingcalc.SetSwitchbackExperimentsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.SetSwitchbackExperimentsResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetSwitchbackExperimentsMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Получить все интервалы switchback experiments for surge
-     * </pre>
-     */
-    public void getSwitchbackExperiments(shippingcalc.GetSwitchbackExperimentsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.GetSwitchbackExperimentsResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSwitchbackExperimentsMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
      * Получить минимальные корзины по списку
      * </pre>
      */
@@ -1183,32 +1081,52 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
-     * Получить все трешхолды для surge
+     * Установить сразу все интервалы switchback-тестов
      * </pre>
      */
-    public void getSurgeThresholds(shippingcalc.GetSurgeThresholdsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.GetSurgeThresholdsResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSurgeThresholdsMethod(), responseObserver);
+    public void setSwitchbacks(shippingcalc.SetSwitchbacksRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetSwitchbacksResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetSwitchbacksMethod(), responseObserver);
     }
 
     /**
      * <pre>
-     * Установить трешхолды для surge
+     * Получить все интервалы switchback-тестов
      * </pre>
      */
-    public void setSurgeThresholds(shippingcalc.SetSurgeThresholdsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.SetSurgeThresholdsResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetSurgeThresholdsMethod(), responseObserver);
+    public void getSwitchbacks(shippingcalc.GetSwitchbacksRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetSwitchbacksResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSwitchbacksMethod(), responseObserver);
     }
 
     /**
      * <pre>
-     * Удалить трешхолды для surge
+     * Получить все параметры для surge
      * </pre>
      */
-    public void deleteSurgeThresholds(shippingcalc.DeleteSurgeThresholdsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.DeleteSurgeThresholdsResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteSurgeThresholdsMethod(), responseObserver);
+    public void getSurgeParameters(shippingcalc.GetSurgeParametersRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetSurgeParametersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSurgeParametersMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Установить параметры для surge
+     * </pre>
+     */
+    public void setSurgeParameters(shippingcalc.SetSurgeParametersRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetSurgeParametersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetSurgeParametersMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Удалить параметры surge
+     * </pre>
+     */
+    public void deleteSurgeParameters(shippingcalc.DeleteSurgeParametersRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteSurgeParametersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteSurgeParametersMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -1347,34 +1265,6 @@ public final class ShippingcalcGrpc {
                 shippingcalc.GetDeliveryPriceResponse>(
                   this, METHODID_GET_DELIVERY_PRICE)))
           .addMethod(
-            getSetIntervalsSurgeMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                shippingcalc.SetIntervalsSurgeRequest,
-                shippingcalc.SetIntervalsSurgeResponse>(
-                  this, METHODID_SET_INTERVALS_SURGE)))
-          .addMethod(
-            getGetIntervalsSurgeMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                shippingcalc.GetIntervalsSurgeRequest,
-                shippingcalc.GetIntervalsSurgeResponse>(
-                  this, METHODID_GET_INTERVALS_SURGE)))
-          .addMethod(
-            getSetSwitchbackExperimentsMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                shippingcalc.SetSwitchbackExperimentsRequest,
-                shippingcalc.SetSwitchbackExperimentsResponse>(
-                  this, METHODID_SET_SWITCHBACK_EXPERIMENTS)))
-          .addMethod(
-            getGetSwitchbackExperimentsMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                shippingcalc.GetSwitchbackExperimentsRequest,
-                shippingcalc.GetSwitchbackExperimentsResponse>(
-                  this, METHODID_GET_SWITCHBACK_EXPERIMENTS)))
-          .addMethod(
             getGetMinCartAmountsMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
@@ -1389,26 +1279,40 @@ public final class ShippingcalcGrpc {
                 shippingcalc.GetDeliveryConditionsResponse>(
                   this, METHODID_GET_DELIVERY_CONDITIONS)))
           .addMethod(
-            getGetSurgeThresholdsMethod(),
+            getSetSwitchbacksMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.GetSurgeThresholdsRequest,
-                shippingcalc.GetSurgeThresholdsResponse>(
-                  this, METHODID_GET_SURGE_THRESHOLDS)))
+                shippingcalc.SetSwitchbacksRequest,
+                shippingcalc.SetSwitchbacksResponse>(
+                  this, METHODID_SET_SWITCHBACKS)))
           .addMethod(
-            getSetSurgeThresholdsMethod(),
+            getGetSwitchbacksMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.SetSurgeThresholdsRequest,
-                shippingcalc.SetSurgeThresholdsResponse>(
-                  this, METHODID_SET_SURGE_THRESHOLDS)))
+                shippingcalc.GetSwitchbacksRequest,
+                shippingcalc.GetSwitchbacksResponse>(
+                  this, METHODID_GET_SWITCHBACKS)))
           .addMethod(
-            getDeleteSurgeThresholdsMethod(),
+            getGetSurgeParametersMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.DeleteSurgeThresholdsRequest,
-                shippingcalc.DeleteSurgeThresholdsResponse>(
-                  this, METHODID_DELETE_SURGE_THRESHOLDS)))
+                shippingcalc.GetSurgeParametersRequest,
+                shippingcalc.GetSurgeParametersResponse>(
+                  this, METHODID_GET_SURGE_PARAMETERS)))
+          .addMethod(
+            getSetSurgeParametersMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.SetSurgeParametersRequest,
+                shippingcalc.SetSurgeParametersResponse>(
+                  this, METHODID_SET_SURGE_PARAMETERS)))
+          .addMethod(
+            getDeleteSurgeParametersMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.DeleteSurgeParametersRequest,
+                shippingcalc.DeleteSurgeParametersResponse>(
+                  this, METHODID_DELETE_SURGE_PARAMETERS)))
           .build();
     }
   }
@@ -1638,50 +1542,6 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
-     * Установить сразу все интервалы surge
-     * </pre>
-     */
-    public void setIntervalsSurge(shippingcalc.SetIntervalsSurgeRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.SetIntervalsSurgeResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getSetIntervalsSurgeMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Получить все интервалы surge
-     * </pre>
-     */
-    public void getIntervalsSurge(shippingcalc.GetIntervalsSurgeRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.GetIntervalsSurgeResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetIntervalsSurgeMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Установить сразу все интервалы switchback experiments for surge
-     * </pre>
-     */
-    public void setSwitchbackExperiments(shippingcalc.SetSwitchbackExperimentsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.SetSwitchbackExperimentsResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getSetSwitchbackExperimentsMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Получить все интервалы switchback experiments for surge
-     * </pre>
-     */
-    public void getSwitchbackExperiments(shippingcalc.GetSwitchbackExperimentsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.GetSwitchbackExperimentsResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetSwitchbackExperimentsMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
      * Получить минимальные корзины по списку
      * </pre>
      */
@@ -1704,35 +1564,57 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
-     * Получить все трешхолды для surge
+     * Установить сразу все интервалы switchback-тестов
      * </pre>
      */
-    public void getSurgeThresholds(shippingcalc.GetSurgeThresholdsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.GetSurgeThresholdsResponse> responseObserver) {
+    public void setSwitchbacks(shippingcalc.SetSwitchbacksRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetSwitchbacksResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetSurgeThresholdsMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getSetSwitchbacksMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      * <pre>
-     * Установить трешхолды для surge
+     * Получить все интервалы switchback-тестов
      * </pre>
      */
-    public void setSurgeThresholds(shippingcalc.SetSurgeThresholdsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.SetSurgeThresholdsResponse> responseObserver) {
+    public void getSwitchbacks(shippingcalc.GetSwitchbacksRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetSwitchbacksResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getSetSurgeThresholdsMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetSwitchbacksMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      * <pre>
-     * Удалить трешхолды для surge
+     * Получить все параметры для surge
      * </pre>
      */
-    public void deleteSurgeThresholds(shippingcalc.DeleteSurgeThresholdsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.DeleteSurgeThresholdsResponse> responseObserver) {
+    public void getSurgeParameters(shippingcalc.GetSurgeParametersRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetSurgeParametersResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getDeleteSurgeThresholdsMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetSurgeParametersMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Установить параметры для surge
+     * </pre>
+     */
+    public void setSurgeParameters(shippingcalc.SetSurgeParametersRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetSurgeParametersResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSetSurgeParametersMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Удалить параметры surge
+     * </pre>
+     */
+    public void deleteSurgeParameters(shippingcalc.DeleteSurgeParametersRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteSurgeParametersResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteSurgeParametersMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -1942,46 +1824,6 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
-     * Установить сразу все интервалы surge
-     * </pre>
-     */
-    public shippingcalc.SetIntervalsSurgeResponse setIntervalsSurge(shippingcalc.SetIntervalsSurgeRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getSetIntervalsSurgeMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Получить все интервалы surge
-     * </pre>
-     */
-    public shippingcalc.GetIntervalsSurgeResponse getIntervalsSurge(shippingcalc.GetIntervalsSurgeRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetIntervalsSurgeMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Установить сразу все интервалы switchback experiments for surge
-     * </pre>
-     */
-    public shippingcalc.SetSwitchbackExperimentsResponse setSwitchbackExperiments(shippingcalc.SetSwitchbackExperimentsRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getSetSwitchbackExperimentsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Получить все интервалы switchback experiments for surge
-     * </pre>
-     */
-    public shippingcalc.GetSwitchbackExperimentsResponse getSwitchbackExperiments(shippingcalc.GetSwitchbackExperimentsRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetSwitchbackExperimentsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
      * Получить минимальные корзины по списку
      * </pre>
      */
@@ -2002,32 +1844,52 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
-     * Получить все трешхолды для surge
+     * Установить сразу все интервалы switchback-тестов
      * </pre>
      */
-    public shippingcalc.GetSurgeThresholdsResponse getSurgeThresholds(shippingcalc.GetSurgeThresholdsRequest request) {
+    public shippingcalc.SetSwitchbacksResponse setSwitchbacks(shippingcalc.SetSwitchbacksRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetSurgeThresholdsMethod(), getCallOptions(), request);
+          getChannel(), getSetSwitchbacksMethod(), getCallOptions(), request);
     }
 
     /**
      * <pre>
-     * Установить трешхолды для surge
+     * Получить все интервалы switchback-тестов
      * </pre>
      */
-    public shippingcalc.SetSurgeThresholdsResponse setSurgeThresholds(shippingcalc.SetSurgeThresholdsRequest request) {
+    public shippingcalc.GetSwitchbacksResponse getSwitchbacks(shippingcalc.GetSwitchbacksRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getSetSurgeThresholdsMethod(), getCallOptions(), request);
+          getChannel(), getGetSwitchbacksMethod(), getCallOptions(), request);
     }
 
     /**
      * <pre>
-     * Удалить трешхолды для surge
+     * Получить все параметры для surge
      * </pre>
      */
-    public shippingcalc.DeleteSurgeThresholdsResponse deleteSurgeThresholds(shippingcalc.DeleteSurgeThresholdsRequest request) {
+    public shippingcalc.GetSurgeParametersResponse getSurgeParameters(shippingcalc.GetSurgeParametersRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getDeleteSurgeThresholdsMethod(), getCallOptions(), request);
+          getChannel(), getGetSurgeParametersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Установить параметры для surge
+     * </pre>
+     */
+    public shippingcalc.SetSurgeParametersResponse setSurgeParameters(shippingcalc.SetSurgeParametersRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSetSurgeParametersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Удалить параметры surge
+     * </pre>
+     */
+    public shippingcalc.DeleteSurgeParametersResponse deleteSurgeParameters(shippingcalc.DeleteSurgeParametersRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteSurgeParametersMethod(), getCallOptions(), request);
     }
   }
 
@@ -2256,50 +2118,6 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
-     * Установить сразу все интервалы surge
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.SetIntervalsSurgeResponse> setIntervalsSurge(
-        shippingcalc.SetIntervalsSurgeRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getSetIntervalsSurgeMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * Получить все интервалы surge
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetIntervalsSurgeResponse> getIntervalsSurge(
-        shippingcalc.GetIntervalsSurgeRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetIntervalsSurgeMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * Установить сразу все интервалы switchback experiments for surge
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.SetSwitchbackExperimentsResponse> setSwitchbackExperiments(
-        shippingcalc.SetSwitchbackExperimentsRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getSetSwitchbackExperimentsMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * Получить все интервалы switchback experiments for surge
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetSwitchbackExperimentsResponse> getSwitchbackExperiments(
-        shippingcalc.GetSwitchbackExperimentsRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetSwitchbackExperimentsMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
      * Получить минимальные корзины по списку
      * </pre>
      */
@@ -2322,35 +2140,57 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
-     * Получить все трешхолды для surge
+     * Установить сразу все интервалы switchback-тестов
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetSurgeThresholdsResponse> getSurgeThresholds(
-        shippingcalc.GetSurgeThresholdsRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.SetSwitchbacksResponse> setSwitchbacks(
+        shippingcalc.SetSwitchbacksRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetSurgeThresholdsMethod(), getCallOptions()), request);
+          getChannel().newCall(getSetSwitchbacksMethod(), getCallOptions()), request);
     }
 
     /**
      * <pre>
-     * Установить трешхолды для surge
+     * Получить все интервалы switchback-тестов
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.SetSurgeThresholdsResponse> setSurgeThresholds(
-        shippingcalc.SetSurgeThresholdsRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetSwitchbacksResponse> getSwitchbacks(
+        shippingcalc.GetSwitchbacksRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getSetSurgeThresholdsMethod(), getCallOptions()), request);
+          getChannel().newCall(getGetSwitchbacksMethod(), getCallOptions()), request);
     }
 
     /**
      * <pre>
-     * Удалить трешхолды для surge
+     * Получить все параметры для surge
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.DeleteSurgeThresholdsResponse> deleteSurgeThresholds(
-        shippingcalc.DeleteSurgeThresholdsRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetSurgeParametersResponse> getSurgeParameters(
+        shippingcalc.GetSurgeParametersRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getDeleteSurgeThresholdsMethod(), getCallOptions()), request);
+          getChannel().newCall(getGetSurgeParametersMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Установить параметры для surge
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.SetSurgeParametersResponse> setSurgeParameters(
+        shippingcalc.SetSurgeParametersRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSetSurgeParametersMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Удалить параметры surge
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.DeleteSurgeParametersResponse> deleteSurgeParameters(
+        shippingcalc.DeleteSurgeParametersRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteSurgeParametersMethod(), getCallOptions()), request);
     }
   }
 
@@ -2373,15 +2213,13 @@ public final class ShippingcalcGrpc {
   private static final int METHODID_GET_SCRIPT_TEST_RESULTS = 16;
   private static final int METHODID_DELETE_SCRIPT = 17;
   private static final int METHODID_GET_DELIVERY_PRICE = 18;
-  private static final int METHODID_SET_INTERVALS_SURGE = 19;
-  private static final int METHODID_GET_INTERVALS_SURGE = 20;
-  private static final int METHODID_SET_SWITCHBACK_EXPERIMENTS = 21;
-  private static final int METHODID_GET_SWITCHBACK_EXPERIMENTS = 22;
-  private static final int METHODID_GET_MIN_CART_AMOUNTS = 23;
-  private static final int METHODID_GET_DELIVERY_CONDITIONS = 24;
-  private static final int METHODID_GET_SURGE_THRESHOLDS = 25;
-  private static final int METHODID_SET_SURGE_THRESHOLDS = 26;
-  private static final int METHODID_DELETE_SURGE_THRESHOLDS = 27;
+  private static final int METHODID_GET_MIN_CART_AMOUNTS = 19;
+  private static final int METHODID_GET_DELIVERY_CONDITIONS = 20;
+  private static final int METHODID_SET_SWITCHBACKS = 21;
+  private static final int METHODID_GET_SWITCHBACKS = 22;
+  private static final int METHODID_GET_SURGE_PARAMETERS = 23;
+  private static final int METHODID_SET_SURGE_PARAMETERS = 24;
+  private static final int METHODID_DELETE_SURGE_PARAMETERS = 25;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -2476,22 +2314,6 @@ public final class ShippingcalcGrpc {
           serviceImpl.getDeliveryPrice((shippingcalc.GetDeliveryPriceRequest) request,
               (io.grpc.stub.StreamObserver<shippingcalc.GetDeliveryPriceResponse>) responseObserver);
           break;
-        case METHODID_SET_INTERVALS_SURGE:
-          serviceImpl.setIntervalsSurge((shippingcalc.SetIntervalsSurgeRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.SetIntervalsSurgeResponse>) responseObserver);
-          break;
-        case METHODID_GET_INTERVALS_SURGE:
-          serviceImpl.getIntervalsSurge((shippingcalc.GetIntervalsSurgeRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.GetIntervalsSurgeResponse>) responseObserver);
-          break;
-        case METHODID_SET_SWITCHBACK_EXPERIMENTS:
-          serviceImpl.setSwitchbackExperiments((shippingcalc.SetSwitchbackExperimentsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.SetSwitchbackExperimentsResponse>) responseObserver);
-          break;
-        case METHODID_GET_SWITCHBACK_EXPERIMENTS:
-          serviceImpl.getSwitchbackExperiments((shippingcalc.GetSwitchbackExperimentsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.GetSwitchbackExperimentsResponse>) responseObserver);
-          break;
         case METHODID_GET_MIN_CART_AMOUNTS:
           serviceImpl.getMinCartAmounts((shippingcalc.GetMinCartAmountsRequest) request,
               (io.grpc.stub.StreamObserver<shippingcalc.GetMinCartAmountsResponse>) responseObserver);
@@ -2500,17 +2322,25 @@ public final class ShippingcalcGrpc {
           serviceImpl.getDeliveryConditions((shippingcalc.GetDeliveryConditionsRequest) request,
               (io.grpc.stub.StreamObserver<shippingcalc.GetDeliveryConditionsResponse>) responseObserver);
           break;
-        case METHODID_GET_SURGE_THRESHOLDS:
-          serviceImpl.getSurgeThresholds((shippingcalc.GetSurgeThresholdsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.GetSurgeThresholdsResponse>) responseObserver);
+        case METHODID_SET_SWITCHBACKS:
+          serviceImpl.setSwitchbacks((shippingcalc.SetSwitchbacksRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.SetSwitchbacksResponse>) responseObserver);
           break;
-        case METHODID_SET_SURGE_THRESHOLDS:
-          serviceImpl.setSurgeThresholds((shippingcalc.SetSurgeThresholdsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.SetSurgeThresholdsResponse>) responseObserver);
+        case METHODID_GET_SWITCHBACKS:
+          serviceImpl.getSwitchbacks((shippingcalc.GetSwitchbacksRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetSwitchbacksResponse>) responseObserver);
           break;
-        case METHODID_DELETE_SURGE_THRESHOLDS:
-          serviceImpl.deleteSurgeThresholds((shippingcalc.DeleteSurgeThresholdsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.DeleteSurgeThresholdsResponse>) responseObserver);
+        case METHODID_GET_SURGE_PARAMETERS:
+          serviceImpl.getSurgeParameters((shippingcalc.GetSurgeParametersRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetSurgeParametersResponse>) responseObserver);
+          break;
+        case METHODID_SET_SURGE_PARAMETERS:
+          serviceImpl.setSurgeParameters((shippingcalc.SetSurgeParametersRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.SetSurgeParametersResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_SURGE_PARAMETERS:
+          serviceImpl.deleteSurgeParameters((shippingcalc.DeleteSurgeParametersRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.DeleteSurgeParametersResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -2592,15 +2422,13 @@ public final class ShippingcalcGrpc {
               .addMethod(getGetScriptTestResultsMethod())
               .addMethod(getDeleteScriptMethod())
               .addMethod(getGetDeliveryPriceMethod())
-              .addMethod(getSetIntervalsSurgeMethod())
-              .addMethod(getGetIntervalsSurgeMethod())
-              .addMethod(getSetSwitchbackExperimentsMethod())
-              .addMethod(getGetSwitchbackExperimentsMethod())
               .addMethod(getGetMinCartAmountsMethod())
               .addMethod(getGetDeliveryConditionsMethod())
-              .addMethod(getGetSurgeThresholdsMethod())
-              .addMethod(getSetSurgeThresholdsMethod())
-              .addMethod(getDeleteSurgeThresholdsMethod())
+              .addMethod(getSetSwitchbacksMethod())
+              .addMethod(getGetSwitchbacksMethod())
+              .addMethod(getGetSurgeParametersMethod())
+              .addMethod(getSetSurgeParametersMethod())
+              .addMethod(getDeleteSurgeParametersMethod())
               .build();
         }
       }

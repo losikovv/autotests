@@ -20,8 +20,8 @@
     </test>
     <test verbose="1" name="SHIPPINGCALC SECONDARY API" parallel="classes" thread-count="3">
         <classes>
-            <class name="ru.instamart.test.api.on_demand.shippingcalc.SurgeThresholdsTest"/>
-            <class name="ru.instamart.test.api.on_demand.shippingcalc.SwitchbackExperimentsTest"/>
+            <class name="ru.instamart.test.api.on_demand.shippingcalc.SurgeParametersTest"/>
+            <class name="ru.instamart.test.api.on_demand.shippingcalc.SwitchbacksTest"/>
             <class name="ru.instamart.test.api.on_demand.shippingcalc.AutobinderTest"/>
         </classes>
     </test>
