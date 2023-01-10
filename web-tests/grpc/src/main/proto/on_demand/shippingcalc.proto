@@ -44,24 +44,20 @@ service Shippingcalc {
 	rpc DeleteScript(DeleteScriptRequest) returns (DeleteScriptResponse);
 	// Получить стоимость доставки
 	rpc GetDeliveryPrice (GetDeliveryPriceRequest) returns (GetDeliveryPriceResponse);
-	// Установить сразу все интервалы surge
-	rpc SetIntervalsSurge (SetIntervalsSurgeRequest) returns (SetIntervalsSurgeResponse);
-	// Получить все интервалы surge
-	rpc GetIntervalsSurge (GetIntervalsSurgeRequest) returns (GetIntervalsSurgeResponse);
-	// Установить сразу все интервалы switchback experiments for surge
-	rpc SetSwitchbackExperiments (SetSwitchbackExperimentsRequest) returns (SetSwitchbackExperimentsResponse);
-	// Получить все интервалы switchback experiments for surge
-	rpc GetSwitchbackExperiments (GetSwitchbackExperimentsRequest) returns (GetSwitchbackExperimentsResponse);
 	// Получить минимальные корзины по списку
 	rpc GetMinCartAmounts (GetMinCartAmountsRequest) returns (GetMinCartAmountsResponse);
 	// Наиболее выгодные условия доставки для магазинов
 	rpc GetDeliveryConditions (GetDeliveryConditionsRequest) returns (GetDeliveryConditionsResponse);
-	// Получить все трешхолды для surge
-	rpc GetSurgeThresholds (GetSurgeThresholdsRequest) returns (GetSurgeThresholdsResponse);
-	// Установить трешхолды для surge
-	rpc SetSurgeThresholds (SetSurgeThresholdsRequest) returns (SetSurgeThresholdsResponse);
-	// Удалить трешхолды для surge
-	rpc DeleteSurgeThresholds (DeleteSurgeThresholdsRequest) returns (DeleteSurgeThresholdsResponse);
+	// Установить сразу все интервалы switchback-тестов
+	rpc SetSwitchbacks (SetSwitchbacksRequest) returns (SetSwitchbacksResponse);
+	// Получить все интервалы switchback-тестов
+	rpc GetSwitchbacks (GetSwitchbacksRequest) returns (GetSwitchbacksResponse);
+	// Получить все параметры для surge
+	rpc GetSurgeParameters (GetSurgeParametersRequest) returns (GetSurgeParametersResponse);
+	// Установить параметры для surge
+	rpc SetSurgeParameters (SetSurgeParametersRequest) returns (SetSurgeParametersResponse);
+	// Удалить параметры surge
+	rpc DeleteSurgeParameters (DeleteSurgeParametersRequest) returns (DeleteSurgeParametersResponse);
 }
 
 enum DeliveryType {
@@ -664,70 +660,6 @@ message LadderStep {
 	repeated PriceComponent price_components = 4;
 }
 
-// Один интервал для surge
-message SurgeInterval {
-	// Левая граница интервала, не входит в диапазон
-	float left_boundary = 1;
-	// Правая граница интервала, входит в диапазон
-	float right_boundary = 2;
-	// Дополнительная наценка, напрямую добавленная к цене доставки
-	uint64 price_addition = 3;
-	// Дополнительная наценка, добавленный процент от цены доставки
-	uint64 percent_addition = 4;
-	// Дополнительная наценка, напрямую добавленная к мин корзине
-	uint64 min_cart_addition = 5;
-}
-
-message SetIntervalsSurgeRequest {
-	repeated SurgeInterval intervals = 1;
-}
-
-message SetIntervalsSurgeResponse {
-
-}
-
-message GetIntervalsSurgeRequest {
-
-}
-
-message GetIntervalsSurgeResponse {
-	repeated SurgeInterval intervals = 1;
-}
-
-// Ожидаемый тип данных для surge switchback experiments
-enum SurgeSwitchbackDataType {
-	CSV = 0;
-}
-
-// Описание одного surge switchback experiment
-message SurgeSwitchbackExperiment {
-	// Дата и время начала срабатывания эксперимента, входит в диапазон
-	int64 start_date_time = 1;
-	// Дата и время окончания срабатывания эксперимента, не входит в диапазон
-	int64 end_date_time = 2;
-	// Идентификатор региона, в котором должен срабатывать эксперимент
-	uint64 region_id = 3;
-	// Метка группы эксперимента
-	string group = 4;
-}
-
-message SetSwitchbackExperimentsRequest {
-	string data = 1;
-	SurgeSwitchbackDataType type = 2;
-}
-
-message SetSwitchbackExperimentsResponse {
-
-}
-
-message GetSwitchbackExperimentsRequest {
-
-}
-
-message GetSwitchbackExperimentsResponse {
-	repeated SurgeSwitchbackExperiment experiments = 1;
-}
-
 message GetMinCartAmountsRequest {
 	repeated Store stores = 1;
 	Customer customer = 2;
@@ -885,29 +817,83 @@ message BindingRule {
 	optional string description = 12;
 }
 
-message GetSurgeThresholdsRequest {};
+// Один интервал для surge
+message SurgeInterval {
+	// Левая граница интервала, не входит в диапазон
+	float left_boundary = 1;
+	// Правая граница интервала, входит в диапазон
+	float right_boundary = 2;
+	// Дополнительная наценка, напрямую добавленная к цене доставки
+	uint64 price_addition = 3;
+	// Дополнительная наценка, добавленный процент от цены доставки
+	uint64 percent_addition = 4;
+	// Дополнительная наценка, напрямую добавленная к мин корзине
+	uint64 min_cart_addition = 5;
+}
 
-message GetSurgeThresholdsResponse {
-	repeated SurgeThreshold thresholds = 1;
+// Ожидаемый тип данных для surge switchback-теста
+enum SurgeSwitchbackDataType {
+	CSV = 0;
+}
+
+// Описание одного surge switchback теста
+message SurgeSwitchback {
+	// Дата и время начала срабатывания эксперимента, входит в диапазон
+	google.protobuf.Timestamp start_date_time = 1;
+	// Дата и время окончания срабатывания эксперимента, не входит в диапазон
+	google.protobuf.Timestamp end_date_time = 2;
+	// Идентификатор региона, в котором должен срабатывать эксперимент
+	int64 region_id = 3;
+	// Идентификатор вертикали
+	int32 vertical = 4;
+	// Метка группы эксперимента
+	string group = 5;
+	// Параметры эксперимента, json-строка
+	string parameters = 6;
+}
+
+message SetSwitchbacksRequest {
+	string data = 1;
+	SurgeSwitchbackDataType type = 2;
+}
+
+message SetSwitchbacksResponse {
+
+}
+
+message GetSwitchbacksRequest {
+
+}
+
+message GetSwitchbacksResponse {
+	repeated SurgeSwitchback experiments = 1;
+}
+
+message SurgeParameters {
+	message Parameters {
+		repeated SurgeInterval intervals = 1;
+	};
+
+	uint64 id = 1;
+	int64 region_id = 2;
+	int32 vertical = 3;
+	Parameters parameters = 4;
 };
 
-message SetSurgeThresholdsRequest {
-	repeated SurgeThreshold thresholds = 1;
+message GetSurgeParametersRequest {};
+
+message GetSurgeParametersResponse {
+	repeated SurgeParameters parameters = 1;
 };
 
-message SetSurgeThresholdsResponse {};
-
-message DeleteSurgeThresholdsRequest {
-	repeated uint64 region_id = 1;
+message SetSurgeParametersRequest {
+	repeated SurgeParameters parameters = 1;
 };
 
-message DeleteSurgeThresholdsResponse {};
+message SetSurgeParametersResponse {};
 
-message SurgeThreshold {
-	uint64 region_id = 1;
-	SurgeThresholdParameters parameters = 2;
+message DeleteSurgeParametersRequest {
+	repeated uint64 id = 1;
 };
 
-message SurgeThresholdParameters {
-	repeated SurgeInterval intervals = 1;
-};
+message DeleteSurgeParametersResponse {};

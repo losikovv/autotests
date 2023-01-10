@@ -5,7 +5,7 @@ package shippingcalc;
 
 /**
  * <pre>
- * Ожидаемый тип данных для surge switchback experiments
+ * Ожидаемый тип данных для surge switchback-теста
  * </pre>
  *
  * Protobuf enum {@code shippingcalc.SurgeSwitchbackDataType}

@@ -93,7 +93,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceForLocalStrategy() {
         var request = getDeliveryPriceRequest(
-                1, SHIPMENT_ID, true, 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
+                1, SHIPMENT_ID, true, 1000, 1, 99900, STORE_ID, "NEW", 1, 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -108,7 +108,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceForGlobalStrategy() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -123,7 +123,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceHighestPriorityRule() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 90000, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 90000, STORE_ID, "NEW", 1, 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 0, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -140,7 +140,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "NOT_FOUND: cannot get delivery price for some shipments, no correct price strategy")
     public void getDeliveryPriceForStoreWithNoBinds() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.B2B_SELF_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -216,12 +216,12 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             dependsOnMethods = "getDeliveryPriceForLocalStrategy")
     public void getDeliveryPriceOffer() {
         var offerRequest = getDeliveryPriceRequest(
-                1, SHIPMENT_ID, true, 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
+                1, SHIPMENT_ID, true, 1000, 1, 99900, STORE_ID, "NEW", 1, 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
         var newRequest = getDeliveryPriceRequest(
-                1, SHIPMENT_ID, true, 1000, 1, 100001, STORE_ID, "NEW", 1, 0,
+                1, SHIPMENT_ID, true, 1000, 1, 100001, STORE_ID, "NEW", 1, 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -261,6 +261,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                         .setStoreId(STORE_ID)
                         .setStatus("NEW")
                         .setRegionId(1)
+                        .setRetailerId(1)
                         .setSurgeDeliveryWindowAddition(0)
                         .setLat(55.55f)
                         .setLon(55.55f)
@@ -275,6 +276,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                         .setStoreId(STORE_ID)
                         .setStatus("NEW")
                         .setRegionId(1)
+                        .setRetailerId(1)
                         .setSurgeDeliveryWindowAddition(0)
                         .setLat(55.55f)
                         .setLon(55.55f)
@@ -322,7 +324,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         }
 
         var request = getDeliveryPriceRequest(
-                1, SHIPMENT_ID, true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
+                1, SHIPMENT_ID, true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITHOUT_PARAMETERS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -345,7 +347,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         }
 
         var request = getDeliveryPriceRequest(
-                1, SHIPMENT_ID, true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
+                1, SHIPMENT_ID, true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITHOUT_PARAMETERS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -366,39 +368,79 @@ public class DeliveryPriceTest extends ShippingCalcBase {
 
     @TmsLink("537")
     @Story("Get Delivery Price")
-    @Test(description = "Наценка по параметрам свитчбек-эксперимента региона",
+    @Test(description = "Наценка по параметрам свитчбека (полное попадание)",
             groups = "ondemand-shippingcalc")
-    public void getDeliveryPriceWithSwitchbackExperiment() {
+    public void getDeliveryPriceWithSwitchback() {
 
         if (surgeDisabled) {
             throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
         }
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_SWITCHBACK, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_SWITCHBACK, RETAILER_ID_WITH_SWITCHBACK, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-
-        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, 3, 4, 0, 0);
-        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF);
-
+        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_SWITCHBACK_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_SWITCHBACK_ADDITION_DIFF, 3, 4, 0, 0);
+        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990 + SURGE_SWITCHBACK_ADDITION_DIFF);
     }
 
-    @TmsLink("538")
+    @TmsLink("577")
     @Story("Get Delivery Price")
-    @Test(description = "Отсутствие наценки по параметрам свитчбек-эксперимента региона при не попадании в временной интервал",
+    @Test(description = "Наценка по параметрам свитчбека (попадание по вертикали)",
             groups = "ondemand-shippingcalc")
-    public void getDeliveryPriceWithFutureSwitchbackExperiment() {
+    public void getDeliveryPriceWithSwitchbackVertical() {
 
         if (surgeDisabled) {
             throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
         }
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_FUTURE_SWITCHBACK, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITH_SWITCHBACK, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_SWITCHBACK_VERTICAL_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_SWITCHBACK_VERTICAL_ADDITION_DIFF, 3, 4, 0, 0);
+        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990 + SURGE_SWITCHBACK_VERTICAL_ADDITION_DIFF);
+    }
+
+    @TmsLink("578")
+    @Story("Get Delivery Price")
+    @Test(description = "Наценка по параметрам свитчбека (попадание по региону)",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithSwitchbackRegion() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_SWITCHBACK, RETAILER_ID_WITHOUT_SWITCHBACK, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_SWITCHBACK_REGION_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_SWITCHBACK_REGION_ADDITION_DIFF, 3, 4, 0, 0);
+        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990 + SURGE_SWITCHBACK_REGION_ADDITION_DIFF);
+    }
+
+    @TmsLink("538")
+    @Story("Get Delivery Price")
+    @Test(description = "Отсутствие наценки по параметрам свитчбека при не попадании в временной интервал",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithFutureSwitchback() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_FUTURE_SWITCHBACK, RETAILER_ID_WITHOUT_SWITCHBACK, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -420,7 +462,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         }
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_SWITCHBACK, 0,
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_SWITCHBACK, RETAILER_ID_WITH_SWITCHBACK, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -432,24 +474,68 @@ public class DeliveryPriceTest extends ShippingCalcBase {
 
     @TmsLinks({@TmsLink("540"), @TmsLink("539")})
     @Story("Get Delivery Price")
-    @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
+    @Test(description = "Наценка по сюрдж-параметрам (полное попадание)",
             groups = "ondemand-shippingcalc")
-    public void getDeliveryPriceWithSurgeRegionThreshold() {
+    public void getDeliveryPriceWithSurgeParameters() {
 
         if (surgeDisabled) {
             throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
         }
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_THRESHOLDS, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_PARAMETERS, RETAILER_ID_WITH_PARAMETERS, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
 
-        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, 3, 4, 0, 0);
-        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF);
+        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_PARAMETERS_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_ADDITION_DIFF, 3, 4, 0, 0);
+        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990 + SURGE_PARAMETERS_ADDITION_DIFF);
+    }
+
+    @TmsLink("579")
+    @Story("Get Delivery Price")
+    @Test(description = "Наценка по сюрдж-параметрам (попадание по вертикали)",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithSurgeParametersVertical() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITH_PARAMETERS, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_PARAMETERS_VERTICAL_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_VERTICAL_ADDITION_DIFF, 3, 4, 0, 0);
+        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990 + SURGE_PARAMETERS_VERTICAL_ADDITION_DIFF);
+    }
+
+    @TmsLink("580")
+    @Story("Get Delivery Price")
+    @Test(description = "Наценка по сюрдж-параметрам (попадание по региону)",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithSurgeParametersRegion() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_PARAMETERS, RETAILER_ID_WITHOUT_PARAMETERS, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_PARAMETERS_REGION_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_REGION_ADDITION_DIFF, 3, 4, 0, 0);
+        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990 + SURGE_PARAMETERS_REGION_ADDITION_DIFF);
     }
 
     @TmsLink("511")
@@ -463,7 +549,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         }
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITHOUT_PARAMETERS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -480,7 +566,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceWithoutSurge() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITHOUT_PARAMETERS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -497,7 +583,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceWithoutSurgeNewCustomers() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITHOUT_PARAMETERS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -517,7 +603,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         Allure.step("Меняем уровень surge у магазина", () -> RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, 0, 0, 0, getZonedUTCDate()), 100));
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 199900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 199900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITHOUT_PARAMETERS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -534,7 +620,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceWithNoSurgeSelfDelivery() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITHOUT_PARAMETERS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.SELF_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -551,7 +637,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceWithSurgeDeliveryWindowAddition() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, STORE_ID, "NEW", 1, 10000,
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, STORE_ID, "NEW", 999999, 999999, 10000,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -571,7 +657,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         }
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 10000,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 1, 10000,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -591,7 +677,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         }
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 10000,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 1, 10000,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -606,7 +692,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceWithEmptyCustomerIdWhitelist() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 1, 0,
                 55.55, 55.55, "", ANONYMOUS_ID, 0, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -621,7 +707,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceWithEmptyCustomerIdNoWhitelist() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 1, 0,
                 55.55, 55.55, "", ANONYMOUS_ID, 0, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), "test", "test");
@@ -636,7 +722,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceWithEmptyCustomerAndAnonymousId() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 1, 0,
                 55.55, 55.55, "", "", 0, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -651,7 +737,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceMostExpensiveRule() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 300099, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 300099, STORE_ID, "NEW", 1, 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -678,7 +764,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceOverweight() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -696,7 +782,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty order_id")
     public void getDeliveryPriceWithNoOrderId() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
                 "", false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -712,7 +798,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty shipment id")
     public void getDeliveryPriceWithNoShipmentId() {
         var request = getDeliveryPriceRequest(
-                1, "", false, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
+                1, "", false, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -769,7 +855,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty shipment store_id")
     public void getDeliveryPriceWithNoStoreId() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, "", "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, "", "NEW", 1, 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -813,7 +899,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid delivery type")
     public void getDeliveryPriceWithNoDeliveryType() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
                 UUID.randomUUID().toString(), false, false, "Картой онлайн", true, 0,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -827,7 +913,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceOrderDistanceRange() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 1, 0,
                 55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.9251, 38.242613,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -842,7 +928,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPricePlatforms() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 1, 0,
                 55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 50.9211, 30.232613,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.IOS.getName(), AppVersion.IOS.getVersion());
@@ -857,7 +943,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceRegisteredAfter() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 1, 0,
                 55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 50.9211, 30.232613,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -872,7 +958,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceOnDemand() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 40000, 1, 100000, STORE_ID, "NEW", 1, 1, 0,
                 55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655635906, 50.9211, 30.232613,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -931,7 +1017,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceMultipleConditions() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 40000, 1, 300000, STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 40000, 1, 300000, STORE_ID, "NEW", 1, 1, 0,
                 55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655635906, 50.9211, 30.232613,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
