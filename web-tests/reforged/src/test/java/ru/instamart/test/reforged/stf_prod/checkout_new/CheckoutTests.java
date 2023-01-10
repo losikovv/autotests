@@ -21,18 +21,19 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Epic("STF UI")
 @Feature("Чекаут V3")
 public final class CheckoutTests {
+
+    private static final ThreadLocal<UserData> ordersUser = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData ordersUser;
 
     @BeforeMethod(alwaysRun = true, description = "Шаги предусловия")
     public void beforeTest() {
-        this.ordersUser = UserManager.getQaUser();
-        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_SID);
+        ordersUser.set(UserManager.getQaUser());
+        this.helper.dropAndFillCart(ordersUser.get(), UiProperties.DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        this.helper.cancelAllActiveOrders(ordersUser);
+        this.helper.cancelAllActiveOrders(ordersUser.get());
     }
 
     @TmsLink("3624")
@@ -40,7 +41,7 @@ public final class CheckoutTests {
     public void testCheckoutCompleteWithPayToCourierAndDelivery() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -71,11 +72,11 @@ public final class CheckoutTests {
 
         checkoutNew().checkSelectedPaymentMethodContains(BY_CARD_TO_COURIER.getName());
 
-        checkoutNew().checkContactsSummary(ordersUser.getPhone(), ordersUser.getEmail());
+        checkoutNew().checkContactsSummary(ordersUser.get().getPhone(), ordersUser.get().getEmail());
 
         checkoutNew().clickEditContacts();
-        checkoutNew().checkContactsPhone(ordersUser.getPhone());
-        checkoutNew().checkContactsEmail(ordersUser.getEmail());
+        checkoutNew().checkContactsPhone(ordersUser.get().getPhone());
+        checkoutNew().checkContactsEmail(ordersUser.get().getEmail());
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
@@ -96,7 +97,7 @@ public final class CheckoutTests {
     public void testCheckoutCompleteWithCash() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -128,11 +129,11 @@ public final class CheckoutTests {
 
         checkoutNew().checkSelectedPaymentMethodContains(BY_CASH.getName());
 
-        checkoutNew().checkContactsSummary(ordersUser.getPhone(), ordersUser.getEmail());
+        checkoutNew().checkContactsSummary(ordersUser.get().getPhone(), ordersUser.get().getEmail());
 
         checkoutNew().clickEditContacts();
-        checkoutNew().checkContactsPhone(ordersUser.getPhone());
-        checkoutNew().checkContactsEmail(ordersUser.getEmail());
+        checkoutNew().checkContactsPhone(ordersUser.get().getPhone());
+        checkoutNew().checkContactsEmail(ordersUser.get().getEmail());
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());

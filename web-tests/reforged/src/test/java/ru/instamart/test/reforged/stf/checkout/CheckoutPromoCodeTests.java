@@ -20,19 +20,19 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Промокоды")
 public final class CheckoutPromoCodeTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
     private final String promoCode = Promos.getFreeOrderDeliveryPromo().getCode();
-    private UserData userData;
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
-        this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
+        userData.set(UserManager.getQaUser());
+        this.helper.dropAndFillCart(userData.get(), UiProperties.DEFAULT_AUCHAN_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLink("2638")
@@ -41,7 +41,7 @@ public final class CheckoutPromoCodeTests {
     public void successAddPromoCode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -68,7 +68,7 @@ public final class CheckoutPromoCodeTests {
     public void successDeletePromoCode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -96,7 +96,7 @@ public final class CheckoutPromoCodeTests {
     public void noPromoCodeAddedOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -122,7 +122,7 @@ public final class CheckoutPromoCodeTests {
     public void noPromoCodeAddedOnModalClose() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();

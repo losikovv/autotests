@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,7 +10,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.SMOKE_STF;
@@ -19,18 +19,18 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Покупка товара")
 public final class OrderRepeatTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData userData;
 
     @BeforeMethod(alwaysRun = true, description = "Аутентификация и выбор адреса доставки")
     public void preconditions() {
-        userData = UserManager.getQaUser();
-        helper.makeOrder(userData, UiProperties.DEFAULT_AUCHAN_SID, 2);
+        userData.set(UserManager.getQaUser());
+        helper.makeOrder(userData.get(), UiProperties.DEFAULT_AUCHAN_SID, 2);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена заказа")
     public void afterTest() {
-        helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLink("2614")
@@ -38,7 +38,7 @@ public final class OrderRepeatTests {
     public void successRepeatLastOrderFromOrderHistory() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         userShipments().goToPage();
@@ -57,7 +57,7 @@ public final class OrderRepeatTests {
     public void successRepeatOrderFromOrderDetails() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         userShipments().goToPage();
@@ -77,7 +77,7 @@ public final class OrderRepeatTests {
     public void noRepeatOrderAfterCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         userShipments().goToPage();

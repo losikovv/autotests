@@ -27,33 +27,35 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Feature("Settings (Настройки)")
 public class AdministrationStoreGroupsTests {
 
+    private static final ThreadLocal<RetailerV1> retailer = new ThreadLocal<>();
+    private static final ThreadLocal<String> cityName = new ThreadLocal<>();
+    private static final ThreadLocal<StoresEntity> storeDB = new ThreadLocal<>();
+    private static final ThreadLocal<StoreLabelData> storeLabel = new ThreadLocal<>();
+
     private final ApiHelper api = new ApiHelper();
     private final AdminHelper adminApi = new AdminHelper();
 
-    private RetailerV1 retailer;
-    private String cityName;
-    private StoresEntity storeDB;
-    private StoreLabelData storeLabel;
-
     @BeforeMethod(alwaysRun = true)
     private void prepareData() {
-        retailer = api.createRetailerInAdmin(Generate.literalString(6) + "_retailer");
-        cityName = Generate.literalString(6) + "_city";
-        api.setupCity(cityName);
-        final var store = api.createStoreInAdmin(retailer.getName(), cityName);
-        storeDB = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
-        storeLabel = StoreLabels.newStoreLabel();
+        retailer.set(api.createRetailerInAdmin(Generate.literalString(6) + "_retailer"));
+        cityName.set(Generate.literalString(6) + "_city");
+        api.setupCity(cityName.get());
+        final var store = api.createStoreInAdmin(retailer.get().getName(), cityName.get());
+        storeDB.set(StoresDao.INSTANCE.getStoreByCoordinates(
+                store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon()
+        ));
+        storeLabel.set(StoreLabels.newStoreLabel());
     }
 
     @AfterMethod(alwaysRun = true)
     @DoNotOpenBrowser
     private void clearData() {
         StoreLabelsDao.INSTANCE.deleteStoreLabelLink(
-                adminApi.getStoreLabelByName(storeLabel.getTitle()).getId(),
-                storeDB.getId());
-        api.deleteStoreLabel(storeLabel.getTitle());
-        api.deleteCityInAdmin(cityName);
-        api.deleteRetailerWithStores(retailer.getName());
+                adminApi.getStoreLabelByName(storeLabel.get().getTitle()).getId(),
+                storeDB.get().getId());
+        api.deleteStoreLabel(storeLabel.get().getTitle());
+        api.deleteCityInAdmin(cityName.get());
+        api.deleteRetailerWithStores(retailer.get().getName());
     }
 
     @TmsLink("569")
@@ -67,27 +69,31 @@ public class AdministrationStoreGroupsTests {
         storeGroups().clickAddNewGroup();
 
         editStoreGroup().checkTitleInputVisible();
-        editStoreGroup().fillTitle(storeLabel.getTitle());
-        editStoreGroup().fillSubtitle(storeLabel.getSubtitle());
-        editStoreGroup().fillCode(storeLabel.getCode());
-        editStoreGroup().fillIcon(storeLabel.getIcon());
-        editStoreGroup().fillPosition(String.valueOf(storeLabel.getPosition()));
-        editStoreGroup().fillLevel(String.valueOf(storeLabel.getLevel()));
+        editStoreGroup().fillTitle(storeLabel.get().getTitle());
+        editStoreGroup().fillSubtitle(storeLabel.get().getSubtitle());
+        editStoreGroup().fillCode(storeLabel.get().getCode());
+        editStoreGroup().fillIcon(storeLabel.get().getIcon());
+        editStoreGroup().fillPosition(String.valueOf(storeLabel.get().getPosition()));
+        editStoreGroup().fillLevel(String.valueOf(storeLabel.get().getLevel()));
         editStoreGroup().clickSubmit();
 
         storeGroups().checkAddNewGroupButtonVisible();
         storeGroups().checkGroupsVisible();
-        storeGroups().checkGroupExists(storeLabel.getTitle());
-        storeEdit().goToPage(retailer.getSlug(), storeDB.getUuid());
+        storeGroups().checkGroupExists(storeLabel.get().getTitle());
+        storeEdit().goToPage(retailer.get().getSlug(), storeDB.get().getUuid());
         storeEdit().checkRegionDropdownVisible();
-        storeEdit().checkStoreGroupsContains(storeLabel.getTitle());
+        storeEdit().checkStoreGroupsContains(storeLabel.get().getTitle());
     }
 
     @TmsLink("570")
     @Test(description = "Изменение назначенной группы", groups = REGRESSION_ADMIN)
     public void checkEditGroup() {
-        api.createStoreLabel(storeLabel);
-        StoreLabelsDao.INSTANCE.addStoreLabelToStore(adminApi.getStoreLabelByName(storeLabel.getTitle()).getId(), storeDB.getId(), "sbermarket");
+        api.createStoreLabel(storeLabel.get());
+        StoreLabelsDao.INSTANCE.addStoreLabelToStore(
+                adminApi.getStoreLabelByName(storeLabel.get().getTitle()).getId(),
+                storeDB.get().getId(),
+                "sbermarket"
+        );
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -95,27 +101,31 @@ public class AdministrationStoreGroupsTests {
         storeGroups().goToPageOld();
         storeGroups().checkAddNewGroupButtonVisible();
 
-        storeGroups().editGroup(storeLabel.getTitle());
+        storeGroups().editGroup(storeLabel.get().getTitle());
 
-        storeLabel.setTitle(storeLabel.getTitle() + "_edited");
+        storeLabel.get().setTitle(storeLabel.get().getTitle() + "_edited");
         editStoreGroup().checkTitleInputVisible();
-        editStoreGroup().fillTitle(storeLabel.getTitle());
+        editStoreGroup().fillTitle(storeLabel.get().getTitle());
         editStoreGroup().clickSubmit();
 
         storeGroups().checkAddNewGroupButtonVisible();
         storeGroups().checkGroupsVisible();
-        storeGroups().checkGroupExists(storeLabel.getTitle());
+        storeGroups().checkGroupExists(storeLabel.get().getTitle());
 
-        storeEdit().goToPage(retailer.getSlug(), storeDB.getUuid());
+        storeEdit().goToPage(retailer.get().getSlug(), storeDB.get().getUuid());
         storeEdit().checkRegionDropdownVisible();
-        storeEdit().checkStoreGroupsContains(storeLabel.getTitle());
+        storeEdit().checkStoreGroupsContains(storeLabel.get().getTitle());
     }
 
     @TmsLink("571")
     @Test(description = "Удаление назначенной магазину группы", groups = REGRESSION_ADMIN)
     public void checkDeleteGroup() {
-        api.createStoreLabel(storeLabel);
-        StoreLabelsDao.INSTANCE.addStoreLabelToStore(adminApi.getStoreLabelByName(storeLabel.getTitle()).getId(), storeDB.getId(), "sbermarket");
+        api.createStoreLabel(storeLabel.get());
+        StoreLabelsDao.INSTANCE.addStoreLabelToStore(
+                adminApi.getStoreLabelByName(storeLabel.get().getTitle()).getId(),
+                storeDB.get().getId(),
+                "sbermarket"
+        );
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -123,23 +133,23 @@ public class AdministrationStoreGroupsTests {
         storeGroups().goToPageOld();
         storeGroups().checkAddNewGroupButtonVisible();
 
-        storeGroups().removeGroup(storeLabel.getTitle());
+        storeGroups().removeGroup(storeLabel.get().getTitle());
         storeGroups().checkConfirmActionModalDisplayed();
         storeGroups().clickConfirmStatusModalYes();
 
         storeGroups().checkNoticePopupDisplayed();
         storeGroups().checkNoticeTextEquals("Группа успешно удалена");
-        storeGroups().checkGroupNotExists(storeLabel.getTitle());
+        storeGroups().checkGroupNotExists(storeLabel.get().getTitle());
 
-        storeEdit().goToPage(retailer.getSlug(), storeDB.getUuid());
+        storeEdit().goToPage(retailer.get().getSlug(), storeDB.get().getUuid());
         storeEdit().checkRegionDropdownVisible();
-        storeEdit().checkStoreGroupsNotContains(storeLabel.getTitle());
+        storeEdit().checkStoreGroupsNotContains(storeLabel.get().getTitle());
     }
 
     @TmsLink("577")
     @Test(description = "Назначение группы магазину", groups = REGRESSION_ADMIN)
     public void checkAddGroupToStore() {
-        api.createStoreLabel(storeLabel);
+        api.createStoreLabel(storeLabel.get());
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -149,15 +159,15 @@ public class AdministrationStoreGroupsTests {
 
         storeEdit().goToPage(ShopUrl.DEFAULT.getUrl(), UiProperties.DEFAULT_METRO_MOSCOW_UUID);
         storeEdit().checkRegionDropdownVisible();
-        storeEdit().checkStoreGroupsContains(storeLabel.getTitle());
+        storeEdit().checkStoreGroupsContains(storeLabel.get().getTitle());
 
-        storeEdit().clickOnStoreLabel(storeLabel.getTitle());
+        storeEdit().clickOnStoreLabel(storeLabel.get().getTitle());
         storeEdit().clickSubmit();
 
         store().checkBackToStoresListButtonVisible();
 
         storeEdit().goToPage(ShopUrl.DEFAULT.getUrl(), UiProperties.DEFAULT_METRO_MOSCOW_UUID);
         storeEdit().checkRegionDropdownVisible();
-        storeEdit().checkGroupSelected(storeLabel.getTitle());
+        storeEdit().checkGroupSelected(storeLabel.get().getTitle());
     }
 }

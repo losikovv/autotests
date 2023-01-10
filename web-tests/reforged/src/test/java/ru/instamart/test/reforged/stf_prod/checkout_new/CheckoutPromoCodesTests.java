@@ -22,21 +22,20 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Feature("Чекаут V3")
 public final class CheckoutPromoCodesTests {
 
-
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
     private final String promoCode = Promos.getFreeOrderDeliveryPromo().getCode();
-    private UserData userData;
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
-        this.userData = UserManager.getQaUser();
+        userData.set(UserManager.getQaUser());
         //Промокод хочет сумму заказа от 1000 рублей
-        this.helper.dropAndFillCartWithAmount(userData, UiProperties.DEFAULT_SID, 1100);
+        this.helper.dropAndFillCartWithAmount(userData.get(), UiProperties.DEFAULT_SID, 1100);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLink("3612")
@@ -44,7 +43,7 @@ public final class CheckoutPromoCodesTests {
     public void testApplyFreeDeliveryPromo() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -74,7 +73,7 @@ public final class CheckoutPromoCodesTests {
     public void testSuccessApplyPromo() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -109,7 +108,7 @@ public final class CheckoutPromoCodesTests {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();

@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,7 +15,6 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.kraken.listener.Run;
 import ru.instamart.reforged.core.config.UiProperties;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -25,18 +25,18 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Покупка товара со скидочной картой")
 public final class OrdersRetailerCardsTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData userData;
 
     @BeforeMethod(alwaysRun = true, description = "Наполнение корзины")
     public void beforeTest() {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        userData.set(UserManager.getQaUser());
+        helper.dropAndFillCart(userData.get(), UiProperties.DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(userData.get());
     }
 
     @Run(onTenant = Tenant.SBERMARKET, onServer = Server.PRODUCTION)
@@ -45,7 +45,7 @@ public final class OrdersRetailerCardsTests {
     public void successOrderWithVkusvillRetailerCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 

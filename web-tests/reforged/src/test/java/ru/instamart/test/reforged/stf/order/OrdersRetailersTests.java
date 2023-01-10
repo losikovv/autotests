@@ -2,6 +2,8 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
+import io.qameta.allure.TmsLinks;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -11,8 +13,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.data_provider.StoreProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import io.qameta.allure.TmsLinks;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -22,13 +22,13 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Проверка оформления заказов у разных ретейлеров")
 public final class OrdersRetailersTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData userData;
     private final AddressDetailsData data = TestVariables.testAddressData();
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLinks(value = {@TmsLink("1627"), @TmsLink("1628"), @TmsLink("1629"), @TmsLink("1630"), @TmsLink("1631")})
@@ -37,12 +37,12 @@ public final class OrdersRetailersTests {
             dataProviderClass = StoreProvider.class,
             dataProvider = "storeData" )
     public void successOrderInDifferentRetailers(int storeId, ShopUrl shopUrl) {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, storeId);
+        userData.set(UserManager.getQaUser());
+        helper.dropAndFillCart(userData.get(), storeId);
 
         shop().goToPage(shopUrl);
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
