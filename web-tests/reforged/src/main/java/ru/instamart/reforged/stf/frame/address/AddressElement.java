@@ -6,7 +6,7 @@ import ru.instamart.reforged.core.component.*;
 
 public interface AddressElement {
 
-    Element addressModal = new Element(By.xpath("//div[contains(@class, 'styles_addressModal')]"), "Модальное окно выбора адреса");
+    Element addressModal = new Element(By.xpath("//div[contains(@class, 'styles_addressModal')]"), 20, "Модальное окно выбора адреса");
     Button close = new Button(By.xpath("//div[contains(@class, 'styles_frameContent')]//button[@aria-label='Закрыть']"), "Кнопка 'Закрыть'");
 
     Button delivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-delivery']"), "empty");

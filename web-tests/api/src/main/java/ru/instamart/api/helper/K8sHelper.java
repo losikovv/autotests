@@ -270,7 +270,7 @@ public class K8sHelper {
 
     @Step("Выполнение sh команды в chatwoot: {command}")
     public static void commandChatwoot(final String command) {
-        var pod = getPod("app-chatwoot-ashunicorn", "app=app-chatwoot");
+        var pod = getPod("app-chatwoot-ashunicorn", "role=web");
         execShCommandWithPod(command, pod, "chatwoot-web");
     }
 }

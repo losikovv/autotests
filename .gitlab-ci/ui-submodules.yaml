@@ -41,3 +41,14 @@ tests:adminOnDemandRegress:
     - gradle clean build adminOnDemandRegress
   after_script:
     - bash ./report.sh reforged admin-on-demand-regress
+
+tests:chatwootUIRegress:
+  only:
+    variables:
+      - $RUN_CHATWOOT_REGRESS == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_ui_tests"
+  script:
+    - gradle clean build chatwootUIRegress
+  after_script:
+    - bash ./report.sh reforged chatwoot-ui-regress

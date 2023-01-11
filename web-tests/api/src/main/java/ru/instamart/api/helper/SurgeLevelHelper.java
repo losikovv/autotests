@@ -22,13 +22,15 @@ import surgelevelevent.Surgelevelevent;
 import java.util.List;
 import java.util.Objects;
 
+import static events.ShiftChangedEventOuterClass.*;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.SURGE_EVENT_OUTDATE;
 import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.SURGE_HTTP_AUTH_TOKENS;
 import static ru.instamart.api.helper.K8sHelper.getServiceEnvProp;
 import static ru.instamart.kafka.configs.KafkaConfigs.*;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
-import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
+import static ru.instamart.kraken.util.TimeUtil.*;
+import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 
 public class SurgeLevelHelper {
 
@@ -170,6 +172,25 @@ public class SurgeLevelHelper {
     public static void publishEventLocation(final String userUuid, final float lat, final float lon, final boolean isFakeGpsAppDetected, final int timeout) {
         final var eventLocation = getEventLocation(userUuid, lat, lon, isFakeGpsAppDetected);
         kafka.publish(configNorns(), eventLocation);
+        ThreadUtil.simplyAwait(timeout);
+    }
+
+    @Step("Создаем событие о смене кандидата {candidateUuid}")
+    public static ShiftChangedEvent getEventShift(final String partnerUuid, final String factStartedAt, final String shiftState) {
+        return ShiftChangedEvent.newBuilder()
+                .setPartnerId(partnerUuid)
+                .setPlanStartedAt(getZonedUTCDate())
+                .setPlanEndedAt(getZonedUTCDatePlusMinutes(60))
+                .setFactStartedAt(factStartedAt)
+                .setFactEndedAt("0001-01-01T00:00:00Z")
+                .setState(shiftState)
+                .build();
+    }
+
+    @Step("Отправляем событие о смене кандидата {candidateUuid} в kafka")
+    public static void publishEventShift(final String partnerUuid, final String factStartedAt, final String shiftState, final int timeout) {
+        final var eventShift = getEventShift(partnerUuid, factStartedAt, shiftState);
+        kafka.publish(configShifts(), eventShift);
         ThreadUtil.simplyAwait(timeout);
     }
 

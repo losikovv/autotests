@@ -34,8 +34,7 @@ import static ru.instamart.api.helper.SurgeLevelHelper.*;
 import static ru.instamart.kraken.enums.ScheduleType.DISPATCH;
 import static ru.instamart.kraken.enums.ScheduleType.YANDEX;
 import static ru.instamart.kraken.util.DistanceUtil.distance;
-import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
-import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDateMinusMinutes;
+import static ru.instamart.kraken.util.TimeUtil.*;
 
 @Epic("Surgelevel")
 @Feature("Автоматический расчет surge")
@@ -54,6 +53,7 @@ public class SurgeTest extends RestBase {
     private final String CANDIDATE_UUID_DELIVERY_AREA = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID_WORKFLOW = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID_FAKE_GPS = UUID.randomUUID().toString();
+    private final String CANDIDATE_UUID_WITH_SHIFT = UUID.randomUUID().toString();
     private final int FIRST_DELIVERY_AREA_ID = nextInt(100000, 150000);
     private final int SECOND_DELIVERY_AREA_ID = FIRST_DELIVERY_AREA_ID + 1;
     private final int FIRST_WORKFLOW_ID = FIRST_DELIVERY_AREA_ID;
@@ -101,7 +101,7 @@ public class SurgeTest extends RestBase {
         addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), null, true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), FORMULA_ID, 1000, 0, null);
 
         final var surgeEventOutdateFromK8s = SurgeLevelHelper.getInstance().getSurgeEventOutdate();
-        if (Objects.nonNull(surgeEventOutdateFromK8s)){
+        if (Objects.nonNull(surgeEventOutdateFromK8s)) {
             surgeEventOutdate = surgeEventOutdateFromK8s;
         }
     }
@@ -564,6 +564,100 @@ public class SurgeTest extends RestBase {
             softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, candidateUuid), "Удалился supply по radius");
             softAssert.assertNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, candidateUuid), "Не удалился supply по radius");
             softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(THIRD_STORE_ID, candidateUuid), "Не добавился supply по radius");
+            softAssert.assertAll();
+        });
+    }
+
+    @TmsLinks({@TmsLink("188"), @TmsLink("193")})
+    @Story("Demand")
+    @Test(description = "Добавление supply onshift кандидату",
+            groups = "ondemand-surgelevel")
+    public void surgeProduceEventCandidateWithShift() {
+        publishEventCandidateStatus(CANDIDATE_UUID_WITH_SHIFT, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, SECOND_STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
+        publishEventLocation(CANDIDATE_UUID_WITH_SHIFT, secondStoreLocation.getLat(), secondStoreLocation.getLon(), false, LONG_TIMEOUT);
+
+        currentSurgeLevelFirstStore--;
+        currentSurgeLevelSecondStore--;
+
+        Allure.step("Проверка сохранения supply", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(CandidateDao.INSTANCE.findCandidate(CANDIDATE_UUID_WITH_SHIFT).getOnshift(), "У кандидата не проставлен onshift");
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не добавился supply");
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не добавился supply");
+            softAssert.assertAll();
+        });
+    }
+
+    @TmsLink("190")
+    @Story("Demand")
+    @Test(description = "Удаление всего supply при смене onshift на false",
+            groups = "ondemand-surgelevel",
+            dependsOnMethods = "surgeProduceEventCandidateWithShift")
+    public void surgeEventCandidateWithShiftChangeToFalse() {
+        publishEventShift(CANDIDATE_UUID_WITH_SHIFT, getZonedUTCDate(), "completed", LONG_TIMEOUT);
+
+        currentSurgeLevelFirstStore++;
+        currentSurgeLevelSecondStore++;
+
+        Allure.step("Проверка удаления supply", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertFalse(CandidateDao.INSTANCE.findCandidate(CANDIDATE_UUID_WITH_SHIFT).getOnshift(), "У кандидата не изменился onshift");
+            softAssert.assertNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не пропал supply");
+            softAssert.assertNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не пропал supply");
+            softAssert.assertAll();
+        });
+    }
+
+    @TmsLink("189")
+    @Story("Demand")
+    @Test(description = "Отсутствие добавления supply не onshift кандидату",
+            groups = "ondemand-surgelevel",
+            dependsOnMethods = "surgeEventCandidateWithShiftChangeToFalse")
+    public void surgeEventCandidateWithShiftFalseNoSupplyAdded() {
+        publishEventLocation(CANDIDATE_UUID_WITH_SHIFT, 0f, 0f, false, SHORT_TIMEOUT);
+        publishEventLocation(CANDIDATE_UUID_WITH_SHIFT, secondStoreLocation.getLat(), secondStoreLocation.getLon(), false, LONG_TIMEOUT);
+
+        Allure.step("Проверка отсутствия сохранения supply", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Добавился supply");
+            softAssert.assertNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Добавился supply");
+            softAssert.assertAll();
+        });
+    }
+
+    @TmsLink("191")
+    @Story("Demand")
+    @Test(description = "Добавление supply при смене onshift на true",
+            groups = "ondemand-surgelevel",
+            dependsOnMethods = "surgeEventCandidateWithShiftFalseNoSupplyAdded")
+    public void surgeProduceEventCandidateWithShiftTrue() {
+        publishEventShift(CANDIDATE_UUID_WITH_SHIFT, getZonedUTCDate(), "in_progress", LONG_TIMEOUT);
+
+        currentSurgeLevelFirstStore--;
+        currentSurgeLevelSecondStore--;
+
+        Allure.step("Проверка добавления supply", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(CandidateDao.INSTANCE.findCandidate(CANDIDATE_UUID_WITH_SHIFT).getOnshift(), "У кандидата не изменился onshift");
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не добавился supply");
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не добавился supply");
+            softAssert.assertAll();
+        });
+    }
+
+    @TmsLink("192")
+    @Story("Demand")
+    @Test(description = "Проверка отсутствия реакции на события смены с fact_started_at=null",
+            groups = "ondemand-surgelevel",
+            dependsOnMethods = "surgeProduceEventCandidateWithShiftTrue")
+    public void surgeEventCandidateWithShiftNoFactStarted() {
+        publishEventShift(CANDIDATE_UUID_WITH_SHIFT, "0001-01-01T00:00:00Z", "completed", LONG_TIMEOUT);
+
+        Allure.step("Проверка сохранения supply", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(CandidateDao.INSTANCE.findCandidate(CANDIDATE_UUID_WITH_SHIFT).getOnshift(), "У кандидата изменился onshift");
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Удалился supply");
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Удалился supply");
             softAssert.assertAll();
         });
     }

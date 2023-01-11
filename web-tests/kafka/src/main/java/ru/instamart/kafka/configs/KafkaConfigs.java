@@ -146,4 +146,12 @@ public class KafkaConfigs {
                 .password(retailerPass)
                 .build();
     }
+
+    public static KafkaConfig configShifts() {
+        return KafkaConfig.builder()
+                .topic("yc.shifts.fct.shifts.0")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
+                .password(Crypt.INSTANCE.decrypt("2upy3AL136//Hs/NMMaWnw=="))
+                .build();
+    }
 }

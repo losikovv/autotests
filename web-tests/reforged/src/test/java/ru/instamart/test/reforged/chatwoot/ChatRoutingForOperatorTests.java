@@ -3,7 +3,9 @@ package ru.instamart.test.reforged.chatwoot;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.TmsLink;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
 
@@ -17,9 +19,17 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.WAITING;
 @Feature("Маршрутизация чатов для роли Оператор")
 public final class ChatRoutingForOperatorTests {
 
+    private final ApiHelper apiHelper = new ApiHelper();
+
+    @BeforeClass(alwaysRun = true, description = "Генерация чатов")
+    public void preconditions() {
+        apiHelper.generateChatwootConversation(4);
+    }
+
     @TmsLink("52")
     @Test(description = "Чаты на оператора в статусе Оффлайн не маршрутизируются", groups = {CHATWOOT})
     public void routingDisableIfOfflineTest() {
+
         UserData userData = UserManager.getOperatorUser();
 
         //TODO Должен быть хотя бы 1 чат
@@ -74,7 +84,7 @@ public final class ChatRoutingForOperatorTests {
     public void chatRoutingDuringLimitNotReachedTest() {
         UserData userData = UserManager.getOperatorUser();
 
-        //TODO Должен быть хотя бы 3+ чата
+        //TODO Должно быть хотя бы чата на 1 чат больше, чем лимит в настройках пользователя (3+)
 
         login().goToPage();
         login().waitPageLoad();
