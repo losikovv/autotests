@@ -71,6 +71,7 @@ public final class ShoppingCartTests {
     }
 
     @TmsLink("1573")
+    @Issue("B2C-12300")
     @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {STF_PROD_S})
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getQaUser();
@@ -125,6 +126,7 @@ public final class ShoppingCartTests {
     }
 
     @TmsLink("1575")
+    @Issue("B2C-12300")
     @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {STF_PROD_S})
     public void successChangeItemQuantityInCartViaItemCard() {
         home().goToPage();
@@ -205,6 +207,7 @@ public final class ShoppingCartTests {
     }
 
     @TmsLink("2616")
+    @Issue("B2C-12300")
     @Test(description = "Добавление/удаление товара из карточки товара", groups = {STF_PROD_S})
     public void testAddedAndRemoveProductFromProductCard() {
         var userData = UserManager.getQaUser();
