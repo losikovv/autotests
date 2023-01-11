@@ -909,4 +909,10 @@ public final class ApiHelper {
     public AddressV2 getAddressBySid(final int sid) {
         return apiV2.getAddressBySid(sid);
     }
+
+    @Step("Генерируем {count} диалогов в Chatwoot")
+    public void generateChatwootConversation(final int count) {
+        var command = "./bin/rails runner \"puts widget = Inbox.last.channel; op = Picklocks::SimulateConversation.new; " + count + ".times do op.call(widget: widget); sleep 1 end\"";
+        K8sHelper.commandChatwoot(command);
+    }
 }

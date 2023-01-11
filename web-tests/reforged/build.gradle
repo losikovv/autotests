@@ -3,6 +3,7 @@ apply from: 'stf-task.gradle'
 apply from: 'admin-task.gradle'
 apply from: 'tenant-task.gradle'
 apply from: 'task.gradle'
+apply from: 'operations-task.gradle'
 
 testlogger {
     theme 'mocha-parallel'

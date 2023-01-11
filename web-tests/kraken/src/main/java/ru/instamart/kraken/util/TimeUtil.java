@@ -179,6 +179,7 @@ public final class TimeUtil {
 
     /**
      * Преобразование строки формата "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" в  google.protobuf.Timestamp
+     *
      * @param dateTime Время в формате "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
      * @return
      */
@@ -228,7 +229,7 @@ public final class TimeUtil {
                 .build();
     }
 
-    public static Timestamp toTimestamp(java.sql.Timestamp timestamp){
+    public static Timestamp toTimestamp(java.sql.Timestamp timestamp) {
         var instant = timestamp.toInstant();
         return Timestamp.newBuilder()
                 .setSeconds(instant.getEpochSecond())
@@ -252,7 +253,7 @@ public final class TimeUtil {
                 .build();
     }
 
-    public static Timestamp addSecondsTimestamp(Timestamp timestamp, long seconds){
+    public static Timestamp addSecondsTimestamp(Timestamp timestamp, long seconds) {
         var time = timestamp.toBuilder();
         var sec = time.getSeconds();
         return time.setSeconds(sec + seconds).build();
