@@ -10,7 +10,7 @@ public interface ContactPanelElement {
 
     // Информация о контакте
     Button editContact = new Button(By.xpath("//button[contains(@class,'edit-contact')]"), "Кнопка 'Редактировать данные контакта'");
-    Element contactName = new Element(By.xpath("//div[contains(@class,'contact--name')]"), "Имя контакта");
+    Element contactName = new Element(By.xpath("//div[@id='contact-info-react']//h3"), "Имя контакта");
     Element contactEmail = new Element(By.xpath("(//div[@class='contact-info--details'])[1]"), "Email контакта");
     Element contactPhone = new Element(By.xpath("(//div[@class='contact-info--details'])[2]"), "Телефон контакта");
     Element contactCompany = new Element(By.xpath("(//div[@class='contact-info--details'])[3]"), "Компания контакта");

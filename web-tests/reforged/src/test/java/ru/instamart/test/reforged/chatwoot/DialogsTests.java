@@ -3,7 +3,9 @@ package ru.instamart.test.reforged.chatwoot;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.TmsLink;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
@@ -16,6 +18,13 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.ONLINE;
 @Epic("Chatwoot")
 @Feature("Диалоги")
 public final class DialogsTests {
+
+    private final ApiHelper apiHelper = new ApiHelper();
+
+    @BeforeClass(alwaysRun = true, description = "Генерация чатов")
+    public void preconditions() {
+        apiHelper.generateChatwootConversation(10);
+    }
 
     @TmsLink("32")
     @Test(description = "Назначенные на оператора чаты отображаются во вкладке Мои диалоги", groups = {CHATWOOT})
@@ -94,7 +103,7 @@ public final class DialogsTests {
     public void needFillTopicToCompleteCo() {
         UserData userData = UserManager.getOperatorUser();
 
-        //TODO Долж быть хотя бы 1 чат
+        //TODO Должен быть хотя бы 1 чат
 
         login().goToPage();
         login().waitPageLoad();
@@ -172,8 +181,6 @@ public final class DialogsTests {
     @Test(description = "Переоткрытие чата оператором", groups = {CHATWOOT})
     public void reopenChatTest() {
         UserData userData = UserManager.getOperatorUser();
-
-        //TODO Должен быть хотя бы 1 чат
 
         login().goToPage();
         login().waitPageLoad();

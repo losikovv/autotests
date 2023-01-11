@@ -3,7 +3,9 @@ package ru.instamart.test.reforged.chatwoot;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.TmsLink;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
 import ru.instamart.kraken.util.TimeUtil;
@@ -16,6 +18,12 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.ONLINE;
 @Epic("Chatwoot")
 @Feature("Ручная приостановка чатов")
 public final class ManualHoldoverTests {
+    private final ApiHelper apiHelper = new ApiHelper();
+
+    @BeforeClass(alwaysRun = true, description = "Генерация чатов")
+    public void preconditions() {
+        apiHelper.generateChatwootConversation(3);
+    }
 
     @TmsLink("2")
     @Test(description = "Приостановка чата до указанного оператором времени", groups = {CHATWOOT})

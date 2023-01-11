@@ -3,7 +3,9 @@ package ru.instamart.test.reforged.chatwoot;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.TmsLink;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.chatwoot.user.UserData;
 import ru.instamart.kraken.data.chatwoot.user.UserManager;
 
@@ -15,6 +17,12 @@ import static ru.instamart.reforged.chatwoot.enums.OperatorStates.*;
 @Epic("Chatwoot")
 @Feature("Смена статусов в чатвуте")
 public final class OperatorStatusChangeTests {
+    private final ApiHelper apiHelper = new ApiHelper();
+
+    @BeforeClass(alwaysRun = true, description = "Генерация чатов")
+    public void preconditions() {
+        apiHelper.generateChatwootConversation(3);
+    }
 
     @TmsLink("27")
     @Test(description = "После логина в чатвут оператор в статусе оффлайн", groups = {CHATWOOT})
@@ -48,7 +56,8 @@ public final class OperatorStatusChangeTests {
     public void switchToOnLineTest() {
         UserData userData = UserManager.getOperatorUser();
 
-        //TODO Нагенерить чатов
+        //TODO Должно быть хотя бы чата на 1 чат больше, чем лимит в настройках пользователя (3+)
+
         login().goToPage();
         login().waitPageLoad();
 

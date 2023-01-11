@@ -22,7 +22,7 @@ public interface MassClosePopoverElement {
     Input massCloseDateTimeTo = new Input(By.xpath("//input[@placeholder='По']"), "Поле ввода Дата создания 'По' формы массового закрытия чатов");
     Input massCloseMessage = new Input(By.xpath("//textarea[@id='message']"), "Поле ввода 'Сообщение для рассылки' формы массового закрытия чатов");
     Button massCloseGetFilteredChatsCount = new Button(By.xpath("//button[contains(.,'Запросить кол-во закрываемых диалогов')]"), "Кнопка 'Запросить количество закрываемых диалогов' формы массового закрытия чатов");
-    Element filteredChatsCountMessage = new Element(By.xpath("//div[@class='ant-form-item-control-input-content'][contains(.,'Будет завершено')]"), "Сообщение 'Будет завершено ХХ диалогов'");
+    Element filteredChatsCountMessage = new Element(By.xpath("//div[@class='ant-form-item-control-input-content'][contains(.,'Будет завершен')]"), "Сообщение 'Будет завершено ХХ диалогов'");
     Button submitMassClose = new Button(By.xpath("//div[contains(@class,'ant-popover-content')]//button[@type='submit']"), "Кнопка 'Сохранить' формы массового закрытия чатов");
 }
 
