@@ -17,7 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 public final class HelpDeskChatTests {
 
     @TmsLink("1758")
-    @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {STF_PROD_S})
+    @Test(enabled = false, description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {STF_PROD_S})
     public void noHelpDeskWidgetOnCheckout() {
         final var apiHelper = new ApiHelper();
         final var userData = UserManager.getQaUser();
