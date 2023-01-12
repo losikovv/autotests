@@ -152,6 +152,11 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(suggesterFirstTabItems);
     }
 
+    @Step("Проверяем, товарные подсказки в поиске отображаются")
+    default void checkSearchSuggestsVisibleProd() {
+        waitAction().shouldBeVisible(suggesterItemsNew);
+    }
+
     @Step("Проверяем что текст в кнопке поиска в саджесторе '{0}' изменился при переключении категории на текст '{1}'")
     default void checkTextSearchButton(final String textWithAllCategory, final String textWithSmthCategory) {
         assertNotEquals(textWithAllCategory, textWithSmthCategory, "Текст кнопки поиска не изменился");

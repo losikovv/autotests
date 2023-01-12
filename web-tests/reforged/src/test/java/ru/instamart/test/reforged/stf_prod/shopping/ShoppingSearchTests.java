@@ -23,7 +23,6 @@ public final class ShoppingSearchTests {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @TmsLink("2587")
-    @Skip //раскатили новый поиск
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {STF_PROD_S})
     public void successSearchItemUsingCategorySuggests() {
@@ -35,15 +34,15 @@ public final class ShoppingSearchTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
+        shop().waitPageLoad();
         shop().interactHeader().fillSearch("сыры");
         shop().interactHeader().checkSuggesterVisible();
-        shop().interactHeader().clickShowAllSearchResults();
+        shop().interactHeader().clickShowAllSearchResultsProd();
         search().checkPageIsAvailable();
-        search().checkSearchTitleProd("сыры");
+        search().checkSearchTitle("сыры");
     }
 
     @TmsLink("2588")
-    @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {STF_PROD_S})
     public void successSearchItemUsingSuggests() {
@@ -55,14 +54,15 @@ public final class ShoppingSearchTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
+        shop().waitPageLoad();
         shop().interactHeader().fillSearch("шоколад");
-        shop().interactHeader().checkSearchSuggestsVisible();
-        shop().interactHeader().clickOnFirstSuggesterSearchResult();
+        shop().interactHeader().checkSearchSuggestsVisibleProd();
+        shop().interactHeader().clickOnFirstSuggesterSearchResultProd();
         search().interactProductCard().checkProductCardVisible();
     }
 
     @TmsLink("2989")
-    @Skip
+    @Skip //В новом саджесторе нет вкладок
     @Story("Позитивные сценарии")
     @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {STF_PROD_S})
     public void changeAmountOnButtonSearchResult() {
@@ -74,6 +74,7 @@ public final class ShoppingSearchTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
+        shop().waitPageLoad();
         shop().interactHeader().fillSearch("шоколад");
         shop().interactHeader().checkSearchSuggestsVisible();
         final String textOnButtonAllCategory = shop().interactHeader().getTextOnButtonSearchSuggester();
@@ -85,7 +86,7 @@ public final class ShoppingSearchTests {
     // В этом тесте выполняется по два раза swipeScrollTabHeadersRight/swipeScrollTabHeadersLeft
     //    // Потому что при одиночном скроле категория "Все сразу" не скрывается
     @TmsLink("2991")
-    @Skip
+    @Skip  //В новом саджесторе нет вкладок
     @Story("Позитивные сценарии")
     @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {STF_PROD_S})
     public void swipeCategoryItemInSuggester() {
@@ -97,6 +98,7 @@ public final class ShoppingSearchTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
+        shop().waitPageLoad();
         shop().interactHeader().fillSearch("шоколад");
         shop().interactHeader().checkSearchSuggestsVisible();
         shop().interactHeader().swipeScrollTabHeadersRight();
@@ -108,7 +110,6 @@ public final class ShoppingSearchTests {
     }
 
     @TmsLink("3105")
-    @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {STF_PROD_S})
     public void clearSearchBar() {
@@ -120,8 +121,9 @@ public final class ShoppingSearchTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
+        shop().waitPageLoad();
         shop().interactHeader().fillSearch("шоколад");
-        shop().interactHeader().checkSearchSuggestsVisible();
+        shop().interactHeader().checkSearchSuggestsVisibleProd();
         shop().interactHeader().clearSearchInput();
         shop().interactHeader().checkSearchBarEmpty();
     }
@@ -139,7 +141,7 @@ public final class ShoppingSearchTests {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage();
+        shop().waitPageLoad();
         shop().interactHeader().fillSearch("сыры");
         shop().interactHeader().clickSearchButton();
         search().checkSearchImgLoaded();
@@ -151,7 +153,6 @@ public final class ShoppingSearchTests {
     }
 
     @TmsLink("2589")
-    @Skip
     @Test(description = "Работоспособность сортировки товаров", groups = {STF_PROD_S})
     public void successApplySort() {
         final UserData userData = UserManager.getQaUser();
@@ -162,6 +163,7 @@ public final class ShoppingSearchTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
+        shop().waitPageLoad();
         shop().interactHeader().fillSearch("печенье");
         shop().interactHeader().clickSearchButton();
 
