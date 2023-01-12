@@ -119,11 +119,6 @@ public interface SearchCheck extends Check, SearchElement {
     }
 
     @Step("Проверяем, что заголовок 'Нашлось по запросу: ...' содержит текст {0}")
-    default void checkSearchTitleProd(final String searchText) {
-        searchResultsTitleProd.shouldBe().visible(searchText);
-    }
-
-    @Step("Проверяем, что заголовок 'Нашлось по запросу: ...' содержит текст {0}")
     default void checkSearchTitle(final String searchText) {
         searchResultsTitle.shouldBe().visible(searchText);
     }

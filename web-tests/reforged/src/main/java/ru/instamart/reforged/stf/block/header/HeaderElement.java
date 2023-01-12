@@ -49,13 +49,17 @@ public interface HeaderElement {
     Input searchInput = new Input(By.xpath("//input[@data-qa='suggester_header_form_input']"), "Инпут поиска");
     Button searchInputResetButton = new Button(By.xpath("//button[@data-qa='suggester_header_form_reset_button']"), "Кнопка очистки инпута поиска");
     Button searchButton = new Button(By.xpath("//button[@data-qa='suggester_header_form_search_button']"), "Кнопка запуска поиска");
+    ElementCollection popular = new ElementCollection(By.xpath("//a[contains(@class,'SuggesterExtensions_completion')][not(contains(@class,'SuggesterExtensions_category'))]"), "Популярные запросы");
     Element searchSuggester = new Element(By.xpath("//div[@data-qa='suggester_header_dropdown_content']"), "Саджестор поиска");
     Button scrollTabHeadersLeft = new Button(By.xpath("//button[@data-qa='suggester_header_prev_slide']"), "Кнопка пролистать вкладки категорий влево");
     Button scrollTabHeadersRight = new Button(By.xpath("//button[@data-qa='suggester_header_next_slide']"), "Кнопка пролистать вкладки категорий вправо");
     ElementCollection suggesterTabHeaders = new ElementCollection(By.xpath("//button[contains(@data-qa,'suggester_header_tab_')]"), "Вкладки категорий в саджесторе");
     ElementCollection suggesterFirstTabItems = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_0']/div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на первой вкладке саджестора");
+    ElementCollection suggesterItemsNew = new ElementCollection(By.xpath("//div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на саджестора (товары)");
+
     ElementCollection suggesterSecondTabItems = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_1']/div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на второй вкладке саджестора");
     Link showAllResults = new Link(By.xpath("//a[@data-qa='suggester_header_show_all_link']"), "Кнопка 'Показать все ХХ результаты'");
+    Link showAllResultsNew = new Link(By.xpath("//a[@data-qa='suggester_header_show_all_link_show_all_link']"), "Кнопка 'Показать все ХХ результаты'");
 
     Element alert = new Element(By.xpath("//div[@class='alert alert--error']"), "Тултип-сообщение об ошибке");
     ElementCollection alerts = new ElementCollection(By.xpath("//div[@class='alert alert--error']"), "Тултипы-сообщений об ошибке");

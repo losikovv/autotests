@@ -90,9 +90,19 @@ public final class Header implements HeaderCheck {
         suggesterFirstTabItems.clickOnFirst();
     }
 
+    @Step("Выбрать первый результат поиска в саджесторе")
+    public void clickOnFirstSuggesterSearchResultProd() {
+        suggesterItemsNew.clickOnFirst();
+    }
+
     @Step("Нажимаем кнопку 'Показать все *** результаты' поиска в саджесторе")
     public void clickShowAllSearchResults() {
         showAllResults.click();
+    }
+
+    @Step("Нажимаем кнопку 'Показать все результаты' поиска в саджесторе")
+    public void clickShowAllSearchResultsProd() {
+        showAllResultsNew.click();
     }
 
     @Step("Получаем текст из кнопки 'Показать все N результатов' в саджесторе")
