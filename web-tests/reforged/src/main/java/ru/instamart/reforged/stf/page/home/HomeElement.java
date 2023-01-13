@@ -8,11 +8,13 @@ import ru.instamart.reforged.stf.block.header_multisearch.MultisearchHeader;
 import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
 import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.auth.phone_confirm_modal.PhoneConfirmModal;
 import ru.instamart.reforged.stf.frame.delivery_zones.DeliveryZones;
 
 public interface HomeElement {
 
     AuthModal authModal = new AuthModal();
+    PhoneConfirmModal phoneConfirm = new PhoneConfirmModal();
     AddressLarge addressModal = new AddressLarge();
     MultisearchHeader header = new MultisearchHeader();
     Footer footer = new Footer();
@@ -39,10 +41,19 @@ public interface HomeElement {
     Element outOfDeliveryAreaAlert = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//button[contains(.,'самовывоз')]/../.."), "Уведомдение об адресе вне зоны доставки");
 
     //До ввода адреса отображается список ритейлеров в городе на основе геолокации или выбранного в лендинге города
+    Element recentStoreBlock = new Element(By.xpath("//section[@data-qa='b2c_home_landing_recent_store_block'][./h2[.='Вы смотрели']]"), "Блок 'Вы смотрели'");
+    Element recentStoreBySid = new Element(ByKraken.xpathExpression("//a[@data-qa='b2c_home_landing_recent_store_block_recent_store_card'][@href='/stores/%s']"), "Карточка магазина 'Вы смотрели' по номеру SID");
+    Element recentStoreNextDelivery = new Element(By.xpath("//a[@data-qa='b2c_home_landing_recent_store_block_recent_store_card']//div[contains(@class,'DeliveryDetails_styles_deliveryDescription')]"), "Информация о ближайшей доставке магазина 'Вы смотрели'");
+    Element recentStoreDeliveryPrice = new Element(By.xpath("//a[@data-qa='b2c_home_landing_recent_store_block_recent_store_card']//div[contains(@class,'Prices_styles_storePrice_')]"), "Информация о стоимосте доставки магазина 'Вы смотрели'");
+    Element recentStoreAddress = new Element(By.xpath("//a[@data-qa='b2c_home_landing_recent_store_block_recent_store_card']//div[contains(@class,'RecentStoreCard_styles_address')]"), "Адрес магазина 'Вы смотрели' самовывоза");
+    Element recentStoreWorkTime = new Element(By.xpath("//a[@data-qa='b2c_home_landing_recent_store_block_recent_store_card']//span[contains(@class,'RecentStoreCard_styles_description')]"), "Время работы магазина 'Вы смотрели' самовывоза");
+    Element recentStoreWarning = new Element(By.xpath("//div[@data-qa='b2c_home_landing_recent_store_block_recent_store_card']//div[contains(@class,'RecentStoreCard_warning_')]"), "Плашка предупреждения магазина 'Вы смотрели'");
+
     Element deliveryRetailersBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_delivery_retailers_block']"), "блок доставки лендинга Сбермаркета");
     Element deliveryRetailersBlockTitle = new Element(By.xpath("//h2[@data-qa='b2c_home_landing_delivery_retailers_block_title' and not(@option)]"), "блок доставки заголовок лендинга Сбермаркета");
     Element deliveryRetailersBlockSubTitle = new Element(By.xpath("//h4[@data-qa='b2c_home_landing_delivery_retailers_block_subtitle']"), "блок доставки sub заголовок лендинга Сбермаркета");
     ElementCollection deliveryRetailers = new ElementCollection(By.xpath("//div[contains(@data-qa, 'b2c_home_landing_delivery_retailers_block_retailer_card')]"), "Карточки ритейлеров");
+    Button selectStoreOnMap = new Button(By.xpath("//button[.='Выбрать на карте']"), "Кнопка 'Выбрать на карте'");
 
     //После ввода адреса отображается список магазинов, осуществляющих доставку по указанному адресу
     Element deliveryStoresBlockTitle = new Element(By.xpath("//h2[@data-qa='b2c_home_landing_stores_block_title']"), "Заголовок блока магазинов");
@@ -67,4 +78,3 @@ public interface HomeElement {
     Link appStore = new Link(By.xpath("//a[@data-qa='home_landing_app_store_app_container']"), "Кнопка скачивания приложения сбермаркет в app store");
     Link appGallery = new Link(By.xpath("//a[@data-qa='home_landing_huawei_store_app_container']"), "Кнопка скачивания приложения сбермаркет в app gallery");
 }
-

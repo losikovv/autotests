@@ -14,11 +14,12 @@ import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkDeliveryIntervalsNonEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.getNearestInterval;
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.STARTING_X;
 import static ru.instamart.reforged.core.config.UiProperties.*;
-import static ru.instamart.reforged.stf.page.StfRouter.home;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.multiSearch;
 
 @Epic("STF UI")
 @Feature("Главная страница")
@@ -118,7 +119,7 @@ public final class HomePageTests {
         //Кнопка 'Показать все' города отображается только если городов > 18, на стейджах её нет, так как городов в списке, как правило, меньше
         //home().clickShowAllCities();
         home().selectCity("Санкт-Петербург");
-        expectedDeliveryBlockTitle = String.format("Нашли %d магазин в", home().getRetailersCountInBlock());
+        expectedDeliveryBlockTitle = String.format("Нашли %d магазинов в", home().getRetailersCountInBlock());
         home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), expectedDeliveryBlockTitle);
     }
 
@@ -190,14 +191,16 @@ public final class HomePageTests {
         home().checkAlertTextEquals(home().getAlertText(), "Чтобы посмотреть подходящие магазины, укажите адрес");
 
         home().checkDeliveryRetailersContainerVisible();
-        home().checkRetailersCardCountEquals(home().getRetailersCountInBlock(), 6);
+        //На разных стейджах разное количество
+        //home().checkRetailersCardCountEquals(home().getRetailersCountInBlock(), 6);
 
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(userData);
         home().interactMultisearchHeader().checkUserActionsButtonVisible();
 
-        home().checkStoresCardCountEquals(home().getStoresCountInBlock(), 3);
-        home().checkStoreCardDisplayed(DEFAULT_METRO_MOSCOW_SID);
+        //На разных стейджах разное количество
+        //home().checkStoresCardCountEquals(home().getStoresCountInBlock(), 3);
+        home().checkStoreCardDisplayed(DEFAULT_AUCHAN_SID);
     }
 
     @TmsLink("3366")
@@ -218,16 +221,20 @@ public final class HomePageTests {
         home().openGroupPage("express");
 
         home().checkDeliveryStoresContainerVisible();
-        home().checkStoresCardCountEquals(home().getStoresCountInBlock(), 1);
-        home().checkStoreCardDisplayed(DEFAULT_METRO_MOSCOW_SID);
+        //На разных стейджах разное количество
+        //home().checkStoresCardCountEquals(home().getStoresCountInBlock(), 1);
+        home().checkStoreCardDisplayed(DEFAULT_AUCHAN_SID);
 
-        home().openLoginModal();
+
+        home().checkAlertNotDisplayed();
+        home().interactMultisearchHeader().clickLogin();
         home().interactAuthModal().authViaPhone(userData);
-        home().checkLogoutButtonDisplayed();
+        home().interactMultisearchHeader().checkUserActionsButtonVisible();
 
         home().checkDeliveryStoresContainerVisible();
-        home().checkStoresCardCountEquals(home().getStoresCountInBlock(), 1);
-        home().checkStoreCardDisplayed(DEFAULT_METRO_MOSCOW_SID);
+        //На разных стейджах разное количество
+        //home().checkStoresCardCountEquals(home().getStoresCountInBlock(), 1);
+        home().checkStoreCardDisplayed(DEFAULT_AUCHAN_SID);
     }
 
     @TmsLink("3204")
@@ -247,5 +254,82 @@ public final class HomePageTests {
 
         home().checkDeliveryStoresContainerVisible();
         home().checkStoreCardDisplayed(DEFAULT_AUCHAN_SID);
+    }
+
+    @TmsLink("3230")
+    @Test(description = "Отображение выбранного магазина в самовывозе и доставке для неавторизованного пользователя", groups = {STARTING_X, REGRESSION_STF})
+    public void testViewSelectedStoreInDeliveryAndPickupNotAuthorized() {
+        home().goToPage();
+        home().clickToSetAddress();
+        home().interactAddressModal().checkYmapsReady();
+        home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());
+        home().interactAddressModal().selectFirstAddress();
+        home().interactAddressModal().clickFindStores();
+        home().interactAddressModal().checkAddressModalIsNotVisible();
+
+        home().checkDeliveryStoresContainerVisible();
+        home().clickOnStoreWithSid(DEFAULT_AUCHAN_SID);
+
+        shop().waitPageLoad();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        home().goToPage();
+        home().waitPageLoad();
+        home().checkRecentStoreBlockVisible();
+        home().checkRecentStoreBlockVisible(DEFAULT_AUCHAN_SID);
+        home().checkRecentStoreBlockNextDeliveryVisible();
+        home().checkRecentStoreBlockDeliveryPriceVisible();
+
+        home().interactMultisearchHeader().switchToPickup();
+        home().clickSelectStoreOnMap();
+        home().interactMultisearchHeader().interactAddressLarge().checkYmapsReady();
+        home().interactMultisearchHeader().interactAddressLarge().clickShowAsList();
+        home().interactMultisearchHeader().interactAddressLarge().checkPickupStoresModalVisible();
+        home().interactMultisearchHeader().interactAddressLarge().selectRetailerByName("METRO");
+        home().interactMultisearchHeader().interactAddressLarge().selectStoreByAddress(RestAddresses.Moscow.checkoutAddress().fullAddress().toString());
+        home().interactMultisearchHeader().interactAddressLarge().checkAddressModalIsNotVisible();
+
+        home().goToPage();
+        home().waitPageLoad();
+        home().interactMultisearchHeader().checkPickupActive();
+        home().checkRecentStoreBlockVisible();
+        home().checkRecentStoreBlockVisible(DEFAULT_CHECKOUT_SID);
+        home().checkRecentStoreBlockAddressVisible();
+        home().checkRecentStoreBlockWorkTimeVisible();
+
+        home().interactMultisearchHeader().switchToDelivery();
+        home().waitPageLoad();
+        home().checkRecentStoreBlockVisible(DEFAULT_AUCHAN_SID);
+    }
+
+    @TmsLink("3231")
+    @Test(description = "Отображение выбранного магазина по недоступному адреса доставки", groups = {STARTING_X, REGRESSION_STF})
+    public void testViewSelectedOutOfDelivery() {
+        home().goToPage();
+        home().clickToSetAddress();
+        home().interactAddressModal().checkYmapsReady();
+        home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());
+        home().interactAddressModal().selectFirstAddress();
+        home().interactAddressModal().clickFindStores();
+        home().interactAddressModal().checkAddressModalIsNotVisible();
+
+        home().checkDeliveryStoresContainerVisible();
+        home().clickOnStoreWithSid(DEFAULT_AUCHAN_SID);
+
+        shop().waitPageLoad();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.NizhnyNovgorod.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().clickSave();
+        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
+
+        home().goToPage();
+        home().waitPageLoad();
+        home().checkRecentStoreBlockVisible();
+        home().checkRecentStoreBlockWarningVisible();
+        home().checkRecentStoreBlockWarningVisible("Из магазина к вам пока нет доставки.\n" +
+                "Выберите другой");
     }
 }

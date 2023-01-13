@@ -97,7 +97,7 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().checkModalIsNotVisible();
 
         //TODO на production появляется окно подтверждения номера телефона, на кракене - нет, тест падает.
-        shop().interactAuthModal().checkModalConfirmPhoneIsVisible();
+        shop().interactPhoneConfirmModal().checkModalConfirmPhoneIsVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -122,7 +122,7 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().checkModalIsNotVisible();
 
         //TODO на production появляется окно подтверждения номера телефона, на кракене - нет, тест падает.
-        shop().interactAuthModal().checkModalConfirmPhoneIsVisible();
+        shop().interactPhoneConfirmModal().checkModalConfirmPhoneIsVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -185,4 +185,31 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
+
+    @TmsLink("3974")
+    @Story("Авторизация через vkontakte")
+    @Test(description = "Авторизация нового пользователя без номера телефона", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
+    public void successAuthWithVkontakte() {
+        UserData vkUser = UserManager.getNewVkUser();
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().checkModalIsVisible();
+        home().interactAuthModal().authViaVk();
+        home().interactAuthModal().interactAuthVkWindow().switchToNextWindow();
+        home().interactAuthModal().interactAuthVkWindow().setEmail(vkUser.getEmail());
+        home().interactAuthModal().interactAuthVkWindow().setPassword(vkUser.getPassword());
+        home().interactAuthModal().interactAuthVkWindow().clickToLogin();
+        home().interactAuthModal().interactAuthVkWindow().switchToFirstWindow();
+        home().interactAuthModal().checkModalIsNotVisible();
+
+        home().interactPhoneConfirmModal().checkModalConfirmPhoneIsVisible();
+        home().interactPhoneConfirmModal().close();
+
+        shop().goToPage();
+        shop().waitPageLoad();
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().checkSnippet();
+    }
+
 }

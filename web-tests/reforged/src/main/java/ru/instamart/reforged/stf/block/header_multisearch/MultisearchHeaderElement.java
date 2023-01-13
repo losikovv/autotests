@@ -36,6 +36,7 @@ public interface MultisearchHeaderElement {
 
     Button addressChange = new Button(By.xpath("//button[contains(@class,'AddressInput_root')]"), "Кнопка перехода к выбору адреса");
 
+    Button login = new Button(By.xpath("//button[@data-qa='b2c_home_landing_common_header_middle_bar_user_actions_login_button']"), "Кнопка 'Войти'");
     Button userActionsToggle = new Button(By.xpath("//div[contains(@class,'UserActionsMenuToggle')]//button[contains(@class,'UserActionsButton_root')]"), "Кнопка меню профиля пользователя");
     Button userFavourites = new Button(By.xpath("//a[contains(@class,'UserActions_favoriteButton')]"), "Кнопка перехода в 'Избранное'");
     Button userOrders = new Button(By.xpath("//a[contains(@class,'UserActions_ordersButton')]"), "Кнопка перехода в 'Историю заказов'");

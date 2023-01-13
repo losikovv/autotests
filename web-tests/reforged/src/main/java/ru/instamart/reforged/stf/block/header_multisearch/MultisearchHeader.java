@@ -61,6 +61,11 @@ public final class MultisearchHeader implements MultisearchHeaderCheck {
         openCart.click();
     }
 
+    @Step("Нажимаем на кнопку 'Войти'")
+    public void clickLogin() {
+        login.click();
+    }
+
     @Step("Вводим в поле межритейлерного поиска: {searchText}")
     public void fillMultisearch(final String searchText) {
         multisearch.fill(searchText);

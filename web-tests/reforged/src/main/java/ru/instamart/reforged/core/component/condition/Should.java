@@ -35,7 +35,7 @@ public final class Should {
         Kraken.waitAction().shouldBeVisible(component);
     }
 
-    public void visible(final String args) {
+    public void visible(final Object args) {
         Kraken.waitAction().shouldBeVisible(component, args);
     }
 
