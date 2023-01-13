@@ -10,7 +10,7 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="Admin OnDemand module" parallel="classes" thread-count="5">
+    <test verbose="1" name="Admin OnDemand module" parallel="methods" thread-count="5">
         <classes>
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationBasicOrdersTests"/>
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationShipmentInTableTests"/>

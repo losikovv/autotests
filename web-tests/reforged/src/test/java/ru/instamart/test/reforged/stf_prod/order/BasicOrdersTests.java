@@ -1,10 +1,6 @@
 package ru.instamart.test.reforged.stf_prod.order;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
-import io.qameta.allure.TmsLink;
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
@@ -24,24 +20,24 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Покупка товара")
 public final class BasicOrdersTests {
 
+    private static final ThreadLocal<UserData> ordersUser = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData userData;
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(ordersUser.get());
     }
 
     @TmsLink("1681")
     @Test(description = "Тест заказа с любимыми товарами", groups = {STF_PROD_S})
     public void successOrderWithFavProducts() {
-        userData = UserManager.getQaUser();
-        helper.addFavorites(userData, DEFAULT_SID, 5);
-        helper.dropAndFillCartFromFavorites(userData, DEFAULT_SID);
+        ordersUser.set(UserManager.getQaUser());
+        helper.addFavorites(ordersUser.get(), DEFAULT_SID, 5);
+        helper.dropAndFillCartFromFavorites(ordersUser.get(), DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().submitOrder();
@@ -90,13 +86,13 @@ public final class BasicOrdersTests {
     @Story("Отмена заказа")
     @Test(description = "Отмена заказа", groups = {STF_PROD_S})
     public void successOrderCancel() {
-        userData = UserManager.getQaUser();
-        helper.makeOrder(userData, DEFAULT_SID, 1);
-        helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+        ordersUser.set(UserManager.getQaUser());
+        helper.makeOrder(ordersUser.get(), DEFAULT_SID, 1);
+        helper.setAddress(ordersUser.get(), RestAddresses.Moscow.defaultProdAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -115,14 +111,13 @@ public final class BasicOrdersTests {
     @Story("Заказ")
     @Test(description = "Добавление товаров в активный заказ", groups = {STF_PROD_S})
     public void successAddItemsInActiveOrder() {
-        userData = UserManager.getQaUser();
-
-        helper.makeOrderOnTomorrowByQa(userData, DEFAULT_SID, 1);
-        helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+        ordersUser.set(UserManager.getQaUser());
+        helper.makeOrderOnTomorrowByQa(ordersUser.get(), DEFAULT_SID, 1);
+        helper.setAddress(ordersUser.get(), RestAddresses.Moscow.defaultProdAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         final var itemName = shop().getProductTitleByPositionWithScrollDown(1);
@@ -142,11 +137,11 @@ public final class BasicOrdersTests {
     @Story("Заказ")
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = {STF_PROD_S})
     public void successCancelMultiOrderViaCancelOneOrder() {
-        userData = UserManager.getQaUser();
-        helper.makeMultipleOrderByQa(userData, RestAddresses.Moscow.defaultProdAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
+        ordersUser.set(UserManager.getQaUser());
+        helper.makeMultipleOrderByQa(ordersUser.get(), RestAddresses.Moscow.defaultProdAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         userShipments().goToPage();

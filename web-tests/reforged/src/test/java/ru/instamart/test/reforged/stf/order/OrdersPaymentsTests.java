@@ -1,8 +1,6 @@
 package ru.instamart.test.reforged.stf.order;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,8 +12,6 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
-import io.qameta.allure.TmsLinks;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -25,20 +21,20 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Покупка товара")
 public final class OrdersPaymentsTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
+    private static final ThreadLocal<Juridical> company = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData ordersUser;
-    private Juridical company;
 
     @BeforeMethod(alwaysRun = true, description = "Шаги предусловия")
     public void beforeTest() {
-        this.company = JuridicalData.juridical();
-        this.ordersUser = UserManager.getQaUser();
-        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_AUCHAN_SID);
+        company.set(JuridicalData.juridical());
+        userData.set(UserManager.getQaUser());
+        this.helper.dropAndFillCart(userData.get(), UiProperties.DEFAULT_AUCHAN_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        this.helper.cancelAllActiveOrders(ordersUser);
+        this.helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLink("1624")
@@ -47,7 +43,7 @@ public final class OrdersPaymentsTests {
     public void successOrderWithCardOnline() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -90,7 +86,7 @@ public final class OrdersPaymentsTests {
     public void successOrderWithCardCourier() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -128,7 +124,7 @@ public final class OrdersPaymentsTests {
     public void successOrderWithBankTransfer() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -145,10 +141,10 @@ public final class OrdersPaymentsTests {
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
-        checkout().interactAddCompanyModal().fillCompany(company);
+        checkout().interactAddCompanyModal().fillCompany(company.get());
         checkout().interactAddCompanyModal().clickToOkButton();
 
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(company.get().getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().setContacts().fillContactInfo();
@@ -160,12 +156,12 @@ public final class OrdersPaymentsTests {
 
         checkout().setPayment().clickToByBusinessAccount();
 
-        checkout().editCompany().fillName(company.getJuridicalName());
-        checkout().editCompany().fillAddress(company.getJuridicalAddress());
-        checkout().editCompany().fillKpp(company.getKpp());
-        checkout().editCompany().fillConsigneeName(company.getJuridicalName());
-        checkout().editCompany().fillConsigneeAddress(company.getJuridicalAddress());
-        checkout().editCompany().fillConsigneeKpp(company.getKpp());
+        checkout().editCompany().fillName(company.get().getJuridicalName());
+        checkout().editCompany().fillAddress(company.get().getJuridicalAddress());
+        checkout().editCompany().fillKpp(company.get().getKpp());
+        checkout().editCompany().fillConsigneeName(company.get().getJuridicalName());
+        checkout().editCompany().fillConsigneeAddress(company.get().getJuridicalAddress());
+        checkout().editCompany().fillConsigneeKpp(company.get().getKpp());
         checkout().editCompany().saveCompanyInfo();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -182,7 +178,7 @@ public final class OrdersPaymentsTests {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -200,7 +196,7 @@ public final class OrdersPaymentsTests {
         checkout().setDeliveryOptions().fillDeliveryAddress(data);
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillContactInfo(ordersUser);
+        checkout().setContacts().fillContactInfo(userData.get());
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();
@@ -232,7 +228,7 @@ public final class OrdersPaymentsTests {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -250,7 +246,7 @@ public final class OrdersPaymentsTests {
         checkout().setDeliveryOptions().fillDeliveryAddress(data);
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillContactInfo(ordersUser);
+        checkout().setContacts().fillContactInfo(userData.get());
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();
@@ -284,7 +280,7 @@ public final class OrdersPaymentsTests {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -302,7 +298,7 @@ public final class OrdersPaymentsTests {
         checkout().setDeliveryOptions().fillDeliveryAddress(data);
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillContactInfo(ordersUser);
+        checkout().setContacts().fillContactInfo(userData.get());
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();

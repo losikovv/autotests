@@ -2,12 +2,12 @@ package ru.instamart.test.reforged.stf;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -15,6 +15,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Epic("STF UI")
 @Feature("Межритейлерный поиск")
 public final class MultiretailerSearchTests {
+
     private final ApiHelper apiHelper = new ApiHelper();
     private final String searchText = "сыр";
 

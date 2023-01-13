@@ -20,18 +20,18 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Чекаут. Шаг #4. Время получения.")
 public final class CheckoutDeliverySlotsTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData userData;
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
-        this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
+        userData.set(UserManager.getQaUser());
+        this.helper.dropAndFillCart(userData.get(), UiProperties.DEFAULT_AUCHAN_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLink("2648")
@@ -40,7 +40,7 @@ public final class CheckoutDeliverySlotsTests {
     public void successChangePreviousDeliverySlotAndOrder() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -102,7 +102,7 @@ public final class CheckoutDeliverySlotsTests {
     public void failedContinueWithUnselectedDeliverySlot() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();

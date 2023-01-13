@@ -1,8 +1,6 @@
 package ru.instamart.test.reforged.stf.order;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -12,13 +10,10 @@ import ru.instamart.kraken.data.PromoData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.data_provider.PromoCodeProvider;
-import io.qameta.allure.TmsLinks;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -26,12 +21,12 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Покупка товара")
 public final class OrdersPromoCodesTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData ordersUser;
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(ordersUser);
+        helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLinks(value = {@TmsLink("1638"), @TmsLink("1639"), @TmsLink("1640"),
@@ -45,12 +40,12 @@ public final class OrdersPromoCodesTests {
     public void successOrderWithPromoCode(final PromoData data) {
         var company = JuridicalData.juridical();
 
-        ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, DEFAULT_AUCHAN_SID);
+        userData.set(UserManager.getQaUser());
+        helper.dropAndFillCart(userData.get(), DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -104,12 +99,12 @@ public final class OrdersPromoCodesTests {
 
         helper.createPromotionCode(promo, 2760, yesterday, yesterday, 100);
 
-        ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, DEFAULT_AUCHAN_SID);
+        userData.set(UserManager.getQaUser());
+        helper.dropAndFillCart(userData.get(), DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -154,15 +149,15 @@ public final class OrdersPromoCodesTests {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
         final String yesterday = getPastZoneDbDate(1L);
 
-        ordersUser = UserManager.getQaUser();
+        userData.set(UserManager.getQaUser());
 
-        helper.makeOrder(ordersUser, DEFAULT_AUCHAN_SID, 1);
+        helper.makeOrder(userData.get(), DEFAULT_AUCHAN_SID, 1);
         helper.createPromotionCode(promo, 2761, yesterday, yesterday, 100);
-        helper.dropAndFillCart(ordersUser, DEFAULT_AUCHAN_SID);
+        helper.dropAndFillCart(userData.get(), DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -209,12 +204,12 @@ public final class OrdersPromoCodesTests {
         var company = JuridicalData.juridical();
         var promo = Generate.string(8);
 
-        ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, DEFAULT_AUCHAN_SID);
+        userData.set(UserManager.getQaUser());
+        helper.dropAndFillCart(userData.get(), DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 

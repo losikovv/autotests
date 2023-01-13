@@ -19,12 +19,16 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 public final class AdministrationRetailerEditTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
-    private String retailerName;
+    private final String retailerName = Generate.literalString(6) + "_retailer";
 
     @BeforeClass(alwaysRun = true)
     public void prepareData() {
-        retailerName = Generate.literalString(6) + "_retailer";
         apiHelper.createRetailerInAdmin(retailerName);
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void clearData() {
+        apiHelper.deleteRetailerByNameInAdmin(retailerName);
     }
 
     @TmsLink("1417")
@@ -80,10 +84,5 @@ public final class AdministrationRetailerEditTests {
         retailers().interactiveRankList().checkSidebarVisible();
         retailers().interactiveRankList().checkDrawerTitle("Ранжировать список ритейлеров");
         retailers().interactiveRankList().checkRetailersListVisible();
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void clearData() {
-        apiHelper.deleteRetailerByNameInAdmin(retailerName);
     }
 }

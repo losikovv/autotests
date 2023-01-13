@@ -22,13 +22,13 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Feature("Бонусные программы")
 public final class CheckoutBonusesTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData userData;
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
-        this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        userData.set(UserManager.getQaUser());
+        this.helper.dropAndFillCart(userData.get(), UiProperties.DEFAULT_SID);
     }
 
     @TmsLink("1702")
@@ -37,7 +37,7 @@ public final class CheckoutBonusesTests {
     public void successAddBonusPrograms() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -62,7 +62,7 @@ public final class CheckoutBonusesTests {
     public void successSelectBonusPrograms() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -95,7 +95,7 @@ public final class CheckoutBonusesTests {
     public void successDeleteBonusPrograms() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -131,7 +131,7 @@ public final class CheckoutBonusesTests {
     public void noAddBonusProgramOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -148,7 +148,7 @@ public final class CheckoutBonusesTests {
     public void noAddBonusProgramOnModalClose()  {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -165,7 +165,7 @@ public final class CheckoutBonusesTests {
     public void noAddBonusProgramWithEmptyCardNumber() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -187,7 +187,7 @@ public final class CheckoutBonusesTests {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -209,7 +209,7 @@ public final class CheckoutBonusesTests {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -238,7 +238,7 @@ public final class CheckoutBonusesTests {
     public void noEditBonusProgramOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -266,7 +266,7 @@ public final class CheckoutBonusesTests {
     public void noEditBonusProgramOnModalClose() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -294,7 +294,7 @@ public final class CheckoutBonusesTests {
     public void noEditBonusProgramWithEmptyCardNumber() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -324,7 +324,7 @@ public final class CheckoutBonusesTests {
     public void noDeleteBonusProgramOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -352,7 +352,7 @@ public final class CheckoutBonusesTests {
     public void noDeleteBonusProgramOnModalClose() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();

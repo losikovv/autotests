@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.stf.shopping;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -11,7 +12,6 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.SMOKE_STF;
@@ -22,7 +22,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Feature("Поиск товаров")
 public final class ShoppingSearchTests {
 
-    ApiHelper apiHelper = new ApiHelper();
+    private final ApiHelper apiHelper = new ApiHelper();
 
     @TmsLink("1609")
     @Story("Проверка наличия элементов")

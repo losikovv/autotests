@@ -20,18 +20,19 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Epic("STF UI")
 @Feature("Чекаут V3")
 public final class CheckoutContactsAndReplacementPolicyTests {
+
+    private static final ThreadLocal<UserData> ordersUser = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData ordersUser;
 
     @BeforeMethod(alwaysRun = true, description = "Шаги предусловия")
     public void beforeTest() {
-        this.ordersUser = UserManager.getQaUser();
-        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_SID);
+        ordersUser.set(UserManager.getQaUser());
+        this.helper.dropAndFillCart(ordersUser.get(), UiProperties.DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        this.helper.cancelAllActiveOrders(ordersUser);
+        this.helper.cancelAllActiveOrders(ordersUser.get());
     }
 
     @TmsLink("3691")
@@ -39,7 +40,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     public void testCheckReplacementPolicyNotSelectedFirstTime() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -54,7 +55,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     public void testCheckReplacementPolicyRequired() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -86,7 +87,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     public void testCheckPhoneAndEmailRequiredFields() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -101,7 +102,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
         checkoutNew().checkPhoneErrorDescriptionVisible();
         checkoutNew().checkPhoneErrorDescriptionContains("Обязательное поле");
 
-        checkoutNew().fillPhone(ordersUser.getPhone().substring(0, 5));
+        checkoutNew().fillPhone(ordersUser.get().getPhone().substring(0, 5));
         checkoutNew().clickAddressTitle();
         checkoutNew().checkPhoneInvalid();
         checkoutNew().checkPhoneErrorDescriptionVisible();
@@ -114,7 +115,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
         checkoutNew().checkEmailErrorDescriptionVisible();
         checkoutNew().checkEmailErrorDescriptionContains("Обязательное поле");
 
-        checkoutNew().fillEmail(ordersUser.getEmail().substring(0, 5));
+        checkoutNew().fillEmail(ordersUser.get().getEmail().substring(0, 5));
         checkoutNew().clickAddressTitle();
         checkoutNew().checkEmailInvalid();
         checkoutNew().checkEmailErrorDescriptionVisible();

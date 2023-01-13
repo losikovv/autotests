@@ -22,21 +22,21 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Чекаут. Шаг #5. Оплата")
 public final class CheckoutPaymentStepTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
+    private static final ThreadLocal<PaymentCardData> card = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private PaymentCardData card;
-    private UserData userData;
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
-        userData = UserManager.getQaUser();
-        card = PaymentCards.testCardNo3dsWithSpasibo();
-        helper.bindCardToUser(userData, DEFAULT_AUCHAN_SID, card);
-        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
+        userData.set(UserManager.getQaUser());
+        card.set(PaymentCards.testCardNo3dsWithSpasibo());
+        helper.bindCardToUser(userData.get(), DEFAULT_AUCHAN_SID, card.get());
+        helper.dropAndFillCart(userData.get(), DEFAULT_AUCHAN_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLink("1678")
@@ -46,7 +46,7 @@ public final class CheckoutPaymentStepTests {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -76,7 +76,7 @@ public final class CheckoutPaymentStepTests {
 
         checkout().setPayment().clickToByCardOnline();
 
-        checkout().setPayment().clickToChangePaymentCard(card);
+        checkout().setPayment().clickToChangePaymentCard(card.get());
 
         checkout().interactEditPaymentCardModal().checkModalNotAnimated();
         checkout().interactEditPaymentCardModal().clickToDeleteModal();

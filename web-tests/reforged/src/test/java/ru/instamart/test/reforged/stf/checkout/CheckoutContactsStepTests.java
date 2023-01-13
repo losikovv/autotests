@@ -22,31 +22,31 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Чекаут. Шаг #2. Контакты")
 public final class CheckoutContactsStepTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData userData;
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
-        this.userData = UserManager.getQaUser();
+        userData.set(UserManager.getQaUser());
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLink("1679")
     @Story("Корзина")
     @Test(description = "Тест на изменение телефона и контактов", groups = REGRESSION_STF)
     public void successChangePhoneAndContacts() {
-        helper.makeOrder(userData, UiProperties.DEFAULT_AUCHAN_SID, 1);
-        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        helper.makeOrder(userData.get(), UiProperties.DEFAULT_AUCHAN_SID, 1);
+        helper.setAddress(userData.get(), RestAddresses.Moscow.defaultAddress());
 
-        helper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
+        helper.dropAndFillCart(userData.get(), UiProperties.DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -66,15 +66,15 @@ public final class CheckoutContactsStepTests {
 
         checkout().checkCheckoutLoaderNotVisible();
 
-        userData.setEmail(Generate.email());
+        userData.get().setEmail(Generate.email());
 
-        checkout().setContacts().fillContactInfo(userData);
+        checkout().setContacts().fillContactInfo(userData.get());
 
-        checkout().setContacts().clickToChangePhoneWithText(userData.getPhone());
+        checkout().setContacts().clickToChangePhoneWithText(userData.get().getPhone());
 
-        userData.setPhone(Generate.phoneNumber());
+        userData.get().setPhone(Generate.phoneNumber());
 
-        checkout().interactEditPhoneNumberModal().fillPhoneNumber(userData.getPhone());
+        checkout().interactEditPhoneNumberModal().fillPhoneNumber(userData.get().getPhone());
         checkout().interactEditPhoneNumberModal().clickToSaveModal();
         checkout().interactEditPhoneNumberModal().checkPhoneEditModalClosed();
 
@@ -88,7 +88,7 @@ public final class CheckoutContactsStepTests {
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipment().waitPageLoad();
-        userShipment().checkUserPhone(StringUtil.convertDigitsStringToPhoneNumber(userData.getPhone()));
+        userShipment().checkUserPhone(StringUtil.convertDigitsStringToPhoneNumber(userData.get().getPhone()));
     }
 }
 

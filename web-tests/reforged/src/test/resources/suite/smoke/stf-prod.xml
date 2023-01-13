@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Prod UI smoke" data-provider-thread-count="1" configfailurepolicy="continue">
+<suite name="Prod UI smoke" data-provider-thread-count="5" configfailurepolicy="continue">
     <listeners>
         <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
         <listener class-name="ru.instamart.reforged.core.listener.UiDefaultListener"/>
@@ -10,7 +10,7 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="Stf UI tests production" parallel="classes" thread-count="5">
+    <test verbose="1" name="Stf UI tests production" parallel="methods" thread-count="10">
         <classes>
             <class name="ru.instamart.test.reforged.stf_prod.checkout_new.CheckoutTests"/>
             <class name="ru.instamart.test.reforged.stf_prod.checkout_new.CheckoutPaymentMethodsTests"/>

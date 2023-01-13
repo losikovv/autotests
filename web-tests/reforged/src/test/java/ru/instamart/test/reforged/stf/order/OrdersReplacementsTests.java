@@ -1,8 +1,6 @@
 package ru.instamart.test.reforged.stf.order;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -11,8 +9,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.ReplacePolicyProvider;
-import io.qameta.allure.TmsLinks;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -22,18 +18,18 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Покупка товара")
 public final class OrdersReplacementsTests {
 
+    private static final ThreadLocal<UserData> userData = new ThreadLocal<>();
     private final ApiHelper helper = new ApiHelper();
-    private UserData ordersUser;
 
     @BeforeMethod(alwaysRun = true, description = "Создание юзера и наполнение корзины")
     public void beforeTest() {
-        this.ordersUser = UserManager.getQaUser();
-        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_AUCHAN_SID);
+        userData.set(UserManager.getQaUser());
+        this.helper.dropAndFillCart(userData.get(), UiProperties.DEFAULT_AUCHAN_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        this.helper.cancelAllActiveOrders(ordersUser);
+        this.helper.cancelAllActiveOrders(userData.get());
     }
 
     @TmsLinks(value = {@TmsLink("1634"), @TmsLink("1635"), @TmsLink("1636"), @TmsLink("1637")})
@@ -45,7 +41,7 @@ public final class OrdersReplacementsTests {
     public void successOrderWithReplacementPolicy(final String replacementPolicy) {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
