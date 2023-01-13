@@ -36,6 +36,19 @@ public class ResultDao extends AbstractDao<String, ResultEntity> {
         return result;
     }
 
+    public boolean updateResult(String storeUuid, String expiredAt) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SURGE_LEVEL).getConnection();
+             final var preparedStatement = connect.prepareStatement(" UPDATE result SET expired_at = ?::timestamp " +
+                     "WHERE id = (SELECT actual_result_id FROM store WHERE id = ?::uuid) ")) {
+            preparedStatement.setString(1, expiredAt);
+            preparedStatement.setString(2, storeUuid);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLSurgelevelManager. Error: " + e.getMessage());
+        }
+        return false;
+    }
+
     @Override
     public boolean delete(String id) {
         return false;

@@ -46,6 +46,7 @@ public class SurgeTest extends RestBase {
     private final String THIRD_STORE_ID = UUID.randomUUID().toString();
     private final String STORE_ID_NOT_ON_DEMAND = UUID.randomUUID().toString();
     private final String STORE_ID_DISABLED = UUID.randomUUID().toString();
+    private final String STORE_ID_NOT_EXPIRED = UUID.randomUUID().toString();
     private final String FORMULA_ID = "10000000-1000-1000-1000-100000000000";
     private final String SHIPMENT_UUID = UUID.randomUUID().toString();
     private final String ORDER_UUID = UUID.randomUUID().toString();
@@ -64,6 +65,7 @@ public class SurgeTest extends RestBase {
     private float currentSurgeLevelFirstStore = currentSurgeLevel;
     private float currentSurgeLevelSecondStore = currentSurgeLevel;
     private float currentSurgeLevelThirdStore = currentSurgeLevel;
+    private float currentSurgeLevelNotExpired = currentSurgeLevel;
     private int currentDemandAmount;
     private int currentSupplyAmount;
     private float pastSurgeLevel;
@@ -96,6 +98,7 @@ public class SurgeTest extends RestBase {
         addStore(STORE_ID, UUID.randomUUID().toString(), false, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, 1000);
         addStore(STORE_ID_NOT_ON_DEMAND, UUID.randomUUID().toString(), false, false, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, null);
         addStore(STORE_ID_DISABLED, UUID.randomUUID().toString(), true, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, null);
+        addStore(STORE_ID_NOT_EXPIRED, UUID.randomUUID().toString(), false, true, storeLocation.getLat() - 1, storeLocation.getLon() - 1, FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, null);
         addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, firstStoreLocation.getLat(), firstStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID, null);
         addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, secondStoreLocation.getLat(), secondStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID, null);
         addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), null, true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), FORMULA_ID, 1000, 0, null);
@@ -135,6 +138,25 @@ public class SurgeTest extends RestBase {
             assertEquals(STORE_ID_DISABLED, store.get().getId());
             assertNull(store.get().getActualResultId());
         });
+    }
+
+    @TmsLink("121")
+    @Story("Surge Calculation")
+    @Test(description = "Отсутствие расчета surgelevel при не достижении expiredAt",
+            groups = "ondemand-surgelevel")
+    public void surgeNoRecalculationWithExpired() {
+        publishEventOrderStatus(UUID.randomUUID().toString(), STORE_ID_NOT_EXPIRED, OrderStatus.NEW, ShipmentType.ON_DEMAND, UUID.randomUUID().toString(), SHORT_TIMEOUT);
+
+        currentSurgeLevelNotExpired++;
+
+        Allure.step("Выставляем expired_at у surgelevel магазина", () -> {
+            compareTwoObjects(ResultDao.INSTANCE.findResult(STORE_ID_NOT_EXPIRED).getSurgeLevel().floatValue(), currentSurgeLevelNotExpired);
+            ResultDao.INSTANCE.updateResult(STORE_ID_NOT_EXPIRED, getZonedUTCDatePlusMinutes(666));
+        });
+
+        publishEventOrderStatus(UUID.randomUUID().toString(), STORE_ID_NOT_EXPIRED, OrderStatus.NEW, ShipmentType.ON_DEMAND, UUID.randomUUID().toString(), LONG_TIMEOUT);
+
+        Allure.step("Проверка отсутствия изменения surgelevel", () -> compareTwoObjects(ResultDao.INSTANCE.findResult(STORE_ID_NOT_EXPIRED).getSurgeLevel().floatValue(), currentSurgeLevelNotExpired));
     }
 
     @TmsLinks({@TmsLink("14"), @TmsLink("23"), @TmsLink("25"), @TmsLink("163"), @TmsLink("32")})
@@ -664,23 +686,12 @@ public class SurgeTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void postConditions() {
-        if (Objects.nonNull(STORE_ID)) {
-            StoreDao.INSTANCE.delete(STORE_ID);
-        }
-        if (Objects.nonNull(STORE_ID_NOT_ON_DEMAND)) {
-            StoreDao.INSTANCE.delete(STORE_ID_NOT_ON_DEMAND);
-        }
-        if (Objects.nonNull(STORE_ID_DISABLED)) {
-            StoreDao.INSTANCE.delete(STORE_ID_DISABLED);
-        }
-        if (Objects.nonNull(FIRST_STORE_ID)) {
-            StoreDao.INSTANCE.delete(FIRST_STORE_ID);
-        }
-        if (Objects.nonNull(SECOND_STORE_ID)) {
-            StoreDao.INSTANCE.delete(SECOND_STORE_ID);
-        }
-        if (Objects.nonNull(THIRD_STORE_ID)) {
-            StoreDao.INSTANCE.delete(THIRD_STORE_ID);
-        }
+        deleteStore(STORE_ID);
+        deleteStore(STORE_ID_NOT_ON_DEMAND);
+        deleteStore(STORE_ID_DISABLED);
+        deleteStore(STORE_ID_NOT_EXPIRED);
+        deleteStore(FIRST_STORE_ID);
+        deleteStore(SECOND_STORE_ID);
+        deleteStore(THIRD_STORE_ID);
     }
 }

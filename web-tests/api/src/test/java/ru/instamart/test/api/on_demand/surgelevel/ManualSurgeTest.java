@@ -77,7 +77,7 @@ public class ManualSurgeTest extends GrpcBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, 0, 0, Method.MANUAL);
     }
 
-    @TmsLinks({@TmsLink("155"), @TmsLink("42")})
+    @TmsLinks({@TmsLink("155"), @TmsLink("42"), @TmsLink("194")})
     @Story("Manual Surge")
     @Test(description = "Перерасчет surgelevel при наступлении expiredAt",
             groups = "ondemand-surgelevel",
@@ -86,7 +86,7 @@ public class ManualSurgeTest extends GrpcBase {
         ThreadUtil.simplyAwait(60);
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 3L);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, SURGE_LEVEL - 1, 0, 0, Method.ACTUAL);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, 0, 0, 0, Method.ACTUAL);
     }
 
     @TmsLink("147")
