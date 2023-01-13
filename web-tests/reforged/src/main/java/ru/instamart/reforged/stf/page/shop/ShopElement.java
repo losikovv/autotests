@@ -27,6 +27,7 @@ public interface ShopElement {
             "[not(contains(.,'Рекомендуем'))]" +
             "[not(contains(.,'Дешевле, чем в магазине'))]" +
             "[not(contains(.,'Новый год'))]" +
+            "[not(contains(.,'Спецпредложения'))]" +
             "[not(contains(.,'Алкоголь'))]";
 
     Header header = new Header();
