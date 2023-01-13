@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RegistryResponse {
+public class RegistryV1Response {
 
     @JsonProperty("result")
     private List<ResultItem> result;

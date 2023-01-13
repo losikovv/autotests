@@ -3,7 +3,7 @@ package ru.instamart.kraken.data_provider;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.DataProvider;
 import ru.instamart.kraken.common.Mapper;
-import ru.instamart.kraken.util.FileUtils;
+import ru.instamart.kraken.util.FileUtil;
 
 import java.lang.reflect.Method;
 
@@ -20,7 +20,7 @@ public final class JsonProvider {
             throw new RuntimeException("Missing JsonDataProvider annotation");
         }
 
-        var dataList= Mapper.INSTANCE.jsonToObject(FileUtils.getJson(dataProvider.path(), method.getDeclaringClass()), dataProvider.type());
+        var dataList= Mapper.INSTANCE.jsonToObject(FileUtil.getJson(dataProvider.path(), method.getDeclaringClass()), dataProvider.type());
         return nonNull(dataList) ? dataList.getData().stream().map(data -> new Object[]{data}).toArray(Object[][]::new) : new Object[0][];
     }
 

@@ -39,6 +39,7 @@ project(":kraken") {
 
         api lib.logback
         api lib.julToSlf4j
+        api lib.opencsv
 
         api lib.commonsLang3
         implementation lib.poiOoxml
@@ -166,6 +167,9 @@ project(":api") {
         implementation lib.swaggerCoverage
         implementation lib.protobufUtil
         implementation lib.awaitility
+        implementation lib.opencsv
+        implementation lib.poiOoxml
+        implementation lib.log4jToSlf4j
 
         annotationProcessor lib.lombok
         testImplementation lib.logback

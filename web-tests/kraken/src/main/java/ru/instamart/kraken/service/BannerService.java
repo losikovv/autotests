@@ -1,7 +1,7 @@
 package ru.instamart.kraken.service;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.kraken.util.FileUtils;
+import ru.instamart.kraken.util.FileUtil;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -16,7 +16,7 @@ public final class BannerService {
     private static final String BANNER_URL = "banner.txt";
 
     public static void printBanner() {
-        try (final BufferedReader in = new BufferedReader(new InputStreamReader(FileUtils.getConfig(BANNER_URL, BannerService.class), StandardCharsets.UTF_8))) {
+        try (final BufferedReader in = new BufferedReader(new InputStreamReader(FileUtil.getConfig(BANNER_URL, BannerService.class), StandardCharsets.UTF_8))) {
             String line = in.readLine();
             StringJoiner banner = new StringJoiner("\n", "\n", "\n");
             while (line != null) {

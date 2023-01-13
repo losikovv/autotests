@@ -11,10 +11,15 @@
         </method-selector>
     </method-selectors>
     <!-- api-v1-tests -->
-    <test verbose="1" name="API HR OPS Self-Fee Tests" parallel="none" thread-count="5">
+    <test verbose="1" name="API HR OPS Self-Fee Tests" parallel="none" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.self_fee.SelfFeeTest"/>
             <class name="ru.instamart.test.api.self_fee.ValidateFilesInfoTest"/>
+            <class name="ru.instamart.test.api.self_fee.SuccessfulFiscalizationsTest"/>
+            <class name="ru.instamart.test.api.self_fee.GetFiscalizationsTest"/>
+            <class name="ru.instamart.test.api.self_fee.ReceivingPayoutFilesTest"/>
+            <class name="ru.instamart.test.api.self_fee.FiscalizationErrorTest"/>
+            <class name="ru.instamart.test.api.self_fee.XlsxRegistryErrorsTest"/>
         </classes>
     </test>
 </suite>
