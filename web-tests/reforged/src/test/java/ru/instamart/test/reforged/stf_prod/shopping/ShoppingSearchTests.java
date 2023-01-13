@@ -13,8 +13,9 @@ import ru.instamart.kraken.listener.Skip;
 import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
-import static ru.instamart.reforged.stf.page.StfRouter.search;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.home;
 
 @Epic("STF UI")
 @Feature("Поиск товаров")
@@ -131,17 +132,15 @@ public final class ShoppingSearchTests {
     @TmsLink("1581")
     @Test(description = "Добавление товара в корзину из поиска товаров", groups = {STF_PROD_S})
     public void successAddItemToCartFromSearchResults() {
-        shop().goToPage();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
-        shop().interactAddressLarge().selectFirstAddress();
-        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddressLarge().clickSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+        home().goToPage();
+        home().fillAddressInLanding(Addresses.Moscow.trainingAddressProd());
+        home().selectFirstAddressInFounded();
+        home().checkDeliveryStoresContainerVisible();
+
+        home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
 
         shop().waitPageLoad();
+        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().fillSearch("сыры");
         shop().interactHeader().clickSearchButton();
         search().checkSearchImgLoaded();
