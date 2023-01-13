@@ -9,7 +9,7 @@ import ru.instamart.api.common.SelfFeeBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.self_fee.SelfFeeV1Request;
-import ru.instamart.api.response.self_fee.RegistryResponse;
+import ru.instamart.api.response.self_fee.RegistryV1Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
@@ -31,10 +31,10 @@ public class SelfFeeTest extends SelfFeeBase {
         SessionFactory.clearSession(SessionType.ADMIN);
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminSelfFee());
 
-        final var response = SelfFeeV1Request.GET();
+        final var response = SelfFeeV1Request.Registry.GET();
         checkStatusCode200(response);
-        checkResponseJsonSchema(response, RegistryResponse.class);
-        var registryResponse = response.as(RegistryResponse.class);
+        checkResponseJsonSchema(response, RegistryV1Response.class);
+        var registryResponse = response.as(RegistryV1Response.class);
 
         assertTrue(registryResponse.getResult().size() > 0, "result is empty");
     }
@@ -51,7 +51,7 @@ public class SelfFeeTest extends SelfFeeBase {
         SessionFactory.clearSession(SessionType.ADMIN);
         SessionFactory.createSessionToken(SessionType.ADMIN, user);
 
-        final var response = SelfFeeV1Request.GET();
+        final var response = SelfFeeV1Request.Registry.GET();
         checkStatusCode403(response);
     }
 

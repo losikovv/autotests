@@ -40,7 +40,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
-import static ru.instamart.kraken.util.FileUtils.changeXlsFileSheetName;
+import static ru.instamart.kraken.util.FileUtil.changeXlsFileSheetName;
 
 @Slf4j
 public final class ApiHelper {

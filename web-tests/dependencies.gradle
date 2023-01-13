@@ -17,6 +17,7 @@ ext.versions = [
         guava:'31.0.1-jre',
         swaggerCoverage:'1.4.5',
         protobufUtil: '3.21.8',
+        xlsTest: '1.7.0',
 
         hikari: '5.0.1',
         pgsqlJDBC: '42.4.1',
@@ -30,12 +31,14 @@ ext.versions = [
         ashot: '1.5.4',
 
         commonsLang3:'3.12.0',
-        poiOoxml: '5.2.0',
+        poiOoxml: '5.2.3',
         tomcatAnnotationsApi: '10.0.10',
         awaitility: '4.2.0',
+        opencsv: '5.7.1',
 
         logback: '1.2.11',
         julToSlf4j: '1.7.36',
+        log4jToSlf4j: '2.19.0',
 
         testit: '0.2.1',
 ]
@@ -84,9 +87,12 @@ ext.lib = [
         poiOoxml:"org.apache.poi:poi-ooxml:$versions.poiOoxml",
         tomcatAnnotationsApi: "org.apache.tomcat:tomcat-annotations-api:$versions.tomcatAnnotationsApi",
         awaitility: "org.awaitility:awaitility:$versions.awaitility",
+        opencsv: "com.opencsv:opencsv:$versions.opencsv",
+
 
         logback: "ch.qos.logback:logback-classic:$versions.logback",
         julToSlf4j: "org.slf4j:jul-to-slf4j:$versions.julToSlf4j",
+        log4jToSlf4j: "org.apache.logging.log4j:log4j-to-slf4j:$versions.log4jToSlf4j",
 
         testit:"ru.testit:testit-api-client:$versions.testit",
 ]

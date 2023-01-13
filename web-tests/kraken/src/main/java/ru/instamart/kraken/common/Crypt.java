@@ -1,7 +1,7 @@
 package ru.instamart.kraken.common;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.kraken.util.FileUtils;
+import ru.instamart.kraken.util.FileUtil;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -38,7 +38,7 @@ public enum Crypt {
             if (isNull(key)) {
                 //For local run
                 final Optional<File> keyFile = Arrays
-                        .stream(FileUtils.foundFiles("../data/config", "key_"))
+                        .stream(FileUtil.foundFiles("../data/config", "key_"))
                         .findFirst();
                 if (keyFile.isPresent()) {
                     key = keyFile.get().getName().replace("key_", "");

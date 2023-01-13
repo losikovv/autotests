@@ -2,7 +2,7 @@ package ru.instamart.kraken.common.config;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.common.Crypt;
-import ru.instamart.kraken.util.FileUtils;
+import ru.instamart.kraken.util.FileUtil;
 
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -39,7 +39,7 @@ public final class ConfigEngine {
             }
         }
         final var filePath = configDir + "/" + configName + ".properties";
-        try (final var lnr = new LineNumberReader(new InputStreamReader(FileUtils.getConfig(filePath, configClass), StandardCharsets.UTF_8))) {
+        try (final var lnr = new LineNumberReader(new InputStreamReader(FileUtil.getConfig(filePath, configClass), StandardCharsets.UTF_8))) {
             PROPERTIES.load(lnr);
 
             for (final var field : configClass.getDeclaredFields()) {
