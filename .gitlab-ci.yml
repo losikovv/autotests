@@ -57,7 +57,7 @@ variables:
   DEFAULT_SID:
     description: "Сид магазина на котором будут прогоняться тесты"
   CI_MODULE:
-    description: "Название тестового модуля. Возможные варианты: ui-stf/ui-b2b/ui-admin/ui-partners/api/grpc/kafka"
+    description: "Название тестового модуля. Возможные варианты: ui-stf/ui-b2b/ui-admin/ui-partners/ui-chatwoot/api/grpc/kafka"
   CI_GROUP:
     description: "Название группы тестов для запуска. Например: all-cart/all-order/api-instamart-smoke/api-instamart-regress"
   BFF_FORWARD:
