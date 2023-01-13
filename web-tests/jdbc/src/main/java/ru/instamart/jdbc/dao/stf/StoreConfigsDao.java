@@ -29,6 +29,18 @@ public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
         }
     }
 
+    public boolean updateOrdersApiIntegrationType(final Long storeId, final Integer ordersApiIntegrationType) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement("UPDATE store_configs SET orders_api_integration_type = ? WHERE store_id = ?")) {
+            preparedStatement.setInt(1, ordersApiIntegrationType);
+            preparedStatement.setLong(2, storeId);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return false;
+    }
+
     public StoreConfigsEntity getConfigsByStoreId(Integer storeId) {
         final var storeConfigs = new StoreConfigsEntity();
         try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
