@@ -18,11 +18,12 @@
             <class name="ru.instamart.test.api.on_demand.shippingcalc.MinCartTest"/>
         </classes>
     </test>
-    <test verbose="1" name="SHIPPINGCALC SECONDARY API" parallel="classes" thread-count="3">
+    <test verbose="1" name="SHIPPINGCALC SECONDARY API" parallel="classes" thread-count="4">
         <classes>
             <class name="ru.instamart.test.api.on_demand.shippingcalc.SurgeParametersTest"/>
             <class name="ru.instamart.test.api.on_demand.shippingcalc.SwitchbacksTest"/>
             <class name="ru.instamart.test.api.on_demand.shippingcalc.AutobinderTest"/>
+            <class name="ru.instamart.test.api.on_demand.shippingcalc.RedisTest"/>
         </classes>
     </test>
 </suite>

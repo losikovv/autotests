@@ -165,7 +165,7 @@ public class BoostTest extends RestBase {
         ThreadUtil.simplyAwait(60);
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 3L);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, BOOSTED_SURGELEVEL, BOOSTED_SURGELEVEL - 1, 0, 0, Method.ACTUAL);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, BOOSTED_SURGELEVEL, 0, 0, 0, Method.ACTUAL);
     }
 
     @TmsLink("172")

@@ -97,6 +97,13 @@ public class SurgeLevelHelper {
         assertTrue(isStoreCreated, "Не добавился магазин");
     }
 
+    @Step("Удалить магазин {storeId} из БД")
+    public static void deleteStore(final String storeId) {
+        if (Objects.nonNull(storeId)) {
+            StoreDao.INSTANCE.delete(storeId);
+        }
+    }
+
     @Step("Создаем событие статуса кандидата {candidateUuid}")
     public static CandidateChanges getEventCandidateStatus(final String candidateUuid, final CandidateChanges.Role candidateRole, final CandidateChanges.Status candidateStatus, final int shiftId, final int deliveryAreaId, final boolean fixedOnDeliveryAreaOrStore, final String storeId, final String storeScheduleType) {
         return CandidateChanges.newBuilder()
