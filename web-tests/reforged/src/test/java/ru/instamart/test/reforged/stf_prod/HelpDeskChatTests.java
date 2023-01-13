@@ -17,7 +17,8 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 public final class HelpDeskChatTests {
 
     @TmsLink("1758")
-    @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {STF_PROD_S})
+    //отключено, потому что чат сейчас показывается в чекауте, ПМ чекаута и чата говорят пусть он там будет пока
+    @Test(enabled = false, description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {STF_PROD_S})
     public void noHelpDeskWidgetOnCheckout() {
         final var apiHelper = new ApiHelper();
         final var userData = UserManager.getQaUser();
