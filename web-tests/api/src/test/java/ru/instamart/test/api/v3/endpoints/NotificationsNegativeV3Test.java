@@ -3,6 +3,7 @@ package ru.instamart.test.api.v3.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -14,11 +15,10 @@ import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v3.IntegrationTypeV3;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v3.NotificationsV3Request;
+import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
@@ -34,8 +34,7 @@ public class NotificationsNegativeV3Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        apiV3.checkFlipper("allow_export_to_external_services");
-        K8sHelper.updateApiIntegrationType(IntegrationTypeV3.INTEGRATION_FOR_ACCOUNTING.getValue(), sidIntegrationForAccounting);
+        StoreConfigsDao.INSTANCE.updateOrdersApiIntegrationType(sidIntegrationForAccounting.longValue(), IntegrationTypeV3.INTEGRATION_FOR_ACCOUNTING.getValue());
         /*admin.auth();
         admin.authApi();
         admin.editStore(storeUuid, StoresAdminRequest.getStoreLentaElino());*/

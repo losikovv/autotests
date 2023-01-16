@@ -3,6 +3,7 @@ package ru.instamart.test.api.v3.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -15,12 +16,9 @@ import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.enums.v3.IntegrationTypeV3;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Skip;
-import io.qameta.allure.TmsLink;
+import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -36,8 +34,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditionsBeforeClass() {
-        apiV3.checkFlipper("allow_export_to_external_services");
-        K8sHelper.updateApiIntegrationType(IntegrationTypeV3.DELIVERY_BY_SBERMARKET.getValue(), sidDeliveryBySbermarket);
+        StoreConfigsDao.INSTANCE.updateOrdersApiIntegrationType(sidDeliveryBySbermarket.longValue(), IntegrationTypeV3.DELIVERY_BY_SBERMARKET.getValue());
         //admin.auth();
         //admin.authApi();
         //admin.editStore(uuidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
@@ -49,7 +46,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         orderDeliveryBySbermarket = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket);
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("1461")
     @Test(description = "Canceled после создания (Сборка ритейлера, доставка Сбермаркета)",
@@ -64,7 +60,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("1462")
     @Test(description = "Canceled после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
@@ -82,7 +77,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("1464")
     @Test(description = "Canceled после order.ready_for_delivery (Сборка ритейлера, доставка Сбермаркета)",
@@ -103,7 +97,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("1466")
     @Test(description = "In_work после создания (Сборка ритейлера, доставка Сбермаркета)",
@@ -118,7 +111,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("1468")
     @Test(description = "Ready_for_delivery после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
@@ -140,7 +132,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2835")
     @Test(description = "Ошибка 405 Delivering (Сборка ритейлера, доставка Сбермаркета)",
@@ -165,7 +156,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2601")
     @Test(description = "Canceled после отмены (Сборка ритейлера, доставка Сбермаркета)",
@@ -182,7 +172,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2189")
     @Test(description = "Повторная отправка in_work негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -199,7 +188,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2190")
     @Test(description = "In_work после ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -223,7 +211,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2192")
     @Test(description = "In_work после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -241,7 +228,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2186")
     @Test(description = "Повторная отправка ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -265,7 +251,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2992")
     @Test(description = "Ready_for_delivery после оформления заказа негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -280,7 +265,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Создан");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2188")
     @Test(description = "Ready_for_delivery после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -298,7 +282,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("2710")
     @Test(description = "Валидация in_work (Сборка ритейлера, доставка Сбермаркета)",
@@ -313,7 +296,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("3035")
     @Test(description = "Валидация in_work + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
@@ -370,7 +352,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("2716")
     @Test(description = "Валидация canceled (Сборка ритейлера, доставка Сбермаркета)",
@@ -385,7 +366,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("3036")
     @Test(description = "Валидация canceled + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
@@ -442,7 +422,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("2712")
     @Test(description = "Валидация ready_for_delivery (без changed) (Сборка ритейлера, доставка Сбермаркета)",
@@ -481,7 +460,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("3041")
     @Test(description = "Валидация ready_for_delivery (changed true) (Сборка ритейлера, доставка Сбермаркета)",
@@ -521,7 +499,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("3042")
     @Test(description = "Валидация ready_for_delivery (changed false) (Сборка ритейлера, доставка Сбермаркета)",
@@ -543,7 +520,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @TmsLink("3045")
     @Test(description = "Валидация ready_for_delivery + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
@@ -607,7 +583,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2711")
     @Test(description = "Валидация in_work негатив (Сборка ритейлера, доставка Сбермаркета)",
@@ -626,8 +601,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Создан");
     }
 
-
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("2717")
     @Test(description = "Валидация canceled негатив (Сборка ритейлера, доставка Сбермаркета)",
@@ -646,7 +619,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Создан");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("3044")
     @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
@@ -678,7 +650,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("3044")
     @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
@@ -710,7 +681,6 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @TmsLink("3044")
     @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",

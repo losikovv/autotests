@@ -3,6 +3,7 @@ package ru.instamart.test.api.v3.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -16,16 +17,12 @@ import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.enums.v3.IntegrationTypeV3;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.helper.ApiV3Helper;
-import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v3.NotificationsV3Request;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.enums.Server;
+import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
 import ru.instamart.kraken.listener.Skip;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -39,15 +36,11 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        ApiV3Helper.checkFlipper("allow_export_to_external_services");
-        if (!EnvironmentProperties.Env.isPreprod()) {
-            K8sHelper.updateApiIntegrationType(IntegrationTypeV3.DELIVERY_BY_SBERMARKET.getValue(), sidDeliveryBySbermarket);
+            StoreConfigsDao.INSTANCE.updateOrdersApiIntegrationType(sidDeliveryBySbermarket.longValue(), IntegrationTypeV3.DELIVERY_BY_SBERMARKET.getValue());
             //admin.auth();
             //admin.editStore(uuidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
-        }
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позиции заказа")
     @TmsLink("945")
     @Test(description = "Заказ собран без изменений (все типы упаковок)",
@@ -107,7 +100,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Позиции заказа")
     @TmsLink("875")
     @Test(description = "Собрано больше изначального количества",
@@ -137,7 +129,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("949")
     @Test(description = "Вес передан ритейлером (весовые товары)",
@@ -177,7 +168,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("1959")
     @Test(description = "Вес передан ритейлером (фасованные товары)",
@@ -217,7 +207,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("950")
     @Test(description = "Вес передан ритейлером (штучные товары)",
@@ -256,7 +245,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("1960")
     @Test(description = "Вес передан ритейлером (упаковки)",
@@ -295,7 +283,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("2042")
     @Test(description = "Передан 0 вес ритейлером (штучные товары)",
@@ -333,7 +320,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("2043")
     @Test(description = "Передан 0 вес ритейлером (упаковки)",
@@ -371,7 +357,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("976")
     @Test(description = "Передано 0 квантов при не 0 весе ритейлером (весовые)",
@@ -411,7 +396,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("1959")
     @Test(description = "Передано 0 квантов при не 0 весе ритейлером (фасованные)",
@@ -451,7 +435,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("1092")
     @Test(description = "Собрано меньше 1 кванта (весовые товары)",
@@ -491,7 +474,6 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @TmsLink("1961")
     @Test(description = "Собрано меньше 1 кванта (фасованные товары)",
