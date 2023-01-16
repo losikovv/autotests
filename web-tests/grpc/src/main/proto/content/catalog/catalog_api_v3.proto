@@ -1,60 +1,190 @@
 syntax = "proto3";
 
-package catalog_api_v3;
+//https://gitlab.sbmt.io/paas/content/catalog/-/blob/master/api/grpc/catalog_api_v3.proto
 
+package catalog_api_v3;
+option go_package = "gitlab.sbmt.io/paas/content/catalog/pkg/server/grpc/catalog_api_v3";
 import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
 
-option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc/catalog";
+
 
 service CatalogAPIV3Service {
-	rpc GetProductList(GetProductListRequestV3) returns (GetProductListResponseV3){
+	/*
+	 * Возвращает листинг товаров
+	 *
+	 * Обязательные параметры:
+	 *    store_id - идентификатор магазина
+	 *    category_permalink - пермалинк категории
+	 *    tenant_id - идентификатор тенанта
+	 *    q - поисковый запрос
+	 *
+	 */
+	rpc GetProductListV3(GetProductListRequest) returns (GetProductListResponse){
 		option (google.api.http) = {
 			get: "/api/v3/products"
 		};
 	}
-	rpc GetProduct(GetProductRequestV3) returns (GetProductResponseV3)
+	rpc GetProductV3(GetProductRequest) returns (GetProductResponse)
 	{
 		option (google.api.http) = {
-			get: "/api/v3/products/{product_id}"
+			get: "/api/v3/stores/{store_id}/products/{permalink}"
+		};
+	}
+
+	/*
+	 * Возвращает листинг товаров/категорий/брендов по поисковому запросу
+	 *
+	 * Обязательные параметры:
+	 *    store_id - идентификатор магазина
+	 *    retailer_id - идентификатор ритейлера
+	 *    text - поисковый запрос
+	 *
+	 * Примеры:
+	 *    grpcurl -emit-defaults -d '{"store_id":"1", "retailer_id":"1", "text":"ко"}' paas-content-catalog.gw-stage.sbmt.io:443 catalog_api_v3.CatalogAPIV3Service.GetSuggestsV3
+	 *    curl --data-urlencode 'retailer_id=1' --data-urlencode 'text=ко'  https://paas-content-catalog.gw-stage.sbmt.io/api/v3/stores/1/suggests
+	 */
+	rpc GetSuggestsV3(GetSuggestsRequest) returns (GetSuggestsResponse)
+	{
+		option (google.api.http) = {
+			get: "/api/v3/stores/{store_id}/suggests"
 		};
 	}
 }
 
-message GetProductListRequestV3 {
-	string sid = 1;
-	string tid = 2;
-	string q = 3;
-	int64 page = 4;
-	int64 per_page = 5 [json_name = "per_page"];
-	map<string, ProductListAttributeFilterV3> filter = 6;
-	string sort = 7;
-	string tenant_id = 8 [json_name = "tenant_id"];
+message GetProductListRequest {
+	string store_id = 1 [json_name = "store_id"];
+	string category_permalink = 2 [json_name = "category_permalink"];
+	string tenant_id = 3 [json_name = "tenant_id"];
+	string q = 4;
+	int64 page = 5;
+	int64 per_page = 6 [json_name = "per_page"];
+	map<string, ProductListAttributeFilter> filter = 7;
+	string sort = 8;
+	string user_id = 9 [json_name = "user_id"];
+	string anonymous_id = 10 [json_name = "anonymous_id"];
+	map<string, bool> private_filters = 11 [json_name = "private_filters"]; // in_stock, with_similar
+	map<string, bool> features = 12; // список фич поискового движка
 }
 
-message GetProductListResponseV3{
-	repeated ProductV3 products = 1;
-	repeated FacetV3 facets = 2;
-	MetaV3 meta = 3;
-	repeated ProductListSortV3 sort = 4;
-	repeated PromoBadgeV3 promo_badges = 5 [json_name = "promo_badges"];
-	RootCategoriesV3 root_categories = 6 [json_name = "root_categories"];
+message GetProductListResponse{
+	repeated Product products = 1;
+	repeated Facet facets = 2;
+	Meta meta = 3;
+	repeated ProductListSort sort = 4;
+	repeated PromoBadge promo_badges = 5 [json_name = "promo_badges"];
+	RootCategories root_categories = 6 [json_name = "root_categories"];
+	map<string, bool> private_filters = 7 [json_name = "private_filters"];
+	repeated SearchFeature applied_features = 8 [json_name = "applied_features"]; // примененные фичи поискового движка
+	string search_query_uuid = 9 [json_name = "search_query_uuid"];
 }
 
-message GetProductRequestV3 {
-	string product_id = 1 [json_name = "product_id"];
-	string tenant_id = 2 [json_name = "tenant_id"];
+message SearchFeature {
+	string name = 1;
+	map<string, string> context = 2;
 }
 
-message GetProductResponseV3{
-	ProductWithPropertiesV3 product = 1;
-	repeated PromoBadgeV3 promo_badges = 2 [json_name = "promo_badges"];
+message GetProductRequest {
+	string permalink = 1 [json_name = "permalink"];
+	string store_id = 2 [json_name = "store_id"];
+	string tenant_id = 3 [json_name = "tenant_id"];
 }
 
-message ProductV3 {
+message GetProductResponse{
+	ProductWithProperties product = 1;
+	repeated PromoBadge promo_badges = 2 [json_name = "promo_badges"];
+	repeated Property product_properties = 3 [json_name = "product_properties"];
+	repeated Breadcrumb product_taxons = 4 [json_name = "product_taxons"];
+}
+
+///////////////////////////////////////////////////
+
+message GetSuggestsRequest {
+	string text = 1 [json_name = "text"];
+	string store_id = 2 [json_name = "store_id"];
+	string tenant_id = 3 [json_name = "tenant_id"];
+	string retailer_id = 4 [json_name = "retailer_id"];
+	string anonymous_id = 10 [json_name = "anonymous_id"];
+	string uuid = 11;
+}
+
+message GetSuggestsResponse{
+	repeated CompletionBlock suggests = 1 [json_name = "suggests"];
+}
+
+enum CompletionType {
+	COMPLETION_TYPE_INVALID = 0;
+	COMPLETION_TYPE_TEXT = 1;
+	COMPLETION_TYPE_CATEGORY = 2;
+	COMPLETION_TYPE_BRAND = 3;
+	COMPLETION_TYPE_PRODUCT = 4;
+}
+
+message CompletionBlock{
+	CompletionType type = 1;
+	oneof value {
+		TextBlock text = 2;
+		CategoryBlock category = 3;
+		BrandBlock brand = 4;
+		ProductBlock product = 5;
+	}
+}
+
+/////////// Text ///////////
+
+message TextCompletion{
+	string text = 1;
+}
+
+message TextBlock{
+	repeated TextCompletion completion = 1;
+}
+
+/////////// Brand ///////////
+
+message BrandCompletion{
+	int32 id = 1; // id из pims
+	string name = 2;
+	google.protobuf.StringValue slug = 3;
+}
+
+message BrandBlock {
+	repeated BrandCompletion completion = 1;
+}
+
+/////////// Category ///////////
+
+message CategoryCompletion{
+	int64 id = 1; // id из pims
+	string name = 2;
+	repeated ImageCompletion images = 3;
+	google.protobuf.StringValue slug = 4;
+	int64 original_id = 5 [json_name = "original_id"]; // id из stf
+}
+
+message CategoryBlock{
+	repeated CategoryCompletion completion = 1;
+}
+
+/////////// Product ///////////
+
+message ImageCompletion {
+	string mini_url = 1 [json_name = "mini_url"];
+	string small_url = 2 [json_name = "small_url"];
+	string product_url = 3 [json_name = "product_url"];
+	string preview_url = 4 [json_name = "preview_url"];
+	string original_url = 5 [json_name = "original_url"];
+}
+
+message RequirementCompletion {
+	string type = 1;
+	string title = 2;
+}
+
+message ProductCompletion{
 	double id = 1;
-	google.protobuf.Int64Value sku = 2;
-	bool active = 3;
+	google.protobuf.Int64Value sku_id = 2 [json_name = "sku_id"];
+	bool active = 3 [deprecated=true]; // use "available"
 	google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];
 	google.protobuf.StringValue name = 5;
 	double price = 6;
@@ -69,14 +199,75 @@ message ProductV3 {
 	double grams_per_unit = 15 [json_name = "grams_per_unit"];
 	double unit_price = 16 [json_name = "unit_price"];
 	double original_unit_price = 17 [json_name = "original_unit_price"];
-	repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];
-	google.protobuf.FloatValue score = 19;
+	google.protobuf.FloatValue score = 18;
+	google.protobuf.DoubleValue comments_count = 19 [json_name = "comments_count"];
 	repeated string labels = 20;
-	repeated ImageV3 images = 21;
-	repeated string requirements = 22;
+	repeated ImageCompletion images = 21;
+	repeated RequirementCompletion requirements = 22;
+	string retailer_id = 23 [json_name = "retailer_id"];
+	repeated string image_urls = 24 [json_name = "image_urls"];
+	google.protobuf.StringValue slug = 25;
+	double legacy_offer_id = 26 [json_name = "legacy_offer_id"];
+	bool available = 27;
+	repeated double promo_badge_ids = 28 [json_name = "promo_badge_ids"];
+	int32 max_select_quantity = 29 [json_name = "max_select_quantity"];
+	VatInfo vat_info = 30 [json_name = "vat_info"];
+	google.protobuf.FloatValue max_per_order = 31 [json_name = "max_per_order"];
 }
 
-message ImageV3 {
+message ProductBlock{
+	repeated ProductCompletion completion = 1;
+}
+
+
+///////////////////////////////////////////////////
+
+message Product {
+	google.protobuf.StringValue id = 1;
+	google.protobuf.StringValue sku = 2;
+	google.protobuf.StringValue retailer_sku = 3 [json_name = "retailer_sku"];
+	bool available = 4;
+	double legacy_offer_id = 5 [json_name = "legacy_offer_id"];
+	google.protobuf.StringValue name = 6;
+	double price = 7;
+	double original_price = 8 [json_name = "original_price"];
+	double discount = 9;
+	google.protobuf.StringValue human_volume = 10 [json_name = "human_volume"];
+	double volume = 11;
+	google.protobuf.StringValue volume_type = 12 [json_name = "volume_type"];
+	double items_per_pack = 13 [json_name = "items_per_pack"];
+	google.protobuf.StringValue discount_ends_at = 14 [json_name = "discount_ends_at"];
+	google.protobuf.StringValue price_type = 15 [json_name = "price_type"];
+	double grams_per_unit = 16 [json_name = "grams_per_unit"];
+	double unit_price = 17 [json_name = "unit_price"];
+	double original_unit_price = 18 [json_name = "original_unit_price"];
+	repeated double promo_badge_ids = 19 [json_name = "promo_badge_ids"];
+	google.protobuf.FloatValue score = 20;
+	repeated string labels = 21;
+	repeated string image_urls = 22 [json_name = "image_urls"];
+	repeated Requirement requirements = 23;
+	google.protobuf.StringValue slug = 24;
+	int32 max_select_quantity = 25 [json_name = "max_select_quantity"];
+	google.protobuf.StringValue canonical_url = 26 [json_name = "canonical_url"];
+	VatInfo vat_info = 27 [json_name = "vat_info"];
+	map<int32, double> bmpl_info = 28 [json_name = "bmpl_info"];
+	google.protobuf.FloatValue max_per_order = 29 [json_name = "max_per_order"];
+}
+
+message Requirement {
+	string type = 1;
+	string title = 2;
+}
+
+message VatInfo {
+	int32 vat_rate = 1 [json_name = "vat_rate"];
+	double price_without_vat = 2 [json_name = "price_without_vat"];
+	double unit_price_without_vat = 3 [json_name = "unit_price_without_vat"];
+	double vat_amount = 4 [json_name = "vat_amount"];
+	double unit_vat_amount = 5 [json_name = "unit_vat_amount"];
+}
+
+message Image {
 	string mini_url = 1 [json_name = "mini_url"];
 	string small_url = 2 [json_name = "small_url"];
 	string product_url = 3 [json_name = "product_url"];
@@ -84,28 +275,28 @@ message ImageV3 {
 	string original_url = 5 [json_name = "original_url"];
 }
 
-message FacetV3 {
+message Facet {
 	string key = 1;
 	string name = 2;
 	string type = 3;
-	repeated FacetOptionV3 options = 4;
+	repeated FacetOption options = 4;
 }
 
-enum FacetTypeV3 {
+enum FacetType {
 	SELECT = 0;
 	MULTI_SELECT = 1;
 	TOGGLE = 2;
 }
 
-message FacetOptionV3 {
+message FacetOption {
 	google.protobuf.StringValue name = 1;
-	int64 value = 2;
-	int64 count = 3;
+	double value = 2;
+	double count = 3;
 	google.protobuf.StringValue permalink = 4;
 	bool active = 5;
 }
 
-message MetaV3 {
+message Meta {
 	int64 current_page = 1 [json_name = "current_page"];
 	google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];
 	google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];
@@ -114,34 +305,46 @@ message MetaV3 {
 	int64 total_count = 6 [json_name = "total_count"];
 }
 
-message RootCategoriesV3 {
+message RootCategories {
+	message Option {
+		string key = 1 [deprecated=true]; // always empty string
+		string permalink = 2;
+		double value = 3;
+		double count = 4;
+		bool active = 5;
+		string name = 6;
+	}
+	string key = 1;
+	string name = 2;
+	string type = 3;
+	repeated Option options = 4;
 }
 
-message ProductListSortV3 {
+message ProductListSort {
 	string key = 1;
 	string name = 2;
 	string order = 3;
 	bool active = 4;
 }
 
-message BrandV3 {
+message Brand {
 	double id = 1;
+	string name = 2;
+	string permalink = 3;
+}
+
+message Manufacturer {
+	double id = 1;
+	string name = 2;
+}
+
+message ManufacturingCountry {
+	string id = 1;
 	string name = 2;
 	google.protobuf.StringValue permalink = 3;
 }
 
-message ManufacturerV3 {
-	double id = 1;
-	string name = 2;
-}
-
-message ManufacturingCountryV3 {
-	double id = 1;
-	string name = 2;
-	google.protobuf.StringValue permalink = 3;
-}
-
-message ProductWithPropertiesV3 {
+message ProductWithProperties {
 	double id = 1;
 	int64 sku = 2;
 	bool active = 3;
@@ -153,99 +356,112 @@ message ProductWithPropertiesV3 {
 	repeated double promo_badge_ids = 9 [json_name = "promo_badge_ids"];
 	google.protobuf.FloatValue score = 10;
 	repeated string labels = 11;
-	repeated ImageV3 images = 12;
-	repeated PropertyV3 properties = 13;
-	string description = 14;
-	ScoreDetailV3 score_details = 15 [json_name = "score_details"];
-	repeated string requirements = 16;
-	repeated string related_products = 17 [json_name = "related_products"];
-	repeated ProductTaxonV3 product_taxons = 18 [json_name = "product_taxons"];
-	BrandV3 brand = 19;
-	ManufacturerV3 manufacturer = 20;
-	ManufacturingCountryV3 manufacturing_country = 21;
-	OfferV3 offer = 22 [json_name = "offer"];
+	repeated Image images = 12;
+	string description = 13;
+	ScoreDetail score_details = 14 [json_name = "score_details"];
+	repeated Requirement requirements = 15;
+	repeated string related_products = 16 [json_name = "related_products"];
+	repeated ProductTaxon product_taxons = 17 [json_name = "product_taxons"];
+	Brand brand = 18;
+	Manufacturer manufacturer = 19;
+	ManufacturingCountry manufacturing_country = 20 [json_name = "manufacturing_country"];
+	Offer offer = 21 [json_name = "offer"];
+	bool is_alcohol = 22 [json_name = "is_alcohol"];
+	string permalink = 23;
+	string canonical_permalink = 24 [json_name = "canonical_permalink"];
+	string license_info = 25 [json_name = "license_info"];
 }
 
-message OfferV3 {
+message Offer {
 	double id = 1;
 	bool active = 2;
 	string uuid = 3;
 	string name = 4;
 	double price = 5;
 	double discount = 6;
-	bool discounted = 7;
-	double instamart_price = 8;
-	double items_per_pack = 9;
-	double product_id = 10;
-	double retailer_id = 11;
-	double store_id = 12;
-	google.protobuf.StringValue retailer_sku = 13 [json_name = "retailer_sku"];
-	google.protobuf.StringValue rsku = 14 [json_name = "rsku"];
+	bool discounted = 7 [json_name = "discounted"];
+	double instamart_price = 8 [json_name = "instamart_price"];
+	double items_per_pack = 9 [json_name = "items_per_pack"];
+	double product_id = 10 [json_name = "product_id"];
+	double retailer_id = 11 [json_name = "retailer_id"];
+	double store_id = 12 [json_name = "store_id"];
+	string retailer_sku = 13 [json_name = "retailer_sku"];
+	string rsku = 14 [json_name = "rsku"];
 	double stock = 15 [json_name = "stock"];
 	double stock_rate = 16 [json_name = "stock_rate"];
 	double max_stock_rate = 17 [json_name = "max_stock_rate"];
-	google.protobuf.StringValue discount_ends_at = 18 [json_name = "discount_ends_at"];
-	google.protobuf.StringValue price_type = 19 [json_name = "price_type"];
+	string discount_ends_at = 18 [json_name = "discount_ends_at"];
+	string price_type = 19 [json_name = "price_type"];
 	double unit_price = 20 [json_name = "unit_price"];
 	double original_unit_price = 21 [json_name = "original_unit_price"];
 	double grams_per_unit = 22 [json_name = "grams_per_unit"];
-	string vat_info = 23 [json_name = "vat_info"];
+	VatInfo vat_info = 24 [json_name = "vat_info"];
+	map<int32, double> bmpl_info = 25 [json_name = "bmpl_info"];
+	google.protobuf.FloatValue max_per_order = 26 [json_name = "max_per_order"];
 }
 
-message PropertyV3 {
-	string name = 1;
-	string presentation = 2;
-	string value = 3;
+message Property {
+	double id = 1;
+	string name = 2;
+	string presentation = 3;
+	string value = 4;
 }
 
-message ProductListAttributeFilterV3{
+message ProductListAttributeFilter{
 	repeated string attribute_values = 1 [json_name = "attribute_values"];
 }
 
-message PromoBadgeV3 {
+message PromoBadge {
 	double id = 1;
 	string type = 2 ;
-	PromoBadgeAttributeV3 attributes = 3;
+	PromoBadgeAttribute attributes = 3;
 }
 
-message PromoBadgeAttributeV3 {
+message PromoBadgeAttribute {
 	string name = 1;
-	string banner_button_text = 2 [json_name = "banner_button_text"];
-	double taxon_id = 3 [json_name = "taxon_id"];
-	AttributeOptionV3 options = 4;
+	AttributeOption options = 2;
 }
 
-message AttributeOptionV3 {
-	ActiveV3 active = 1;
-	InactiveV3 inactive = 2;
+message AttributeOption {
+	Active active = 1;
+	Inactive inactive = 2;
 }
 
-message ActiveV3 {
+message Active {
 	string title = 1 ;
 	string title_short = 2 [json_name = "title_short"];
 	string url = 3;
-	string deeplink = 4;
+	string tooltip = 4;
 	string button_text = 5 [json_name = "button_text"];
-	string header = 6;
-	string text = 7;
+	string image_url = 6 [json_name = "image_url"]; // ссылка на картинку бейджа
+	bool position_top = 7 [json_name = "position_top"]; // опция вывода бейджа в верхней части товара
 }
 
-message InactiveV3 {
+message Inactive {
 	string title = 1 ;
 	string title_short = 2 [json_name = "title_short"];
 	string url = 3;
+	string tooltip = 4;
 	string button_text = 5 [json_name = "button_text"];
-	string header = 6;
-	string text = 7;
+	string image_url = 6 [json_name = "image_url"]; // ссылка на картинку бейджа
+	bool position_top = 7 [json_name = "position_top"]; // опция вывода бейджа в верхней части товара
 }
 
-message ScoreDetailV3 {
+message Breadcrumb {
+	double id = 1;
+	string name = 2;
+	double position = 3;
+	string permalink = 4;
+	bool is_leaf = 5 [json_name = "is_leaf"];
+}
+
+message ScoreDetail {
 	google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];
 	google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];
 	google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];
 }
 
-message ProductTaxonV3 {
+message ProductTaxon {
 	double id = 1;
 	string name = 2;
 	google.protobuf.StringValue permalink = 3;
@@ -254,12 +470,12 @@ message ProductTaxonV3 {
 	bool is_alcohol = 6;
 }
 
-message IconV3 {
+message Icon {
 	string  mini_url = 1 [json_name = "mini_url"];
 	string  normal_url = 2 [json_name = "normal_url"];
 }
 
-message ProtoPersonV3 {
+message ProtoPerson {
 	google.protobuf.StringValue firstName = 1;
 	google.protobuf.StringValue lastName = 2;
 	google.protobuf.StringValue address1 = 3;

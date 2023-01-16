@@ -659,29 +659,53 @@ public final class Catalog {
     catalog.Catalog.Sort getSort();
 
     /**
-     * <code>repeated string except_attribute_keys = 10;</code>
+     * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
      * @return A list containing the exceptAttributeKeys.
      */
-    java.util.List<java.lang.String>
+    @java.lang.Deprecated java.util.List<java.lang.String>
         getExceptAttributeKeysList();
     /**
-     * <code>repeated string except_attribute_keys = 10;</code>
+     * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
      * @return The count of exceptAttributeKeys.
      */
-    int getExceptAttributeKeysCount();
+    @java.lang.Deprecated int getExceptAttributeKeysCount();
     /**
-     * <code>repeated string except_attribute_keys = 10;</code>
+     * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
      * @param index The index of the element to return.
      * @return The exceptAttributeKeys at the given index.
      */
-    java.lang.String getExceptAttributeKeys(int index);
+    @java.lang.Deprecated java.lang.String getExceptAttributeKeys(int index);
     /**
-     * <code>repeated string except_attribute_keys = 10;</code>
+     * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
      * @param index The index of the value to return.
      * @return The bytes of the exceptAttributeKeys at the given index.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getExceptAttributeKeysBytes(int index);
+
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    java.util.List<catalog.Catalog.AttributeFilter> 
+        getExceptAttributesList();
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    catalog.Catalog.AttributeFilter getExceptAttributes(int index);
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    int getExceptAttributesCount();
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    java.util.List<? extends catalog.Catalog.AttributeFilterOrBuilder> 
+        getExceptAttributesOrBuilderList();
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    catalog.Catalog.AttributeFilterOrBuilder getExceptAttributesOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code catalog.GetProductsRequest}
@@ -702,6 +726,7 @@ public final class Catalog {
       attributeFilters_ = java.util.Collections.emptyList();
       sort_ = 0;
       exceptAttributeKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      exceptAttributes_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -805,6 +830,15 @@ public final class Catalog {
               exceptAttributeKeys_.add(s);
               break;
             }
+            case 90: {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                exceptAttributes_ = new java.util.ArrayList<catalog.Catalog.AttributeFilter>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              exceptAttributes_.add(
+                  input.readMessage(catalog.Catalog.AttributeFilter.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -825,6 +859,9 @@ public final class Catalog {
         }
         if (((mutable_bitField0_ & 0x00000002) != 0)) {
           exceptAttributeKeys_ = exceptAttributeKeys_.getUnmodifiableView();
+        }
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
+          exceptAttributes_ = java.util.Collections.unmodifiableList(exceptAttributes_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1078,36 +1115,76 @@ public final class Catalog {
     public static final int EXCEPT_ATTRIBUTE_KEYS_FIELD_NUMBER = 10;
     private com.google.protobuf.LazyStringList exceptAttributeKeys_;
     /**
-     * <code>repeated string except_attribute_keys = 10;</code>
+     * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
      * @return A list containing the exceptAttributeKeys.
      */
-    public com.google.protobuf.ProtocolStringList
+    @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
         getExceptAttributeKeysList() {
       return exceptAttributeKeys_;
     }
     /**
-     * <code>repeated string except_attribute_keys = 10;</code>
+     * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
      * @return The count of exceptAttributeKeys.
      */
-    public int getExceptAttributeKeysCount() {
+    @java.lang.Deprecated public int getExceptAttributeKeysCount() {
       return exceptAttributeKeys_.size();
     }
     /**
-     * <code>repeated string except_attribute_keys = 10;</code>
+     * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
      * @param index The index of the element to return.
      * @return The exceptAttributeKeys at the given index.
      */
-    public java.lang.String getExceptAttributeKeys(int index) {
+    @java.lang.Deprecated public java.lang.String getExceptAttributeKeys(int index) {
       return exceptAttributeKeys_.get(index);
     }
     /**
-     * <code>repeated string except_attribute_keys = 10;</code>
+     * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
      * @param index The index of the value to return.
      * @return The bytes of the exceptAttributeKeys at the given index.
      */
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getExceptAttributeKeysBytes(int index) {
       return exceptAttributeKeys_.getByteString(index);
+    }
+
+    public static final int EXCEPT_ATTRIBUTES_FIELD_NUMBER = 11;
+    private java.util.List<catalog.Catalog.AttributeFilter> exceptAttributes_;
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    @java.lang.Override
+    public java.util.List<catalog.Catalog.AttributeFilter> getExceptAttributesList() {
+      return exceptAttributes_;
+    }
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends catalog.Catalog.AttributeFilterOrBuilder> 
+        getExceptAttributesOrBuilderList() {
+      return exceptAttributes_;
+    }
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    @java.lang.Override
+    public int getExceptAttributesCount() {
+      return exceptAttributes_.size();
+    }
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    @java.lang.Override
+    public catalog.Catalog.AttributeFilter getExceptAttributes(int index) {
+      return exceptAttributes_.get(index);
+    }
+    /**
+     * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+     */
+    @java.lang.Override
+    public catalog.Catalog.AttributeFilterOrBuilder getExceptAttributesOrBuilder(
+        int index) {
+      return exceptAttributes_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1153,6 +1230,9 @@ public final class Catalog {
       }
       for (int i = 0; i < exceptAttributeKeys_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 10, exceptAttributeKeys_.getRaw(i));
+      }
+      for (int i = 0; i < exceptAttributes_.size(); i++) {
+        output.writeMessage(11, exceptAttributes_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -1204,6 +1284,10 @@ public final class Catalog {
         size += dataSize;
         size += 1 * getExceptAttributeKeysList().size();
       }
+      for (int i = 0; i < exceptAttributes_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(11, exceptAttributes_.get(i));
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1241,6 +1325,8 @@ public final class Catalog {
       if (sort_ != other.sort_) return false;
       if (!getExceptAttributeKeysList()
           .equals(other.getExceptAttributeKeysList())) return false;
+      if (!getExceptAttributesList()
+          .equals(other.getExceptAttributesList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1280,6 +1366,10 @@ public final class Catalog {
       if (getExceptAttributeKeysCount() > 0) {
         hash = (37 * hash) + EXCEPT_ATTRIBUTE_KEYS_FIELD_NUMBER;
         hash = (53 * hash) + getExceptAttributeKeysList().hashCode();
+      }
+      if (getExceptAttributesCount() > 0) {
+        hash = (37 * hash) + EXCEPT_ATTRIBUTES_FIELD_NUMBER;
+        hash = (53 * hash) + getExceptAttributesList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1410,6 +1500,7 @@ public final class Catalog {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getAttributeFiltersFieldBuilder();
+          getExceptAttributesFieldBuilder();
         }
       }
       @java.lang.Override
@@ -1443,6 +1534,12 @@ public final class Catalog {
 
         exceptAttributeKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000002);
+        if (exceptAttributesBuilder_ == null) {
+          exceptAttributes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          exceptAttributesBuilder_.clear();
+        }
         return this;
       }
 
@@ -1496,6 +1593,15 @@ public final class Catalog {
           bitField0_ = (bitField0_ & ~0x00000002);
         }
         result.exceptAttributeKeys_ = exceptAttributeKeys_;
+        if (exceptAttributesBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0)) {
+            exceptAttributes_ = java.util.Collections.unmodifiableList(exceptAttributes_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.exceptAttributes_ = exceptAttributes_;
+        } else {
+          result.exceptAttributes_ = exceptAttributesBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -1606,6 +1712,32 @@ public final class Catalog {
             exceptAttributeKeys_.addAll(other.exceptAttributeKeys_);
           }
           onChanged();
+        }
+        if (exceptAttributesBuilder_ == null) {
+          if (!other.exceptAttributes_.isEmpty()) {
+            if (exceptAttributes_.isEmpty()) {
+              exceptAttributes_ = other.exceptAttributes_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureExceptAttributesIsMutable();
+              exceptAttributes_.addAll(other.exceptAttributes_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.exceptAttributes_.isEmpty()) {
+            if (exceptAttributesBuilder_.isEmpty()) {
+              exceptAttributesBuilder_.dispose();
+              exceptAttributesBuilder_ = null;
+              exceptAttributes_ = other.exceptAttributes_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              exceptAttributesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getExceptAttributesFieldBuilder() : null;
+            } else {
+              exceptAttributesBuilder_.addAllMessages(other.exceptAttributes_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2379,44 +2511,44 @@ public final class Catalog {
          }
       }
       /**
-       * <code>repeated string except_attribute_keys = 10;</code>
+       * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
        * @return A list containing the exceptAttributeKeys.
        */
-      public com.google.protobuf.ProtocolStringList
+      @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
           getExceptAttributeKeysList() {
         return exceptAttributeKeys_.getUnmodifiableView();
       }
       /**
-       * <code>repeated string except_attribute_keys = 10;</code>
+       * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
        * @return The count of exceptAttributeKeys.
        */
-      public int getExceptAttributeKeysCount() {
+      @java.lang.Deprecated public int getExceptAttributeKeysCount() {
         return exceptAttributeKeys_.size();
       }
       /**
-       * <code>repeated string except_attribute_keys = 10;</code>
+       * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
        * @param index The index of the element to return.
        * @return The exceptAttributeKeys at the given index.
        */
-      public java.lang.String getExceptAttributeKeys(int index) {
+      @java.lang.Deprecated public java.lang.String getExceptAttributeKeys(int index) {
         return exceptAttributeKeys_.get(index);
       }
       /**
-       * <code>repeated string except_attribute_keys = 10;</code>
+       * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
        * @param index The index of the value to return.
        * @return The bytes of the exceptAttributeKeys at the given index.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getExceptAttributeKeysBytes(int index) {
         return exceptAttributeKeys_.getByteString(index);
       }
       /**
-       * <code>repeated string except_attribute_keys = 10;</code>
+       * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
        * @param index The index to set the value at.
        * @param value The exceptAttributeKeys to set.
        * @return This builder for chaining.
        */
-      public Builder setExceptAttributeKeys(
+      @java.lang.Deprecated public Builder setExceptAttributeKeys(
           int index, java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
@@ -2427,11 +2559,11 @@ public final class Catalog {
         return this;
       }
       /**
-       * <code>repeated string except_attribute_keys = 10;</code>
+       * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
        * @param value The exceptAttributeKeys to add.
        * @return This builder for chaining.
        */
-      public Builder addExceptAttributeKeys(
+      @java.lang.Deprecated public Builder addExceptAttributeKeys(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
@@ -2442,11 +2574,11 @@ public final class Catalog {
         return this;
       }
       /**
-       * <code>repeated string except_attribute_keys = 10;</code>
+       * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
        * @param values The exceptAttributeKeys to add.
        * @return This builder for chaining.
        */
-      public Builder addAllExceptAttributeKeys(
+      @java.lang.Deprecated public Builder addAllExceptAttributeKeys(
           java.lang.Iterable<java.lang.String> values) {
         ensureExceptAttributeKeysIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2455,21 +2587,21 @@ public final class Catalog {
         return this;
       }
       /**
-       * <code>repeated string except_attribute_keys = 10;</code>
+       * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
        * @return This builder for chaining.
        */
-      public Builder clearExceptAttributeKeys() {
+      @java.lang.Deprecated public Builder clearExceptAttributeKeys() {
         exceptAttributeKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string except_attribute_keys = 10;</code>
+       * <code>repeated string except_attribute_keys = 10 [deprecated = true];</code>
        * @param value The bytes of the exceptAttributeKeys to add.
        * @return This builder for chaining.
        */
-      public Builder addExceptAttributeKeysBytes(
+      @java.lang.Deprecated public Builder addExceptAttributeKeysBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
@@ -2479,6 +2611,246 @@ public final class Catalog {
         exceptAttributeKeys_.add(value);
         onChanged();
         return this;
+      }
+
+      private java.util.List<catalog.Catalog.AttributeFilter> exceptAttributes_ =
+        java.util.Collections.emptyList();
+      private void ensureExceptAttributesIsMutable() {
+        if (!((bitField0_ & 0x00000004) != 0)) {
+          exceptAttributes_ = new java.util.ArrayList<catalog.Catalog.AttributeFilter>(exceptAttributes_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          catalog.Catalog.AttributeFilter, catalog.Catalog.AttributeFilter.Builder, catalog.Catalog.AttributeFilterOrBuilder> exceptAttributesBuilder_;
+
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public java.util.List<catalog.Catalog.AttributeFilter> getExceptAttributesList() {
+        if (exceptAttributesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(exceptAttributes_);
+        } else {
+          return exceptAttributesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public int getExceptAttributesCount() {
+        if (exceptAttributesBuilder_ == null) {
+          return exceptAttributes_.size();
+        } else {
+          return exceptAttributesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public catalog.Catalog.AttributeFilter getExceptAttributes(int index) {
+        if (exceptAttributesBuilder_ == null) {
+          return exceptAttributes_.get(index);
+        } else {
+          return exceptAttributesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public Builder setExceptAttributes(
+          int index, catalog.Catalog.AttributeFilter value) {
+        if (exceptAttributesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureExceptAttributesIsMutable();
+          exceptAttributes_.set(index, value);
+          onChanged();
+        } else {
+          exceptAttributesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public Builder setExceptAttributes(
+          int index, catalog.Catalog.AttributeFilter.Builder builderForValue) {
+        if (exceptAttributesBuilder_ == null) {
+          ensureExceptAttributesIsMutable();
+          exceptAttributes_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          exceptAttributesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public Builder addExceptAttributes(catalog.Catalog.AttributeFilter value) {
+        if (exceptAttributesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureExceptAttributesIsMutable();
+          exceptAttributes_.add(value);
+          onChanged();
+        } else {
+          exceptAttributesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public Builder addExceptAttributes(
+          int index, catalog.Catalog.AttributeFilter value) {
+        if (exceptAttributesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureExceptAttributesIsMutable();
+          exceptAttributes_.add(index, value);
+          onChanged();
+        } else {
+          exceptAttributesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public Builder addExceptAttributes(
+          catalog.Catalog.AttributeFilter.Builder builderForValue) {
+        if (exceptAttributesBuilder_ == null) {
+          ensureExceptAttributesIsMutable();
+          exceptAttributes_.add(builderForValue.build());
+          onChanged();
+        } else {
+          exceptAttributesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public Builder addExceptAttributes(
+          int index, catalog.Catalog.AttributeFilter.Builder builderForValue) {
+        if (exceptAttributesBuilder_ == null) {
+          ensureExceptAttributesIsMutable();
+          exceptAttributes_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          exceptAttributesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public Builder addAllExceptAttributes(
+          java.lang.Iterable<? extends catalog.Catalog.AttributeFilter> values) {
+        if (exceptAttributesBuilder_ == null) {
+          ensureExceptAttributesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, exceptAttributes_);
+          onChanged();
+        } else {
+          exceptAttributesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public Builder clearExceptAttributes() {
+        if (exceptAttributesBuilder_ == null) {
+          exceptAttributes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          exceptAttributesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public Builder removeExceptAttributes(int index) {
+        if (exceptAttributesBuilder_ == null) {
+          ensureExceptAttributesIsMutable();
+          exceptAttributes_.remove(index);
+          onChanged();
+        } else {
+          exceptAttributesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public catalog.Catalog.AttributeFilter.Builder getExceptAttributesBuilder(
+          int index) {
+        return getExceptAttributesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public catalog.Catalog.AttributeFilterOrBuilder getExceptAttributesOrBuilder(
+          int index) {
+        if (exceptAttributesBuilder_ == null) {
+          return exceptAttributes_.get(index);  } else {
+          return exceptAttributesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public java.util.List<? extends catalog.Catalog.AttributeFilterOrBuilder> 
+           getExceptAttributesOrBuilderList() {
+        if (exceptAttributesBuilder_ != null) {
+          return exceptAttributesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(exceptAttributes_);
+        }
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public catalog.Catalog.AttributeFilter.Builder addExceptAttributesBuilder() {
+        return getExceptAttributesFieldBuilder().addBuilder(
+            catalog.Catalog.AttributeFilter.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public catalog.Catalog.AttributeFilter.Builder addExceptAttributesBuilder(
+          int index) {
+        return getExceptAttributesFieldBuilder().addBuilder(
+            index, catalog.Catalog.AttributeFilter.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .catalog.AttributeFilter except_attributes = 11;</code>
+       */
+      public java.util.List<catalog.Catalog.AttributeFilter.Builder> 
+           getExceptAttributesBuilderList() {
+        return getExceptAttributesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          catalog.Catalog.AttributeFilter, catalog.Catalog.AttributeFilter.Builder, catalog.Catalog.AttributeFilterOrBuilder> 
+          getExceptAttributesFieldBuilder() {
+        if (exceptAttributesBuilder_ == null) {
+          exceptAttributesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              catalog.Catalog.AttributeFilter, catalog.Catalog.AttributeFilter.Builder, catalog.Catalog.AttributeFilterOrBuilder>(
+                  exceptAttributes_,
+                  ((bitField0_ & 0x00000004) != 0),
+                  getParentForChildren(),
+                  isClean());
+          exceptAttributes_ = null;
+        }
+        return exceptAttributesBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -17292,75 +17664,82 @@ public final class Catalog {
   static {
     java.lang.String[] descriptorData = {
       "\n\035content/catalog/catalog.proto\022\007catalog" +
-      "\"\251\002\n\022GetProductsRequest\022\020\n\010store_id\030\001 \001(" +
-      "\t\022\021\n\ttenant_id\030\002 \001(\t\022\023\n\013category_id\030\003 \001(" +
-      "\t\0223\n\021attribute_filters\030\004 \003(\0132\030.catalog.A" +
-      "ttributeFilter\0226\n\022display_attributes\030\005 \001" +
-      "(\0132\032.catalog.DisplayAttributes\022\r\n\005limit\030" +
-      "\006 \001(\003\022\016\n\006offset\030\007 \001(\003\022\021\n\tavailable\030\010 \001(\010" +
-      "\022\033\n\004sort\030\t \001(\0162\r.catalog.Sort\022\035\n\025except_" +
-      "attribute_keys\030\n \003(\t\"\206\001\n\023GetProductsResp" +
-      "onse\022+\n\010products\030\001 \003(\0132\031.catalog.Product" +
-      "WithOffer\022\025\n\rproduct_count\030\002 \001(\003\022+\n\rfilt" +
-      "er_facets\030\003 \003(\0132\024.catalog.FilterFacet\"B\n" +
-      "\017AttributeFilter\022\025\n\rattribute_key\030\001 \001(\t\022" +
-      "\030\n\020attribute_values\030\002 \003(\t\"0\n\021DisplayAttr" +
-      "ibutes\022\014\n\004keys\030\001 \003(\t\022\r\n\005flags\030\002 \003(\t\"c\n\013F" +
-      "ilterFacet\022\025\n\rattribute_key\030\001 \001(\t\022=\n\020att" +
-      "ribute_values\030\002 \003(\0132#.catalog.FilterFace" +
-      "tAttributeValues\"B\n\032FilterFacetAttribute" +
-      "Values\022\r\n\005value\030\001 \001(\t\022\025\n\rproduct_count\030\002" +
-      " \001(\003\"\372\001\n\020ProductWithOffer\022\013\n\003sku\030\001 \001(\003\022\014" +
-      "\n\004name\030\002 \001(\t\022%\n\ncategories\030\003 \003(\0132\021.catal" +
-      "og.Category\022&\n\nattributes\030\004 \003(\0132\022.catalo" +
-      "g.Attribute\022\035\n\005stock\030\005 \001(\0132\016.catalog.Sto" +
-      "ck\022\035\n\005price\030\006 \001(\0132\016.catalog.Price\022\035\n\005off" +
-      "er\030\007 \001(\0132\016.catalog.Offer\022\037\n\006status\030\010 \001(\016" +
-      "2\017.catalog.Status\"]\n\004Data\022\013\n\003key\030\001 \001(\t\022 " +
-      "\n\004type\030\002 \001(\0162\022.catalog.ValueType\022\026\n\016is_m" +
-      "ulti_value\030\003 \001(\010\022\016\n\006values\030\004 \003(\t\"$\n\010Cate" +
-      "gory\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\"\244\002\n\tAttri" +
-      "bute\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\026\n\016dicti" +
-      "onary_key\030\003 \001(\t\022 \n\004type\030\004 \001(\0162\022.catalog." +
-      "ValueType\022\026\n\016is_multi_value\030\005 \001(\010\022,\n\005fla" +
-      "gs\030\006 \003(\0132\035.catalog.Attribute.FlagsEntry\022" +
-      "%\n\016attribute_data\030\007 \003(\0132\r.catalog.Data\022\'" +
-      "\n\006values\030\010 \003(\0132\027.catalog.AttributeValue\032" +
-      ",\n\nFlagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(" +
-      "\010:\0028\001\"B\n\016AttributeValue\022\r\n\005value\030\001 \001(\t\022!" +
-      "\n\nvalue_data\030\002 \003(\0132\r.catalog.Data\"Z\n\005Sto" +
-      "ck\022\r\n\005stock\030\001 \001(\001\022!\n\nstock_data\030\002 \003(\0132\r." +
-      "catalog.Data\022\037\n\006status\030\003 \001(\0162\017.catalog.S" +
-      "tatus\"Z\n\005Price\022\r\n\005price\030\001 \001(\001\022!\n\nprice_d" +
-      "ata\030\002 \003(\0132\r.catalog.Data\022\037\n\006status\030\003 \001(\016" +
-      "2\017.catalog.Status\"l\n\005Offer\022\037\n\006pricer\030\001 \001" +
-      "(\0162\017.catalog.Pricer\022!\n\noffer_data\030\002 \003(\0132" +
-      "\r.catalog.Data\022\037\n\006status\030\003 \001(\0162\017.catalog" +
-      ".Status\"\007\n\005Empty*G\n\004Sort\022\016\n\nPOPULARITY\020\000" +
-      "\022\r\n\tPRICE_ASC\020\001\022\016\n\nPRICE_DESC\020\002\022\020\n\014WEIGH" +
-      "T_PRICE\020\003*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n\006ENAB" +
-      "LE\020\001*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007INTEGER" +
-      "\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIME\020\004\022\t" +
-      "\n\005IMAGE\020\005*U\n\006Pricer\022\014\n\010PER_ITEM\020\000\022\025\n\021PER" +
-      "_ITEMS_PACKAGE\020\001\022\026\n\022PER_WEIGHT_PACKAGE\020\002" +
-      "\022\016\n\nPER_WEIGHT\020\0032\226\001\n\016CatalogService\022H\n\013G" +
-      "etProducts\022\033.catalog.GetProductsRequest\032" +
-      "\034.catalog.GetProductsResponse\022:\n\030FlushCa" +
-      "tegoryFacetsCache\022\016.catalog.Empty\032\016.cata" +
-      "log.EmptyBEZCgitlab.sbermarket.tech/paas" +
-      "/content/catalog/pkg/server/grpc/catalog" +
-      "b\006proto3"
+      "\032\034google/api/annotations.proto\032\036google/p" +
+      "rotobuf/wrappers.proto\"\342\002\n\022GetProductsRe" +
+      "quest\022\020\n\010store_id\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001" +
+      "(\t\022\023\n\013category_id\030\003 \001(\t\0223\n\021attribute_fil" +
+      "ters\030\004 \003(\0132\030.catalog.AttributeFilter\0226\n\022" +
+      "display_attributes\030\005 \001(\0132\032.catalog.Displ" +
+      "ayAttributes\022\r\n\005limit\030\006 \001(\003\022\016\n\006offset\030\007 " +
+      "\001(\003\022\021\n\tavailable\030\010 \001(\010\022\033\n\004sort\030\t \001(\0162\r.c" +
+      "atalog.Sort\022!\n\025except_attribute_keys\030\n \003" +
+      "(\tB\002\030\001\0223\n\021except_attributes\030\013 \003(\0132\030.cata" +
+      "log.AttributeFilter\"\206\001\n\023GetProductsRespo" +
+      "nse\022+\n\010products\030\001 \003(\0132\031.catalog.ProductW" +
+      "ithOffer\022\025\n\rproduct_count\030\002 \001(\003\022+\n\rfilte" +
+      "r_facets\030\003 \003(\0132\024.catalog.FilterFacet\"B\n\017" +
+      "AttributeFilter\022\025\n\rattribute_key\030\001 \001(\t\022\030" +
+      "\n\020attribute_values\030\002 \003(\t\"0\n\021DisplayAttri" +
+      "butes\022\014\n\004keys\030\001 \003(\t\022\r\n\005flags\030\002 \003(\t\"c\n\013Fi" +
+      "lterFacet\022\025\n\rattribute_key\030\001 \001(\t\022=\n\020attr" +
+      "ibute_values\030\002 \003(\0132#.catalog.FilterFacet" +
+      "AttributeValues\"B\n\032FilterFacetAttributeV" +
+      "alues\022\r\n\005value\030\001 \001(\t\022\025\n\rproduct_count\030\002 " +
+      "\001(\003\"\372\001\n\020ProductWithOffer\022\013\n\003sku\030\001 \001(\003\022\014\n" +
+      "\004name\030\002 \001(\t\022%\n\ncategories\030\003 \003(\0132\021.catalo" +
+      "g.Category\022&\n\nattributes\030\004 \003(\0132\022.catalog" +
+      ".Attribute\022\035\n\005stock\030\005 \001(\0132\016.catalog.Stoc" +
+      "k\022\035\n\005price\030\006 \001(\0132\016.catalog.Price\022\035\n\005offe" +
+      "r\030\007 \001(\0132\016.catalog.Offer\022\037\n\006status\030\010 \001(\0162" +
+      "\017.catalog.Status\"]\n\004Data\022\013\n\003key\030\001 \001(\t\022 \n" +
+      "\004type\030\002 \001(\0162\022.catalog.ValueType\022\026\n\016is_mu" +
+      "lti_value\030\003 \001(\010\022\016\n\006values\030\004 \003(\t\"$\n\010Categ" +
+      "ory\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\"\244\002\n\tAttrib" +
+      "ute\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\026\n\016dictio" +
+      "nary_key\030\003 \001(\t\022 \n\004type\030\004 \001(\0162\022.catalog.V" +
+      "alueType\022\026\n\016is_multi_value\030\005 \001(\010\022,\n\005flag" +
+      "s\030\006 \003(\0132\035.catalog.Attribute.FlagsEntry\022%" +
+      "\n\016attribute_data\030\007 \003(\0132\r.catalog.Data\022\'\n" +
+      "\006values\030\010 \003(\0132\027.catalog.AttributeValue\032," +
+      "\n\nFlagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\010" +
+      ":\0028\001\"B\n\016AttributeValue\022\r\n\005value\030\001 \001(\t\022!\n" +
+      "\nvalue_data\030\002 \003(\0132\r.catalog.Data\"Z\n\005Stoc" +
+      "k\022\r\n\005stock\030\001 \001(\001\022!\n\nstock_data\030\002 \003(\0132\r.c" +
+      "atalog.Data\022\037\n\006status\030\003 \001(\0162\017.catalog.St" +
+      "atus\"Z\n\005Price\022\r\n\005price\030\001 \001(\001\022!\n\nprice_da" +
+      "ta\030\002 \003(\0132\r.catalog.Data\022\037\n\006status\030\003 \001(\0162" +
+      "\017.catalog.Status\"l\n\005Offer\022\037\n\006pricer\030\001 \001(" +
+      "\0162\017.catalog.Pricer\022!\n\noffer_data\030\002 \003(\0132\r" +
+      ".catalog.Data\022\037\n\006status\030\003 \001(\0162\017.catalog." +
+      "Status\"\007\n\005Empty*G\n\004Sort\022\016\n\nPOPULARITY\020\000\022" +
+      "\r\n\tPRICE_ASC\020\001\022\016\n\nPRICE_DESC\020\002\022\020\n\014WEIGHT" +
+      "_PRICE\020\003*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n\006ENABL" +
+      "E\020\001*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007INTEGER\020" +
+      "\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIME\020\004\022\t\n" +
+      "\005IMAGE\020\005*U\n\006Pricer\022\014\n\010PER_ITEM\020\000\022\025\n\021PER_" +
+      "ITEMS_PACKAGE\020\001\022\026\n\022PER_WEIGHT_PACKAGE\020\002\022" +
+      "\016\n\nPER_WEIGHT\020\0032\213\002\n\016CatalogService\022|\n\013Ge" +
+      "tProducts\022\033.catalog.GetProductsRequest\032\034" +
+      ".catalog.GetProductsResponse\"2\202\323\344\223\002,\"\'/a" +
+      "pi/catalog.CatalogService/GetProducts:\001*" +
+      "\022{\n\030FlushCategoryFacetsCache\022\016.catalog.E" +
+      "mpty\032\016.catalog.Empty\"?\202\323\344\223\0029\"4/api/catal" +
+      "og.CatalogService/FlushCategoryFacetsCac" +
+      "he:\001*B=Z;gitlab.sbmt.io/paas/content/cat" +
+      "alog/pkg/server/grpc/catalogb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.api.AnnotationsProto.getDescriptor(),
+          com.google.protobuf.WrappersProto.getDescriptor(),
         });
     internal_static_catalog_GetProductsRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_catalog_GetProductsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_GetProductsRequest_descriptor,
-        new java.lang.String[] { "StoreId", "TenantId", "CategoryId", "AttributeFilters", "DisplayAttributes", "Limit", "Offset", "Available", "Sort", "ExceptAttributeKeys", });
+        new java.lang.String[] { "StoreId", "TenantId", "CategoryId", "AttributeFilters", "DisplayAttributes", "Limit", "Offset", "Available", "Sort", "ExceptAttributeKeys", "ExceptAttributes", });
     internal_static_catalog_GetProductsResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_catalog_GetProductsResponse_fieldAccessorTable = new
@@ -17451,6 +17830,13 @@ public final class Catalog {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_Empty_descriptor,
         new java.lang.String[] { });
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.api.AnnotationsProto.http);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
+    com.google.api.AnnotationsProto.getDescriptor();
+    com.google.protobuf.WrappersProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

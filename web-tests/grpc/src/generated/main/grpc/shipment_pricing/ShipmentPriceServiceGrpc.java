@@ -108,6 +108,68 @@ public final class ShipmentPriceServiceGrpc {
     return getGetShipmentParamsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest,
+      shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse> getSetDeductionEmploymentTypeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetDeductionEmploymentType",
+      requestType = shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest.class,
+      responseType = shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest,
+      shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse> getSetDeductionEmploymentTypeMethod() {
+    io.grpc.MethodDescriptor<shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest, shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse> getSetDeductionEmploymentTypeMethod;
+    if ((getSetDeductionEmploymentTypeMethod = ShipmentPriceServiceGrpc.getSetDeductionEmploymentTypeMethod) == null) {
+      synchronized (ShipmentPriceServiceGrpc.class) {
+        if ((getSetDeductionEmploymentTypeMethod = ShipmentPriceServiceGrpc.getSetDeductionEmploymentTypeMethod) == null) {
+          ShipmentPriceServiceGrpc.getSetDeductionEmploymentTypeMethod = getSetDeductionEmploymentTypeMethod =
+              io.grpc.MethodDescriptor.<shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest, shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetDeductionEmploymentType"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShipmentPriceServiceMethodDescriptorSupplier("SetDeductionEmploymentType"))
+              .build();
+        }
+      }
+    }
+    return getSetDeductionEmploymentTypeMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shipment_pricing.OrderPricing.GetShipmentPriceRequestv2,
+      shipment_pricing.OrderPricing.GetShipmentPriceResponsev2> getGetShipmentPriceV2Method;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetShipmentPriceV2",
+      requestType = shipment_pricing.OrderPricing.GetShipmentPriceRequestv2.class,
+      responseType = shipment_pricing.OrderPricing.GetShipmentPriceResponsev2.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shipment_pricing.OrderPricing.GetShipmentPriceRequestv2,
+      shipment_pricing.OrderPricing.GetShipmentPriceResponsev2> getGetShipmentPriceV2Method() {
+    io.grpc.MethodDescriptor<shipment_pricing.OrderPricing.GetShipmentPriceRequestv2, shipment_pricing.OrderPricing.GetShipmentPriceResponsev2> getGetShipmentPriceV2Method;
+    if ((getGetShipmentPriceV2Method = ShipmentPriceServiceGrpc.getGetShipmentPriceV2Method) == null) {
+      synchronized (ShipmentPriceServiceGrpc.class) {
+        if ((getGetShipmentPriceV2Method = ShipmentPriceServiceGrpc.getGetShipmentPriceV2Method) == null) {
+          ShipmentPriceServiceGrpc.getGetShipmentPriceV2Method = getGetShipmentPriceV2Method =
+              io.grpc.MethodDescriptor.<shipment_pricing.OrderPricing.GetShipmentPriceRequestv2, shipment_pricing.OrderPricing.GetShipmentPriceResponsev2>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetShipmentPriceV2"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shipment_pricing.OrderPricing.GetShipmentPriceRequestv2.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shipment_pricing.OrderPricing.GetShipmentPriceResponsev2.getDefaultInstance()))
+              .setSchemaDescriptor(new ShipmentPriceServiceMethodDescriptorSupplier("GetShipmentPriceV2"))
+              .build();
+        }
+      }
+    }
+    return getGetShipmentPriceV2Method;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -177,6 +239,20 @@ public final class ShipmentPriceServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetShipmentParamsMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void setDeductionEmploymentType(shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest request,
+        io.grpc.stub.StreamObserver<shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetDeductionEmploymentTypeMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getShipmentPriceV2(shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 request,
+        io.grpc.stub.StreamObserver<shipment_pricing.OrderPricing.GetShipmentPriceResponsev2> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetShipmentPriceV2Method(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -200,6 +276,20 @@ public final class ShipmentPriceServiceGrpc {
                 shipment_pricing.OrderPricing.GetShipmentParamsRequest,
                 shipment_pricing.OrderPricing.GetShipmentParamsResponse>(
                   this, METHODID_GET_SHIPMENT_PARAMS)))
+          .addMethod(
+            getSetDeductionEmploymentTypeMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest,
+                shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse>(
+                  this, METHODID_SET_DEDUCTION_EMPLOYMENT_TYPE)))
+          .addMethod(
+            getGetShipmentPriceV2Method(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shipment_pricing.OrderPricing.GetShipmentPriceRequestv2,
+                shipment_pricing.OrderPricing.GetShipmentPriceResponsev2>(
+                  this, METHODID_GET_SHIPMENT_PRICE_V2)))
           .build();
     }
   }
@@ -241,6 +331,22 @@ public final class ShipmentPriceServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetShipmentParamsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void setDeductionEmploymentType(shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest request,
+        io.grpc.stub.StreamObserver<shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSetDeductionEmploymentTypeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getShipmentPriceV2(shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 request,
+        io.grpc.stub.StreamObserver<shipment_pricing.OrderPricing.GetShipmentPriceResponsev2> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetShipmentPriceV2Method(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -276,6 +382,20 @@ public final class ShipmentPriceServiceGrpc {
     public shipment_pricing.OrderPricing.GetShipmentParamsResponse getShipmentParams(shipment_pricing.OrderPricing.GetShipmentParamsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetShipmentParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse setDeductionEmploymentType(shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSetDeductionEmploymentTypeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 getShipmentPriceV2(shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetShipmentPriceV2Method(), getCallOptions(), request);
     }
   }
 
@@ -316,11 +436,29 @@ public final class ShipmentPriceServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetShipmentParamsMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse> setDeductionEmploymentType(
+        shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSetDeductionEmploymentTypeMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shipment_pricing.OrderPricing.GetShipmentPriceResponsev2> getShipmentPriceV2(
+        shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetShipmentPriceV2Method(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_SHIPMENT_PRICE = 0;
   private static final int METHODID_SET_SHIPMENT_PARAMS = 1;
   private static final int METHODID_GET_SHIPMENT_PARAMS = 2;
+  private static final int METHODID_SET_DEDUCTION_EMPLOYMENT_TYPE = 3;
+  private static final int METHODID_GET_SHIPMENT_PRICE_V2 = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -350,6 +488,14 @@ public final class ShipmentPriceServiceGrpc {
         case METHODID_GET_SHIPMENT_PARAMS:
           serviceImpl.getShipmentParams((shipment_pricing.OrderPricing.GetShipmentParamsRequest) request,
               (io.grpc.stub.StreamObserver<shipment_pricing.OrderPricing.GetShipmentParamsResponse>) responseObserver);
+          break;
+        case METHODID_SET_DEDUCTION_EMPLOYMENT_TYPE:
+          serviceImpl.setDeductionEmploymentType((shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest) request,
+              (io.grpc.stub.StreamObserver<shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse>) responseObserver);
+          break;
+        case METHODID_GET_SHIPMENT_PRICE_V2:
+          serviceImpl.getShipmentPriceV2((shipment_pricing.OrderPricing.GetShipmentPriceRequestv2) request,
+              (io.grpc.stub.StreamObserver<shipment_pricing.OrderPricing.GetShipmentPriceResponsev2>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -415,6 +561,8 @@ public final class ShipmentPriceServiceGrpc {
               .addMethod(getGetShipmentPriceMethod())
               .addMethod(getSetShipmentParamsMethod())
               .addMethod(getGetShipmentParamsMethod())
+              .addMethod(getSetDeductionEmploymentTypeMethod())
+              .addMethod(getGetShipmentPriceV2Method())
               .build();
         }
       }

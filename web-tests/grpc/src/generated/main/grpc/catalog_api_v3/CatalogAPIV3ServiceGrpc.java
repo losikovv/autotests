@@ -15,66 +15,97 @@ public final class CatalogAPIV3ServiceGrpc {
   public static final String SERVICE_NAME = "catalog_api_v3.CatalogAPIV3Service";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductListRequestV3,
-      catalog_api_v3.CatalogApiV3.GetProductListResponseV3> getGetProductListMethod;
+  private static volatile io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductListRequest,
+      catalog_api_v3.CatalogApiV3.GetProductListResponse> getGetProductListV3Method;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetProductList",
-      requestType = catalog_api_v3.CatalogApiV3.GetProductListRequestV3.class,
-      responseType = catalog_api_v3.CatalogApiV3.GetProductListResponseV3.class,
+      fullMethodName = SERVICE_NAME + '/' + "GetProductListV3",
+      requestType = catalog_api_v3.CatalogApiV3.GetProductListRequest.class,
+      responseType = catalog_api_v3.CatalogApiV3.GetProductListResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductListRequestV3,
-      catalog_api_v3.CatalogApiV3.GetProductListResponseV3> getGetProductListMethod() {
-    io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductListRequestV3, catalog_api_v3.CatalogApiV3.GetProductListResponseV3> getGetProductListMethod;
-    if ((getGetProductListMethod = CatalogAPIV3ServiceGrpc.getGetProductListMethod) == null) {
+  public static io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductListRequest,
+      catalog_api_v3.CatalogApiV3.GetProductListResponse> getGetProductListV3Method() {
+    io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductListRequest, catalog_api_v3.CatalogApiV3.GetProductListResponse> getGetProductListV3Method;
+    if ((getGetProductListV3Method = CatalogAPIV3ServiceGrpc.getGetProductListV3Method) == null) {
       synchronized (CatalogAPIV3ServiceGrpc.class) {
-        if ((getGetProductListMethod = CatalogAPIV3ServiceGrpc.getGetProductListMethod) == null) {
-          CatalogAPIV3ServiceGrpc.getGetProductListMethod = getGetProductListMethod =
-              io.grpc.MethodDescriptor.<catalog_api_v3.CatalogApiV3.GetProductListRequestV3, catalog_api_v3.CatalogApiV3.GetProductListResponseV3>newBuilder()
+        if ((getGetProductListV3Method = CatalogAPIV3ServiceGrpc.getGetProductListV3Method) == null) {
+          CatalogAPIV3ServiceGrpc.getGetProductListV3Method = getGetProductListV3Method =
+              io.grpc.MethodDescriptor.<catalog_api_v3.CatalogApiV3.GetProductListRequest, catalog_api_v3.CatalogApiV3.GetProductListResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductList"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductListV3"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  catalog_api_v3.CatalogApiV3.GetProductListRequestV3.getDefaultInstance()))
+                  catalog_api_v3.CatalogApiV3.GetProductListRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  catalog_api_v3.CatalogApiV3.GetProductListResponseV3.getDefaultInstance()))
-              .setSchemaDescriptor(new CatalogAPIV3ServiceMethodDescriptorSupplier("GetProductList"))
+                  catalog_api_v3.CatalogApiV3.GetProductListResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CatalogAPIV3ServiceMethodDescriptorSupplier("GetProductListV3"))
               .build();
         }
       }
     }
-    return getGetProductListMethod;
+    return getGetProductListV3Method;
   }
 
-  private static volatile io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductRequestV3,
-      catalog_api_v3.CatalogApiV3.GetProductResponseV3> getGetProductMethod;
+  private static volatile io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductRequest,
+      catalog_api_v3.CatalogApiV3.GetProductResponse> getGetProductV3Method;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetProduct",
-      requestType = catalog_api_v3.CatalogApiV3.GetProductRequestV3.class,
-      responseType = catalog_api_v3.CatalogApiV3.GetProductResponseV3.class,
+      fullMethodName = SERVICE_NAME + '/' + "GetProductV3",
+      requestType = catalog_api_v3.CatalogApiV3.GetProductRequest.class,
+      responseType = catalog_api_v3.CatalogApiV3.GetProductResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductRequestV3,
-      catalog_api_v3.CatalogApiV3.GetProductResponseV3> getGetProductMethod() {
-    io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductRequestV3, catalog_api_v3.CatalogApiV3.GetProductResponseV3> getGetProductMethod;
-    if ((getGetProductMethod = CatalogAPIV3ServiceGrpc.getGetProductMethod) == null) {
+  public static io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductRequest,
+      catalog_api_v3.CatalogApiV3.GetProductResponse> getGetProductV3Method() {
+    io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetProductRequest, catalog_api_v3.CatalogApiV3.GetProductResponse> getGetProductV3Method;
+    if ((getGetProductV3Method = CatalogAPIV3ServiceGrpc.getGetProductV3Method) == null) {
       synchronized (CatalogAPIV3ServiceGrpc.class) {
-        if ((getGetProductMethod = CatalogAPIV3ServiceGrpc.getGetProductMethod) == null) {
-          CatalogAPIV3ServiceGrpc.getGetProductMethod = getGetProductMethod =
-              io.grpc.MethodDescriptor.<catalog_api_v3.CatalogApiV3.GetProductRequestV3, catalog_api_v3.CatalogApiV3.GetProductResponseV3>newBuilder()
+        if ((getGetProductV3Method = CatalogAPIV3ServiceGrpc.getGetProductV3Method) == null) {
+          CatalogAPIV3ServiceGrpc.getGetProductV3Method = getGetProductV3Method =
+              io.grpc.MethodDescriptor.<catalog_api_v3.CatalogApiV3.GetProductRequest, catalog_api_v3.CatalogApiV3.GetProductResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProduct"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductV3"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  catalog_api_v3.CatalogApiV3.GetProductRequestV3.getDefaultInstance()))
+                  catalog_api_v3.CatalogApiV3.GetProductRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  catalog_api_v3.CatalogApiV3.GetProductResponseV3.getDefaultInstance()))
-              .setSchemaDescriptor(new CatalogAPIV3ServiceMethodDescriptorSupplier("GetProduct"))
+                  catalog_api_v3.CatalogApiV3.GetProductResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CatalogAPIV3ServiceMethodDescriptorSupplier("GetProductV3"))
               .build();
         }
       }
     }
-    return getGetProductMethod;
+    return getGetProductV3Method;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetSuggestsRequest,
+      catalog_api_v3.CatalogApiV3.GetSuggestsResponse> getGetSuggestsV3Method;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetSuggestsV3",
+      requestType = catalog_api_v3.CatalogApiV3.GetSuggestsRequest.class,
+      responseType = catalog_api_v3.CatalogApiV3.GetSuggestsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetSuggestsRequest,
+      catalog_api_v3.CatalogApiV3.GetSuggestsResponse> getGetSuggestsV3Method() {
+    io.grpc.MethodDescriptor<catalog_api_v3.CatalogApiV3.GetSuggestsRequest, catalog_api_v3.CatalogApiV3.GetSuggestsResponse> getGetSuggestsV3Method;
+    if ((getGetSuggestsV3Method = CatalogAPIV3ServiceGrpc.getGetSuggestsV3Method) == null) {
+      synchronized (CatalogAPIV3ServiceGrpc.class) {
+        if ((getGetSuggestsV3Method = CatalogAPIV3ServiceGrpc.getGetSuggestsV3Method) == null) {
+          CatalogAPIV3ServiceGrpc.getGetSuggestsV3Method = getGetSuggestsV3Method =
+              io.grpc.MethodDescriptor.<catalog_api_v3.CatalogApiV3.GetSuggestsRequest, catalog_api_v3.CatalogApiV3.GetSuggestsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetSuggestsV3"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v3.CatalogApiV3.GetSuggestsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v3.CatalogApiV3.GetSuggestsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CatalogAPIV3ServiceMethodDescriptorSupplier("GetSuggestsV3"))
+              .build();
+        }
+      }
+    }
+    return getGetSuggestsV3Method;
   }
 
   /**
@@ -126,35 +157,67 @@ public final class CatalogAPIV3ServiceGrpc {
   public static abstract class CatalogAPIV3ServiceImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     * Возвращает листинг товаров
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    category_permalink - пермалинк категории
+     *    tenant_id - идентификатор тенанта
+     *    q - поисковый запрос
+     * </pre>
      */
-    public void getProductList(catalog_api_v3.CatalogApiV3.GetProductListRequestV3 request,
-        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductListResponseV3> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductListMethod(), responseObserver);
+    public void getProductListV3(catalog_api_v3.CatalogApiV3.GetProductListRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductListResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductListV3Method(), responseObserver);
     }
 
     /**
      */
-    public void getProduct(catalog_api_v3.CatalogApiV3.GetProductRequestV3 request,
-        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductResponseV3> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductMethod(), responseObserver);
+    public void getProductV3(catalog_api_v3.CatalogApiV3.GetProductRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductV3Method(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров/категорий/брендов по поисковому запросу
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    retailer_id - идентификатор ритейлера
+     *    text - поисковый запрос
+     * Примеры:
+     *    grpcurl -emit-defaults -d '{"store_id":"1", "retailer_id":"1", "text":"ко"}' paas-content-catalog.gw-stage.sbmt.io:443 catalog_api_v3.CatalogAPIV3Service.GetSuggestsV3
+     *    curl --data-urlencode 'retailer_id=1' --data-urlencode 'text=ко'  https://paas-content-catalog.gw-stage.sbmt.io/api/v3/stores/1/suggests
+     * </pre>
+     */
+    public void getSuggestsV3(catalog_api_v3.CatalogApiV3.GetSuggestsRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetSuggestsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSuggestsV3Method(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getGetProductListMethod(),
+            getGetProductListV3Method(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                catalog_api_v3.CatalogApiV3.GetProductListRequestV3,
-                catalog_api_v3.CatalogApiV3.GetProductListResponseV3>(
-                  this, METHODID_GET_PRODUCT_LIST)))
+                catalog_api_v3.CatalogApiV3.GetProductListRequest,
+                catalog_api_v3.CatalogApiV3.GetProductListResponse>(
+                  this, METHODID_GET_PRODUCT_LIST_V3)))
           .addMethod(
-            getGetProductMethod(),
+            getGetProductV3Method(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                catalog_api_v3.CatalogApiV3.GetProductRequestV3,
-                catalog_api_v3.CatalogApiV3.GetProductResponseV3>(
-                  this, METHODID_GET_PRODUCT)))
+                catalog_api_v3.CatalogApiV3.GetProductRequest,
+                catalog_api_v3.CatalogApiV3.GetProductResponse>(
+                  this, METHODID_GET_PRODUCT_V3)))
+          .addMethod(
+            getGetSuggestsV3Method(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                catalog_api_v3.CatalogApiV3.GetSuggestsRequest,
+                catalog_api_v3.CatalogApiV3.GetSuggestsResponse>(
+                  this, METHODID_GET_SUGGESTS_V3)))
           .build();
     }
   }
@@ -174,19 +237,45 @@ public final class CatalogAPIV3ServiceGrpc {
     }
 
     /**
+     * <pre>
+     * Возвращает листинг товаров
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    category_permalink - пермалинк категории
+     *    tenant_id - идентификатор тенанта
+     *    q - поисковый запрос
+     * </pre>
      */
-    public void getProductList(catalog_api_v3.CatalogApiV3.GetProductListRequestV3 request,
-        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductListResponseV3> responseObserver) {
+    public void getProductListV3(catalog_api_v3.CatalogApiV3.GetProductListRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductListResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetProductListMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetProductListV3Method(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void getProduct(catalog_api_v3.CatalogApiV3.GetProductRequestV3 request,
-        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductResponseV3> responseObserver) {
+    public void getProductV3(catalog_api_v3.CatalogApiV3.GetProductRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetProductMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetProductV3Method(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров/категорий/брендов по поисковому запросу
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    retailer_id - идентификатор ритейлера
+     *    text - поисковый запрос
+     * Примеры:
+     *    grpcurl -emit-defaults -d '{"store_id":"1", "retailer_id":"1", "text":"ко"}' paas-content-catalog.gw-stage.sbmt.io:443 catalog_api_v3.CatalogAPIV3Service.GetSuggestsV3
+     *    curl --data-urlencode 'retailer_id=1' --data-urlencode 'text=ко'  https://paas-content-catalog.gw-stage.sbmt.io/api/v3/stores/1/suggests
+     * </pre>
+     */
+    public void getSuggestsV3(catalog_api_v3.CatalogApiV3.GetSuggestsRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetSuggestsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetSuggestsV3Method(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -205,17 +294,42 @@ public final class CatalogAPIV3ServiceGrpc {
     }
 
     /**
+     * <pre>
+     * Возвращает листинг товаров
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    category_permalink - пермалинк категории
+     *    tenant_id - идентификатор тенанта
+     *    q - поисковый запрос
+     * </pre>
      */
-    public catalog_api_v3.CatalogApiV3.GetProductListResponseV3 getProductList(catalog_api_v3.CatalogApiV3.GetProductListRequestV3 request) {
+    public catalog_api_v3.CatalogApiV3.GetProductListResponse getProductListV3(catalog_api_v3.CatalogApiV3.GetProductListRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetProductListMethod(), getCallOptions(), request);
+          getChannel(), getGetProductListV3Method(), getCallOptions(), request);
     }
 
     /**
      */
-    public catalog_api_v3.CatalogApiV3.GetProductResponseV3 getProduct(catalog_api_v3.CatalogApiV3.GetProductRequestV3 request) {
+    public catalog_api_v3.CatalogApiV3.GetProductResponse getProductV3(catalog_api_v3.CatalogApiV3.GetProductRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetProductMethod(), getCallOptions(), request);
+          getChannel(), getGetProductV3Method(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров/категорий/брендов по поисковому запросу
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    retailer_id - идентификатор ритейлера
+     *    text - поисковый запрос
+     * Примеры:
+     *    grpcurl -emit-defaults -d '{"store_id":"1", "retailer_id":"1", "text":"ко"}' paas-content-catalog.gw-stage.sbmt.io:443 catalog_api_v3.CatalogAPIV3Service.GetSuggestsV3
+     *    curl --data-urlencode 'retailer_id=1' --data-urlencode 'text=ко'  https://paas-content-catalog.gw-stage.sbmt.io/api/v3/stores/1/suggests
+     * </pre>
+     */
+    public catalog_api_v3.CatalogApiV3.GetSuggestsResponse getSuggestsV3(catalog_api_v3.CatalogApiV3.GetSuggestsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetSuggestsV3Method(), getCallOptions(), request);
     }
   }
 
@@ -234,24 +348,51 @@ public final class CatalogAPIV3ServiceGrpc {
     }
 
     /**
+     * <pre>
+     * Возвращает листинг товаров
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    category_permalink - пермалинк категории
+     *    tenant_id - идентификатор тенанта
+     *    q - поисковый запрос
+     * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v3.CatalogApiV3.GetProductListResponseV3> getProductList(
-        catalog_api_v3.CatalogApiV3.GetProductListRequestV3 request) {
+    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v3.CatalogApiV3.GetProductListResponse> getProductListV3(
+        catalog_api_v3.CatalogApiV3.GetProductListRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetProductListMethod(), getCallOptions()), request);
+          getChannel().newCall(getGetProductListV3Method(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v3.CatalogApiV3.GetProductResponseV3> getProduct(
-        catalog_api_v3.CatalogApiV3.GetProductRequestV3 request) {
+    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v3.CatalogApiV3.GetProductResponse> getProductV3(
+        catalog_api_v3.CatalogApiV3.GetProductRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetProductMethod(), getCallOptions()), request);
+          getChannel().newCall(getGetProductV3Method(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров/категорий/брендов по поисковому запросу
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    retailer_id - идентификатор ритейлера
+     *    text - поисковый запрос
+     * Примеры:
+     *    grpcurl -emit-defaults -d '{"store_id":"1", "retailer_id":"1", "text":"ко"}' paas-content-catalog.gw-stage.sbmt.io:443 catalog_api_v3.CatalogAPIV3Service.GetSuggestsV3
+     *    curl --data-urlencode 'retailer_id=1' --data-urlencode 'text=ко'  https://paas-content-catalog.gw-stage.sbmt.io/api/v3/stores/1/suggests
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v3.CatalogApiV3.GetSuggestsResponse> getSuggestsV3(
+        catalog_api_v3.CatalogApiV3.GetSuggestsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetSuggestsV3Method(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_GET_PRODUCT_LIST = 0;
-  private static final int METHODID_GET_PRODUCT = 1;
+  private static final int METHODID_GET_PRODUCT_LIST_V3 = 0;
+  private static final int METHODID_GET_PRODUCT_V3 = 1;
+  private static final int METHODID_GET_SUGGESTS_V3 = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -270,13 +411,17 @@ public final class CatalogAPIV3ServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_GET_PRODUCT_LIST:
-          serviceImpl.getProductList((catalog_api_v3.CatalogApiV3.GetProductListRequestV3) request,
-              (io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductListResponseV3>) responseObserver);
+        case METHODID_GET_PRODUCT_LIST_V3:
+          serviceImpl.getProductListV3((catalog_api_v3.CatalogApiV3.GetProductListRequest) request,
+              (io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductListResponse>) responseObserver);
           break;
-        case METHODID_GET_PRODUCT:
-          serviceImpl.getProduct((catalog_api_v3.CatalogApiV3.GetProductRequestV3) request,
-              (io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductResponseV3>) responseObserver);
+        case METHODID_GET_PRODUCT_V3:
+          serviceImpl.getProductV3((catalog_api_v3.CatalogApiV3.GetProductRequest) request,
+              (io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetProductResponse>) responseObserver);
+          break;
+        case METHODID_GET_SUGGESTS_V3:
+          serviceImpl.getSuggestsV3((catalog_api_v3.CatalogApiV3.GetSuggestsRequest) request,
+              (io.grpc.stub.StreamObserver<catalog_api_v3.CatalogApiV3.GetSuggestsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -339,8 +484,9 @@ public final class CatalogAPIV3ServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new CatalogAPIV3ServiceFileDescriptorSupplier())
-              .addMethod(getGetProductListMethod())
-              .addMethod(getGetProductMethod())
+              .addMethod(getGetProductListV3Method())
+              .addMethod(getGetProductV3Method())
+              .addMethod(getGetSuggestsV3Method())
               .build();
         }
       }

@@ -258,6 +258,7 @@ public final class ServiceGrpc {
 
     /**
      */
+    @java.lang.Deprecated
     public void createWorkflowsV2(workflow.WorkflowOuterClass.CreateWorkflowsRequest request,
         io.grpc.stub.StreamObserver<workflow.WorkflowOuterClass.CreateWorkflowsV2Response> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateWorkflowsV2Method(), responseObserver);
@@ -363,6 +364,7 @@ public final class ServiceGrpc {
 
     /**
      */
+    @java.lang.Deprecated
     public void createWorkflowsV2(workflow.WorkflowOuterClass.CreateWorkflowsRequest request,
         io.grpc.stub.StreamObserver<workflow.WorkflowOuterClass.CreateWorkflowsV2Response> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -425,6 +427,7 @@ public final class ServiceGrpc {
 
     /**
      */
+    @java.lang.Deprecated
     public workflow.WorkflowOuterClass.CreateWorkflowsV2Response createWorkflowsV2(workflow.WorkflowOuterClass.CreateWorkflowsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCreateWorkflowsV2Method(), getCallOptions(), request);
@@ -483,6 +486,7 @@ public final class ServiceGrpc {
 
     /**
      */
+    @java.lang.Deprecated
     public com.google.common.util.concurrent.ListenableFuture<workflow.WorkflowOuterClass.CreateWorkflowsV2Response> createWorkflowsV2(
         workflow.WorkflowOuterClass.CreateWorkflowsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(

@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package suggests_v1;
+option go_package = "gitlab.sbmt.io/paas/content/catalog/pkg/server/grpc/suggests_v1";
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+
+import "content/catalog/catalog_api_v2.proto";
+
+
+service Suggests {
+	/*
+	 * Возвращает предложения товаров/категорий/брендов по поисковому запросу для мобильных платформ
+	 *
+	 * Обязательные параметры:
+	 *    text - поисковый запрос
+	 *    store_id - идентификатор магазина
+	 *    retailer_id - идентификатор ритейлера
+	 *
+	 * Необязательные параметры:
+	 *    tenant_id - идентификатор тенанта
+	 *
+	 * Примеры stage:
+	 *    grpcurl -emit-defaults -d '{"tenant_id":"sbermarket", "store_id":"1", "retailer_id":"1", "text":"ко"}' paas-content-catalog.gw-stage.sbmt.io:443 suggests_v1.Suggests.GetMobileSuggests
+	 *    curl -d '{"tenant_id":"sbermarket", "store_id":"1", "retailer_id":"1", "text":"ко"}' https://paas-content-catalog.gw-stage.sbmt.io/api/mobile/v1/suggests
+	 *    curl -d '{"tenant_id":"sbermarket", "store_id":"1", "retailer_id":"1", "text":"ко"}' https://stf-gw.k-stage.sbmt.io/catalog/api/mobile/v1/suggests
+	 *
+	 * Примеры prod:
+	 *    curl -d '{"tenant_id":"sbermarket", "store_id":"1", "retailer_id":"1", "text":"ко"}' https://stf-gw.sbmt.io/catalog/api/mobile/v1/suggests
+	 */
+	rpc GetMobileSuggests(GetSuggestsRequest) returns (GetSuggestsResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/mobile/v1/suggests"
+			body: "*"
+		};
+	}
+}
+
+message GetSuggestsRequest {
+	string text = 1 [json_name = "text"];
+	int64 store_id = 2 [json_name = "store_id"];
+	int64 retailer_id = 3 [json_name = "retailer_id"];
+	string tenant_id = 4 [json_name = "tenant_id"];
+}
+
+message GetSuggestsResponse {
+	repeated CompletionBlock suggests = 1 [json_name = "suggests"];
+}
+
+message CompletionBlock {
+	CompletionType type = 1;
+	oneof value {
+		TextBlock text = 2;
+		CategoryBlock category = 3;
+		BrandBlock brand = 4;
+		ProductBlock product = 5;
+	}
+}
+
+enum CompletionType {
+	COMPLETION_TYPE_INVALID = 0;
+	COMPLETION_TYPE_TEXT = 1;
+	COMPLETION_TYPE_CATEGORY = 2;
+	COMPLETION_TYPE_BRAND = 3;
+	COMPLETION_TYPE_PRODUCT = 4;
+}
+
+message TextBlock {
+	repeated TextCompletion completion = 1;
+}
+
+message TextCompletion {
+	string text = 1;
+}
+
+message CategoryBlock {
+	repeated CategoryCompletion completion = 1;
+}
+
+message CategoryCompletion {
+	int64 id = 1; // id из stf
+	string name = 2;
+	repeated catalog_api_v2.Image images = 3;
+	repeated catalog_api_v2.Requirements requirements = 4;
+}
+
+message BrandBlock {
+	repeated BrandCompletion completion = 1;
+}
+
+message BrandCompletion {
+	int32 id = 1; // id из pims
+	string name = 2;
+}
+
+message ProductBlock {
+	repeated catalog_api_v2.Product completion = 1;
+}

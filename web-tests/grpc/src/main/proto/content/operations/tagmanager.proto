@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package tagmanager;
 
+//https://gitlab.sbmt.io/paas/content/operations/tag-manager/-/blob/master/api/grpc/tagmanager.proto
+
 option go_package = "gitlab.sbmt.io/paas/content/operations/tag-manager/pkg/server/grpc/tagmanager";
 
 service TagManager {

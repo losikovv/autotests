@@ -15,7 +15,7 @@ public class GrpcDataProvider {
                         .setTid("22238")
                         .setPage(1)
                         .setPerPage(24)
-                        .setSort("0")
+                        .addSort("0")
                         .setTenantId("sbermarket")
                         .build()},
                 {CatalogApiV2
@@ -24,7 +24,7 @@ public class GrpcDataProvider {
                         .setTid("22238")
                         .setPage(1)
                         .setPerPage(24)
-                        .setSort("")
+                        .addSort(" ")
                         .setTenantId("sbermarket")
                         .build()},
                 {CatalogApiV2

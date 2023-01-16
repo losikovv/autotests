@@ -275,696 +275,166 @@ public final class ProductHubBackStreamOuterClass {
     // @@protoc_insertion_point(enum_scope:product_hub_back_stream.ValueType)
   }
 
-  public interface GetProductsRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetProductsRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>int64 cursor_id = 1;</code>
-     * @return The cursorId.
-     */
-    long getCursorId();
-
-    /**
-     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-     * @return Whether the displayAttributes field is set.
-     */
-    boolean hasDisplayAttributes();
-    /**
-     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-     * @return The displayAttributes.
-     */
-    product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes getDisplayAttributes();
-    /**
-     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-     */
-    product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder();
-  }
   /**
-   * Protobuf type {@code product_hub_back_stream.GetProductsRequest}
+   * <pre>
+   * Pricer - тип цены товарного предложения
+   * </pre>
+   *
+   * Protobuf enum {@code product_hub_back_stream.Pricer}
    */
-  public static final class GetProductsRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetProductsRequest)
-      GetProductsRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use GetProductsRequest.newBuilder() to construct.
-    private GetProductsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private GetProductsRequest() {
-    }
+  public enum Pricer
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * за штуку
+     * </pre>
+     *
+     * <code>PER_ITEM = 0;</code>
+     */
+    PER_ITEM(0),
+    /**
+     * <pre>
+     * за упаковку
+     * </pre>
+     *
+     * <code>PER_ITEMS_PACKAGE = 1;</code>
+     */
+    PER_ITEMS_PACKAGE(1),
+    /**
+     * <pre>
+     * весовой фасованный
+     * </pre>
+     *
+     * <code>PER_WEIGHT_PACKAGE = 2;</code>
+     */
+    PER_WEIGHT_PACKAGE(2),
+    /**
+     * <pre>
+     * весовой, не фасованный
+     * </pre>
+     *
+     * <code>PER_WEIGHT = 3;</code>
+     */
+    PER_WEIGHT(3),
+    UNRECOGNIZED(-1),
+    ;
 
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new GetProductsRequest();
-    }
+    /**
+     * <pre>
+     * за штуку
+     * </pre>
+     *
+     * <code>PER_ITEM = 0;</code>
+     */
+    public static final int PER_ITEM_VALUE = 0;
+    /**
+     * <pre>
+     * за упаковку
+     * </pre>
+     *
+     * <code>PER_ITEMS_PACKAGE = 1;</code>
+     */
+    public static final int PER_ITEMS_PACKAGE_VALUE = 1;
+    /**
+     * <pre>
+     * весовой фасованный
+     * </pre>
+     *
+     * <code>PER_WEIGHT_PACKAGE = 2;</code>
+     */
+    public static final int PER_WEIGHT_PACKAGE_VALUE = 2;
+    /**
+     * <pre>
+     * весовой, не фасованный
+     * </pre>
+     *
+     * <code>PER_WEIGHT = 3;</code>
+     */
+    public static final int PER_WEIGHT_VALUE = 3;
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private GetProductsRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
       }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 8: {
+      return value;
+    }
 
-              cursorId_ = input.readInt64();
-              break;
-            }
-            case 18: {
-              product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder subBuilder = null;
-              if (displayAttributes_ != null) {
-                subBuilder = displayAttributes_.toBuilder();
-              }
-              displayAttributes_ = input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(displayAttributes_);
-                displayAttributes_ = subBuilder.buildPartial();
-              }
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static Pricer valueOf(int value) {
+      return forNumber(value);
+    }
 
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static Pricer forNumber(int value) {
+      switch (value) {
+        case 0: return PER_ITEM;
+        case 1: return PER_ITEMS_PACKAGE;
+        case 2: return PER_WEIGHT_PACKAGE;
+        case 3: return PER_WEIGHT;
+        default: return null;
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
+
+    public static com.google.protobuf.Internal.EnumLiteMap<Pricer>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        Pricer> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<Pricer>() {
+            public Pricer findValueByNumber(int number) {
+              return Pricer.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_descriptor;
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.getDescriptor().getEnumTypes().get(2);
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.Builder.class);
+    private static final Pricer[] VALUES = values();
+
+    public static Pricer valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
     }
 
-    public static final int CURSOR_ID_FIELD_NUMBER = 1;
-    private long cursorId_;
-    /**
-     * <code>int64 cursor_id = 1;</code>
-     * @return The cursorId.
-     */
-    @java.lang.Override
-    public long getCursorId() {
-      return cursorId_;
+    private final int value;
+
+    private Pricer(int value) {
+      this.value = value;
     }
 
-    public static final int DISPLAY_ATTRIBUTES_FIELD_NUMBER = 2;
-    private product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes displayAttributes_;
-    /**
-     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-     * @return Whether the displayAttributes field is set.
-     */
-    @java.lang.Override
-    public boolean hasDisplayAttributes() {
-      return displayAttributes_ != null;
-    }
-    /**
-     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-     * @return The displayAttributes.
-     */
-    @java.lang.Override
-    public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes getDisplayAttributes() {
-      return displayAttributes_ == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
-    }
-    /**
-     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-     */
-    @java.lang.Override
-    public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
-      return getDisplayAttributes();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (cursorId_ != 0L) {
-        output.writeInt64(1, cursorId_);
-      }
-      if (displayAttributes_ != null) {
-        output.writeMessage(2, getDisplayAttributes());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (cursorId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, cursorId_);
-      }
-      if (displayAttributes_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getDisplayAttributes());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest)) {
-        return super.equals(obj);
-      }
-      product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest) obj;
-
-      if (getCursorId()
-          != other.getCursorId()) return false;
-      if (hasDisplayAttributes() != other.hasDisplayAttributes()) return false;
-      if (hasDisplayAttributes()) {
-        if (!getDisplayAttributes()
-            .equals(other.getDisplayAttributes())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCursorId());
-      if (hasDisplayAttributes()) {
-        hash = (37 * hash) + DISPLAY_ATTRIBUTES_FIELD_NUMBER;
-        hash = (53 * hash) + getDisplayAttributes().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code product_hub_back_stream.GetProductsRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetProductsRequest)
-        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.Builder.class);
-      }
-
-      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        cursorId_ = 0L;
-
-        if (displayAttributesBuilder_ == null) {
-          displayAttributes_ = null;
-        } else {
-          displayAttributes_ = null;
-          displayAttributesBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest getDefaultInstanceForType() {
-        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest build() {
-        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest buildPartial() {
-        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest(this);
-        result.cursorId_ = cursorId_;
-        if (displayAttributesBuilder_ == null) {
-          result.displayAttributes_ = displayAttributes_;
-        } else {
-          result.displayAttributes_ = displayAttributesBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest) {
-          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest other) {
-        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.getDefaultInstance()) return this;
-        if (other.getCursorId() != 0L) {
-          setCursorId(other.getCursorId());
-        }
-        if (other.hasDisplayAttributes()) {
-          mergeDisplayAttributes(other.getDisplayAttributes());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private long cursorId_ ;
-      /**
-       * <code>int64 cursor_id = 1;</code>
-       * @return The cursorId.
-       */
-      @java.lang.Override
-      public long getCursorId() {
-        return cursorId_;
-      }
-      /**
-       * <code>int64 cursor_id = 1;</code>
-       * @param value The cursorId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCursorId(long value) {
-        
-        cursorId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 cursor_id = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCursorId() {
-        
-        cursorId_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes displayAttributes_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder> displayAttributesBuilder_;
-      /**
-       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-       * @return Whether the displayAttributes field is set.
-       */
-      public boolean hasDisplayAttributes() {
-        return displayAttributesBuilder_ != null || displayAttributes_ != null;
-      }
-      /**
-       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-       * @return The displayAttributes.
-       */
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes getDisplayAttributes() {
-        if (displayAttributesBuilder_ == null) {
-          return displayAttributes_ == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
-        } else {
-          return displayAttributesBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-       */
-      public Builder setDisplayAttributes(product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes value) {
-        if (displayAttributesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          displayAttributes_ = value;
-          onChanged();
-        } else {
-          displayAttributesBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-       */
-      public Builder setDisplayAttributes(
-          product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder builderForValue) {
-        if (displayAttributesBuilder_ == null) {
-          displayAttributes_ = builderForValue.build();
-          onChanged();
-        } else {
-          displayAttributesBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-       */
-      public Builder mergeDisplayAttributes(product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes value) {
-        if (displayAttributesBuilder_ == null) {
-          if (displayAttributes_ != null) {
-            displayAttributes_ =
-              product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.newBuilder(displayAttributes_).mergeFrom(value).buildPartial();
-          } else {
-            displayAttributes_ = value;
-          }
-          onChanged();
-        } else {
-          displayAttributesBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-       */
-      public Builder clearDisplayAttributes() {
-        if (displayAttributesBuilder_ == null) {
-          displayAttributes_ = null;
-          onChanged();
-        } else {
-          displayAttributes_ = null;
-          displayAttributesBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-       */
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder getDisplayAttributesBuilder() {
-        
-        onChanged();
-        return getDisplayAttributesFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-       */
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
-        if (displayAttributesBuilder_ != null) {
-          return displayAttributesBuilder_.getMessageOrBuilder();
-        } else {
-          return displayAttributes_ == null ?
-              product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
-        }
-      }
-      /**
-       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder> 
-          getDisplayAttributesFieldBuilder() {
-        if (displayAttributesBuilder_ == null) {
-          displayAttributesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder>(
-                  getDisplayAttributes(),
-                  getParentForChildren(),
-                  isClean());
-          displayAttributes_ = null;
-        }
-        return displayAttributesBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetProductsRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetProductsRequest)
-    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest();
-    }
-
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<GetProductsRequest>
-        PARSER = new com.google.protobuf.AbstractParser<GetProductsRequest>() {
-      @java.lang.Override
-      public GetProductsRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetProductsRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GetProductsRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetProductsRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
+    // @@protoc_insertion_point(enum_scope:product_hub_back_stream.Pricer)
   }
 
   public interface DisplayAttributesOrBuilder extends
@@ -1817,941 +1287,6 @@ public final class ProductHubBackStreamOuterClass {
 
     @java.lang.Override
     public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface GetProductsResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetProductsResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>int64 cursor_id = 1;</code>
-     * @return The cursorId.
-     */
-    long getCursorId();
-
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> 
-        getProductsList();
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    product_hub_back_stream.ProductHubBackStreamOuterClass.Product getProducts(int index);
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    int getProductsCount();
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> 
-        getProductsOrBuilderList();
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder getProductsOrBuilder(
-        int index);
-
-    /**
-     * <code>bool finish = 3;</code>
-     * @return The finish.
-     */
-    boolean getFinish();
-  }
-  /**
-   * Protobuf type {@code product_hub_back_stream.GetProductsResponse}
-   */
-  public static final class GetProductsResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetProductsResponse)
-      GetProductsResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use GetProductsResponse.newBuilder() to construct.
-    private GetProductsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private GetProductsResponse() {
-      products_ = java.util.Collections.emptyList();
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new GetProductsResponse();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private GetProductsResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 8: {
-
-              cursorId_ = input.readInt64();
-              break;
-            }
-            case 18: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                products_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Product>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              products_.add(
-                  input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.Product.parser(), extensionRegistry));
-              break;
-            }
-            case 24: {
-
-              finish_ = input.readBool();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          products_ = java.util.Collections.unmodifiableList(products_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.Builder.class);
-    }
-
-    public static final int CURSOR_ID_FIELD_NUMBER = 1;
-    private long cursorId_;
-    /**
-     * <code>int64 cursor_id = 1;</code>
-     * @return The cursorId.
-     */
-    @java.lang.Override
-    public long getCursorId() {
-      return cursorId_;
-    }
-
-    public static final int PRODUCTS_FIELD_NUMBER = 2;
-    private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> products_;
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    @java.lang.Override
-    public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> getProductsList() {
-      return products_;
-    }
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    @java.lang.Override
-    public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> 
-        getProductsOrBuilderList() {
-      return products_;
-    }
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    @java.lang.Override
-    public int getProductsCount() {
-      return products_.size();
-    }
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    @java.lang.Override
-    public product_hub_back_stream.ProductHubBackStreamOuterClass.Product getProducts(int index) {
-      return products_.get(index);
-    }
-    /**
-     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-     */
-    @java.lang.Override
-    public product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder getProductsOrBuilder(
-        int index) {
-      return products_.get(index);
-    }
-
-    public static final int FINISH_FIELD_NUMBER = 3;
-    private boolean finish_;
-    /**
-     * <code>bool finish = 3;</code>
-     * @return The finish.
-     */
-    @java.lang.Override
-    public boolean getFinish() {
-      return finish_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (cursorId_ != 0L) {
-        output.writeInt64(1, cursorId_);
-      }
-      for (int i = 0; i < products_.size(); i++) {
-        output.writeMessage(2, products_.get(i));
-      }
-      if (finish_ != false) {
-        output.writeBool(3, finish_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (cursorId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, cursorId_);
-      }
-      for (int i = 0; i < products_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, products_.get(i));
-      }
-      if (finish_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, finish_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse)) {
-        return super.equals(obj);
-      }
-      product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse) obj;
-
-      if (getCursorId()
-          != other.getCursorId()) return false;
-      if (!getProductsList()
-          .equals(other.getProductsList())) return false;
-      if (getFinish()
-          != other.getFinish()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCursorId());
-      if (getProductsCount() > 0) {
-        hash = (37 * hash) + PRODUCTS_FIELD_NUMBER;
-        hash = (53 * hash) + getProductsList().hashCode();
-      }
-      hash = (37 * hash) + FINISH_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getFinish());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code product_hub_back_stream.GetProductsResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetProductsResponse)
-        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.Builder.class);
-      }
-
-      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getProductsFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        cursorId_ = 0L;
-
-        if (productsBuilder_ == null) {
-          products_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          productsBuilder_.clear();
-        }
-        finish_ = false;
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse getDefaultInstanceForType() {
-        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse build() {
-        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse buildPartial() {
-        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse(this);
-        int from_bitField0_ = bitField0_;
-        result.cursorId_ = cursorId_;
-        if (productsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            products_ = java.util.Collections.unmodifiableList(products_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.products_ = products_;
-        } else {
-          result.products_ = productsBuilder_.build();
-        }
-        result.finish_ = finish_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse) {
-          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse other) {
-        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.getDefaultInstance()) return this;
-        if (other.getCursorId() != 0L) {
-          setCursorId(other.getCursorId());
-        }
-        if (productsBuilder_ == null) {
-          if (!other.products_.isEmpty()) {
-            if (products_.isEmpty()) {
-              products_ = other.products_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureProductsIsMutable();
-              products_.addAll(other.products_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.products_.isEmpty()) {
-            if (productsBuilder_.isEmpty()) {
-              productsBuilder_.dispose();
-              productsBuilder_ = null;
-              products_ = other.products_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              productsBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getProductsFieldBuilder() : null;
-            } else {
-              productsBuilder_.addAllMessages(other.products_);
-            }
-          }
-        }
-        if (other.getFinish() != false) {
-          setFinish(other.getFinish());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private long cursorId_ ;
-      /**
-       * <code>int64 cursor_id = 1;</code>
-       * @return The cursorId.
-       */
-      @java.lang.Override
-      public long getCursorId() {
-        return cursorId_;
-      }
-      /**
-       * <code>int64 cursor_id = 1;</code>
-       * @param value The cursorId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCursorId(long value) {
-        
-        cursorId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 cursor_id = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCursorId() {
-        
-        cursorId_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> products_ =
-        java.util.Collections.emptyList();
-      private void ensureProductsIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          products_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Product>(products_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          product_hub_back_stream.ProductHubBackStreamOuterClass.Product, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> productsBuilder_;
-
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> getProductsList() {
-        if (productsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(products_);
-        } else {
-          return productsBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public int getProductsCount() {
-        if (productsBuilder_ == null) {
-          return products_.size();
-        } else {
-          return productsBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.Product getProducts(int index) {
-        if (productsBuilder_ == null) {
-          return products_.get(index);
-        } else {
-          return productsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public Builder setProducts(
-          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product value) {
-        if (productsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureProductsIsMutable();
-          products_.set(index, value);
-          onChanged();
-        } else {
-          productsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public Builder setProducts(
-          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder builderForValue) {
-        if (productsBuilder_ == null) {
-          ensureProductsIsMutable();
-          products_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          productsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public Builder addProducts(product_hub_back_stream.ProductHubBackStreamOuterClass.Product value) {
-        if (productsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureProductsIsMutable();
-          products_.add(value);
-          onChanged();
-        } else {
-          productsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public Builder addProducts(
-          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product value) {
-        if (productsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureProductsIsMutable();
-          products_.add(index, value);
-          onChanged();
-        } else {
-          productsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public Builder addProducts(
-          product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder builderForValue) {
-        if (productsBuilder_ == null) {
-          ensureProductsIsMutable();
-          products_.add(builderForValue.build());
-          onChanged();
-        } else {
-          productsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public Builder addProducts(
-          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder builderForValue) {
-        if (productsBuilder_ == null) {
-          ensureProductsIsMutable();
-          products_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          productsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public Builder addAllProducts(
-          java.lang.Iterable<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.Product> values) {
-        if (productsBuilder_ == null) {
-          ensureProductsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, products_);
-          onChanged();
-        } else {
-          productsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public Builder clearProducts() {
-        if (productsBuilder_ == null) {
-          products_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          productsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public Builder removeProducts(int index) {
-        if (productsBuilder_ == null) {
-          ensureProductsIsMutable();
-          products_.remove(index);
-          onChanged();
-        } else {
-          productsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder getProductsBuilder(
-          int index) {
-        return getProductsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder getProductsOrBuilder(
-          int index) {
-        if (productsBuilder_ == null) {
-          return products_.get(index);  } else {
-          return productsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> 
-           getProductsOrBuilderList() {
-        if (productsBuilder_ != null) {
-          return productsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(products_);
-        }
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder addProductsBuilder() {
-        return getProductsFieldBuilder().addBuilder(
-            product_hub_back_stream.ProductHubBackStreamOuterClass.Product.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder addProductsBuilder(
-          int index) {
-        return getProductsFieldBuilder().addBuilder(
-            index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
-       */
-      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder> 
-           getProductsBuilderList() {
-        return getProductsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          product_hub_back_stream.ProductHubBackStreamOuterClass.Product, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> 
-          getProductsFieldBuilder() {
-        if (productsBuilder_ == null) {
-          productsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              product_hub_back_stream.ProductHubBackStreamOuterClass.Product, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder>(
-                  products_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          products_ = null;
-        }
-        return productsBuilder_;
-      }
-
-      private boolean finish_ ;
-      /**
-       * <code>bool finish = 3;</code>
-       * @return The finish.
-       */
-      @java.lang.Override
-      public boolean getFinish() {
-        return finish_;
-      }
-      /**
-       * <code>bool finish = 3;</code>
-       * @param value The finish to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFinish(boolean value) {
-        
-        finish_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool finish = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFinish() {
-        
-        finish_ = false;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetProductsResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetProductsResponse)
-    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse();
-    }
-
-    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<GetProductsResponse>
-        PARSER = new com.google.protobuf.AbstractParser<GetProductsResponse>() {
-      @java.lang.Override
-      public GetProductsResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetProductsResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GetProductsResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetProductsResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7642,6 +6177,18 @@ public final class ProductHubBackStreamOuterClass {
      */
     product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getValueDataOrBuilder(
         int index);
+
+    /**
+     * <code>string dictionary_value_id = 3;</code>
+     * @return The dictionaryValueId.
+     */
+    java.lang.String getDictionaryValueId();
+    /**
+     * <code>string dictionary_value_id = 3;</code>
+     * @return The bytes for dictionaryValueId.
+     */
+    com.google.protobuf.ByteString
+        getDictionaryValueIdBytes();
   }
   /**
    * Protobuf type {@code product_hub_back_stream.AttributeValue}
@@ -7658,6 +6205,7 @@ public final class ProductHubBackStreamOuterClass {
     private AttributeValue() {
       value_ = "";
       valueData_ = java.util.Collections.emptyList();
+      dictionaryValueId_ = "";
     }
 
     @java.lang.Override
@@ -7704,6 +6252,12 @@ public final class ProductHubBackStreamOuterClass {
               }
               valueData_.add(
                   input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.Data.parser(), extensionRegistry));
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              dictionaryValueId_ = s;
               break;
             }
             default: {
@@ -7819,6 +6373,44 @@ public final class ProductHubBackStreamOuterClass {
       return valueData_.get(index);
     }
 
+    public static final int DICTIONARY_VALUE_ID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object dictionaryValueId_;
+    /**
+     * <code>string dictionary_value_id = 3;</code>
+     * @return The dictionaryValueId.
+     */
+    @java.lang.Override
+    public java.lang.String getDictionaryValueId() {
+      java.lang.Object ref = dictionaryValueId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        dictionaryValueId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string dictionary_value_id = 3;</code>
+     * @return The bytes for dictionaryValueId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDictionaryValueIdBytes() {
+      java.lang.Object ref = dictionaryValueId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        dictionaryValueId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -7839,6 +6431,9 @@ public final class ProductHubBackStreamOuterClass {
       for (int i = 0; i < valueData_.size(); i++) {
         output.writeMessage(2, valueData_.get(i));
       }
+      if (!getDictionaryValueIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, dictionaryValueId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -7854,6 +6449,9 @@ public final class ProductHubBackStreamOuterClass {
       for (int i = 0; i < valueData_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, valueData_.get(i));
+      }
+      if (!getDictionaryValueIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, dictionaryValueId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -7874,6 +6472,8 @@ public final class ProductHubBackStreamOuterClass {
           .equals(other.getValue())) return false;
       if (!getValueDataList()
           .equals(other.getValueDataList())) return false;
+      if (!getDictionaryValueId()
+          .equals(other.getDictionaryValueId())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -7891,6 +6491,8 @@ public final class ProductHubBackStreamOuterClass {
         hash = (37 * hash) + VALUE_DATA_FIELD_NUMBER;
         hash = (53 * hash) + getValueDataList().hashCode();
       }
+      hash = (37 * hash) + DICTIONARY_VALUE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getDictionaryValueId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8033,6 +6635,8 @@ public final class ProductHubBackStreamOuterClass {
         } else {
           valueDataBuilder_.clear();
         }
+        dictionaryValueId_ = "";
+
         return this;
       }
 
@@ -8070,6 +6674,7 @@ public final class ProductHubBackStreamOuterClass {
         } else {
           result.valueData_ = valueDataBuilder_.build();
         }
+        result.dictionaryValueId_ = dictionaryValueId_;
         onBuilt();
         return result;
       }
@@ -8147,6 +6752,10 @@ public final class ProductHubBackStreamOuterClass {
               valueDataBuilder_.addAllMessages(other.valueData_);
             }
           }
+        }
+        if (!other.getDictionaryValueId().isEmpty()) {
+          dictionaryValueId_ = other.dictionaryValueId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -8492,6 +7101,82 @@ public final class ProductHubBackStreamOuterClass {
           valueData_ = null;
         }
         return valueDataBuilder_;
+      }
+
+      private java.lang.Object dictionaryValueId_ = "";
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @return The dictionaryValueId.
+       */
+      public java.lang.String getDictionaryValueId() {
+        java.lang.Object ref = dictionaryValueId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          dictionaryValueId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @return The bytes for dictionaryValueId.
+       */
+      public com.google.protobuf.ByteString
+          getDictionaryValueIdBytes() {
+        java.lang.Object ref = dictionaryValueId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          dictionaryValueId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @param value The dictionaryValueId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDictionaryValueId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        dictionaryValueId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDictionaryValueId() {
+        
+        dictionaryValueId_ = getDefaultInstance().getDictionaryValueId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @param value The bytes for dictionaryValueId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDictionaryValueIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        dictionaryValueId_ = value;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -9512,21 +8197,11348 @@ public final class ProductHubBackStreamOuterClass {
 
   }
 
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_product_hub_back_stream_GetProductsRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_product_hub_back_stream_GetProductsRequest_fieldAccessorTable;
+  public interface OfferOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.Offer)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 sku = 1;</code>
+     * @return The sku.
+     */
+    long getSku();
+
+    /**
+     * <code>string retailer_id = 2;</code>
+     * @return The retailerId.
+     */
+    java.lang.String getRetailerId();
+    /**
+     * <code>string retailer_id = 2;</code>
+     * @return The bytes for retailerId.
+     */
+    com.google.protobuf.ByteString
+        getRetailerIdBytes();
+
+    /**
+     * <code>string retailer_sku = 3;</code>
+     * @return The retailerSku.
+     */
+    java.lang.String getRetailerSku();
+    /**
+     * <code>string retailer_sku = 3;</code>
+     * @return The bytes for retailerSku.
+     */
+    com.google.protobuf.ByteString
+        getRetailerSkuBytes();
+
+    /**
+     * <code>.product_hub_back_stream.Pricer pricer = 4;</code>
+     * @return The enum numeric value on the wire for pricer.
+     */
+    int getPricerValue();
+    /**
+     * <code>.product_hub_back_stream.Pricer pricer = 4;</code>
+     * @return The pricer.
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer getPricer();
+
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> 
+        getOfferDataList();
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Data getOfferData(int index);
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    int getOfferDataCount();
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+        getOfferDataOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getOfferDataOrBuilder(
+        int index);
+
+    /**
+     * <code>string updated_at = 6;</code>
+     * @return The updatedAt.
+     */
+    java.lang.String getUpdatedAt();
+    /**
+     * <code>string updated_at = 6;</code>
+     * @return The bytes for updatedAt.
+     */
+    com.google.protobuf.ByteString
+        getUpdatedAtBytes();
+
+    /**
+     * <code>.product_hub_back_stream.Status status = 7;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <code>.product_hub_back_stream.Status status = 7;</code>
+     * @return The status.
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Status getStatus();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.Offer}
+   */
+  public static final class Offer extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.Offer)
+      OfferOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Offer.newBuilder() to construct.
+    private Offer(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Offer() {
+      retailerId_ = "";
+      retailerSku_ = "";
+      pricer_ = 0;
+      offerData_ = java.util.Collections.emptyList();
+      updatedAt_ = "";
+      status_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Offer();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Offer(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              sku_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retailerId_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retailerSku_ = s;
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              pricer_ = rawValue;
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                offerData_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Data>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              offerData_.add(
+                  input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.Data.parser(), extensionRegistry));
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              updatedAt_ = s;
+              break;
+            }
+            case 56: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          offerData_ = java.util.Collections.unmodifiableList(offerData_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Offer_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Offer_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.class, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder.class);
+    }
+
+    public static final int SKU_FIELD_NUMBER = 1;
+    private long sku_;
+    /**
+     * <code>int64 sku = 1;</code>
+     * @return The sku.
+     */
+    @java.lang.Override
+    public long getSku() {
+      return sku_;
+    }
+
+    public static final int RETAILER_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object retailerId_;
+    /**
+     * <code>string retailer_id = 2;</code>
+     * @return The retailerId.
+     */
+    @java.lang.Override
+    public java.lang.String getRetailerId() {
+      java.lang.Object ref = retailerId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        retailerId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string retailer_id = 2;</code>
+     * @return The bytes for retailerId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRetailerIdBytes() {
+      java.lang.Object ref = retailerId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        retailerId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RETAILER_SKU_FIELD_NUMBER = 3;
+    private volatile java.lang.Object retailerSku_;
+    /**
+     * <code>string retailer_sku = 3;</code>
+     * @return The retailerSku.
+     */
+    @java.lang.Override
+    public java.lang.String getRetailerSku() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        retailerSku_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string retailer_sku = 3;</code>
+     * @return The bytes for retailerSku.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRetailerSkuBytes() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        retailerSku_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRICER_FIELD_NUMBER = 4;
+    private int pricer_;
+    /**
+     * <code>.product_hub_back_stream.Pricer pricer = 4;</code>
+     * @return The enum numeric value on the wire for pricer.
+     */
+    @java.lang.Override public int getPricerValue() {
+      return pricer_;
+    }
+    /**
+     * <code>.product_hub_back_stream.Pricer pricer = 4;</code>
+     * @return The pricer.
+     */
+    @java.lang.Override public product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer getPricer() {
+      @SuppressWarnings("deprecation")
+      product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer result = product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer.valueOf(pricer_);
+      return result == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer.UNRECOGNIZED : result;
+    }
+
+    public static final int OFFER_DATA_FIELD_NUMBER = 5;
+    private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> offerData_;
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> getOfferDataList() {
+      return offerData_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+        getOfferDataOrBuilderList() {
+      return offerData_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    @java.lang.Override
+    public int getOfferDataCount() {
+      return offerData_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Data getOfferData(int index) {
+      return offerData_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getOfferDataOrBuilder(
+        int index) {
+      return offerData_.get(index);
+    }
+
+    public static final int UPDATED_AT_FIELD_NUMBER = 6;
+    private volatile java.lang.Object updatedAt_;
+    /**
+     * <code>string updated_at = 6;</code>
+     * @return The updatedAt.
+     */
+    @java.lang.Override
+    public java.lang.String getUpdatedAt() {
+      java.lang.Object ref = updatedAt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        updatedAt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string updated_at = 6;</code>
+     * @return The bytes for updatedAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUpdatedAtBytes() {
+      java.lang.Object ref = updatedAt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        updatedAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 7;
+    private int status_;
+    /**
+     * <code>.product_hub_back_stream.Status status = 7;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.product_hub_back_stream.Status status = 7;</code>
+     * @return The status.
+     */
+    @java.lang.Override public product_hub_back_stream.ProductHubBackStreamOuterClass.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      product_hub_back_stream.ProductHubBackStreamOuterClass.Status result = product_hub_back_stream.ProductHubBackStreamOuterClass.Status.valueOf(status_);
+      return result == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.Status.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (sku_ != 0L) {
+        output.writeInt64(1, sku_);
+      }
+      if (!getRetailerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, retailerId_);
+      }
+      if (!getRetailerSkuBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, retailerSku_);
+      }
+      if (pricer_ != product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer.PER_ITEM.getNumber()) {
+        output.writeEnum(4, pricer_);
+      }
+      for (int i = 0; i < offerData_.size(); i++) {
+        output.writeMessage(5, offerData_.get(i));
+      }
+      if (!getUpdatedAtBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, updatedAt_);
+      }
+      if (status_ != product_hub_back_stream.ProductHubBackStreamOuterClass.Status.DISABLE.getNumber()) {
+        output.writeEnum(7, status_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (sku_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, sku_);
+      }
+      if (!getRetailerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, retailerId_);
+      }
+      if (!getRetailerSkuBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, retailerSku_);
+      }
+      if (pricer_ != product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer.PER_ITEM.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, pricer_);
+      }
+      for (int i = 0; i < offerData_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, offerData_.get(i));
+      }
+      if (!getUpdatedAtBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, updatedAt_);
+      }
+      if (status_ != product_hub_back_stream.ProductHubBackStreamOuterClass.Status.DISABLE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, status_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.Offer)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.Offer other = (product_hub_back_stream.ProductHubBackStreamOuterClass.Offer) obj;
+
+      if (getSku()
+          != other.getSku()) return false;
+      if (!getRetailerId()
+          .equals(other.getRetailerId())) return false;
+      if (!getRetailerSku()
+          .equals(other.getRetailerSku())) return false;
+      if (pricer_ != other.pricer_) return false;
+      if (!getOfferDataList()
+          .equals(other.getOfferDataList())) return false;
+      if (!getUpdatedAt()
+          .equals(other.getUpdatedAt())) return false;
+      if (status_ != other.status_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SKU_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSku());
+      hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getRetailerId().hashCode();
+      hash = (37 * hash) + RETAILER_SKU_FIELD_NUMBER;
+      hash = (53 * hash) + getRetailerSku().hashCode();
+      hash = (37 * hash) + PRICER_FIELD_NUMBER;
+      hash = (53 * hash) + pricer_;
+      if (getOfferDataCount() > 0) {
+        hash = (37 * hash) + OFFER_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getOfferDataList().hashCode();
+      }
+      hash = (37 * hash) + UPDATED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getUpdatedAt().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.Offer prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.Offer}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.Offer)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Offer_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Offer_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.class, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getOfferDataFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        sku_ = 0L;
+
+        retailerId_ = "";
+
+        retailerSku_ = "";
+
+        pricer_ = 0;
+
+        if (offerDataBuilder_ == null) {
+          offerData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          offerDataBuilder_.clear();
+        }
+        updatedAt_ = "";
+
+        status_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Offer_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Offer getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Offer build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Offer result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Offer buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Offer result = new product_hub_back_stream.ProductHubBackStreamOuterClass.Offer(this);
+        int from_bitField0_ = bitField0_;
+        result.sku_ = sku_;
+        result.retailerId_ = retailerId_;
+        result.retailerSku_ = retailerSku_;
+        result.pricer_ = pricer_;
+        if (offerDataBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            offerData_ = java.util.Collections.unmodifiableList(offerData_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.offerData_ = offerData_;
+        } else {
+          result.offerData_ = offerDataBuilder_.build();
+        }
+        result.updatedAt_ = updatedAt_;
+        result.status_ = status_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.Offer) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.Offer)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.Offer other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.getDefaultInstance()) return this;
+        if (other.getSku() != 0L) {
+          setSku(other.getSku());
+        }
+        if (!other.getRetailerId().isEmpty()) {
+          retailerId_ = other.retailerId_;
+          onChanged();
+        }
+        if (!other.getRetailerSku().isEmpty()) {
+          retailerSku_ = other.retailerSku_;
+          onChanged();
+        }
+        if (other.pricer_ != 0) {
+          setPricerValue(other.getPricerValue());
+        }
+        if (offerDataBuilder_ == null) {
+          if (!other.offerData_.isEmpty()) {
+            if (offerData_.isEmpty()) {
+              offerData_ = other.offerData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureOfferDataIsMutable();
+              offerData_.addAll(other.offerData_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.offerData_.isEmpty()) {
+            if (offerDataBuilder_.isEmpty()) {
+              offerDataBuilder_.dispose();
+              offerDataBuilder_ = null;
+              offerData_ = other.offerData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              offerDataBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getOfferDataFieldBuilder() : null;
+            } else {
+              offerDataBuilder_.addAllMessages(other.offerData_);
+            }
+          }
+        }
+        if (!other.getUpdatedAt().isEmpty()) {
+          updatedAt_ = other.updatedAt_;
+          onChanged();
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Offer parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.Offer) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long sku_ ;
+      /**
+       * <code>int64 sku = 1;</code>
+       * @return The sku.
+       */
+      @java.lang.Override
+      public long getSku() {
+        return sku_;
+      }
+      /**
+       * <code>int64 sku = 1;</code>
+       * @param value The sku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSku(long value) {
+        
+        sku_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 sku = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSku() {
+        
+        sku_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object retailerId_ = "";
+      /**
+       * <code>string retailer_id = 2;</code>
+       * @return The retailerId.
+       */
+      public java.lang.String getRetailerId() {
+        java.lang.Object ref = retailerId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string retailer_id = 2;</code>
+       * @return The bytes for retailerId.
+       */
+      public com.google.protobuf.ByteString
+          getRetailerIdBytes() {
+        java.lang.Object ref = retailerId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string retailer_id = 2;</code>
+       * @param value The retailerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        retailerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string retailer_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerId() {
+        
+        retailerId_ = getDefaultInstance().getRetailerId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string retailer_id = 2;</code>
+       * @param value The bytes for retailerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        retailerId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object retailerSku_ = "";
+      /**
+       * <code>string retailer_sku = 3;</code>
+       * @return The retailerSku.
+       */
+      public java.lang.String getRetailerSku() {
+        java.lang.Object ref = retailerSku_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerSku_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string retailer_sku = 3;</code>
+       * @return The bytes for retailerSku.
+       */
+      public com.google.protobuf.ByteString
+          getRetailerSkuBytes() {
+        java.lang.Object ref = retailerSku_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerSku_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string retailer_sku = 3;</code>
+       * @param value The retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSku(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string retailer_sku = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerSku() {
+        
+        retailerSku_ = getDefaultInstance().getRetailerSku();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string retailer_sku = 3;</code>
+       * @param value The bytes for retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSkuBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int pricer_ = 0;
+      /**
+       * <code>.product_hub_back_stream.Pricer pricer = 4;</code>
+       * @return The enum numeric value on the wire for pricer.
+       */
+      @java.lang.Override public int getPricerValue() {
+        return pricer_;
+      }
+      /**
+       * <code>.product_hub_back_stream.Pricer pricer = 4;</code>
+       * @param value The enum numeric value on the wire for pricer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPricerValue(int value) {
+        
+        pricer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.Pricer pricer = 4;</code>
+       * @return The pricer.
+       */
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer getPricer() {
+        @SuppressWarnings("deprecation")
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer result = product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer.valueOf(pricer_);
+        return result == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.product_hub_back_stream.Pricer pricer = 4;</code>
+       * @param value The pricer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPricer(product_hub_back_stream.ProductHubBackStreamOuterClass.Pricer value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        pricer_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.Pricer pricer = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPricer() {
+        
+        pricer_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> offerData_ =
+        java.util.Collections.emptyList();
+      private void ensureOfferDataIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          offerData_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Data>(offerData_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Data, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> offerDataBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> getOfferDataList() {
+        if (offerDataBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(offerData_);
+        } else {
+          return offerDataBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public int getOfferDataCount() {
+        if (offerDataBuilder_ == null) {
+          return offerData_.size();
+        } else {
+          return offerDataBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data getOfferData(int index) {
+        if (offerDataBuilder_ == null) {
+          return offerData_.get(index);
+        } else {
+          return offerDataBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public Builder setOfferData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data value) {
+        if (offerDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOfferDataIsMutable();
+          offerData_.set(index, value);
+          onChanged();
+        } else {
+          offerDataBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public Builder setOfferData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder builderForValue) {
+        if (offerDataBuilder_ == null) {
+          ensureOfferDataIsMutable();
+          offerData_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          offerDataBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public Builder addOfferData(product_hub_back_stream.ProductHubBackStreamOuterClass.Data value) {
+        if (offerDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOfferDataIsMutable();
+          offerData_.add(value);
+          onChanged();
+        } else {
+          offerDataBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public Builder addOfferData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data value) {
+        if (offerDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOfferDataIsMutable();
+          offerData_.add(index, value);
+          onChanged();
+        } else {
+          offerDataBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public Builder addOfferData(
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder builderForValue) {
+        if (offerDataBuilder_ == null) {
+          ensureOfferDataIsMutable();
+          offerData_.add(builderForValue.build());
+          onChanged();
+        } else {
+          offerDataBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public Builder addOfferData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder builderForValue) {
+        if (offerDataBuilder_ == null) {
+          ensureOfferDataIsMutable();
+          offerData_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          offerDataBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public Builder addAllOfferData(
+          java.lang.Iterable<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.Data> values) {
+        if (offerDataBuilder_ == null) {
+          ensureOfferDataIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, offerData_);
+          onChanged();
+        } else {
+          offerDataBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public Builder clearOfferData() {
+        if (offerDataBuilder_ == null) {
+          offerData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          offerDataBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public Builder removeOfferData(int index) {
+        if (offerDataBuilder_ == null) {
+          ensureOfferDataIsMutable();
+          offerData_.remove(index);
+          onChanged();
+        } else {
+          offerDataBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder getOfferDataBuilder(
+          int index) {
+        return getOfferDataFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getOfferDataOrBuilder(
+          int index) {
+        if (offerDataBuilder_ == null) {
+          return offerData_.get(index);  } else {
+          return offerDataBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+           getOfferDataOrBuilderList() {
+        if (offerDataBuilder_ != null) {
+          return offerDataBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(offerData_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder addOfferDataBuilder() {
+        return getOfferDataFieldBuilder().addBuilder(
+            product_hub_back_stream.ProductHubBackStreamOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder addOfferDataBuilder(
+          int index) {
+        return getOfferDataFieldBuilder().addBuilder(
+            index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data offer_data = 5;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder> 
+           getOfferDataBuilderList() {
+        return getOfferDataFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Data, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+          getOfferDataFieldBuilder() {
+        if (offerDataBuilder_ == null) {
+          offerDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Data, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder>(
+                  offerData_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          offerData_ = null;
+        }
+        return offerDataBuilder_;
+      }
+
+      private java.lang.Object updatedAt_ = "";
+      /**
+       * <code>string updated_at = 6;</code>
+       * @return The updatedAt.
+       */
+      public java.lang.String getUpdatedAt() {
+        java.lang.Object ref = updatedAt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          updatedAt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string updated_at = 6;</code>
+       * @return The bytes for updatedAt.
+       */
+      public com.google.protobuf.ByteString
+          getUpdatedAtBytes() {
+        java.lang.Object ref = updatedAt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          updatedAt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string updated_at = 6;</code>
+       * @param value The updatedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedAt(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        updatedAt_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string updated_at = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdatedAt() {
+        
+        updatedAt_ = getDefaultInstance().getUpdatedAt();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string updated_at = 6;</code>
+       * @param value The bytes for updatedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedAtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        updatedAt_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Status result = product_hub_back_stream.ProductHubBackStreamOuterClass.Status.valueOf(status_);
+        return result == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(product_hub_back_stream.ProductHubBackStreamOuterClass.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.Offer)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.Offer)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.Offer DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.Offer();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Offer getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Offer>
+        PARSER = new com.google.protobuf.AbstractParser<Offer>() {
+      @java.lang.Override
+      public Offer parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Offer(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Offer> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Offer> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Offer getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PriceOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.Price)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 sku = 1;</code>
+     * @return The sku.
+     */
+    long getSku();
+
+    /**
+     * <code>string store_id = 2;</code>
+     * @return The storeId.
+     */
+    java.lang.String getStoreId();
+    /**
+     * <code>string store_id = 2;</code>
+     * @return The bytes for storeId.
+     */
+    com.google.protobuf.ByteString
+        getStoreIdBytes();
+
+    /**
+     * <code>string tenant_id = 3;</code>
+     * @return The tenantId.
+     */
+    java.lang.String getTenantId();
+    /**
+     * <code>string tenant_id = 3;</code>
+     * @return The bytes for tenantId.
+     */
+    com.google.protobuf.ByteString
+        getTenantIdBytes();
+
+    /**
+     * <code>double price = 4;</code>
+     * @return The price.
+     */
+    double getPrice();
+
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> 
+        getPriceDataList();
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Data getPriceData(int index);
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    int getPriceDataCount();
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+        getPriceDataOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getPriceDataOrBuilder(
+        int index);
+
+    /**
+     * <code>.product_hub_back_stream.Status status = 6;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <code>.product_hub_back_stream.Status status = 6;</code>
+     * @return The status.
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Status getStatus();
+
+    /**
+     * <code>string updated_at = 7;</code>
+     * @return The updatedAt.
+     */
+    java.lang.String getUpdatedAt();
+    /**
+     * <code>string updated_at = 7;</code>
+     * @return The bytes for updatedAt.
+     */
+    com.google.protobuf.ByteString
+        getUpdatedAtBytes();
+
+    /**
+     * <code>string retailer_sku = 8;</code>
+     * @return The retailerSku.
+     */
+    java.lang.String getRetailerSku();
+    /**
+     * <code>string retailer_sku = 8;</code>
+     * @return The bytes for retailerSku.
+     */
+    com.google.protobuf.ByteString
+        getRetailerSkuBytes();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.Price}
+   */
+  public static final class Price extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.Price)
+      PriceOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Price.newBuilder() to construct.
+    private Price(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Price() {
+      storeId_ = "";
+      tenantId_ = "";
+      priceData_ = java.util.Collections.emptyList();
+      status_ = 0;
+      updatedAt_ = "";
+      retailerSku_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Price();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Price(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              sku_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeId_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              tenantId_ = s;
+              break;
+            }
+            case 33: {
+
+              price_ = input.readDouble();
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                priceData_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Data>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              priceData_.add(
+                  input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.Data.parser(), extensionRegistry));
+              break;
+            }
+            case 48: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              updatedAt_ = s;
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retailerSku_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          priceData_ = java.util.Collections.unmodifiableList(priceData_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Price_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Price_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Price.class, product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder.class);
+    }
+
+    public static final int SKU_FIELD_NUMBER = 1;
+    private long sku_;
+    /**
+     * <code>int64 sku = 1;</code>
+     * @return The sku.
+     */
+    @java.lang.Override
+    public long getSku() {
+      return sku_;
+    }
+
+    public static final int STORE_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object storeId_;
+    /**
+     * <code>string store_id = 2;</code>
+     * @return The storeId.
+     */
+    @java.lang.Override
+    public java.lang.String getStoreId() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string store_id = 2;</code>
+     * @return The bytes for storeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStoreIdBytes() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TENANT_ID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object tenantId_;
+    /**
+     * <code>string tenant_id = 3;</code>
+     * @return The tenantId.
+     */
+    @java.lang.Override
+    public java.lang.String getTenantId() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        tenantId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string tenant_id = 3;</code>
+     * @return The bytes for tenantId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTenantIdBytes() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tenantId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRICE_FIELD_NUMBER = 4;
+    private double price_;
+    /**
+     * <code>double price = 4;</code>
+     * @return The price.
+     */
+    @java.lang.Override
+    public double getPrice() {
+      return price_;
+    }
+
+    public static final int PRICE_DATA_FIELD_NUMBER = 5;
+    private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> priceData_;
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> getPriceDataList() {
+      return priceData_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+        getPriceDataOrBuilderList() {
+      return priceData_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    @java.lang.Override
+    public int getPriceDataCount() {
+      return priceData_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Data getPriceData(int index) {
+      return priceData_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getPriceDataOrBuilder(
+        int index) {
+      return priceData_.get(index);
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 6;
+    private int status_;
+    /**
+     * <code>.product_hub_back_stream.Status status = 6;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.product_hub_back_stream.Status status = 6;</code>
+     * @return The status.
+     */
+    @java.lang.Override public product_hub_back_stream.ProductHubBackStreamOuterClass.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      product_hub_back_stream.ProductHubBackStreamOuterClass.Status result = product_hub_back_stream.ProductHubBackStreamOuterClass.Status.valueOf(status_);
+      return result == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.Status.UNRECOGNIZED : result;
+    }
+
+    public static final int UPDATED_AT_FIELD_NUMBER = 7;
+    private volatile java.lang.Object updatedAt_;
+    /**
+     * <code>string updated_at = 7;</code>
+     * @return The updatedAt.
+     */
+    @java.lang.Override
+    public java.lang.String getUpdatedAt() {
+      java.lang.Object ref = updatedAt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        updatedAt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string updated_at = 7;</code>
+     * @return The bytes for updatedAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUpdatedAtBytes() {
+      java.lang.Object ref = updatedAt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        updatedAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RETAILER_SKU_FIELD_NUMBER = 8;
+    private volatile java.lang.Object retailerSku_;
+    /**
+     * <code>string retailer_sku = 8;</code>
+     * @return The retailerSku.
+     */
+    @java.lang.Override
+    public java.lang.String getRetailerSku() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        retailerSku_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string retailer_sku = 8;</code>
+     * @return The bytes for retailerSku.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRetailerSkuBytes() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        retailerSku_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (sku_ != 0L) {
+        output.writeInt64(1, sku_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, storeId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, tenantId_);
+      }
+      if (price_ != 0D) {
+        output.writeDouble(4, price_);
+      }
+      for (int i = 0; i < priceData_.size(); i++) {
+        output.writeMessage(5, priceData_.get(i));
+      }
+      if (status_ != product_hub_back_stream.ProductHubBackStreamOuterClass.Status.DISABLE.getNumber()) {
+        output.writeEnum(6, status_);
+      }
+      if (!getUpdatedAtBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, updatedAt_);
+      }
+      if (!getRetailerSkuBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, retailerSku_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (sku_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, sku_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, storeId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, tenantId_);
+      }
+      if (price_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(4, price_);
+      }
+      for (int i = 0; i < priceData_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, priceData_.get(i));
+      }
+      if (status_ != product_hub_back_stream.ProductHubBackStreamOuterClass.Status.DISABLE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(6, status_);
+      }
+      if (!getUpdatedAtBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, updatedAt_);
+      }
+      if (!getRetailerSkuBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, retailerSku_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.Price)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.Price other = (product_hub_back_stream.ProductHubBackStreamOuterClass.Price) obj;
+
+      if (getSku()
+          != other.getSku()) return false;
+      if (!getStoreId()
+          .equals(other.getStoreId())) return false;
+      if (!getTenantId()
+          .equals(other.getTenantId())) return false;
+      if (java.lang.Double.doubleToLongBits(getPrice())
+          != java.lang.Double.doubleToLongBits(
+              other.getPrice())) return false;
+      if (!getPriceDataList()
+          .equals(other.getPriceDataList())) return false;
+      if (status_ != other.status_) return false;
+      if (!getUpdatedAt()
+          .equals(other.getUpdatedAt())) return false;
+      if (!getRetailerSku()
+          .equals(other.getRetailerSku())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SKU_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSku());
+      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreId().hashCode();
+      hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTenantId().hashCode();
+      hash = (37 * hash) + PRICE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getPrice()));
+      if (getPriceDataCount() > 0) {
+        hash = (37 * hash) + PRICE_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getPriceDataList().hashCode();
+      }
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      hash = (37 * hash) + UPDATED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getUpdatedAt().hashCode();
+      hash = (37 * hash) + RETAILER_SKU_FIELD_NUMBER;
+      hash = (53 * hash) + getRetailerSku().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.Price prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.Price}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.Price)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Price_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Price_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.Price.class, product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.Price.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPriceDataFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        sku_ = 0L;
+
+        storeId_ = "";
+
+        tenantId_ = "";
+
+        price_ = 0D;
+
+        if (priceDataBuilder_ == null) {
+          priceData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          priceDataBuilder_.clear();
+        }
+        status_ = 0;
+
+        updatedAt_ = "";
+
+        retailerSku_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Price_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Price getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.Price.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Price build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Price result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Price buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Price result = new product_hub_back_stream.ProductHubBackStreamOuterClass.Price(this);
+        int from_bitField0_ = bitField0_;
+        result.sku_ = sku_;
+        result.storeId_ = storeId_;
+        result.tenantId_ = tenantId_;
+        result.price_ = price_;
+        if (priceDataBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            priceData_ = java.util.Collections.unmodifiableList(priceData_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.priceData_ = priceData_;
+        } else {
+          result.priceData_ = priceDataBuilder_.build();
+        }
+        result.status_ = status_;
+        result.updatedAt_ = updatedAt_;
+        result.retailerSku_ = retailerSku_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.Price) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.Price)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.Price other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.Price.getDefaultInstance()) return this;
+        if (other.getSku() != 0L) {
+          setSku(other.getSku());
+        }
+        if (!other.getStoreId().isEmpty()) {
+          storeId_ = other.storeId_;
+          onChanged();
+        }
+        if (!other.getTenantId().isEmpty()) {
+          tenantId_ = other.tenantId_;
+          onChanged();
+        }
+        if (other.getPrice() != 0D) {
+          setPrice(other.getPrice());
+        }
+        if (priceDataBuilder_ == null) {
+          if (!other.priceData_.isEmpty()) {
+            if (priceData_.isEmpty()) {
+              priceData_ = other.priceData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePriceDataIsMutable();
+              priceData_.addAll(other.priceData_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.priceData_.isEmpty()) {
+            if (priceDataBuilder_.isEmpty()) {
+              priceDataBuilder_.dispose();
+              priceDataBuilder_ = null;
+              priceData_ = other.priceData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              priceDataBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPriceDataFieldBuilder() : null;
+            } else {
+              priceDataBuilder_.addAllMessages(other.priceData_);
+            }
+          }
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        if (!other.getUpdatedAt().isEmpty()) {
+          updatedAt_ = other.updatedAt_;
+          onChanged();
+        }
+        if (!other.getRetailerSku().isEmpty()) {
+          retailerSku_ = other.retailerSku_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Price parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.Price) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long sku_ ;
+      /**
+       * <code>int64 sku = 1;</code>
+       * @return The sku.
+       */
+      @java.lang.Override
+      public long getSku() {
+        return sku_;
+      }
+      /**
+       * <code>int64 sku = 1;</code>
+       * @param value The sku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSku(long value) {
+        
+        sku_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 sku = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSku() {
+        
+        sku_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object storeId_ = "";
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The storeId.
+       */
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The bytes for storeId.
+       */
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 2;</code>
+       * @param value The storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = getDefaultInstance().getStoreId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 2;</code>
+       * @param value The bytes for storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object tenantId_ = "";
+      /**
+       * <code>string tenant_id = 3;</code>
+       * @return The tenantId.
+       */
+      public java.lang.String getTenantId() {
+        java.lang.Object ref = tenantId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          tenantId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string tenant_id = 3;</code>
+       * @return The bytes for tenantId.
+       */
+      public com.google.protobuf.ByteString
+          getTenantIdBytes() {
+        java.lang.Object ref = tenantId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tenantId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string tenant_id = 3;</code>
+       * @param value The tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTenantId() {
+        
+        tenantId_ = getDefaultInstance().getTenantId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant_id = 3;</code>
+       * @param value The bytes for tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private double price_ ;
+      /**
+       * <code>double price = 4;</code>
+       * @return The price.
+       */
+      @java.lang.Override
+      public double getPrice() {
+        return price_;
+      }
+      /**
+       * <code>double price = 4;</code>
+       * @param value The price to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPrice(double value) {
+        
+        price_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double price = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPrice() {
+        
+        price_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> priceData_ =
+        java.util.Collections.emptyList();
+      private void ensurePriceDataIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          priceData_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Data>(priceData_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Data, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> priceDataBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> getPriceDataList() {
+        if (priceDataBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(priceData_);
+        } else {
+          return priceDataBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public int getPriceDataCount() {
+        if (priceDataBuilder_ == null) {
+          return priceData_.size();
+        } else {
+          return priceDataBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data getPriceData(int index) {
+        if (priceDataBuilder_ == null) {
+          return priceData_.get(index);
+        } else {
+          return priceDataBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public Builder setPriceData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data value) {
+        if (priceDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePriceDataIsMutable();
+          priceData_.set(index, value);
+          onChanged();
+        } else {
+          priceDataBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public Builder setPriceData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder builderForValue) {
+        if (priceDataBuilder_ == null) {
+          ensurePriceDataIsMutable();
+          priceData_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          priceDataBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public Builder addPriceData(product_hub_back_stream.ProductHubBackStreamOuterClass.Data value) {
+        if (priceDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePriceDataIsMutable();
+          priceData_.add(value);
+          onChanged();
+        } else {
+          priceDataBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public Builder addPriceData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data value) {
+        if (priceDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePriceDataIsMutable();
+          priceData_.add(index, value);
+          onChanged();
+        } else {
+          priceDataBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public Builder addPriceData(
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder builderForValue) {
+        if (priceDataBuilder_ == null) {
+          ensurePriceDataIsMutable();
+          priceData_.add(builderForValue.build());
+          onChanged();
+        } else {
+          priceDataBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public Builder addPriceData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder builderForValue) {
+        if (priceDataBuilder_ == null) {
+          ensurePriceDataIsMutable();
+          priceData_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          priceDataBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public Builder addAllPriceData(
+          java.lang.Iterable<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.Data> values) {
+        if (priceDataBuilder_ == null) {
+          ensurePriceDataIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, priceData_);
+          onChanged();
+        } else {
+          priceDataBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public Builder clearPriceData() {
+        if (priceDataBuilder_ == null) {
+          priceData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          priceDataBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public Builder removePriceData(int index) {
+        if (priceDataBuilder_ == null) {
+          ensurePriceDataIsMutable();
+          priceData_.remove(index);
+          onChanged();
+        } else {
+          priceDataBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder getPriceDataBuilder(
+          int index) {
+        return getPriceDataFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getPriceDataOrBuilder(
+          int index) {
+        if (priceDataBuilder_ == null) {
+          return priceData_.get(index);  } else {
+          return priceDataBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+           getPriceDataOrBuilderList() {
+        if (priceDataBuilder_ != null) {
+          return priceDataBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(priceData_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder addPriceDataBuilder() {
+        return getPriceDataFieldBuilder().addBuilder(
+            product_hub_back_stream.ProductHubBackStreamOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder addPriceDataBuilder(
+          int index) {
+        return getPriceDataFieldBuilder().addBuilder(
+            index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Data price_data = 5;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder> 
+           getPriceDataBuilderList() {
+        return getPriceDataFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Data, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+          getPriceDataFieldBuilder() {
+        if (priceDataBuilder_ == null) {
+          priceDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Data, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder>(
+                  priceData_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          priceData_ = null;
+        }
+        return priceDataBuilder_;
+      }
+
+      private int status_ = 0;
+      /**
+       * <code>.product_hub_back_stream.Status status = 6;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.product_hub_back_stream.Status status = 6;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.Status status = 6;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Status result = product_hub_back_stream.ProductHubBackStreamOuterClass.Status.valueOf(status_);
+        return result == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.product_hub_back_stream.Status status = 6;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(product_hub_back_stream.ProductHubBackStreamOuterClass.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.Status status = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object updatedAt_ = "";
+      /**
+       * <code>string updated_at = 7;</code>
+       * @return The updatedAt.
+       */
+      public java.lang.String getUpdatedAt() {
+        java.lang.Object ref = updatedAt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          updatedAt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string updated_at = 7;</code>
+       * @return The bytes for updatedAt.
+       */
+      public com.google.protobuf.ByteString
+          getUpdatedAtBytes() {
+        java.lang.Object ref = updatedAt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          updatedAt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string updated_at = 7;</code>
+       * @param value The updatedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedAt(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        updatedAt_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string updated_at = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdatedAt() {
+        
+        updatedAt_ = getDefaultInstance().getUpdatedAt();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string updated_at = 7;</code>
+       * @param value The bytes for updatedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedAtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        updatedAt_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object retailerSku_ = "";
+      /**
+       * <code>string retailer_sku = 8;</code>
+       * @return The retailerSku.
+       */
+      public java.lang.String getRetailerSku() {
+        java.lang.Object ref = retailerSku_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerSku_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string retailer_sku = 8;</code>
+       * @return The bytes for retailerSku.
+       */
+      public com.google.protobuf.ByteString
+          getRetailerSkuBytes() {
+        java.lang.Object ref = retailerSku_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerSku_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string retailer_sku = 8;</code>
+       * @param value The retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSku(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string retailer_sku = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerSku() {
+        
+        retailerSku_ = getDefaultInstance().getRetailerSku();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string retailer_sku = 8;</code>
+       * @param value The bytes for retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSkuBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.Price)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.Price)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.Price DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.Price();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Price getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Price>
+        PARSER = new com.google.protobuf.AbstractParser<Price>() {
+      @java.lang.Override
+      public Price parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Price(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Price> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Price> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Price getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface StockOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.Stock)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * идентификатор товара
+     * </pre>
+     *
+     * <code>int64 sku = 1;</code>
+     * @return The sku.
+     */
+    long getSku();
+
+    /**
+     * <pre>
+     * идентификатор магазина
+     * </pre>
+     *
+     * <code>string store_id = 2;</code>
+     * @return The storeId.
+     */
+    java.lang.String getStoreId();
+    /**
+     * <pre>
+     * идентификатор магазина
+     * </pre>
+     *
+     * <code>string store_id = 2;</code>
+     * @return The bytes for storeId.
+     */
+    com.google.protobuf.ByteString
+        getStoreIdBytes();
+
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 3;</code>
+     * @return The retailerId.
+     */
+    java.lang.String getRetailerId();
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 3;</code>
+     * @return The bytes for retailerId.
+     */
+    com.google.protobuf.ByteString
+        getRetailerIdBytes();
+
+    /**
+     * <pre>
+     * идентификатор sku ритейлера
+     * </pre>
+     *
+     * <code>string retailer_sku = 4;</code>
+     * @return The retailerSku.
+     */
+    java.lang.String getRetailerSku();
+    /**
+     * <pre>
+     * идентификатор sku ритейлера
+     * </pre>
+     *
+     * <code>string retailer_sku = 4;</code>
+     * @return The bytes for retailerSku.
+     */
+    com.google.protobuf.ByteString
+        getRetailerSkuBytes();
+
+    /**
+     * <pre>
+     * остаток товарного предложения
+     * </pre>
+     *
+     * <code>double stock = 5;</code>
+     * @return The stock.
+     */
+    double getStock();
+
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> 
+        getStockDataList();
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Data getStockData(int index);
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    int getStockDataCount();
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+        getStockDataOrBuilderList();
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getStockDataOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * статус сущности
+     * </pre>
+     *
+     * <code>.product_hub_back_stream.Status status = 7;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <pre>
+     * статус сущности
+     * </pre>
+     *
+     * <code>.product_hub_back_stream.Status status = 7;</code>
+     * @return The status.
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Status getStatus();
+
+    /**
+     * <pre>
+     * последнее время обновление сущности в product-hub
+     * </pre>
+     *
+     * <code>string updated_at = 8;</code>
+     * @return The updatedAt.
+     */
+    java.lang.String getUpdatedAt();
+    /**
+     * <pre>
+     * последнее время обновление сущности в product-hub
+     * </pre>
+     *
+     * <code>string updated_at = 8;</code>
+     * @return The bytes for updatedAt.
+     */
+    com.google.protobuf.ByteString
+        getUpdatedAtBytes();
+  }
+  /**
+   * <pre>
+   * Stock - остаток товарного предложения
+   * </pre>
+   *
+   * Protobuf type {@code product_hub_back_stream.Stock}
+   */
+  public static final class Stock extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.Stock)
+      StockOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Stock.newBuilder() to construct.
+    private Stock(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Stock() {
+      storeId_ = "";
+      retailerId_ = "";
+      retailerSku_ = "";
+      stockData_ = java.util.Collections.emptyList();
+      status_ = 0;
+      updatedAt_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Stock();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Stock(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              sku_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeId_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retailerId_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retailerSku_ = s;
+              break;
+            }
+            case 41: {
+
+              stock_ = input.readDouble();
+              break;
+            }
+            case 50: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                stockData_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Data>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              stockData_.add(
+                  input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.Data.parser(), extensionRegistry));
+              break;
+            }
+            case 56: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              updatedAt_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          stockData_ = java.util.Collections.unmodifiableList(stockData_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Stock_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Stock_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.class, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder.class);
+    }
+
+    public static final int SKU_FIELD_NUMBER = 1;
+    private long sku_;
+    /**
+     * <pre>
+     * идентификатор товара
+     * </pre>
+     *
+     * <code>int64 sku = 1;</code>
+     * @return The sku.
+     */
+    @java.lang.Override
+    public long getSku() {
+      return sku_;
+    }
+
+    public static final int STORE_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object storeId_;
+    /**
+     * <pre>
+     * идентификатор магазина
+     * </pre>
+     *
+     * <code>string store_id = 2;</code>
+     * @return The storeId.
+     */
+    @java.lang.Override
+    public java.lang.String getStoreId() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор магазина
+     * </pre>
+     *
+     * <code>string store_id = 2;</code>
+     * @return The bytes for storeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStoreIdBytes() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RETAILER_ID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object retailerId_;
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 3;</code>
+     * @return The retailerId.
+     */
+    @java.lang.Override
+    public java.lang.String getRetailerId() {
+      java.lang.Object ref = retailerId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        retailerId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 3;</code>
+     * @return The bytes for retailerId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRetailerIdBytes() {
+      java.lang.Object ref = retailerId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        retailerId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RETAILER_SKU_FIELD_NUMBER = 4;
+    private volatile java.lang.Object retailerSku_;
+    /**
+     * <pre>
+     * идентификатор sku ритейлера
+     * </pre>
+     *
+     * <code>string retailer_sku = 4;</code>
+     * @return The retailerSku.
+     */
+    @java.lang.Override
+    public java.lang.String getRetailerSku() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        retailerSku_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор sku ритейлера
+     * </pre>
+     *
+     * <code>string retailer_sku = 4;</code>
+     * @return The bytes for retailerSku.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRetailerSkuBytes() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        retailerSku_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STOCK_FIELD_NUMBER = 5;
+    private double stock_;
+    /**
+     * <pre>
+     * остаток товарного предложения
+     * </pre>
+     *
+     * <code>double stock = 5;</code>
+     * @return The stock.
+     */
+    @java.lang.Override
+    public double getStock() {
+      return stock_;
+    }
+
+    public static final int STOCK_DATA_FIELD_NUMBER = 6;
+    private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> stockData_;
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> getStockDataList() {
+      return stockData_;
+    }
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+        getStockDataOrBuilderList() {
+      return stockData_;
+    }
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    @java.lang.Override
+    public int getStockDataCount() {
+      return stockData_.size();
+    }
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Data getStockData(int index) {
+      return stockData_.get(index);
+    }
+    /**
+     * <pre>
+     * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+     * </pre>
+     *
+     * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getStockDataOrBuilder(
+        int index) {
+      return stockData_.get(index);
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 7;
+    private int status_;
+    /**
+     * <pre>
+     * статус сущности
+     * </pre>
+     *
+     * <code>.product_hub_back_stream.Status status = 7;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <pre>
+     * статус сущности
+     * </pre>
+     *
+     * <code>.product_hub_back_stream.Status status = 7;</code>
+     * @return The status.
+     */
+    @java.lang.Override public product_hub_back_stream.ProductHubBackStreamOuterClass.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      product_hub_back_stream.ProductHubBackStreamOuterClass.Status result = product_hub_back_stream.ProductHubBackStreamOuterClass.Status.valueOf(status_);
+      return result == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.Status.UNRECOGNIZED : result;
+    }
+
+    public static final int UPDATED_AT_FIELD_NUMBER = 8;
+    private volatile java.lang.Object updatedAt_;
+    /**
+     * <pre>
+     * последнее время обновление сущности в product-hub
+     * </pre>
+     *
+     * <code>string updated_at = 8;</code>
+     * @return The updatedAt.
+     */
+    @java.lang.Override
+    public java.lang.String getUpdatedAt() {
+      java.lang.Object ref = updatedAt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        updatedAt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * последнее время обновление сущности в product-hub
+     * </pre>
+     *
+     * <code>string updated_at = 8;</code>
+     * @return The bytes for updatedAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUpdatedAtBytes() {
+      java.lang.Object ref = updatedAt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        updatedAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (sku_ != 0L) {
+        output.writeInt64(1, sku_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, storeId_);
+      }
+      if (!getRetailerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, retailerId_);
+      }
+      if (!getRetailerSkuBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, retailerSku_);
+      }
+      if (stock_ != 0D) {
+        output.writeDouble(5, stock_);
+      }
+      for (int i = 0; i < stockData_.size(); i++) {
+        output.writeMessage(6, stockData_.get(i));
+      }
+      if (status_ != product_hub_back_stream.ProductHubBackStreamOuterClass.Status.DISABLE.getNumber()) {
+        output.writeEnum(7, status_);
+      }
+      if (!getUpdatedAtBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, updatedAt_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (sku_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, sku_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, storeId_);
+      }
+      if (!getRetailerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, retailerId_);
+      }
+      if (!getRetailerSkuBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, retailerSku_);
+      }
+      if (stock_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(5, stock_);
+      }
+      for (int i = 0; i < stockData_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, stockData_.get(i));
+      }
+      if (status_ != product_hub_back_stream.ProductHubBackStreamOuterClass.Status.DISABLE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, status_);
+      }
+      if (!getUpdatedAtBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, updatedAt_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.Stock)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.Stock other = (product_hub_back_stream.ProductHubBackStreamOuterClass.Stock) obj;
+
+      if (getSku()
+          != other.getSku()) return false;
+      if (!getStoreId()
+          .equals(other.getStoreId())) return false;
+      if (!getRetailerId()
+          .equals(other.getRetailerId())) return false;
+      if (!getRetailerSku()
+          .equals(other.getRetailerSku())) return false;
+      if (java.lang.Double.doubleToLongBits(getStock())
+          != java.lang.Double.doubleToLongBits(
+              other.getStock())) return false;
+      if (!getStockDataList()
+          .equals(other.getStockDataList())) return false;
+      if (status_ != other.status_) return false;
+      if (!getUpdatedAt()
+          .equals(other.getUpdatedAt())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SKU_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSku());
+      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreId().hashCode();
+      hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getRetailerId().hashCode();
+      hash = (37 * hash) + RETAILER_SKU_FIELD_NUMBER;
+      hash = (53 * hash) + getRetailerSku().hashCode();
+      hash = (37 * hash) + STOCK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getStock()));
+      if (getStockDataCount() > 0) {
+        hash = (37 * hash) + STOCK_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getStockDataList().hashCode();
+      }
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      hash = (37 * hash) + UPDATED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getUpdatedAt().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.Stock prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Stock - остаток товарного предложения
+     * </pre>
+     *
+     * Protobuf type {@code product_hub_back_stream.Stock}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.Stock)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Stock_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Stock_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.class, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getStockDataFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        sku_ = 0L;
+
+        storeId_ = "";
+
+        retailerId_ = "";
+
+        retailerSku_ = "";
+
+        stock_ = 0D;
+
+        if (stockDataBuilder_ == null) {
+          stockData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          stockDataBuilder_.clear();
+        }
+        status_ = 0;
+
+        updatedAt_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_Stock_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Stock getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Stock build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Stock result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Stock buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Stock result = new product_hub_back_stream.ProductHubBackStreamOuterClass.Stock(this);
+        int from_bitField0_ = bitField0_;
+        result.sku_ = sku_;
+        result.storeId_ = storeId_;
+        result.retailerId_ = retailerId_;
+        result.retailerSku_ = retailerSku_;
+        result.stock_ = stock_;
+        if (stockDataBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            stockData_ = java.util.Collections.unmodifiableList(stockData_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.stockData_ = stockData_;
+        } else {
+          result.stockData_ = stockDataBuilder_.build();
+        }
+        result.status_ = status_;
+        result.updatedAt_ = updatedAt_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.Stock) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.Stock)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.Stock other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.getDefaultInstance()) return this;
+        if (other.getSku() != 0L) {
+          setSku(other.getSku());
+        }
+        if (!other.getStoreId().isEmpty()) {
+          storeId_ = other.storeId_;
+          onChanged();
+        }
+        if (!other.getRetailerId().isEmpty()) {
+          retailerId_ = other.retailerId_;
+          onChanged();
+        }
+        if (!other.getRetailerSku().isEmpty()) {
+          retailerSku_ = other.retailerSku_;
+          onChanged();
+        }
+        if (other.getStock() != 0D) {
+          setStock(other.getStock());
+        }
+        if (stockDataBuilder_ == null) {
+          if (!other.stockData_.isEmpty()) {
+            if (stockData_.isEmpty()) {
+              stockData_ = other.stockData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureStockDataIsMutable();
+              stockData_.addAll(other.stockData_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.stockData_.isEmpty()) {
+            if (stockDataBuilder_.isEmpty()) {
+              stockDataBuilder_.dispose();
+              stockDataBuilder_ = null;
+              stockData_ = other.stockData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              stockDataBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getStockDataFieldBuilder() : null;
+            } else {
+              stockDataBuilder_.addAllMessages(other.stockData_);
+            }
+          }
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        if (!other.getUpdatedAt().isEmpty()) {
+          updatedAt_ = other.updatedAt_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Stock parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.Stock) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long sku_ ;
+      /**
+       * <pre>
+       * идентификатор товара
+       * </pre>
+       *
+       * <code>int64 sku = 1;</code>
+       * @return The sku.
+       */
+      @java.lang.Override
+      public long getSku() {
+        return sku_;
+      }
+      /**
+       * <pre>
+       * идентификатор товара
+       * </pre>
+       *
+       * <code>int64 sku = 1;</code>
+       * @param value The sku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSku(long value) {
+        
+        sku_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор товара
+       * </pre>
+       *
+       * <code>int64 sku = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSku() {
+        
+        sku_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object storeId_ = "";
+      /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @return The storeId.
+       */
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @return The bytes for storeId.
+       */
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @param value The storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = getDefaultInstance().getStoreId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @param value The bytes for storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object retailerId_ = "";
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 3;</code>
+       * @return The retailerId.
+       */
+      public java.lang.String getRetailerId() {
+        java.lang.Object ref = retailerId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 3;</code>
+       * @return The bytes for retailerId.
+       */
+      public com.google.protobuf.ByteString
+          getRetailerIdBytes() {
+        java.lang.Object ref = retailerId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 3;</code>
+       * @param value The retailerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        retailerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerId() {
+        
+        retailerId_ = getDefaultInstance().getRetailerId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 3;</code>
+       * @param value The bytes for retailerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        retailerId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object retailerSku_ = "";
+      /**
+       * <pre>
+       * идентификатор sku ритейлера
+       * </pre>
+       *
+       * <code>string retailer_sku = 4;</code>
+       * @return The retailerSku.
+       */
+      public java.lang.String getRetailerSku() {
+        java.lang.Object ref = retailerSku_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerSku_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор sku ритейлера
+       * </pre>
+       *
+       * <code>string retailer_sku = 4;</code>
+       * @return The bytes for retailerSku.
+       */
+      public com.google.protobuf.ByteString
+          getRetailerSkuBytes() {
+        java.lang.Object ref = retailerSku_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerSku_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор sku ритейлера
+       * </pre>
+       *
+       * <code>string retailer_sku = 4;</code>
+       * @param value The retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSku(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор sku ритейлера
+       * </pre>
+       *
+       * <code>string retailer_sku = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerSku() {
+        
+        retailerSku_ = getDefaultInstance().getRetailerSku();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор sku ритейлера
+       * </pre>
+       *
+       * <code>string retailer_sku = 4;</code>
+       * @param value The bytes for retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSkuBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+
+      private double stock_ ;
+      /**
+       * <pre>
+       * остаток товарного предложения
+       * </pre>
+       *
+       * <code>double stock = 5;</code>
+       * @return The stock.
+       */
+      @java.lang.Override
+      public double getStock() {
+        return stock_;
+      }
+      /**
+       * <pre>
+       * остаток товарного предложения
+       * </pre>
+       *
+       * <code>double stock = 5;</code>
+       * @param value The stock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStock(double value) {
+        
+        stock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * остаток товарного предложения
+       * </pre>
+       *
+       * <code>double stock = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStock() {
+        
+        stock_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> stockData_ =
+        java.util.Collections.emptyList();
+      private void ensureStockDataIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          stockData_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Data>(stockData_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Data, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> stockDataBuilder_;
+
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data> getStockDataList() {
+        if (stockDataBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(stockData_);
+        } else {
+          return stockDataBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public int getStockDataCount() {
+        if (stockDataBuilder_ == null) {
+          return stockData_.size();
+        } else {
+          return stockDataBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data getStockData(int index) {
+        if (stockDataBuilder_ == null) {
+          return stockData_.get(index);
+        } else {
+          return stockDataBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public Builder setStockData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data value) {
+        if (stockDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStockDataIsMutable();
+          stockData_.set(index, value);
+          onChanged();
+        } else {
+          stockDataBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public Builder setStockData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder builderForValue) {
+        if (stockDataBuilder_ == null) {
+          ensureStockDataIsMutable();
+          stockData_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          stockDataBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public Builder addStockData(product_hub_back_stream.ProductHubBackStreamOuterClass.Data value) {
+        if (stockDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStockDataIsMutable();
+          stockData_.add(value);
+          onChanged();
+        } else {
+          stockDataBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public Builder addStockData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data value) {
+        if (stockDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStockDataIsMutable();
+          stockData_.add(index, value);
+          onChanged();
+        } else {
+          stockDataBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public Builder addStockData(
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder builderForValue) {
+        if (stockDataBuilder_ == null) {
+          ensureStockDataIsMutable();
+          stockData_.add(builderForValue.build());
+          onChanged();
+        } else {
+          stockDataBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public Builder addStockData(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder builderForValue) {
+        if (stockDataBuilder_ == null) {
+          ensureStockDataIsMutable();
+          stockData_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          stockDataBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public Builder addAllStockData(
+          java.lang.Iterable<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.Data> values) {
+        if (stockDataBuilder_ == null) {
+          ensureStockDataIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, stockData_);
+          onChanged();
+        } else {
+          stockDataBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public Builder clearStockData() {
+        if (stockDataBuilder_ == null) {
+          stockData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          stockDataBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public Builder removeStockData(int index) {
+        if (stockDataBuilder_ == null) {
+          ensureStockDataIsMutable();
+          stockData_.remove(index);
+          onChanged();
+        } else {
+          stockDataBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder getStockDataBuilder(
+          int index) {
+        return getStockDataFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder getStockDataOrBuilder(
+          int index) {
+        if (stockDataBuilder_ == null) {
+          return stockData_.get(index);  } else {
+          return stockDataBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+           getStockDataOrBuilderList() {
+        if (stockDataBuilder_ != null) {
+          return stockDataBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(stockData_);
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder addStockDataBuilder() {
+        return getStockDataFieldBuilder().addBuilder(
+            product_hub_back_stream.ProductHubBackStreamOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder addStockDataBuilder(
+          int index) {
+        return getStockDataFieldBuilder().addBuilder(
+            index, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+       * </pre>
+       *
+       * <code>repeated .product_hub_back_stream.Data stock_data = 6;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder> 
+           getStockDataBuilderList() {
+        return getStockDataFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Data, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder> 
+          getStockDataFieldBuilder() {
+        if (stockDataBuilder_ == null) {
+          stockDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Data, product_hub_back_stream.ProductHubBackStreamOuterClass.Data.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DataOrBuilder>(
+                  stockData_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          stockData_ = null;
+        }
+        return stockDataBuilder_;
+      }
+
+      private int status_ = 0;
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        product_hub_back_stream.ProductHubBackStreamOuterClass.Status result = product_hub_back_stream.ProductHubBackStreamOuterClass.Status.valueOf(status_);
+        return result == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(product_hub_back_stream.ProductHubBackStreamOuterClass.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.product_hub_back_stream.Status status = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object updatedAt_ = "";
+      /**
+       * <pre>
+       * последнее время обновление сущности в product-hub
+       * </pre>
+       *
+       * <code>string updated_at = 8;</code>
+       * @return The updatedAt.
+       */
+      public java.lang.String getUpdatedAt() {
+        java.lang.Object ref = updatedAt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          updatedAt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * последнее время обновление сущности в product-hub
+       * </pre>
+       *
+       * <code>string updated_at = 8;</code>
+       * @return The bytes for updatedAt.
+       */
+      public com.google.protobuf.ByteString
+          getUpdatedAtBytes() {
+        java.lang.Object ref = updatedAt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          updatedAt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * последнее время обновление сущности в product-hub
+       * </pre>
+       *
+       * <code>string updated_at = 8;</code>
+       * @param value The updatedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedAt(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        updatedAt_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * последнее время обновление сущности в product-hub
+       * </pre>
+       *
+       * <code>string updated_at = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdatedAt() {
+        
+        updatedAt_ = getDefaultInstance().getUpdatedAt();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * последнее время обновление сущности в product-hub
+       * </pre>
+       *
+       * <code>string updated_at = 8;</code>
+       * @param value The bytes for updatedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedAtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        updatedAt_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.Stock)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.Stock)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.Stock DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.Stock();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.Stock getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Stock>
+        PARSER = new com.google.protobuf.AbstractParser<Stock>() {
+      @java.lang.Override
+      public Stock parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Stock(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Stock> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Stock> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Stock getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetProductsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetProductsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+
+    /**
+     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+     * @return Whether the displayAttributes field is set.
+     */
+    boolean hasDisplayAttributes();
+    /**
+     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+     * @return The displayAttributes.
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes getDisplayAttributes();
+    /**
+     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.GetProductsRequest}
+   */
+  public static final class GetProductsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetProductsRequest)
+      GetProductsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetProductsRequest.newBuilder() to construct.
+    private GetProductsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetProductsRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetProductsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetProductsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder subBuilder = null;
+              if (displayAttributes_ != null) {
+                subBuilder = displayAttributes_.toBuilder();
+              }
+              displayAttributes_ = input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(displayAttributes_);
+                displayAttributes_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.Builder.class);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 1;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    public static final int DISPLAY_ATTRIBUTES_FIELD_NUMBER = 2;
+    private product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes displayAttributes_;
+    /**
+     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+     * @return Whether the displayAttributes field is set.
+     */
+    @java.lang.Override
+    public boolean hasDisplayAttributes() {
+      return displayAttributes_ != null;
+    }
+    /**
+     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+     * @return The displayAttributes.
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes getDisplayAttributes() {
+      return displayAttributes_ == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+    }
+    /**
+     * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
+      return getDisplayAttributes();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (cursorId_ != 0L) {
+        output.writeInt64(1, cursorId_);
+      }
+      if (displayAttributes_ != null) {
+        output.writeMessage(2, getDisplayAttributes());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, cursorId_);
+      }
+      if (displayAttributes_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getDisplayAttributes());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest) obj;
+
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (hasDisplayAttributes() != other.hasDisplayAttributes()) return false;
+      if (hasDisplayAttributes()) {
+        if (!getDisplayAttributes()
+            .equals(other.getDisplayAttributes())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      if (hasDisplayAttributes()) {
+        hash = (37 * hash) + DISPLAY_ATTRIBUTES_FIELD_NUMBER;
+        hash = (53 * hash) + getDisplayAttributes().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.GetProductsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetProductsRequest)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        cursorId_ = 0L;
+
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = null;
+        } else {
+          displayAttributes_ = null;
+          displayAttributesBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest(this);
+        result.cursorId_ = cursorId_;
+        if (displayAttributesBuilder_ == null) {
+          result.displayAttributes_ = displayAttributes_;
+        } else {
+          result.displayAttributes_ = displayAttributesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest.getDefaultInstance()) return this;
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        if (other.hasDisplayAttributes()) {
+          mergeDisplayAttributes(other.getDisplayAttributes());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes displayAttributes_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder> displayAttributesBuilder_;
+      /**
+       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+       * @return Whether the displayAttributes field is set.
+       */
+      public boolean hasDisplayAttributes() {
+        return displayAttributesBuilder_ != null || displayAttributes_ != null;
+      }
+      /**
+       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+       * @return The displayAttributes.
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes getDisplayAttributes() {
+        if (displayAttributesBuilder_ == null) {
+          return displayAttributes_ == null ? product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+        } else {
+          return displayAttributesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+       */
+      public Builder setDisplayAttributes(product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes value) {
+        if (displayAttributesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          displayAttributes_ = value;
+          onChanged();
+        } else {
+          displayAttributesBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+       */
+      public Builder setDisplayAttributes(
+          product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder builderForValue) {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = builderForValue.build();
+          onChanged();
+        } else {
+          displayAttributesBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+       */
+      public Builder mergeDisplayAttributes(product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes value) {
+        if (displayAttributesBuilder_ == null) {
+          if (displayAttributes_ != null) {
+            displayAttributes_ =
+              product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.newBuilder(displayAttributes_).mergeFrom(value).buildPartial();
+          } else {
+            displayAttributes_ = value;
+          }
+          onChanged();
+        } else {
+          displayAttributesBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+       */
+      public Builder clearDisplayAttributes() {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = null;
+          onChanged();
+        } else {
+          displayAttributes_ = null;
+          displayAttributesBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder getDisplayAttributesBuilder() {
+        
+        onChanged();
+        return getDisplayAttributesFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
+        if (displayAttributesBuilder_ != null) {
+          return displayAttributesBuilder_.getMessageOrBuilder();
+        } else {
+          return displayAttributes_ == null ?
+              product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+        }
+      }
+      /**
+       * <code>.product_hub_back_stream.DisplayAttributes display_attributes = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder> 
+          getDisplayAttributesFieldBuilder() {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributes.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.DisplayAttributesOrBuilder>(
+                  getDisplayAttributes(),
+                  getParentForChildren(),
+                  isClean());
+          displayAttributes_ = null;
+        }
+        return displayAttributesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetProductsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetProductsRequest)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetProductsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetProductsRequest>() {
+      @java.lang.Override
+      public GetProductsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetProductsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetProductsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetProductsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetProductsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetProductsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> 
+        getProductsList();
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Product getProducts(int index);
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    int getProductsCount();
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> 
+        getProductsOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder getProductsOrBuilder(
+        int index);
+
+    /**
+     * <code>bool finish = 3;</code>
+     * @return The finish.
+     */
+    boolean getFinish();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.GetProductsResponse}
+   */
+  public static final class GetProductsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetProductsResponse)
+      GetProductsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetProductsResponse.newBuilder() to construct.
+    private GetProductsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetProductsResponse() {
+      products_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetProductsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetProductsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                products_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Product>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              products_.add(
+                  input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.Product.parser(), extensionRegistry));
+              break;
+            }
+            case 24: {
+
+              finish_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          products_ = java.util.Collections.unmodifiableList(products_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.Builder.class);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 1;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    public static final int PRODUCTS_FIELD_NUMBER = 2;
+    private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> products_;
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> getProductsList() {
+      return products_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> 
+        getProductsOrBuilderList() {
+      return products_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    @java.lang.Override
+    public int getProductsCount() {
+      return products_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Product getProducts(int index) {
+      return products_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder getProductsOrBuilder(
+        int index) {
+      return products_.get(index);
+    }
+
+    public static final int FINISH_FIELD_NUMBER = 3;
+    private boolean finish_;
+    /**
+     * <code>bool finish = 3;</code>
+     * @return The finish.
+     */
+    @java.lang.Override
+    public boolean getFinish() {
+      return finish_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (cursorId_ != 0L) {
+        output.writeInt64(1, cursorId_);
+      }
+      for (int i = 0; i < products_.size(); i++) {
+        output.writeMessage(2, products_.get(i));
+      }
+      if (finish_ != false) {
+        output.writeBool(3, finish_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, cursorId_);
+      }
+      for (int i = 0; i < products_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, products_.get(i));
+      }
+      if (finish_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, finish_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse) obj;
+
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (!getProductsList()
+          .equals(other.getProductsList())) return false;
+      if (getFinish()
+          != other.getFinish()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      if (getProductsCount() > 0) {
+        hash = (37 * hash) + PRODUCTS_FIELD_NUMBER;
+        hash = (53 * hash) + getProductsList().hashCode();
+      }
+      hash = (37 * hash) + FINISH_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getFinish());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.GetProductsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetProductsResponse)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getProductsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        cursorId_ = 0L;
+
+        if (productsBuilder_ == null) {
+          products_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          productsBuilder_.clear();
+        }
+        finish_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetProductsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse(this);
+        int from_bitField0_ = bitField0_;
+        result.cursorId_ = cursorId_;
+        if (productsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            products_ = java.util.Collections.unmodifiableList(products_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.products_ = products_;
+        } else {
+          result.products_ = productsBuilder_.build();
+        }
+        result.finish_ = finish_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse.getDefaultInstance()) return this;
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        if (productsBuilder_ == null) {
+          if (!other.products_.isEmpty()) {
+            if (products_.isEmpty()) {
+              products_ = other.products_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureProductsIsMutable();
+              products_.addAll(other.products_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.products_.isEmpty()) {
+            if (productsBuilder_.isEmpty()) {
+              productsBuilder_.dispose();
+              productsBuilder_ = null;
+              products_ = other.products_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              productsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getProductsFieldBuilder() : null;
+            } else {
+              productsBuilder_.addAllMessages(other.products_);
+            }
+          }
+        }
+        if (other.getFinish() != false) {
+          setFinish(other.getFinish());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> products_ =
+        java.util.Collections.emptyList();
+      private void ensureProductsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          products_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Product>(products_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Product, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> productsBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product> getProductsList() {
+        if (productsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(products_);
+        } else {
+          return productsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public int getProductsCount() {
+        if (productsBuilder_ == null) {
+          return products_.size();
+        } else {
+          return productsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Product getProducts(int index) {
+        if (productsBuilder_ == null) {
+          return products_.get(index);
+        } else {
+          return productsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public Builder setProducts(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product value) {
+        if (productsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureProductsIsMutable();
+          products_.set(index, value);
+          onChanged();
+        } else {
+          productsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public Builder setProducts(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder builderForValue) {
+        if (productsBuilder_ == null) {
+          ensureProductsIsMutable();
+          products_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          productsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public Builder addProducts(product_hub_back_stream.ProductHubBackStreamOuterClass.Product value) {
+        if (productsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureProductsIsMutable();
+          products_.add(value);
+          onChanged();
+        } else {
+          productsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public Builder addProducts(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product value) {
+        if (productsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureProductsIsMutable();
+          products_.add(index, value);
+          onChanged();
+        } else {
+          productsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public Builder addProducts(
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder builderForValue) {
+        if (productsBuilder_ == null) {
+          ensureProductsIsMutable();
+          products_.add(builderForValue.build());
+          onChanged();
+        } else {
+          productsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public Builder addProducts(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder builderForValue) {
+        if (productsBuilder_ == null) {
+          ensureProductsIsMutable();
+          products_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          productsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public Builder addAllProducts(
+          java.lang.Iterable<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.Product> values) {
+        if (productsBuilder_ == null) {
+          ensureProductsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, products_);
+          onChanged();
+        } else {
+          productsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public Builder clearProducts() {
+        if (productsBuilder_ == null) {
+          products_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          productsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public Builder removeProducts(int index) {
+        if (productsBuilder_ == null) {
+          ensureProductsIsMutable();
+          products_.remove(index);
+          onChanged();
+        } else {
+          productsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder getProductsBuilder(
+          int index) {
+        return getProductsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder getProductsOrBuilder(
+          int index) {
+        if (productsBuilder_ == null) {
+          return products_.get(index);  } else {
+          return productsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> 
+           getProductsOrBuilderList() {
+        if (productsBuilder_ != null) {
+          return productsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(products_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder addProductsBuilder() {
+        return getProductsFieldBuilder().addBuilder(
+            product_hub_back_stream.ProductHubBackStreamOuterClass.Product.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder addProductsBuilder(
+          int index) {
+        return getProductsFieldBuilder().addBuilder(
+            index, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Product products = 2;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder> 
+           getProductsBuilderList() {
+        return getProductsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Product, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder> 
+          getProductsFieldBuilder() {
+        if (productsBuilder_ == null) {
+          productsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Product, product_hub_back_stream.ProductHubBackStreamOuterClass.Product.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.ProductOrBuilder>(
+                  products_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          products_ = null;
+        }
+        return productsBuilder_;
+      }
+
+      private boolean finish_ ;
+      /**
+       * <code>bool finish = 3;</code>
+       * @return The finish.
+       */
+      @java.lang.Override
+      public boolean getFinish() {
+        return finish_;
+      }
+      /**
+       * <code>bool finish = 3;</code>
+       * @param value The finish to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFinish(boolean value) {
+        
+        finish_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool finish = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFinish() {
+        
+        finish_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetProductsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetProductsResponse)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetProductsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetProductsResponse>() {
+      @java.lang.Override
+      public GetProductsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetProductsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetProductsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetProductsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetOffersRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetOffersRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.GetOffersRequest}
+   */
+  public static final class GetOffersRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetOffersRequest)
+      GetOffersRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetOffersRequest.newBuilder() to construct.
+    private GetOffersRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetOffersRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetOffersRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetOffersRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest.Builder.class);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 1;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (cursorId_ != 0L) {
+        output.writeInt64(1, cursorId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, cursorId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest) obj;
+
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.GetOffersRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetOffersRequest)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        cursorId_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest(this);
+        result.cursorId_ = cursorId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest.getDefaultInstance()) return this;
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetOffersRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetOffersRequest)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetOffersRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetOffersRequest>() {
+      @java.lang.Override
+      public GetOffersRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetOffersRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetOffersRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetOffersRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetOffersResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetOffersResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Offer> 
+        getOffersList();
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Offer getOffers(int index);
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    int getOffersCount();
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder> 
+        getOffersOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder getOffersOrBuilder(
+        int index);
+
+    /**
+     * <code>bool finish = 3;</code>
+     * @return The finish.
+     */
+    boolean getFinish();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.GetOffersResponse}
+   */
+  public static final class GetOffersResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetOffersResponse)
+      GetOffersResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetOffersResponse.newBuilder() to construct.
+    private GetOffersResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetOffersResponse() {
+      offers_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetOffersResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetOffersResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                offers_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Offer>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              offers_.add(
+                  input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.parser(), extensionRegistry));
+              break;
+            }
+            case 24: {
+
+              finish_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          offers_ = java.util.Collections.unmodifiableList(offers_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse.Builder.class);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 1;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    public static final int OFFERS_FIELD_NUMBER = 2;
+    private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Offer> offers_;
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Offer> getOffersList() {
+      return offers_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder> 
+        getOffersOrBuilderList() {
+      return offers_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    @java.lang.Override
+    public int getOffersCount() {
+      return offers_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Offer getOffers(int index) {
+      return offers_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder getOffersOrBuilder(
+        int index) {
+      return offers_.get(index);
+    }
+
+    public static final int FINISH_FIELD_NUMBER = 3;
+    private boolean finish_;
+    /**
+     * <code>bool finish = 3;</code>
+     * @return The finish.
+     */
+    @java.lang.Override
+    public boolean getFinish() {
+      return finish_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (cursorId_ != 0L) {
+        output.writeInt64(1, cursorId_);
+      }
+      for (int i = 0; i < offers_.size(); i++) {
+        output.writeMessage(2, offers_.get(i));
+      }
+      if (finish_ != false) {
+        output.writeBool(3, finish_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, cursorId_);
+      }
+      for (int i = 0; i < offers_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, offers_.get(i));
+      }
+      if (finish_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, finish_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse) obj;
+
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (!getOffersList()
+          .equals(other.getOffersList())) return false;
+      if (getFinish()
+          != other.getFinish()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      if (getOffersCount() > 0) {
+        hash = (37 * hash) + OFFERS_FIELD_NUMBER;
+        hash = (53 * hash) + getOffersList().hashCode();
+      }
+      hash = (37 * hash) + FINISH_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getFinish());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.GetOffersResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetOffersResponse)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getOffersFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        cursorId_ = 0L;
+
+        if (offersBuilder_ == null) {
+          offers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          offersBuilder_.clear();
+        }
+        finish_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetOffersResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse(this);
+        int from_bitField0_ = bitField0_;
+        result.cursorId_ = cursorId_;
+        if (offersBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            offers_ = java.util.Collections.unmodifiableList(offers_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.offers_ = offers_;
+        } else {
+          result.offers_ = offersBuilder_.build();
+        }
+        result.finish_ = finish_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse.getDefaultInstance()) return this;
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        if (offersBuilder_ == null) {
+          if (!other.offers_.isEmpty()) {
+            if (offers_.isEmpty()) {
+              offers_ = other.offers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureOffersIsMutable();
+              offers_.addAll(other.offers_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.offers_.isEmpty()) {
+            if (offersBuilder_.isEmpty()) {
+              offersBuilder_.dispose();
+              offersBuilder_ = null;
+              offers_ = other.offers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              offersBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getOffersFieldBuilder() : null;
+            } else {
+              offersBuilder_.addAllMessages(other.offers_);
+            }
+          }
+        }
+        if (other.getFinish() != false) {
+          setFinish(other.getFinish());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Offer> offers_ =
+        java.util.Collections.emptyList();
+      private void ensureOffersIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          offers_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Offer>(offers_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Offer, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder> offersBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Offer> getOffersList() {
+        if (offersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(offers_);
+        } else {
+          return offersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public int getOffersCount() {
+        if (offersBuilder_ == null) {
+          return offers_.size();
+        } else {
+          return offersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Offer getOffers(int index) {
+        if (offersBuilder_ == null) {
+          return offers_.get(index);
+        } else {
+          return offersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public Builder setOffers(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer value) {
+        if (offersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOffersIsMutable();
+          offers_.set(index, value);
+          onChanged();
+        } else {
+          offersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public Builder setOffers(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder builderForValue) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          offers_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          offersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public Builder addOffers(product_hub_back_stream.ProductHubBackStreamOuterClass.Offer value) {
+        if (offersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOffersIsMutable();
+          offers_.add(value);
+          onChanged();
+        } else {
+          offersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public Builder addOffers(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer value) {
+        if (offersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOffersIsMutable();
+          offers_.add(index, value);
+          onChanged();
+        } else {
+          offersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public Builder addOffers(
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder builderForValue) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          offers_.add(builderForValue.build());
+          onChanged();
+        } else {
+          offersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public Builder addOffers(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder builderForValue) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          offers_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          offersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public Builder addAllOffers(
+          java.lang.Iterable<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.Offer> values) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, offers_);
+          onChanged();
+        } else {
+          offersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public Builder clearOffers() {
+        if (offersBuilder_ == null) {
+          offers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          offersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public Builder removeOffers(int index) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          offers_.remove(index);
+          onChanged();
+        } else {
+          offersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder getOffersBuilder(
+          int index) {
+        return getOffersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder getOffersOrBuilder(
+          int index) {
+        if (offersBuilder_ == null) {
+          return offers_.get(index);  } else {
+          return offersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder> 
+           getOffersOrBuilderList() {
+        if (offersBuilder_ != null) {
+          return offersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(offers_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder addOffersBuilder() {
+        return getOffersFieldBuilder().addBuilder(
+            product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder addOffersBuilder(
+          int index) {
+        return getOffersFieldBuilder().addBuilder(
+            index, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Offer offers = 2;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder> 
+           getOffersBuilderList() {
+        return getOffersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Offer, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder> 
+          getOffersFieldBuilder() {
+        if (offersBuilder_ == null) {
+          offersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Offer, product_hub_back_stream.ProductHubBackStreamOuterClass.Offer.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.OfferOrBuilder>(
+                  offers_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          offers_ = null;
+        }
+        return offersBuilder_;
+      }
+
+      private boolean finish_ ;
+      /**
+       * <code>bool finish = 3;</code>
+       * @return The finish.
+       */
+      @java.lang.Override
+      public boolean getFinish() {
+        return finish_;
+      }
+      /**
+       * <code>bool finish = 3;</code>
+       * @param value The finish to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFinish(boolean value) {
+        
+        finish_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool finish = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFinish() {
+        
+        finish_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetOffersResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetOffersResponse)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetOffersResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetOffersResponse>() {
+      @java.lang.Override
+      public GetOffersResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetOffersResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetOffersResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetOffersResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetPricesRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetPricesRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+
+    /**
+     * <code>int64 shard_number = 2;</code>
+     * @return The shardNumber.
+     */
+    long getShardNumber();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.GetPricesRequest}
+   */
+  public static final class GetPricesRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetPricesRequest)
+      GetPricesRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetPricesRequest.newBuilder() to construct.
+    private GetPricesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetPricesRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetPricesRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetPricesRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              shardNumber_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest.Builder.class);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 1;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    public static final int SHARD_NUMBER_FIELD_NUMBER = 2;
+    private long shardNumber_;
+    /**
+     * <code>int64 shard_number = 2;</code>
+     * @return The shardNumber.
+     */
+    @java.lang.Override
+    public long getShardNumber() {
+      return shardNumber_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (cursorId_ != 0L) {
+        output.writeInt64(1, cursorId_);
+      }
+      if (shardNumber_ != 0L) {
+        output.writeInt64(2, shardNumber_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, cursorId_);
+      }
+      if (shardNumber_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, shardNumber_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest) obj;
+
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (getShardNumber()
+          != other.getShardNumber()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      hash = (37 * hash) + SHARD_NUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getShardNumber());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.GetPricesRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetPricesRequest)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        cursorId_ = 0L;
+
+        shardNumber_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest(this);
+        result.cursorId_ = cursorId_;
+        result.shardNumber_ = shardNumber_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest.getDefaultInstance()) return this;
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        if (other.getShardNumber() != 0L) {
+          setShardNumber(other.getShardNumber());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long shardNumber_ ;
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @return The shardNumber.
+       */
+      @java.lang.Override
+      public long getShardNumber() {
+        return shardNumber_;
+      }
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @param value The shardNumber to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShardNumber(long value) {
+        
+        shardNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearShardNumber() {
+        
+        shardNumber_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetPricesRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetPricesRequest)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetPricesRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetPricesRequest>() {
+      @java.lang.Override
+      public GetPricesRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetPricesRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetPricesRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetPricesRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetPricesResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetPricesResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+
+    /**
+     * <code>int64 shard_number = 2;</code>
+     * @return The shardNumber.
+     */
+    long getShardNumber();
+
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Price> 
+        getPricesList();
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Price getPrices(int index);
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    int getPricesCount();
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder> 
+        getPricesOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder getPricesOrBuilder(
+        int index);
+
+    /**
+     * <code>bool finish = 4;</code>
+     * @return The finish.
+     */
+    boolean getFinish();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.GetPricesResponse}
+   */
+  public static final class GetPricesResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetPricesResponse)
+      GetPricesResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetPricesResponse.newBuilder() to construct.
+    private GetPricesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetPricesResponse() {
+      prices_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetPricesResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetPricesResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              shardNumber_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                prices_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Price>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              prices_.add(
+                  input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.Price.parser(), extensionRegistry));
+              break;
+            }
+            case 32: {
+
+              finish_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          prices_ = java.util.Collections.unmodifiableList(prices_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse.Builder.class);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 1;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    public static final int SHARD_NUMBER_FIELD_NUMBER = 2;
+    private long shardNumber_;
+    /**
+     * <code>int64 shard_number = 2;</code>
+     * @return The shardNumber.
+     */
+    @java.lang.Override
+    public long getShardNumber() {
+      return shardNumber_;
+    }
+
+    public static final int PRICES_FIELD_NUMBER = 3;
+    private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Price> prices_;
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Price> getPricesList() {
+      return prices_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder> 
+        getPricesOrBuilderList() {
+      return prices_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    @java.lang.Override
+    public int getPricesCount() {
+      return prices_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Price getPrices(int index) {
+      return prices_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder getPricesOrBuilder(
+        int index) {
+      return prices_.get(index);
+    }
+
+    public static final int FINISH_FIELD_NUMBER = 4;
+    private boolean finish_;
+    /**
+     * <code>bool finish = 4;</code>
+     * @return The finish.
+     */
+    @java.lang.Override
+    public boolean getFinish() {
+      return finish_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (cursorId_ != 0L) {
+        output.writeInt64(1, cursorId_);
+      }
+      if (shardNumber_ != 0L) {
+        output.writeInt64(2, shardNumber_);
+      }
+      for (int i = 0; i < prices_.size(); i++) {
+        output.writeMessage(3, prices_.get(i));
+      }
+      if (finish_ != false) {
+        output.writeBool(4, finish_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, cursorId_);
+      }
+      if (shardNumber_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, shardNumber_);
+      }
+      for (int i = 0; i < prices_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, prices_.get(i));
+      }
+      if (finish_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, finish_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse) obj;
+
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (getShardNumber()
+          != other.getShardNumber()) return false;
+      if (!getPricesList()
+          .equals(other.getPricesList())) return false;
+      if (getFinish()
+          != other.getFinish()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      hash = (37 * hash) + SHARD_NUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getShardNumber());
+      if (getPricesCount() > 0) {
+        hash = (37 * hash) + PRICES_FIELD_NUMBER;
+        hash = (53 * hash) + getPricesList().hashCode();
+      }
+      hash = (37 * hash) + FINISH_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getFinish());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.GetPricesResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetPricesResponse)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPricesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        cursorId_ = 0L;
+
+        shardNumber_ = 0L;
+
+        if (pricesBuilder_ == null) {
+          prices_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          pricesBuilder_.clear();
+        }
+        finish_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetPricesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse(this);
+        int from_bitField0_ = bitField0_;
+        result.cursorId_ = cursorId_;
+        result.shardNumber_ = shardNumber_;
+        if (pricesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            prices_ = java.util.Collections.unmodifiableList(prices_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.prices_ = prices_;
+        } else {
+          result.prices_ = pricesBuilder_.build();
+        }
+        result.finish_ = finish_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse.getDefaultInstance()) return this;
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        if (other.getShardNumber() != 0L) {
+          setShardNumber(other.getShardNumber());
+        }
+        if (pricesBuilder_ == null) {
+          if (!other.prices_.isEmpty()) {
+            if (prices_.isEmpty()) {
+              prices_ = other.prices_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePricesIsMutable();
+              prices_.addAll(other.prices_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.prices_.isEmpty()) {
+            if (pricesBuilder_.isEmpty()) {
+              pricesBuilder_.dispose();
+              pricesBuilder_ = null;
+              prices_ = other.prices_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              pricesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPricesFieldBuilder() : null;
+            } else {
+              pricesBuilder_.addAllMessages(other.prices_);
+            }
+          }
+        }
+        if (other.getFinish() != false) {
+          setFinish(other.getFinish());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long shardNumber_ ;
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @return The shardNumber.
+       */
+      @java.lang.Override
+      public long getShardNumber() {
+        return shardNumber_;
+      }
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @param value The shardNumber to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShardNumber(long value) {
+        
+        shardNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearShardNumber() {
+        
+        shardNumber_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Price> prices_ =
+        java.util.Collections.emptyList();
+      private void ensurePricesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          prices_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Price>(prices_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Price, product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder> pricesBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Price> getPricesList() {
+        if (pricesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(prices_);
+        } else {
+          return pricesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public int getPricesCount() {
+        if (pricesBuilder_ == null) {
+          return prices_.size();
+        } else {
+          return pricesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Price getPrices(int index) {
+        if (pricesBuilder_ == null) {
+          return prices_.get(index);
+        } else {
+          return pricesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public Builder setPrices(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Price value) {
+        if (pricesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePricesIsMutable();
+          prices_.set(index, value);
+          onChanged();
+        } else {
+          pricesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public Builder setPrices(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder builderForValue) {
+        if (pricesBuilder_ == null) {
+          ensurePricesIsMutable();
+          prices_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          pricesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public Builder addPrices(product_hub_back_stream.ProductHubBackStreamOuterClass.Price value) {
+        if (pricesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePricesIsMutable();
+          prices_.add(value);
+          onChanged();
+        } else {
+          pricesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public Builder addPrices(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Price value) {
+        if (pricesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePricesIsMutable();
+          prices_.add(index, value);
+          onChanged();
+        } else {
+          pricesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public Builder addPrices(
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder builderForValue) {
+        if (pricesBuilder_ == null) {
+          ensurePricesIsMutable();
+          prices_.add(builderForValue.build());
+          onChanged();
+        } else {
+          pricesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public Builder addPrices(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder builderForValue) {
+        if (pricesBuilder_ == null) {
+          ensurePricesIsMutable();
+          prices_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          pricesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public Builder addAllPrices(
+          java.lang.Iterable<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.Price> values) {
+        if (pricesBuilder_ == null) {
+          ensurePricesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, prices_);
+          onChanged();
+        } else {
+          pricesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public Builder clearPrices() {
+        if (pricesBuilder_ == null) {
+          prices_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          pricesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public Builder removePrices(int index) {
+        if (pricesBuilder_ == null) {
+          ensurePricesIsMutable();
+          prices_.remove(index);
+          onChanged();
+        } else {
+          pricesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder getPricesBuilder(
+          int index) {
+        return getPricesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder getPricesOrBuilder(
+          int index) {
+        if (pricesBuilder_ == null) {
+          return prices_.get(index);  } else {
+          return pricesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder> 
+           getPricesOrBuilderList() {
+        if (pricesBuilder_ != null) {
+          return pricesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(prices_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder addPricesBuilder() {
+        return getPricesFieldBuilder().addBuilder(
+            product_hub_back_stream.ProductHubBackStreamOuterClass.Price.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder addPricesBuilder(
+          int index) {
+        return getPricesFieldBuilder().addBuilder(
+            index, product_hub_back_stream.ProductHubBackStreamOuterClass.Price.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Price prices = 3;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder> 
+           getPricesBuilderList() {
+        return getPricesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Price, product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder> 
+          getPricesFieldBuilder() {
+        if (pricesBuilder_ == null) {
+          pricesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Price, product_hub_back_stream.ProductHubBackStreamOuterClass.Price.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.PriceOrBuilder>(
+                  prices_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          prices_ = null;
+        }
+        return pricesBuilder_;
+      }
+
+      private boolean finish_ ;
+      /**
+       * <code>bool finish = 4;</code>
+       * @return The finish.
+       */
+      @java.lang.Override
+      public boolean getFinish() {
+        return finish_;
+      }
+      /**
+       * <code>bool finish = 4;</code>
+       * @param value The finish to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFinish(boolean value) {
+        
+        finish_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool finish = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFinish() {
+        
+        finish_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetPricesResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetPricesResponse)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetPricesResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetPricesResponse>() {
+      @java.lang.Override
+      public GetPricesResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetPricesResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetPricesResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetPricesResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetStocksRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetStocksRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+
+    /**
+     * <code>int64 shard_number = 2;</code>
+     * @return The shardNumber.
+     */
+    long getShardNumber();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.GetStocksRequest}
+   */
+  public static final class GetStocksRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetStocksRequest)
+      GetStocksRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetStocksRequest.newBuilder() to construct.
+    private GetStocksRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetStocksRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetStocksRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetStocksRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              shardNumber_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest.Builder.class);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 1;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    public static final int SHARD_NUMBER_FIELD_NUMBER = 2;
+    private long shardNumber_;
+    /**
+     * <code>int64 shard_number = 2;</code>
+     * @return The shardNumber.
+     */
+    @java.lang.Override
+    public long getShardNumber() {
+      return shardNumber_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (cursorId_ != 0L) {
+        output.writeInt64(1, cursorId_);
+      }
+      if (shardNumber_ != 0L) {
+        output.writeInt64(2, shardNumber_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, cursorId_);
+      }
+      if (shardNumber_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, shardNumber_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest) obj;
+
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (getShardNumber()
+          != other.getShardNumber()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      hash = (37 * hash) + SHARD_NUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getShardNumber());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.GetStocksRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetStocksRequest)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        cursorId_ = 0L;
+
+        shardNumber_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest(this);
+        result.cursorId_ = cursorId_;
+        result.shardNumber_ = shardNumber_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest.getDefaultInstance()) return this;
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        if (other.getShardNumber() != 0L) {
+          setShardNumber(other.getShardNumber());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long shardNumber_ ;
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @return The shardNumber.
+       */
+      @java.lang.Override
+      public long getShardNumber() {
+        return shardNumber_;
+      }
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @param value The shardNumber to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShardNumber(long value) {
+        
+        shardNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearShardNumber() {
+        
+        shardNumber_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetStocksRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetStocksRequest)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetStocksRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetStocksRequest>() {
+      @java.lang.Override
+      public GetStocksRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetStocksRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetStocksRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetStocksRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetStocksResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back_stream.GetStocksResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+
+    /**
+     * <code>int64 shard_number = 2;</code>
+     * @return The shardNumber.
+     */
+    long getShardNumber();
+
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Stock> 
+        getStocksList();
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.Stock getStocks(int index);
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    int getStocksCount();
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder> 
+        getStocksOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder getStocksOrBuilder(
+        int index);
+
+    /**
+     * <code>bool finish = 4;</code>
+     * @return The finish.
+     */
+    boolean getFinish();
+  }
+  /**
+   * Protobuf type {@code product_hub_back_stream.GetStocksResponse}
+   */
+  public static final class GetStocksResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back_stream.GetStocksResponse)
+      GetStocksResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetStocksResponse.newBuilder() to construct.
+    private GetStocksResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetStocksResponse() {
+      stocks_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetStocksResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetStocksResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              shardNumber_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                stocks_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Stock>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              stocks_.add(
+                  input.readMessage(product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.parser(), extensionRegistry));
+              break;
+            }
+            case 32: {
+
+              finish_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          stocks_ = java.util.Collections.unmodifiableList(stocks_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse.Builder.class);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 1;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 1;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    public static final int SHARD_NUMBER_FIELD_NUMBER = 2;
+    private long shardNumber_;
+    /**
+     * <code>int64 shard_number = 2;</code>
+     * @return The shardNumber.
+     */
+    @java.lang.Override
+    public long getShardNumber() {
+      return shardNumber_;
+    }
+
+    public static final int STOCKS_FIELD_NUMBER = 3;
+    private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Stock> stocks_;
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Stock> getStocksList() {
+      return stocks_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder> 
+        getStocksOrBuilderList() {
+      return stocks_;
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    @java.lang.Override
+    public int getStocksCount() {
+      return stocks_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.Stock getStocks(int index) {
+      return stocks_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+     */
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder getStocksOrBuilder(
+        int index) {
+      return stocks_.get(index);
+    }
+
+    public static final int FINISH_FIELD_NUMBER = 4;
+    private boolean finish_;
+    /**
+     * <code>bool finish = 4;</code>
+     * @return The finish.
+     */
+    @java.lang.Override
+    public boolean getFinish() {
+      return finish_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (cursorId_ != 0L) {
+        output.writeInt64(1, cursorId_);
+      }
+      if (shardNumber_ != 0L) {
+        output.writeInt64(2, shardNumber_);
+      }
+      for (int i = 0; i < stocks_.size(); i++) {
+        output.writeMessage(3, stocks_.get(i));
+      }
+      if (finish_ != false) {
+        output.writeBool(4, finish_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, cursorId_);
+      }
+      if (shardNumber_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, shardNumber_);
+      }
+      for (int i = 0; i < stocks_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, stocks_.get(i));
+      }
+      if (finish_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, finish_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse other = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse) obj;
+
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (getShardNumber()
+          != other.getShardNumber()) return false;
+      if (!getStocksList()
+          .equals(other.getStocksList())) return false;
+      if (getFinish()
+          != other.getFinish()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      hash = (37 * hash) + SHARD_NUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getShardNumber());
+      if (getStocksCount() > 0) {
+        hash = (37 * hash) + STOCKS_FIELD_NUMBER;
+        hash = (53 * hash) + getStocksList().hashCode();
+      }
+      hash = (37 * hash) + FINISH_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getFinish());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back_stream.GetStocksResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back_stream.GetStocksResponse)
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse.class, product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse.Builder.class);
+      }
+
+      // Construct using product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getStocksFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        cursorId_ = 0L;
+
+        shardNumber_ = 0L;
+
+        if (stocksBuilder_ == null) {
+          stocks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          stocksBuilder_.clear();
+        }
+        finish_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.internal_static_product_hub_back_stream_GetStocksResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse getDefaultInstanceForType() {
+        return product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse build() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse buildPartial() {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse result = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse(this);
+        int from_bitField0_ = bitField0_;
+        result.cursorId_ = cursorId_;
+        result.shardNumber_ = shardNumber_;
+        if (stocksBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            stocks_ = java.util.Collections.unmodifiableList(stocks_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.stocks_ = stocks_;
+        } else {
+          result.stocks_ = stocksBuilder_.build();
+        }
+        result.finish_ = finish_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse) {
+          return mergeFrom((product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse other) {
+        if (other == product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse.getDefaultInstance()) return this;
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        if (other.getShardNumber() != 0L) {
+          setShardNumber(other.getShardNumber());
+        }
+        if (stocksBuilder_ == null) {
+          if (!other.stocks_.isEmpty()) {
+            if (stocks_.isEmpty()) {
+              stocks_ = other.stocks_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureStocksIsMutable();
+              stocks_.addAll(other.stocks_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.stocks_.isEmpty()) {
+            if (stocksBuilder_.isEmpty()) {
+              stocksBuilder_.dispose();
+              stocksBuilder_ = null;
+              stocks_ = other.stocks_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              stocksBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getStocksFieldBuilder() : null;
+            } else {
+              stocksBuilder_.addAllMessages(other.stocks_);
+            }
+          }
+        }
+        if (other.getFinish() != false) {
+          setFinish(other.getFinish());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long shardNumber_ ;
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @return The shardNumber.
+       */
+      @java.lang.Override
+      public long getShardNumber() {
+        return shardNumber_;
+      }
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @param value The shardNumber to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShardNumber(long value) {
+        
+        shardNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 shard_number = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearShardNumber() {
+        
+        shardNumber_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Stock> stocks_ =
+        java.util.Collections.emptyList();
+      private void ensureStocksIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          stocks_ = new java.util.ArrayList<product_hub_back_stream.ProductHubBackStreamOuterClass.Stock>(stocks_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Stock, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder> stocksBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Stock> getStocksList() {
+        if (stocksBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(stocks_);
+        } else {
+          return stocksBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public int getStocksCount() {
+        if (stocksBuilder_ == null) {
+          return stocks_.size();
+        } else {
+          return stocksBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Stock getStocks(int index) {
+        if (stocksBuilder_ == null) {
+          return stocks_.get(index);
+        } else {
+          return stocksBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public Builder setStocks(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock value) {
+        if (stocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStocksIsMutable();
+          stocks_.set(index, value);
+          onChanged();
+        } else {
+          stocksBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public Builder setStocks(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder builderForValue) {
+        if (stocksBuilder_ == null) {
+          ensureStocksIsMutable();
+          stocks_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          stocksBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public Builder addStocks(product_hub_back_stream.ProductHubBackStreamOuterClass.Stock value) {
+        if (stocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStocksIsMutable();
+          stocks_.add(value);
+          onChanged();
+        } else {
+          stocksBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public Builder addStocks(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock value) {
+        if (stocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStocksIsMutable();
+          stocks_.add(index, value);
+          onChanged();
+        } else {
+          stocksBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public Builder addStocks(
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder builderForValue) {
+        if (stocksBuilder_ == null) {
+          ensureStocksIsMutable();
+          stocks_.add(builderForValue.build());
+          onChanged();
+        } else {
+          stocksBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public Builder addStocks(
+          int index, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder builderForValue) {
+        if (stocksBuilder_ == null) {
+          ensureStocksIsMutable();
+          stocks_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          stocksBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public Builder addAllStocks(
+          java.lang.Iterable<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.Stock> values) {
+        if (stocksBuilder_ == null) {
+          ensureStocksIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, stocks_);
+          onChanged();
+        } else {
+          stocksBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public Builder clearStocks() {
+        if (stocksBuilder_ == null) {
+          stocks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          stocksBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public Builder removeStocks(int index) {
+        if (stocksBuilder_ == null) {
+          ensureStocksIsMutable();
+          stocks_.remove(index);
+          onChanged();
+        } else {
+          stocksBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder getStocksBuilder(
+          int index) {
+        return getStocksFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder getStocksOrBuilder(
+          int index) {
+        if (stocksBuilder_ == null) {
+          return stocks_.get(index);  } else {
+          return stocksBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public java.util.List<? extends product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder> 
+           getStocksOrBuilderList() {
+        if (stocksBuilder_ != null) {
+          return stocksBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(stocks_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder addStocksBuilder() {
+        return getStocksFieldBuilder().addBuilder(
+            product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder addStocksBuilder(
+          int index) {
+        return getStocksFieldBuilder().addBuilder(
+            index, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back_stream.Stock stocks = 3;</code>
+       */
+      public java.util.List<product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder> 
+           getStocksBuilderList() {
+        return getStocksFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back_stream.ProductHubBackStreamOuterClass.Stock, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder> 
+          getStocksFieldBuilder() {
+        if (stocksBuilder_ == null) {
+          stocksBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back_stream.ProductHubBackStreamOuterClass.Stock, product_hub_back_stream.ProductHubBackStreamOuterClass.Stock.Builder, product_hub_back_stream.ProductHubBackStreamOuterClass.StockOrBuilder>(
+                  stocks_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          stocks_ = null;
+        }
+        return stocksBuilder_;
+      }
+
+      private boolean finish_ ;
+      /**
+       * <code>bool finish = 4;</code>
+       * @return The finish.
+       */
+      @java.lang.Override
+      public boolean getFinish() {
+        return finish_;
+      }
+      /**
+       * <code>bool finish = 4;</code>
+       * @param value The finish to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFinish(boolean value) {
+        
+        finish_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool finish = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFinish() {
+        
+        finish_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back_stream.GetStocksResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back_stream.GetStocksResponse)
+    private static final product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse();
+    }
+
+    public static product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetStocksResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetStocksResponse>() {
+      @java.lang.Override
+      public GetStocksResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetStocksResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetStocksResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetStocksResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_back_stream_DisplayAttributes_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_back_stream_DisplayAttributes_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_product_hub_back_stream_GetProductsResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_product_hub_back_stream_GetProductsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_back_stream_Product_descriptor;
   private static final 
@@ -9557,6 +19569,61 @@ public final class ProductHubBackStreamOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_back_stream_Data_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_Offer_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_Offer_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_Price_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_Price_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_Stock_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_Stock_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_GetProductsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_GetProductsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_GetProductsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_GetProductsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_GetOffersRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_GetOffersRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_GetOffersResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_GetOffersResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_GetPricesRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_GetPricesRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_GetPricesResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_GetPricesResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_GetStocksRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_GetStocksRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_stream_GetStocksResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_stream_GetStocksResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -9567,82 +19634,110 @@ public final class ProductHubBackStreamOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n1content/product_hub/product-hub-back-s" +
-      "tream.proto\022\027product_hub_back_stream\"o\n\022" +
-      "GetProductsRequest\022\021\n\tcursor_id\030\001 \001(\003\022F\n" +
-      "\022display_attributes\030\002 \001(\0132*.product_hub_" +
-      "back_stream.DisplayAttributes\"0\n\021Display" +
-      "Attributes\022\014\n\004keys\030\001 \003(\t\022\r\n\005flags\030\002 \003(\t\"" +
-      "l\n\023GetProductsResponse\022\021\n\tcursor_id\030\001 \001(" +
-      "\003\0222\n\010products\030\002 \003(\0132 .product_hub_back_s" +
-      "tream.Product\022\016\n\006finish\030\003 \001(\010\"\330\001\n\007Produc" +
-      "t\022\013\n\003sku\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\0225\n\ncategori" +
-      "es\030\003 \003(\0132!.product_hub_back_stream.Categ" +
-      "ory\0226\n\nattributes\030\004 \003(\0132\".product_hub_ba" +
-      "ck_stream.Attribute\022/\n\006status\030\005 \001(\0162\037.pr" +
-      "oduct_hub_back_stream.Status\022\022\n\nupdated_" +
-      "at\030\006 \001(\t\"Z\n\010Category\022\n\n\002id\030\001 \001(\t\022\014\n\004name" +
-      "\030\002 \001(\t\0224\n\rcategory_data\030\003 \003(\0132\035.product_" +
-      "hub_back_stream.Data\"\344\002\n\tAttribute\022\013\n\003ke" +
-      "y\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\026\n\016dictionary_key\030" +
-      "\003 \001(\t\0220\n\004type\030\004 \001(\0162\".product_hub_back_s" +
-      "tream.ValueType\022\026\n\016is_multi_value\030\005 \001(\010\022" +
-      "<\n\005flags\030\006 \003(\0132-.product_hub_back_stream" +
-      ".Attribute.FlagsEntry\0225\n\016attribute_data\030" +
-      "\007 \003(\0132\035.product_hub_back_stream.Data\0227\n\006" +
-      "values\030\010 \003(\0132\'.product_hub_back_stream.A" +
-      "ttributeValue\032,\n\nFlagsEntry\022\013\n\003key\030\001 \001(\t" +
-      "\022\r\n\005value\030\002 \001(\010:\0028\001\"R\n\016AttributeValue\022\r\n" +
-      "\005value\030\001 \001(\t\0221\n\nvalue_data\030\002 \003(\0132\035.produ" +
-      "ct_hub_back_stream.Data\"m\n\004Data\022\013\n\003key\030\001" +
-      " \001(\t\0220\n\004type\030\002 \001(\0162\".product_hub_back_st" +
-      "ream.ValueType\022\026\n\016is_multi_value\030\003 \001(\010\022\016" +
-      "\n\006values\030\004 \003(\t*.\n\006Status\022\013\n\007DISABLE\020\000\022\n\n" +
-      "\006ENABLE\020\001\022\013\n\007DELETED\020\002*S\n\tValueType\022\n\n\006S" +
-      "TRING\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL" +
-      "\020\003\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\0052\204\001\n\024ProductH" +
-      "ubBackStream\022l\n\013GetProducts\022+.product_hu" +
-      "b_back_stream.GetProductsRequest\032,.produ" +
-      "ct_hub_back_stream.GetProductsResponse\"\000" +
-      "0\001BYZWgitlab.sbermarket.tech/paas/conten" +
-      "t/product-hub/pkg/server/grpc/product-hu" +
-      "b-back-streamb\006proto3"
+      "tream.proto\022\027product_hub_back_stream\"0\n\021" +
+      "DisplayAttributes\022\014\n\004keys\030\001 \003(\t\022\r\n\005flags" +
+      "\030\002 \003(\t\"\330\001\n\007Product\022\013\n\003sku\030\001 \001(\003\022\014\n\004name\030" +
+      "\002 \001(\t\0225\n\ncategories\030\003 \003(\0132!.product_hub_" +
+      "back_stream.Category\0226\n\nattributes\030\004 \003(\013" +
+      "2\".product_hub_back_stream.Attribute\022/\n\006" +
+      "status\030\005 \001(\0162\037.product_hub_back_stream.S" +
+      "tatus\022\022\n\nupdated_at\030\006 \001(\t\"Z\n\010Category\022\n\n" +
+      "\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\0224\n\rcategory_data" +
+      "\030\003 \003(\0132\035.product_hub_back_stream.Data\"\344\002" +
+      "\n\tAttribute\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\026" +
+      "\n\016dictionary_key\030\003 \001(\t\0220\n\004type\030\004 \001(\0162\".p" +
+      "roduct_hub_back_stream.ValueType\022\026\n\016is_m" +
+      "ulti_value\030\005 \001(\010\022<\n\005flags\030\006 \003(\0132-.produc" +
+      "t_hub_back_stream.Attribute.FlagsEntry\0225" +
+      "\n\016attribute_data\030\007 \003(\0132\035.product_hub_bac" +
+      "k_stream.Data\0227\n\006values\030\010 \003(\0132\'.product_" +
+      "hub_back_stream.AttributeValue\032,\n\nFlagsE" +
+      "ntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\010:\0028\001\"o\n\016" +
+      "AttributeValue\022\r\n\005value\030\001 \001(\t\0221\n\nvalue_d" +
+      "ata\030\002 \003(\0132\035.product_hub_back_stream.Data" +
+      "\022\033\n\023dictionary_value_id\030\003 \001(\t\"m\n\004Data\022\013\n" +
+      "\003key\030\001 \001(\t\0220\n\004type\030\002 \001(\0162\".product_hub_b" +
+      "ack_stream.ValueType\022\026\n\016is_multi_value\030\003" +
+      " \001(\010\022\016\n\006values\030\004 \003(\t\"\350\001\n\005Offer\022\013\n\003sku\030\001 " +
+      "\001(\003\022\023\n\013retailer_id\030\002 \001(\t\022\024\n\014retailer_sku" +
+      "\030\003 \001(\t\022/\n\006pricer\030\004 \001(\0162\037.product_hub_bac" +
+      "k_stream.Pricer\0221\n\noffer_data\030\005 \003(\0132\035.pr" +
+      "oduct_hub_back_stream.Data\022\022\n\nupdated_at" +
+      "\030\006 \001(\t\022/\n\006status\030\007 \001(\0162\037.product_hub_bac" +
+      "k_stream.Status\"\326\001\n\005Price\022\013\n\003sku\030\001 \001(\003\022\020" +
+      "\n\010store_id\030\002 \001(\t\022\021\n\ttenant_id\030\003 \001(\t\022\r\n\005p" +
+      "rice\030\004 \001(\001\0221\n\nprice_data\030\005 \003(\0132\035.product" +
+      "_hub_back_stream.Data\022/\n\006status\030\006 \001(\0162\037." +
+      "product_hub_back_stream.Status\022\022\n\nupdate" +
+      "d_at\030\007 \001(\t\022\024\n\014retailer_sku\030\010 \001(\t\"\330\001\n\005Sto" +
+      "ck\022\013\n\003sku\030\001 \001(\003\022\020\n\010store_id\030\002 \001(\t\022\023\n\013ret" +
+      "ailer_id\030\003 \001(\t\022\024\n\014retailer_sku\030\004 \001(\t\022\r\n\005" +
+      "stock\030\005 \001(\001\0221\n\nstock_data\030\006 \003(\0132\035.produc" +
+      "t_hub_back_stream.Data\022/\n\006status\030\007 \001(\0162\037" +
+      ".product_hub_back_stream.Status\022\022\n\nupdat" +
+      "ed_at\030\010 \001(\t\"o\n\022GetProductsRequest\022\021\n\tcur" +
+      "sor_id\030\001 \001(\003\022F\n\022display_attributes\030\002 \001(\013" +
+      "2*.product_hub_back_stream.DisplayAttrib" +
+      "utes\"l\n\023GetProductsResponse\022\021\n\tcursor_id" +
+      "\030\001 \001(\003\0222\n\010products\030\002 \003(\0132 .product_hub_b" +
+      "ack_stream.Product\022\016\n\006finish\030\003 \001(\010\"%\n\020Ge" +
+      "tOffersRequest\022\021\n\tcursor_id\030\001 \001(\003\"f\n\021Get" +
+      "OffersResponse\022\021\n\tcursor_id\030\001 \001(\003\022.\n\006off" +
+      "ers\030\002 \003(\0132\036.product_hub_back_stream.Offe" +
+      "r\022\016\n\006finish\030\003 \001(\010\";\n\020GetPricesRequest\022\021\n" +
+      "\tcursor_id\030\001 \001(\003\022\024\n\014shard_number\030\002 \001(\003\"|" +
+      "\n\021GetPricesResponse\022\021\n\tcursor_id\030\001 \001(\003\022\024" +
+      "\n\014shard_number\030\002 \001(\003\022.\n\006prices\030\003 \003(\0132\036.p" +
+      "roduct_hub_back_stream.Price\022\016\n\006finish\030\004" +
+      " \001(\010\";\n\020GetStocksRequest\022\021\n\tcursor_id\030\001 " +
+      "\001(\003\022\024\n\014shard_number\030\002 \001(\003\"|\n\021GetStocksRe" +
+      "sponse\022\021\n\tcursor_id\030\001 \001(\003\022\024\n\014shard_numbe" +
+      "r\030\002 \001(\003\022.\n\006stocks\030\003 \003(\0132\036.product_hub_ba" +
+      "ck_stream.Stock\022\016\n\006finish\030\004 \001(\010*.\n\006Statu" +
+      "s\022\013\n\007DISABLE\020\000\022\n\n\006ENABLE\020\001\022\013\n\007DELETED\020\002*" +
+      "S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007INTEGER\020\001\022\n\n" +
+      "\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIME\020\004\022\t\n\005IMA" +
+      "GE\020\005*U\n\006Pricer\022\014\n\010PER_ITEM\020\000\022\025\n\021PER_ITEM" +
+      "S_PACKAGE\020\001\022\026\n\022PER_WEIGHT_PACKAGE\020\002\022\016\n\nP" +
+      "ER_WEIGHT\020\0032\274\003\n\024ProductHubBackStream\022l\n\013" +
+      "GetProducts\022+.product_hub_back_stream.Ge" +
+      "tProductsRequest\032,.product_hub_back_stre" +
+      "am.GetProductsResponse\"\0000\001\022f\n\tGetOffers\022" +
+      ").product_hub_back_stream.GetOffersReque" +
+      "st\032*.product_hub_back_stream.GetOffersRe" +
+      "sponse\"\0000\001\022f\n\tGetPrices\022).product_hub_ba" +
+      "ck_stream.GetPricesRequest\032*.product_hub" +
+      "_back_stream.GetPricesResponse\"\0000\001\022f\n\tGe" +
+      "tStocks\022).product_hub_back_stream.GetSto" +
+      "cksRequest\032*.product_hub_back_stream.Get" +
+      "StocksResponse\"\0000\001BQZOgitlab.sbmt.io/paa" +
+      "s/content/product-hub/pkg/server/grpc/pr" +
+      "oduct-hub-back-streamb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_product_hub_back_stream_GetProductsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_product_hub_back_stream_GetProductsRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_product_hub_back_stream_GetProductsRequest_descriptor,
-        new java.lang.String[] { "CursorId", "DisplayAttributes", });
     internal_static_product_hub_back_stream_DisplayAttributes_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_product_hub_back_stream_DisplayAttributes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_stream_DisplayAttributes_descriptor,
         new java.lang.String[] { "Keys", "Flags", });
-    internal_static_product_hub_back_stream_GetProductsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_product_hub_back_stream_GetProductsResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_product_hub_back_stream_GetProductsResponse_descriptor,
-        new java.lang.String[] { "CursorId", "Products", "Finish", });
     internal_static_product_hub_back_stream_Product_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_product_hub_back_stream_Product_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_stream_Product_descriptor,
         new java.lang.String[] { "Sku", "Name", "Categories", "Attributes", "Status", "UpdatedAt", });
     internal_static_product_hub_back_stream_Category_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_product_hub_back_stream_Category_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_stream_Category_descriptor,
         new java.lang.String[] { "Id", "Name", "CategoryData", });
     internal_static_product_hub_back_stream_Attribute_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_product_hub_back_stream_Attribute_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_stream_Attribute_descriptor,
@@ -9654,17 +19749,83 @@ public final class ProductHubBackStreamOuterClass {
         internal_static_product_hub_back_stream_Attribute_FlagsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_product_hub_back_stream_AttributeValue_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_product_hub_back_stream_AttributeValue_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_stream_AttributeValue_descriptor,
-        new java.lang.String[] { "Value", "ValueData", });
+        new java.lang.String[] { "Value", "ValueData", "DictionaryValueId", });
     internal_static_product_hub_back_stream_Data_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_product_hub_back_stream_Data_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_stream_Data_descriptor,
         new java.lang.String[] { "Key", "Type", "IsMultiValue", "Values", });
+    internal_static_product_hub_back_stream_Offer_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_product_hub_back_stream_Offer_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_Offer_descriptor,
+        new java.lang.String[] { "Sku", "RetailerId", "RetailerSku", "Pricer", "OfferData", "UpdatedAt", "Status", });
+    internal_static_product_hub_back_stream_Price_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_product_hub_back_stream_Price_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_Price_descriptor,
+        new java.lang.String[] { "Sku", "StoreId", "TenantId", "Price", "PriceData", "Status", "UpdatedAt", "RetailerSku", });
+    internal_static_product_hub_back_stream_Stock_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_product_hub_back_stream_Stock_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_Stock_descriptor,
+        new java.lang.String[] { "Sku", "StoreId", "RetailerId", "RetailerSku", "Stock", "StockData", "Status", "UpdatedAt", });
+    internal_static_product_hub_back_stream_GetProductsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_product_hub_back_stream_GetProductsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_GetProductsRequest_descriptor,
+        new java.lang.String[] { "CursorId", "DisplayAttributes", });
+    internal_static_product_hub_back_stream_GetProductsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_product_hub_back_stream_GetProductsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_GetProductsResponse_descriptor,
+        new java.lang.String[] { "CursorId", "Products", "Finish", });
+    internal_static_product_hub_back_stream_GetOffersRequest_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_product_hub_back_stream_GetOffersRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_GetOffersRequest_descriptor,
+        new java.lang.String[] { "CursorId", });
+    internal_static_product_hub_back_stream_GetOffersResponse_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_product_hub_back_stream_GetOffersResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_GetOffersResponse_descriptor,
+        new java.lang.String[] { "CursorId", "Offers", "Finish", });
+    internal_static_product_hub_back_stream_GetPricesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_product_hub_back_stream_GetPricesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_GetPricesRequest_descriptor,
+        new java.lang.String[] { "CursorId", "ShardNumber", });
+    internal_static_product_hub_back_stream_GetPricesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_product_hub_back_stream_GetPricesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_GetPricesResponse_descriptor,
+        new java.lang.String[] { "CursorId", "ShardNumber", "Prices", "Finish", });
+    internal_static_product_hub_back_stream_GetStocksRequest_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_product_hub_back_stream_GetStocksRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_GetStocksRequest_descriptor,
+        new java.lang.String[] { "CursorId", "ShardNumber", });
+    internal_static_product_hub_back_stream_GetStocksResponse_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_product_hub_back_stream_GetStocksResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_stream_GetStocksResponse_descriptor,
+        new java.lang.String[] { "CursorId", "ShardNumber", "Stocks", "Finish", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

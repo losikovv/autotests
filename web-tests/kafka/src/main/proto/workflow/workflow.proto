@@ -10,7 +10,9 @@ import "google/protobuf/empty.proto";
 
 service Service {
   rpc CreateWorkflows(CreateWorkflowsRequest) returns (CreateWorkflowsResponse);
-  rpc CreateWorkflowsV2(CreateWorkflowsRequest) returns (CreateWorkflowsV2Response);
+  rpc CreateWorkflowsV2(CreateWorkflowsRequest) returns (CreateWorkflowsV2Response) {
+    option deprecated = true;
+  };
   rpc CancelActiveWorkflowByShipmentUUID(CancelActiveWorkflowByShipmentUuidRequest) returns (google.protobuf.Empty);
   rpc RejectWorkflowByShipmentUUID(RejectWorkflowByShipmentUuidRequest) returns (RejectWorkflowByShipmentUuidResponse);
   rpc PutRegionSettings(PutRegionSettingsRequest) returns (PutRegionSettingsReply) {}
@@ -86,13 +88,18 @@ message CreateWorkflowsResponse {
 
 // Ответ создания маршрутных листов версия 2
 message CreateWorkflowsV2Response {
+  option deprecated = true;
+
   message Result {
+    option deprecated = true;
     enum Status {
+      option deprecated = true;
       SUCCESS = 0;
       FAILURE = 1;
     }
 
     enum ErrorKind {
+      option deprecated = true;
       // Внтренняя ошибка серевера (БД и т.д.)
       OTHER = 0;
       // Нельзя создать МЛ относительно текущего времени раньше чем на X секунд
@@ -157,7 +164,7 @@ message Shift {
 
 message Assignment {
   // Идентификатор родительского назначения для отложенной доставки
-  string postponed_parent_uuid = 2;
+  string postponed_parent_uuid = 2 [deprecated = true];
   // Идентификатор исполнителя
   string performer_uuid = 3;
   // Тип транспорта
@@ -171,9 +178,9 @@ message Assignment {
   // Данные активной смены
   Shift shift = 11;
   // Идентификатор назначения для отложенной доставки
-  string job_uuid = 12;
+  string job_uuid = 12 [deprecated = true];
   // Идентификатор родительского назначения для отложенной доставки
-  string parent_job_uuid = 13;
+  string parent_job_uuid = 13 [deprecated = true];
 }
 
 // Сегмент

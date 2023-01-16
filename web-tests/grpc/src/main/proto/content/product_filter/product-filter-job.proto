@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package product_filter_job;
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "gitlab.sbmt.io/paas/content/product-filter/pkg/server/grpc/product-filter-job";
+
+service ProductFilterJob {
+  rpc UploadCheckTopic(UploadCheckTopicRequest) returns (UploadCheckTopicResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_filter_job.ProductFilterJob/UploadCheckTopic"
+      body: "*"
+    };
+  }
+  rpc GetCacheValues(GetCacheValuesRequest) returns (GetCacheValuesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_filter_job.ProductFilterJob/GetCacheValues"
+      body: "*"
+    };
+  }
+  rpc GetIndexValues(GetIndexValuesRequest) returns (GetIndexValuesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_filter_job.ProductFilterJob/GetIndexValues"
+      body: "*"
+    };
+  }
+  rpc UploadIDsTopic(UploadIDsTopicRequest) returns (UploadIDsTopicResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_filter_job.ProductFilterJob/UploadIDsTopic"
+      body: "*"
+    };
+  }
+}
+
+message UploadIDsTopicRequest{
+  repeated int64 sku = 1;
+  int64 limit = 2;
+  int64 offset = 3;
+}
+
+message UploadIDsTopicResponse{
+  int64 count = 1;
+}
+
+message UploadCheckTopicRequest{
+  repeated int64 sku = 1;
+}
+
+message UploadCheckTopicResponse{
+  int64 count = 1;
+}
+
+message GetCacheValuesRequest{
+  repeated int64 sku = 1;
+}
+
+message GetCacheValuesResponse{
+  repeated Product products = 1;
+}
+
+message GetIndexValuesRequest{
+  repeated int64 sku = 1;
+}
+
+message GetIndexValuesResponse{
+  repeated Product products = 1;
+}
+
+message Product {
+  int64 sku = 1;
+  repeated string category_ids = 2;
+  bool has_image = 3;
+  bool product_available = 4;
+  repeated string offer_available = 5;
+  repeated string price_available = 6;
+  repeated string attribute_available = 7;
+  repeated string permalink_available = 8;
+  repeated string attributes = 9;
+  repeated string attribute_permalinks = 10;
+  bool has_empty_weight_prices = 11;
+  map<string, string> prices = 12;
+  map<string, string> weight_prices = 13;
+  map<string, bool> discounts = 14;
+  map<string, string> store_to_popularity = 15;
+  repeated string store_ids_with_popularity = 16;
+  repeated string real_offer_available = 17;
+}

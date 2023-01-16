@@ -13,8 +13,8 @@ import ru.instamart.api.enums.v3.IntegrationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.jdbc.dao.orders_service.OrdersDao;
-import ru.instamart.jdbc.dao.orders_service.PlacesDao;
+import ru.instamart.jdbc.dao.orders_service.publicScheme.OrdersDao;
+import ru.instamart.jdbc.dao.orders_service.publicScheme.PlacesDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.ThreadUtil;
 

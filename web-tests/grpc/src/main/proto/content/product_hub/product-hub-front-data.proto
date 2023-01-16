@@ -1,15 +1,27 @@
 syntax = "proto3";
 
 package product_hub_front_data;
+option go_package = "gitlab.sbmt.io/paas/content/product-hub/pkg/server/grpc/product-hub-front-data";
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
 
-option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/grpc/product-hub-front-data";
 
-/**
+
+/*
  * slack:
  *    #product-hub
  *
- * swagger:
+ * base:
+ *     base-product-hub.paas-content-product-hub:3009
+ *
+ * local:
+ *     base-product-hub.paas-content-product-hub.svc.cluster.local:3009
+ *
+ * swagger prod:
  *     https://paas-content-product-hub.sbmt.io/api
+ *
+ * swagger stg:
+ *     https://paas-content-product-hub.gw-stage.sbmt.io/api
  *
  * public prod grpc uri:
  *    paas-content-product-hub.sbmt.io:443
@@ -17,12 +29,12 @@ option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/
  * public stg grpc uri:
  *    paas-content-product-hub.gw-stage.sbmt.io:443
  *
- * kuber prod grpc uri:
- *    base-product-hub.paas-content-product-hub:3009
  *
  * description:
  *    Фронтовый сервис product-hub возвращающий описание товаров (product+attribute),
  *    товарное вредложение (offer), цену (price) и остатки (stock).
+ *
+ *    Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
  *
  *    Предназначет для real-time нагрузки.
  *
@@ -35,9 +47,8 @@ option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/
  *
  */
 service ProductHubFrontData {
-  /**
-   * Возвращает описание товаров по sku в виде атрибутов.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+   * Возвращает описание товаров по sku в виде атрибутов
    *
    * Обязательные параметры:
    *    sku - идентификатор описания
@@ -53,11 +64,16 @@ service ProductHubFrontData {
    *        grpcurl -d '{"sku": ["16296"], "display_attributes": [{"flags":["show_as_characteristic"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
    *
    */
-  rpc GetProductsBySKU(GetProductsBySKURequest) returns (GetProductsBySKUResponse);
+  rpc GetProductsBySKU(GetProductsBySKURequest) returns (GetProductsBySKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetProductsBySKU"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает описание товаров c ценой, стоком и товарным предложением по sku.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+   * Возвращает описание товаров c ценой, стоком и товарным предложением по sku
    *
    * Обязательные параметры:
    *    sku - идентификатор описания
@@ -68,11 +84,16 @@ service ProductHubFrontData {
    *    Вернуть все атрибуты + сток + цену + оффер:
    *        grpcurl -d '{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferBySKU
    */
-  rpc GetProductsWithOfferBySKU(GetProductsWithOfferBySKURequest) returns (GetProductsWithOfferBySKUResponse);
+  rpc GetProductsWithOfferBySKU(GetProductsWithOfferBySKURequest) returns (GetProductsWithOfferBySKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetProductsWithOfferBySKU"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает описание товаров c ценой, стоком и товарным предложением по offer_id (идентификатор базы mysql таблички offers).
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+   * Возвращает описание товаров c ценой, стоком и товарным предложением по offer_id (идентификатор базы mysql таблички offers)
    *
    * Обязательные параметры:
    *    offer_ids - идентификатор офера
@@ -82,11 +103,16 @@ service ProductHubFrontData {
    *    Вернуть все атрибуты + сток + цену + оффер:
    *        grpcurl -d '{"offer_ids": ["231461"], "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByOfferIDs
    */
-  rpc GetProductsWithOfferByOfferIDs(GetProductsWithOfferByOfferIDsRequest) returns (GetProductsWithOfferByOfferIDsResponse);
+  rpc GetProductsWithOfferByOfferIDs(GetProductsWithOfferByOfferIDsRequest) returns (GetProductsWithOfferByOfferIDsResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetProductsWithOfferByOfferIDs"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает описание товаров по EAN.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+   * Возвращает описание товаров по EAN
    *
    * Обязательные параметры:
    *    EAN - штрихкод
@@ -95,11 +121,16 @@ service ProductHubFrontData {
    *    Вернуть все атрибуты:
    *        grpcurl -d '{"ean": ["4000417048103"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByEAN
    */
-  rpc GetProductsByEAN(GetProductsByEANRequest) returns (GetProductsByEANResponse);
+  rpc GetProductsByEAN(GetProductsByEANRequest) returns (GetProductsByEANResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetProductsByEAN"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает описание товаров c ценой, стоком и товарным предложением по EAN.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+   * Возвращает описание товаров c ценой, стоком и товарным предложением по EAN
    *
    * Обязательные параметры:
    *    EAN - штрихкод
@@ -109,11 +140,16 @@ service ProductHubFrontData {
    *    Вернуть все атрибуты + сток + цену + оффер:
    *        grpcurl -d '{"ean": ["4000417048103"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByEAN
    */
-  rpc GetProductsWithOfferByEAN(GetProductsWithOfferByEANRequest) returns (GetProductsWithOfferByEANResponse);
+  rpc GetProductsWithOfferByEAN(GetProductsWithOfferByEANRequest) returns (GetProductsWithOfferByEANResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetProductsWithOfferByEAN"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает описание товаров по permalink товаров (атрибут описания permalink).
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+   * Возвращает описание товаров по permalink товаров (атрибут описания permalink)
    *
    * Обязательные параметры:
    *    permalink - пермалинк товара
@@ -122,11 +158,16 @@ service ProductHubFrontData {
    *    Вернуть все атрибуты:
    *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByPermalink
    */
-  rpc GetProductsByPermalink(GetProductsByPermalinkRequest) returns (GetProductsByPermalinkResponse);
+  rpc GetProductsByPermalink(GetProductsByPermalinkRequest) returns (GetProductsByPermalinkResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetProductsByPermalink"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает описание товаров c ценой, стоком и товарным предложением по permalink товаров (атрибут описания permalink).
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+   * Возвращает описание товаров c ценой, стоком и товарным предложением по permalink товаров (атрибут описания permalink)
    *
    * Обязательные параметры:
    *    permalink - пермалинк товара
@@ -137,11 +178,16 @@ service ProductHubFrontData {
    *    Вернуть все атрибуты + сток + цену + оффер:
    *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByPermalink
    */
-  rpc GetProductsWithOfferByPermalink(GetProductsWithOfferByPermalinkRequest) returns (GetProductsWithOfferByPermalinkResponse);
+  rpc GetProductsWithOfferByPermalink(GetProductsWithOfferByPermalinkRequest) returns (GetProductsWithOfferByPermalinkResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetProductsWithOfferByPermalink"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает товарные предложения по sku описания + store_id идентификатору магазина
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+   * Возвращает товарные предложения по sku описания + store_id
    *
    * Обязательные параметры:
    *    sku - идентификатор описания
@@ -151,11 +197,16 @@ service ProductHubFrontData {
    *    Вернуть товарное предложение (offer):
    *        grpcurl -d '{"offers": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffersBySKUANDStoreID
    */
-  rpc GetOffersBySKUANDStoreID(GetOffersBySKUANDStoreIDRequest) returns (GetOffersBySKUANDStoreIDResponse);
+  rpc GetOffersBySKUANDStoreID(GetOffersBySKUANDStoreIDRequest) returns (GetOffersBySKUANDStoreIDResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetOffersBySKUANDStoreID"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает остатки по по sku описания + store_id идентификатору магазина
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+   * Возвращает остатки по sku описания + store_id
    *
    * Обязательные параметры:
    *    sku - идентификатор описания
@@ -165,11 +216,53 @@ service ProductHubFrontData {
    *    Вернуть остатки (stock):
    *        grpcurl -d '{"stocks": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetStocks
    */
-  rpc GetStocks(GetStocksRequest) returns (GetStocksResponse);
+  rpc GetStocks(GetStocksRequest) returns (GetStocksResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetStocks"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает товарные предложения по retailer_sku идентификатор товарного предложения ритейлера + retailer_id идентификатору ритейлера
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  /*
+  * Возвращает остатки по retailer_sku + store_id
+  *
+  * Обязательные параметры:
+  *    retailer_sku - ритейлерский идентификатор товарного предложения
+  *    store_id - идентификатор магазина
+  *
+  * Примеры:
+  *    Вернуть остатки (stock):
+  *        grpcurl -d '{"stocks": [{"retailer_sku": "1000382026", "store_id": 2402}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetStocksByRetailerSKU
+  */
+  rpc GetStocksByRetailerSKU(GetStocksByRetailerSKURequest) returns (GetStocksResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetStocksByRetailerSKU"
+      body: "*"
+    };
+  }
+
+  /*
+* Возвращает остатки по offer_ids
+*
+* Обязательные параметры:
+*    offer_ids - список оффер id
+*
+* Примеры:
+*    Вернуть остатки (stock):
+*        grpcurl -d '{"offer_ids": [1000382026, 1000382027]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetStocksByOfferIDs
+*/
+  rpc GetStocksByOfferIDs(GetStocksByOfferIdsRequest) returns (GetStocksResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetStocksByOfferIDs"
+      body: "*"
+    };
+  }
+
+  /*
+   * Возвращает товарные предложения по retailer_sku + retailer_id
    *
    * Обязательные параметры:
    *    retailer_sku - идентификатор товарного предлоежния ритейлера
@@ -179,11 +272,35 @@ service ProductHubFrontData {
    *    Вернуть товарное предложение (offer):
    *        grpcurl -d '{"offers": [{"retailer_sku": "337582", "retailer_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffers
    */
-  rpc GetOffers(GetOffersRequest) returns (GetOffersResponse);
+  rpc GetOffers(GetOffersRequest) returns (GetOffersResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetOffers"
+      body: "*"
+    };
+  }
 
-  /**
+  /*
+   * Возвращает товарные предложения по origin_retailer_sku + retailer_id
+   *
+   * Обязательные параметры:
+   *    origin_retailer_sku - оригинальный идентификатор товарного предлоежния ритейлера
+   *    retailer_id - идентификатор ритейлера
+   *
+   * Примеры:
+   *    Вернуть товарное предложение (offer):
+   *        grpcurl -d '{"offers": [{"origin_retailer_sku": "337582", "retailer_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffersByOriginRetailerSKUANDRetailerID
+   */
+  rpc GetOffersByOriginRetailerSKUANDRetailerID(GetOffersByOriginRetailerSKUANDRetailerIDRequest) returns (GetOffersByOriginRetailerSKUANDRetailerIDResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetOffersByOriginRetailerSKUANDRetailerID"
+      body: "*"
+    };
+  }
+
+  /*
    * Возвращает цены по sku + store_id + tenant_id
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
    *
    * Обязательные параметры:
    *    sku - идентификатор описания
@@ -194,7 +311,164 @@ service ProductHubFrontData {
    *    Вернуть цены (price):
    *        grpcurl -d '{"prices": [{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetPrices
    */
-  rpc GetPrices(GetPricesRequest) returns (GetPricesResponse);
+  rpc GetPrices(GetPricesRequest) returns (GetPricesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetPrices"
+      body: "*"
+    };
+  }
+
+  /*
+   * Возвращает цены по retailer_sku + store_id + tenant_id
+   *
+   * Обязательные параметры:
+   *    retailer_sku - идентификатор ретейлера
+   *    store_id - идентификатор магазина
+   *    tenant_id - идентификатор площадки
+   *
+   * Примеры:
+   *    Вернуть цены (price):
+   *        grpcurl -d '{"prices": [{"retailer_sku": "1", "store_id": "1", "tenant_id": "sbermarket"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetPricesByRetailerSKU
+   */
+  rpc GetPricesByRetailerSKU(GetPricesByRetailerSKURequest) returns (GetPricesByRetailerSKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetPricesByRetailerSKU"
+      body: "*"
+    };
+  }
+
+  /*
+  * Возвращает активность товаров по sku
+  *
+  * Обязательные параметры:
+  *    sku - идентификатор описания
+  *    store_id - идентификатор магазина
+  *    tenant_id - идентификатор площадки
+  *
+  */
+  rpc IsActiveBySKU(IsActiveBySKURequest) returns (IsActiveBySKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/IsActiveBySKU"
+      body: "*"
+    };
+  }
+
+  /*
+  * Возвращает активность товаров по retailer_sku
+  *
+  * Обязательные параметры:
+  *    retailer_sku - идентификатор ретейлера
+  *    store_id - идентификатор магазина
+  *    tenant_id - идентификатор площадки
+  *
+  */
+  rpc IsActiveByRetailerSKU(IsActiveByRetailerSKURequest) returns (IsActiveByRetailerSKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/IsActiveByRetailerSKU"
+      body: "*"
+    };
+  }
+
+  /*
+* Возвращает активность хотя бы 1 группы по sku
+*
+* Обязательные параметры:
+*    []sku - идентификатор ретейлера
+*    store_id - идентификатор магазина
+* Примеры:
+*    Вернуть активные группы по sku:
+*        grpcurl -d '{"sku": [{"sku": ["1"], "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.IsActiveGroupsBySKU
+*/
+  rpc IsActiveGroupsBySKU(IsActiveGroupsBySKURequest) returns (IsActiveGroupsBySKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/IsActiveGroupsBySKU"
+      body: "*"
+    };
+  }
+
+
+
+
+  /*
+  * Возвращает группы sku по group_id
+  *
+  * Обязательные параметры:
+  *    retailer_id - идентификатор ретейлера
+  *    group_id - идентификатор группы
+  * Примеры:
+  *    Вернуть группы по id:
+  *        grpcurl -d '{"groups": [{"retailer_sku": "1", "group_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetGroupsByIDs
+  */
+  rpc GetGroupsByIDs(GetGroupsByIDsRequest) returns (GetGroupsByIDsResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetGroupsByIDs"
+      body: "*"
+    };
+  }
+
+  /*
+  * Возвращает группы sku по retailer_sku
+  *
+  * Обязательные параметры:
+  *    retailer_id - идентификатор ретейлера
+  *    retailer_sku - идентификатор sku
+  * Примеры:
+  *    Вернуть группы по связки входных параметров:
+  *        grpcurl -d '{"groups": [{"retailer_sku": "1", "retailer_sku": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetGroupsByRetailerSKU
+  */
+  rpc GetGroupsByRetailerSKU(GetGroupsByRetailerSKURequest) returns (GetGroupsByRetailerSKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetGroupsByRetailerSKU"
+      body: "*"
+    };
+  }
+
+  /*
+ * Возвращает группы + описание товаров c ценой, стоком и товарным предложением по sku
+ *
+ * Обязательные параметры:
+ *    sku - идентификатор описания
+ *    store_id - идентификатор магазина
+ *    tenant_id - идентификатор площадки
+ *
+ * Примеры:
+ *    Вернуть все атрибуты + сток + цену + оффер:
+ *        grpcurl -d '{"sku": ["68496"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductGroupsWithOfferBySKU
+ */
+  rpc GetProductGroupsWithOfferBySKU(GetProductGroupsWithOfferBySKURequest) returns(GetProductGroupsWithOfferBySKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetProductGroupsWithOfferBySKU"
+      body: "*"
+    };
+  }
+
+  /*
+   * Возвращает группы + описание товаров c ценой, стоком и товарным предложением по retailer_sku
+   *
+   * Обязательные параметры:
+   *    retailer_sku - идентификатор описания ретейлера
+   *    store_id - идентификатор магазина
+   *    tenant_id - идентификатор площадки
+   *
+   * Примеры:
+   *    Вернуть все атрибуты + сток + цену + оффер:
+   *        grpcurl -d '{"retailer_sku": ["602440"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductGroupsWithOfferByRetailerSKU
+   */
+  rpc GetProductGroupsWithOfferByRetailerSKU(GetProductGroupsWithOfferByRetailerSKURequest) returns(GetProductGroupsWithOfferByRetailerSKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_data.ProductHubFrontData/GetProductGroupsWithOfferByRetailerSKU"
+      body: "*"
+    };
+  }
 }
 
 /**
@@ -203,8 +477,9 @@ service ProductHubFrontData {
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-/**
- * Возможность фильтровать в выдаче атрибуты по key или flag
+/*
+ * DisplayAttributes - возможность фильтровать в выдаче атрибуты по key или flag
+ *
  *  - фильтрация по key: {"keys":["brand", "image"]}
  *  - фильтрация по flag: {"flags":["show_as_characteristic"]}
  *  - фильтрация по flag+key: {"keys":["brand", "image"], "flags":["show_as_characteristic"]}
@@ -214,8 +489,9 @@ message DisplayAttributes {
   repeated string flags = 2; // флаги атрибутов
 }
 
-/**
- * Дата атрибут.
+/*
+ * Data - дата атрибут
+ *
  * Используется для описания атрибутов сущностей Stock, Price, Offer.
  * Так же используется для доп. описания сущностей Attribute, Dictionary, DictionaryValue
  */
@@ -226,8 +502,8 @@ message Data {
   repeated string values = 4; // значения атрибута
 }
 
-/**
- * Атрибута описания
+/*
+ * Attribute - атрибут описания
  */
 message Attribute {
   string key = 1; // уникальный ключ атрибута описания, по ним можно фильтровать при запросе через display_attributes
@@ -236,29 +512,29 @@ message Attribute {
   ValueType type = 4; // тип атрибута, см. ValueType
   bool is_multi_value = 5; // флаг означающий 1 или n значений будет в values
   map<string, bool> flags = 6; // флаги атрибута, по ним можно фильтровать при запросе через display_attributes
-  repeated Data attribute_data = 7; // доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data attribute_data = 7; // доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
   repeated AttributeValue values = 8; // значения атриута
 }
 
-/**
- * Значения атрибута
+/*
+ * AttributeValue - значения атрибута
  */
 message AttributeValue {
   string value = 1; // значение атрибута
-  repeated Data value_data = 2; // доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data value_data = 2; // доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
   string dictionary_value_id = 3; // ссылка на словарное значени если атрибут словарный
 }
 
-/**
- * Категория товара
+/*
+ * Category - категория товара
  */
 message Category {
   string id = 1; // идлентификатор из PIMS
   string name = 2; // зазвание категории
 }
 
-/**
- * Описание товара
+/*
+ * Product - описание товара
  */
 message Product {
   int64 sku = 1; // идлентификатор описания
@@ -267,36 +543,37 @@ message Product {
   repeated Attribute attributes = 4; // атриубты товара
   Status status = 5; // статус сущности
   string updated_at = 6; // последнее время обновление сущности в product-hub
+  string ab_group = 7; // ab группа товара
 }
 
-/**
- * Остаток товарного предложения
+/*
+ * Stock - остаток товарного предложения
  */
 message Stock {
   string retailer_id = 2; // идентификатор ритейлера
   string retailer_sku = 3; // идентификатор sku ритейлера
   double stock = 4; // остаток товарного предложения
-  repeated Data stock_data = 5; // доп. данные остатка. подробнее https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data stock_data = 5; // доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
   Status status = 6; // статус сущности
   string updated_at = 7; // последнее время обновление сущности в product-hub
 }
 
-/**
- * Цена товарного предложения
+/*
+ * Price - цена товарного предложения
  */
 message Price {
   double price = 3; // оригинальная цена за единицу товара со всеми скидками
-  repeated Data price_data = 4; // доп. данные цены. подробнее https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data price_data = 4; // доп. данные цены. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
   Status status = 5; // статус сущности
   string updated_at = 6; // последнее время обновление сущности в product-hub
 }
 
-/**
- * Offer товарное предложение
+/*
+ * Offer - товарное предложение
  */
 message Offer {
   Pricer pricer = 1; // тип цены товарного предложения
-  repeated Data offer_data = 2; // доп. данные товарного рпедложения. подробнее https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data offer_data = 2; // доп. данные товарного рпедложения. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
   Status status = 3; // статус сущности
   int64 offer_id = 4 [deprecated = true]; // id строки из таблицы offer базы instamart (mysql). Используйте в своей системе связку store_id+sku или retailer_sku+retailer_id
   string retailer_id = 5; // идентификатор ритейлера
@@ -304,8 +581,10 @@ message Offer {
   string updated_at = 7; // последнее время обновление сущности в product-hub
 }
 
-/**
- * Тип атрибута (message Attribute) или data атрибута (message Data)
+/*
+ * ValueType - тип атрибута
+ *
+ * Указывается для message Attribute или message Data
  */
 enum ValueType {
   STRING = 0; // строка
@@ -316,8 +595,8 @@ enum ValueType {
   IMAGE = 5; // uri на картинку в s3
 }
 
-/**
- * Статус любой сущности
+/*
+ * Status - статус любой сущности
  */
 enum Status {
   DISABLE = 0; // сущность не активна
@@ -325,8 +604,9 @@ enum Status {
   DELETED = 2; // сущность удалена из других систем (в product-hub сущности не удаляются)
 }
 
-/**
- * Статус активности товарного предложения
+/*
+ * Active - статус активности товарного предложения.
+ *
  * Агрегатор статусов всех сущностей (Product, Stock, Offer, Price)
  */
 enum Active {
@@ -334,8 +614,8 @@ enum Active {
   ACTIVE = 1; // товар активен, его можно купить (есть цена, остаток, описание и др. )
 }
 
-/**
- * Тип цены товарного предложения
+/*
+ * Pricer - тип цены товарного предложения
  */
 enum Pricer {
   PER_ITEM = 0;  // за штуку
@@ -355,11 +635,20 @@ message GetProductsWithOfferBySKURequest {
   string tenant_id = 2;
   repeated int64 sku = 3;
   DisplayAttributes display_attributes = 4;
+  string ab_group = 5; // ab группа товара
+}
+
+message GetProductsWithOfferByRetailerSKURequest {
+  string store_id = 1;
+  string tenant_id = 2;
+  repeated string retailer_sku = 3;
+  DisplayAttributes display_attributes = 4;
 }
 
 message GetProductsBySKURequest {
   repeated int64 sku = 1;
   DisplayAttributes display_attributes = 2;
+  string ab_group = 3; // ab группа товара
 }
 
 message GetProductsByEANRequest {
@@ -395,6 +684,7 @@ message GetProductsByEANResponse {
 message EANtoSKU{
   string ean = 1;
   int64 sku = 2;
+  int64 retailer_id = 3;
 }
 
 message GetStocksRequest {
@@ -409,6 +699,18 @@ message GetStocksResponse {
   repeated StockWithSKU stocks = 1;
 }
 
+message GetStocksByOfferIdsRequest {
+  repeated int64 offer_ids = 1;
+}
+
+message GetStocksByRetailerSKURequest {
+  message Stock {
+    string retailer_sku = 1;
+    string store_id = 2;
+  }
+  repeated Stock stocks = 1;
+}
+
 message StockWithSKU {
   int64 sku = 1;
   string store_id = 2;
@@ -418,6 +720,7 @@ message StockWithSKU {
   repeated Data stock_data = 6;
   Status status = 7;
   string updated_at = 8;
+  int64 offer_id = 9 [deprecated = true];
 }
 
 message GetOffersBySKUANDStoreIDRequest {
@@ -455,6 +758,18 @@ message GetOffersResponse {
   repeated OfferWithSKU offers = 1;
 }
 
+message GetOffersByOriginRetailerSKUANDRetailerIDRequest {
+  message Offer {
+    string origin_retailer_sku = 1;
+    string retailer_id = 2;
+  }
+  repeated Offer offers = 1;
+}
+
+message GetOffersByOriginRetailerSKUANDRetailerIDResponse {
+  repeated OfferWithSKU offers = 1;
+}
+
 message OfferWithSKU {
   int64 sku = 1;
   string retailer_id = 2;
@@ -482,11 +797,20 @@ message GetProductsWithOfferByOfferIDsRequest {
   string tenant_id = 1;
   repeated string offer_ids = 2;
   DisplayAttributes display_attributes = 3;
+  string ab_group = 4; // ab группа товара
 }
 
 message GetProductsWithOfferByOfferIDsResponse {
+  message OfferID {
+    int64 offer_id = 1 [deprecated = true];
+    string store_id = 2;
+    int64 sku = 3;
+    string retailer_sku = 4;
+    string retailer_id = 5;
+  }
   string store_id = 1;
   repeated ProductWithOffer products_with_offer = 2;
+  repeated OfferID offer_ids = 3;
 }
 
 message PriceWithSKU {
@@ -497,6 +821,7 @@ message PriceWithSKU {
   repeated Data price_data = 5;
   Status status = 6;
   string updated_at = 7;
+  string retailer_sku = 8;
 }
 
 message ProductWithOffer {
@@ -511,6 +836,7 @@ message ProductWithOffer {
   string updated_at = 9;
   Active active = 10;
   string active_description = 11;
+  string ab_group = 12; // ab группа товара
 }
 
 message GetProductsByPermalinkRequest {
@@ -523,6 +849,7 @@ message GetProductsWithOfferByPermalinkRequest {
   string tenant_id = 2;
   repeated string permalink = 3;
   DisplayAttributes display_attributes = 4;
+  string ab_group = 5; // аб группа товара
 }
 
 message GetProductsWithOfferByPermalinkResponse {
@@ -532,3 +859,168 @@ message GetProductsWithOfferByPermalinkResponse {
 message GetProductsByPermalinkResponse {
   repeated Product products = 1;
 }
+
+message GetPricesByRetailerSKURequest {
+  message Price {
+    string retailer_sku = 1;
+    string store_id = 2;
+    string tenant_id = 3;
+  }
+  repeated Price prices = 1;
+}
+
+message GetPricesByRetailerSKUResponse {
+  repeated PriceWithSKU prices = 1;
+}
+
+message IsActiveBySKURequest {
+  message Sku {
+    int64 sku = 1;
+    string store_id = 2;
+    string tenant_id = 3;
+  }
+  repeated Sku sku = 1;
+}
+
+message IsActiveBySKUResponse {
+  message Sku {
+    int64 sku = 1;
+    string store_id = 2;
+    string tenant_id = 3;
+    Active active = 4;
+    string active_description = 5;
+  }
+  repeated Sku sku = 1;
+}
+
+message IsActiveByRetailerSKURequest {
+  message RetailerSku {
+    string retailer_sku = 1;
+    string store_id = 2;
+    string tenant_id = 3;
+  }
+  repeated RetailerSku retailer_sku = 1;
+}
+
+message IsActiveByRetailerSKUResponse {
+  message RetailerSku {
+    string retailer_sku = 1;
+    string store_id = 2;
+    string tenant_id = 3;
+    Active active = 4;
+    string active_description = 5;
+  }
+  repeated RetailerSku retailer_sku = 1;
+}
+
+message IsActiveGroupsBySKURequest {
+  repeated int64 sku = 1;
+  string store_id = 2;
+}
+
+message IsActiveGroupsBySKUResponse {
+  message SKU {
+    int64 sku = 1;
+    Active active = 2;
+  }
+  repeated SKU sku = 1;
+}
+
+/**
+ * Группа sku которые можно добавить в заказ
+ * Пример: Комплексный обед
+ */
+message Group {
+  int64 id = 1; // идентификатор группы
+  int64 retailer_id = 2; // идентификатор ритейлера
+  string retailer_sku = 3; // идентификатор sku
+  string name = 4; // название
+  repeated GroupItem items = 5; // входящие товары в группы
+  int64 sort = 6; // сортировка
+  Status status = 7; // статус
+  int64 min = 8; // минимальное количество, которое нужно выбрать
+  int64 max = 9; // максимальное количество, которое нужно выбрать
+  string updated_at = 10; // дата обновления
+  repeated Data group_data = 11;
+}
+
+message GroupWithOffer {
+  int64 id = 1; // идентификатор группы
+  int64 retailer_id = 2; // идентификатор ритейлера
+  string retailer_sku = 3; // идентификатор sku
+  string name = 4; // название
+  repeated GroupItemWithOffer items = 5;
+  int64 sort = 6; // сортировка
+  Status status = 7; // статус
+  int64 min = 8; // минимальное количество, которое нужно выбрать
+  int64 max = 9; // максимальное количество, которое нужно выбрать
+  string updated_at = 10; // дата обновления
+  ProductWithOffer product_with_offer = 11;
+  repeated Data group_data = 12;
+}
+
+/**
+ * Одна sku из группы Group
+ * Пример: суп, салат, компот
+ */
+message GroupItem {
+  string retailer_sku = 1; // идентификатор sku
+  bool is_default = 2;  // выбран товар по умолчанию
+}
+
+message GroupItemWithOffer {
+  string retailer_sku = 1; // идентификатор sku
+  bool is_default = 2;  // выбран товар по умолчанию
+  ProductWithOffer product_with_offer = 3;
+}
+
+message GetGroupsByIDsResponse {
+  repeated Group groups = 1;
+}
+
+message GetGroupsByRetailerSKUResponse {
+  repeated Group groups = 1;
+}
+
+message GetProductGroupsWithOfferBySKUResponse {
+  repeated GroupWithOffer groups = 1;
+}
+
+message GetProductGroupsWithOfferByRetailerSKUResponse {
+  repeated GroupWithOffer groups = 1;
+}
+
+message GetGroupsByIDsRequest {
+  message Groups {
+    int64 retailer_id = 1;
+    int64 group_id = 2;
+  }
+
+  repeated Groups groups = 1;
+}
+
+message GetGroupsByRetailerSKURequest {
+  message Groups {
+    int64 retailer_id = 1;
+    string retailer_sku = 2;
+  }
+
+  repeated Groups groups = 1;
+}
+
+message GetProductGroupsWithOfferBySKURequest {
+  string store_id = 1;
+  string tenant_id = 2;
+  repeated int64 sku = 3;
+  DisplayAttributes display_attributes = 4;
+  string ab_group = 5; // аб группа товара
+}
+
+message GetProductGroupsWithOfferByRetailerSKURequest {
+  string store_id = 1;
+  string tenant_id = 2;
+  repeated string retailer_sku = 3;
+  DisplayAttributes display_attributes = 4;
+}
+
+

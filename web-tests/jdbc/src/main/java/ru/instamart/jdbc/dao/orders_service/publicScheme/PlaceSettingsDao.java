@@ -1,7 +1,7 @@
-package ru.instamart.jdbc.dao.orders_service;
+package ru.instamart.jdbc.dao.orders_service.publicScheme;
 
 import ru.instamart.jdbc.dao.Dao;
-import ru.instamart.jdbc.entity.order_service.PlaceSettingsEntity;
+import ru.instamart.jdbc.entity.order_service.publicScheme.PlaceSettingsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
@@ -54,8 +54,8 @@ public class PlaceSettingsDao implements Dao<String,PlaceSettingsEntity> {
     }
 
     public static final PlaceSettingsDao INSTANCE = new PlaceSettingsDao();
-    private final String SELECT_SQL = "SELECT %s FROM place_settings";
-    private final String DELETE_SQL = "DELETE FROM place_settings";
+    private final String SELECT_SQL = "SELECT %s FROM public.place_settings";
+    private final String DELETE_SQL = "DELETE FROM public.place_settings";
 
     public PlaceSettingsEntity getScheduleType(String placeUUID) {
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();

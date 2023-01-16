@@ -16,8 +16,8 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Тип атрибута (message Attribute) или data атрибута (message Data)
+   * ValueType - тип атрибута
+   * Указывается для message Attribute или message Data
    * </pre>
    *
    * Protobuf enum {@code product_hub_front_meta.ValueType}
@@ -213,8 +213,7 @@ public final class ProductHubFrontMetaOuterClass {
 
   /**
    * <pre>
-   **
-   * Статус любой сущности
+   * Status - статус любой сущности
    * </pre>
    *
    * Protobuf enum {@code product_hub_front_meta.Status}
@@ -453,9 +452,9 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Дата атрибут.
-   * Используется для описания атрибутов сущностей Attribute, Dictionary, DictionaryValue
+   * Data - дата атрибут
+   * Используется для описания атрибутов сущностей Stock, Price, Offer.
+   * Так же используется для доп. описания сущностей Attribute, Dictionary, DictionaryValue
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.Data}
@@ -901,9 +900,9 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Дата атрибут.
-     * Используется для описания атрибутов сущностей Attribute, Dictionary, DictionaryValue
+     * Data - дата атрибут
+     * Используется для описания атрибутов сущностей Stock, Price, Offer.
+     * Так же используется для доп. описания сущностей Attribute, Dictionary, DictionaryValue
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.Data}
@@ -1602,7 +1601,7 @@ public final class ProductHubFrontMetaOuterClass {
 
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -1611,7 +1610,7 @@ public final class ProductHubFrontMetaOuterClass {
         getCategoryDataList();
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -1619,7 +1618,7 @@ public final class ProductHubFrontMetaOuterClass {
     product_hub_front_meta.ProductHubFrontMetaOuterClass.Data getCategoryData(int index);
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -1627,7 +1626,7 @@ public final class ProductHubFrontMetaOuterClass {
     int getCategoryDataCount();
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -1636,7 +1635,7 @@ public final class ProductHubFrontMetaOuterClass {
         getCategoryDataOrBuilderList();
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -1726,8 +1725,7 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Товарная категория
+   * Category - товарная категория
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.Category}
@@ -2074,7 +2072,7 @@ public final class ProductHubFrontMetaOuterClass {
     private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> categoryData_;
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -2085,7 +2083,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -2097,7 +2095,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -2108,7 +2106,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -2119,7 +2117,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -2497,8 +2495,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Товарная категория
+     * Category - товарная категория
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.Category}
@@ -3201,7 +3198,7 @@ public final class ProductHubFrontMetaOuterClass {
 
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3215,7 +3212,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3229,7 +3226,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3243,7 +3240,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3264,7 +3261,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3282,7 +3279,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3302,7 +3299,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3323,7 +3320,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3341,7 +3338,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3359,7 +3356,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3378,7 +3375,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3395,7 +3392,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3412,7 +3409,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3423,7 +3420,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3437,7 +3434,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3452,7 +3449,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3463,7 +3460,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3475,7 +3472,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3977,7 +3974,7 @@ public final class ProductHubFrontMetaOuterClass {
 
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3986,7 +3983,7 @@ public final class ProductHubFrontMetaOuterClass {
         getCategoryDataList();
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -3994,7 +3991,7 @@ public final class ProductHubFrontMetaOuterClass {
     product_hub_front_meta.ProductHubFrontMetaOuterClass.Data getCategoryData(int index);
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -4002,7 +3999,7 @@ public final class ProductHubFrontMetaOuterClass {
     int getCategoryDataCount();
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -4011,7 +4008,7 @@ public final class ProductHubFrontMetaOuterClass {
         getCategoryDataOrBuilderList();
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -4101,8 +4098,7 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Товарная категория с идентификаторами магазинов
+   * CategoryWithStores - товарная категория с идентификаторами магазинов
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.CategoryWithStores}
@@ -4458,7 +4454,7 @@ public final class ProductHubFrontMetaOuterClass {
     private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> categoryData_;
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -4469,7 +4465,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -4481,7 +4477,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -4492,7 +4488,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -4503,7 +4499,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -4877,8 +4873,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Товарная категория с идентификаторами магазинов
+     * CategoryWithStores - товарная категория с идентификаторами магазинов
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.CategoryWithStores}
@@ -5772,7 +5767,7 @@ public final class ProductHubFrontMetaOuterClass {
 
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5786,7 +5781,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5800,7 +5795,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5814,7 +5809,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5835,7 +5830,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5853,7 +5848,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5873,7 +5868,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5894,7 +5889,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5912,7 +5907,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5930,7 +5925,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5949,7 +5944,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5966,7 +5961,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5983,7 +5978,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -5994,7 +5989,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -6008,7 +6003,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -6023,7 +6018,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -6034,7 +6029,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -6046,7 +6041,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data category_data = 5;</code>
@@ -6505,8 +6500,7 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Список идентификаторов магазинов у ритейлера
+   * RetailerStores - список идентификаторов магазинов у ритейлера
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.RetailerStores}
@@ -6876,8 +6870,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Список идентификаторов магазинов у ритейлера
+     * RetailerStores - список идентификаторов магазинов у ритейлера
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.RetailerStores}
@@ -7340,6 +7333,804 @@ public final class ProductHubFrontMetaOuterClass {
 
   }
 
+  public interface RetailerStoreOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.RetailerStore)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 1;</code>
+     * @return The retailerId.
+     */
+    java.lang.String getRetailerId();
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 1;</code>
+     * @return The bytes for retailerId.
+     */
+    com.google.protobuf.ByteString
+        getRetailerIdBytes();
+
+    /**
+     * <pre>
+     * идентификатор магазина ритейлера
+     * </pre>
+     *
+     * <code>string store_id = 2;</code>
+     * @return The storeId.
+     */
+    java.lang.String getStoreId();
+    /**
+     * <pre>
+     * идентификатор магазина ритейлера
+     * </pre>
+     *
+     * <code>string store_id = 2;</code>
+     * @return The bytes for storeId.
+     */
+    com.google.protobuf.ByteString
+        getStoreIdBytes();
+  }
+  /**
+   * <pre>
+   * RetailerStore - идентификатор магазина у ритейлера
+   * </pre>
+   *
+   * Protobuf type {@code product_hub_front_meta.RetailerStore}
+   */
+  public static final class RetailerStore extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.RetailerStore)
+      RetailerStoreOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RetailerStore.newBuilder() to construct.
+    private RetailerStore(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RetailerStore() {
+      retailerId_ = "";
+      storeId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RetailerStore();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RetailerStore(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retailerId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_RetailerStore_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_RetailerStore_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder.class);
+    }
+
+    public static final int RETAILER_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object retailerId_;
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 1;</code>
+     * @return The retailerId.
+     */
+    @java.lang.Override
+    public java.lang.String getRetailerId() {
+      java.lang.Object ref = retailerId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        retailerId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 1;</code>
+     * @return The bytes for retailerId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRetailerIdBytes() {
+      java.lang.Object ref = retailerId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        retailerId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STORE_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object storeId_;
+    /**
+     * <pre>
+     * идентификатор магазина ритейлера
+     * </pre>
+     *
+     * <code>string store_id = 2;</code>
+     * @return The storeId.
+     */
+    @java.lang.Override
+    public java.lang.String getStoreId() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор магазина ритейлера
+     * </pre>
+     *
+     * <code>string store_id = 2;</code>
+     * @return The bytes for storeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStoreIdBytes() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getRetailerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, retailerId_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, storeId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getRetailerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, retailerId_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, storeId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore) obj;
+
+      if (!getRetailerId()
+          .equals(other.getRetailerId())) return false;
+      if (!getStoreId()
+          .equals(other.getStoreId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getRetailerId().hashCode();
+      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * RetailerStore - идентификатор магазина у ритейлера
+     * </pre>
+     *
+     * Protobuf type {@code product_hub_front_meta.RetailerStore}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.RetailerStore)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_RetailerStore_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_RetailerStore_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        retailerId_ = "";
+
+        storeId_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_RetailerStore_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore(this);
+        result.retailerId_ = retailerId_;
+        result.storeId_ = storeId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.getDefaultInstance()) return this;
+        if (!other.getRetailerId().isEmpty()) {
+          retailerId_ = other.retailerId_;
+          onChanged();
+        }
+        if (!other.getStoreId().isEmpty()) {
+          storeId_ = other.storeId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object retailerId_ = "";
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 1;</code>
+       * @return The retailerId.
+       */
+      public java.lang.String getRetailerId() {
+        java.lang.Object ref = retailerId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 1;</code>
+       * @return The bytes for retailerId.
+       */
+      public com.google.protobuf.ByteString
+          getRetailerIdBytes() {
+        java.lang.Object ref = retailerId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 1;</code>
+       * @param value The retailerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        retailerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerId() {
+        
+        retailerId_ = getDefaultInstance().getRetailerId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 1;</code>
+       * @param value The bytes for retailerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        retailerId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object storeId_ = "";
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @return The storeId.
+       */
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @return The bytes for storeId.
+       */
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @param value The storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = getDefaultInstance().getStoreId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 2;</code>
+       * @param value The bytes for storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.RetailerStore)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.RetailerStore)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RetailerStore>
+        PARSER = new com.google.protobuf.AbstractParser<RetailerStore>() {
+      @java.lang.Override
+      public RetailerStore parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RetailerStore(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RetailerStore> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RetailerStore> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface CategoryFilterOrBuilder extends
       // @@protoc_insertion_point(interface_extends:product_hub_front_meta.CategoryFilter)
       com.google.protobuf.MessageOrBuilder {
@@ -7427,8 +8218,7 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Ключи атрибутов которые необходимо вывести в фасетах фильтров.
+   * CategoryFilter - ключи атрибутов которые необходимо вывести в фасетах фильтров.
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.CategoryFilter}
@@ -7861,8 +8651,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Ключи атрибутов которые необходимо вывести в фасетах фильтров.
+     * CategoryFilter - ключи атрибутов которые необходимо вывести в фасетах фильтров.
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.CategoryFilter}
@@ -8577,7 +9366,7 @@ public final class ProductHubFrontMetaOuterClass {
 
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -8586,7 +9375,7 @@ public final class ProductHubFrontMetaOuterClass {
         getAttributeDataList();
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -8594,7 +9383,7 @@ public final class ProductHubFrontMetaOuterClass {
     product_hub_front_meta.ProductHubFrontMetaOuterClass.Data getAttributeData(int index);
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -8602,7 +9391,7 @@ public final class ProductHubFrontMetaOuterClass {
     int getAttributeDataCount();
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -8611,7 +9400,7 @@ public final class ProductHubFrontMetaOuterClass {
         getAttributeDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -8641,8 +9430,7 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Атрибут описания
+   * Attribute - атрибут описания
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.Attribute}
@@ -9081,7 +9869,7 @@ public final class ProductHubFrontMetaOuterClass {
     private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> attributeData_;
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -9092,7 +9880,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -9104,7 +9892,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -9115,7 +9903,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -9126,7 +9914,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -9426,8 +10214,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Атрибут описания
+     * Attribute - атрибут описания
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.Attribute}
@@ -10256,7 +11043,7 @@ public final class ProductHubFrontMetaOuterClass {
 
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10270,7 +11057,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10284,7 +11071,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10298,7 +11085,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10319,7 +11106,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10337,7 +11124,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10357,7 +11144,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10378,7 +11165,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10396,7 +11183,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10414,7 +11201,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10433,7 +11220,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10450,7 +11237,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10467,7 +11254,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10478,7 +11265,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10492,7 +11279,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10507,7 +11294,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10518,7 +11305,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10530,7 +11317,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data attribute_data = 7;</code>
@@ -10787,7 +11574,7 @@ public final class ProductHubFrontMetaOuterClass {
 
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -10796,7 +11583,7 @@ public final class ProductHubFrontMetaOuterClass {
         getDictionaryDataList();
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -10804,7 +11591,7 @@ public final class ProductHubFrontMetaOuterClass {
     product_hub_front_meta.ProductHubFrontMetaOuterClass.Data getDictionaryData(int index);
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -10812,7 +11599,7 @@ public final class ProductHubFrontMetaOuterClass {
     int getDictionaryDataCount();
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -10821,7 +11608,7 @@ public final class ProductHubFrontMetaOuterClass {
         getDictionaryDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -10831,8 +11618,7 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Словарь описания
+   * Dictionary - словарь атрибута описания
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.Dictionary}
@@ -11122,7 +11908,7 @@ public final class ProductHubFrontMetaOuterClass {
     private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> dictionaryData_;
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -11133,7 +11919,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -11145,7 +11931,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -11156,7 +11942,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -11167,7 +11953,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -11377,8 +12163,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Словарь описания
+     * Dictionary - словарь атрибута описания
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.Dictionary}
@@ -11968,7 +12753,7 @@ public final class ProductHubFrontMetaOuterClass {
 
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -11982,7 +12767,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -11996,7 +12781,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12010,7 +12795,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12031,7 +12816,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12049,7 +12834,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12069,7 +12854,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12090,7 +12875,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12108,7 +12893,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12126,7 +12911,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12145,7 +12930,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12162,7 +12947,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12179,7 +12964,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12190,7 +12975,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12204,7 +12989,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12219,7 +13004,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12230,7 +13015,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12242,7 +13027,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data dictionary_data = 5;</code>
@@ -12364,7 +13149,7 @@ public final class ProductHubFrontMetaOuterClass {
 
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -12373,7 +13158,7 @@ public final class ProductHubFrontMetaOuterClass {
         getValueDataList();
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -12381,7 +13166,7 @@ public final class ProductHubFrontMetaOuterClass {
     product_hub_front_meta.ProductHubFrontMetaOuterClass.Data getValueData(int index);
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -12389,7 +13174,7 @@ public final class ProductHubFrontMetaOuterClass {
     int getValueDataCount();
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -12398,7 +13183,7 @@ public final class ProductHubFrontMetaOuterClass {
         getValueDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -12472,8 +13257,7 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Словарное значение
+   * DictionaryValue -Словарное значение
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.DictionaryValue}
@@ -12696,7 +13480,7 @@ public final class ProductHubFrontMetaOuterClass {
     private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> valueData_;
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -12707,7 +13491,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -12719,7 +13503,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -12730,7 +13514,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -12741,7 +13525,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13060,8 +13844,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Словарное значение
+     * DictionaryValue -Словарное значение
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.DictionaryValue}
@@ -13517,7 +14300,7 @@ public final class ProductHubFrontMetaOuterClass {
 
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13531,7 +14314,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13545,7 +14328,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13559,7 +14342,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13580,7 +14363,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13598,7 +14381,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13618,7 +14401,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13639,7 +14422,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13657,7 +14440,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13675,7 +14458,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13694,7 +14477,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13711,7 +14494,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13728,7 +14511,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13739,7 +14522,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13753,7 +14536,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13768,7 +14551,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13779,7 +14562,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -13791,7 +14574,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 3;</code>
@@ -14341,7 +15124,7 @@ public final class ProductHubFrontMetaOuterClass {
 
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14350,7 +15133,7 @@ public final class ProductHubFrontMetaOuterClass {
         getValueDataList();
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14358,7 +15141,7 @@ public final class ProductHubFrontMetaOuterClass {
     product_hub_front_meta.ProductHubFrontMetaOuterClass.Data getValueData(int index);
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14366,7 +15149,7 @@ public final class ProductHubFrontMetaOuterClass {
     int getValueDataCount();
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14375,7 +15158,7 @@ public final class ProductHubFrontMetaOuterClass {
         getValueDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14385,8 +15168,7 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Дополнительные значения
+   * AdditionalDictionaryValue - дополнительные значение словарного значения
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.AdditionalDictionaryValue}
@@ -14642,7 +15424,7 @@ public final class ProductHubFrontMetaOuterClass {
     private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> valueData_;
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14653,7 +15435,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14665,7 +15447,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14676,7 +15458,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14687,7 +15469,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -14887,8 +15669,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Дополнительные значения
+     * AdditionalDictionaryValue - дополнительные значение словарного значения
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.AdditionalDictionaryValue}
@@ -15398,7 +16179,7 @@ public final class ProductHubFrontMetaOuterClass {
 
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15412,7 +16193,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15426,7 +16207,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15440,7 +16221,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15461,7 +16242,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15479,7 +16260,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15499,7 +16280,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15520,7 +16301,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15538,7 +16319,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15556,7 +16337,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15575,7 +16356,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15592,7 +16373,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15609,7 +16390,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15620,7 +16401,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15634,7 +16415,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15649,7 +16430,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15660,7 +16441,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15672,7 +16453,7 @@ public final class ProductHubFrontMetaOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
@@ -15832,8 +16613,7 @@ public final class ProductHubFrontMetaOuterClass {
   }
   /**
    * <pre>
-   **
-   * Монолитовская (mysql.taxons) категория
+   * OriginalCategory - монолитовская (mysql.taxons) категория
    * </pre>
    *
    * Protobuf type {@code product_hub_front_meta.OriginalCategory}
@@ -16311,8 +17091,7 @@ public final class ProductHubFrontMetaOuterClass {
     }
     /**
      * <pre>
-     **
-     * Монолитовская (mysql.taxons) категория
+     * OriginalCategory - монолитовская (mysql.taxons) категория
      * </pre>
      *
      * Protobuf type {@code product_hub_front_meta.OriginalCategory}
@@ -19600,6 +20379,1430 @@ public final class ProductHubFrontMetaOuterClass {
 
     @java.lang.Override
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetAllCategoriesWithStoresByCursorIDRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 limit = 1;</code>
+     * @return The limit.
+     */
+    long getLimit();
+
+    /**
+     * <code>int64 cursor_id = 2;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDRequest}
+   */
+  public static final class GetAllCategoriesWithStoresByCursorIDRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDRequest)
+      GetAllCategoriesWithStoresByCursorIDRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetAllCategoriesWithStoresByCursorIDRequest.newBuilder() to construct.
+    private GetAllCategoriesWithStoresByCursorIDRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetAllCategoriesWithStoresByCursorIDRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetAllCategoriesWithStoresByCursorIDRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetAllCategoriesWithStoresByCursorIDRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              limit_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest.Builder.class);
+    }
+
+    public static final int LIMIT_FIELD_NUMBER = 1;
+    private long limit_;
+    /**
+     * <code>int64 limit = 1;</code>
+     * @return The limit.
+     */
+    @java.lang.Override
+    public long getLimit() {
+      return limit_;
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 2;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 2;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (limit_ != 0L) {
+        output.writeInt64(1, limit_);
+      }
+      if (cursorId_ != 0L) {
+        output.writeInt64(2, cursorId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (limit_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, limit_);
+      }
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, cursorId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest) obj;
+
+      if (getLimit()
+          != other.getLimit()) return false;
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLimit());
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDRequest)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        limit_ = 0L;
+
+        cursorId_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest(this);
+        result.limit_ = limit_;
+        result.cursorId_ = cursorId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest.getDefaultInstance()) return this;
+        if (other.getLimit() != 0L) {
+          setLimit(other.getLimit());
+        }
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long limit_ ;
+      /**
+       * <code>int64 limit = 1;</code>
+       * @return The limit.
+       */
+      @java.lang.Override
+      public long getLimit() {
+        return limit_;
+      }
+      /**
+       * <code>int64 limit = 1;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLimit(long value) {
+        
+        limit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 limit = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLimit() {
+        
+        limit_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDRequest)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetAllCategoriesWithStoresByCursorIDRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetAllCategoriesWithStoresByCursorIDRequest>() {
+      @java.lang.Override
+      public GetAllCategoriesWithStoresByCursorIDRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetAllCategoriesWithStoresByCursorIDRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetAllCategoriesWithStoresByCursorIDRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetAllCategoriesWithStoresByCursorIDRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetAllCategoriesWithStoresByCursorIDResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores> 
+        getCategoriesList();
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores getCategories(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    int getCategoriesCount();
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStoresOrBuilder> 
+        getCategoriesOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStoresOrBuilder getCategoriesOrBuilder(
+        int index);
+
+    /**
+     * <code>int64 cursor_id = 2;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDResponse}
+   */
+  public static final class GetAllCategoriesWithStoresByCursorIDResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDResponse)
+      GetAllCategoriesWithStoresByCursorIDResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetAllCategoriesWithStoresByCursorIDResponse.newBuilder() to construct.
+    private GetAllCategoriesWithStoresByCursorIDResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetAllCategoriesWithStoresByCursorIDResponse() {
+      categories_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetAllCategoriesWithStoresByCursorIDResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetAllCategoriesWithStoresByCursorIDResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                categories_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              categories_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.parser(), extensionRegistry));
+              break;
+            }
+            case 16: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          categories_ = java.util.Collections.unmodifiableList(categories_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse.Builder.class);
+    }
+
+    public static final int CATEGORIES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores> categories_;
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores> getCategoriesList() {
+      return categories_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStoresOrBuilder> 
+        getCategoriesOrBuilderList() {
+      return categories_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    @java.lang.Override
+    public int getCategoriesCount() {
+      return categories_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores getCategories(int index) {
+      return categories_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStoresOrBuilder getCategoriesOrBuilder(
+        int index) {
+      return categories_.get(index);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 2;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 2;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < categories_.size(); i++) {
+        output.writeMessage(1, categories_.get(i));
+      }
+      if (cursorId_ != 0L) {
+        output.writeInt64(2, cursorId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < categories_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, categories_.get(i));
+      }
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, cursorId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse) obj;
+
+      if (!getCategoriesList()
+          .equals(other.getCategoriesList())) return false;
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getCategoriesCount() > 0) {
+        hash = (37 * hash) + CATEGORIES_FIELD_NUMBER;
+        hash = (53 * hash) + getCategoriesList().hashCode();
+      }
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDResponse)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getCategoriesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (categoriesBuilder_ == null) {
+          categories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          categoriesBuilder_.clear();
+        }
+        cursorId_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (categoriesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            categories_ = java.util.Collections.unmodifiableList(categories_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.categories_ = categories_;
+        } else {
+          result.categories_ = categoriesBuilder_.build();
+        }
+        result.cursorId_ = cursorId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse.getDefaultInstance()) return this;
+        if (categoriesBuilder_ == null) {
+          if (!other.categories_.isEmpty()) {
+            if (categories_.isEmpty()) {
+              categories_ = other.categories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureCategoriesIsMutable();
+              categories_.addAll(other.categories_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.categories_.isEmpty()) {
+            if (categoriesBuilder_.isEmpty()) {
+              categoriesBuilder_.dispose();
+              categoriesBuilder_ = null;
+              categories_ = other.categories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              categoriesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCategoriesFieldBuilder() : null;
+            } else {
+              categoriesBuilder_.addAllMessages(other.categories_);
+            }
+          }
+        }
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores> categories_ =
+        java.util.Collections.emptyList();
+      private void ensureCategoriesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          categories_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores>(categories_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStoresOrBuilder> categoriesBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores> getCategoriesList() {
+        if (categoriesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(categories_);
+        } else {
+          return categoriesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public int getCategoriesCount() {
+        if (categoriesBuilder_ == null) {
+          return categories_.size();
+        } else {
+          return categoriesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores getCategories(int index) {
+        if (categoriesBuilder_ == null) {
+          return categories_.get(index);
+        } else {
+          return categoriesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public Builder setCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores value) {
+        if (categoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCategoriesIsMutable();
+          categories_.set(index, value);
+          onChanged();
+        } else {
+          categoriesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public Builder setCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder builderForValue) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          categories_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          categoriesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public Builder addCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores value) {
+        if (categoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCategoriesIsMutable();
+          categories_.add(value);
+          onChanged();
+        } else {
+          categoriesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public Builder addCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores value) {
+        if (categoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCategoriesIsMutable();
+          categories_.add(index, value);
+          onChanged();
+        } else {
+          categoriesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public Builder addCategories(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder builderForValue) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          categories_.add(builderForValue.build());
+          onChanged();
+        } else {
+          categoriesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public Builder addCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder builderForValue) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          categories_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          categoriesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public Builder addAllCategories(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores> values) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, categories_);
+          onChanged();
+        } else {
+          categoriesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public Builder clearCategories() {
+        if (categoriesBuilder_ == null) {
+          categories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          categoriesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public Builder removeCategories(int index) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          categories_.remove(index);
+          onChanged();
+        } else {
+          categoriesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder getCategoriesBuilder(
+          int index) {
+        return getCategoriesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStoresOrBuilder getCategoriesOrBuilder(
+          int index) {
+        if (categoriesBuilder_ == null) {
+          return categories_.get(index);  } else {
+          return categoriesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStoresOrBuilder> 
+           getCategoriesOrBuilderList() {
+        if (categoriesBuilder_ != null) {
+          return categoriesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(categories_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder addCategoriesBuilder() {
+        return getCategoriesFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder addCategoriesBuilder(
+          int index) {
+        return getCategoriesFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.CategoryWithStores categories = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder> 
+           getCategoriesBuilderList() {
+        return getCategoriesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStoresOrBuilder> 
+          getCategoriesFieldBuilder() {
+        if (categoriesBuilder_ == null) {
+          categoriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStores.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.CategoryWithStoresOrBuilder>(
+                  categories_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          categories_ = null;
+        }
+        return categoriesBuilder_;
+      }
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetAllCategoriesWithStoresByCursorIDResponse)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetAllCategoriesWithStoresByCursorIDResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetAllCategoriesWithStoresByCursorIDResponse>() {
+      @java.lang.Override
+      public GetAllCategoriesWithStoresByCursorIDResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetAllCategoriesWithStoresByCursorIDResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetAllCategoriesWithStoresByCursorIDResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetAllCategoriesWithStoresByCursorIDResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -30891,6 +33094,4364 @@ public final class ProductHubFrontMetaOuterClass {
 
   }
 
+  public interface GetOriginalCategoriesByIDsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetOriginalCategoriesByIDsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string original_ids = 1;</code>
+     * @return A list containing the originalIds.
+     */
+    java.util.List<java.lang.String>
+        getOriginalIdsList();
+    /**
+     * <code>repeated string original_ids = 1;</code>
+     * @return The count of originalIds.
+     */
+    int getOriginalIdsCount();
+    /**
+     * <code>repeated string original_ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The originalIds at the given index.
+     */
+    java.lang.String getOriginalIds(int index);
+    /**
+     * <code>repeated string original_ids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the originalIds at the given index.
+     */
+    com.google.protobuf.ByteString
+        getOriginalIdsBytes(int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetOriginalCategoriesByIDsRequest}
+   */
+  public static final class GetOriginalCategoriesByIDsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetOriginalCategoriesByIDsRequest)
+      GetOriginalCategoriesByIDsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetOriginalCategoriesByIDsRequest.newBuilder() to construct.
+    private GetOriginalCategoriesByIDsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetOriginalCategoriesByIDsRequest() {
+      originalIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetOriginalCategoriesByIDsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetOriginalCategoriesByIDsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                originalIds_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              originalIds_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          originalIds_ = originalIds_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest.Builder.class);
+    }
+
+    public static final int ORIGINAL_IDS_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList originalIds_;
+    /**
+     * <code>repeated string original_ids = 1;</code>
+     * @return A list containing the originalIds.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getOriginalIdsList() {
+      return originalIds_;
+    }
+    /**
+     * <code>repeated string original_ids = 1;</code>
+     * @return The count of originalIds.
+     */
+    public int getOriginalIdsCount() {
+      return originalIds_.size();
+    }
+    /**
+     * <code>repeated string original_ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The originalIds at the given index.
+     */
+    public java.lang.String getOriginalIds(int index) {
+      return originalIds_.get(index);
+    }
+    /**
+     * <code>repeated string original_ids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the originalIds at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getOriginalIdsBytes(int index) {
+      return originalIds_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < originalIds_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, originalIds_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < originalIds_.size(); i++) {
+          dataSize += computeStringSizeNoTag(originalIds_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getOriginalIdsList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest) obj;
+
+      if (!getOriginalIdsList()
+          .equals(other.getOriginalIdsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getOriginalIdsCount() > 0) {
+        hash = (37 * hash) + ORIGINAL_IDS_FIELD_NUMBER;
+        hash = (53 * hash) + getOriginalIdsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetOriginalCategoriesByIDsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetOriginalCategoriesByIDsRequest)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        originalIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          originalIds_ = originalIds_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.originalIds_ = originalIds_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest.getDefaultInstance()) return this;
+        if (!other.originalIds_.isEmpty()) {
+          if (originalIds_.isEmpty()) {
+            originalIds_ = other.originalIds_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureOriginalIdsIsMutable();
+            originalIds_.addAll(other.originalIds_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList originalIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureOriginalIdsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          originalIds_ = new com.google.protobuf.LazyStringArrayList(originalIds_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string original_ids = 1;</code>
+       * @return A list containing the originalIds.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getOriginalIdsList() {
+        return originalIds_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string original_ids = 1;</code>
+       * @return The count of originalIds.
+       */
+      public int getOriginalIdsCount() {
+        return originalIds_.size();
+      }
+      /**
+       * <code>repeated string original_ids = 1;</code>
+       * @param index The index of the element to return.
+       * @return The originalIds at the given index.
+       */
+      public java.lang.String getOriginalIds(int index) {
+        return originalIds_.get(index);
+      }
+      /**
+       * <code>repeated string original_ids = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the originalIds at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getOriginalIdsBytes(int index) {
+        return originalIds_.getByteString(index);
+      }
+      /**
+       * <code>repeated string original_ids = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The originalIds to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalIds(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureOriginalIdsIsMutable();
+        originalIds_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string original_ids = 1;</code>
+       * @param value The originalIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addOriginalIds(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureOriginalIdsIsMutable();
+        originalIds_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string original_ids = 1;</code>
+       * @param values The originalIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllOriginalIds(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureOriginalIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, originalIds_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string original_ids = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOriginalIds() {
+        originalIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string original_ids = 1;</code>
+       * @param value The bytes of the originalIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addOriginalIdsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureOriginalIdsIsMutable();
+        originalIds_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetOriginalCategoriesByIDsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetOriginalCategoriesByIDsRequest)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetOriginalCategoriesByIDsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetOriginalCategoriesByIDsRequest>() {
+      @java.lang.Override
+      public GetOriginalCategoriesByIDsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetOriginalCategoriesByIDsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetOriginalCategoriesByIDsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetOriginalCategoriesByIDsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetOriginalCategoriesByIDsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetOriginalCategoriesByIDsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> 
+        getOriginalCategoriesList();
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory getOriginalCategories(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    int getOriginalCategoriesCount();
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+        getOriginalCategoriesOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder getOriginalCategoriesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetOriginalCategoriesByIDsResponse}
+   */
+  public static final class GetOriginalCategoriesByIDsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetOriginalCategoriesByIDsResponse)
+      GetOriginalCategoriesByIDsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetOriginalCategoriesByIDsResponse.newBuilder() to construct.
+    private GetOriginalCategoriesByIDsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetOriginalCategoriesByIDsResponse() {
+      originalCategories_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetOriginalCategoriesByIDsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetOriginalCategoriesByIDsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                originalCategories_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              originalCategories_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          originalCategories_ = java.util.Collections.unmodifiableList(originalCategories_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse.Builder.class);
+    }
+
+    public static final int ORIGINAL_CATEGORIES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> originalCategories_;
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> getOriginalCategoriesList() {
+      return originalCategories_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+        getOriginalCategoriesOrBuilderList() {
+      return originalCategories_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public int getOriginalCategoriesCount() {
+      return originalCategories_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory getOriginalCategories(int index) {
+      return originalCategories_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder getOriginalCategoriesOrBuilder(
+        int index) {
+      return originalCategories_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < originalCategories_.size(); i++) {
+        output.writeMessage(1, originalCategories_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < originalCategories_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, originalCategories_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse) obj;
+
+      if (!getOriginalCategoriesList()
+          .equals(other.getOriginalCategoriesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getOriginalCategoriesCount() > 0) {
+        hash = (37 * hash) + ORIGINAL_CATEGORIES_FIELD_NUMBER;
+        hash = (53 * hash) + getOriginalCategoriesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetOriginalCategoriesByIDsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetOriginalCategoriesByIDsResponse)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getOriginalCategoriesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (originalCategoriesBuilder_ == null) {
+          originalCategories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          originalCategoriesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (originalCategoriesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            originalCategories_ = java.util.Collections.unmodifiableList(originalCategories_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.originalCategories_ = originalCategories_;
+        } else {
+          result.originalCategories_ = originalCategoriesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse.getDefaultInstance()) return this;
+        if (originalCategoriesBuilder_ == null) {
+          if (!other.originalCategories_.isEmpty()) {
+            if (originalCategories_.isEmpty()) {
+              originalCategories_ = other.originalCategories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureOriginalCategoriesIsMutable();
+              originalCategories_.addAll(other.originalCategories_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.originalCategories_.isEmpty()) {
+            if (originalCategoriesBuilder_.isEmpty()) {
+              originalCategoriesBuilder_.dispose();
+              originalCategoriesBuilder_ = null;
+              originalCategories_ = other.originalCategories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              originalCategoriesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getOriginalCategoriesFieldBuilder() : null;
+            } else {
+              originalCategoriesBuilder_.addAllMessages(other.originalCategories_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> originalCategories_ =
+        java.util.Collections.emptyList();
+      private void ensureOriginalCategoriesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          originalCategories_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory>(originalCategories_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> originalCategoriesBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> getOriginalCategoriesList() {
+        if (originalCategoriesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(originalCategories_);
+        } else {
+          return originalCategoriesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public int getOriginalCategoriesCount() {
+        if (originalCategoriesBuilder_ == null) {
+          return originalCategories_.size();
+        } else {
+          return originalCategoriesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory getOriginalCategories(int index) {
+        if (originalCategoriesBuilder_ == null) {
+          return originalCategories_.get(index);
+        } else {
+          return originalCategoriesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder setOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory value) {
+        if (originalCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.set(index, value);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder setOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder builderForValue) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory value) {
+        if (originalCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(value);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory value) {
+        if (originalCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(index, value);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder builderForValue) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(builderForValue.build());
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder builderForValue) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addAllOriginalCategories(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> values) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, originalCategories_);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder clearOriginalCategories() {
+        if (originalCategoriesBuilder_ == null) {
+          originalCategories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder removeOriginalCategories(int index) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.remove(index);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder getOriginalCategoriesBuilder(
+          int index) {
+        return getOriginalCategoriesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder getOriginalCategoriesOrBuilder(
+          int index) {
+        if (originalCategoriesBuilder_ == null) {
+          return originalCategories_.get(index);  } else {
+          return originalCategoriesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+           getOriginalCategoriesOrBuilderList() {
+        if (originalCategoriesBuilder_ != null) {
+          return originalCategoriesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(originalCategories_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder addOriginalCategoriesBuilder() {
+        return getOriginalCategoriesFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder addOriginalCategoriesBuilder(
+          int index) {
+        return getOriginalCategoriesFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder> 
+           getOriginalCategoriesBuilderList() {
+        return getOriginalCategoriesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+          getOriginalCategoriesFieldBuilder() {
+        if (originalCategoriesBuilder_ == null) {
+          originalCategoriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder>(
+                  originalCategories_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          originalCategories_ = null;
+        }
+        return originalCategoriesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetOriginalCategoriesByIDsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetOriginalCategoriesByIDsResponse)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetOriginalCategoriesByIDsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetOriginalCategoriesByIDsResponse>() {
+      @java.lang.Override
+      public GetOriginalCategoriesByIDsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetOriginalCategoriesByIDsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetOriginalCategoriesByIDsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetOriginalCategoriesByIDsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetAllOriginalCategoriesByCursorIDRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 limit = 1;</code>
+     * @return The limit.
+     */
+    long getLimit();
+
+    /**
+     * <code>int64 cursor_id = 2;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetAllOriginalCategoriesByCursorIDRequest}
+   */
+  public static final class GetAllOriginalCategoriesByCursorIDRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDRequest)
+      GetAllOriginalCategoriesByCursorIDRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetAllOriginalCategoriesByCursorIDRequest.newBuilder() to construct.
+    private GetAllOriginalCategoriesByCursorIDRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetAllOriginalCategoriesByCursorIDRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetAllOriginalCategoriesByCursorIDRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetAllOriginalCategoriesByCursorIDRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              limit_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest.Builder.class);
+    }
+
+    public static final int LIMIT_FIELD_NUMBER = 1;
+    private long limit_;
+    /**
+     * <code>int64 limit = 1;</code>
+     * @return The limit.
+     */
+    @java.lang.Override
+    public long getLimit() {
+      return limit_;
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 2;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 2;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (limit_ != 0L) {
+        output.writeInt64(1, limit_);
+      }
+      if (cursorId_ != 0L) {
+        output.writeInt64(2, cursorId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (limit_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, limit_);
+      }
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, cursorId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest) obj;
+
+      if (getLimit()
+          != other.getLimit()) return false;
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLimit());
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetAllOriginalCategoriesByCursorIDRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDRequest)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        limit_ = 0L;
+
+        cursorId_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest(this);
+        result.limit_ = limit_;
+        result.cursorId_ = cursorId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest.getDefaultInstance()) return this;
+        if (other.getLimit() != 0L) {
+          setLimit(other.getLimit());
+        }
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long limit_ ;
+      /**
+       * <code>int64 limit = 1;</code>
+       * @return The limit.
+       */
+      @java.lang.Override
+      public long getLimit() {
+        return limit_;
+      }
+      /**
+       * <code>int64 limit = 1;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLimit(long value) {
+        
+        limit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 limit = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLimit() {
+        
+        limit_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDRequest)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetAllOriginalCategoriesByCursorIDRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetAllOriginalCategoriesByCursorIDRequest>() {
+      @java.lang.Override
+      public GetAllOriginalCategoriesByCursorIDRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetAllOriginalCategoriesByCursorIDRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetAllOriginalCategoriesByCursorIDRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetAllOriginalCategoriesByCursorIDRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetAllOriginalCategoriesByCursorIDResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> 
+        getOriginalCategoriesList();
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory getOriginalCategories(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    int getOriginalCategoriesCount();
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+        getOriginalCategoriesOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder getOriginalCategoriesOrBuilder(
+        int index);
+
+    /**
+     * <code>int64 cursor_id = 2;</code>
+     * @return The cursorId.
+     */
+    long getCursorId();
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetAllOriginalCategoriesByCursorIDResponse}
+   */
+  public static final class GetAllOriginalCategoriesByCursorIDResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDResponse)
+      GetAllOriginalCategoriesByCursorIDResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetAllOriginalCategoriesByCursorIDResponse.newBuilder() to construct.
+    private GetAllOriginalCategoriesByCursorIDResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetAllOriginalCategoriesByCursorIDResponse() {
+      originalCategories_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetAllOriginalCategoriesByCursorIDResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetAllOriginalCategoriesByCursorIDResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                originalCategories_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              originalCategories_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.parser(), extensionRegistry));
+              break;
+            }
+            case 16: {
+
+              cursorId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          originalCategories_ = java.util.Collections.unmodifiableList(originalCategories_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse.Builder.class);
+    }
+
+    public static final int ORIGINAL_CATEGORIES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> originalCategories_;
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> getOriginalCategoriesList() {
+      return originalCategories_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+        getOriginalCategoriesOrBuilderList() {
+      return originalCategories_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public int getOriginalCategoriesCount() {
+      return originalCategories_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory getOriginalCategories(int index) {
+      return originalCategories_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder getOriginalCategoriesOrBuilder(
+        int index) {
+      return originalCategories_.get(index);
+    }
+
+    public static final int CURSOR_ID_FIELD_NUMBER = 2;
+    private long cursorId_;
+    /**
+     * <code>int64 cursor_id = 2;</code>
+     * @return The cursorId.
+     */
+    @java.lang.Override
+    public long getCursorId() {
+      return cursorId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < originalCategories_.size(); i++) {
+        output.writeMessage(1, originalCategories_.get(i));
+      }
+      if (cursorId_ != 0L) {
+        output.writeInt64(2, cursorId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < originalCategories_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, originalCategories_.get(i));
+      }
+      if (cursorId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, cursorId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse) obj;
+
+      if (!getOriginalCategoriesList()
+          .equals(other.getOriginalCategoriesList())) return false;
+      if (getCursorId()
+          != other.getCursorId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getOriginalCategoriesCount() > 0) {
+        hash = (37 * hash) + ORIGINAL_CATEGORIES_FIELD_NUMBER;
+        hash = (53 * hash) + getOriginalCategoriesList().hashCode();
+      }
+      hash = (37 * hash) + CURSOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCursorId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetAllOriginalCategoriesByCursorIDResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDResponse)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getOriginalCategoriesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (originalCategoriesBuilder_ == null) {
+          originalCategories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          originalCategoriesBuilder_.clear();
+        }
+        cursorId_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (originalCategoriesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            originalCategories_ = java.util.Collections.unmodifiableList(originalCategories_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.originalCategories_ = originalCategories_;
+        } else {
+          result.originalCategories_ = originalCategoriesBuilder_.build();
+        }
+        result.cursorId_ = cursorId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse.getDefaultInstance()) return this;
+        if (originalCategoriesBuilder_ == null) {
+          if (!other.originalCategories_.isEmpty()) {
+            if (originalCategories_.isEmpty()) {
+              originalCategories_ = other.originalCategories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureOriginalCategoriesIsMutable();
+              originalCategories_.addAll(other.originalCategories_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.originalCategories_.isEmpty()) {
+            if (originalCategoriesBuilder_.isEmpty()) {
+              originalCategoriesBuilder_.dispose();
+              originalCategoriesBuilder_ = null;
+              originalCategories_ = other.originalCategories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              originalCategoriesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getOriginalCategoriesFieldBuilder() : null;
+            } else {
+              originalCategoriesBuilder_.addAllMessages(other.originalCategories_);
+            }
+          }
+        }
+        if (other.getCursorId() != 0L) {
+          setCursorId(other.getCursorId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> originalCategories_ =
+        java.util.Collections.emptyList();
+      private void ensureOriginalCategoriesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          originalCategories_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory>(originalCategories_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> originalCategoriesBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> getOriginalCategoriesList() {
+        if (originalCategoriesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(originalCategories_);
+        } else {
+          return originalCategoriesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public int getOriginalCategoriesCount() {
+        if (originalCategoriesBuilder_ == null) {
+          return originalCategories_.size();
+        } else {
+          return originalCategoriesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory getOriginalCategories(int index) {
+        if (originalCategoriesBuilder_ == null) {
+          return originalCategories_.get(index);
+        } else {
+          return originalCategoriesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder setOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory value) {
+        if (originalCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.set(index, value);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder setOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder builderForValue) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory value) {
+        if (originalCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(value);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory value) {
+        if (originalCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(index, value);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder builderForValue) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(builderForValue.build());
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder builderForValue) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addAllOriginalCategories(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> values) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, originalCategories_);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder clearOriginalCategories() {
+        if (originalCategoriesBuilder_ == null) {
+          originalCategories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder removeOriginalCategories(int index) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.remove(index);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder getOriginalCategoriesBuilder(
+          int index) {
+        return getOriginalCategoriesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder getOriginalCategoriesOrBuilder(
+          int index) {
+        if (originalCategoriesBuilder_ == null) {
+          return originalCategories_.get(index);  } else {
+          return originalCategoriesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+           getOriginalCategoriesOrBuilderList() {
+        if (originalCategoriesBuilder_ != null) {
+          return originalCategoriesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(originalCategories_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder addOriginalCategoriesBuilder() {
+        return getOriginalCategoriesFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder addOriginalCategoriesBuilder(
+          int index) {
+        return getOriginalCategoriesFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder> 
+           getOriginalCategoriesBuilderList() {
+        return getOriginalCategoriesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+          getOriginalCategoriesFieldBuilder() {
+        if (originalCategoriesBuilder_ == null) {
+          originalCategoriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder>(
+                  originalCategories_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          originalCategories_ = null;
+        }
+        return originalCategoriesBuilder_;
+      }
+
+      private long cursorId_ ;
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @return The cursorId.
+       */
+      @java.lang.Override
+      public long getCursorId() {
+        return cursorId_;
+      }
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @param value The cursorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCursorId(long value) {
+        
+        cursorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 cursor_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCursorId() {
+        
+        cursorId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetAllOriginalCategoriesByCursorIDResponse)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetAllOriginalCategoriesByCursorIDResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetAllOriginalCategoriesByCursorIDResponse>() {
+      @java.lang.Override
+      public GetAllOriginalCategoriesByCursorIDResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetAllOriginalCategoriesByCursorIDResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetAllOriginalCategoriesByCursorIDResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetAllOriginalCategoriesByCursorIDResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetAllOriginalCategoriesByStoreIDRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string store_id = 1;</code>
+     * @return The storeId.
+     */
+    java.lang.String getStoreId();
+    /**
+     * <code>string store_id = 1;</code>
+     * @return The bytes for storeId.
+     */
+    com.google.protobuf.ByteString
+        getStoreIdBytes();
+
+    /**
+     * <code>int64 limit = 2;</code>
+     * @return The limit.
+     */
+    long getLimit();
+
+    /**
+     * <code>int64 offset = 3;</code>
+     * @return The offset.
+     */
+    long getOffset();
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetAllOriginalCategoriesByStoreIDRequest}
+   */
+  public static final class GetAllOriginalCategoriesByStoreIDRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDRequest)
+      GetAllOriginalCategoriesByStoreIDRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetAllOriginalCategoriesByStoreIDRequest.newBuilder() to construct.
+    private GetAllOriginalCategoriesByStoreIDRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetAllOriginalCategoriesByStoreIDRequest() {
+      storeId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetAllOriginalCategoriesByStoreIDRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetAllOriginalCategoriesByStoreIDRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeId_ = s;
+              break;
+            }
+            case 16: {
+
+              limit_ = input.readInt64();
+              break;
+            }
+            case 24: {
+
+              offset_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest.Builder.class);
+    }
+
+    public static final int STORE_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object storeId_;
+    /**
+     * <code>string store_id = 1;</code>
+     * @return The storeId.
+     */
+    @java.lang.Override
+    public java.lang.String getStoreId() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string store_id = 1;</code>
+     * @return The bytes for storeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStoreIdBytes() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LIMIT_FIELD_NUMBER = 2;
+    private long limit_;
+    /**
+     * <code>int64 limit = 2;</code>
+     * @return The limit.
+     */
+    @java.lang.Override
+    public long getLimit() {
+      return limit_;
+    }
+
+    public static final int OFFSET_FIELD_NUMBER = 3;
+    private long offset_;
+    /**
+     * <code>int64 offset = 3;</code>
+     * @return The offset.
+     */
+    @java.lang.Override
+    public long getOffset() {
+      return offset_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getStoreIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, storeId_);
+      }
+      if (limit_ != 0L) {
+        output.writeInt64(2, limit_);
+      }
+      if (offset_ != 0L) {
+        output.writeInt64(3, offset_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getStoreIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, storeId_);
+      }
+      if (limit_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, limit_);
+      }
+      if (offset_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, offset_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest) obj;
+
+      if (!getStoreId()
+          .equals(other.getStoreId())) return false;
+      if (getLimit()
+          != other.getLimit()) return false;
+      if (getOffset()
+          != other.getOffset()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreId().hashCode();
+      hash = (37 * hash) + LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLimit());
+      hash = (37 * hash) + OFFSET_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOffset());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetAllOriginalCategoriesByStoreIDRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDRequest)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        storeId_ = "";
+
+        limit_ = 0L;
+
+        offset_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest(this);
+        result.storeId_ = storeId_;
+        result.limit_ = limit_;
+        result.offset_ = offset_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest.getDefaultInstance()) return this;
+        if (!other.getStoreId().isEmpty()) {
+          storeId_ = other.storeId_;
+          onChanged();
+        }
+        if (other.getLimit() != 0L) {
+          setLimit(other.getLimit());
+        }
+        if (other.getOffset() != 0L) {
+          setOffset(other.getOffset());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object storeId_ = "";
+      /**
+       * <code>string store_id = 1;</code>
+       * @return The storeId.
+       */
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 1;</code>
+       * @return The bytes for storeId.
+       */
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 1;</code>
+       * @param value The storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = getDefaultInstance().getStoreId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 1;</code>
+       * @param value The bytes for storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long limit_ ;
+      /**
+       * <code>int64 limit = 2;</code>
+       * @return The limit.
+       */
+      @java.lang.Override
+      public long getLimit() {
+        return limit_;
+      }
+      /**
+       * <code>int64 limit = 2;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLimit(long value) {
+        
+        limit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 limit = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLimit() {
+        
+        limit_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long offset_ ;
+      /**
+       * <code>int64 offset = 3;</code>
+       * @return The offset.
+       */
+      @java.lang.Override
+      public long getOffset() {
+        return offset_;
+      }
+      /**
+       * <code>int64 offset = 3;</code>
+       * @param value The offset to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOffset(long value) {
+        
+        offset_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 offset = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOffset() {
+        
+        offset_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDRequest)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetAllOriginalCategoriesByStoreIDRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetAllOriginalCategoriesByStoreIDRequest>() {
+      @java.lang.Override
+      public GetAllOriginalCategoriesByStoreIDRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetAllOriginalCategoriesByStoreIDRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetAllOriginalCategoriesByStoreIDRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetAllOriginalCategoriesByStoreIDRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetAllOriginalCategoriesByStoreIDResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> 
+        getOriginalCategoriesList();
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory getOriginalCategories(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    int getOriginalCategoriesCount();
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+        getOriginalCategoriesOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder getOriginalCategoriesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetAllOriginalCategoriesByStoreIDResponse}
+   */
+  public static final class GetAllOriginalCategoriesByStoreIDResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDResponse)
+      GetAllOriginalCategoriesByStoreIDResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetAllOriginalCategoriesByStoreIDResponse.newBuilder() to construct.
+    private GetAllOriginalCategoriesByStoreIDResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetAllOriginalCategoriesByStoreIDResponse() {
+      originalCategories_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetAllOriginalCategoriesByStoreIDResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetAllOriginalCategoriesByStoreIDResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                originalCategories_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              originalCategories_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          originalCategories_ = java.util.Collections.unmodifiableList(originalCategories_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse.Builder.class);
+    }
+
+    public static final int ORIGINAL_CATEGORIES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> originalCategories_;
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> getOriginalCategoriesList() {
+      return originalCategories_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+        getOriginalCategoriesOrBuilderList() {
+      return originalCategories_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public int getOriginalCategoriesCount() {
+      return originalCategories_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory getOriginalCategories(int index) {
+      return originalCategories_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder getOriginalCategoriesOrBuilder(
+        int index) {
+      return originalCategories_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < originalCategories_.size(); i++) {
+        output.writeMessage(1, originalCategories_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < originalCategories_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, originalCategories_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse) obj;
+
+      if (!getOriginalCategoriesList()
+          .equals(other.getOriginalCategoriesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getOriginalCategoriesCount() > 0) {
+        hash = (37 * hash) + ORIGINAL_CATEGORIES_FIELD_NUMBER;
+        hash = (53 * hash) + getOriginalCategoriesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetAllOriginalCategoriesByStoreIDResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDResponse)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getOriginalCategoriesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (originalCategoriesBuilder_ == null) {
+          originalCategories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          originalCategoriesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (originalCategoriesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            originalCategories_ = java.util.Collections.unmodifiableList(originalCategories_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.originalCategories_ = originalCategories_;
+        } else {
+          result.originalCategories_ = originalCategoriesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse.getDefaultInstance()) return this;
+        if (originalCategoriesBuilder_ == null) {
+          if (!other.originalCategories_.isEmpty()) {
+            if (originalCategories_.isEmpty()) {
+              originalCategories_ = other.originalCategories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureOriginalCategoriesIsMutable();
+              originalCategories_.addAll(other.originalCategories_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.originalCategories_.isEmpty()) {
+            if (originalCategoriesBuilder_.isEmpty()) {
+              originalCategoriesBuilder_.dispose();
+              originalCategoriesBuilder_ = null;
+              originalCategories_ = other.originalCategories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              originalCategoriesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getOriginalCategoriesFieldBuilder() : null;
+            } else {
+              originalCategoriesBuilder_.addAllMessages(other.originalCategories_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> originalCategories_ =
+        java.util.Collections.emptyList();
+      private void ensureOriginalCategoriesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          originalCategories_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory>(originalCategories_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> originalCategoriesBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> getOriginalCategoriesList() {
+        if (originalCategoriesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(originalCategories_);
+        } else {
+          return originalCategoriesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public int getOriginalCategoriesCount() {
+        if (originalCategoriesBuilder_ == null) {
+          return originalCategories_.size();
+        } else {
+          return originalCategoriesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory getOriginalCategories(int index) {
+        if (originalCategoriesBuilder_ == null) {
+          return originalCategories_.get(index);
+        } else {
+          return originalCategoriesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder setOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory value) {
+        if (originalCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.set(index, value);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder setOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder builderForValue) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory value) {
+        if (originalCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(value);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory value) {
+        if (originalCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(index, value);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder builderForValue) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(builderForValue.build());
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addOriginalCategories(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder builderForValue) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder addAllOriginalCategories(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory> values) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, originalCategories_);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder clearOriginalCategories() {
+        if (originalCategoriesBuilder_ == null) {
+          originalCategories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public Builder removeOriginalCategories(int index) {
+        if (originalCategoriesBuilder_ == null) {
+          ensureOriginalCategoriesIsMutable();
+          originalCategories_.remove(index);
+          onChanged();
+        } else {
+          originalCategoriesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder getOriginalCategoriesBuilder(
+          int index) {
+        return getOriginalCategoriesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder getOriginalCategoriesOrBuilder(
+          int index) {
+        if (originalCategoriesBuilder_ == null) {
+          return originalCategories_.get(index);  } else {
+          return originalCategoriesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+           getOriginalCategoriesOrBuilderList() {
+        if (originalCategoriesBuilder_ != null) {
+          return originalCategoriesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(originalCategories_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder addOriginalCategoriesBuilder() {
+        return getOriginalCategoriesFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder addOriginalCategoriesBuilder(
+          int index) {
+        return getOriginalCategoriesFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.OriginalCategory original_categories = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder> 
+           getOriginalCategoriesBuilderList() {
+        return getOriginalCategoriesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder> 
+          getOriginalCategoriesFieldBuilder() {
+        if (originalCategoriesBuilder_ == null) {
+          originalCategoriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategory.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.OriginalCategoryOrBuilder>(
+                  originalCategories_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          originalCategories_ = null;
+        }
+        return originalCategoriesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetAllOriginalCategoriesByStoreIDResponse)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetAllOriginalCategoriesByStoreIDResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetAllOriginalCategoriesByStoreIDResponse>() {
+      @java.lang.Override
+      public GetAllOriginalCategoriesByStoreIDResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetAllOriginalCategoriesByStoreIDResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetAllOriginalCategoriesByStoreIDResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetAllOriginalCategoriesByStoreIDResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface GetRetailerStoresRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetRetailerStoresRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -32317,6 +38878,1359 @@ public final class ProductHubFrontMetaOuterClass {
 
     @java.lang.Override
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetAllRetailerStoresRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetAllRetailerStoresRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 limit = 1;</code>
+     * @return The limit.
+     */
+    long getLimit();
+
+    /**
+     * <code>int64 offset = 2;</code>
+     * @return The offset.
+     */
+    long getOffset();
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetAllRetailerStoresRequest}
+   */
+  public static final class GetAllRetailerStoresRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetAllRetailerStoresRequest)
+      GetAllRetailerStoresRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetAllRetailerStoresRequest.newBuilder() to construct.
+    private GetAllRetailerStoresRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetAllRetailerStoresRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetAllRetailerStoresRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetAllRetailerStoresRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              limit_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              offset_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest.Builder.class);
+    }
+
+    public static final int LIMIT_FIELD_NUMBER = 1;
+    private long limit_;
+    /**
+     * <code>int64 limit = 1;</code>
+     * @return The limit.
+     */
+    @java.lang.Override
+    public long getLimit() {
+      return limit_;
+    }
+
+    public static final int OFFSET_FIELD_NUMBER = 2;
+    private long offset_;
+    /**
+     * <code>int64 offset = 2;</code>
+     * @return The offset.
+     */
+    @java.lang.Override
+    public long getOffset() {
+      return offset_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (limit_ != 0L) {
+        output.writeInt64(1, limit_);
+      }
+      if (offset_ != 0L) {
+        output.writeInt64(2, offset_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (limit_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, limit_);
+      }
+      if (offset_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, offset_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest) obj;
+
+      if (getLimit()
+          != other.getLimit()) return false;
+      if (getOffset()
+          != other.getOffset()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLimit());
+      hash = (37 * hash) + OFFSET_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOffset());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetAllRetailerStoresRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetAllRetailerStoresRequest)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        limit_ = 0L;
+
+        offset_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest(this);
+        result.limit_ = limit_;
+        result.offset_ = offset_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest.getDefaultInstance()) return this;
+        if (other.getLimit() != 0L) {
+          setLimit(other.getLimit());
+        }
+        if (other.getOffset() != 0L) {
+          setOffset(other.getOffset());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long limit_ ;
+      /**
+       * <code>int64 limit = 1;</code>
+       * @return The limit.
+       */
+      @java.lang.Override
+      public long getLimit() {
+        return limit_;
+      }
+      /**
+       * <code>int64 limit = 1;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLimit(long value) {
+        
+        limit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 limit = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLimit() {
+        
+        limit_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long offset_ ;
+      /**
+       * <code>int64 offset = 2;</code>
+       * @return The offset.
+       */
+      @java.lang.Override
+      public long getOffset() {
+        return offset_;
+      }
+      /**
+       * <code>int64 offset = 2;</code>
+       * @param value The offset to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOffset(long value) {
+        
+        offset_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 offset = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOffset() {
+        
+        offset_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetAllRetailerStoresRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetAllRetailerStoresRequest)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetAllRetailerStoresRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetAllRetailerStoresRequest>() {
+      @java.lang.Override
+      public GetAllRetailerStoresRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetAllRetailerStoresRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetAllRetailerStoresRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetAllRetailerStoresRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetAllRetailerStoresResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetAllRetailerStoresResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> 
+        getRetailerStoresList();
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore getRetailerStores(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    int getRetailerStoresCount();
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> 
+        getRetailerStoresOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder getRetailerStoresOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetAllRetailerStoresResponse}
+   */
+  public static final class GetAllRetailerStoresResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetAllRetailerStoresResponse)
+      GetAllRetailerStoresResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetAllRetailerStoresResponse.newBuilder() to construct.
+    private GetAllRetailerStoresResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetAllRetailerStoresResponse() {
+      retailerStores_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetAllRetailerStoresResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetAllRetailerStoresResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                retailerStores_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              retailerStores_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          retailerStores_ = java.util.Collections.unmodifiableList(retailerStores_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse.Builder.class);
+    }
+
+    public static final int RETAILER_STORES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> retailerStores_;
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> getRetailerStoresList() {
+      return retailerStores_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> 
+        getRetailerStoresOrBuilderList() {
+      return retailerStores_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public int getRetailerStoresCount() {
+      return retailerStores_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore getRetailerStores(int index) {
+      return retailerStores_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder getRetailerStoresOrBuilder(
+        int index) {
+      return retailerStores_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < retailerStores_.size(); i++) {
+        output.writeMessage(1, retailerStores_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < retailerStores_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, retailerStores_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse) obj;
+
+      if (!getRetailerStoresList()
+          .equals(other.getRetailerStoresList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getRetailerStoresCount() > 0) {
+        hash = (37 * hash) + RETAILER_STORES_FIELD_NUMBER;
+        hash = (53 * hash) + getRetailerStoresList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetAllRetailerStoresResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetAllRetailerStoresResponse)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getRetailerStoresFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (retailerStoresBuilder_ == null) {
+          retailerStores_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          retailerStoresBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (retailerStoresBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            retailerStores_ = java.util.Collections.unmodifiableList(retailerStores_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.retailerStores_ = retailerStores_;
+        } else {
+          result.retailerStores_ = retailerStoresBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse.getDefaultInstance()) return this;
+        if (retailerStoresBuilder_ == null) {
+          if (!other.retailerStores_.isEmpty()) {
+            if (retailerStores_.isEmpty()) {
+              retailerStores_ = other.retailerStores_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureRetailerStoresIsMutable();
+              retailerStores_.addAll(other.retailerStores_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.retailerStores_.isEmpty()) {
+            if (retailerStoresBuilder_.isEmpty()) {
+              retailerStoresBuilder_.dispose();
+              retailerStoresBuilder_ = null;
+              retailerStores_ = other.retailerStores_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              retailerStoresBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRetailerStoresFieldBuilder() : null;
+            } else {
+              retailerStoresBuilder_.addAllMessages(other.retailerStores_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> retailerStores_ =
+        java.util.Collections.emptyList();
+      private void ensureRetailerStoresIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          retailerStores_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore>(retailerStores_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> retailerStoresBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> getRetailerStoresList() {
+        if (retailerStoresBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(retailerStores_);
+        } else {
+          return retailerStoresBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public int getRetailerStoresCount() {
+        if (retailerStoresBuilder_ == null) {
+          return retailerStores_.size();
+        } else {
+          return retailerStoresBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore getRetailerStores(int index) {
+        if (retailerStoresBuilder_ == null) {
+          return retailerStores_.get(index);
+        } else {
+          return retailerStoresBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder setRetailerStores(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore value) {
+        if (retailerStoresBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailerStoresIsMutable();
+          retailerStores_.set(index, value);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder setRetailerStores(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder builderForValue) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          retailerStoresBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore value) {
+        if (retailerStoresBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(value);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore value) {
+        if (retailerStoresBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(index, value);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder builderForValue) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(builderForValue.build());
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder builderForValue) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addAllRetailerStores(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> values) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, retailerStores_);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder clearRetailerStores() {
+        if (retailerStoresBuilder_ == null) {
+          retailerStores_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder removeRetailerStores(int index) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.remove(index);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder getRetailerStoresBuilder(
+          int index) {
+        return getRetailerStoresFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder getRetailerStoresOrBuilder(
+          int index) {
+        if (retailerStoresBuilder_ == null) {
+          return retailerStores_.get(index);  } else {
+          return retailerStoresBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> 
+           getRetailerStoresOrBuilderList() {
+        if (retailerStoresBuilder_ != null) {
+          return retailerStoresBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(retailerStores_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder addRetailerStoresBuilder() {
+        return getRetailerStoresFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder addRetailerStoresBuilder(
+          int index) {
+        return getRetailerStoresFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder> 
+           getRetailerStoresBuilderList() {
+        return getRetailerStoresFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> 
+          getRetailerStoresFieldBuilder() {
+        if (retailerStoresBuilder_ == null) {
+          retailerStoresBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder>(
+                  retailerStores_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          retailerStores_ = null;
+        }
+        return retailerStoresBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetAllRetailerStoresResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetAllRetailerStoresResponse)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetAllRetailerStoresResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetAllRetailerStoresResponse>() {
+      @java.lang.Override
+      public GetAllRetailerStoresResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetAllRetailerStoresResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetAllRetailerStoresResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetAllRetailerStoresResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -37032,6 +44946,9144 @@ public final class ProductHubFrontMetaOuterClass {
 
   }
 
+  public interface GetPopularitiesRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetPopularitiesRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity> 
+        getPopularitiesList();
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity getPopularities(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    int getPopularitiesCount();
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder> 
+        getPopularitiesOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder getPopularitiesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetPopularitiesRequest}
+   */
+  public static final class GetPopularitiesRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetPopularitiesRequest)
+      GetPopularitiesRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetPopularitiesRequest.newBuilder() to construct.
+    private GetPopularitiesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetPopularitiesRequest() {
+      popularities_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetPopularitiesRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetPopularitiesRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                popularities_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              popularities_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          popularities_ = java.util.Collections.unmodifiableList(popularities_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Builder.class);
+    }
+
+    public interface PopularityOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetPopularitiesRequest.Popularity)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>int64 sku = 1;</code>
+       * @return The sku.
+       */
+      long getSku();
+
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The storeId.
+       */
+      java.lang.String getStoreId();
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The bytes for storeId.
+       */
+      com.google.protobuf.ByteString
+          getStoreIdBytes();
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetPopularitiesRequest.Popularity}
+     */
+    public static final class Popularity extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetPopularitiesRequest.Popularity)
+        PopularityOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Popularity.newBuilder() to construct.
+      private Popularity(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Popularity() {
+        storeId_ = "";
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Popularity();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Popularity(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+
+                sku_ = input.readInt64();
+                break;
+              }
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                storeId_ = s;
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder.class);
+      }
+
+      public static final int SKU_FIELD_NUMBER = 1;
+      private long sku_;
+      /**
+       * <code>int64 sku = 1;</code>
+       * @return The sku.
+       */
+      @java.lang.Override
+      public long getSku() {
+        return sku_;
+      }
+
+      public static final int STORE_ID_FIELD_NUMBER = 2;
+      private volatile java.lang.Object storeId_;
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The storeId.
+       */
+      @java.lang.Override
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The bytes for storeId.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (sku_ != 0L) {
+          output.writeInt64(1, sku_);
+        }
+        if (!getStoreIdBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, storeId_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (sku_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(1, sku_);
+        }
+        if (!getStoreIdBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, storeId_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity)) {
+          return super.equals(obj);
+        }
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity) obj;
+
+        if (getSku()
+            != other.getSku()) return false;
+        if (!getStoreId()
+            .equals(other.getStoreId())) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + SKU_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getSku());
+        hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getStoreId().hashCode();
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code product_hub_front_meta.GetPopularitiesRequest.Popularity}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetPopularitiesRequest.Popularity)
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder.class);
+        }
+
+        // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          sku_ = 0L;
+
+          storeId_ = "";
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_descriptor;
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity getDefaultInstanceForType() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity build() {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity buildPartial() {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity(this);
+          result.sku_ = sku_;
+          result.storeId_ = storeId_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity) {
+            return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity other) {
+          if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.getDefaultInstance()) return this;
+          if (other.getSku() != 0L) {
+            setSku(other.getSku());
+          }
+          if (!other.getStoreId().isEmpty()) {
+            storeId_ = other.storeId_;
+            onChanged();
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private long sku_ ;
+        /**
+         * <code>int64 sku = 1;</code>
+         * @return The sku.
+         */
+        @java.lang.Override
+        public long getSku() {
+          return sku_;
+        }
+        /**
+         * <code>int64 sku = 1;</code>
+         * @param value The sku to set.
+         * @return This builder for chaining.
+         */
+        public Builder setSku(long value) {
+          
+          sku_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int64 sku = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearSku() {
+          
+          sku_ = 0L;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object storeId_ = "";
+        /**
+         * <code>string store_id = 2;</code>
+         * @return The storeId.
+         */
+        public java.lang.String getStoreId() {
+          java.lang.Object ref = storeId_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            storeId_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string store_id = 2;</code>
+         * @return The bytes for storeId.
+         */
+        public com.google.protobuf.ByteString
+            getStoreIdBytes() {
+          java.lang.Object ref = storeId_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            storeId_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string store_id = 2;</code>
+         * @param value The storeId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStoreId(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          storeId_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string store_id = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearStoreId() {
+          
+          storeId_ = getDefaultInstance().getStoreId();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string store_id = 2;</code>
+         * @param value The bytes for storeId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStoreIdBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          storeId_ = value;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetPopularitiesRequest.Popularity)
+      }
+
+      // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetPopularitiesRequest.Popularity)
+      private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity();
+      }
+
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<Popularity>
+          PARSER = new com.google.protobuf.AbstractParser<Popularity>() {
+        @java.lang.Override
+        public Popularity parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Popularity(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<Popularity> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Popularity> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int POPULARITIES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity> popularities_;
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity> getPopularitiesList() {
+      return popularities_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder> 
+        getPopularitiesOrBuilderList() {
+      return popularities_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public int getPopularitiesCount() {
+      return popularities_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity getPopularities(int index) {
+      return popularities_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder getPopularitiesOrBuilder(
+        int index) {
+      return popularities_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < popularities_.size(); i++) {
+        output.writeMessage(1, popularities_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < popularities_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, popularities_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest) obj;
+
+      if (!getPopularitiesList()
+          .equals(other.getPopularitiesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getPopularitiesCount() > 0) {
+        hash = (37 * hash) + POPULARITIES_FIELD_NUMBER;
+        hash = (53 * hash) + getPopularitiesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetPopularitiesRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetPopularitiesRequest)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPopularitiesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (popularitiesBuilder_ == null) {
+          popularities_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          popularitiesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (popularitiesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            popularities_ = java.util.Collections.unmodifiableList(popularities_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.popularities_ = popularities_;
+        } else {
+          result.popularities_ = popularitiesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.getDefaultInstance()) return this;
+        if (popularitiesBuilder_ == null) {
+          if (!other.popularities_.isEmpty()) {
+            if (popularities_.isEmpty()) {
+              popularities_ = other.popularities_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePopularitiesIsMutable();
+              popularities_.addAll(other.popularities_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.popularities_.isEmpty()) {
+            if (popularitiesBuilder_.isEmpty()) {
+              popularitiesBuilder_.dispose();
+              popularitiesBuilder_ = null;
+              popularities_ = other.popularities_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              popularitiesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPopularitiesFieldBuilder() : null;
+            } else {
+              popularitiesBuilder_.addAllMessages(other.popularities_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity> popularities_ =
+        java.util.Collections.emptyList();
+      private void ensurePopularitiesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          popularities_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity>(popularities_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder> popularitiesBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity> getPopularitiesList() {
+        if (popularitiesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(popularities_);
+        } else {
+          return popularitiesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public int getPopularitiesCount() {
+        if (popularitiesBuilder_ == null) {
+          return popularities_.size();
+        } else {
+          return popularitiesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity getPopularities(int index) {
+        if (popularitiesBuilder_ == null) {
+          return popularities_.get(index);
+        } else {
+          return popularitiesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder setPopularities(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity value) {
+        if (popularitiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePopularitiesIsMutable();
+          popularities_.set(index, value);
+          onChanged();
+        } else {
+          popularitiesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder setPopularities(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder builderForValue) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          popularitiesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity value) {
+        if (popularitiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePopularitiesIsMutable();
+          popularities_.add(value);
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity value) {
+        if (popularitiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePopularitiesIsMutable();
+          popularities_.add(index, value);
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder builderForValue) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.add(builderForValue.build());
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder builderForValue) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addAllPopularities(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity> values) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, popularities_);
+          onChanged();
+        } else {
+          popularitiesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder clearPopularities() {
+        if (popularitiesBuilder_ == null) {
+          popularities_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          popularitiesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder removePopularities(int index) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.remove(index);
+          onChanged();
+        } else {
+          popularitiesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder getPopularitiesBuilder(
+          int index) {
+        return getPopularitiesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder getPopularitiesOrBuilder(
+          int index) {
+        if (popularitiesBuilder_ == null) {
+          return popularities_.get(index);  } else {
+          return popularitiesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder> 
+           getPopularitiesOrBuilderList() {
+        if (popularitiesBuilder_ != null) {
+          return popularitiesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(popularities_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder addPopularitiesBuilder() {
+        return getPopularitiesFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder addPopularitiesBuilder(
+          int index) {
+        return getPopularitiesFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder> 
+           getPopularitiesBuilderList() {
+        return getPopularitiesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder> 
+          getPopularitiesFieldBuilder() {
+        if (popularitiesBuilder_ == null) {
+          popularitiesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.Popularity.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.PopularityOrBuilder>(
+                  popularities_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          popularities_ = null;
+        }
+        return popularitiesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetPopularitiesRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetPopularitiesRequest)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetPopularitiesRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetPopularitiesRequest>() {
+      @java.lang.Override
+      public GetPopularitiesRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetPopularitiesRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetPopularitiesRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetPopularitiesRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetPopularitiesResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetPopularitiesResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity> 
+        getPopularitiesList();
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity getPopularities(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    int getPopularitiesCount();
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder> 
+        getPopularitiesOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder getPopularitiesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetPopularitiesResponse}
+   */
+  public static final class GetPopularitiesResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetPopularitiesResponse)
+      GetPopularitiesResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetPopularitiesResponse.newBuilder() to construct.
+    private GetPopularitiesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetPopularitiesResponse() {
+      popularities_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetPopularitiesResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetPopularitiesResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                popularities_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              popularities_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          popularities_ = java.util.Collections.unmodifiableList(popularities_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Builder.class);
+    }
+
+    public interface PopularityOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetPopularitiesResponse.Popularity)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>int64 sku = 1;</code>
+       * @return The sku.
+       */
+      long getSku();
+
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The storeId.
+       */
+      java.lang.String getStoreId();
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The bytes for storeId.
+       */
+      com.google.protobuf.ByteString
+          getStoreIdBytes();
+
+      /**
+       * <code>int64 popularity = 3;</code>
+       * @return The popularity.
+       */
+      long getPopularity();
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetPopularitiesResponse.Popularity}
+     */
+    public static final class Popularity extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetPopularitiesResponse.Popularity)
+        PopularityOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Popularity.newBuilder() to construct.
+      private Popularity(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Popularity() {
+        storeId_ = "";
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Popularity();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Popularity(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+
+                sku_ = input.readInt64();
+                break;
+              }
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                storeId_ = s;
+                break;
+              }
+              case 24: {
+
+                popularity_ = input.readInt64();
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder.class);
+      }
+
+      public static final int SKU_FIELD_NUMBER = 1;
+      private long sku_;
+      /**
+       * <code>int64 sku = 1;</code>
+       * @return The sku.
+       */
+      @java.lang.Override
+      public long getSku() {
+        return sku_;
+      }
+
+      public static final int STORE_ID_FIELD_NUMBER = 2;
+      private volatile java.lang.Object storeId_;
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The storeId.
+       */
+      @java.lang.Override
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string store_id = 2;</code>
+       * @return The bytes for storeId.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int POPULARITY_FIELD_NUMBER = 3;
+      private long popularity_;
+      /**
+       * <code>int64 popularity = 3;</code>
+       * @return The popularity.
+       */
+      @java.lang.Override
+      public long getPopularity() {
+        return popularity_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (sku_ != 0L) {
+          output.writeInt64(1, sku_);
+        }
+        if (!getStoreIdBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, storeId_);
+        }
+        if (popularity_ != 0L) {
+          output.writeInt64(3, popularity_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (sku_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(1, sku_);
+        }
+        if (!getStoreIdBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, storeId_);
+        }
+        if (popularity_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(3, popularity_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity)) {
+          return super.equals(obj);
+        }
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity) obj;
+
+        if (getSku()
+            != other.getSku()) return false;
+        if (!getStoreId()
+            .equals(other.getStoreId())) return false;
+        if (getPopularity()
+            != other.getPopularity()) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + SKU_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getSku());
+        hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getStoreId().hashCode();
+        hash = (37 * hash) + POPULARITY_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getPopularity());
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code product_hub_front_meta.GetPopularitiesResponse.Popularity}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetPopularitiesResponse.Popularity)
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder.class);
+        }
+
+        // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          sku_ = 0L;
+
+          storeId_ = "";
+
+          popularity_ = 0L;
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_descriptor;
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity getDefaultInstanceForType() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity build() {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity buildPartial() {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity(this);
+          result.sku_ = sku_;
+          result.storeId_ = storeId_;
+          result.popularity_ = popularity_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity) {
+            return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity other) {
+          if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.getDefaultInstance()) return this;
+          if (other.getSku() != 0L) {
+            setSku(other.getSku());
+          }
+          if (!other.getStoreId().isEmpty()) {
+            storeId_ = other.storeId_;
+            onChanged();
+          }
+          if (other.getPopularity() != 0L) {
+            setPopularity(other.getPopularity());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private long sku_ ;
+        /**
+         * <code>int64 sku = 1;</code>
+         * @return The sku.
+         */
+        @java.lang.Override
+        public long getSku() {
+          return sku_;
+        }
+        /**
+         * <code>int64 sku = 1;</code>
+         * @param value The sku to set.
+         * @return This builder for chaining.
+         */
+        public Builder setSku(long value) {
+          
+          sku_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int64 sku = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearSku() {
+          
+          sku_ = 0L;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object storeId_ = "";
+        /**
+         * <code>string store_id = 2;</code>
+         * @return The storeId.
+         */
+        public java.lang.String getStoreId() {
+          java.lang.Object ref = storeId_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            storeId_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string store_id = 2;</code>
+         * @return The bytes for storeId.
+         */
+        public com.google.protobuf.ByteString
+            getStoreIdBytes() {
+          java.lang.Object ref = storeId_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            storeId_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string store_id = 2;</code>
+         * @param value The storeId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStoreId(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          storeId_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string store_id = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearStoreId() {
+          
+          storeId_ = getDefaultInstance().getStoreId();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string store_id = 2;</code>
+         * @param value The bytes for storeId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStoreIdBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          storeId_ = value;
+          onChanged();
+          return this;
+        }
+
+        private long popularity_ ;
+        /**
+         * <code>int64 popularity = 3;</code>
+         * @return The popularity.
+         */
+        @java.lang.Override
+        public long getPopularity() {
+          return popularity_;
+        }
+        /**
+         * <code>int64 popularity = 3;</code>
+         * @param value The popularity to set.
+         * @return This builder for chaining.
+         */
+        public Builder setPopularity(long value) {
+          
+          popularity_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int64 popularity = 3;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearPopularity() {
+          
+          popularity_ = 0L;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetPopularitiesResponse.Popularity)
+      }
+
+      // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetPopularitiesResponse.Popularity)
+      private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity();
+      }
+
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<Popularity>
+          PARSER = new com.google.protobuf.AbstractParser<Popularity>() {
+        @java.lang.Override
+        public Popularity parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Popularity(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<Popularity> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Popularity> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int POPULARITIES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity> popularities_;
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity> getPopularitiesList() {
+      return popularities_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder> 
+        getPopularitiesOrBuilderList() {
+      return popularities_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public int getPopularitiesCount() {
+      return popularities_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity getPopularities(int index) {
+      return popularities_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder getPopularitiesOrBuilder(
+        int index) {
+      return popularities_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < popularities_.size(); i++) {
+        output.writeMessage(1, popularities_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < popularities_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, popularities_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse) obj;
+
+      if (!getPopularitiesList()
+          .equals(other.getPopularitiesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getPopularitiesCount() > 0) {
+        hash = (37 * hash) + POPULARITIES_FIELD_NUMBER;
+        hash = (53 * hash) + getPopularitiesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetPopularitiesResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetPopularitiesResponse)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPopularitiesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (popularitiesBuilder_ == null) {
+          popularities_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          popularitiesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetPopularitiesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (popularitiesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            popularities_ = java.util.Collections.unmodifiableList(popularities_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.popularities_ = popularities_;
+        } else {
+          result.popularities_ = popularitiesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.getDefaultInstance()) return this;
+        if (popularitiesBuilder_ == null) {
+          if (!other.popularities_.isEmpty()) {
+            if (popularities_.isEmpty()) {
+              popularities_ = other.popularities_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePopularitiesIsMutable();
+              popularities_.addAll(other.popularities_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.popularities_.isEmpty()) {
+            if (popularitiesBuilder_.isEmpty()) {
+              popularitiesBuilder_.dispose();
+              popularitiesBuilder_ = null;
+              popularities_ = other.popularities_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              popularitiesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPopularitiesFieldBuilder() : null;
+            } else {
+              popularitiesBuilder_.addAllMessages(other.popularities_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity> popularities_ =
+        java.util.Collections.emptyList();
+      private void ensurePopularitiesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          popularities_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity>(popularities_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder> popularitiesBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity> getPopularitiesList() {
+        if (popularitiesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(popularities_);
+        } else {
+          return popularitiesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public int getPopularitiesCount() {
+        if (popularitiesBuilder_ == null) {
+          return popularities_.size();
+        } else {
+          return popularitiesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity getPopularities(int index) {
+        if (popularitiesBuilder_ == null) {
+          return popularities_.get(index);
+        } else {
+          return popularitiesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public Builder setPopularities(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity value) {
+        if (popularitiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePopularitiesIsMutable();
+          popularities_.set(index, value);
+          onChanged();
+        } else {
+          popularitiesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public Builder setPopularities(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder builderForValue) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          popularitiesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity value) {
+        if (popularitiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePopularitiesIsMutable();
+          popularities_.add(value);
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity value) {
+        if (popularitiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePopularitiesIsMutable();
+          popularities_.add(index, value);
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder builderForValue) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.add(builderForValue.build());
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder builderForValue) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public Builder addAllPopularities(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity> values) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, popularities_);
+          onChanged();
+        } else {
+          popularitiesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public Builder clearPopularities() {
+        if (popularitiesBuilder_ == null) {
+          popularities_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          popularitiesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public Builder removePopularities(int index) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.remove(index);
+          onChanged();
+        } else {
+          popularitiesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder getPopularitiesBuilder(
+          int index) {
+        return getPopularitiesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder getPopularitiesOrBuilder(
+          int index) {
+        if (popularitiesBuilder_ == null) {
+          return popularities_.get(index);  } else {
+          return popularitiesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder> 
+           getPopularitiesOrBuilderList() {
+        if (popularitiesBuilder_ != null) {
+          return popularitiesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(popularities_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder addPopularitiesBuilder() {
+        return getPopularitiesFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder addPopularitiesBuilder(
+          int index) {
+        return getPopularitiesFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetPopularitiesResponse.Popularity popularities = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder> 
+           getPopularitiesBuilderList() {
+        return getPopularitiesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder> 
+          getPopularitiesFieldBuilder() {
+        if (popularitiesBuilder_ == null) {
+          popularitiesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.Popularity.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.PopularityOrBuilder>(
+                  popularities_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          popularities_ = null;
+        }
+        return popularitiesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetPopularitiesResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetPopularitiesResponse)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetPopularitiesResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetPopularitiesResponse>() {
+      @java.lang.Override
+      public GetPopularitiesResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetPopularitiesResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetPopularitiesResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetPopularitiesResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetRetailerIDsByStoreIDsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetRetailerIDsByStoreIDsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated int64 store_ids = 1;</code>
+     * @return A list containing the storeIds.
+     */
+    java.util.List<java.lang.Long> getStoreIdsList();
+    /**
+     * <code>repeated int64 store_ids = 1;</code>
+     * @return The count of storeIds.
+     */
+    int getStoreIdsCount();
+    /**
+     * <code>repeated int64 store_ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The storeIds at the given index.
+     */
+    long getStoreIds(int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetRetailerIDsByStoreIDsRequest}
+   */
+  public static final class GetRetailerIDsByStoreIDsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetRetailerIDsByStoreIDsRequest)
+      GetRetailerIDsByStoreIDsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetRetailerIDsByStoreIDsRequest.newBuilder() to construct.
+    private GetRetailerIDsByStoreIDsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetRetailerIDsByStoreIDsRequest() {
+      storeIds_ = emptyLongList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetRetailerIDsByStoreIDsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetRetailerIDsByStoreIDsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                storeIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              storeIds_.addLong(input.readInt64());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                storeIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                storeIds_.addLong(input.readInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          storeIds_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest.Builder.class);
+    }
+
+    public static final int STORE_IDS_FIELD_NUMBER = 1;
+    private com.google.protobuf.Internal.LongList storeIds_;
+    /**
+     * <code>repeated int64 store_ids = 1;</code>
+     * @return A list containing the storeIds.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Long>
+        getStoreIdsList() {
+      return storeIds_;
+    }
+    /**
+     * <code>repeated int64 store_ids = 1;</code>
+     * @return The count of storeIds.
+     */
+    public int getStoreIdsCount() {
+      return storeIds_.size();
+    }
+    /**
+     * <code>repeated int64 store_ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The storeIds at the given index.
+     */
+    public long getStoreIds(int index) {
+      return storeIds_.getLong(index);
+    }
+    private int storeIdsMemoizedSerializedSize = -1;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (getStoreIdsList().size() > 0) {
+        output.writeUInt32NoTag(10);
+        output.writeUInt32NoTag(storeIdsMemoizedSerializedSize);
+      }
+      for (int i = 0; i < storeIds_.size(); i++) {
+        output.writeInt64NoTag(storeIds_.getLong(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < storeIds_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt64SizeNoTag(storeIds_.getLong(i));
+        }
+        size += dataSize;
+        if (!getStoreIdsList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        storeIdsMemoizedSerializedSize = dataSize;
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest) obj;
+
+      if (!getStoreIdsList()
+          .equals(other.getStoreIdsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getStoreIdsCount() > 0) {
+        hash = (37 * hash) + STORE_IDS_FIELD_NUMBER;
+        hash = (53 * hash) + getStoreIdsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetRetailerIDsByStoreIDsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetRetailerIDsByStoreIDsRequest)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        storeIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          storeIds_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.storeIds_ = storeIds_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest.getDefaultInstance()) return this;
+        if (!other.storeIds_.isEmpty()) {
+          if (storeIds_.isEmpty()) {
+            storeIds_ = other.storeIds_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureStoreIdsIsMutable();
+            storeIds_.addAll(other.storeIds_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.Internal.LongList storeIds_ = emptyLongList();
+      private void ensureStoreIdsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          storeIds_ = mutableCopy(storeIds_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated int64 store_ids = 1;</code>
+       * @return A list containing the storeIds.
+       */
+      public java.util.List<java.lang.Long>
+          getStoreIdsList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(storeIds_) : storeIds_;
+      }
+      /**
+       * <code>repeated int64 store_ids = 1;</code>
+       * @return The count of storeIds.
+       */
+      public int getStoreIdsCount() {
+        return storeIds_.size();
+      }
+      /**
+       * <code>repeated int64 store_ids = 1;</code>
+       * @param index The index of the element to return.
+       * @return The storeIds at the given index.
+       */
+      public long getStoreIds(int index) {
+        return storeIds_.getLong(index);
+      }
+      /**
+       * <code>repeated int64 store_ids = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The storeIds to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIds(
+          int index, long value) {
+        ensureStoreIdsIsMutable();
+        storeIds_.setLong(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 store_ids = 1;</code>
+       * @param value The storeIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addStoreIds(long value) {
+        ensureStoreIdsIsMutable();
+        storeIds_.addLong(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 store_ids = 1;</code>
+       * @param values The storeIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllStoreIds(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureStoreIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, storeIds_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 store_ids = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreIds() {
+        storeIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetRetailerIDsByStoreIDsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetRetailerIDsByStoreIDsRequest)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetRetailerIDsByStoreIDsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetRetailerIDsByStoreIDsRequest>() {
+      @java.lang.Override
+      public GetRetailerIDsByStoreIDsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetRetailerIDsByStoreIDsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRetailerIDsByStoreIDsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRetailerIDsByStoreIDsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetRetailerIDsByStoreIDsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetRetailerIDsByStoreIDsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> 
+        getRetailerStoresList();
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore getRetailerStores(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    int getRetailerStoresCount();
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> 
+        getRetailerStoresOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder getRetailerStoresOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetRetailerIDsByStoreIDsResponse}
+   */
+  public static final class GetRetailerIDsByStoreIDsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetRetailerIDsByStoreIDsResponse)
+      GetRetailerIDsByStoreIDsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetRetailerIDsByStoreIDsResponse.newBuilder() to construct.
+    private GetRetailerIDsByStoreIDsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetRetailerIDsByStoreIDsResponse() {
+      retailerStores_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetRetailerIDsByStoreIDsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetRetailerIDsByStoreIDsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                retailerStores_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              retailerStores_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          retailerStores_ = java.util.Collections.unmodifiableList(retailerStores_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse.Builder.class);
+    }
+
+    public static final int RETAILER_STORES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> retailerStores_;
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> getRetailerStoresList() {
+      return retailerStores_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> 
+        getRetailerStoresOrBuilderList() {
+      return retailerStores_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public int getRetailerStoresCount() {
+      return retailerStores_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore getRetailerStores(int index) {
+      return retailerStores_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder getRetailerStoresOrBuilder(
+        int index) {
+      return retailerStores_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < retailerStores_.size(); i++) {
+        output.writeMessage(1, retailerStores_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < retailerStores_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, retailerStores_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse) obj;
+
+      if (!getRetailerStoresList()
+          .equals(other.getRetailerStoresList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getRetailerStoresCount() > 0) {
+        hash = (37 * hash) + RETAILER_STORES_FIELD_NUMBER;
+        hash = (53 * hash) + getRetailerStoresList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetRetailerIDsByStoreIDsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetRetailerIDsByStoreIDsResponse)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getRetailerStoresFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (retailerStoresBuilder_ == null) {
+          retailerStores_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          retailerStoresBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (retailerStoresBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            retailerStores_ = java.util.Collections.unmodifiableList(retailerStores_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.retailerStores_ = retailerStores_;
+        } else {
+          result.retailerStores_ = retailerStoresBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse.getDefaultInstance()) return this;
+        if (retailerStoresBuilder_ == null) {
+          if (!other.retailerStores_.isEmpty()) {
+            if (retailerStores_.isEmpty()) {
+              retailerStores_ = other.retailerStores_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureRetailerStoresIsMutable();
+              retailerStores_.addAll(other.retailerStores_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.retailerStores_.isEmpty()) {
+            if (retailerStoresBuilder_.isEmpty()) {
+              retailerStoresBuilder_.dispose();
+              retailerStoresBuilder_ = null;
+              retailerStores_ = other.retailerStores_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              retailerStoresBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRetailerStoresFieldBuilder() : null;
+            } else {
+              retailerStoresBuilder_.addAllMessages(other.retailerStores_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> retailerStores_ =
+        java.util.Collections.emptyList();
+      private void ensureRetailerStoresIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          retailerStores_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore>(retailerStores_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> retailerStoresBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> getRetailerStoresList() {
+        if (retailerStoresBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(retailerStores_);
+        } else {
+          return retailerStoresBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public int getRetailerStoresCount() {
+        if (retailerStoresBuilder_ == null) {
+          return retailerStores_.size();
+        } else {
+          return retailerStoresBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore getRetailerStores(int index) {
+        if (retailerStoresBuilder_ == null) {
+          return retailerStores_.get(index);
+        } else {
+          return retailerStoresBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder setRetailerStores(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore value) {
+        if (retailerStoresBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailerStoresIsMutable();
+          retailerStores_.set(index, value);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder setRetailerStores(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder builderForValue) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          retailerStoresBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore value) {
+        if (retailerStoresBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(value);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore value) {
+        if (retailerStoresBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(index, value);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder builderForValue) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(builderForValue.build());
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder builderForValue) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addAllRetailerStores(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore> values) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, retailerStores_);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder clearRetailerStores() {
+        if (retailerStoresBuilder_ == null) {
+          retailerStores_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder removeRetailerStores(int index) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.remove(index);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder getRetailerStoresBuilder(
+          int index) {
+        return getRetailerStoresFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder getRetailerStoresOrBuilder(
+          int index) {
+        if (retailerStoresBuilder_ == null) {
+          return retailerStores_.get(index);  } else {
+          return retailerStoresBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> 
+           getRetailerStoresOrBuilderList() {
+        if (retailerStoresBuilder_ != null) {
+          return retailerStoresBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(retailerStores_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder addRetailerStoresBuilder() {
+        return getRetailerStoresFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder addRetailerStoresBuilder(
+          int index) {
+        return getRetailerStoresFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.RetailerStore retailer_stores = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder> 
+           getRetailerStoresBuilderList() {
+        return getRetailerStoresFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder> 
+          getRetailerStoresFieldBuilder() {
+        if (retailerStoresBuilder_ == null) {
+          retailerStoresBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStore.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.RetailerStoreOrBuilder>(
+                  retailerStores_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          retailerStores_ = null;
+        }
+        return retailerStoresBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetRetailerIDsByStoreIDsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetRetailerIDsByStoreIDsResponse)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetRetailerIDsByStoreIDsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetRetailerIDsByStoreIDsResponse>() {
+      @java.lang.Override
+      public GetRetailerIDsByStoreIDsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetRetailerIDsByStoreIDsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRetailerIDsByStoreIDsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRetailerIDsByStoreIDsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetDictionaryValuesByPermalinksRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetDictionaryValuesByPermalinksRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string dictionary_value_permalinks = 1;</code>
+     * @return A list containing the dictionaryValuePermalinks.
+     */
+    java.util.List<java.lang.String>
+        getDictionaryValuePermalinksList();
+    /**
+     * <code>repeated string dictionary_value_permalinks = 1;</code>
+     * @return The count of dictionaryValuePermalinks.
+     */
+    int getDictionaryValuePermalinksCount();
+    /**
+     * <code>repeated string dictionary_value_permalinks = 1;</code>
+     * @param index The index of the element to return.
+     * @return The dictionaryValuePermalinks at the given index.
+     */
+    java.lang.String getDictionaryValuePermalinks(int index);
+    /**
+     * <code>repeated string dictionary_value_permalinks = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the dictionaryValuePermalinks at the given index.
+     */
+    com.google.protobuf.ByteString
+        getDictionaryValuePermalinksBytes(int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetDictionaryValuesByPermalinksRequest}
+   */
+  public static final class GetDictionaryValuesByPermalinksRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetDictionaryValuesByPermalinksRequest)
+      GetDictionaryValuesByPermalinksRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetDictionaryValuesByPermalinksRequest.newBuilder() to construct.
+    private GetDictionaryValuesByPermalinksRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetDictionaryValuesByPermalinksRequest() {
+      dictionaryValuePermalinks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetDictionaryValuesByPermalinksRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetDictionaryValuesByPermalinksRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                dictionaryValuePermalinks_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              dictionaryValuePermalinks_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          dictionaryValuePermalinks_ = dictionaryValuePermalinks_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest.Builder.class);
+    }
+
+    public static final int DICTIONARY_VALUE_PERMALINKS_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList dictionaryValuePermalinks_;
+    /**
+     * <code>repeated string dictionary_value_permalinks = 1;</code>
+     * @return A list containing the dictionaryValuePermalinks.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getDictionaryValuePermalinksList() {
+      return dictionaryValuePermalinks_;
+    }
+    /**
+     * <code>repeated string dictionary_value_permalinks = 1;</code>
+     * @return The count of dictionaryValuePermalinks.
+     */
+    public int getDictionaryValuePermalinksCount() {
+      return dictionaryValuePermalinks_.size();
+    }
+    /**
+     * <code>repeated string dictionary_value_permalinks = 1;</code>
+     * @param index The index of the element to return.
+     * @return The dictionaryValuePermalinks at the given index.
+     */
+    public java.lang.String getDictionaryValuePermalinks(int index) {
+      return dictionaryValuePermalinks_.get(index);
+    }
+    /**
+     * <code>repeated string dictionary_value_permalinks = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the dictionaryValuePermalinks at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getDictionaryValuePermalinksBytes(int index) {
+      return dictionaryValuePermalinks_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < dictionaryValuePermalinks_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, dictionaryValuePermalinks_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < dictionaryValuePermalinks_.size(); i++) {
+          dataSize += computeStringSizeNoTag(dictionaryValuePermalinks_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getDictionaryValuePermalinksList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest) obj;
+
+      if (!getDictionaryValuePermalinksList()
+          .equals(other.getDictionaryValuePermalinksList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDictionaryValuePermalinksCount() > 0) {
+        hash = (37 * hash) + DICTIONARY_VALUE_PERMALINKS_FIELD_NUMBER;
+        hash = (53 * hash) + getDictionaryValuePermalinksList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetDictionaryValuesByPermalinksRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetDictionaryValuesByPermalinksRequest)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        dictionaryValuePermalinks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          dictionaryValuePermalinks_ = dictionaryValuePermalinks_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.dictionaryValuePermalinks_ = dictionaryValuePermalinks_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest.getDefaultInstance()) return this;
+        if (!other.dictionaryValuePermalinks_.isEmpty()) {
+          if (dictionaryValuePermalinks_.isEmpty()) {
+            dictionaryValuePermalinks_ = other.dictionaryValuePermalinks_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureDictionaryValuePermalinksIsMutable();
+            dictionaryValuePermalinks_.addAll(other.dictionaryValuePermalinks_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList dictionaryValuePermalinks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureDictionaryValuePermalinksIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          dictionaryValuePermalinks_ = new com.google.protobuf.LazyStringArrayList(dictionaryValuePermalinks_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string dictionary_value_permalinks = 1;</code>
+       * @return A list containing the dictionaryValuePermalinks.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getDictionaryValuePermalinksList() {
+        return dictionaryValuePermalinks_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string dictionary_value_permalinks = 1;</code>
+       * @return The count of dictionaryValuePermalinks.
+       */
+      public int getDictionaryValuePermalinksCount() {
+        return dictionaryValuePermalinks_.size();
+      }
+      /**
+       * <code>repeated string dictionary_value_permalinks = 1;</code>
+       * @param index The index of the element to return.
+       * @return The dictionaryValuePermalinks at the given index.
+       */
+      public java.lang.String getDictionaryValuePermalinks(int index) {
+        return dictionaryValuePermalinks_.get(index);
+      }
+      /**
+       * <code>repeated string dictionary_value_permalinks = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the dictionaryValuePermalinks at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getDictionaryValuePermalinksBytes(int index) {
+        return dictionaryValuePermalinks_.getByteString(index);
+      }
+      /**
+       * <code>repeated string dictionary_value_permalinks = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The dictionaryValuePermalinks to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDictionaryValuePermalinks(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureDictionaryValuePermalinksIsMutable();
+        dictionaryValuePermalinks_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string dictionary_value_permalinks = 1;</code>
+       * @param value The dictionaryValuePermalinks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addDictionaryValuePermalinks(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureDictionaryValuePermalinksIsMutable();
+        dictionaryValuePermalinks_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string dictionary_value_permalinks = 1;</code>
+       * @param values The dictionaryValuePermalinks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllDictionaryValuePermalinks(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureDictionaryValuePermalinksIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, dictionaryValuePermalinks_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string dictionary_value_permalinks = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDictionaryValuePermalinks() {
+        dictionaryValuePermalinks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string dictionary_value_permalinks = 1;</code>
+       * @param value The bytes of the dictionaryValuePermalinks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addDictionaryValuePermalinksBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureDictionaryValuePermalinksIsMutable();
+        dictionaryValuePermalinks_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetDictionaryValuesByPermalinksRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetDictionaryValuesByPermalinksRequest)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetDictionaryValuesByPermalinksRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetDictionaryValuesByPermalinksRequest>() {
+      @java.lang.Override
+      public GetDictionaryValuesByPermalinksRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetDictionaryValuesByPermalinksRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetDictionaryValuesByPermalinksRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetDictionaryValuesByPermalinksRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetDictionaryValuesByPermalinksResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue> 
+        getDictionaryValuesList();
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue getDictionaryValues(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    int getDictionaryValuesCount();
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder> 
+        getDictionaryValuesOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder getDictionaryValuesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetDictionaryValuesByPermalinksResponse}
+   */
+  public static final class GetDictionaryValuesByPermalinksResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse)
+      GetDictionaryValuesByPermalinksResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetDictionaryValuesByPermalinksResponse.newBuilder() to construct.
+    private GetDictionaryValuesByPermalinksResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetDictionaryValuesByPermalinksResponse() {
+      dictionaryValues_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetDictionaryValuesByPermalinksResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetDictionaryValuesByPermalinksResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                dictionaryValues_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              dictionaryValues_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          dictionaryValues_ = java.util.Collections.unmodifiableList(dictionaryValues_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.Builder.class);
+    }
+
+    public interface DictionaryValueOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      java.lang.String getId();
+      /**
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      com.google.protobuf.ByteString
+          getIdBytes();
+
+      /**
+       * <code>string dictionary_key = 2;</code>
+       * @return The dictionaryKey.
+       */
+      java.lang.String getDictionaryKey();
+      /**
+       * <code>string dictionary_key = 2;</code>
+       * @return The bytes for dictionaryKey.
+       */
+      com.google.protobuf.ByteString
+          getDictionaryKeyBytes();
+
+      /**
+       * <code>string value = 3;</code>
+       * @return The value.
+       */
+      java.lang.String getValue();
+      /**
+       * <code>string value = 3;</code>
+       * @return The bytes for value.
+       */
+      com.google.protobuf.ByteString
+          getValueBytes();
+
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> 
+          getValueDataList();
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.Data getValueData(int index);
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      int getValueDataCount();
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.DataOrBuilder> 
+          getValueDataOrBuilderList();
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.DataOrBuilder getValueDataOrBuilder(
+          int index);
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue}
+     */
+    public static final class DictionaryValue extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue)
+        DictionaryValueOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use DictionaryValue.newBuilder() to construct.
+      private DictionaryValue(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private DictionaryValue() {
+        id_ = "";
+        dictionaryKey_ = "";
+        value_ = "";
+        valueData_ = java.util.Collections.emptyList();
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new DictionaryValue();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private DictionaryValue(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                id_ = s;
+                break;
+              }
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                dictionaryKey_ = s;
+                break;
+              }
+              case 26: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                value_ = s;
+                break;
+              }
+              case 34: {
+                if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                  valueData_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data>();
+                  mutable_bitField0_ |= 0x00000001;
+                }
+                valueData_.add(
+                    input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.parser(), extensionRegistry));
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          if (((mutable_bitField0_ & 0x00000001) != 0)) {
+            valueData_ = java.util.Collections.unmodifiableList(valueData_);
+          }
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder.class);
+      }
+
+      public static final int ID_FIELD_NUMBER = 1;
+      private volatile java.lang.Object id_;
+      /**
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int DICTIONARY_KEY_FIELD_NUMBER = 2;
+      private volatile java.lang.Object dictionaryKey_;
+      /**
+       * <code>string dictionary_key = 2;</code>
+       * @return The dictionaryKey.
+       */
+      @java.lang.Override
+      public java.lang.String getDictionaryKey() {
+        java.lang.Object ref = dictionaryKey_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          dictionaryKey_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string dictionary_key = 2;</code>
+       * @return The bytes for dictionaryKey.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getDictionaryKeyBytes() {
+        java.lang.Object ref = dictionaryKey_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          dictionaryKey_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int VALUE_FIELD_NUMBER = 3;
+      private volatile java.lang.Object value_;
+      /**
+       * <code>string value = 3;</code>
+       * @return The value.
+       */
+      @java.lang.Override
+      public java.lang.String getValue() {
+        java.lang.Object ref = value_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          value_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string value = 3;</code>
+       * @return The bytes for value.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getValueBytes() {
+        java.lang.Object ref = value_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          value_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int VALUE_DATA_FIELD_NUMBER = 4;
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> valueData_;
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      @java.lang.Override
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> getValueDataList() {
+        return valueData_;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      @java.lang.Override
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.DataOrBuilder> 
+          getValueDataOrBuilderList() {
+        return valueData_;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      @java.lang.Override
+      public int getValueDataCount() {
+        return valueData_.size();
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.Data getValueData(int index) {
+        return valueData_.get(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+       */
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.DataOrBuilder getValueDataOrBuilder(
+          int index) {
+        return valueData_.get(index);
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (!getIdBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+        }
+        if (!getDictionaryKeyBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, dictionaryKey_);
+        }
+        if (!getValueBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 3, value_);
+        }
+        for (int i = 0; i < valueData_.size(); i++) {
+          output.writeMessage(4, valueData_.get(i));
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (!getIdBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+        }
+        if (!getDictionaryKeyBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, dictionaryKey_);
+        }
+        if (!getValueBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, value_);
+        }
+        for (int i = 0; i < valueData_.size(); i++) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(4, valueData_.get(i));
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue)) {
+          return super.equals(obj);
+        }
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue) obj;
+
+        if (!getId()
+            .equals(other.getId())) return false;
+        if (!getDictionaryKey()
+            .equals(other.getDictionaryKey())) return false;
+        if (!getValue()
+            .equals(other.getValue())) return false;
+        if (!getValueDataList()
+            .equals(other.getValueDataList())) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId().hashCode();
+        hash = (37 * hash) + DICTIONARY_KEY_FIELD_NUMBER;
+        hash = (53 * hash) + getDictionaryKey().hashCode();
+        hash = (37 * hash) + VALUE_FIELD_NUMBER;
+        hash = (53 * hash) + getValue().hashCode();
+        if (getValueDataCount() > 0) {
+          hash = (37 * hash) + VALUE_DATA_FIELD_NUMBER;
+          hash = (53 * hash) + getValueDataList().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue)
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder.class);
+        }
+
+        // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+            getValueDataFieldBuilder();
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          id_ = "";
+
+          dictionaryKey_ = "";
+
+          value_ = "";
+
+          if (valueDataBuilder_ == null) {
+            valueData_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            valueDataBuilder_.clear();
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_descriptor;
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue getDefaultInstanceForType() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue build() {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue buildPartial() {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue(this);
+          int from_bitField0_ = bitField0_;
+          result.id_ = id_;
+          result.dictionaryKey_ = dictionaryKey_;
+          result.value_ = value_;
+          if (valueDataBuilder_ == null) {
+            if (((bitField0_ & 0x00000001) != 0)) {
+              valueData_ = java.util.Collections.unmodifiableList(valueData_);
+              bitField0_ = (bitField0_ & ~0x00000001);
+            }
+            result.valueData_ = valueData_;
+          } else {
+            result.valueData_ = valueDataBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue) {
+            return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue other) {
+          if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.getDefaultInstance()) return this;
+          if (!other.getId().isEmpty()) {
+            id_ = other.id_;
+            onChanged();
+          }
+          if (!other.getDictionaryKey().isEmpty()) {
+            dictionaryKey_ = other.dictionaryKey_;
+            onChanged();
+          }
+          if (!other.getValue().isEmpty()) {
+            value_ = other.value_;
+            onChanged();
+          }
+          if (valueDataBuilder_ == null) {
+            if (!other.valueData_.isEmpty()) {
+              if (valueData_.isEmpty()) {
+                valueData_ = other.valueData_;
+                bitField0_ = (bitField0_ & ~0x00000001);
+              } else {
+                ensureValueDataIsMutable();
+                valueData_.addAll(other.valueData_);
+              }
+              onChanged();
+            }
+          } else {
+            if (!other.valueData_.isEmpty()) {
+              if (valueDataBuilder_.isEmpty()) {
+                valueDataBuilder_.dispose();
+                valueDataBuilder_ = null;
+                valueData_ = other.valueData_;
+                bitField0_ = (bitField0_ & ~0x00000001);
+                valueDataBuilder_ = 
+                  com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                     getValueDataFieldBuilder() : null;
+              } else {
+                valueDataBuilder_.addAllMessages(other.valueData_);
+              }
+            }
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private java.lang.Object id_ = "";
+        /**
+         * <code>string id = 1;</code>
+         * @return The id.
+         */
+        public java.lang.String getId() {
+          java.lang.Object ref = id_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            id_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string id = 1;</code>
+         * @return The bytes for id.
+         */
+        public com.google.protobuf.ByteString
+            getIdBytes() {
+          java.lang.Object ref = id_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            id_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string id = 1;</code>
+         * @param value The id to set.
+         * @return This builder for chaining.
+         */
+        public Builder setId(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          id_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string id = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearId() {
+          
+          id_ = getDefaultInstance().getId();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string id = 1;</code>
+         * @param value The bytes for id to set.
+         * @return This builder for chaining.
+         */
+        public Builder setIdBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          id_ = value;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object dictionaryKey_ = "";
+        /**
+         * <code>string dictionary_key = 2;</code>
+         * @return The dictionaryKey.
+         */
+        public java.lang.String getDictionaryKey() {
+          java.lang.Object ref = dictionaryKey_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            dictionaryKey_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string dictionary_key = 2;</code>
+         * @return The bytes for dictionaryKey.
+         */
+        public com.google.protobuf.ByteString
+            getDictionaryKeyBytes() {
+          java.lang.Object ref = dictionaryKey_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            dictionaryKey_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string dictionary_key = 2;</code>
+         * @param value The dictionaryKey to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDictionaryKey(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          dictionaryKey_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string dictionary_key = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearDictionaryKey() {
+          
+          dictionaryKey_ = getDefaultInstance().getDictionaryKey();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string dictionary_key = 2;</code>
+         * @param value The bytes for dictionaryKey to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDictionaryKeyBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          dictionaryKey_ = value;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object value_ = "";
+        /**
+         * <code>string value = 3;</code>
+         * @return The value.
+         */
+        public java.lang.String getValue() {
+          java.lang.Object ref = value_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            value_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string value = 3;</code>
+         * @return The bytes for value.
+         */
+        public com.google.protobuf.ByteString
+            getValueBytes() {
+          java.lang.Object ref = value_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            value_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string value = 3;</code>
+         * @param value The value to set.
+         * @return This builder for chaining.
+         */
+        public Builder setValue(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          value_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string value = 3;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearValue() {
+          
+          value_ = getDefaultInstance().getValue();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string value = 3;</code>
+         * @param value The bytes for value to set.
+         * @return This builder for chaining.
+         */
+        public Builder setValueBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          value_ = value;
+          onChanged();
+          return this;
+        }
+
+        private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> valueData_ =
+          java.util.Collections.emptyList();
+        private void ensureValueDataIsMutable() {
+          if (!((bitField0_ & 0x00000001) != 0)) {
+            valueData_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data>(valueData_);
+            bitField0_ |= 0x00000001;
+           }
+        }
+
+        private com.google.protobuf.RepeatedFieldBuilderV3<
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.Data, product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.DataOrBuilder> valueDataBuilder_;
+
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> getValueDataList() {
+          if (valueDataBuilder_ == null) {
+            return java.util.Collections.unmodifiableList(valueData_);
+          } else {
+            return valueDataBuilder_.getMessageList();
+          }
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public int getValueDataCount() {
+          if (valueDataBuilder_ == null) {
+            return valueData_.size();
+          } else {
+            return valueDataBuilder_.getCount();
+          }
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.Data getValueData(int index) {
+          if (valueDataBuilder_ == null) {
+            return valueData_.get(index);
+          } else {
+            return valueDataBuilder_.getMessage(index);
+          }
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public Builder setValueData(
+            int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.Data value) {
+          if (valueDataBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureValueDataIsMutable();
+            valueData_.set(index, value);
+            onChanged();
+          } else {
+            valueDataBuilder_.setMessage(index, value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public Builder setValueData(
+            int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder builderForValue) {
+          if (valueDataBuilder_ == null) {
+            ensureValueDataIsMutable();
+            valueData_.set(index, builderForValue.build());
+            onChanged();
+          } else {
+            valueDataBuilder_.setMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public Builder addValueData(product_hub_front_meta.ProductHubFrontMetaOuterClass.Data value) {
+          if (valueDataBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureValueDataIsMutable();
+            valueData_.add(value);
+            onChanged();
+          } else {
+            valueDataBuilder_.addMessage(value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public Builder addValueData(
+            int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.Data value) {
+          if (valueDataBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureValueDataIsMutable();
+            valueData_.add(index, value);
+            onChanged();
+          } else {
+            valueDataBuilder_.addMessage(index, value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public Builder addValueData(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder builderForValue) {
+          if (valueDataBuilder_ == null) {
+            ensureValueDataIsMutable();
+            valueData_.add(builderForValue.build());
+            onChanged();
+          } else {
+            valueDataBuilder_.addMessage(builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public Builder addValueData(
+            int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder builderForValue) {
+          if (valueDataBuilder_ == null) {
+            ensureValueDataIsMutable();
+            valueData_.add(index, builderForValue.build());
+            onChanged();
+          } else {
+            valueDataBuilder_.addMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public Builder addAllValueData(
+            java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.Data> values) {
+          if (valueDataBuilder_ == null) {
+            ensureValueDataIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, valueData_);
+            onChanged();
+          } else {
+            valueDataBuilder_.addAllMessages(values);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public Builder clearValueData() {
+          if (valueDataBuilder_ == null) {
+            valueData_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000001);
+            onChanged();
+          } else {
+            valueDataBuilder_.clear();
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public Builder removeValueData(int index) {
+          if (valueDataBuilder_ == null) {
+            ensureValueDataIsMutable();
+            valueData_.remove(index);
+            onChanged();
+          } else {
+            valueDataBuilder_.remove(index);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder getValueDataBuilder(
+            int index) {
+          return getValueDataFieldBuilder().getBuilder(index);
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.DataOrBuilder getValueDataOrBuilder(
+            int index) {
+          if (valueDataBuilder_ == null) {
+            return valueData_.get(index);  } else {
+            return valueDataBuilder_.getMessageOrBuilder(index);
+          }
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.DataOrBuilder> 
+             getValueDataOrBuilderList() {
+          if (valueDataBuilder_ != null) {
+            return valueDataBuilder_.getMessageOrBuilderList();
+          } else {
+            return java.util.Collections.unmodifiableList(valueData_);
+          }
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder addValueDataBuilder() {
+          return getValueDataFieldBuilder().addBuilder(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.getDefaultInstance());
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder addValueDataBuilder(
+            int index) {
+          return getValueDataFieldBuilder().addBuilder(
+              index, product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.getDefaultInstance());
+        }
+        /**
+         * <code>repeated .product_hub_front_meta.Data value_data = 4;</code>
+         */
+        public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder> 
+             getValueDataBuilderList() {
+          return getValueDataFieldBuilder().getBuilderList();
+        }
+        private com.google.protobuf.RepeatedFieldBuilderV3<
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.Data, product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.DataOrBuilder> 
+            getValueDataFieldBuilder() {
+          if (valueDataBuilder_ == null) {
+            valueDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.Data, product_hub_front_meta.ProductHubFrontMetaOuterClass.Data.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.DataOrBuilder>(
+                    valueData_,
+                    ((bitField0_ & 0x00000001) != 0),
+                    getParentForChildren(),
+                    isClean());
+            valueData_ = null;
+          }
+          return valueDataBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue)
+      }
+
+      // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue)
+      private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue();
+      }
+
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<DictionaryValue>
+          PARSER = new com.google.protobuf.AbstractParser<DictionaryValue>() {
+        @java.lang.Override
+        public DictionaryValue parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new DictionaryValue(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<DictionaryValue> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<DictionaryValue> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int DICTIONARY_VALUES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue> dictionaryValues_;
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue> getDictionaryValuesList() {
+      return dictionaryValues_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder> 
+        getDictionaryValuesOrBuilderList() {
+      return dictionaryValues_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    @java.lang.Override
+    public int getDictionaryValuesCount() {
+      return dictionaryValues_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue getDictionaryValues(int index) {
+      return dictionaryValues_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder getDictionaryValuesOrBuilder(
+        int index) {
+      return dictionaryValues_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < dictionaryValues_.size(); i++) {
+        output.writeMessage(1, dictionaryValues_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < dictionaryValues_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, dictionaryValues_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse) obj;
+
+      if (!getDictionaryValuesList()
+          .equals(other.getDictionaryValuesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDictionaryValuesCount() > 0) {
+        hash = (37 * hash) + DICTIONARY_VALUES_FIELD_NUMBER;
+        hash = (53 * hash) + getDictionaryValuesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetDictionaryValuesByPermalinksResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getDictionaryValuesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (dictionaryValuesBuilder_ == null) {
+          dictionaryValues_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          dictionaryValuesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (dictionaryValuesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            dictionaryValues_ = java.util.Collections.unmodifiableList(dictionaryValues_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.dictionaryValues_ = dictionaryValues_;
+        } else {
+          result.dictionaryValues_ = dictionaryValuesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.getDefaultInstance()) return this;
+        if (dictionaryValuesBuilder_ == null) {
+          if (!other.dictionaryValues_.isEmpty()) {
+            if (dictionaryValues_.isEmpty()) {
+              dictionaryValues_ = other.dictionaryValues_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDictionaryValuesIsMutable();
+              dictionaryValues_.addAll(other.dictionaryValues_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.dictionaryValues_.isEmpty()) {
+            if (dictionaryValuesBuilder_.isEmpty()) {
+              dictionaryValuesBuilder_.dispose();
+              dictionaryValuesBuilder_ = null;
+              dictionaryValues_ = other.dictionaryValues_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              dictionaryValuesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDictionaryValuesFieldBuilder() : null;
+            } else {
+              dictionaryValuesBuilder_.addAllMessages(other.dictionaryValues_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue> dictionaryValues_ =
+        java.util.Collections.emptyList();
+      private void ensureDictionaryValuesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          dictionaryValues_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue>(dictionaryValues_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder> dictionaryValuesBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue> getDictionaryValuesList() {
+        if (dictionaryValuesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(dictionaryValues_);
+        } else {
+          return dictionaryValuesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public int getDictionaryValuesCount() {
+        if (dictionaryValuesBuilder_ == null) {
+          return dictionaryValues_.size();
+        } else {
+          return dictionaryValuesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue getDictionaryValues(int index) {
+        if (dictionaryValuesBuilder_ == null) {
+          return dictionaryValues_.get(index);
+        } else {
+          return dictionaryValuesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public Builder setDictionaryValues(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue value) {
+        if (dictionaryValuesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDictionaryValuesIsMutable();
+          dictionaryValues_.set(index, value);
+          onChanged();
+        } else {
+          dictionaryValuesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public Builder setDictionaryValues(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder builderForValue) {
+        if (dictionaryValuesBuilder_ == null) {
+          ensureDictionaryValuesIsMutable();
+          dictionaryValues_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          dictionaryValuesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public Builder addDictionaryValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue value) {
+        if (dictionaryValuesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDictionaryValuesIsMutable();
+          dictionaryValues_.add(value);
+          onChanged();
+        } else {
+          dictionaryValuesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public Builder addDictionaryValues(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue value) {
+        if (dictionaryValuesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDictionaryValuesIsMutable();
+          dictionaryValues_.add(index, value);
+          onChanged();
+        } else {
+          dictionaryValuesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public Builder addDictionaryValues(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder builderForValue) {
+        if (dictionaryValuesBuilder_ == null) {
+          ensureDictionaryValuesIsMutable();
+          dictionaryValues_.add(builderForValue.build());
+          onChanged();
+        } else {
+          dictionaryValuesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public Builder addDictionaryValues(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder builderForValue) {
+        if (dictionaryValuesBuilder_ == null) {
+          ensureDictionaryValuesIsMutable();
+          dictionaryValues_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          dictionaryValuesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public Builder addAllDictionaryValues(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue> values) {
+        if (dictionaryValuesBuilder_ == null) {
+          ensureDictionaryValuesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, dictionaryValues_);
+          onChanged();
+        } else {
+          dictionaryValuesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public Builder clearDictionaryValues() {
+        if (dictionaryValuesBuilder_ == null) {
+          dictionaryValues_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          dictionaryValuesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public Builder removeDictionaryValues(int index) {
+        if (dictionaryValuesBuilder_ == null) {
+          ensureDictionaryValuesIsMutable();
+          dictionaryValues_.remove(index);
+          onChanged();
+        } else {
+          dictionaryValuesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder getDictionaryValuesBuilder(
+          int index) {
+        return getDictionaryValuesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder getDictionaryValuesOrBuilder(
+          int index) {
+        if (dictionaryValuesBuilder_ == null) {
+          return dictionaryValues_.get(index);  } else {
+          return dictionaryValuesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder> 
+           getDictionaryValuesOrBuilderList() {
+        if (dictionaryValuesBuilder_ != null) {
+          return dictionaryValuesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(dictionaryValues_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder addDictionaryValuesBuilder() {
+        return getDictionaryValuesFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder addDictionaryValuesBuilder(
+          int index) {
+        return getDictionaryValuesFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetDictionaryValuesByPermalinksResponse.DictionaryValue dictionary_values = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder> 
+           getDictionaryValuesBuilderList() {
+        return getDictionaryValuesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder> 
+          getDictionaryValuesFieldBuilder() {
+        if (dictionaryValuesBuilder_ == null) {
+          dictionaryValuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValue.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.DictionaryValueOrBuilder>(
+                  dictionaryValues_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          dictionaryValues_ = null;
+        }
+        return dictionaryValuesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetDictionaryValuesByPermalinksResponse)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetDictionaryValuesByPermalinksResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetDictionaryValuesByPermalinksResponse>() {
+      @java.lang.Override
+      public GetDictionaryValuesByPermalinksResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetDictionaryValuesByPermalinksResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetDictionaryValuesByPermalinksResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetDictionaryValuesByPermalinksResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetGetRetailersRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetGetRetailersRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated int64 retailer_ids = 1;</code>
+     * @return A list containing the retailerIds.
+     */
+    java.util.List<java.lang.Long> getRetailerIdsList();
+    /**
+     * <code>repeated int64 retailer_ids = 1;</code>
+     * @return The count of retailerIds.
+     */
+    int getRetailerIdsCount();
+    /**
+     * <code>repeated int64 retailer_ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The retailerIds at the given index.
+     */
+    long getRetailerIds(int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetGetRetailersRequest}
+   */
+  public static final class GetGetRetailersRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetGetRetailersRequest)
+      GetGetRetailersRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetGetRetailersRequest.newBuilder() to construct.
+    private GetGetRetailersRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetGetRetailersRequest() {
+      retailerIds_ = emptyLongList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetGetRetailersRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetGetRetailersRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                retailerIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              retailerIds_.addLong(input.readInt64());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                retailerIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                retailerIds_.addLong(input.readInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          retailerIds_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest.Builder.class);
+    }
+
+    public static final int RETAILER_IDS_FIELD_NUMBER = 1;
+    private com.google.protobuf.Internal.LongList retailerIds_;
+    /**
+     * <code>repeated int64 retailer_ids = 1;</code>
+     * @return A list containing the retailerIds.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Long>
+        getRetailerIdsList() {
+      return retailerIds_;
+    }
+    /**
+     * <code>repeated int64 retailer_ids = 1;</code>
+     * @return The count of retailerIds.
+     */
+    public int getRetailerIdsCount() {
+      return retailerIds_.size();
+    }
+    /**
+     * <code>repeated int64 retailer_ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The retailerIds at the given index.
+     */
+    public long getRetailerIds(int index) {
+      return retailerIds_.getLong(index);
+    }
+    private int retailerIdsMemoizedSerializedSize = -1;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (getRetailerIdsList().size() > 0) {
+        output.writeUInt32NoTag(10);
+        output.writeUInt32NoTag(retailerIdsMemoizedSerializedSize);
+      }
+      for (int i = 0; i < retailerIds_.size(); i++) {
+        output.writeInt64NoTag(retailerIds_.getLong(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < retailerIds_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt64SizeNoTag(retailerIds_.getLong(i));
+        }
+        size += dataSize;
+        if (!getRetailerIdsList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        retailerIdsMemoizedSerializedSize = dataSize;
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest) obj;
+
+      if (!getRetailerIdsList()
+          .equals(other.getRetailerIdsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getRetailerIdsCount() > 0) {
+        hash = (37 * hash) + RETAILER_IDS_FIELD_NUMBER;
+        hash = (53 * hash) + getRetailerIdsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetGetRetailersRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetGetRetailersRequest)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        retailerIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          retailerIds_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.retailerIds_ = retailerIds_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest.getDefaultInstance()) return this;
+        if (!other.retailerIds_.isEmpty()) {
+          if (retailerIds_.isEmpty()) {
+            retailerIds_ = other.retailerIds_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureRetailerIdsIsMutable();
+            retailerIds_.addAll(other.retailerIds_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.Internal.LongList retailerIds_ = emptyLongList();
+      private void ensureRetailerIdsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          retailerIds_ = mutableCopy(retailerIds_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated int64 retailer_ids = 1;</code>
+       * @return A list containing the retailerIds.
+       */
+      public java.util.List<java.lang.Long>
+          getRetailerIdsList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(retailerIds_) : retailerIds_;
+      }
+      /**
+       * <code>repeated int64 retailer_ids = 1;</code>
+       * @return The count of retailerIds.
+       */
+      public int getRetailerIdsCount() {
+        return retailerIds_.size();
+      }
+      /**
+       * <code>repeated int64 retailer_ids = 1;</code>
+       * @param index The index of the element to return.
+       * @return The retailerIds at the given index.
+       */
+      public long getRetailerIds(int index) {
+        return retailerIds_.getLong(index);
+      }
+      /**
+       * <code>repeated int64 retailer_ids = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The retailerIds to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerIds(
+          int index, long value) {
+        ensureRetailerIdsIsMutable();
+        retailerIds_.setLong(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 retailer_ids = 1;</code>
+       * @param value The retailerIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRetailerIds(long value) {
+        ensureRetailerIdsIsMutable();
+        retailerIds_.addLong(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 retailer_ids = 1;</code>
+       * @param values The retailerIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllRetailerIds(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureRetailerIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, retailerIds_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 retailer_ids = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerIds() {
+        retailerIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetGetRetailersRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetGetRetailersRequest)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetGetRetailersRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetGetRetailersRequest>() {
+      @java.lang.Override
+      public GetGetRetailersRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetGetRetailersRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetGetRetailersRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetGetRetailersRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetGetRetailersResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetGetRetailersResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer> 
+        getRetailersList();
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer getRetailers(int index);
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    int getRetailersCount();
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder> 
+        getRetailersOrBuilderList();
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder getRetailersOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_front_meta.GetGetRetailersResponse}
+   */
+  public static final class GetGetRetailersResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetGetRetailersResponse)
+      GetGetRetailersResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetGetRetailersResponse.newBuilder() to construct.
+    private GetGetRetailersResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetGetRetailersResponse() {
+      retailers_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetGetRetailersResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetGetRetailersResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                retailers_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              retailers_.add(
+                  input.readMessage(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          retailers_ = java.util.Collections.unmodifiableList(retailers_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code product_hub_front_meta.GetGetRetailersResponse.Vertical}
+     */
+    public enum Vertical
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>GROCERY = 0;</code>
+       */
+      GROCERY(0),
+      /**
+       * <code>PHARMACY = 1;</code>
+       */
+      PHARMACY(1),
+      /**
+       * <code>RESTAURANT = 2;</code>
+       */
+      RESTAURANT(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>GROCERY = 0;</code>
+       */
+      public static final int GROCERY_VALUE = 0;
+      /**
+       * <code>PHARMACY = 1;</code>
+       */
+      public static final int PHARMACY_VALUE = 1;
+      /**
+       * <code>RESTAURANT = 2;</code>
+       */
+      public static final int RESTAURANT_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Vertical valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Vertical forNumber(int value) {
+        switch (value) {
+          case 0: return GROCERY;
+          case 1: return PHARMACY;
+          case 2: return RESTAURANT;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Vertical>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Vertical> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Vertical>() {
+              public Vertical findValueByNumber(int number) {
+                return Vertical.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Vertical[] VALUES = values();
+
+      public static Vertical valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Vertical(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:product_hub_front_meta.GetGetRetailersResponse.Vertical)
+    }
+
+    public interface RetailerOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:product_hub_front_meta.GetGetRetailersResponse.Retailer)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>int64 retailer_id = 1;</code>
+       * @return The retailerId.
+       */
+      long getRetailerId();
+
+      /**
+       * <code>.product_hub_front_meta.GetGetRetailersResponse.Vertical vertical = 2;</code>
+       * @return The enum numeric value on the wire for vertical.
+       */
+      int getVerticalValue();
+      /**
+       * <code>.product_hub_front_meta.GetGetRetailersResponse.Vertical vertical = 2;</code>
+       * @return The vertical.
+       */
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical getVertical();
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetGetRetailersResponse.Retailer}
+     */
+    public static final class Retailer extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:product_hub_front_meta.GetGetRetailersResponse.Retailer)
+        RetailerOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Retailer.newBuilder() to construct.
+      private Retailer(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Retailer() {
+        vertical_ = 0;
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Retailer();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Retailer(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+
+                retailerId_ = input.readInt64();
+                break;
+              }
+              case 16: {
+                int rawValue = input.readEnum();
+
+                vertical_ = rawValue;
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder.class);
+      }
+
+      public static final int RETAILER_ID_FIELD_NUMBER = 1;
+      private long retailerId_;
+      /**
+       * <code>int64 retailer_id = 1;</code>
+       * @return The retailerId.
+       */
+      @java.lang.Override
+      public long getRetailerId() {
+        return retailerId_;
+      }
+
+      public static final int VERTICAL_FIELD_NUMBER = 2;
+      private int vertical_;
+      /**
+       * <code>.product_hub_front_meta.GetGetRetailersResponse.Vertical vertical = 2;</code>
+       * @return The enum numeric value on the wire for vertical.
+       */
+      @java.lang.Override public int getVerticalValue() {
+        return vertical_;
+      }
+      /**
+       * <code>.product_hub_front_meta.GetGetRetailersResponse.Vertical vertical = 2;</code>
+       * @return The vertical.
+       */
+      @java.lang.Override public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical getVertical() {
+        @SuppressWarnings("deprecation")
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical result = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical.valueOf(vertical_);
+        return result == null ? product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical.UNRECOGNIZED : result;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (retailerId_ != 0L) {
+          output.writeInt64(1, retailerId_);
+        }
+        if (vertical_ != product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical.GROCERY.getNumber()) {
+          output.writeEnum(2, vertical_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (retailerId_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(1, retailerId_);
+        }
+        if (vertical_ != product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical.GROCERY.getNumber()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(2, vertical_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer)) {
+          return super.equals(obj);
+        }
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer) obj;
+
+        if (getRetailerId()
+            != other.getRetailerId()) return false;
+        if (vertical_ != other.vertical_) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getRetailerId());
+        hash = (37 * hash) + VERTICAL_FIELD_NUMBER;
+        hash = (53 * hash) + vertical_;
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code product_hub_front_meta.GetGetRetailersResponse.Retailer}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetGetRetailersResponse.Retailer)
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder.class);
+        }
+
+        // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          retailerId_ = 0L;
+
+          vertical_ = 0;
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_descriptor;
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer getDefaultInstanceForType() {
+          return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer build() {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer buildPartial() {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer(this);
+          result.retailerId_ = retailerId_;
+          result.vertical_ = vertical_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer) {
+            return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer other) {
+          if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.getDefaultInstance()) return this;
+          if (other.getRetailerId() != 0L) {
+            setRetailerId(other.getRetailerId());
+          }
+          if (other.vertical_ != 0) {
+            setVerticalValue(other.getVerticalValue());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private long retailerId_ ;
+        /**
+         * <code>int64 retailer_id = 1;</code>
+         * @return The retailerId.
+         */
+        @java.lang.Override
+        public long getRetailerId() {
+          return retailerId_;
+        }
+        /**
+         * <code>int64 retailer_id = 1;</code>
+         * @param value The retailerId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setRetailerId(long value) {
+          
+          retailerId_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int64 retailer_id = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearRetailerId() {
+          
+          retailerId_ = 0L;
+          onChanged();
+          return this;
+        }
+
+        private int vertical_ = 0;
+        /**
+         * <code>.product_hub_front_meta.GetGetRetailersResponse.Vertical vertical = 2;</code>
+         * @return The enum numeric value on the wire for vertical.
+         */
+        @java.lang.Override public int getVerticalValue() {
+          return vertical_;
+        }
+        /**
+         * <code>.product_hub_front_meta.GetGetRetailersResponse.Vertical vertical = 2;</code>
+         * @param value The enum numeric value on the wire for vertical to set.
+         * @return This builder for chaining.
+         */
+        public Builder setVerticalValue(int value) {
+          
+          vertical_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>.product_hub_front_meta.GetGetRetailersResponse.Vertical vertical = 2;</code>
+         * @return The vertical.
+         */
+        @java.lang.Override
+        public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical getVertical() {
+          @SuppressWarnings("deprecation")
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical result = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical.valueOf(vertical_);
+          return result == null ? product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical.UNRECOGNIZED : result;
+        }
+        /**
+         * <code>.product_hub_front_meta.GetGetRetailersResponse.Vertical vertical = 2;</code>
+         * @param value The vertical to set.
+         * @return This builder for chaining.
+         */
+        public Builder setVertical(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Vertical value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          
+          vertical_ = value.getNumber();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>.product_hub_front_meta.GetGetRetailersResponse.Vertical vertical = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearVertical() {
+          
+          vertical_ = 0;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetGetRetailersResponse.Retailer)
+      }
+
+      // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetGetRetailersResponse.Retailer)
+      private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer();
+      }
+
+      public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<Retailer>
+          PARSER = new com.google.protobuf.AbstractParser<Retailer>() {
+        @java.lang.Override
+        public Retailer parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Retailer(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<Retailer> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Retailer> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int RETAILERS_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer> retailers_;
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer> getRetailersList() {
+      return retailers_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder> 
+        getRetailersOrBuilderList() {
+      return retailers_;
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    @java.lang.Override
+    public int getRetailersCount() {
+      return retailers_.size();
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer getRetailers(int index) {
+      return retailers_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder getRetailersOrBuilder(
+        int index) {
+      return retailers_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < retailers_.size(); i++) {
+        output.writeMessage(1, retailers_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < retailers_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, retailers_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse other = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse) obj;
+
+      if (!getRetailersList()
+          .equals(other.getRetailersList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getRetailersCount() > 0) {
+        hash = (37 * hash) + RETAILERS_FIELD_NUMBER;
+        hash = (53 * hash) + getRetailersList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_front_meta.GetGetRetailersResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_front_meta.GetGetRetailersResponse)
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.class, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Builder.class);
+      }
+
+      // Construct using product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getRetailersFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (retailersBuilder_ == null) {
+          retailers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          retailersBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.internal_static_product_hub_front_meta_GetGetRetailersResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse getDefaultInstanceForType() {
+        return product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse build() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse buildPartial() {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse result = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (retailersBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            retailers_ = java.util.Collections.unmodifiableList(retailers_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.retailers_ = retailers_;
+        } else {
+          result.retailers_ = retailersBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse) {
+          return mergeFrom((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse other) {
+        if (other == product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.getDefaultInstance()) return this;
+        if (retailersBuilder_ == null) {
+          if (!other.retailers_.isEmpty()) {
+            if (retailers_.isEmpty()) {
+              retailers_ = other.retailers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureRetailersIsMutable();
+              retailers_.addAll(other.retailers_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.retailers_.isEmpty()) {
+            if (retailersBuilder_.isEmpty()) {
+              retailersBuilder_.dispose();
+              retailersBuilder_ = null;
+              retailers_ = other.retailers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              retailersBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRetailersFieldBuilder() : null;
+            } else {
+              retailersBuilder_.addAllMessages(other.retailers_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer> retailers_ =
+        java.util.Collections.emptyList();
+      private void ensureRetailersIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          retailers_ = new java.util.ArrayList<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer>(retailers_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder> retailersBuilder_;
+
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer> getRetailersList() {
+        if (retailersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(retailers_);
+        } else {
+          return retailersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public int getRetailersCount() {
+        if (retailersBuilder_ == null) {
+          return retailers_.size();
+        } else {
+          return retailersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer getRetailers(int index) {
+        if (retailersBuilder_ == null) {
+          return retailers_.get(index);
+        } else {
+          return retailersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public Builder setRetailers(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer value) {
+        if (retailersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailersIsMutable();
+          retailers_.set(index, value);
+          onChanged();
+        } else {
+          retailersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public Builder setRetailers(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder builderForValue) {
+        if (retailersBuilder_ == null) {
+          ensureRetailersIsMutable();
+          retailers_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          retailersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public Builder addRetailers(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer value) {
+        if (retailersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailersIsMutable();
+          retailers_.add(value);
+          onChanged();
+        } else {
+          retailersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public Builder addRetailers(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer value) {
+        if (retailersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailersIsMutable();
+          retailers_.add(index, value);
+          onChanged();
+        } else {
+          retailersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public Builder addRetailers(
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder builderForValue) {
+        if (retailersBuilder_ == null) {
+          ensureRetailersIsMutable();
+          retailers_.add(builderForValue.build());
+          onChanged();
+        } else {
+          retailersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public Builder addRetailers(
+          int index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder builderForValue) {
+        if (retailersBuilder_ == null) {
+          ensureRetailersIsMutable();
+          retailers_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          retailersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public Builder addAllRetailers(
+          java.lang.Iterable<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer> values) {
+        if (retailersBuilder_ == null) {
+          ensureRetailersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, retailers_);
+          onChanged();
+        } else {
+          retailersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public Builder clearRetailers() {
+        if (retailersBuilder_ == null) {
+          retailers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          retailersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public Builder removeRetailers(int index) {
+        if (retailersBuilder_ == null) {
+          ensureRetailersIsMutable();
+          retailers_.remove(index);
+          onChanged();
+        } else {
+          retailersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder getRetailersBuilder(
+          int index) {
+        return getRetailersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder getRetailersOrBuilder(
+          int index) {
+        if (retailersBuilder_ == null) {
+          return retailers_.get(index);  } else {
+          return retailersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public java.util.List<? extends product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder> 
+           getRetailersOrBuilderList() {
+        if (retailersBuilder_ != null) {
+          return retailersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(retailers_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder addRetailersBuilder() {
+        return getRetailersFieldBuilder().addBuilder(
+            product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder addRetailersBuilder(
+          int index) {
+        return getRetailersFieldBuilder().addBuilder(
+            index, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_front_meta.GetGetRetailersResponse.Retailer retailers = 1;</code>
+       */
+      public java.util.List<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder> 
+           getRetailersBuilderList() {
+        return getRetailersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder> 
+          getRetailersFieldBuilder() {
+        if (retailersBuilder_ == null) {
+          retailersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.Retailer.Builder, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.RetailerOrBuilder>(
+                  retailers_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          retailers_ = null;
+        }
+        return retailersBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_front_meta.GetGetRetailersResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_front_meta.GetGetRetailersResponse)
+    private static final product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse();
+    }
+
+    public static product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetGetRetailersResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetGetRetailersResponse>() {
+      @java.lang.Override
+      public GetGetRetailersResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetGetRetailersResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetGetRetailersResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetGetRetailersResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_front_meta_Data_descriptor;
   private static final 
@@ -37052,6 +54104,11 @@ public final class ProductHubFrontMetaOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_front_meta_RetailerStores_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_RetailerStore_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_RetailerStore_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_front_meta_CategoryFilter_descriptor;
   private static final 
@@ -37107,6 +54164,16 @@ public final class ProductHubFrontMetaOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_front_meta_GetAllCategoriesWithStoresResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_front_meta_GetCategoriesByCategoryIDsRequest_descriptor;
   private static final 
@@ -37188,6 +54255,36 @@ public final class ProductHubFrontMetaOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_front_meta_GetAllOriginalCategoriesResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_front_meta_GetRetailerStoresRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -37197,6 +54294,16 @@ public final class ProductHubFrontMetaOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_front_meta_GetRetailerStoresResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_front_meta_GetDictionaryAttributesValuesRequest_descriptor;
   private static final 
@@ -37222,6 +54329,66 @@ public final class ProductHubFrontMetaOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_front_meta_DictionaryAttributesValuesResponse_DictionaryValue_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetPopularitiesRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetPopularitiesRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetPopularitiesResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetPopularitiesResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetGetRetailersRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetGetRetailersRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetGetRetailersResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetGetRetailersResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -37232,161 +54399,297 @@ public final class ProductHubFrontMetaOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n0content/product_hub/product-hub-front-" +
-      "meta.proto\022\026product_hub_front_meta\"l\n\004Da" +
-      "ta\022\013\n\003key\030\001 \001(\t\022/\n\004type\030\002 \001(\0162!.product_" +
-      "hub_front_meta.ValueType\022\026\n\016is_multi_val" +
-      "ue\030\003 \001(\010\022\016\n\006values\030\004 \003(\t\"\332\001\n\010Category\022\n\n" +
-      "\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\021\n\tparent_id\030\003 \001" +
-      "(\t\022\024\n\014retailer_ids\030\004 \003(\t\0223\n\rcategory_dat" +
-      "a\030\005 \003(\0132\034.product_hub_front_meta.Data\022\022\n" +
-      "\ntenant_ids\030\006 \003(\t\022.\n\006status\030\007 \001(\0162\036.prod" +
-      "uct_hub_front_meta.Status\022\022\n\nupdated_at\030" +
-      "\010 \001(\t\"\206\002\n\022CategoryWithStores\022\n\n\002id\030\001 \001(\t" +
-      "\022\014\n\004name\030\002 \001(\t\022\021\n\tparent_id\030\003 \001(\t\0226\n\006sto" +
-      "res\030\004 \003(\0132&.product_hub_front_meta.Retai" +
-      "lerStores\0223\n\rcategory_data\030\005 \003(\0132\034.produ" +
-      "ct_hub_front_meta.Data\022\022\n\ntenant_ids\030\006 \003" +
-      "(\t\022.\n\006status\030\007 \001(\0162\036.product_hub_front_m" +
-      "eta.Status\022\022\n\nupdated_at\030\010 \001(\t\"8\n\016Retail" +
-      "erStores\022\023\n\013retailer_id\030\001 \001(\t\022\021\n\tstore_i" +
-      "ds\030\002 \003(\t\"Q\n\016CategoryFilter\022\023\n\013category_i" +
-      "d\030\001 \001(\t\022\026\n\016attribute_keys\030\002 \003(\t\022\022\n\nupdat" +
-      "ed_at\030\003 \001(\t\"\274\002\n\tAttribute\022\013\n\003key\030\001 \001(\t\022\026" +
-      "\n\016dictionary_key\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022/\n\004" +
-      "type\030\004 \001(\0162!.product_hub_front_meta.Valu" +
-      "eType\022\026\n\016is_multi_value\030\005 \001(\010\022;\n\005flags\030\006" +
-      " \003(\0132,.product_hub_front_meta.Attribute." +
-      "FlagsEntry\0224\n\016attribute_data\030\007 \003(\0132\034.pro" +
-      "duct_hub_front_meta.Data\022\022\n\nupdated_at\030\010" +
-      " \001(\t\032,\n\nFlagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value" +
-      "\030\002 \001(\010:\0028\001\"\243\001\n\nDictionary\022\013\n\003key\030\001 \001(\t\022\014" +
-      "\n\004name\030\002 \001(\t\022/\n\004type\030\003 \001(\0162!.product_hub" +
-      "_front_meta.ValueType\022\022\n\nupdated_at\030\004 \001(" +
-      "\t\0225\n\017dictionary_data\030\005 \003(\0132\034.product_hub" +
-      "_front_meta.Data\"\313\001\n\017DictionaryValue\022\n\n\002" +
-      "id\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\0220\n\nvalue_data\030\003 " +
-      "\003(\0132\034.product_hub_front_meta.Data\022\022\n\nupd" +
-      "ated_at\030\004 \001(\t\022W\n\034additional_dictionary_v" +
-      "alues\030\005 \003(\01321.product_hub_front_meta.Add" +
-      "itionalDictionaryValue\"\200\001\n\031AdditionalDic" +
-      "tionaryValue\022\n\n\002id\030\001 \001(\t\022\026\n\016dictionary_k" +
-      "ey\030\002 \001(\t\022\r\n\005value\030\003 \001(\t\0220\n\nvalue_data\030\004 " +
-      "\003(\0132\034.product_hub_front_meta.Data\"\227\001\n\020Or" +
-      "iginalCategory\022\n\n\002id\030\001 \001(\003\022\023\n\013original_i" +
-      "d\030\002 \001(\003\022\024\n\014instamart_id\030\003 \001(\003\022\021\n\tpermali" +
-      "nk\030\004 \001(\t\022\021\n\tparent_id\030\005 \001(\003\022\021\n\tpublished" +
-      "\030\006 \001(\010\022\023\n\013is_promoted\030\007 \001(\010\"8\n\027GetAllCat" +
-      "egoriesRequest\022\r\n\005limit\030\001 \001(\003\022\016\n\006offset\030" +
-      "\002 \001(\003\"P\n\030GetAllCategoriesResponse\0224\n\ncat" +
-      "egories\030\001 \003(\0132 .product_hub_front_meta.C" +
-      "ategory\"B\n!GetAllCategoriesWithStoresReq" +
-      "uest\022\r\n\005limit\030\001 \001(\003\022\016\n\006offset\030\002 \001(\003\"d\n\"G" +
-      "etAllCategoriesWithStoresResponse\022>\n\ncat" +
-      "egories\030\001 \003(\0132*.product_hub_front_meta.C" +
-      "ategoryWithStores\"9\n!GetCategoriesByCate" +
-      "goryIDsRequest\022\024\n\014category_ids\030\001 \003(\t\"Z\n\"" +
-      "GetCategoriesByCategoryIDsResponse\0224\n\nca" +
-      "tegories\030\001 \003(\0132 .product_hub_front_meta." +
-      "Category\">\n&GetCategoryFiltersByCategory" +
-      "IDsRequest\022\024\n\014category_ids\030\001 \003(\t\"j\n\'GetC" +
-      "ategoryFiltersByCategoryIDsResponse\022?\n\017C" +
-      "ategoryFilters\030\001 \003(\0132&.product_hub_front" +
-      "_meta.CategoryFilter\"4\n\032GetAttributesByK" +
-      "eysRequest\022\026\n\016attribute_keys\030\001 \003(\t\"T\n\033Ge" +
-      "tAttributesByKeysResponse\0225\n\nattributes\030" +
-      "\001 \003(\0132!.product_hub_front_meta.Attribute" +
-      "\"8\n\027GetAllAttributesRequest\022\r\n\005limit\030\001 \001" +
-      "(\003\022\016\n\006offset\030\002 \001(\003\"Q\n\030GetAllAttributesRe" +
-      "sponse\0225\n\nattributes\030\001 \003(\0132!.product_hub" +
-      "_front_meta.Attribute\":\n\031GetAllDictionar" +
-      "iesRequest\022\r\n\005limit\030\001 \001(\003\022\016\n\006offset\030\002 \001(" +
-      "\003\"V\n\032GetAllDictionariesResponse\0228\n\014dicti" +
-      "onaries\030\001 \003(\0132\".product_hub_front_meta.D" +
-      "ictionary\"7\n\034GetDictionariesByKeysReques" +
-      "t\022\027\n\017dictionary_keys\030\001 \003(\t\"Y\n\035GetDiction" +
-      "ariesByKeysResponse\0228\n\014dictionaries\030\001 \003(" +
-      "\0132\".product_hub_front_meta.Dictionary\"V\n" +
-      "\035GetAllDictionaryValuesRequest\022\026\n\016dictio" +
-      "nary_key\030\001 \001(\t\022\r\n\005limit\030\002 \001(\003\022\016\n\006offset\030" +
-      "\003 \001(\003\"d\n\036GetAllDictionaryValuesResponse\022" +
-      "B\n\021dictionary_values\030\001 \003(\0132\'.product_hub" +
-      "_front_meta.DictionaryValue\"@\n\037GetAllOri" +
-      "ginalCategoriesRequest\022\r\n\005limit\030\002 \001(\003\022\016\n" +
-      "\006offset\030\003 \001(\003\"i\n GetAllOriginalCategorie" +
-      "sResponse\022E\n\023original_categories\030\001 \003(\0132(" +
-      ".product_hub_front_meta.OriginalCategory" +
-      "\"0\n\030GetRetailerStoresRequest\022\024\n\014retailer" +
-      "_ids\030\001 \003(\t\"\\\n\031GetRetailerStoresResponse\022" +
-      "?\n\017retailer_stores\030\001 \003(\0132&.product_hub_f" +
-      "ront_meta.RetailerStores\"t\n$GetDictionar" +
-      "yAttributesValuesRequest\022L\n\nattributes\030\001" +
-      " \003(\01328.product_hub_front_meta.Dictionary" +
-      "AttributeValuesRequest\"w\n%GetDictionaryA" +
-      "ttributesValuesResponse\022N\n\nattributes\030\001 " +
-      "\003(\0132:.product_hub_front_meta.DictionaryA" +
-      "ttributesValuesResponse\"W\n DictionaryAtt" +
-      "ributeValuesRequest\022\025\n\rattribute_key\030\001 \001" +
-      "(\t\022\034\n\024dictionary_value_ids\030\002 \003(\t\"\261\002\n\"Dic" +
-      "tionaryAttributesValuesResponse\022\025\n\rattri" +
-      "bute_key\030\001 \001(\t\022\026\n\016attribute_name\030\002 \001(\t\022\026" +
-      "\n\016dictionary_key\030\003 \001(\t\022d\n\020dictionary_val" +
-      "ue\030\004 \003(\0132J.product_hub_front_meta.Dictio" +
-      "naryAttributesValuesResponse.DictionaryV" +
-      "alue\032^\n\017DictionaryValue\022\n\n\002id\030\001 \001(\t\022\r\n\005v" +
-      "alue\030\002 \001(\t\0220\n\nvalue_data\030\003 \003(\0132\034.product" +
-      "_hub_front_meta.Data*S\n\tValueType\022\n\n\006STR" +
-      "ING\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003" +
-      "\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\005*.\n\006Status\022\013\n\007D" +
-      "ISABLE\020\000\022\n\n\006ENABLE\020\001\022\013\n\007DELETED\020\0022\213\r\n\023Pr" +
-      "oductHubFrontMeta\022u\n\020GetAllCategories\022/." +
-      "product_hub_front_meta.GetAllCategoriesR" +
-      "equest\0320.product_hub_front_meta.GetAllCa" +
-      "tegoriesResponse\022\223\001\n\032GetAllCategoriesWit" +
-      "hStores\0229.product_hub_front_meta.GetAllC" +
-      "ategoriesWithStoresRequest\032:.product_hub" +
-      "_front_meta.GetAllCategoriesWithStoresRe" +
-      "sponse\022\223\001\n\032GetCategoriesByCategoryIDs\0229." +
-      "product_hub_front_meta.GetCategoriesByCa" +
-      "tegoryIDsRequest\032:.product_hub_front_met" +
-      "a.GetCategoriesByCategoryIDsResponse\022\242\001\n" +
-      "\037GetCategoryFiltersByCategoryIDs\022>.produ" +
-      "ct_hub_front_meta.GetCategoryFiltersByCa" +
-      "tegoryIDsRequest\032?.product_hub_front_met" +
-      "a.GetCategoryFiltersByCategoryIDsRespons" +
-      "e\022~\n\023GetAttributesByKeys\0222.product_hub_f" +
-      "ront_meta.GetAttributesByKeysRequest\0323.p" +
-      "roduct_hub_front_meta.GetAttributesByKey" +
-      "sResponse\022u\n\020GetAllAttributes\022/.product_" +
-      "hub_front_meta.GetAllAttributesRequest\0320" +
-      ".product_hub_front_meta.GetAllAttributes" +
-      "Response\022{\n\022GetAllDictionaries\0221.product" +
-      "_hub_front_meta.GetAllDictionariesReques" +
-      "t\0322.product_hub_front_meta.GetAllDiction" +
-      "ariesResponse\022\204\001\n\025GetDictionariesByKeys\022" +
-      "4.product_hub_front_meta.GetDictionaries" +
-      "ByKeysRequest\0325.product_hub_front_meta.G" +
-      "etDictionariesByKeysResponse\022\207\001\n\026GetAllD" +
-      "ictionaryValues\0225.product_hub_front_meta" +
-      ".GetAllDictionaryValuesRequest\0326.product" +
-      "_hub_front_meta.GetAllDictionaryValuesRe" +
-      "sponse\022\215\001\n\030GetAllOriginalCategories\0227.pr" +
+      "meta.proto\022\026product_hub_front_meta\032\034goog" +
+      "le/api/annotations.proto\032\036google/protobu" +
+      "f/wrappers.proto\"l\n\004Data\022\013\n\003key\030\001 \001(\t\022/\n" +
+      "\004type\030\002 \001(\0162!.product_hub_front_meta.Val" +
+      "ueType\022\026\n\016is_multi_value\030\003 \001(\010\022\016\n\006values" +
+      "\030\004 \003(\t\"\332\001\n\010Category\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030" +
+      "\002 \001(\t\022\021\n\tparent_id\030\003 \001(\t\022\024\n\014retailer_ids" +
+      "\030\004 \003(\t\0223\n\rcategory_data\030\005 \003(\0132\034.product_" +
+      "hub_front_meta.Data\022\022\n\ntenant_ids\030\006 \003(\t\022" +
+      ".\n\006status\030\007 \001(\0162\036.product_hub_front_meta" +
+      ".Status\022\022\n\nupdated_at\030\010 \001(\t\"\206\002\n\022Category" +
+      "WithStores\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\021\n\t" +
+      "parent_id\030\003 \001(\t\0226\n\006stores\030\004 \003(\0132&.produc" +
+      "t_hub_front_meta.RetailerStores\0223\n\rcateg" +
+      "ory_data\030\005 \003(\0132\034.product_hub_front_meta." +
+      "Data\022\022\n\ntenant_ids\030\006 \003(\t\022.\n\006status\030\007 \001(\016" +
+      "2\036.product_hub_front_meta.Status\022\022\n\nupda" +
+      "ted_at\030\010 \001(\t\"8\n\016RetailerStores\022\023\n\013retail" +
+      "er_id\030\001 \001(\t\022\021\n\tstore_ids\030\002 \003(\t\"6\n\rRetail" +
+      "erStore\022\023\n\013retailer_id\030\001 \001(\t\022\020\n\010store_id" +
+      "\030\002 \001(\t\"Q\n\016CategoryFilter\022\023\n\013category_id\030" +
+      "\001 \001(\t\022\026\n\016attribute_keys\030\002 \003(\t\022\022\n\nupdated" +
+      "_at\030\003 \001(\t\"\274\002\n\tAttribute\022\013\n\003key\030\001 \001(\t\022\026\n\016" +
+      "dictionary_key\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022/\n\004ty" +
+      "pe\030\004 \001(\0162!.product_hub_front_meta.ValueT" +
+      "ype\022\026\n\016is_multi_value\030\005 \001(\010\022;\n\005flags\030\006 \003" +
+      "(\0132,.product_hub_front_meta.Attribute.Fl" +
+      "agsEntry\0224\n\016attribute_data\030\007 \003(\0132\034.produ" +
+      "ct_hub_front_meta.Data\022\022\n\nupdated_at\030\010 \001" +
+      "(\t\032,\n\nFlagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002" +
+      " \001(\010:\0028\001\"\243\001\n\nDictionary\022\013\n\003key\030\001 \001(\t\022\014\n\004" +
+      "name\030\002 \001(\t\022/\n\004type\030\003 \001(\0162!.product_hub_f" +
+      "ront_meta.ValueType\022\022\n\nupdated_at\030\004 \001(\t\022" +
+      "5\n\017dictionary_data\030\005 \003(\0132\034.product_hub_f" +
+      "ront_meta.Data\"\313\001\n\017DictionaryValue\022\n\n\002id" +
+      "\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\0220\n\nvalue_data\030\003 \003(" +
+      "\0132\034.product_hub_front_meta.Data\022\022\n\nupdat" +
+      "ed_at\030\004 \001(\t\022W\n\034additional_dictionary_val" +
+      "ues\030\005 \003(\01321.product_hub_front_meta.Addit" +
+      "ionalDictionaryValue\"\200\001\n\031AdditionalDicti" +
+      "onaryValue\022\n\n\002id\030\001 \001(\t\022\026\n\016dictionary_key" +
+      "\030\002 \001(\t\022\r\n\005value\030\003 \001(\t\0220\n\nvalue_data\030\004 \003(" +
+      "\0132\034.product_hub_front_meta.Data\"\227\001\n\020Orig" +
+      "inalCategory\022\n\n\002id\030\001 \001(\003\022\023\n\013original_id\030" +
+      "\002 \001(\003\022\024\n\014instamart_id\030\003 \001(\003\022\021\n\tpermalink" +
+      "\030\004 \001(\t\022\021\n\tparent_id\030\005 \001(\003\022\021\n\tpublished\030\006" +
+      " \001(\010\022\023\n\013is_promoted\030\007 \001(\010\"8\n\027GetAllCateg" +
+      "oriesRequest\022\r\n\005limit\030\001 \001(\003\022\016\n\006offset\030\002 " +
+      "\001(\003\"P\n\030GetAllCategoriesResponse\0224\n\ncateg" +
+      "ories\030\001 \003(\0132 .product_hub_front_meta.Cat" +
+      "egory\"B\n!GetAllCategoriesWithStoresReque" +
+      "st\022\r\n\005limit\030\001 \001(\003\022\016\n\006offset\030\002 \001(\003\"d\n\"Get" +
+      "AllCategoriesWithStoresResponse\022>\n\ncateg" +
+      "ories\030\001 \003(\0132*.product_hub_front_meta.Cat" +
+      "egoryWithStores\"O\n+GetAllCategoriesWithS" +
+      "toresByCursorIDRequest\022\r\n\005limit\030\001 \001(\003\022\021\n" +
+      "\tcursor_id\030\002 \001(\003\"\201\001\n,GetAllCategoriesWit" +
+      "hStoresByCursorIDResponse\022>\n\ncategories\030" +
+      "\001 \003(\0132*.product_hub_front_meta.CategoryW" +
+      "ithStores\022\021\n\tcursor_id\030\002 \001(\003\"9\n!GetCateg" +
+      "oriesByCategoryIDsRequest\022\024\n\014category_id" +
+      "s\030\001 \003(\t\"Z\n\"GetCategoriesByCategoryIDsRes" +
+      "ponse\0224\n\ncategories\030\001 \003(\0132 .product_hub_" +
+      "front_meta.Category\">\n&GetCategoryFilter" +
+      "sByCategoryIDsRequest\022\024\n\014category_ids\030\001 " +
+      "\003(\t\"j\n\'GetCategoryFiltersByCategoryIDsRe" +
+      "sponse\022?\n\017CategoryFilters\030\001 \003(\0132&.produc" +
+      "t_hub_front_meta.CategoryFilter\"4\n\032GetAt" +
+      "tributesByKeysRequest\022\026\n\016attribute_keys\030" +
+      "\001 \003(\t\"T\n\033GetAttributesByKeysResponse\0225\n\n" +
+      "attributes\030\001 \003(\0132!.product_hub_front_met" +
+      "a.Attribute\"8\n\027GetAllAttributesRequest\022\r" +
+      "\n\005limit\030\001 \001(\003\022\016\n\006offset\030\002 \001(\003\"Q\n\030GetAllA" +
+      "ttributesResponse\0225\n\nattributes\030\001 \003(\0132!." +
+      "product_hub_front_meta.Attribute\":\n\031GetA" +
+      "llDictionariesRequest\022\r\n\005limit\030\001 \001(\003\022\016\n\006" +
+      "offset\030\002 \001(\003\"V\n\032GetAllDictionariesRespon" +
+      "se\0228\n\014dictionaries\030\001 \003(\0132\".product_hub_f" +
+      "ront_meta.Dictionary\"7\n\034GetDictionariesB" +
+      "yKeysRequest\022\027\n\017dictionary_keys\030\001 \003(\t\"Y\n" +
+      "\035GetDictionariesByKeysResponse\0228\n\014dictio" +
+      "naries\030\001 \003(\0132\".product_hub_front_meta.Di" +
+      "ctionary\"V\n\035GetAllDictionaryValuesReques" +
+      "t\022\026\n\016dictionary_key\030\001 \001(\t\022\r\n\005limit\030\002 \001(\003" +
+      "\022\016\n\006offset\030\003 \001(\003\"d\n\036GetAllDictionaryValu" +
+      "esResponse\022B\n\021dictionary_values\030\001 \003(\0132\'." +
+      "product_hub_front_meta.DictionaryValue\"@" +
+      "\n\037GetAllOriginalCategoriesRequest\022\r\n\005lim" +
+      "it\030\002 \001(\003\022\016\n\006offset\030\003 \001(\003\"i\n GetAllOrigin" +
+      "alCategoriesResponse\022E\n\023original_categor" +
+      "ies\030\001 \003(\0132(.product_hub_front_meta.Origi" +
+      "nalCategory\"9\n!GetOriginalCategoriesByID" +
+      "sRequest\022\024\n\014original_ids\030\001 \003(\t\"k\n\"GetOri" +
+      "ginalCategoriesByIDsResponse\022E\n\023original" +
+      "_categories\030\001 \003(\0132(.product_hub_front_me" +
+      "ta.OriginalCategory\"M\n)GetAllOriginalCat" +
+      "egoriesByCursorIDRequest\022\r\n\005limit\030\001 \001(\003\022" +
+      "\021\n\tcursor_id\030\002 \001(\003\"\206\001\n*GetAllOriginalCat" +
+      "egoriesByCursorIDResponse\022E\n\023original_ca" +
+      "tegories\030\001 \003(\0132(.product_hub_front_meta." +
+      "OriginalCategory\022\021\n\tcursor_id\030\002 \001(\003\"[\n(G" +
+      "etAllOriginalCategoriesByStoreIDRequest\022" +
+      "\020\n\010store_id\030\001 \001(\t\022\r\n\005limit\030\002 \001(\003\022\016\n\006offs" +
+      "et\030\003 \001(\003\"r\n)GetAllOriginalCategoriesBySt" +
+      "oreIDResponse\022E\n\023original_categories\030\001 \003" +
+      "(\0132(.product_hub_front_meta.OriginalCate" +
+      "gory\"0\n\030GetRetailerStoresRequest\022\024\n\014reta" +
+      "iler_ids\030\001 \003(\t\"\\\n\031GetRetailerStoresRespo" +
+      "nse\022?\n\017retailer_stores\030\001 \003(\0132&.product_h" +
+      "ub_front_meta.RetailerStores\"<\n\033GetAllRe" +
+      "tailerStoresRequest\022\r\n\005limit\030\001 \001(\003\022\016\n\006of" +
+      "fset\030\002 \001(\003\"^\n\034GetAllRetailerStoresRespon" +
+      "se\022>\n\017retailer_stores\030\001 \003(\0132%.product_hu" +
+      "b_front_meta.RetailerStore\"t\n$GetDiction" +
+      "aryAttributesValuesRequest\022L\n\nattributes" +
+      "\030\001 \003(\01328.product_hub_front_meta.Dictiona" +
+      "ryAttributeValuesRequest\"w\n%GetDictionar" +
+      "yAttributesValuesResponse\022N\n\nattributes\030" +
+      "\001 \003(\0132:.product_hub_front_meta.Dictionar" +
+      "yAttributesValuesResponse\"W\n DictionaryA" +
+      "ttributeValuesRequest\022\025\n\rattribute_key\030\001" +
+      " \001(\t\022\034\n\024dictionary_value_ids\030\002 \003(\t\"\261\002\n\"D" +
+      "ictionaryAttributesValuesResponse\022\025\n\ratt" +
+      "ribute_key\030\001 \001(\t\022\026\n\016attribute_name\030\002 \001(\t" +
+      "\022\026\n\016dictionary_key\030\003 \001(\t\022d\n\020dictionary_v" +
+      "alue\030\004 \003(\0132J.product_hub_front_meta.Dict" +
+      "ionaryAttributesValuesResponse.Dictionar" +
+      "yValue\032^\n\017DictionaryValue\022\n\n\002id\030\001 \001(\t\022\r\n" +
+      "\005value\030\002 \001(\t\0220\n\nvalue_data\030\003 \003(\0132\034.produ" +
+      "ct_hub_front_meta.Data\"\226\001\n\026GetPopulariti" +
+      "esRequest\022O\n\014popularities\030\001 \003(\01329.produc" +
+      "t_hub_front_meta.GetPopularitiesRequest." +
+      "Popularity\032+\n\nPopularity\022\013\n\003sku\030\001 \001(\003\022\020\n" +
+      "\010store_id\030\002 \001(\t\"\254\001\n\027GetPopularitiesRespo" +
+      "nse\022P\n\014popularities\030\001 \003(\0132:.product_hub_" +
+      "front_meta.GetPopularitiesResponse.Popul" +
+      "arity\032?\n\nPopularity\022\013\n\003sku\030\001 \001(\003\022\020\n\010stor" +
+      "e_id\030\002 \001(\t\022\022\n\npopularity\030\003 \001(\003\"4\n\037GetRet" +
+      "ailerIDsByStoreIDsRequest\022\021\n\tstore_ids\030\001" +
+      " \003(\003\"b\n GetRetailerIDsByStoreIDsResponse" +
+      "\022>\n\017retailer_stores\030\001 \003(\0132%.product_hub_" +
+      "front_meta.RetailerStore\"M\n&GetDictionar" +
+      "yValuesByPermalinksRequest\022#\n\033dictionary" +
+      "_value_permalinks\030\001 \003(\t\"\215\002\n\'GetDictionar" +
+      "yValuesByPermalinksResponse\022j\n\021dictionar" +
+      "y_values\030\001 \003(\0132O.product_hub_front_meta." +
+      "GetDictionaryValuesByPermalinksResponse." +
+      "DictionaryValue\032v\n\017DictionaryValue\022\n\n\002id" +
+      "\030\001 \001(\t\022\026\n\016dictionary_key\030\002 \001(\t\022\r\n\005value\030" +
+      "\003 \001(\t\0220\n\nvalue_data\030\004 \003(\0132\034.product_hub_" +
+      "front_meta.Data\".\n\026GetGetRetailersReques" +
+      "t\022\024\n\014retailer_ids\030\001 \003(\003\"\212\002\n\027GetGetRetail" +
+      "ersResponse\022K\n\tretailers\030\001 \003(\01328.product" +
+      "_hub_front_meta.GetGetRetailersResponse." +
+      "Retailer\032k\n\010Retailer\022\023\n\013retailer_id\030\001 \001(" +
+      "\003\022J\n\010vertical\030\002 \001(\01628.product_hub_front_" +
+      "meta.GetGetRetailersResponse.Vertical\"5\n" +
+      "\010Vertical\022\013\n\007GROCERY\020\000\022\014\n\010PHARMACY\020\001\022\016\n\n" +
+      "RESTAURANT\020\002*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n" +
+      "\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATE" +
+      "TIME\020\004\022\t\n\005IMAGE\020\005*.\n\006Status\022\013\n\007DISABLE\020\000" +
+      "\022\n\n\006ENABLE\020\001\022\013\n\007DELETED\020\0022\304%\n\023ProductHub" +
+      "FrontMeta\022\302\001\n\020GetAllCategories\022/.product" +
+      "_hub_front_meta.GetAllCategoriesRequest\032" +
+      "0.product_hub_front_meta.GetAllCategorie" +
+      "sResponse\"K\202\323\344\223\002E\"@/api/product_hub_fron" +
+      "t_meta.ProductHubFrontMeta/GetAllCategor" +
+      "ies:\001*\022\352\001\n\032GetAllCategoriesWithStores\0229." +
+      "product_hub_front_meta.GetAllCategoriesW" +
+      "ithStoresRequest\032:.product_hub_front_met" +
+      "a.GetAllCategoriesWithStoresResponse\"U\202\323" +
+      "\344\223\002O\"J/api/product_hub_front_meta.Produc" +
+      "tHubFrontMeta/GetAllCategoriesWithStores" +
+      ":\001*\022\222\002\n$GetAllCategoriesWithStoresByCurs" +
+      "orID\022C.product_hub_front_meta.GetAllCate" +
+      "goriesWithStoresByCursorIDRequest\032D.prod" +
+      "uct_hub_front_meta.GetAllCategoriesWithS" +
+      "toresByCursorIDResponse\"_\202\323\344\223\002Y\"T/api/pr" +
+      "oduct_hub_front_meta.ProductHubFrontMeta" +
+      "/GetAllCategoriesWithStoresByCursorID:\001*" +
+      "\022\352\001\n\032GetCategoriesByCategoryIDs\0229.produc" +
+      "t_hub_front_meta.GetCategoriesByCategory" +
+      "IDsRequest\032:.product_hub_front_meta.GetC" +
+      "ategoriesByCategoryIDsResponse\"U\202\323\344\223\002O\"J" +
+      "/api/product_hub_front_meta.ProductHubFr" +
+      "ontMeta/GetCategoriesByCategoryIDs:\001*\022\376\001" +
+      "\n\037GetCategoryFiltersByCategoryIDs\022>.prod" +
+      "uct_hub_front_meta.GetCategoryFiltersByC" +
+      "ategoryIDsRequest\032?.product_hub_front_me" +
+      "ta.GetCategoryFiltersByCategoryIDsRespon" +
+      "se\"Z\202\323\344\223\002T\"O/api/product_hub_front_meta." +
+      "ProductHubFrontMeta/GetCategoryFiltersBy" +
+      "CategoryIDs:\001*\022\316\001\n\023GetAttributesByKeys\0222" +
+      ".product_hub_front_meta.GetAttributesByK" +
+      "eysRequest\0323.product_hub_front_meta.GetA" +
+      "ttributesByKeysResponse\"N\202\323\344\223\002H\"C/api/pr" +
+      "oduct_hub_front_meta.ProductHubFrontMeta" +
+      "/GetAttributesByKeys:\001*\022\302\001\n\020GetAllAttrib" +
+      "utes\022/.product_hub_front_meta.GetAllAttr" +
+      "ibutesRequest\0320.product_hub_front_meta.G" +
+      "etAllAttributesResponse\"K\202\323\344\223\002E\"@/api/pr" +
+      "oduct_hub_front_meta.ProductHubFrontMeta" +
+      "/GetAllAttributes:\001*\022\312\001\n\022GetAllDictionar" +
+      "ies\0221.product_hub_front_meta.GetAllDicti" +
+      "onariesRequest\0322.product_hub_front_meta." +
+      "GetAllDictionariesResponse\"M\202\323\344\223\002G\"B/api" +
+      "/product_hub_front_meta.ProductHubFrontM" +
+      "eta/GetAllDictionaries:\001*\022\326\001\n\025GetDiction" +
+      "ariesByKeys\0224.product_hub_front_meta.Get" +
+      "DictionariesByKeysRequest\0325.product_hub_" +
+      "front_meta.GetDictionariesByKeysResponse" +
+      "\"P\202\323\344\223\002J\"E/api/product_hub_front_meta.Pr" +
+      "oductHubFrontMeta/GetDictionariesByKeys:" +
+      "\001*\022\332\001\n\026GetAllDictionaryValues\0225.product_" +
+      "hub_front_meta.GetAllDictionaryValuesReq" +
+      "uest\0326.product_hub_front_meta.GetAllDict" +
+      "ionaryValuesResponse\"Q\202\323\344\223\002K\"F/api/produ" +
+      "ct_hub_front_meta.ProductHubFrontMeta/Ge" +
+      "tAllDictionaryValues:\001*\022\342\001\n\030GetAllOrigin" +
+      "alCategories\0227.product_hub_front_meta.Ge" +
+      "tAllOriginalCategoriesRequest\0328.product_" +
+      "hub_front_meta.GetAllOriginalCategoriesR" +
+      "esponse\"S\202\323\344\223\002M\"H/api/product_hub_front_" +
+      "meta.ProductHubFrontMeta/GetAllOriginalC" +
+      "ategories:\001*\022\352\001\n\032GetOriginalCategoriesBy" +
+      "IDs\0229.product_hub_front_meta.GetOriginal" +
+      "CategoriesByIDsRequest\032:.product_hub_fro" +
+      "nt_meta.GetOriginalCategoriesByIDsRespon" +
+      "se\"U\202\323\344\223\002O\"J/api/product_hub_front_meta." +
+      "ProductHubFrontMeta/GetOriginalCategorie" +
+      "sByIDs:\001*\022\212\002\n\"GetAllOriginalCategoriesBy" +
+      "CursorID\022A.product_hub_front_meta.GetAll" +
+      "OriginalCategoriesByCursorIDRequest\032B.pr" +
       "oduct_hub_front_meta.GetAllOriginalCateg" +
-      "oriesRequest\0328.product_hub_front_meta.Ge" +
-      "tAllOriginalCategoriesResponse\022x\n\021GetRet" +
-      "ailerStores\0220.product_hub_front_meta.Get" +
-      "RetailerStoresRequest\0321.product_hub_fron" +
-      "t_meta.GetRetailerStoresResponse\022\234\001\n\035Get" +
-      "DictionaryAttributesValues\022<.product_hub" +
-      "_front_meta.GetDictionaryAttributesValue" +
-      "sRequest\032=.product_hub_front_meta.GetDic" +
-      "tionaryAttributesValuesResponseBXZVgitla" +
-      "b.sbermarket.tech/paas/content/product-h" +
-      "ub/pkg/server/grpc/product-hub-front-met" +
-      "ab\006proto3"
+      "oriesByCursorIDResponse\"]\202\323\344\223\002W\"R/api/pr" +
+      "oduct_hub_front_meta.ProductHubFrontMeta" +
+      "/GetAllOriginalCategoriesByCursorID:\001*\022\206" +
+      "\002\n!GetAllOriginalCategoriesByStoreID\022@.p" +
+      "roduct_hub_front_meta.GetAllOriginalCate" +
+      "goriesByStoreIDRequest\032A.product_hub_fro" +
+      "nt_meta.GetAllOriginalCategoriesByStoreI" +
+      "DResponse\"\\\202\323\344\223\002V\"Q/api/product_hub_fron" +
+      "t_meta.ProductHubFrontMeta/GetAllOrigina" +
+      "lCategoriesByStoreID:\001*\022\306\001\n\021GetRetailerS" +
+      "tores\0220.product_hub_front_meta.GetRetail" +
+      "erStoresRequest\0321.product_hub_front_meta" +
+      ".GetRetailerStoresResponse\"L\202\323\344\223\002F\"A/api" +
+      "/product_hub_front_meta.ProductHubFrontM" +
+      "eta/GetRetailerStores:\001*\022\322\001\n\024GetAllRetai" +
+      "lerStores\0223.product_hub_front_meta.GetAl" +
+      "lRetailerStoresRequest\0324.product_hub_fro" +
+      "nt_meta.GetAllRetailerStoresResponse\"O\202\323" +
+      "\344\223\002I\"D/api/product_hub_front_meta.Produc" +
+      "tHubFrontMeta/GetAllRetailerStores:\001*\022\366\001" +
+      "\n\035GetDictionaryAttributesValues\022<.produc" +
+      "t_hub_front_meta.GetDictionaryAttributes" +
+      "ValuesRequest\032=.product_hub_front_meta.G" +
+      "etDictionaryAttributesValuesResponse\"X\202\323" +
+      "\344\223\002R\"M/api/product_hub_front_meta.Produc" +
+      "tHubFrontMeta/GetDictionaryAttributesVal" +
+      "ues:\001*\022\276\001\n\017GetPopularities\022..product_hub" +
+      "_front_meta.GetPopularitiesRequest\032/.pro" +
+      "duct_hub_front_meta.GetPopularitiesRespo" +
+      "nse\"J\202\323\344\223\002D\"?/api/product_hub_front_meta" +
+      ".ProductHubFrontMeta/GetPopularities:\001*\022" +
+      "\342\001\n\030GetRetailerIDsByStoreIDs\0227.product_h" +
+      "ub_front_meta.GetRetailerIDsByStoreIDsRe" +
+      "quest\0328.product_hub_front_meta.GetRetail" +
+      "erIDsByStoreIDsResponse\"S\202\323\344\223\002M\"H/api/pr" +
+      "oduct_hub_front_meta.ProductHubFrontMeta" +
+      "/GetRetailerIDsByStoreIDs:\001*\022\376\001\n\037GetDict" +
+      "ionaryValuesByPermalinks\022>.product_hub_f" +
+      "ront_meta.GetDictionaryValuesByPermalink" +
+      "sRequest\032?.product_hub_front_meta.GetDic" +
+      "tionaryValuesByPermalinksResponse\"Z\202\323\344\223\002" +
+      "T\"O/api/product_hub_front_meta.ProductHu" +
+      "bFrontMeta/GetDictionaryValuesByPermalin" +
+      "ks:\001*\022\270\001\n\014GetRetailers\022..product_hub_fro" +
+      "nt_meta.GetGetRetailersRequest\032/.product" +
+      "_hub_front_meta.GetGetRetailersResponse\"" +
+      "G\202\323\344\223\002A\"</api/product_hub_front_meta.Pro" +
+      "ductHubFrontMeta/GetRetailers:\001*BPZNgitl" +
+      "ab.sbmt.io/paas/content/product-hub/pkg/" +
+      "server/grpc/product-hub-front-metab\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.api.AnnotationsProto.getDescriptor(),
+          com.google.protobuf.WrappersProto.getDescriptor(),
         });
     internal_static_product_hub_front_meta_Data_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -37412,14 +54715,20 @@ public final class ProductHubFrontMetaOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_RetailerStores_descriptor,
         new java.lang.String[] { "RetailerId", "StoreIds", });
-    internal_static_product_hub_front_meta_CategoryFilter_descriptor =
+    internal_static_product_hub_front_meta_RetailerStore_descriptor =
       getDescriptor().getMessageTypes().get(4);
+    internal_static_product_hub_front_meta_RetailerStore_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_RetailerStore_descriptor,
+        new java.lang.String[] { "RetailerId", "StoreId", });
+    internal_static_product_hub_front_meta_CategoryFilter_descriptor =
+      getDescriptor().getMessageTypes().get(5);
     internal_static_product_hub_front_meta_CategoryFilter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_CategoryFilter_descriptor,
         new java.lang.String[] { "CategoryId", "AttributeKeys", "UpdatedAt", });
     internal_static_product_hub_front_meta_Attribute_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_product_hub_front_meta_Attribute_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_Attribute_descriptor,
@@ -37431,181 +54740,241 @@ public final class ProductHubFrontMetaOuterClass {
         internal_static_product_hub_front_meta_Attribute_FlagsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_product_hub_front_meta_Dictionary_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_product_hub_front_meta_Dictionary_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_Dictionary_descriptor,
         new java.lang.String[] { "Key", "Name", "Type", "UpdatedAt", "DictionaryData", });
     internal_static_product_hub_front_meta_DictionaryValue_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_product_hub_front_meta_DictionaryValue_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_DictionaryValue_descriptor,
         new java.lang.String[] { "Id", "Value", "ValueData", "UpdatedAt", "AdditionalDictionaryValues", });
     internal_static_product_hub_front_meta_AdditionalDictionaryValue_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_product_hub_front_meta_AdditionalDictionaryValue_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_AdditionalDictionaryValue_descriptor,
         new java.lang.String[] { "Id", "DictionaryKey", "Value", "ValueData", });
     internal_static_product_hub_front_meta_OriginalCategory_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_product_hub_front_meta_OriginalCategory_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_OriginalCategory_descriptor,
         new java.lang.String[] { "Id", "OriginalId", "InstamartId", "Permalink", "ParentId", "Published", "IsPromoted", });
     internal_static_product_hub_front_meta_GetAllCategoriesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_product_hub_front_meta_GetAllCategoriesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllCategoriesRequest_descriptor,
         new java.lang.String[] { "Limit", "Offset", });
     internal_static_product_hub_front_meta_GetAllCategoriesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_product_hub_front_meta_GetAllCategoriesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllCategoriesResponse_descriptor,
         new java.lang.String[] { "Categories", });
     internal_static_product_hub_front_meta_GetAllCategoriesWithStoresRequest_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_product_hub_front_meta_GetAllCategoriesWithStoresRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllCategoriesWithStoresRequest_descriptor,
         new java.lang.String[] { "Limit", "Offset", });
     internal_static_product_hub_front_meta_GetAllCategoriesWithStoresResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_product_hub_front_meta_GetAllCategoriesWithStoresResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllCategoriesWithStoresResponse_descriptor,
         new java.lang.String[] { "Categories", });
+    internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDRequest_descriptor,
+        new java.lang.String[] { "Limit", "CursorId", });
+    internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetAllCategoriesWithStoresByCursorIDResponse_descriptor,
+        new java.lang.String[] { "Categories", "CursorId", });
     internal_static_product_hub_front_meta_GetCategoriesByCategoryIDsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_product_hub_front_meta_GetCategoriesByCategoryIDsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetCategoriesByCategoryIDsRequest_descriptor,
         new java.lang.String[] { "CategoryIds", });
     internal_static_product_hub_front_meta_GetCategoriesByCategoryIDsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_product_hub_front_meta_GetCategoriesByCategoryIDsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetCategoriesByCategoryIDsResponse_descriptor,
         new java.lang.String[] { "Categories", });
     internal_static_product_hub_front_meta_GetCategoryFiltersByCategoryIDsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_product_hub_front_meta_GetCategoryFiltersByCategoryIDsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetCategoryFiltersByCategoryIDsRequest_descriptor,
         new java.lang.String[] { "CategoryIds", });
     internal_static_product_hub_front_meta_GetCategoryFiltersByCategoryIDsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_product_hub_front_meta_GetCategoryFiltersByCategoryIDsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetCategoryFiltersByCategoryIDsResponse_descriptor,
         new java.lang.String[] { "CategoryFilters", });
     internal_static_product_hub_front_meta_GetAttributesByKeysRequest_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_product_hub_front_meta_GetAttributesByKeysRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAttributesByKeysRequest_descriptor,
         new java.lang.String[] { "AttributeKeys", });
     internal_static_product_hub_front_meta_GetAttributesByKeysResponse_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_product_hub_front_meta_GetAttributesByKeysResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAttributesByKeysResponse_descriptor,
         new java.lang.String[] { "Attributes", });
     internal_static_product_hub_front_meta_GetAllAttributesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_product_hub_front_meta_GetAllAttributesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllAttributesRequest_descriptor,
         new java.lang.String[] { "Limit", "Offset", });
     internal_static_product_hub_front_meta_GetAllAttributesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_product_hub_front_meta_GetAllAttributesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllAttributesResponse_descriptor,
         new java.lang.String[] { "Attributes", });
     internal_static_product_hub_front_meta_GetAllDictionariesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_product_hub_front_meta_GetAllDictionariesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllDictionariesRequest_descriptor,
         new java.lang.String[] { "Limit", "Offset", });
     internal_static_product_hub_front_meta_GetAllDictionariesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_product_hub_front_meta_GetAllDictionariesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllDictionariesResponse_descriptor,
         new java.lang.String[] { "Dictionaries", });
     internal_static_product_hub_front_meta_GetDictionariesByKeysRequest_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_product_hub_front_meta_GetDictionariesByKeysRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetDictionariesByKeysRequest_descriptor,
         new java.lang.String[] { "DictionaryKeys", });
     internal_static_product_hub_front_meta_GetDictionariesByKeysResponse_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_product_hub_front_meta_GetDictionariesByKeysResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetDictionariesByKeysResponse_descriptor,
         new java.lang.String[] { "Dictionaries", });
     internal_static_product_hub_front_meta_GetAllDictionaryValuesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_product_hub_front_meta_GetAllDictionaryValuesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllDictionaryValuesRequest_descriptor,
         new java.lang.String[] { "DictionaryKey", "Limit", "Offset", });
     internal_static_product_hub_front_meta_GetAllDictionaryValuesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_product_hub_front_meta_GetAllDictionaryValuesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllDictionaryValuesResponse_descriptor,
         new java.lang.String[] { "DictionaryValues", });
     internal_static_product_hub_front_meta_GetAllOriginalCategoriesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_product_hub_front_meta_GetAllOriginalCategoriesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllOriginalCategoriesRequest_descriptor,
         new java.lang.String[] { "Limit", "Offset", });
     internal_static_product_hub_front_meta_GetAllOriginalCategoriesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_product_hub_front_meta_GetAllOriginalCategoriesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetAllOriginalCategoriesResponse_descriptor,
         new java.lang.String[] { "OriginalCategories", });
+    internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(33);
+    internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsRequest_descriptor,
+        new java.lang.String[] { "OriginalIds", });
+    internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(34);
+    internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetOriginalCategoriesByIDsResponse_descriptor,
+        new java.lang.String[] { "OriginalCategories", });
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_descriptor =
+      getDescriptor().getMessageTypes().get(35);
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDRequest_descriptor,
+        new java.lang.String[] { "Limit", "CursorId", });
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_descriptor =
+      getDescriptor().getMessageTypes().get(36);
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetAllOriginalCategoriesByCursorIDResponse_descriptor,
+        new java.lang.String[] { "OriginalCategories", "CursorId", });
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_descriptor =
+      getDescriptor().getMessageTypes().get(37);
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDRequest_descriptor,
+        new java.lang.String[] { "StoreId", "Limit", "Offset", });
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_descriptor =
+      getDescriptor().getMessageTypes().get(38);
+    internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetAllOriginalCategoriesByStoreIDResponse_descriptor,
+        new java.lang.String[] { "OriginalCategories", });
     internal_static_product_hub_front_meta_GetRetailerStoresRequest_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(39);
     internal_static_product_hub_front_meta_GetRetailerStoresRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetRetailerStoresRequest_descriptor,
         new java.lang.String[] { "RetailerIds", });
     internal_static_product_hub_front_meta_GetRetailerStoresResponse_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(40);
     internal_static_product_hub_front_meta_GetRetailerStoresResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetRetailerStoresResponse_descriptor,
         new java.lang.String[] { "RetailerStores", });
+    internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_descriptor =
+      getDescriptor().getMessageTypes().get(41);
+    internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetAllRetailerStoresRequest_descriptor,
+        new java.lang.String[] { "Limit", "Offset", });
+    internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_descriptor =
+      getDescriptor().getMessageTypes().get(42);
+    internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetAllRetailerStoresResponse_descriptor,
+        new java.lang.String[] { "RetailerStores", });
     internal_static_product_hub_front_meta_GetDictionaryAttributesValuesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(43);
     internal_static_product_hub_front_meta_GetDictionaryAttributesValuesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetDictionaryAttributesValuesRequest_descriptor,
         new java.lang.String[] { "Attributes", });
     internal_static_product_hub_front_meta_GetDictionaryAttributesValuesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(44);
     internal_static_product_hub_front_meta_GetDictionaryAttributesValuesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_GetDictionaryAttributesValuesResponse_descriptor,
         new java.lang.String[] { "Attributes", });
     internal_static_product_hub_front_meta_DictionaryAttributeValuesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(45);
     internal_static_product_hub_front_meta_DictionaryAttributeValuesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_DictionaryAttributeValuesRequest_descriptor,
         new java.lang.String[] { "AttributeKey", "DictionaryValueIds", });
     internal_static_product_hub_front_meta_DictionaryAttributesValuesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(46);
     internal_static_product_hub_front_meta_DictionaryAttributesValuesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_DictionaryAttributesValuesResponse_descriptor,
@@ -37616,6 +54985,85 @@ public final class ProductHubFrontMetaOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_meta_DictionaryAttributesValuesResponse_DictionaryValue_descriptor,
         new java.lang.String[] { "Id", "Value", "ValueData", });
+    internal_static_product_hub_front_meta_GetPopularitiesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(47);
+    internal_static_product_hub_front_meta_GetPopularitiesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetPopularitiesRequest_descriptor,
+        new java.lang.String[] { "Popularities", });
+    internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_descriptor =
+      internal_static_product_hub_front_meta_GetPopularitiesRequest_descriptor.getNestedTypes().get(0);
+    internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetPopularitiesRequest_Popularity_descriptor,
+        new java.lang.String[] { "Sku", "StoreId", });
+    internal_static_product_hub_front_meta_GetPopularitiesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(48);
+    internal_static_product_hub_front_meta_GetPopularitiesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetPopularitiesResponse_descriptor,
+        new java.lang.String[] { "Popularities", });
+    internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_descriptor =
+      internal_static_product_hub_front_meta_GetPopularitiesResponse_descriptor.getNestedTypes().get(0);
+    internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetPopularitiesResponse_Popularity_descriptor,
+        new java.lang.String[] { "Sku", "StoreId", "Popularity", });
+    internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(49);
+    internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsRequest_descriptor,
+        new java.lang.String[] { "StoreIds", });
+    internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(50);
+    internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetRetailerIDsByStoreIDsResponse_descriptor,
+        new java.lang.String[] { "RetailerStores", });
+    internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_descriptor =
+      getDescriptor().getMessageTypes().get(51);
+    internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksRequest_descriptor,
+        new java.lang.String[] { "DictionaryValuePermalinks", });
+    internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_descriptor =
+      getDescriptor().getMessageTypes().get(52);
+    internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_descriptor,
+        new java.lang.String[] { "DictionaryValues", });
+    internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_descriptor =
+      internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_descriptor.getNestedTypes().get(0);
+    internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetDictionaryValuesByPermalinksResponse_DictionaryValue_descriptor,
+        new java.lang.String[] { "Id", "DictionaryKey", "Value", "ValueData", });
+    internal_static_product_hub_front_meta_GetGetRetailersRequest_descriptor =
+      getDescriptor().getMessageTypes().get(53);
+    internal_static_product_hub_front_meta_GetGetRetailersRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetGetRetailersRequest_descriptor,
+        new java.lang.String[] { "RetailerIds", });
+    internal_static_product_hub_front_meta_GetGetRetailersResponse_descriptor =
+      getDescriptor().getMessageTypes().get(54);
+    internal_static_product_hub_front_meta_GetGetRetailersResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetGetRetailersResponse_descriptor,
+        new java.lang.String[] { "Retailers", });
+    internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_descriptor =
+      internal_static_product_hub_front_meta_GetGetRetailersResponse_descriptor.getNestedTypes().get(0);
+    internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_front_meta_GetGetRetailersResponse_Retailer_descriptor,
+        new java.lang.String[] { "RetailerId", "Vertical", });
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.api.AnnotationsProto.http);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
+    com.google.api.AnnotationsProto.getDescriptor();
+    com.google.protobuf.WrappersProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

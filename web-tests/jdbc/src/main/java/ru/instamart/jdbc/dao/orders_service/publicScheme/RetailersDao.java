@@ -1,12 +1,10 @@
-package ru.instamart.jdbc.dao.orders_service;
+package ru.instamart.jdbc.dao.orders_service.publicScheme;
 
 import ru.instamart.jdbc.dao.Dao;
-import ru.instamart.jdbc.entity.order_service.RetailersEntity;
+import ru.instamart.jdbc.entity.order_service.publicScheme.RetailersEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
-import ru.instamart.k8s.rails_response.model.Retailer;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +14,7 @@ import static org.testng.Assert.fail;
 public class RetailersDao implements Dao<String, RetailersEntity> {
 
     public static final RetailersDao INSTANCE = new RetailersDao();
-    private final String SELECT_SQL = "SELECT %s FROM retailers";
+    private final String SELECT_SQL = "SELECT %s FROM public.retailers";
 
     @Override
     public boolean delete(String id) {

@@ -12,14 +12,13 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.jdbc.dao.orders_service.OrdersDao;
-import ru.instamart.jdbc.dao.orders_service.PlaceSettingsDao;
-import ru.instamart.jdbc.entity.order_service.OrdersEntity;
+import ru.instamart.jdbc.dao.orders_service.publicScheme.OrdersDao;
+import ru.instamart.jdbc.dao.orders_service.publicScheme.PlaceSettingsDao;
+import ru.instamart.jdbc.entity.order_service.publicScheme.OrdersEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 import io.qameta.allure.TmsLink;
 

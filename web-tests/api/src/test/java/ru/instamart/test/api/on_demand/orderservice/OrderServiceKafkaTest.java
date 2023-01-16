@@ -17,8 +17,8 @@ import org.testng.asserts.SoftAssert;
 import protobuf.order_data.OrderOuterClass;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
-import ru.instamart.jdbc.dao.orders_service.*;
-import ru.instamart.jdbc.entity.order_service.RetailersEntity;
+import ru.instamart.jdbc.dao.orders_service.publicScheme.*;
+import ru.instamart.jdbc.entity.order_service.publicScheme.RetailersEntity;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.UUID;

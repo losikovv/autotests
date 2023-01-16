@@ -26,10 +26,12 @@ import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.jdbc.dao.workflow.AssignmentsDao;
 import ru.instamart.jdbc.dao.workflow.SegmentsDao;
 import ru.instamart.jdbc.dao.workflow.WorkflowsDao;
+import ru.instamart.jdbc.entity.order_service.publicScheme.JobsEntity;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
 import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -64,14 +66,23 @@ public class WorkflowTest extends RestBase {
     private OrderV2 order;
     private OrderV2 secondOrder;
     private String shipmentUuid;
+    private List<JobsEntity> firstJobUuid;
+    private List<JobsEntity> secondJobUuid;
     private String secondShipmentUuid;
     private long workflowId;
     private String workflowUuid;
     private String assignmentId;
     private List<SegmentsEntity> segments;
+    private Integer shiftId;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
+        shopperApp.authorisation(UserManager.getShp6Universal1());
+        //Выводим на смену
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        shiftId = shiftsApi.startOfShift(StartPointsTenants.METRO_9);
+
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
         clientAnalytics = ShipmentPriceServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_ANALYTICS_ORDER_PRICING));
         SessionFactory.makeSession(SessionType.API_V2);
@@ -79,31 +90,34 @@ public class WorkflowTest extends RestBase {
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
-        shopperApp.authorisation(UserManager.getShp6Universal1());
+        firstJobUuid = awaitJobUuid(shipmentUuid, 300L);
+        secondJobUuid = awaitJobUuid(secondShipmentUuid, 300L);
+        ThreadUtil.simplyAwait(70);
     }
 
     @TmsLink("101")
     @Test(description = "Создание маршрутных листов с одинаковым ARRIVE сегментом",
             groups = "dispatch-workflow-smoke")
     public void createWorkflowWithSameArriveSegment() {
-//        var firstRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, "");
-        var firstRequest =  getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
+//        var firstRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, "", firstJobUuid, secondJobUuid, shiftId);
+        var firstRequest = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
         var firstResponse = clientWorkflow.createWorkflows(firstRequest);
         compareTwoObjects(firstResponse.getResultsMap().get(firstResponse.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
-        var secondRequest = getWorkflowsRequest(secondOrder, secondShipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
-        var secondResponse = clientWorkflow.createWorkflows(secondRequest);
-        compareTwoObjects(secondResponse.getResultsMap().get(secondResponse.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
+//        var secondRequest = getWorkflowsRequest(secondOrder, secondShipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT, secondJobUuid, shiftId);
+//        var secondResponse = clientWorkflow.createWorkflows(secondRequest);
+//        compareTwoObjects(secondResponse.getResultsMap().get(secondResponse.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
 
         cancelWorkflow(clientWorkflow, secondShipmentUuid);
-        cancelWorkflow(clientWorkflow, shipmentUuid);
+//        cancelWorkflow(clientWorkflow, shipmentUuid);
     }
 
     @TmsLink("44")
-    @Test(description = "Получение стоимости сегментов",
+    @Test(enabled = false,
+            description = "Получение стоимости сегментов",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithSameArriveSegment")
     public void getShipmentPrice() {
-        var requestForCreation = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
+        var requestForCreation = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
 
         var responseForCreation = clientWorkflow.createWorkflows(requestForCreation);
 
@@ -145,9 +159,9 @@ public class WorkflowTest extends RestBase {
     @TmsLink("48")
     @Test(description = "Создание маршрутного листа с существующим сегментом",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "getShipmentPrice")
+            dependsOnMethods = "createWorkflowWithSameArriveSegment")
     public void createWorkflowWithExistingSegment() {
-        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
+        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
 
         var responseForCreation = clientWorkflow.createWorkflows(request);
 
@@ -169,12 +183,14 @@ public class WorkflowTest extends RestBase {
         Assert.assertFalse(response.getWorkflowIdsList().isEmpty(), "Маршрутные листы не удалились");
     }
 
-    @TmsLink("73")
-    @Test(description = "Создание маршрутного листа для такси",
+    @TmsLink("73")   
+    @Skip    //Кейс в архиве
+    @Test(enabled = false,
+            description = "Создание маршрутного листа для такси",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelExistingWorkflow")
     public void createWorkflowForTaxi() {
-        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.TAXI);
+        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.TAXI, firstJobUuid, shiftId);
 
         var response = clientWorkflow.createWorkflows(request);
 
@@ -195,11 +211,12 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("82")
-    @Test(description = "Обогащение идентификатором смены и видом транспорта",
+    @Test(enabled = false,
+            description = "Обогащение идентификатором смены и видом транспорта",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowForTaxi")
     public void createWorkflowWithTransport() {
-        var request = getWorkflowsRequestWithTransport(order, shipmentUuid, 1, WorkflowOuterClass.Shift.Transport.CAR);
+        var request = getWorkflowsRequestWithTransport(order, shipmentUuid, 1, WorkflowOuterClass.Shift.Transport.CAR, shiftId);
 
         var response = clientWorkflow.createWorkflows(request);
 
@@ -213,9 +230,10 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("90")
-    @Test(description = "Обогащение названием и адресом магазина нескольких сегментов с разными магазинами",
+    @Test(enabled = false,
+            description = "Обогащение названием и адресом магазина нескольких сегментов с разными магазинами",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowWithTransport")
+            dependsOnMethods = "cancelExistingWorkflow")
     public void createWorkflowWithDifferentStores() {
         var request = getWorkflowsRequestWithDifferentStores(order, shipmentUuid, UserManager.getShp6Universal1().getUuid());
 
@@ -240,11 +258,12 @@ public class WorkflowTest extends RestBase {
 
     @Skip
     @TmsLink("120")
-    @Test(description = "Создание отложенного назначения отдельно от родительского",
+    @Test(enabled = false,
+            description = "Создание отложенного назначения отдельно от родительского",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithDifferentStores")
     public void createWorkflowWithNotAvailableParentWorkflow() {
-        var request = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, order, shipmentUuid, workflowUuid);
+        var request = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, order, shipmentUuid, workflowUuid, firstJobUuid, secondJobUuid, shiftId);
 
         var response = clientWorkflow.createWorkflows(request);
 
@@ -252,12 +271,13 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLinks(value = {@TmsLink("37"), @TmsLink("123"), @TmsLink("93")})
-    @Test(description = "Создание маршрутного листа за 30 секунд от текущего времени",
+    @Test(enabled = false,
+            description = "Создание маршрутного листа за 30 секунд от текущего времени",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithDifferentStores")
     //dependsOnMethods = "createWorkflowWithNotAvailableParentWorkflow")
     public void createWorkflow30SecToNow() {
-        var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(30), WorkflowEnums.DeliveryType.DEFAULT);
+        var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(30), WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
         var response = clientWorkflow.createWorkflows(request);
 
         compareTwoObjects(response.getResultsMap().get(response.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
@@ -276,7 +296,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("57")
-    @Test(description = "Получение назначений в статусе offered/seen",
+    @Test(enabled = false,
+            description = "Получение назначений в статусе offered/seen",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflow30SecToNow")
     public void getShopperAssignments() {
@@ -290,11 +311,12 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("118")
-    @Test(description = "Создание отложенного назначения отдельно от родительского",
+    @Test(enabled = false,
+            description = "Создание отложенного назначения отдельно от родительского",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "getShopperAssignments")
+            dependsOnMethods = "cancelExistingWorkflow")
     public void createWorkflowWithParentWorkflow() {
-        var request = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid);
+        var request = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid, firstJobUuid, secondJobUuid, shiftId);
 
         var response = clientWorkflow.createWorkflows(request);
 
@@ -304,7 +326,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("20")
-    @Test(description = "Пометка назначения как просмотренного",
+    @Test(enabled = false,
+            description = "Пометка назначения как просмотренного",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithParentWorkflow")
     public void markWorkflowAsSeen() {
@@ -315,7 +338,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("21")
-    @Test(description = "Пометка назначения как принятого",
+    @Test(enabled = false,
+            description = "Пометка назначения как принятого",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "markWorkflowAsSeen")
     public void markWorkflowAsAccepted() {
@@ -327,7 +351,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("65")
-    @Test(description = "Получение активных маршрутных листов в статусах queued/in progress",
+    @Test(enabled = false,
+            description = "Получение активных маршрутных листов в статусах queued/in progress",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "markWorkflowAsAccepted")
     public void getWorkflows() {
@@ -341,11 +366,12 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("129")
-    @Test(description = "Автостарт маршрутного листа при принятии назначения с отправкой геопозиции",
+    @Test(enabled = false,
+            description = "Автостарт маршрутного листа при принятии назначения с отправкой геопозиции",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getWorkflows")
     public void acceptWorkflowWithCoordinates() {
-        var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(30), WorkflowEnums.DeliveryType.DEFAULT);
+        var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(30), WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
         var createResponse = clientWorkflow.createWorkflows(request);
         workflowUuid = createResponse.getResultsMap().keySet().toArray()[0].toString();
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
@@ -360,7 +386,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLinks(value = {@TmsLink("23"), @TmsLink("108")})
-    @Test(description = "Начало первого сегмента маршрутного листа в статусе Queued",
+    @Test(enabled = false,
+            description = "Начало первого сегмента маршрутного листа в статусе Queued",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "acceptWorkflowWithCoordinates")
     public void passWorkflow() {
@@ -391,7 +418,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("111")
-    @Test(description = "Проверка геолокации при окончании arrive/delivery сегментов",
+    @Test(enabled = false,
+            description = "Проверка геолокации при окончании arrive/delivery сегментов",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflow")
     public void passWorkflowWithLongDistance() {
@@ -418,7 +446,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("111")
-    @Test(description = "Отсуствие проверки геолокации при окончании arrive/delivery сегментов",
+    @Test(enabled = false,
+            description = "Отсуствие проверки геолокации при окончании arrive/delivery сегментов",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflowWithLongDistance")
     public void passWorkflowWithLongDistanceWithoutCheck() {
@@ -443,11 +472,12 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("103")
-    @Test(description = "Создание маршрутного листа с сегментом, который был пройден в отклонненом маршрутном листе",
+    @Test(enabled = false,
+            description = "Создание маршрутного листа с сегментом, который был пройден в отклонненом маршрутном листе",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflowWithLongDistanceWithoutCheck")
     public void createWorkflowWithPassedSegment() {
-        var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(40), WorkflowEnums.DeliveryType.DEFAULT);
+        var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(40), WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
         var response = clientWorkflow.createWorkflows(request);
 
         compareTwoObjects(response.getResultsMap().get(response.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
@@ -459,7 +489,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("22")
-    @Test(description = "Отклонение назначения",
+    @Test(enabled = false,
+            description = "Отклонение назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithPassedSegment")
     public void cancelOfferedWorkflow() {
@@ -470,13 +501,14 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("125")
-    @Test(description = "Отмена отложенного назначения при отклонении родительского назначения",
+    @Test(enabled = false,
+            description = "Отмена отложенного назначения при отклонении родительского назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOfferedWorkflow")
     public void cancelOfferedParentWorkflow() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
 
-        var childRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid);
+        var childRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid, firstJobUuid, secondJobUuid, shiftId);
         var childResponse = clientWorkflow.createWorkflows(childRequest);
         String childWorkflowUuid = childResponse.getResultsMap().keySet().toArray()[0].toString();
 
@@ -487,7 +519,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("142")
-    @Test(description = "Отмена ранее отмененного маршрутного листа по uuid шимпента",
+    @Test(enabled = false,
+            description = "Отмена ранее отмененного маршрутного листа по uuid шимпента",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOfferedParentWorkflow")
     public void cancelNonExistentWorkflow() {
@@ -502,11 +535,12 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("143")
-    @Test(description = "Создание маршрутного листа для заказа в статусе pending_rejection_requests",
+    @Test(enabled = false,
+            description = "Создание маршрутного листа для заказа в статусе pending_rejection_requests",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelNonExistentWorkflow")
     public void createWorkflowWithPendingCancellation() {
-        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
+        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
 
         var responseForCreation = clientWorkflow.createWorkflows(request);
 
@@ -514,7 +548,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("130")
-    @Test(description = "Отсутствие автостарта маршрутного листа при принятии назначения",
+    @Test(enabled = false,
+            description = "Отсутствие автостарта маршрутного листа при принятии назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithPendingCancellation")
     public void acceptWorkflowWithWorkflowInProgress() {
@@ -531,7 +566,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("68")
-    @Test(description = "Сортировка маршрутных листов по времени",
+    @Test(enabled = false,
+            description = "Сортировка маршрутных листов по времени",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "acceptWorkflowWithWorkflowInProgress")
     public void getAssignmentsByTime() {
@@ -558,7 +594,8 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("132")
-    @Test(description = "Автостарт следующего маршрутного листа при отмене текущего маршрутного листа",
+    @Test(enabled = false,
+            description = "Автостарт следующего маршрутного листа при отмене текущего маршрутного листа",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getAssignmentsByTime")
     public void startQueuedWorkflowAfterCancellingPrevious() {

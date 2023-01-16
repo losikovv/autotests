@@ -1,15 +1,27 @@
 syntax = "proto3";
 
 package product_hub_front_meta;
+option go_package = "gitlab.sbmt.io/paas/content/product-hub/pkg/server/grpc/product-hub-front-meta";
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
 
-option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/grpc/product-hub-front-meta";
 
-/**
+
+/*
  * slack:
  *    #product-hub
  *
- * swagger:
+ * base:
+ *     base-product-hub.paas-content-product-hub:3009
+ *
+ * local:
+ *     base-product-hub.paas-content-product-hub.svc.cluster.local:3009
+ *
+ * swagger prod:
  *     https://paas-content-product-hub.sbmt.io/api
+ *
+ * swagger stg:
+ *     https://paas-content-product-hub.gw-stage.sbmt.io/api
  *
  * public prod grpc uri:
  *    paas-content-product-hub.sbmt.io:443
@@ -23,10 +35,12 @@ option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/
  * description:
  *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
  *    Предназначет для real-time нагрузки.
+ *
+ *    Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
  */
 service ProductHubFrontMeta {
-  /**
-   * Возвращает плоский список всех категорий батчами (без спецпредложений).
+  /*
+   * Возвращает плоский список всех категорий батчами (без спецпредложений)
    *
    * Обязательные параметры:
    *    limit - кол-во запрашиваемых элементов
@@ -36,10 +50,16 @@ service ProductHubFrontMeta {
    *    Вернуть все категории:
    *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategories
    */
-  rpc GetAllCategories(GetAllCategoriesRequest) returns (GetAllCategoriesResponse);
+  rpc GetAllCategories(GetAllCategoriesRequest) returns (GetAllCategoriesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllCategories"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений).
+  /*
+   * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
    *
    * Обязательные параметры:
    *    limit - кол-во запрашиваемых элементов
@@ -49,10 +69,35 @@ service ProductHubFrontMeta {
    *    Вернуть все категории:
    *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStores
    */
-  rpc GetAllCategoriesWithStores(GetAllCategoriesWithStoresRequest) returns (GetAllCategoriesWithStoresResponse);
+  rpc GetAllCategoriesWithStores(GetAllCategoriesWithStoresRequest) returns (GetAllCategoriesWithStoresResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllCategoriesWithStores"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает экземпляры категорий по идентификаторам.
+  /*
+   * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
+   *
+   * Обязательные параметры:
+   *    limit - кол-во запрашиваемых элементов
+   *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+   *
+   * Примеры:
+   *    Вернуть все категории:
+   *        grpcurl -d '{"limit": 10, "cursor_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStoresByCursorID
+   */
+  rpc GetAllCategoriesWithStoresByCursorID(GetAllCategoriesWithStoresByCursorIDRequest) returns (GetAllCategoriesWithStoresByCursorIDResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllCategoriesWithStoresByCursorID"
+      body: "*"
+    };
+  }
+
+  /*
+   * Возвращает экземпляры категорий по идентификаторам
    *
    * Обязательные параметры:
    *    category_ids - идентификатор категории
@@ -61,10 +106,16 @@ service ProductHubFrontMeta {
    *    Вернуть категории по ид:
    *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoriesByCategoryIDs
    */
-  rpc GetCategoriesByCategoryIDs(GetCategoriesByCategoryIDsRequest) returns (GetCategoriesByCategoryIDsResponse);
+  rpc GetCategoriesByCategoryIDs(GetCategoriesByCategoryIDsRequest) returns (GetCategoriesByCategoryIDsResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetCategoriesByCategoryIDs"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров.
+  /*
+   * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров
    *
    * Обязательные параметры:
    *    category_ids - идентификатор категории
@@ -73,10 +124,16 @@ service ProductHubFrontMeta {
    *    Вернуть ключи атрибутов по ид категорий:
    *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoryFiltersByCategoryIDs
    */
-  rpc GetCategoryFiltersByCategoryIDs(GetCategoryFiltersByCategoryIDsRequest) returns (GetCategoryFiltersByCategoryIDsResponse);
+  rpc GetCategoryFiltersByCategoryIDs(GetCategoryFiltersByCategoryIDsRequest) returns (GetCategoryFiltersByCategoryIDsResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetCategoryFiltersByCategoryIDs"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает экземпляры атрибутов по ключам.
+  /*
+   * Возвращает экземпляры атрибутов по ключам
    *
    * Обязательные параметры:
    *    attribute_keys - ключи атрибутов
@@ -85,10 +142,16 @@ service ProductHubFrontMeta {
    *    Вернуть экземпляры атрибутов:
    *        grpcurl -d '{"attribute_keys": ["brand", "image"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAttributesByKeys
    */
-  rpc GetAttributesByKeys(GetAttributesByKeysRequest) returns (GetAttributesByKeysResponse);
+  rpc GetAttributesByKeys(GetAttributesByKeysRequest) returns (GetAttributesByKeysResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAttributesByKeys"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает список всех атрибутов.
+  /*
+   * Возвращает список всех атрибутов
    *
    * Обязательные параметры:
    *    limit - кол-во запрашиваемых элементов
@@ -98,10 +161,16 @@ service ProductHubFrontMeta {
    *    Вернуть все атрибуты:
    *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllAttributes
    */
-  rpc GetAllAttributes(GetAllAttributesRequest) returns (GetAllAttributesResponse);
+  rpc GetAllAttributes(GetAllAttributesRequest) returns (GetAllAttributesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllAttributes"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает список всех словарей.
+  /*
+   * Возвращает список всех словарей
    *
    * Обязательные параметры:
    *    limit - кол-во запрашиваемых элементов
@@ -111,10 +180,16 @@ service ProductHubFrontMeta {
    *    Вернуть все словари:
    *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaries
    */
-  rpc GetAllDictionaries(GetAllDictionariesRequest) returns (GetAllDictionariesResponse);
+  rpc GetAllDictionaries(GetAllDictionariesRequest) returns (GetAllDictionariesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllDictionaries"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает экземпляры словарей по ключам.
+  /*
+   * Возвращает экземпляры словарей по ключам
    *
    * Обязательные параметры:
    *    dictionary_keys - ключи словарей
@@ -123,10 +198,16 @@ service ProductHubFrontMeta {
    *    Вернуть экземпляры словарей:
    *        grpcurl -d '{"dictionary_keys": ["brand"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionariesByKeys
    */
-  rpc GetDictionariesByKeys(GetDictionariesByKeysRequest) returns (GetDictionariesByKeysResponse);
+  rpc GetDictionariesByKeys(GetDictionariesByKeysRequest) returns (GetDictionariesByKeysResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetDictionariesByKeys"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает все словарные значения конкретного словаря.
+  /*
+   * Возвращает все словарные значения конкретного словаря
    *
    * Обязательные параметры:
    *    dictionary_key - ключ словаря
@@ -137,10 +218,16 @@ service ProductHubFrontMeta {
    *    Вернуть значения словарей:
    *        grpcurl -d '{"dictionary_key": "brand", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaryValues
    */
-  rpc GetAllDictionaryValues(GetAllDictionaryValuesRequest) returns (GetAllDictionaryValuesResponse);
+  rpc GetAllDictionaryValues(GetAllDictionaryValuesRequest) returns (GetAllDictionaryValuesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllDictionaryValues"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает полный список монолитовских категорий (табличка mysql.taxons).
+  /*
+   * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
    *
    * Обязательные параметры:
    *    limit - кол-во запрашиваемых элементов
@@ -150,10 +237,73 @@ service ProductHubFrontMeta {
    *    Вернуть монолитовские категории:
    *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategories
    */
-  rpc GetAllOriginalCategories(GetAllOriginalCategoriesRequest) returns (GetAllOriginalCategoriesResponse);
+  rpc GetAllOriginalCategories(GetAllOriginalCategoriesRequest) returns (GetAllOriginalCategoriesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllOriginalCategories"
+      body: "*"
+    };
+  }
 
-  /**
-   * Возвращает список идентификаторов магазинов для конкретных ритейлеров.
+  /*
+   * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+   *
+   * Обязательные параметры:
+   *    original_ids - идентификаторы mysql.taxons
+   *
+   * Примеры:
+   *    Вернуть монолитовские категории:
+   *        grpcurl -d '{"original_ids": [73278]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetOriginalCategoriesByIDs
+   */
+  rpc GetOriginalCategoriesByIDs(GetOriginalCategoriesByIDsRequest) returns (GetOriginalCategoriesByIDsResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetOriginalCategoriesByIDs"
+      body: "*"
+    };
+  }
+
+  /*
+   * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+   *
+   * Обязательные параметры:
+   *    limit - кол-во запрашиваемых элементов
+   *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+   *
+   * Примеры:
+   *    Вернуть монолитовские категории:
+   *        grpcurl -d '{"limit": 10, "cursord_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByCursorID
+   */
+  rpc GetAllOriginalCategoriesByCursorID(GetAllOriginalCategoriesByCursorIDRequest) returns (GetAllOriginalCategoriesByCursorIDResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllOriginalCategoriesByCursorID"
+      body: "*"
+    };
+  }
+
+  /*
+   * Возвращает полный список монолитовских категорий (табличка mysql.taxons) для магазина
+   *
+   * Обязательные параметры:
+   *    store_id - идентификатор магазина
+   *    limit - кол-во запрашиваемых элементов
+   *    offset - сдвиг, начинать с 0
+   *
+   * Примеры:
+   *    Вернуть монолитовские категории:
+   *        grpcurl -d '{"store_id": "1", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByStoreID
+   */
+  rpc GetAllOriginalCategoriesByStoreID(GetAllOriginalCategoriesByStoreIDRequest) returns (GetAllOriginalCategoriesByStoreIDResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllOriginalCategoriesByStoreID"
+      body: "*"
+    };
+  }
+
+  /*
+   * Возвращает список идентификаторов магазинов для конкретных ритейлеров
    *
    * Обязательные параметры:
    *    retailer_ids - идентификаторы ритейлеров
@@ -162,9 +312,34 @@ service ProductHubFrontMeta {
    *    Вернуть идентификаторы магазины:
    *        grpcurl -d '{"retailer_ids": ["1", "3"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailerStores
    */
-  rpc GetRetailerStores(GetRetailerStoresRequest) returns (GetRetailerStoresResponse);
+  rpc GetRetailerStores(GetRetailerStoresRequest) returns (GetRetailerStoresResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetRetailerStores"
+      body: "*"
+    };
+  }
 
-  /**
+  /*
+   * Возвращает список всех идентификаторов магазинов с ретейлером по лимиту, оффсету
+   *
+   * Обязательные параметры:
+   *    limit - кол-во запрашиваемых элементов
+   *    offset - сдвиг, начинать с 0
+   *
+   * Примеры:
+   *    Вернуть идентификаторы магазины:
+   *        grpcurl -d '{"limit": 10, "offset": 5}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllRetailerStores
+   */
+  rpc GetAllRetailerStores(GetAllRetailerStoresRequest) returns (GetAllRetailerStoresResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetAllRetailerStores"
+      body: "*"
+    };
+  }
+
+  /*
    * Возвращает список словарных значений по ключу атрибута и идентифиатору словарного значения
    *
    * Обязательные параметры:
@@ -175,7 +350,70 @@ service ProductHubFrontMeta {
    *    Вернуть словарные значения:
    *        grpcurl -d '{"attributes": [{"attribute_key": "brand", "dictionary_value_ids": ["48739", "30248"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionaryAttributesValues
    */
-  rpc GetDictionaryAttributesValues(GetDictionaryAttributesValuesRequest) returns (GetDictionaryAttributesValuesResponse);
+  rpc GetDictionaryAttributesValues(GetDictionaryAttributesValuesRequest) returns (GetDictionaryAttributesValuesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetDictionaryAttributesValues"
+      body: "*"
+    };
+  }
+
+  /*
+   * Возвращает список популярностей по ключу магазина и скушкам
+   *
+   * Обязательные параметры:
+   *    store_id - ключ магазина
+   *
+   * Примеры:
+   */
+  rpc GetPopularities(GetPopularitiesRequest) returns (GetPopularitiesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetPopularities"
+      body: "*"
+    };
+  }
+
+  /*
+   * Возвращает список популярностей по ключу магазина и скушкам
+   *
+   * Обязательные параметры:
+   *    store_id - ключ магазина
+   *
+   * Примеры:
+   */
+  rpc GetRetailerIDsByStoreIDs(GetRetailerIDsByStoreIDsRequest) returns (GetRetailerIDsByStoreIDsResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetRetailerIDsByStoreIDs"
+      body: "*"
+    };
+  }
+
+  rpc GetDictionaryValuesByPermalinks(GetDictionaryValuesByPermalinksRequest) returns (GetDictionaryValuesByPermalinksResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetDictionaryValuesByPermalinks"
+      body: "*"
+    };
+  }
+  /*
+   * Возвращает список ретейлеров по retailer_id
+   *
+   * Обязательные параметры:
+   *    retailer_id - идентификатор ритейлера
+   *
+   * Примеры:
+   *    Возвращает список ретейлеров (retailer):
+   *        grpcurl -d '{"retailer_ids": ["1", "330"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailers
+   */
+  rpc GetRetailers(GetGetRetailersRequest) returns (GetGetRetailersResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_hub_front_meta.ProductHubFrontMeta/GetRetailers"
+      body: "*"
+    };
+  }
 }
 
 /**
@@ -184,8 +422,10 @@ service ProductHubFrontMeta {
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-/**
- * Тип атрибута (message Attribute) или data атрибута (message Data)
+/*
+ * ValueType - тип атрибута
+ *
+ * Указывается для message Attribute или message Data
  */
 enum ValueType {
   STRING = 0; // строка
@@ -196,8 +436,8 @@ enum ValueType {
   IMAGE = 5; // uri на картинку в s3
 }
 
-/**
- * Статус любой сущности
+/*
+ * Status - статус любой сущности
  */
 enum Status {
   DISABLE = 0; // сущность не активна
@@ -205,9 +445,11 @@ enum Status {
   DELETED = 2; // сущность удалена из других систем (в product-hub сущности не удаляются)
 }
 
-/**
- * Дата атрибут.
- * Используется для описания атрибутов сущностей Attribute, Dictionary, DictionaryValue
+/*
+ * Data - дата атрибут
+ *
+ * Используется для описания атрибутов сущностей Stock, Price, Offer.
+ * Так же используется для доп. описания сущностей Attribute, Dictionary, DictionaryValue
  */
 message Data {
   string key = 1; // уникальный ключ атрибута
@@ -216,44 +458,52 @@ message Data {
   repeated string values = 4; // значения атрибута
 }
 
-/**
- * Товарная категория
+/*
+ * Category - товарная категория
  */
 message Category {
   string id = 1; // идентификатор категории ПИМС
   string name = 2; // название категории
   string parent_id = 3; // родительский идентификатор категории
   repeated string retailer_ids = 4; // список идентификаторов ритейлеров где используется данная категория
-  repeated Data category_data = 5; // доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data category_data = 5; // доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
   repeated string tenant_ids = 6; // список площадок где используется данная категория
   Status status = 7; // статус сущности
   string updated_at = 8; // последнее время обновление сущности в product-hub
 }
 
-/**
- * Товарная категория с идентификаторами магазинов
+/*
+ * CategoryWithStores - товарная категория с идентификаторами магазинов
  */
 message CategoryWithStores {
   string id = 1; // идентификатор категории ПИМС
   string name = 2; // название категории
   string parent_id = 3; // родительский идентификатор категории
   repeated RetailerStores stores = 4; // список идентификаторов ритейлеров и магазинов где используется данная категория
-  repeated Data category_data = 5; // доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data category_data = 5; // доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
   repeated string tenant_ids = 6; // список площадок где используется данная категория
   Status status = 7; // статус сущности
   string updated_at = 8; // последнее время обновление сущности в product-hub
 }
 
-/**
- * Список идентификаторов магазинов у ритейлера
+/*
+ * RetailerStores - список идентификаторов магазинов у ритейлера
  */
 message RetailerStores {
   string retailer_id = 1; // идентификатор ритейлера
   repeated string store_ids = 2; // идентификаторы магазинов ритейлера
 }
 
-/**
- * Ключи атрибутов которые необходимо вывести в фасетах фильтров.
+/*
+ * RetailerStore - идентификатор магазина у ритейлера
+ */
+message RetailerStore{
+  string retailer_id = 1; // идентификатор ритейлера
+  string store_id = 2; // идентификатор магазина ритейлера
+}
+
+/*
+ * CategoryFilter - ключи атрибутов которые необходимо вывести в фасетах фильтров.
  */
 message CategoryFilter {
   string category_id = 1; // идентификатор категории
@@ -261,8 +511,8 @@ message CategoryFilter {
   string updated_at = 3; // последнее время обновление сущности в product-hub
 }
 
-/**
- * Атрибут описания
+/*
+ * Attribute - атрибут описания
  */
 message Attribute {
   string key = 1; // уникальный ключ атрибута описания
@@ -271,44 +521,44 @@ message Attribute {
   ValueType type = 4; // тип атрибута, см. ValueType
   bool is_multi_value = 5; // флаг означающий 1 или n значений будет в values
   map<string, bool> flags = 6; // флаги атрибута, по ним можно фильтровать при запросе через display_attributes
-  repeated Data attribute_data = 7; // доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data attribute_data = 7; // доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
   string updated_at = 8; // последнее время обновление сущности в product-hub
 }
 
-/**
- * Словарь описания
+/*
+ * Dictionary - словарь атрибута описания
  */
 message Dictionary {
   string key = 1; // уникальный ключ словаря
   string name = 2; // название словаря
   ValueType type = 3; // тип словаря, см. ValueType
   string updated_at = 4; // последнее время обновление сущности в product-hub
-  repeated Data dictionary_data = 5; // доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data dictionary_data = 5; // доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
 }
 
-/**
- * Словарное значение
+/*
+ * DictionaryValue -Словарное значение
  */
 message DictionaryValue {
   string id = 1; // идентификатор словарного значения
   string value = 2; // значение
-  repeated Data value_data = 3; // доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data value_data = 3; // доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
   string updated_at = 4; // последнее время обновление сущности в product-hub
   repeated AdditionalDictionaryValue additional_dictionary_values = 5; // массив дополнительных значений (например на значение бренда будет ссылаться страна изготовления)
 }
 
-/**
- * Дополнительные значения
+/*
+ * AdditionalDictionaryValue - дополнительные значение словарного значения
  */
 message AdditionalDictionaryValue {
   string id = 1; // идентификатор ссылающегося значения
   string dictionary_key = 2; // ключ словаря ссылающегося значения
   string value = 3; // значени
-  repeated Data value_data = 4; // доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  repeated Data value_data = 4; // доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
 }
 
-/**
- * Монолитовская (mysql.taxons) категория
+/*
+ * OriginalCategory - монолитовская (mysql.taxons) категория
  */
 message OriginalCategory{
   int64 id = 1; // mysql идентификатор
@@ -342,6 +592,16 @@ message GetAllCategoriesWithStoresRequest {
 
 message GetAllCategoriesWithStoresResponse {
   repeated CategoryWithStores categories = 1;
+}
+
+message GetAllCategoriesWithStoresByCursorIDRequest {
+  int64 limit = 1;
+  int64 cursor_id = 2;
+}
+
+message GetAllCategoriesWithStoresByCursorIDResponse {
+  repeated CategoryWithStores categories = 1;
+  int64 cursor_id = 2;
 }
 
 message GetCategoriesByCategoryIDsRequest {
@@ -413,12 +673,49 @@ message GetAllOriginalCategoriesResponse {
   repeated OriginalCategory original_categories = 1;
 }
 
+message GetOriginalCategoriesByIDsRequest {
+  repeated string original_ids = 1;
+}
+
+message GetOriginalCategoriesByIDsResponse {
+  repeated OriginalCategory original_categories = 1;
+}
+
+message GetAllOriginalCategoriesByCursorIDRequest {
+  int64 limit = 1;
+  int64 cursor_id = 2;
+}
+
+message GetAllOriginalCategoriesByCursorIDResponse {
+  repeated OriginalCategory original_categories = 1;
+  int64 cursor_id = 2;
+}
+
+message GetAllOriginalCategoriesByStoreIDRequest {
+  string store_id = 1;
+  int64 limit = 2;
+  int64 offset = 3;
+}
+
+message GetAllOriginalCategoriesByStoreIDResponse {
+  repeated OriginalCategory original_categories = 1;
+}
+
 message GetRetailerStoresRequest {
   repeated string retailer_ids = 1;
 }
 
 message GetRetailerStoresResponse {
   repeated RetailerStores retailer_stores = 1;
+}
+
+message GetAllRetailerStoresRequest {
+  int64 limit = 1;
+  int64 offset = 2;
+}
+
+message GetAllRetailerStoresResponse {
+  repeated RetailerStore retailer_stores = 1;
 }
 
 message GetDictionaryAttributesValuesRequest {
@@ -444,5 +741,63 @@ message DictionaryAttributesValuesResponse {
   string attribute_key = 1;
   string attribute_name = 2;
   string dictionary_key = 3;
-  repeated DictionaryValue dictionary_value  = 4;
+  repeated DictionaryValue dictionary_value = 4;
+}
+
+message GetPopularitiesRequest {
+  message Popularity {
+    int64 sku = 1;
+    string store_id = 2;
+  }
+  repeated Popularity popularities = 1;
+}
+
+message GetPopularitiesResponse {
+  message Popularity {
+    int64 sku = 1;
+    string store_id = 2;
+    int64 popularity = 3;
+  }
+  repeated Popularity popularities = 1;
+}
+
+message GetRetailerIDsByStoreIDsRequest{
+  repeated int64 store_ids = 1;
+}
+
+message GetRetailerIDsByStoreIDsResponse{
+  repeated RetailerStore retailer_stores = 1;
+}
+
+message GetDictionaryValuesByPermalinksRequest{
+  repeated string dictionary_value_permalinks = 1;
+}
+
+message GetDictionaryValuesByPermalinksResponse{
+  message DictionaryValue {
+    string id = 1;
+    string dictionary_key = 2;
+    string value = 3;
+    repeated Data value_data = 4;
+  }
+  repeated DictionaryValue dictionary_values = 1;
+}
+
+message GetGetRetailersRequest{
+  repeated int64 retailer_ids = 1;
+}
+
+message GetGetRetailersResponse{
+  enum Vertical {
+    GROCERY = 0;
+    PHARMACY = 1;
+    RESTAURANT = 2;
+  }
+
+  message Retailer{
+    int64 retailer_id = 1;
+    Vertical vertical = 2;
+  }
+
+  repeated Retailer retailers = 1;
 }

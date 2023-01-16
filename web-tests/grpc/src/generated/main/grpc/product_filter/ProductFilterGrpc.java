@@ -108,6 +108,37 @@ public final class ProductFilterGrpc {
     return getGetProductsSKUByAttributesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest,
+      product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse> getGetProductsSKUByAttributePermalinksMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetProductsSKUByAttributePermalinks",
+      requestType = product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest.class,
+      responseType = product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest,
+      product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse> getGetProductsSKUByAttributePermalinksMethod() {
+    io.grpc.MethodDescriptor<product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest, product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse> getGetProductsSKUByAttributePermalinksMethod;
+    if ((getGetProductsSKUByAttributePermalinksMethod = ProductFilterGrpc.getGetProductsSKUByAttributePermalinksMethod) == null) {
+      synchronized (ProductFilterGrpc.class) {
+        if ((getGetProductsSKUByAttributePermalinksMethod = ProductFilterGrpc.getGetProductsSKUByAttributePermalinksMethod) == null) {
+          ProductFilterGrpc.getGetProductsSKUByAttributePermalinksMethod = getGetProductsSKUByAttributePermalinksMethod =
+              io.grpc.MethodDescriptor.<product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest, product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductsSKUByAttributePermalinks"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductFilterMethodDescriptorSupplier("GetProductsSKUByAttributePermalinks"))
+              .build();
+        }
+      }
+    }
+    return getGetProductsSKUByAttributePermalinksMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -177,6 +208,23 @@ public final class ProductFilterGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductsSKUByAttributesMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     *Фильтрация по permalinks работает так:
+     *1. "permalinks": [{"values": ["val1", "val2"]}, {"values": ["val3", "val4"]}]
+     *Получить продукты, у которых есть permalink со значениями ("val1" или "val2") и ("val3" или "val4"),
+     *т.е. ("val1" OR "val2") AND ("val3" OR "val4")
+     *2. "permalinks": [{"values": ["val1", "val2"]}}
+     *Получить продукты, у которых есть permalink со значениями "val1" или "val2"
+     *3. "permalinks": [{"values": ["val1"]}, {"values": ["val2"]}
+     *Получить продукты, у которых есть permalink со значениями "val1" и "val2"
+     * </pre>
+     */
+    public void getProductsSKUByAttributePermalinks(product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest request,
+        io.grpc.stub.StreamObserver<product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductsSKUByAttributePermalinksMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -200,6 +248,13 @@ public final class ProductFilterGrpc {
                 product_filter.ProductFilterOuterClass.GetProductsSKUByAttributesRequest,
                 product_filter.ProductFilterOuterClass.GetProductsSKUByAttributesResponse>(
                   this, METHODID_GET_PRODUCTS_SKUBY_ATTRIBUTES)))
+          .addMethod(
+            getGetProductsSKUByAttributePermalinksMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest,
+                product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse>(
+                  this, METHODID_GET_PRODUCTS_SKUBY_ATTRIBUTE_PERMALINKS)))
           .build();
     }
   }
@@ -241,6 +296,24 @@ public final class ProductFilterGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetProductsSKUByAttributesMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     *Фильтрация по permalinks работает так:
+     *1. "permalinks": [{"values": ["val1", "val2"]}, {"values": ["val3", "val4"]}]
+     *Получить продукты, у которых есть permalink со значениями ("val1" или "val2") и ("val3" или "val4"),
+     *т.е. ("val1" OR "val2") AND ("val3" OR "val4")
+     *2. "permalinks": [{"values": ["val1", "val2"]}}
+     *Получить продукты, у которых есть permalink со значениями "val1" или "val2"
+     *3. "permalinks": [{"values": ["val1"]}, {"values": ["val2"]}
+     *Получить продукты, у которых есть permalink со значениями "val1" и "val2"
+     * </pre>
+     */
+    public void getProductsSKUByAttributePermalinks(product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest request,
+        io.grpc.stub.StreamObserver<product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetProductsSKUByAttributePermalinksMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -276,6 +349,23 @@ public final class ProductFilterGrpc {
     public product_filter.ProductFilterOuterClass.GetProductsSKUByAttributesResponse getProductsSKUByAttributes(product_filter.ProductFilterOuterClass.GetProductsSKUByAttributesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetProductsSKUByAttributesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     *Фильтрация по permalinks работает так:
+     *1. "permalinks": [{"values": ["val1", "val2"]}, {"values": ["val3", "val4"]}]
+     *Получить продукты, у которых есть permalink со значениями ("val1" или "val2") и ("val3" или "val4"),
+     *т.е. ("val1" OR "val2") AND ("val3" OR "val4")
+     *2. "permalinks": [{"values": ["val1", "val2"]}}
+     *Получить продукты, у которых есть permalink со значениями "val1" или "val2"
+     *3. "permalinks": [{"values": ["val1"]}, {"values": ["val2"]}
+     *Получить продукты, у которых есть permalink со значениями "val1" и "val2"
+     * </pre>
+     */
+    public product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse getProductsSKUByAttributePermalinks(product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetProductsSKUByAttributePermalinksMethod(), getCallOptions(), request);
     }
   }
 
@@ -316,11 +406,30 @@ public final class ProductFilterGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetProductsSKUByAttributesMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     *Фильтрация по permalinks работает так:
+     *1. "permalinks": [{"values": ["val1", "val2"]}, {"values": ["val3", "val4"]}]
+     *Получить продукты, у которых есть permalink со значениями ("val1" или "val2") и ("val3" или "val4"),
+     *т.е. ("val1" OR "val2") AND ("val3" OR "val4")
+     *2. "permalinks": [{"values": ["val1", "val2"]}}
+     *Получить продукты, у которых есть permalink со значениями "val1" или "val2"
+     *3. "permalinks": [{"values": ["val1"]}, {"values": ["val2"]}
+     *Получить продукты, у которых есть permalink со значениями "val1" и "val2"
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse> getProductsSKUByAttributePermalinks(
+        product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetProductsSKUByAttributePermalinksMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_CATEGORY_FACETS_BY_CATEGORY_IDS = 0;
   private static final int METHODID_GET_POPULAR_PRODUCTS_SKUBY_CATEGORY_IDS_BATCHES = 1;
   private static final int METHODID_GET_PRODUCTS_SKUBY_ATTRIBUTES = 2;
+  private static final int METHODID_GET_PRODUCTS_SKUBY_ATTRIBUTE_PERMALINKS = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -350,6 +459,10 @@ public final class ProductFilterGrpc {
         case METHODID_GET_PRODUCTS_SKUBY_ATTRIBUTES:
           serviceImpl.getProductsSKUByAttributes((product_filter.ProductFilterOuterClass.GetProductsSKUByAttributesRequest) request,
               (io.grpc.stub.StreamObserver<product_filter.ProductFilterOuterClass.GetProductsSKUByAttributesResponse>) responseObserver);
+          break;
+        case METHODID_GET_PRODUCTS_SKUBY_ATTRIBUTE_PERMALINKS:
+          serviceImpl.getProductsSKUByAttributePermalinks((product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksRequest) request,
+              (io.grpc.stub.StreamObserver<product_filter.ProductFilterOuterClass.GetProductsSKUByAttributePermalinksResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -415,6 +528,7 @@ public final class ProductFilterGrpc {
               .addMethod(getGetCategoryFacetsByCategoryIDsMethod())
               .addMethod(getGetPopularProductsSKUByCategoryIDsBatchesMethod())
               .addMethod(getGetProductsSKUByAttributesMethod())
+              .addMethod(getGetProductsSKUByAttributePermalinksMethod())
               .build();
         }
       }
