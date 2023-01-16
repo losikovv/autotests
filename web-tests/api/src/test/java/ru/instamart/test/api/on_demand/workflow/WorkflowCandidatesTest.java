@@ -10,18 +10,18 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.workflows.AssignmentsRequest;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.instamart.jdbc.dao.candidates.CandidatesDao;
+import ru.instamart.jdbc.dao.orders_service.candidatesScheme.CandidatesDao;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
-import ru.instamart.jdbc.entity.candidates.CandidatesEntity;
-import ru.instamart.k8s.K8sPortForward;
+import ru.instamart.jdbc.entity.order_service.candidatesScheme.CandidatesEntity;
+import ru.instamart.jdbc.entity.order_service.publicScheme.JobsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 import io.qameta.allure.TmsLink;
 import workflow.ServiceGrpc;
 
+import java.util.List;
 import java.util.Objects;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -40,6 +40,8 @@ public class WorkflowCandidatesTest extends RestBase {
     private String secondShipmentUuid;
     private String workflowUuid;
     private Integer shiftId;
+    private List<JobsEntity> firstJobUuid;
+    private List<JobsEntity> secondJobUuid;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -51,19 +53,21 @@ public class WorkflowCandidatesTest extends RestBase {
 
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
         SessionFactory.makeSession(SessionType.API_V2);
-        order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        order = apiV2.orderOnDemand(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
-        secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        secondOrder = apiV2.orderOnDemand(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
-        shopperApp.authorisation(UserManager.getShp6Universal3());
+        firstJobUuid = awaitJobUuid(shipmentUuid, 300L);
+        secondJobUuid = awaitJobUuid(secondShipmentUuid, 300L);
+        ThreadUtil.simplyAwait(240);
     }
 
     @TmsLink("93")
     @Test(description = "Блокирование кандидата в статусе offered",
             groups = "dispatch-workflow-smoke")
     public void checkUnavailableCandidate() {
-        workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(300000), clientWorkflow, shiftId);
-        ThreadUtil.simplyAwait(5);
+        workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(300000), clientWorkflow, firstJobUuid, shiftId);
+        ThreadUtil.simplyAwait(10);
         CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Universal3().getUuid());
         compareTwoObjects(candidate.getActive(), false);
     }

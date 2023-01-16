@@ -1,10 +1,8 @@
-package ru.instamart.jdbc.dao.orders_service;
+package ru.instamart.jdbc.dao.orders_service.publicScheme;
 
-import lombok.Data;
 import ru.instamart.jdbc.dao.Dao;
 
-import ru.instamart.jdbc.entity.order_service.RetailersEntity;
-import ru.instamart.jdbc.entity.order_service.SettingsEntity;
+import ru.instamart.jdbc.entity.order_service.publicScheme.SettingsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
@@ -20,9 +18,9 @@ public class SettingsDao implements Dao<String, SettingsEntity> {
 
     public static final SettingsDao INSTANCE = new SettingsDao();
 
-    private final String SELECT_SQL = "SELECT %s FROM settings";
-    private final String UPDATE_SQL = "UPDATE settings";
-    private final String DELETE_SQL = "DELETE FROM settings";
+    private final String SELECT_SQL = "SELECT %s FROM public.settings";
+    private final String UPDATE_SQL = "UPDATE public.settings";
+    private final String DELETE_SQL = "DELETE FROM public.settings";
 
     @Override
     public boolean delete(String id) {

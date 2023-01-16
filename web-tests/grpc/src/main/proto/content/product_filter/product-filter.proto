@@ -2,12 +2,52 @@ syntax = "proto3";
 
 package product_filter;
 
-option go_package = "gitlab.sbermarket.tech/paas/content/product-filter/pkg/server/grpc/product-filter";
+//https://gitlab.sbmt.io/paas/content/product-filter/-/blob/master/api/grpc/product-filter.proto
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "gitlab.sbmt.io/paas/content/product-filter/pkg/server/grpc/product-filter";
 
 service ProductFilter {
-  rpc GetCategoryFacetsByCategoryIDs(GetCategoryFacetsByCategoryIDsRequest) returns (GetCategoryFacetsByCategoryIDsResponse);
-  rpc GetPopularProductsSKUByCategoryIDsBatches(GetPopularProductsSKUByCategoryIDsBatchesRequest) returns (GetPopularProductsSKUByCategoryIDsBatchesResponse);
-  rpc GetProductsSKUByAttributes(GetProductsSKUByAttributesRequest) returns (GetProductsSKUByAttributesResponse);
+  rpc GetCategoryFacetsByCategoryIDs(GetCategoryFacetsByCategoryIDsRequest) returns (GetCategoryFacetsByCategoryIDsResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_filter.ProductFilter/GetCategoryFacetsByCategoryIDs"
+      body: "*"
+    };
+  }
+  rpc GetPopularProductsSKUByCategoryIDsBatches(GetPopularProductsSKUByCategoryIDsBatchesRequest) returns (GetPopularProductsSKUByCategoryIDsBatchesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_filter.ProductFilter/GetPopularProductsSKUByCategoryIDsBatches"
+      body: "*"
+    };
+  }
+  rpc GetProductsSKUByAttributes(GetProductsSKUByAttributesRequest) returns (GetProductsSKUByAttributesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_filter.ProductFilter/GetProductsSKUByAttributes"
+      body: "*"
+    };
+  }
+  /*
+   Фильтрация по permalinks работает так:
+    1. "permalinks": [{"values": ["val1", "val2"]}, {"values": ["val3", "val4"]}]
+     Получить продукты, у которых есть permalink со значениями ("val1" или "val2") и ("val3" или "val4"),
+      т.е. ("val1" OR "val2") AND ("val3" OR "val4")
+    2. "permalinks": [{"values": ["val1", "val2"]}}
+     Получить продукты, у которых есть permalink со значениями "val1" или "val2"
+    3. "permalinks": [{"values": ["val1"]}, {"values": ["val2"]}
+     Получить продукты, у которых есть permalink со значениями "val1" и "val2"
+   */
+  rpc GetProductsSKUByAttributePermalinks(GetProductsSKUByAttributePermalinksRequest) returns (GetProductsSKUByAttributePermalinksResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/product_filter.ProductFilter/GetProductsSKUByAttributePermalinks"
+      body: "*"
+    };
+  }
 }
 
 message GetCategoryFacetsByCategoryIDsRequest {
@@ -16,6 +56,7 @@ message GetCategoryFacetsByCategoryIDsRequest {
   repeated string category_ids = 3;
   bool available = 4;
   bool products_has_discount = 5;
+  string retailer_id = 6;
 }
 
 message GetCategoryFacetsByCategoryIDsResponse {
@@ -33,6 +74,7 @@ message GetPopularProductsSKUByCategoryIDsBatchesRequest {
   string store_id = 3;
   string tenant_id = 4;
   bool available = 5;
+  string retailer_id = 6;
 }
 
 message GetPopularProductsSKUByCategoryIDsBatchesResponse {
@@ -45,8 +87,8 @@ message CategoryIDsBatch {
 }
 
 message ProductsSKUBatch {
-    repeated int64 sku = 1;
-    int64 total = 2;
+  repeated int64 sku = 1;
+  int64 total = 2;
 }
 
 message GetProductsSKUByAttributesRequest {
@@ -59,10 +101,33 @@ message GetProductsSKUByAttributesRequest {
   bool available = 7;
   Sort sort = 8;
   SortBySKU sort_by_sku = 9;
-  repeated string except_attribute_keys = 10;
+  repeated AttributeFilter except_attributes = 10;
+  bool products_has_discount = 11;
+  string retailer_id = 12;
 }
 
 message GetProductsSKUByAttributesResponse {
+  repeated int64 sku = 1;
+  int64 product_count = 2;
+  repeated FilterFacet filter_facets = 3;
+}
+
+message GetProductsSKUByAttributePermalinksRequest {
+  string store_id = 1;
+  string tenant_id = 2;
+  repeated string category_ids = 3;
+  repeated Permalink permalinks = 4;
+  int64 limit = 5;
+  int64 offset = 6;
+  bool available = 7;
+  Sort sort = 8;
+  SortBySKU sort_by_sku = 9;
+  repeated AttributeFilter except_attributes = 10;
+  bool products_has_discount = 11;
+  string retailer_id = 12;
+}
+
+message GetProductsSKUByAttributePermalinksResponse {
   repeated int64 sku = 1;
   int64 product_count = 2;
   repeated FilterFacet filter_facets = 3;
@@ -88,6 +153,10 @@ message SortBySKU {
 message AttributeFilter {
   string attribute_key = 1;
   repeated string attribute_values = 2;
+}
+
+message Permalink {
+  repeated string values = 1;
 }
 
 message FilterFacet {

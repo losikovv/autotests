@@ -1797,6 +1797,26 @@ public final class ProductHubBackOuterClass {
      * @return The status.
      */
     product_hub_back.ProductHubBackOuterClass.Status getStatus();
+
+    /**
+     * <pre>
+     * ab группа
+     * </pre>
+     *
+     * <code>string ab_group = 6;</code>
+     * @return The abGroup.
+     */
+    java.lang.String getAbGroup();
+    /**
+     * <pre>
+     * ab группа
+     * </pre>
+     *
+     * <code>string ab_group = 6;</code>
+     * @return The bytes for abGroup.
+     */
+    com.google.protobuf.ByteString
+        getAbGroupBytes();
   }
   /**
    * <pre>
@@ -1820,6 +1840,7 @@ public final class ProductHubBackOuterClass {
       categoryIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       attributeValues_ = java.util.Collections.emptyList();
       status_ = 0;
+      abGroup_ = "";
     }
 
     @java.lang.Override
@@ -1886,6 +1907,12 @@ public final class ProductHubBackOuterClass {
               int rawValue = input.readEnum();
 
               status_ = rawValue;
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              abGroup_ = s;
               break;
             }
             default: {
@@ -2125,6 +2152,52 @@ public final class ProductHubBackOuterClass {
       return result == null ? product_hub_back.ProductHubBackOuterClass.Status.UNRECOGNIZED : result;
     }
 
+    public static final int AB_GROUP_FIELD_NUMBER = 6;
+    private volatile java.lang.Object abGroup_;
+    /**
+     * <pre>
+     * ab группа
+     * </pre>
+     *
+     * <code>string ab_group = 6;</code>
+     * @return The abGroup.
+     */
+    @java.lang.Override
+    public java.lang.String getAbGroup() {
+      java.lang.Object ref = abGroup_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        abGroup_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * ab группа
+     * </pre>
+     *
+     * <code>string ab_group = 6;</code>
+     * @return The bytes for abGroup.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAbGroupBytes() {
+      java.lang.Object ref = abGroup_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        abGroup_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2153,6 +2226,9 @@ public final class ProductHubBackOuterClass {
       }
       if (status_ != product_hub_back.ProductHubBackOuterClass.Status.DISABLE.getNumber()) {
         output.writeEnum(5, status_);
+      }
+      if (!getAbGroupBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, abGroup_);
       }
       unknownFields.writeTo(output);
     }
@@ -2186,6 +2262,9 @@ public final class ProductHubBackOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(5, status_);
       }
+      if (!getAbGroupBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, abGroup_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -2210,6 +2289,8 @@ public final class ProductHubBackOuterClass {
       if (!getAttributeValuesList()
           .equals(other.getAttributeValuesList())) return false;
       if (status_ != other.status_) return false;
+      if (!getAbGroup()
+          .equals(other.getAbGroup())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2236,6 +2317,8 @@ public final class ProductHubBackOuterClass {
       }
       hash = (37 * hash) + STATUS_FIELD_NUMBER;
       hash = (53 * hash) + status_;
+      hash = (37 * hash) + AB_GROUP_FIELD_NUMBER;
+      hash = (53 * hash) + getAbGroup().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2389,6 +2472,8 @@ public final class ProductHubBackOuterClass {
         }
         status_ = 0;
 
+        abGroup_ = "";
+
         return this;
       }
 
@@ -2433,6 +2518,7 @@ public final class ProductHubBackOuterClass {
           result.attributeValues_ = attributeValuesBuilder_.build();
         }
         result.status_ = status_;
+        result.abGroup_ = abGroup_;
         onBuilt();
         return result;
       }
@@ -2526,6 +2612,10 @@ public final class ProductHubBackOuterClass {
         }
         if (other.status_ != 0) {
           setStatusValue(other.getStatusValue());
+        }
+        if (!other.getAbGroup().isEmpty()) {
+          abGroup_ = other.abGroup_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -3224,6 +3314,102 @@ public final class ProductHubBackOuterClass {
       public Builder clearStatus() {
         
         status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object abGroup_ = "";
+      /**
+       * <pre>
+       * ab группа
+       * </pre>
+       *
+       * <code>string ab_group = 6;</code>
+       * @return The abGroup.
+       */
+      public java.lang.String getAbGroup() {
+        java.lang.Object ref = abGroup_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          abGroup_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * ab группа
+       * </pre>
+       *
+       * <code>string ab_group = 6;</code>
+       * @return The bytes for abGroup.
+       */
+      public com.google.protobuf.ByteString
+          getAbGroupBytes() {
+        java.lang.Object ref = abGroup_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          abGroup_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * ab группа
+       * </pre>
+       *
+       * <code>string ab_group = 6;</code>
+       * @param value The abGroup to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAbGroup(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        abGroup_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ab группа
+       * </pre>
+       *
+       * <code>string ab_group = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAbGroup() {
+        
+        abGroup_ = getDefaultInstance().getAbGroup();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ab группа
+       * </pre>
+       *
+       * <code>string ab_group = 6;</code>
+       * @param value The bytes for abGroup to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAbGroupBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        abGroup_ = value;
         onChanged();
         return this;
       }
@@ -4373,7 +4559,7 @@ public final class ProductHubBackOuterClass {
 
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -4382,7 +4568,7 @@ public final class ProductHubBackOuterClass {
         getCategoryDataList();
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -4390,7 +4576,7 @@ public final class ProductHubBackOuterClass {
     product_hub_back.ProductHubBackOuterClass.Data getCategoryData(int index);
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -4398,7 +4584,7 @@ public final class ProductHubBackOuterClass {
     int getCategoryDataCount();
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -4407,7 +4593,7 @@ public final class ProductHubBackOuterClass {
         getCategoryDataOrBuilderList();
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -4818,7 +5004,7 @@ public final class ProductHubBackOuterClass {
     private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> categoryData_;
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -4829,7 +5015,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -4841,7 +5027,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -4852,7 +5038,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -4863,7 +5049,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -5882,7 +6068,7 @@ public final class ProductHubBackOuterClass {
 
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -5896,7 +6082,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -5910,7 +6096,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -5924,7 +6110,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -5945,7 +6131,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -5963,7 +6149,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -5983,7 +6169,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6004,7 +6190,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6022,7 +6208,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6040,7 +6226,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6059,7 +6245,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6076,7 +6262,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6093,7 +6279,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6104,7 +6290,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6118,7 +6304,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6133,7 +6319,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6144,7 +6330,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6156,7 +6342,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data category_data = 5;</code>
@@ -6601,7 +6787,7 @@ public final class ProductHubBackOuterClass {
 
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -6610,7 +6796,7 @@ public final class ProductHubBackOuterClass {
         getAttributeDataList();
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -6618,7 +6804,7 @@ public final class ProductHubBackOuterClass {
     product_hub_back.ProductHubBackOuterClass.Data getAttributeData(int index);
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -6626,7 +6812,7 @@ public final class ProductHubBackOuterClass {
     int getAttributeDataCount();
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -6635,7 +6821,7 @@ public final class ProductHubBackOuterClass {
         getAttributeDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -7077,7 +7263,7 @@ public final class ProductHubBackOuterClass {
     private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> attributeData_;
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -7088,7 +7274,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -7100,7 +7286,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -7111,7 +7297,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -7122,7 +7308,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8188,7 +8374,7 @@ public final class ProductHubBackOuterClass {
 
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8202,7 +8388,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8216,7 +8402,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8230,7 +8416,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8251,7 +8437,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8269,7 +8455,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8289,7 +8475,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8310,7 +8496,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8328,7 +8514,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8346,7 +8532,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8365,7 +8551,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8382,7 +8568,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8399,7 +8585,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8410,7 +8596,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8424,7 +8610,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8439,7 +8625,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8450,7 +8636,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8462,7 +8648,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data attribute_data = 7;</code>
@@ -8647,7 +8833,7 @@ public final class ProductHubBackOuterClass {
 
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -8656,7 +8842,7 @@ public final class ProductHubBackOuterClass {
         getDictionaryDataList();
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -8664,7 +8850,7 @@ public final class ProductHubBackOuterClass {
     product_hub_back.ProductHubBackOuterClass.Data getDictionaryData(int index);
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -8672,7 +8858,7 @@ public final class ProductHubBackOuterClass {
     int getDictionaryDataCount();
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -8681,7 +8867,7 @@ public final class ProductHubBackOuterClass {
         getDictionaryDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -9001,7 +9187,7 @@ public final class ProductHubBackOuterClass {
     private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> dictionaryData_;
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -9012,7 +9198,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -9024,7 +9210,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -9035,7 +9221,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -9046,7 +9232,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10100,7 +10286,7 @@ public final class ProductHubBackOuterClass {
 
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10114,7 +10300,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10128,7 +10314,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10142,7 +10328,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10163,7 +10349,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10181,7 +10367,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10201,7 +10387,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10222,7 +10408,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10240,7 +10426,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10258,7 +10444,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10277,7 +10463,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10294,7 +10480,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10311,7 +10497,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10322,7 +10508,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10336,7 +10522,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10351,7 +10537,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10362,7 +10548,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10374,7 +10560,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
@@ -10496,7 +10682,7 @@ public final class ProductHubBackOuterClass {
 
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -10505,7 +10691,7 @@ public final class ProductHubBackOuterClass {
         getValueDataList();
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -10513,7 +10699,7 @@ public final class ProductHubBackOuterClass {
     product_hub_back.ProductHubBackOuterClass.Data getValueData(int index);
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -10521,7 +10707,7 @@ public final class ProductHubBackOuterClass {
     int getValueDataCount();
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -10530,7 +10716,7 @@ public final class ProductHubBackOuterClass {
         getValueDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -11591,7 +11777,7 @@ public final class ProductHubBackOuterClass {
     private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> valueData_;
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -11602,7 +11788,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -11614,7 +11800,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -11625,7 +11811,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -11636,7 +11822,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12349,7 +12535,7 @@ public final class ProductHubBackOuterClass {
 
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12363,7 +12549,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12377,7 +12563,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12391,7 +12577,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12412,7 +12598,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12430,7 +12616,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12450,7 +12636,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12471,7 +12657,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12489,7 +12675,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12507,7 +12693,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12526,7 +12712,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12543,7 +12729,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12560,7 +12746,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12571,7 +12757,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12585,7 +12771,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12600,7 +12786,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12611,7 +12797,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -12623,7 +12809,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data value_data = 3;</code>
@@ -13097,7 +13283,7 @@ public final class ProductHubBackOuterClass {
 
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -13106,7 +13292,7 @@ public final class ProductHubBackOuterClass {
         getStockDataList();
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -13114,7 +13300,7 @@ public final class ProductHubBackOuterClass {
     product_hub_back.ProductHubBackOuterClass.Data getStockData(int index);
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -13122,7 +13308,7 @@ public final class ProductHubBackOuterClass {
     int getStockDataCount();
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -13131,7 +13317,7 @@ public final class ProductHubBackOuterClass {
         getStockDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -13464,7 +13650,7 @@ public final class ProductHubBackOuterClass {
     private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> stockData_;
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -13475,7 +13661,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -13487,7 +13673,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -13498,7 +13684,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -13509,7 +13695,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14386,7 +14572,7 @@ public final class ProductHubBackOuterClass {
 
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14400,7 +14586,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14414,7 +14600,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14428,7 +14614,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14449,7 +14635,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14467,7 +14653,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14487,7 +14673,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14508,7 +14694,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14526,7 +14712,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14544,7 +14730,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14563,7 +14749,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14580,7 +14766,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14597,7 +14783,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14608,7 +14794,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14622,7 +14808,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14637,7 +14823,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14648,7 +14834,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14660,7 +14846,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data stock_data = 6;</code>
@@ -14885,7 +15071,7 @@ public final class ProductHubBackOuterClass {
 
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -14894,7 +15080,7 @@ public final class ProductHubBackOuterClass {
         getOfferDataList();
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -14902,7 +15088,7 @@ public final class ProductHubBackOuterClass {
     product_hub_back.ProductHubBackOuterClass.Data getOfferData(int index);
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -14910,7 +15096,7 @@ public final class ProductHubBackOuterClass {
     int getOfferDataCount();
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -14919,7 +15105,7 @@ public final class ProductHubBackOuterClass {
         getOfferDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -15213,7 +15399,7 @@ public final class ProductHubBackOuterClass {
     private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> offerData_;
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -15224,7 +15410,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -15236,7 +15422,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -15247,7 +15433,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -15258,7 +15444,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16050,7 +16236,7 @@ public final class ProductHubBackOuterClass {
 
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16064,7 +16250,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16078,7 +16264,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16092,7 +16278,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16113,7 +16299,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16131,7 +16317,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16151,7 +16337,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16172,7 +16358,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16190,7 +16376,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16208,7 +16394,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16227,7 +16413,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16244,7 +16430,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16261,7 +16447,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16272,7 +16458,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16286,7 +16472,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16301,7 +16487,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16312,7 +16498,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16324,7 +16510,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data offer_data = 5;</code>
@@ -16580,7 +16766,7 @@ public final class ProductHubBackOuterClass {
 
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -16589,7 +16775,7 @@ public final class ProductHubBackOuterClass {
         getPriceDataList();
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -16597,7 +16783,7 @@ public final class ProductHubBackOuterClass {
     product_hub_back.ProductHubBackOuterClass.Data getPriceData(int index);
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -16605,7 +16791,7 @@ public final class ProductHubBackOuterClass {
     int getPriceDataCount();
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -16614,7 +16800,7 @@ public final class ProductHubBackOuterClass {
         getPriceDataOrBuilderList();
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -17000,7 +17186,7 @@ public final class ProductHubBackOuterClass {
     private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> priceData_;
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -17011,7 +17197,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -17023,7 +17209,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -17034,7 +17220,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -17045,7 +17231,7 @@ public final class ProductHubBackOuterClass {
     }
     /**
      * <pre>
-     * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * </pre>
      *
      * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18035,7 +18221,7 @@ public final class ProductHubBackOuterClass {
 
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18049,7 +18235,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18063,7 +18249,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18077,7 +18263,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18098,7 +18284,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18116,7 +18302,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18136,7 +18322,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18157,7 +18343,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18175,7 +18361,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18193,7 +18379,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18212,7 +18398,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18229,7 +18415,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18246,7 +18432,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18257,7 +18443,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18271,7 +18457,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18286,7 +18472,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18297,7 +18483,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -18309,7 +18495,7 @@ public final class ProductHubBackOuterClass {
       }
       /**
        * <pre>
-       * доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+       * доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
        * </pre>
        *
        * <code>repeated .product_hub_back.Data price_data = 7;</code>
@@ -20258,6 +20444,2972 @@ public final class ProductHubBackOuterClass {
 
     @java.lang.Override
     public product_hub_back.ProductHubBackOuterClass.RetailerStores getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GroupOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.Group)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * идентификатор группы
+     * </pre>
+     *
+     * <code>int64 id = 1;</code>
+     * @return The id.
+     */
+    long getId();
+
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>int64 retailer_id = 2;</code>
+     * @return The retailerId.
+     */
+    long getRetailerId();
+
+    /**
+     * <pre>
+     * идентификатор sku
+     * </pre>
+     *
+     * <code>string retailer_sku = 3;</code>
+     * @return The retailerSku.
+     */
+    java.lang.String getRetailerSku();
+    /**
+     * <pre>
+     * идентификатор sku
+     * </pre>
+     *
+     * <code>string retailer_sku = 3;</code>
+     * @return The bytes for retailerSku.
+     */
+    com.google.protobuf.ByteString
+        getRetailerSkuBytes();
+
+    /**
+     * <pre>
+     * название
+     * </pre>
+     *
+     * <code>string name = 4;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * название
+     * </pre>
+     *
+     * <code>string name = 4;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    java.util.List<product_hub_back.ProductHubBackOuterClass.GroupItem> 
+        getItemsList();
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.GroupItem getItems(int index);
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    int getItemsCount();
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    java.util.List<? extends product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder> 
+        getItemsOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder getItemsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * сортировка
+     * </pre>
+     *
+     * <code>int64 sort = 6;</code>
+     * @return The sort.
+     */
+    long getSort();
+
+    /**
+     * <pre>
+     * статус
+     * </pre>
+     *
+     * <code>.product_hub_back.Status status = 7;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <pre>
+     * статус
+     * </pre>
+     *
+     * <code>.product_hub_back.Status status = 7;</code>
+     * @return The status.
+     */
+    product_hub_back.ProductHubBackOuterClass.Status getStatus();
+
+    /**
+     * <pre>
+     * минимальное количество, которое нужно выбрать
+     * </pre>
+     *
+     * <code>int64 min = 8;</code>
+     * @return The min.
+     */
+    long getMin();
+
+    /**
+     * <pre>
+     * максимальное количество, которое нужно выбрать
+     * </pre>
+     *
+     * <code>int64 max = 9;</code>
+     * @return The max.
+     */
+    long getMax();
+
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    java.util.List<product_hub_back.ProductHubBackOuterClass.Data> 
+        getGroupDataList();
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.Data getGroupData(int index);
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    int getGroupDataCount();
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    java.util.List<? extends product_hub_back.ProductHubBackOuterClass.DataOrBuilder> 
+        getGroupDataOrBuilderList();
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.DataOrBuilder getGroupDataOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   **
+   * Группа sku которые можно добавить в заказ
+   * Пример: Комплексный обед
+   * </pre>
+   *
+   * Protobuf type {@code product_hub_back.Group}
+   */
+  public static final class Group extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.Group)
+      GroupOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Group.newBuilder() to construct.
+    private Group(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Group() {
+      retailerSku_ = "";
+      name_ = "";
+      items_ = java.util.Collections.emptyList();
+      status_ = 0;
+      groupData_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Group();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Group(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              id_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              retailerId_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retailerSku_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                items_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.GroupItem>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              items_.add(
+                  input.readMessage(product_hub_back.ProductHubBackOuterClass.GroupItem.parser(), extensionRegistry));
+              break;
+            }
+            case 48: {
+
+              sort_ = input.readInt64();
+              break;
+            }
+            case 56: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
+              break;
+            }
+            case 64: {
+
+              min_ = input.readInt64();
+              break;
+            }
+            case 72: {
+
+              max_ = input.readInt64();
+              break;
+            }
+            case 82: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                groupData_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.Data>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              groupData_.add(
+                  input.readMessage(product_hub_back.ProductHubBackOuterClass.Data.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          items_ = java.util.Collections.unmodifiableList(items_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          groupData_ = java.util.Collections.unmodifiableList(groupData_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_Group_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_Group_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.Group.class, product_hub_back.ProductHubBackOuterClass.Group.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private long id_;
+    /**
+     * <pre>
+     * идентификатор группы
+     * </pre>
+     *
+     * <code>int64 id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public long getId() {
+      return id_;
+    }
+
+    public static final int RETAILER_ID_FIELD_NUMBER = 2;
+    private long retailerId_;
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>int64 retailer_id = 2;</code>
+     * @return The retailerId.
+     */
+    @java.lang.Override
+    public long getRetailerId() {
+      return retailerId_;
+    }
+
+    public static final int RETAILER_SKU_FIELD_NUMBER = 3;
+    private volatile java.lang.Object retailerSku_;
+    /**
+     * <pre>
+     * идентификатор sku
+     * </pre>
+     *
+     * <code>string retailer_sku = 3;</code>
+     * @return The retailerSku.
+     */
+    @java.lang.Override
+    public java.lang.String getRetailerSku() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        retailerSku_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор sku
+     * </pre>
+     *
+     * <code>string retailer_sku = 3;</code>
+     * @return The bytes for retailerSku.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRetailerSkuBytes() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        retailerSku_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 4;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     * название
+     * </pre>
+     *
+     * <code>string name = 4;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * название
+     * </pre>
+     *
+     * <code>string name = 4;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ITEMS_FIELD_NUMBER = 5;
+    private java.util.List<product_hub_back.ProductHubBackOuterClass.GroupItem> items_;
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back.ProductHubBackOuterClass.GroupItem> getItemsList() {
+      return items_;
+    }
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder> 
+        getItemsOrBuilderList() {
+      return items_;
+    }
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    @java.lang.Override
+    public int getItemsCount() {
+      return items_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.GroupItem getItems(int index) {
+      return items_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder getItemsOrBuilder(
+        int index) {
+      return items_.get(index);
+    }
+
+    public static final int SORT_FIELD_NUMBER = 6;
+    private long sort_;
+    /**
+     * <pre>
+     * сортировка
+     * </pre>
+     *
+     * <code>int64 sort = 6;</code>
+     * @return The sort.
+     */
+    @java.lang.Override
+    public long getSort() {
+      return sort_;
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 7;
+    private int status_;
+    /**
+     * <pre>
+     * статус
+     * </pre>
+     *
+     * <code>.product_hub_back.Status status = 7;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <pre>
+     * статус
+     * </pre>
+     *
+     * <code>.product_hub_back.Status status = 7;</code>
+     * @return The status.
+     */
+    @java.lang.Override public product_hub_back.ProductHubBackOuterClass.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      product_hub_back.ProductHubBackOuterClass.Status result = product_hub_back.ProductHubBackOuterClass.Status.valueOf(status_);
+      return result == null ? product_hub_back.ProductHubBackOuterClass.Status.UNRECOGNIZED : result;
+    }
+
+    public static final int MIN_FIELD_NUMBER = 8;
+    private long min_;
+    /**
+     * <pre>
+     * минимальное количество, которое нужно выбрать
+     * </pre>
+     *
+     * <code>int64 min = 8;</code>
+     * @return The min.
+     */
+    @java.lang.Override
+    public long getMin() {
+      return min_;
+    }
+
+    public static final int MAX_FIELD_NUMBER = 9;
+    private long max_;
+    /**
+     * <pre>
+     * максимальное количество, которое нужно выбрать
+     * </pre>
+     *
+     * <code>int64 max = 9;</code>
+     * @return The max.
+     */
+    @java.lang.Override
+    public long getMax() {
+      return max_;
+    }
+
+    public static final int GROUP_DATA_FIELD_NUMBER = 10;
+    private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> groupData_;
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back.ProductHubBackOuterClass.Data> getGroupDataList() {
+      return groupData_;
+    }
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.DataOrBuilder> 
+        getGroupDataOrBuilderList() {
+      return groupData_;
+    }
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    @java.lang.Override
+    public int getGroupDataCount() {
+      return groupData_.size();
+    }
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.Data getGroupData(int index) {
+      return groupData_.get(index);
+    }
+    /**
+     * <pre>
+     * доп. данные: original_id
+     * </pre>
+     *
+     * <code>repeated .product_hub_back.Data group_data = 10;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.DataOrBuilder getGroupDataOrBuilder(
+        int index) {
+      return groupData_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (id_ != 0L) {
+        output.writeInt64(1, id_);
+      }
+      if (retailerId_ != 0L) {
+        output.writeInt64(2, retailerId_);
+      }
+      if (!getRetailerSkuBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, retailerSku_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, name_);
+      }
+      for (int i = 0; i < items_.size(); i++) {
+        output.writeMessage(5, items_.get(i));
+      }
+      if (sort_ != 0L) {
+        output.writeInt64(6, sort_);
+      }
+      if (status_ != product_hub_back.ProductHubBackOuterClass.Status.DISABLE.getNumber()) {
+        output.writeEnum(7, status_);
+      }
+      if (min_ != 0L) {
+        output.writeInt64(8, min_);
+      }
+      if (max_ != 0L) {
+        output.writeInt64(9, max_);
+      }
+      for (int i = 0; i < groupData_.size(); i++) {
+        output.writeMessage(10, groupData_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (id_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, id_);
+      }
+      if (retailerId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, retailerId_);
+      }
+      if (!getRetailerSkuBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, retailerSku_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, name_);
+      }
+      for (int i = 0; i < items_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, items_.get(i));
+      }
+      if (sort_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(6, sort_);
+      }
+      if (status_ != product_hub_back.ProductHubBackOuterClass.Status.DISABLE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, status_);
+      }
+      if (min_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(8, min_);
+      }
+      if (max_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(9, max_);
+      }
+      for (int i = 0; i < groupData_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, groupData_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.Group)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.Group other = (product_hub_back.ProductHubBackOuterClass.Group) obj;
+
+      if (getId()
+          != other.getId()) return false;
+      if (getRetailerId()
+          != other.getRetailerId()) return false;
+      if (!getRetailerSku()
+          .equals(other.getRetailerSku())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (getSort()
+          != other.getSort()) return false;
+      if (status_ != other.status_) return false;
+      if (getMin()
+          != other.getMin()) return false;
+      if (getMax()
+          != other.getMax()) return false;
+      if (!getGroupDataList()
+          .equals(other.getGroupDataList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
+      hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getRetailerId());
+      hash = (37 * hash) + RETAILER_SKU_FIELD_NUMBER;
+      hash = (53 * hash) + getRetailerSku().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      if (getItemsCount() > 0) {
+        hash = (37 * hash) + ITEMS_FIELD_NUMBER;
+        hash = (53 * hash) + getItemsList().hashCode();
+      }
+      hash = (37 * hash) + SORT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSort());
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      hash = (37 * hash) + MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMin());
+      hash = (37 * hash) + MAX_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMax());
+      if (getGroupDataCount() > 0) {
+        hash = (37 * hash) + GROUP_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupDataList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.Group parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.Group prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     **
+     * Группа sku которые можно добавить в заказ
+     * Пример: Комплексный обед
+     * </pre>
+     *
+     * Protobuf type {@code product_hub_back.Group}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.Group)
+        product_hub_back.ProductHubBackOuterClass.GroupOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_Group_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_Group_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.Group.class, product_hub_back.ProductHubBackOuterClass.Group.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.Group.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getItemsFieldBuilder();
+          getGroupDataFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = 0L;
+
+        retailerId_ = 0L;
+
+        retailerSku_ = "";
+
+        name_ = "";
+
+        if (itemsBuilder_ == null) {
+          items_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          itemsBuilder_.clear();
+        }
+        sort_ = 0L;
+
+        status_ = 0;
+
+        min_ = 0L;
+
+        max_ = 0L;
+
+        if (groupDataBuilder_ == null) {
+          groupData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          groupDataBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_Group_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.Group getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.Group.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.Group build() {
+        product_hub_back.ProductHubBackOuterClass.Group result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.Group buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.Group result = new product_hub_back.ProductHubBackOuterClass.Group(this);
+        int from_bitField0_ = bitField0_;
+        result.id_ = id_;
+        result.retailerId_ = retailerId_;
+        result.retailerSku_ = retailerSku_;
+        result.name_ = name_;
+        if (itemsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            items_ = java.util.Collections.unmodifiableList(items_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.items_ = items_;
+        } else {
+          result.items_ = itemsBuilder_.build();
+        }
+        result.sort_ = sort_;
+        result.status_ = status_;
+        result.min_ = min_;
+        result.max_ = max_;
+        if (groupDataBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            groupData_ = java.util.Collections.unmodifiableList(groupData_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.groupData_ = groupData_;
+        } else {
+          result.groupData_ = groupDataBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.Group) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.Group)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.Group other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.Group.getDefaultInstance()) return this;
+        if (other.getId() != 0L) {
+          setId(other.getId());
+        }
+        if (other.getRetailerId() != 0L) {
+          setRetailerId(other.getRetailerId());
+        }
+        if (!other.getRetailerSku().isEmpty()) {
+          retailerSku_ = other.retailerSku_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (itemsBuilder_ == null) {
+          if (!other.items_.isEmpty()) {
+            if (items_.isEmpty()) {
+              items_ = other.items_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureItemsIsMutable();
+              items_.addAll(other.items_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.items_.isEmpty()) {
+            if (itemsBuilder_.isEmpty()) {
+              itemsBuilder_.dispose();
+              itemsBuilder_ = null;
+              items_ = other.items_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              itemsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getItemsFieldBuilder() : null;
+            } else {
+              itemsBuilder_.addAllMessages(other.items_);
+            }
+          }
+        }
+        if (other.getSort() != 0L) {
+          setSort(other.getSort());
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        if (other.getMin() != 0L) {
+          setMin(other.getMin());
+        }
+        if (other.getMax() != 0L) {
+          setMax(other.getMax());
+        }
+        if (groupDataBuilder_ == null) {
+          if (!other.groupData_.isEmpty()) {
+            if (groupData_.isEmpty()) {
+              groupData_ = other.groupData_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureGroupDataIsMutable();
+              groupData_.addAll(other.groupData_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.groupData_.isEmpty()) {
+            if (groupDataBuilder_.isEmpty()) {
+              groupDataBuilder_.dispose();
+              groupDataBuilder_ = null;
+              groupData_ = other.groupData_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              groupDataBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getGroupDataFieldBuilder() : null;
+            } else {
+              groupDataBuilder_.addAllMessages(other.groupData_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.Group parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.Group) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long id_ ;
+      /**
+       * <pre>
+       * идентификатор группы
+       * </pre>
+       *
+       * <code>int64 id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <pre>
+       * идентификатор группы
+       * </pre>
+       *
+       * <code>int64 id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(long value) {
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор группы
+       * </pre>
+       *
+       * <code>int64 id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long retailerId_ ;
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>int64 retailer_id = 2;</code>
+       * @return The retailerId.
+       */
+      @java.lang.Override
+      public long getRetailerId() {
+        return retailerId_;
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>int64 retailer_id = 2;</code>
+       * @param value The retailerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerId(long value) {
+        
+        retailerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>int64 retailer_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerId() {
+        
+        retailerId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object retailerSku_ = "";
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 3;</code>
+       * @return The retailerSku.
+       */
+      public java.lang.String getRetailerSku() {
+        java.lang.Object ref = retailerSku_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerSku_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 3;</code>
+       * @return The bytes for retailerSku.
+       */
+      public com.google.protobuf.ByteString
+          getRetailerSkuBytes() {
+        java.lang.Object ref = retailerSku_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerSku_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 3;</code>
+       * @param value The retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSku(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerSku() {
+        
+        retailerSku_ = getDefaultInstance().getRetailerSku();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 3;</code>
+       * @param value The bytes for retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSkuBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * название
+       * </pre>
+       *
+       * <code>string name = 4;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название
+       * </pre>
+       *
+       * <code>string name = 4;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название
+       * </pre>
+       *
+       * <code>string name = 4;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название
+       * </pre>
+       *
+       * <code>string name = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название
+       * </pre>
+       *
+       * <code>string name = 4;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<product_hub_back.ProductHubBackOuterClass.GroupItem> items_ =
+        java.util.Collections.emptyList();
+      private void ensureItemsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          items_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.GroupItem>(items_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.GroupItem, product_hub_back.ProductHubBackOuterClass.GroupItem.Builder, product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder> itemsBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.GroupItem> getItemsList() {
+        if (itemsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(items_);
+        } else {
+          return itemsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public int getItemsCount() {
+        if (itemsBuilder_ == null) {
+          return items_.size();
+        } else {
+          return itemsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.GroupItem getItems(int index) {
+        if (itemsBuilder_ == null) {
+          return items_.get(index);
+        } else {
+          return itemsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public Builder setItems(
+          int index, product_hub_back.ProductHubBackOuterClass.GroupItem value) {
+        if (itemsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureItemsIsMutable();
+          items_.set(index, value);
+          onChanged();
+        } else {
+          itemsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public Builder setItems(
+          int index, product_hub_back.ProductHubBackOuterClass.GroupItem.Builder builderForValue) {
+        if (itemsBuilder_ == null) {
+          ensureItemsIsMutable();
+          items_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          itemsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public Builder addItems(product_hub_back.ProductHubBackOuterClass.GroupItem value) {
+        if (itemsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureItemsIsMutable();
+          items_.add(value);
+          onChanged();
+        } else {
+          itemsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public Builder addItems(
+          int index, product_hub_back.ProductHubBackOuterClass.GroupItem value) {
+        if (itemsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureItemsIsMutable();
+          items_.add(index, value);
+          onChanged();
+        } else {
+          itemsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public Builder addItems(
+          product_hub_back.ProductHubBackOuterClass.GroupItem.Builder builderForValue) {
+        if (itemsBuilder_ == null) {
+          ensureItemsIsMutable();
+          items_.add(builderForValue.build());
+          onChanged();
+        } else {
+          itemsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public Builder addItems(
+          int index, product_hub_back.ProductHubBackOuterClass.GroupItem.Builder builderForValue) {
+        if (itemsBuilder_ == null) {
+          ensureItemsIsMutable();
+          items_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          itemsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public Builder addAllItems(
+          java.lang.Iterable<? extends product_hub_back.ProductHubBackOuterClass.GroupItem> values) {
+        if (itemsBuilder_ == null) {
+          ensureItemsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, items_);
+          onChanged();
+        } else {
+          itemsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public Builder clearItems() {
+        if (itemsBuilder_ == null) {
+          items_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          itemsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public Builder removeItems(int index) {
+        if (itemsBuilder_ == null) {
+          ensureItemsIsMutable();
+          items_.remove(index);
+          onChanged();
+        } else {
+          itemsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.GroupItem.Builder getItemsBuilder(
+          int index) {
+        return getItemsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder getItemsOrBuilder(
+          int index) {
+        if (itemsBuilder_ == null) {
+          return items_.get(index);  } else {
+          return itemsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder> 
+           getItemsOrBuilderList() {
+        if (itemsBuilder_ != null) {
+          return itemsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(items_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.GroupItem.Builder addItemsBuilder() {
+        return getItemsFieldBuilder().addBuilder(
+            product_hub_back.ProductHubBackOuterClass.GroupItem.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.GroupItem.Builder addItemsBuilder(
+          int index) {
+        return getItemsFieldBuilder().addBuilder(
+            index, product_hub_back.ProductHubBackOuterClass.GroupItem.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.GroupItem items = 5;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.GroupItem.Builder> 
+           getItemsBuilderList() {
+        return getItemsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.GroupItem, product_hub_back.ProductHubBackOuterClass.GroupItem.Builder, product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder> 
+          getItemsFieldBuilder() {
+        if (itemsBuilder_ == null) {
+          itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back.ProductHubBackOuterClass.GroupItem, product_hub_back.ProductHubBackOuterClass.GroupItem.Builder, product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder>(
+                  items_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          items_ = null;
+        }
+        return itemsBuilder_;
+      }
+
+      private long sort_ ;
+      /**
+       * <pre>
+       * сортировка
+       * </pre>
+       *
+       * <code>int64 sort = 6;</code>
+       * @return The sort.
+       */
+      @java.lang.Override
+      public long getSort() {
+        return sort_;
+      }
+      /**
+       * <pre>
+       * сортировка
+       * </pre>
+       *
+       * <code>int64 sort = 6;</code>
+       * @param value The sort to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSort(long value) {
+        
+        sort_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * сортировка
+       * </pre>
+       *
+       * <code>int64 sort = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSort() {
+        
+        sort_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <pre>
+       * статус
+       * </pre>
+       *
+       * <code>.product_hub_back.Status status = 7;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <pre>
+       * статус
+       * </pre>
+       *
+       * <code>.product_hub_back.Status status = 7;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * статус
+       * </pre>
+       *
+       * <code>.product_hub_back.Status status = 7;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        product_hub_back.ProductHubBackOuterClass.Status result = product_hub_back.ProductHubBackOuterClass.Status.valueOf(status_);
+        return result == null ? product_hub_back.ProductHubBackOuterClass.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * статус
+       * </pre>
+       *
+       * <code>.product_hub_back.Status status = 7;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(product_hub_back.ProductHubBackOuterClass.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * статус
+       * </pre>
+       *
+       * <code>.product_hub_back.Status status = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long min_ ;
+      /**
+       * <pre>
+       * минимальное количество, которое нужно выбрать
+       * </pre>
+       *
+       * <code>int64 min = 8;</code>
+       * @return The min.
+       */
+      @java.lang.Override
+      public long getMin() {
+        return min_;
+      }
+      /**
+       * <pre>
+       * минимальное количество, которое нужно выбрать
+       * </pre>
+       *
+       * <code>int64 min = 8;</code>
+       * @param value The min to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMin(long value) {
+        
+        min_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * минимальное количество, которое нужно выбрать
+       * </pre>
+       *
+       * <code>int64 min = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMin() {
+        
+        min_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long max_ ;
+      /**
+       * <pre>
+       * максимальное количество, которое нужно выбрать
+       * </pre>
+       *
+       * <code>int64 max = 9;</code>
+       * @return The max.
+       */
+      @java.lang.Override
+      public long getMax() {
+        return max_;
+      }
+      /**
+       * <pre>
+       * максимальное количество, которое нужно выбрать
+       * </pre>
+       *
+       * <code>int64 max = 9;</code>
+       * @param value The max to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMax(long value) {
+        
+        max_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * максимальное количество, которое нужно выбрать
+       * </pre>
+       *
+       * <code>int64 max = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMax() {
+        
+        max_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> groupData_ =
+        java.util.Collections.emptyList();
+      private void ensureGroupDataIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          groupData_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.Data>(groupData_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.Data, product_hub_back.ProductHubBackOuterClass.Data.Builder, product_hub_back.ProductHubBackOuterClass.DataOrBuilder> groupDataBuilder_;
+
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.Data> getGroupDataList() {
+        if (groupDataBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(groupData_);
+        } else {
+          return groupDataBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public int getGroupDataCount() {
+        if (groupDataBuilder_ == null) {
+          return groupData_.size();
+        } else {
+          return groupDataBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Data getGroupData(int index) {
+        if (groupDataBuilder_ == null) {
+          return groupData_.get(index);
+        } else {
+          return groupDataBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public Builder setGroupData(
+          int index, product_hub_back.ProductHubBackOuterClass.Data value) {
+        if (groupDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureGroupDataIsMutable();
+          groupData_.set(index, value);
+          onChanged();
+        } else {
+          groupDataBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public Builder setGroupData(
+          int index, product_hub_back.ProductHubBackOuterClass.Data.Builder builderForValue) {
+        if (groupDataBuilder_ == null) {
+          ensureGroupDataIsMutable();
+          groupData_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          groupDataBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public Builder addGroupData(product_hub_back.ProductHubBackOuterClass.Data value) {
+        if (groupDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureGroupDataIsMutable();
+          groupData_.add(value);
+          onChanged();
+        } else {
+          groupDataBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public Builder addGroupData(
+          int index, product_hub_back.ProductHubBackOuterClass.Data value) {
+        if (groupDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureGroupDataIsMutable();
+          groupData_.add(index, value);
+          onChanged();
+        } else {
+          groupDataBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public Builder addGroupData(
+          product_hub_back.ProductHubBackOuterClass.Data.Builder builderForValue) {
+        if (groupDataBuilder_ == null) {
+          ensureGroupDataIsMutable();
+          groupData_.add(builderForValue.build());
+          onChanged();
+        } else {
+          groupDataBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public Builder addGroupData(
+          int index, product_hub_back.ProductHubBackOuterClass.Data.Builder builderForValue) {
+        if (groupDataBuilder_ == null) {
+          ensureGroupDataIsMutable();
+          groupData_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          groupDataBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public Builder addAllGroupData(
+          java.lang.Iterable<? extends product_hub_back.ProductHubBackOuterClass.Data> values) {
+        if (groupDataBuilder_ == null) {
+          ensureGroupDataIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, groupData_);
+          onChanged();
+        } else {
+          groupDataBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public Builder clearGroupData() {
+        if (groupDataBuilder_ == null) {
+          groupData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          groupDataBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public Builder removeGroupData(int index) {
+        if (groupDataBuilder_ == null) {
+          ensureGroupDataIsMutable();
+          groupData_.remove(index);
+          onChanged();
+        } else {
+          groupDataBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Data.Builder getGroupDataBuilder(
+          int index) {
+        return getGroupDataFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.DataOrBuilder getGroupDataOrBuilder(
+          int index) {
+        if (groupDataBuilder_ == null) {
+          return groupData_.get(index);  } else {
+          return groupDataBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.DataOrBuilder> 
+           getGroupDataOrBuilderList() {
+        if (groupDataBuilder_ != null) {
+          return groupDataBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(groupData_);
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Data.Builder addGroupDataBuilder() {
+        return getGroupDataFieldBuilder().addBuilder(
+            product_hub_back.ProductHubBackOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Data.Builder addGroupDataBuilder(
+          int index) {
+        return getGroupDataFieldBuilder().addBuilder(
+            index, product_hub_back.ProductHubBackOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * доп. данные: original_id
+       * </pre>
+       *
+       * <code>repeated .product_hub_back.Data group_data = 10;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.Data.Builder> 
+           getGroupDataBuilderList() {
+        return getGroupDataFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.Data, product_hub_back.ProductHubBackOuterClass.Data.Builder, product_hub_back.ProductHubBackOuterClass.DataOrBuilder> 
+          getGroupDataFieldBuilder() {
+        if (groupDataBuilder_ == null) {
+          groupDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back.ProductHubBackOuterClass.Data, product_hub_back.ProductHubBackOuterClass.Data.Builder, product_hub_back.ProductHubBackOuterClass.DataOrBuilder>(
+                  groupData_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          groupData_ = null;
+        }
+        return groupDataBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.Group)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.Group)
+    private static final product_hub_back.ProductHubBackOuterClass.Group DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.Group();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.Group getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Group>
+        PARSER = new com.google.protobuf.AbstractParser<Group>() {
+      @java.lang.Override
+      public Group parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Group(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Group> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Group> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.Group getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GroupItemOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.GroupItem)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * идентификатор sku
+     * </pre>
+     *
+     * <code>string retailer_sku = 1;</code>
+     * @return The retailerSku.
+     */
+    java.lang.String getRetailerSku();
+    /**
+     * <pre>
+     * идентификатор sku
+     * </pre>
+     *
+     * <code>string retailer_sku = 1;</code>
+     * @return The bytes for retailerSku.
+     */
+    com.google.protobuf.ByteString
+        getRetailerSkuBytes();
+
+    /**
+     * <pre>
+     * выбран товар по умолчанию
+     * </pre>
+     *
+     * <code>bool is_default = 2;</code>
+     * @return The isDefault.
+     */
+    boolean getIsDefault();
+  }
+  /**
+   * <pre>
+   **
+   * Одна sku из группы Group
+   * Пример: суп, салат, компот
+   * </pre>
+   *
+   * Protobuf type {@code product_hub_back.GroupItem}
+   */
+  public static final class GroupItem extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.GroupItem)
+      GroupItemOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GroupItem.newBuilder() to construct.
+    private GroupItem(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GroupItem() {
+      retailerSku_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GroupItem();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GroupItem(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retailerSku_ = s;
+              break;
+            }
+            case 16: {
+
+              isDefault_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_GroupItem_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_GroupItem_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.GroupItem.class, product_hub_back.ProductHubBackOuterClass.GroupItem.Builder.class);
+    }
+
+    public static final int RETAILER_SKU_FIELD_NUMBER = 1;
+    private volatile java.lang.Object retailerSku_;
+    /**
+     * <pre>
+     * идентификатор sku
+     * </pre>
+     *
+     * <code>string retailer_sku = 1;</code>
+     * @return The retailerSku.
+     */
+    @java.lang.Override
+    public java.lang.String getRetailerSku() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        retailerSku_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор sku
+     * </pre>
+     *
+     * <code>string retailer_sku = 1;</code>
+     * @return The bytes for retailerSku.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRetailerSkuBytes() {
+      java.lang.Object ref = retailerSku_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        retailerSku_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int IS_DEFAULT_FIELD_NUMBER = 2;
+    private boolean isDefault_;
+    /**
+     * <pre>
+     * выбран товар по умолчанию
+     * </pre>
+     *
+     * <code>bool is_default = 2;</code>
+     * @return The isDefault.
+     */
+    @java.lang.Override
+    public boolean getIsDefault() {
+      return isDefault_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getRetailerSkuBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, retailerSku_);
+      }
+      if (isDefault_ != false) {
+        output.writeBool(2, isDefault_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getRetailerSkuBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, retailerSku_);
+      }
+      if (isDefault_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, isDefault_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.GroupItem)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.GroupItem other = (product_hub_back.ProductHubBackOuterClass.GroupItem) obj;
+
+      if (!getRetailerSku()
+          .equals(other.getRetailerSku())) return false;
+      if (getIsDefault()
+          != other.getIsDefault()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RETAILER_SKU_FIELD_NUMBER;
+      hash = (53 * hash) + getRetailerSku().hashCode();
+      hash = (37 * hash) + IS_DEFAULT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsDefault());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.GroupItem prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     **
+     * Одна sku из группы Group
+     * Пример: суп, салат, компот
+     * </pre>
+     *
+     * Protobuf type {@code product_hub_back.GroupItem}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.GroupItem)
+        product_hub_back.ProductHubBackOuterClass.GroupItemOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_GroupItem_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_GroupItem_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.GroupItem.class, product_hub_back.ProductHubBackOuterClass.GroupItem.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.GroupItem.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        retailerSku_ = "";
+
+        isDefault_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_GroupItem_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.GroupItem getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.GroupItem.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.GroupItem build() {
+        product_hub_back.ProductHubBackOuterClass.GroupItem result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.GroupItem buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.GroupItem result = new product_hub_back.ProductHubBackOuterClass.GroupItem(this);
+        result.retailerSku_ = retailerSku_;
+        result.isDefault_ = isDefault_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.GroupItem) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.GroupItem)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.GroupItem other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.GroupItem.getDefaultInstance()) return this;
+        if (!other.getRetailerSku().isEmpty()) {
+          retailerSku_ = other.retailerSku_;
+          onChanged();
+        }
+        if (other.getIsDefault() != false) {
+          setIsDefault(other.getIsDefault());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.GroupItem parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.GroupItem) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object retailerSku_ = "";
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 1;</code>
+       * @return The retailerSku.
+       */
+      public java.lang.String getRetailerSku() {
+        java.lang.Object ref = retailerSku_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerSku_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 1;</code>
+       * @return The bytes for retailerSku.
+       */
+      public com.google.protobuf.ByteString
+          getRetailerSkuBytes() {
+        java.lang.Object ref = retailerSku_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerSku_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 1;</code>
+       * @param value The retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSku(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerSku() {
+        
+        retailerSku_ = getDefaultInstance().getRetailerSku();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор sku
+       * </pre>
+       *
+       * <code>string retailer_sku = 1;</code>
+       * @param value The bytes for retailerSku to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerSkuBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        retailerSku_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean isDefault_ ;
+      /**
+       * <pre>
+       * выбран товар по умолчанию
+       * </pre>
+       *
+       * <code>bool is_default = 2;</code>
+       * @return The isDefault.
+       */
+      @java.lang.Override
+      public boolean getIsDefault() {
+        return isDefault_;
+      }
+      /**
+       * <pre>
+       * выбран товар по умолчанию
+       * </pre>
+       *
+       * <code>bool is_default = 2;</code>
+       * @param value The isDefault to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsDefault(boolean value) {
+        
+        isDefault_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * выбран товар по умолчанию
+       * </pre>
+       *
+       * <code>bool is_default = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsDefault() {
+        
+        isDefault_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.GroupItem)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.GroupItem)
+    private static final product_hub_back.ProductHubBackOuterClass.GroupItem DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.GroupItem();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.GroupItem getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GroupItem>
+        PARSER = new com.google.protobuf.AbstractParser<GroupItem>() {
+      @java.lang.Override
+      public GroupItem parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GroupItem(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GroupItem> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GroupItem> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.GroupItem getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -29242,25 +32394,25 @@ public final class ProductHubBackOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     java.util.List<product_hub_back.ProductHubBackOuterClass.CategoryFilters> 
         getCategoryFiltersList();
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     product_hub_back.ProductHubBackOuterClass.CategoryFilters getCategoryFilters(int index);
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     int getCategoryFiltersCount();
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     java.util.List<? extends product_hub_back.ProductHubBackOuterClass.CategoryFiltersOrBuilder> 
         getCategoryFiltersOrBuilderList();
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     product_hub_back.ProductHubBackOuterClass.CategoryFiltersOrBuilder getCategoryFiltersOrBuilder(
         int index);
@@ -29356,17 +32508,17 @@ public final class ProductHubBackOuterClass {
               product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersRequest.class, product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersRequest.Builder.class);
     }
 
-    public static final int CATEGORYFILTERS_FIELD_NUMBER = 1;
+    public static final int CATEGORY_FILTERS_FIELD_NUMBER = 1;
     private java.util.List<product_hub_back.ProductHubBackOuterClass.CategoryFilters> categoryFilters_;
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     @java.lang.Override
     public java.util.List<product_hub_back.ProductHubBackOuterClass.CategoryFilters> getCategoryFiltersList() {
       return categoryFilters_;
     }
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     @java.lang.Override
     public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.CategoryFiltersOrBuilder> 
@@ -29374,21 +32526,21 @@ public final class ProductHubBackOuterClass {
       return categoryFilters_;
     }
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     @java.lang.Override
     public int getCategoryFiltersCount() {
       return categoryFilters_.size();
     }
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     @java.lang.Override
     public product_hub_back.ProductHubBackOuterClass.CategoryFilters getCategoryFilters(int index) {
       return categoryFilters_.get(index);
     }
     /**
-     * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+     * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
      */
     @java.lang.Override
     public product_hub_back.ProductHubBackOuterClass.CategoryFiltersOrBuilder getCategoryFiltersOrBuilder(
@@ -29455,7 +32607,7 @@ public final class ProductHubBackOuterClass {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       if (getCategoryFiltersCount() > 0) {
-        hash = (37 * hash) + CATEGORYFILTERS_FIELD_NUMBER;
+        hash = (37 * hash) + CATEGORY_FILTERS_FIELD_NUMBER;
         hash = (53 * hash) + getCategoryFiltersList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
@@ -29751,7 +32903,7 @@ public final class ProductHubBackOuterClass {
           product_hub_back.ProductHubBackOuterClass.CategoryFilters, product_hub_back.ProductHubBackOuterClass.CategoryFilters.Builder, product_hub_back.ProductHubBackOuterClass.CategoryFiltersOrBuilder> categoryFiltersBuilder_;
 
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public java.util.List<product_hub_back.ProductHubBackOuterClass.CategoryFilters> getCategoryFiltersList() {
         if (categoryFiltersBuilder_ == null) {
@@ -29761,7 +32913,7 @@ public final class ProductHubBackOuterClass {
         }
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public int getCategoryFiltersCount() {
         if (categoryFiltersBuilder_ == null) {
@@ -29771,7 +32923,7 @@ public final class ProductHubBackOuterClass {
         }
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public product_hub_back.ProductHubBackOuterClass.CategoryFilters getCategoryFilters(int index) {
         if (categoryFiltersBuilder_ == null) {
@@ -29781,7 +32933,7 @@ public final class ProductHubBackOuterClass {
         }
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public Builder setCategoryFilters(
           int index, product_hub_back.ProductHubBackOuterClass.CategoryFilters value) {
@@ -29798,7 +32950,7 @@ public final class ProductHubBackOuterClass {
         return this;
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public Builder setCategoryFilters(
           int index, product_hub_back.ProductHubBackOuterClass.CategoryFilters.Builder builderForValue) {
@@ -29812,7 +32964,7 @@ public final class ProductHubBackOuterClass {
         return this;
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public Builder addCategoryFilters(product_hub_back.ProductHubBackOuterClass.CategoryFilters value) {
         if (categoryFiltersBuilder_ == null) {
@@ -29828,7 +32980,7 @@ public final class ProductHubBackOuterClass {
         return this;
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public Builder addCategoryFilters(
           int index, product_hub_back.ProductHubBackOuterClass.CategoryFilters value) {
@@ -29845,7 +32997,7 @@ public final class ProductHubBackOuterClass {
         return this;
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public Builder addCategoryFilters(
           product_hub_back.ProductHubBackOuterClass.CategoryFilters.Builder builderForValue) {
@@ -29859,7 +33011,7 @@ public final class ProductHubBackOuterClass {
         return this;
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public Builder addCategoryFilters(
           int index, product_hub_back.ProductHubBackOuterClass.CategoryFilters.Builder builderForValue) {
@@ -29873,7 +33025,7 @@ public final class ProductHubBackOuterClass {
         return this;
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public Builder addAllCategoryFilters(
           java.lang.Iterable<? extends product_hub_back.ProductHubBackOuterClass.CategoryFilters> values) {
@@ -29888,7 +33040,7 @@ public final class ProductHubBackOuterClass {
         return this;
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public Builder clearCategoryFilters() {
         if (categoryFiltersBuilder_ == null) {
@@ -29901,7 +33053,7 @@ public final class ProductHubBackOuterClass {
         return this;
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public Builder removeCategoryFilters(int index) {
         if (categoryFiltersBuilder_ == null) {
@@ -29914,14 +33066,14 @@ public final class ProductHubBackOuterClass {
         return this;
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public product_hub_back.ProductHubBackOuterClass.CategoryFilters.Builder getCategoryFiltersBuilder(
           int index) {
         return getCategoryFiltersFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public product_hub_back.ProductHubBackOuterClass.CategoryFiltersOrBuilder getCategoryFiltersOrBuilder(
           int index) {
@@ -29931,7 +33083,7 @@ public final class ProductHubBackOuterClass {
         }
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.CategoryFiltersOrBuilder> 
            getCategoryFiltersOrBuilderList() {
@@ -29942,14 +33094,14 @@ public final class ProductHubBackOuterClass {
         }
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public product_hub_back.ProductHubBackOuterClass.CategoryFilters.Builder addCategoryFiltersBuilder() {
         return getCategoryFiltersFieldBuilder().addBuilder(
             product_hub_back.ProductHubBackOuterClass.CategoryFilters.getDefaultInstance());
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public product_hub_back.ProductHubBackOuterClass.CategoryFilters.Builder addCategoryFiltersBuilder(
           int index) {
@@ -29957,7 +33109,7 @@ public final class ProductHubBackOuterClass {
             index, product_hub_back.ProductHubBackOuterClass.CategoryFilters.getDefaultInstance());
       }
       /**
-       * <code>repeated .product_hub_back.CategoryFilters categoryFilters = 1;</code>
+       * <code>repeated .product_hub_back.CategoryFilters category_filters = 1;</code>
        */
       public java.util.List<product_hub_back.ProductHubBackOuterClass.CategoryFilters.Builder> 
            getCategoryFiltersBuilderList() {
@@ -30514,6 +33666,3439 @@ public final class ProductHubBackOuterClass {
 
     @java.lang.Override
     public product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RetailerStoreOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.RetailerStore)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * идентификатор магазина ритейлера
+     * </pre>
+     *
+     * <code>string store_id = 1;</code>
+     * @return The storeId.
+     */
+    java.lang.String getStoreId();
+    /**
+     * <pre>
+     * идентификатор магазина ритейлера
+     * </pre>
+     *
+     * <code>string store_id = 1;</code>
+     * @return The bytes for storeId.
+     */
+    com.google.protobuf.ByteString
+        getStoreIdBytes();
+
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 2;</code>
+     * @return The retailerId.
+     */
+    java.lang.String getRetailerId();
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 2;</code>
+     * @return The bytes for retailerId.
+     */
+    com.google.protobuf.ByteString
+        getRetailerIdBytes();
+  }
+  /**
+   * <pre>
+   * RetailerStore - идентификатор магазина у ритейлера
+   * </pre>
+   *
+   * Protobuf type {@code product_hub_back.RetailerStore}
+   */
+  public static final class RetailerStore extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.RetailerStore)
+      RetailerStoreOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RetailerStore.newBuilder() to construct.
+    private RetailerStore(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RetailerStore() {
+      storeId_ = "";
+      retailerId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RetailerStore();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RetailerStore(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retailerId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_RetailerStore_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_RetailerStore_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.RetailerStore.class, product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder.class);
+    }
+
+    public static final int STORE_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object storeId_;
+    /**
+     * <pre>
+     * идентификатор магазина ритейлера
+     * </pre>
+     *
+     * <code>string store_id = 1;</code>
+     * @return The storeId.
+     */
+    @java.lang.Override
+    public java.lang.String getStoreId() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор магазина ритейлера
+     * </pre>
+     *
+     * <code>string store_id = 1;</code>
+     * @return The bytes for storeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStoreIdBytes() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RETAILER_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object retailerId_;
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 2;</code>
+     * @return The retailerId.
+     */
+    @java.lang.Override
+    public java.lang.String getRetailerId() {
+      java.lang.Object ref = retailerId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        retailerId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор ритейлера
+     * </pre>
+     *
+     * <code>string retailer_id = 2;</code>
+     * @return The bytes for retailerId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRetailerIdBytes() {
+      java.lang.Object ref = retailerId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        retailerId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getStoreIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, storeId_);
+      }
+      if (!getRetailerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, retailerId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getStoreIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, storeId_);
+      }
+      if (!getRetailerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, retailerId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.RetailerStore)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.RetailerStore other = (product_hub_back.ProductHubBackOuterClass.RetailerStore) obj;
+
+      if (!getStoreId()
+          .equals(other.getStoreId())) return false;
+      if (!getRetailerId()
+          .equals(other.getRetailerId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreId().hashCode();
+      hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getRetailerId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.RetailerStore prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * RetailerStore - идентификатор магазина у ритейлера
+     * </pre>
+     *
+     * Protobuf type {@code product_hub_back.RetailerStore}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.RetailerStore)
+        product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_RetailerStore_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_RetailerStore_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.RetailerStore.class, product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.RetailerStore.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        storeId_ = "";
+
+        retailerId_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_RetailerStore_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.RetailerStore getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.RetailerStore.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.RetailerStore build() {
+        product_hub_back.ProductHubBackOuterClass.RetailerStore result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.RetailerStore buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.RetailerStore result = new product_hub_back.ProductHubBackOuterClass.RetailerStore(this);
+        result.storeId_ = storeId_;
+        result.retailerId_ = retailerId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.RetailerStore) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.RetailerStore)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.RetailerStore other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.RetailerStore.getDefaultInstance()) return this;
+        if (!other.getStoreId().isEmpty()) {
+          storeId_ = other.storeId_;
+          onChanged();
+        }
+        if (!other.getRetailerId().isEmpty()) {
+          retailerId_ = other.retailerId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.RetailerStore parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.RetailerStore) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object storeId_ = "";
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 1;</code>
+       * @return The storeId.
+       */
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 1;</code>
+       * @return The bytes for storeId.
+       */
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 1;</code>
+       * @param value The storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = getDefaultInstance().getStoreId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор магазина ритейлера
+       * </pre>
+       *
+       * <code>string store_id = 1;</code>
+       * @param value The bytes for storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object retailerId_ = "";
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 2;</code>
+       * @return The retailerId.
+       */
+      public java.lang.String getRetailerId() {
+        java.lang.Object ref = retailerId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 2;</code>
+       * @return The bytes for retailerId.
+       */
+      public com.google.protobuf.ByteString
+          getRetailerIdBytes() {
+        java.lang.Object ref = retailerId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 2;</code>
+       * @param value The retailerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        retailerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerId() {
+        
+        retailerId_ = getDefaultInstance().getRetailerId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор ритейлера
+       * </pre>
+       *
+       * <code>string retailer_id = 2;</code>
+       * @param value The bytes for retailerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        retailerId_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.RetailerStore)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.RetailerStore)
+    private static final product_hub_back.ProductHubBackOuterClass.RetailerStore DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.RetailerStore();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.RetailerStore getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RetailerStore>
+        PARSER = new com.google.protobuf.AbstractParser<RetailerStore>() {
+      @java.lang.Override
+      public RetailerStore parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RetailerStore(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RetailerStore> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RetailerStore> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.RetailerStore getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SaveStoreIDtoRetailerIDRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.SaveStoreIDtoRetailerIDRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    java.util.List<product_hub_back.ProductHubBackOuterClass.RetailerStore> 
+        getRetailerStoresList();
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.RetailerStore getRetailerStores(int index);
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    int getRetailerStoresCount();
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    java.util.List<? extends product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder> 
+        getRetailerStoresOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder getRetailerStoresOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_back.SaveStoreIDtoRetailerIDRequest}
+   */
+  public static final class SaveStoreIDtoRetailerIDRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.SaveStoreIDtoRetailerIDRequest)
+      SaveStoreIDtoRetailerIDRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SaveStoreIDtoRetailerIDRequest.newBuilder() to construct.
+    private SaveStoreIDtoRetailerIDRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SaveStoreIDtoRetailerIDRequest() {
+      retailerStores_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SaveStoreIDtoRetailerIDRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SaveStoreIDtoRetailerIDRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                retailerStores_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.RetailerStore>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              retailerStores_.add(
+                  input.readMessage(product_hub_back.ProductHubBackOuterClass.RetailerStore.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          retailerStores_ = java.util.Collections.unmodifiableList(retailerStores_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest.class, product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest.Builder.class);
+    }
+
+    public static final int RETAILER_STORES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_back.ProductHubBackOuterClass.RetailerStore> retailerStores_;
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back.ProductHubBackOuterClass.RetailerStore> getRetailerStoresList() {
+      return retailerStores_;
+    }
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder> 
+        getRetailerStoresOrBuilderList() {
+      return retailerStores_;
+    }
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public int getRetailerStoresCount() {
+      return retailerStores_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.RetailerStore getRetailerStores(int index) {
+      return retailerStores_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder getRetailerStoresOrBuilder(
+        int index) {
+      return retailerStores_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < retailerStores_.size(); i++) {
+        output.writeMessage(1, retailerStores_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < retailerStores_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, retailerStores_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest other = (product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest) obj;
+
+      if (!getRetailerStoresList()
+          .equals(other.getRetailerStoresList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getRetailerStoresCount() > 0) {
+        hash = (37 * hash) + RETAILER_STORES_FIELD_NUMBER;
+        hash = (53 * hash) + getRetailerStoresList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back.SaveStoreIDtoRetailerIDRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.SaveStoreIDtoRetailerIDRequest)
+        product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest.class, product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getRetailerStoresFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (retailerStoresBuilder_ == null) {
+          retailerStores_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          retailerStoresBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest build() {
+        product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest result = new product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (retailerStoresBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            retailerStores_ = java.util.Collections.unmodifiableList(retailerStores_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.retailerStores_ = retailerStores_;
+        } else {
+          result.retailerStores_ = retailerStoresBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest.getDefaultInstance()) return this;
+        if (retailerStoresBuilder_ == null) {
+          if (!other.retailerStores_.isEmpty()) {
+            if (retailerStores_.isEmpty()) {
+              retailerStores_ = other.retailerStores_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureRetailerStoresIsMutable();
+              retailerStores_.addAll(other.retailerStores_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.retailerStores_.isEmpty()) {
+            if (retailerStoresBuilder_.isEmpty()) {
+              retailerStoresBuilder_.dispose();
+              retailerStoresBuilder_ = null;
+              retailerStores_ = other.retailerStores_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              retailerStoresBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRetailerStoresFieldBuilder() : null;
+            } else {
+              retailerStoresBuilder_.addAllMessages(other.retailerStores_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_back.ProductHubBackOuterClass.RetailerStore> retailerStores_ =
+        java.util.Collections.emptyList();
+      private void ensureRetailerStoresIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          retailerStores_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.RetailerStore>(retailerStores_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.RetailerStore, product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder, product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder> retailerStoresBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.RetailerStore> getRetailerStoresList() {
+        if (retailerStoresBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(retailerStores_);
+        } else {
+          return retailerStoresBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public int getRetailerStoresCount() {
+        if (retailerStoresBuilder_ == null) {
+          return retailerStores_.size();
+        } else {
+          return retailerStoresBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.RetailerStore getRetailerStores(int index) {
+        if (retailerStoresBuilder_ == null) {
+          return retailerStores_.get(index);
+        } else {
+          return retailerStoresBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder setRetailerStores(
+          int index, product_hub_back.ProductHubBackOuterClass.RetailerStore value) {
+        if (retailerStoresBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailerStoresIsMutable();
+          retailerStores_.set(index, value);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder setRetailerStores(
+          int index, product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder builderForValue) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          retailerStoresBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(product_hub_back.ProductHubBackOuterClass.RetailerStore value) {
+        if (retailerStoresBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(value);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(
+          int index, product_hub_back.ProductHubBackOuterClass.RetailerStore value) {
+        if (retailerStoresBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(index, value);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(
+          product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder builderForValue) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(builderForValue.build());
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addRetailerStores(
+          int index, product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder builderForValue) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder addAllRetailerStores(
+          java.lang.Iterable<? extends product_hub_back.ProductHubBackOuterClass.RetailerStore> values) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, retailerStores_);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder clearRetailerStores() {
+        if (retailerStoresBuilder_ == null) {
+          retailerStores_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public Builder removeRetailerStores(int index) {
+        if (retailerStoresBuilder_ == null) {
+          ensureRetailerStoresIsMutable();
+          retailerStores_.remove(index);
+          onChanged();
+        } else {
+          retailerStoresBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder getRetailerStoresBuilder(
+          int index) {
+        return getRetailerStoresFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder getRetailerStoresOrBuilder(
+          int index) {
+        if (retailerStoresBuilder_ == null) {
+          return retailerStores_.get(index);  } else {
+          return retailerStoresBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder> 
+           getRetailerStoresOrBuilderList() {
+        if (retailerStoresBuilder_ != null) {
+          return retailerStoresBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(retailerStores_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder addRetailerStoresBuilder() {
+        return getRetailerStoresFieldBuilder().addBuilder(
+            product_hub_back.ProductHubBackOuterClass.RetailerStore.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder addRetailerStoresBuilder(
+          int index) {
+        return getRetailerStoresFieldBuilder().addBuilder(
+            index, product_hub_back.ProductHubBackOuterClass.RetailerStore.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.RetailerStore retailer_stores = 1;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder> 
+           getRetailerStoresBuilderList() {
+        return getRetailerStoresFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.RetailerStore, product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder, product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder> 
+          getRetailerStoresFieldBuilder() {
+        if (retailerStoresBuilder_ == null) {
+          retailerStoresBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back.ProductHubBackOuterClass.RetailerStore, product_hub_back.ProductHubBackOuterClass.RetailerStore.Builder, product_hub_back.ProductHubBackOuterClass.RetailerStoreOrBuilder>(
+                  retailerStores_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          retailerStores_ = null;
+        }
+        return retailerStoresBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.SaveStoreIDtoRetailerIDRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.SaveStoreIDtoRetailerIDRequest)
+    private static final product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SaveStoreIDtoRetailerIDRequest>
+        PARSER = new com.google.protobuf.AbstractParser<SaveStoreIDtoRetailerIDRequest>() {
+      @java.lang.Override
+      public SaveStoreIDtoRetailerIDRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SaveStoreIDtoRetailerIDRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SaveStoreIDtoRetailerIDRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SaveStoreIDtoRetailerIDRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SaveGroupsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.SaveGroupsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    java.util.List<product_hub_back.ProductHubBackOuterClass.Group> 
+        getGroupsList();
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.Group getGroups(int index);
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    int getGroupsCount();
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    java.util.List<? extends product_hub_back.ProductHubBackOuterClass.GroupOrBuilder> 
+        getGroupsOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.GroupOrBuilder getGroupsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_back.SaveGroupsRequest}
+   */
+  public static final class SaveGroupsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.SaveGroupsRequest)
+      SaveGroupsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SaveGroupsRequest.newBuilder() to construct.
+    private SaveGroupsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SaveGroupsRequest() {
+      groups_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SaveGroupsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SaveGroupsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                groups_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.Group>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              groups_.add(
+                  input.readMessage(product_hub_back.ProductHubBackOuterClass.Group.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          groups_ = java.util.Collections.unmodifiableList(groups_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest.class, product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest.Builder.class);
+    }
+
+    public static final int GROUPS_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_back.ProductHubBackOuterClass.Group> groups_;
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back.ProductHubBackOuterClass.Group> getGroupsList() {
+      return groups_;
+    }
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.GroupOrBuilder> 
+        getGroupsOrBuilderList() {
+      return groups_;
+    }
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    @java.lang.Override
+    public int getGroupsCount() {
+      return groups_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.Group getGroups(int index) {
+      return groups_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back.Group groups = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.GroupOrBuilder getGroupsOrBuilder(
+        int index) {
+      return groups_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < groups_.size(); i++) {
+        output.writeMessage(1, groups_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < groups_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, groups_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest other = (product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest) obj;
+
+      if (!getGroupsList()
+          .equals(other.getGroupsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getGroupsCount() > 0) {
+        hash = (37 * hash) + GROUPS_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back.SaveGroupsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.SaveGroupsRequest)
+        product_hub_back.ProductHubBackOuterClass.SaveGroupsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest.class, product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getGroupsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (groupsBuilder_ == null) {
+          groups_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          groupsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest build() {
+        product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest result = new product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (groupsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            groups_ = java.util.Collections.unmodifiableList(groups_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.groups_ = groups_;
+        } else {
+          result.groups_ = groupsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest.getDefaultInstance()) return this;
+        if (groupsBuilder_ == null) {
+          if (!other.groups_.isEmpty()) {
+            if (groups_.isEmpty()) {
+              groups_ = other.groups_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureGroupsIsMutable();
+              groups_.addAll(other.groups_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.groups_.isEmpty()) {
+            if (groupsBuilder_.isEmpty()) {
+              groupsBuilder_.dispose();
+              groupsBuilder_ = null;
+              groups_ = other.groups_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              groupsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getGroupsFieldBuilder() : null;
+            } else {
+              groupsBuilder_.addAllMessages(other.groups_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_back.ProductHubBackOuterClass.Group> groups_ =
+        java.util.Collections.emptyList();
+      private void ensureGroupsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          groups_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.Group>(groups_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.Group, product_hub_back.ProductHubBackOuterClass.Group.Builder, product_hub_back.ProductHubBackOuterClass.GroupOrBuilder> groupsBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.Group> getGroupsList() {
+        if (groupsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(groups_);
+        } else {
+          return groupsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public int getGroupsCount() {
+        if (groupsBuilder_ == null) {
+          return groups_.size();
+        } else {
+          return groupsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Group getGroups(int index) {
+        if (groupsBuilder_ == null) {
+          return groups_.get(index);
+        } else {
+          return groupsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public Builder setGroups(
+          int index, product_hub_back.ProductHubBackOuterClass.Group value) {
+        if (groupsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureGroupsIsMutable();
+          groups_.set(index, value);
+          onChanged();
+        } else {
+          groupsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public Builder setGroups(
+          int index, product_hub_back.ProductHubBackOuterClass.Group.Builder builderForValue) {
+        if (groupsBuilder_ == null) {
+          ensureGroupsIsMutable();
+          groups_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          groupsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public Builder addGroups(product_hub_back.ProductHubBackOuterClass.Group value) {
+        if (groupsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureGroupsIsMutable();
+          groups_.add(value);
+          onChanged();
+        } else {
+          groupsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public Builder addGroups(
+          int index, product_hub_back.ProductHubBackOuterClass.Group value) {
+        if (groupsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureGroupsIsMutable();
+          groups_.add(index, value);
+          onChanged();
+        } else {
+          groupsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public Builder addGroups(
+          product_hub_back.ProductHubBackOuterClass.Group.Builder builderForValue) {
+        if (groupsBuilder_ == null) {
+          ensureGroupsIsMutable();
+          groups_.add(builderForValue.build());
+          onChanged();
+        } else {
+          groupsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public Builder addGroups(
+          int index, product_hub_back.ProductHubBackOuterClass.Group.Builder builderForValue) {
+        if (groupsBuilder_ == null) {
+          ensureGroupsIsMutable();
+          groups_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          groupsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public Builder addAllGroups(
+          java.lang.Iterable<? extends product_hub_back.ProductHubBackOuterClass.Group> values) {
+        if (groupsBuilder_ == null) {
+          ensureGroupsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, groups_);
+          onChanged();
+        } else {
+          groupsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public Builder clearGroups() {
+        if (groupsBuilder_ == null) {
+          groups_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          groupsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public Builder removeGroups(int index) {
+        if (groupsBuilder_ == null) {
+          ensureGroupsIsMutable();
+          groups_.remove(index);
+          onChanged();
+        } else {
+          groupsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Group.Builder getGroupsBuilder(
+          int index) {
+        return getGroupsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.GroupOrBuilder getGroupsOrBuilder(
+          int index) {
+        if (groupsBuilder_ == null) {
+          return groups_.get(index);  } else {
+          return groupsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.GroupOrBuilder> 
+           getGroupsOrBuilderList() {
+        if (groupsBuilder_ != null) {
+          return groupsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(groups_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Group.Builder addGroupsBuilder() {
+        return getGroupsFieldBuilder().addBuilder(
+            product_hub_back.ProductHubBackOuterClass.Group.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Group.Builder addGroupsBuilder(
+          int index) {
+        return getGroupsFieldBuilder().addBuilder(
+            index, product_hub_back.ProductHubBackOuterClass.Group.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.Group groups = 1;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.Group.Builder> 
+           getGroupsBuilderList() {
+        return getGroupsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.Group, product_hub_back.ProductHubBackOuterClass.Group.Builder, product_hub_back.ProductHubBackOuterClass.GroupOrBuilder> 
+          getGroupsFieldBuilder() {
+        if (groupsBuilder_ == null) {
+          groupsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back.ProductHubBackOuterClass.Group, product_hub_back.ProductHubBackOuterClass.Group.Builder, product_hub_back.ProductHubBackOuterClass.GroupOrBuilder>(
+                  groups_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          groups_ = null;
+        }
+        return groupsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.SaveGroupsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.SaveGroupsRequest)
+    private static final product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SaveGroupsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<SaveGroupsRequest>() {
+      @java.lang.Override
+      public SaveGroupsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SaveGroupsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SaveGroupsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SaveGroupsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SaveGroupsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.SaveGroupsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 group_count = 1;</code>
+     * @return The groupCount.
+     */
+    long getGroupCount();
+  }
+  /**
+   * Protobuf type {@code product_hub_back.SaveGroupsResponse}
+   */
+  public static final class SaveGroupsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.SaveGroupsResponse)
+      SaveGroupsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SaveGroupsResponse.newBuilder() to construct.
+    private SaveGroupsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SaveGroupsResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SaveGroupsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SaveGroupsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              groupCount_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse.class, product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse.Builder.class);
+    }
+
+    public static final int GROUP_COUNT_FIELD_NUMBER = 1;
+    private long groupCount_;
+    /**
+     * <code>int64 group_count = 1;</code>
+     * @return The groupCount.
+     */
+    @java.lang.Override
+    public long getGroupCount() {
+      return groupCount_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (groupCount_ != 0L) {
+        output.writeInt64(1, groupCount_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (groupCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, groupCount_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse other = (product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse) obj;
+
+      if (getGroupCount()
+          != other.getGroupCount()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + GROUP_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getGroupCount());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back.SaveGroupsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.SaveGroupsResponse)
+        product_hub_back.ProductHubBackOuterClass.SaveGroupsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse.class, product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        groupCount_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveGroupsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse build() {
+        product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse result = new product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse(this);
+        result.groupCount_ = groupCount_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse.getDefaultInstance()) return this;
+        if (other.getGroupCount() != 0L) {
+          setGroupCount(other.getGroupCount());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long groupCount_ ;
+      /**
+       * <code>int64 group_count = 1;</code>
+       * @return The groupCount.
+       */
+      @java.lang.Override
+      public long getGroupCount() {
+        return groupCount_;
+      }
+      /**
+       * <code>int64 group_count = 1;</code>
+       * @param value The groupCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGroupCount(long value) {
+        
+        groupCount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 group_count = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearGroupCount() {
+        
+        groupCount_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.SaveGroupsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.SaveGroupsResponse)
+    private static final product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SaveGroupsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SaveGroupsResponse>() {
+      @java.lang.Override
+      public SaveGroupsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SaveGroupsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SaveGroupsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SaveGroupsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SaveStoreIDtoRetailerIDResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.SaveStoreIDtoRetailerIDResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 retailer_count = 1;</code>
+     * @return The retailerCount.
+     */
+    long getRetailerCount();
+
+    /**
+     * <code>int64 store_count = 2;</code>
+     * @return The storeCount.
+     */
+    long getStoreCount();
+  }
+  /**
+   * Protobuf type {@code product_hub_back.SaveStoreIDtoRetailerIDResponse}
+   */
+  public static final class SaveStoreIDtoRetailerIDResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.SaveStoreIDtoRetailerIDResponse)
+      SaveStoreIDtoRetailerIDResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SaveStoreIDtoRetailerIDResponse.newBuilder() to construct.
+    private SaveStoreIDtoRetailerIDResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SaveStoreIDtoRetailerIDResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SaveStoreIDtoRetailerIDResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SaveStoreIDtoRetailerIDResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              retailerCount_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              storeCount_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse.class, product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse.Builder.class);
+    }
+
+    public static final int RETAILER_COUNT_FIELD_NUMBER = 1;
+    private long retailerCount_;
+    /**
+     * <code>int64 retailer_count = 1;</code>
+     * @return The retailerCount.
+     */
+    @java.lang.Override
+    public long getRetailerCount() {
+      return retailerCount_;
+    }
+
+    public static final int STORE_COUNT_FIELD_NUMBER = 2;
+    private long storeCount_;
+    /**
+     * <code>int64 store_count = 2;</code>
+     * @return The storeCount.
+     */
+    @java.lang.Override
+    public long getStoreCount() {
+      return storeCount_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (retailerCount_ != 0L) {
+        output.writeInt64(1, retailerCount_);
+      }
+      if (storeCount_ != 0L) {
+        output.writeInt64(2, storeCount_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (retailerCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, retailerCount_);
+      }
+      if (storeCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, storeCount_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse other = (product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse) obj;
+
+      if (getRetailerCount()
+          != other.getRetailerCount()) return false;
+      if (getStoreCount()
+          != other.getStoreCount()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RETAILER_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getRetailerCount());
+      hash = (37 * hash) + STORE_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getStoreCount());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back.SaveStoreIDtoRetailerIDResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.SaveStoreIDtoRetailerIDResponse)
+        product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse.class, product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        retailerCount_ = 0L;
+
+        storeCount_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse build() {
+        product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse result = new product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse(this);
+        result.retailerCount_ = retailerCount_;
+        result.storeCount_ = storeCount_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse.getDefaultInstance()) return this;
+        if (other.getRetailerCount() != 0L) {
+          setRetailerCount(other.getRetailerCount());
+        }
+        if (other.getStoreCount() != 0L) {
+          setStoreCount(other.getStoreCount());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long retailerCount_ ;
+      /**
+       * <code>int64 retailer_count = 1;</code>
+       * @return The retailerCount.
+       */
+      @java.lang.Override
+      public long getRetailerCount() {
+        return retailerCount_;
+      }
+      /**
+       * <code>int64 retailer_count = 1;</code>
+       * @param value The retailerCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetailerCount(long value) {
+        
+        retailerCount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 retailer_count = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetailerCount() {
+        
+        retailerCount_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long storeCount_ ;
+      /**
+       * <code>int64 store_count = 2;</code>
+       * @return The storeCount.
+       */
+      @java.lang.Override
+      public long getStoreCount() {
+        return storeCount_;
+      }
+      /**
+       * <code>int64 store_count = 2;</code>
+       * @param value The storeCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreCount(long value) {
+        
+        storeCount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 store_count = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreCount() {
+        
+        storeCount_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.SaveStoreIDtoRetailerIDResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.SaveStoreIDtoRetailerIDResponse)
+    private static final product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SaveStoreIDtoRetailerIDResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SaveStoreIDtoRetailerIDResponse>() {
+      @java.lang.Override
+      public SaveStoreIDtoRetailerIDResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SaveStoreIDtoRetailerIDResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SaveStoreIDtoRetailerIDResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SaveStoreIDtoRetailerIDResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -31872,6 +38457,3998 @@ public final class ProductHubBackOuterClass {
 
   }
 
+  public interface SavePopularitiesRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.SavePopularitiesRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    java.util.List<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity> 
+        getPopularitiesList();
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity getPopularities(int index);
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    int getPopularitiesCount();
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    java.util.List<? extends product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder> 
+        getPopularitiesOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder getPopularitiesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_back.SavePopularitiesRequest}
+   */
+  public static final class SavePopularitiesRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.SavePopularitiesRequest)
+      SavePopularitiesRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SavePopularitiesRequest.newBuilder() to construct.
+    private SavePopularitiesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SavePopularitiesRequest() {
+      popularities_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SavePopularitiesRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SavePopularitiesRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                popularities_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              popularities_.add(
+                  input.readMessage(product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          popularities_ = java.util.Collections.unmodifiableList(popularities_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.class, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Builder.class);
+    }
+
+    public interface PopularityOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:product_hub_back.SavePopularitiesRequest.Popularity)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>string store_id = 1;</code>
+       * @return The storeId.
+       */
+      java.lang.String getStoreId();
+      /**
+       * <code>string store_id = 1;</code>
+       * @return The bytes for storeId.
+       */
+      com.google.protobuf.ByteString
+          getStoreIdBytes();
+
+      /**
+       * <code>int64 sku = 2;</code>
+       * @return The sku.
+       */
+      long getSku();
+
+      /**
+       * <code>int64 popularity = 3;</code>
+       * @return The popularity.
+       */
+      long getPopularity();
+    }
+    /**
+     * Protobuf type {@code product_hub_back.SavePopularitiesRequest.Popularity}
+     */
+    public static final class Popularity extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:product_hub_back.SavePopularitiesRequest.Popularity)
+        PopularityOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Popularity.newBuilder() to construct.
+      private Popularity(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Popularity() {
+        storeId_ = "";
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Popularity();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Popularity(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                storeId_ = s;
+                break;
+              }
+              case 16: {
+
+                sku_ = input.readInt64();
+                break;
+              }
+              case 24: {
+
+                popularity_ = input.readInt64();
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_Popularity_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_Popularity_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.class, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder.class);
+      }
+
+      public static final int STORE_ID_FIELD_NUMBER = 1;
+      private volatile java.lang.Object storeId_;
+      /**
+       * <code>string store_id = 1;</code>
+       * @return The storeId.
+       */
+      @java.lang.Override
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string store_id = 1;</code>
+       * @return The bytes for storeId.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int SKU_FIELD_NUMBER = 2;
+      private long sku_;
+      /**
+       * <code>int64 sku = 2;</code>
+       * @return The sku.
+       */
+      @java.lang.Override
+      public long getSku() {
+        return sku_;
+      }
+
+      public static final int POPULARITY_FIELD_NUMBER = 3;
+      private long popularity_;
+      /**
+       * <code>int64 popularity = 3;</code>
+       * @return The popularity.
+       */
+      @java.lang.Override
+      public long getPopularity() {
+        return popularity_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (!getStoreIdBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, storeId_);
+        }
+        if (sku_ != 0L) {
+          output.writeInt64(2, sku_);
+        }
+        if (popularity_ != 0L) {
+          output.writeInt64(3, popularity_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (!getStoreIdBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, storeId_);
+        }
+        if (sku_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(2, sku_);
+        }
+        if (popularity_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(3, popularity_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity)) {
+          return super.equals(obj);
+        }
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity other = (product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity) obj;
+
+        if (!getStoreId()
+            .equals(other.getStoreId())) return false;
+        if (getSku()
+            != other.getSku()) return false;
+        if (getPopularity()
+            != other.getPopularity()) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getStoreId().hashCode();
+        hash = (37 * hash) + SKU_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getSku());
+        hash = (37 * hash) + POPULARITY_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getPopularity());
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code product_hub_back.SavePopularitiesRequest.Popularity}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:product_hub_back.SavePopularitiesRequest.Popularity)
+          product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_Popularity_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_Popularity_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.class, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder.class);
+        }
+
+        // Construct using product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          storeId_ = "";
+
+          sku_ = 0L;
+
+          popularity_ = 0L;
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_Popularity_descriptor;
+        }
+
+        @java.lang.Override
+        public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity getDefaultInstanceForType() {
+          return product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity build() {
+          product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity buildPartial() {
+          product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity result = new product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity(this);
+          result.storeId_ = storeId_;
+          result.sku_ = sku_;
+          result.popularity_ = popularity_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity) {
+            return mergeFrom((product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity other) {
+          if (other == product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.getDefaultInstance()) return this;
+          if (!other.getStoreId().isEmpty()) {
+            storeId_ = other.storeId_;
+            onChanged();
+          }
+          if (other.getSku() != 0L) {
+            setSku(other.getSku());
+          }
+          if (other.getPopularity() != 0L) {
+            setPopularity(other.getPopularity());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private java.lang.Object storeId_ = "";
+        /**
+         * <code>string store_id = 1;</code>
+         * @return The storeId.
+         */
+        public java.lang.String getStoreId() {
+          java.lang.Object ref = storeId_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            storeId_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string store_id = 1;</code>
+         * @return The bytes for storeId.
+         */
+        public com.google.protobuf.ByteString
+            getStoreIdBytes() {
+          java.lang.Object ref = storeId_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            storeId_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string store_id = 1;</code>
+         * @param value The storeId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStoreId(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          storeId_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string store_id = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearStoreId() {
+          
+          storeId_ = getDefaultInstance().getStoreId();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string store_id = 1;</code>
+         * @param value The bytes for storeId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStoreIdBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          storeId_ = value;
+          onChanged();
+          return this;
+        }
+
+        private long sku_ ;
+        /**
+         * <code>int64 sku = 2;</code>
+         * @return The sku.
+         */
+        @java.lang.Override
+        public long getSku() {
+          return sku_;
+        }
+        /**
+         * <code>int64 sku = 2;</code>
+         * @param value The sku to set.
+         * @return This builder for chaining.
+         */
+        public Builder setSku(long value) {
+          
+          sku_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int64 sku = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearSku() {
+          
+          sku_ = 0L;
+          onChanged();
+          return this;
+        }
+
+        private long popularity_ ;
+        /**
+         * <code>int64 popularity = 3;</code>
+         * @return The popularity.
+         */
+        @java.lang.Override
+        public long getPopularity() {
+          return popularity_;
+        }
+        /**
+         * <code>int64 popularity = 3;</code>
+         * @param value The popularity to set.
+         * @return This builder for chaining.
+         */
+        public Builder setPopularity(long value) {
+          
+          popularity_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int64 popularity = 3;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearPopularity() {
+          
+          popularity_ = 0L;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:product_hub_back.SavePopularitiesRequest.Popularity)
+      }
+
+      // @@protoc_insertion_point(class_scope:product_hub_back.SavePopularitiesRequest.Popularity)
+      private static final product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity();
+      }
+
+      public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<Popularity>
+          PARSER = new com.google.protobuf.AbstractParser<Popularity>() {
+        @java.lang.Override
+        public Popularity parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Popularity(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<Popularity> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Popularity> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int POPULARITIES_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity> popularities_;
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity> getPopularitiesList() {
+      return popularities_;
+    }
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder> 
+        getPopularitiesOrBuilderList() {
+      return popularities_;
+    }
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public int getPopularitiesCount() {
+      return popularities_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity getPopularities(int index) {
+      return popularities_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder getPopularitiesOrBuilder(
+        int index) {
+      return popularities_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < popularities_.size(); i++) {
+        output.writeMessage(1, popularities_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < popularities_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, popularities_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest other = (product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest) obj;
+
+      if (!getPopularitiesList()
+          .equals(other.getPopularitiesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getPopularitiesCount() > 0) {
+        hash = (37 * hash) + POPULARITIES_FIELD_NUMBER;
+        hash = (53 * hash) + getPopularitiesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back.SavePopularitiesRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.SavePopularitiesRequest)
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.class, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPopularitiesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (popularitiesBuilder_ == null) {
+          popularities_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          popularitiesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest build() {
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest result = new product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (popularitiesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            popularities_ = java.util.Collections.unmodifiableList(popularities_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.popularities_ = popularities_;
+        } else {
+          result.popularities_ = popularitiesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.getDefaultInstance()) return this;
+        if (popularitiesBuilder_ == null) {
+          if (!other.popularities_.isEmpty()) {
+            if (popularities_.isEmpty()) {
+              popularities_ = other.popularities_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePopularitiesIsMutable();
+              popularities_.addAll(other.popularities_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.popularities_.isEmpty()) {
+            if (popularitiesBuilder_.isEmpty()) {
+              popularitiesBuilder_.dispose();
+              popularitiesBuilder_ = null;
+              popularities_ = other.popularities_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              popularitiesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPopularitiesFieldBuilder() : null;
+            } else {
+              popularitiesBuilder_.addAllMessages(other.popularities_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity> popularities_ =
+        java.util.Collections.emptyList();
+      private void ensurePopularitiesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          popularities_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity>(popularities_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder> popularitiesBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity> getPopularitiesList() {
+        if (popularitiesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(popularities_);
+        } else {
+          return popularitiesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public int getPopularitiesCount() {
+        if (popularitiesBuilder_ == null) {
+          return popularities_.size();
+        } else {
+          return popularitiesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity getPopularities(int index) {
+        if (popularitiesBuilder_ == null) {
+          return popularities_.get(index);
+        } else {
+          return popularitiesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder setPopularities(
+          int index, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity value) {
+        if (popularitiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePopularitiesIsMutable();
+          popularities_.set(index, value);
+          onChanged();
+        } else {
+          popularitiesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder setPopularities(
+          int index, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder builderForValue) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          popularitiesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity value) {
+        if (popularitiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePopularitiesIsMutable();
+          popularities_.add(value);
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(
+          int index, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity value) {
+        if (popularitiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePopularitiesIsMutable();
+          popularities_.add(index, value);
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(
+          product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder builderForValue) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.add(builderForValue.build());
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addPopularities(
+          int index, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder builderForValue) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          popularitiesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder addAllPopularities(
+          java.lang.Iterable<? extends product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity> values) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, popularities_);
+          onChanged();
+        } else {
+          popularitiesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder clearPopularities() {
+        if (popularitiesBuilder_ == null) {
+          popularities_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          popularitiesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public Builder removePopularities(int index) {
+        if (popularitiesBuilder_ == null) {
+          ensurePopularitiesIsMutable();
+          popularities_.remove(index);
+          onChanged();
+        } else {
+          popularitiesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder getPopularitiesBuilder(
+          int index) {
+        return getPopularitiesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder getPopularitiesOrBuilder(
+          int index) {
+        if (popularitiesBuilder_ == null) {
+          return popularities_.get(index);  } else {
+          return popularitiesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder> 
+           getPopularitiesOrBuilderList() {
+        if (popularitiesBuilder_ != null) {
+          return popularitiesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(popularities_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder addPopularitiesBuilder() {
+        return getPopularitiesFieldBuilder().addBuilder(
+            product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder addPopularitiesBuilder(
+          int index) {
+        return getPopularitiesFieldBuilder().addBuilder(
+            index, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.SavePopularitiesRequest.Popularity popularities = 1;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder> 
+           getPopularitiesBuilderList() {
+        return getPopularitiesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder> 
+          getPopularitiesFieldBuilder() {
+        if (popularitiesBuilder_ == null) {
+          popularitiesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.Popularity.Builder, product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.PopularityOrBuilder>(
+                  popularities_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          popularities_ = null;
+        }
+        return popularitiesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.SavePopularitiesRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.SavePopularitiesRequest)
+    private static final product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SavePopularitiesRequest>
+        PARSER = new com.google.protobuf.AbstractParser<SavePopularitiesRequest>() {
+      @java.lang.Override
+      public SavePopularitiesRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SavePopularitiesRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SavePopularitiesRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SavePopularitiesRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SavePopularitiesResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.SavePopularitiesResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 save_popularities_count = 1;</code>
+     * @return The savePopularitiesCount.
+     */
+    long getSavePopularitiesCount();
+  }
+  /**
+   * Protobuf type {@code product_hub_back.SavePopularitiesResponse}
+   */
+  public static final class SavePopularitiesResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.SavePopularitiesResponse)
+      SavePopularitiesResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SavePopularitiesResponse.newBuilder() to construct.
+    private SavePopularitiesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SavePopularitiesResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SavePopularitiesResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SavePopularitiesResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              savePopularitiesCount_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse.class, product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse.Builder.class);
+    }
+
+    public static final int SAVE_POPULARITIES_COUNT_FIELD_NUMBER = 1;
+    private long savePopularitiesCount_;
+    /**
+     * <code>int64 save_popularities_count = 1;</code>
+     * @return The savePopularitiesCount.
+     */
+    @java.lang.Override
+    public long getSavePopularitiesCount() {
+      return savePopularitiesCount_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (savePopularitiesCount_ != 0L) {
+        output.writeInt64(1, savePopularitiesCount_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (savePopularitiesCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, savePopularitiesCount_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse other = (product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse) obj;
+
+      if (getSavePopularitiesCount()
+          != other.getSavePopularitiesCount()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SAVE_POPULARITIES_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSavePopularitiesCount());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back.SavePopularitiesResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.SavePopularitiesResponse)
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse.class, product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        savePopularitiesCount_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_SavePopularitiesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse build() {
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse result = new product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse(this);
+        result.savePopularitiesCount_ = savePopularitiesCount_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse.getDefaultInstance()) return this;
+        if (other.getSavePopularitiesCount() != 0L) {
+          setSavePopularitiesCount(other.getSavePopularitiesCount());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long savePopularitiesCount_ ;
+      /**
+       * <code>int64 save_popularities_count = 1;</code>
+       * @return The savePopularitiesCount.
+       */
+      @java.lang.Override
+      public long getSavePopularitiesCount() {
+        return savePopularitiesCount_;
+      }
+      /**
+       * <code>int64 save_popularities_count = 1;</code>
+       * @param value The savePopularitiesCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSavePopularitiesCount(long value) {
+        
+        savePopularitiesCount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 save_popularities_count = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSavePopularitiesCount() {
+        
+        savePopularitiesCount_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.SavePopularitiesResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.SavePopularitiesResponse)
+    private static final product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SavePopularitiesResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SavePopularitiesResponse>() {
+      @java.lang.Override
+      public SavePopularitiesResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SavePopularitiesResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SavePopularitiesResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SavePopularitiesResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DisableOffersRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.DisableOffersRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    java.util.List<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer> 
+        getOffersList();
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer getOffers(int index);
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    int getOffersCount();
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    java.util.List<? extends product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder> 
+        getOffersOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder getOffersOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code product_hub_back.DisableOffersRequest}
+   */
+  public static final class DisableOffersRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.DisableOffersRequest)
+      DisableOffersRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DisableOffersRequest.newBuilder() to construct.
+    private DisableOffersRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DisableOffersRequest() {
+      offers_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DisableOffersRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DisableOffersRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                offers_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              offers_.add(
+                  input.readMessage(product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          offers_ = java.util.Collections.unmodifiableList(offers_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.class, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Builder.class);
+    }
+
+    public interface OfferOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:product_hub_back.DisableOffersRequest.Offer)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>string retailer_id = 1;</code>
+       * @return The retailerId.
+       */
+      java.lang.String getRetailerId();
+      /**
+       * <code>string retailer_id = 1;</code>
+       * @return The bytes for retailerId.
+       */
+      com.google.protobuf.ByteString
+          getRetailerIdBytes();
+
+      /**
+       * <code>string retailer_sku = 2;</code>
+       * @return The retailerSku.
+       */
+      java.lang.String getRetailerSku();
+      /**
+       * <code>string retailer_sku = 2;</code>
+       * @return The bytes for retailerSku.
+       */
+      com.google.protobuf.ByteString
+          getRetailerSkuBytes();
+    }
+    /**
+     * Protobuf type {@code product_hub_back.DisableOffersRequest.Offer}
+     */
+    public static final class Offer extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:product_hub_back.DisableOffersRequest.Offer)
+        OfferOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Offer.newBuilder() to construct.
+      private Offer(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Offer() {
+        retailerId_ = "";
+        retailerSku_ = "";
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Offer();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Offer(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                retailerId_ = s;
+                break;
+              }
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                retailerSku_ = s;
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_Offer_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_Offer_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.class, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder.class);
+      }
+
+      public static final int RETAILER_ID_FIELD_NUMBER = 1;
+      private volatile java.lang.Object retailerId_;
+      /**
+       * <code>string retailer_id = 1;</code>
+       * @return The retailerId.
+       */
+      @java.lang.Override
+      public java.lang.String getRetailerId() {
+        java.lang.Object ref = retailerId_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerId_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string retailer_id = 1;</code>
+       * @return The bytes for retailerId.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getRetailerIdBytes() {
+        java.lang.Object ref = retailerId_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int RETAILER_SKU_FIELD_NUMBER = 2;
+      private volatile java.lang.Object retailerSku_;
+      /**
+       * <code>string retailer_sku = 2;</code>
+       * @return The retailerSku.
+       */
+      @java.lang.Override
+      public java.lang.String getRetailerSku() {
+        java.lang.Object ref = retailerSku_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          retailerSku_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string retailer_sku = 2;</code>
+       * @return The bytes for retailerSku.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getRetailerSkuBytes() {
+        java.lang.Object ref = retailerSku_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          retailerSku_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (!getRetailerIdBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, retailerId_);
+        }
+        if (!getRetailerSkuBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, retailerSku_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (!getRetailerIdBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, retailerId_);
+        }
+        if (!getRetailerSkuBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, retailerSku_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer)) {
+          return super.equals(obj);
+        }
+        product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer other = (product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer) obj;
+
+        if (!getRetailerId()
+            .equals(other.getRetailerId())) return false;
+        if (!getRetailerSku()
+            .equals(other.getRetailerSku())) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getRetailerId().hashCode();
+        hash = (37 * hash) + RETAILER_SKU_FIELD_NUMBER;
+        hash = (53 * hash) + getRetailerSku().hashCode();
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code product_hub_back.DisableOffersRequest.Offer}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:product_hub_back.DisableOffersRequest.Offer)
+          product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_Offer_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_Offer_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.class, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder.class);
+        }
+
+        // Construct using product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          retailerId_ = "";
+
+          retailerSku_ = "";
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_Offer_descriptor;
+        }
+
+        @java.lang.Override
+        public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer getDefaultInstanceForType() {
+          return product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer build() {
+          product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer buildPartial() {
+          product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer result = new product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer(this);
+          result.retailerId_ = retailerId_;
+          result.retailerSku_ = retailerSku_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer) {
+            return mergeFrom((product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer other) {
+          if (other == product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.getDefaultInstance()) return this;
+          if (!other.getRetailerId().isEmpty()) {
+            retailerId_ = other.retailerId_;
+            onChanged();
+          }
+          if (!other.getRetailerSku().isEmpty()) {
+            retailerSku_ = other.retailerSku_;
+            onChanged();
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private java.lang.Object retailerId_ = "";
+        /**
+         * <code>string retailer_id = 1;</code>
+         * @return The retailerId.
+         */
+        public java.lang.String getRetailerId() {
+          java.lang.Object ref = retailerId_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            retailerId_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string retailer_id = 1;</code>
+         * @return The bytes for retailerId.
+         */
+        public com.google.protobuf.ByteString
+            getRetailerIdBytes() {
+          java.lang.Object ref = retailerId_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            retailerId_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string retailer_id = 1;</code>
+         * @param value The retailerId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setRetailerId(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          retailerId_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string retailer_id = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearRetailerId() {
+          
+          retailerId_ = getDefaultInstance().getRetailerId();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string retailer_id = 1;</code>
+         * @param value The bytes for retailerId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setRetailerIdBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          retailerId_ = value;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object retailerSku_ = "";
+        /**
+         * <code>string retailer_sku = 2;</code>
+         * @return The retailerSku.
+         */
+        public java.lang.String getRetailerSku() {
+          java.lang.Object ref = retailerSku_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            retailerSku_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string retailer_sku = 2;</code>
+         * @return The bytes for retailerSku.
+         */
+        public com.google.protobuf.ByteString
+            getRetailerSkuBytes() {
+          java.lang.Object ref = retailerSku_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            retailerSku_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string retailer_sku = 2;</code>
+         * @param value The retailerSku to set.
+         * @return This builder for chaining.
+         */
+        public Builder setRetailerSku(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          retailerSku_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string retailer_sku = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearRetailerSku() {
+          
+          retailerSku_ = getDefaultInstance().getRetailerSku();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string retailer_sku = 2;</code>
+         * @param value The bytes for retailerSku to set.
+         * @return This builder for chaining.
+         */
+        public Builder setRetailerSkuBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          retailerSku_ = value;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:product_hub_back.DisableOffersRequest.Offer)
+      }
+
+      // @@protoc_insertion_point(class_scope:product_hub_back.DisableOffersRequest.Offer)
+      private static final product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer();
+      }
+
+      public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<Offer>
+          PARSER = new com.google.protobuf.AbstractParser<Offer>() {
+        @java.lang.Override
+        public Offer parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Offer(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<Offer> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Offer> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int OFFERS_FIELD_NUMBER = 1;
+    private java.util.List<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer> offers_;
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer> getOffersList() {
+      return offers_;
+    }
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder> 
+        getOffersOrBuilderList() {
+      return offers_;
+    }
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    @java.lang.Override
+    public int getOffersCount() {
+      return offers_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer getOffers(int index) {
+      return offers_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder getOffersOrBuilder(
+        int index) {
+      return offers_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < offers_.size(); i++) {
+        output.writeMessage(1, offers_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < offers_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, offers_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.DisableOffersRequest)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.DisableOffersRequest other = (product_hub_back.ProductHubBackOuterClass.DisableOffersRequest) obj;
+
+      if (!getOffersList()
+          .equals(other.getOffersList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getOffersCount() > 0) {
+        hash = (37 * hash) + OFFERS_FIELD_NUMBER;
+        hash = (53 * hash) + getOffersList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.DisableOffersRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back.DisableOffersRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.DisableOffersRequest)
+        product_hub_back.ProductHubBackOuterClass.DisableOffersRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.class, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getOffersFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (offersBuilder_ == null) {
+          offers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          offersBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest build() {
+        product_hub_back.ProductHubBackOuterClass.DisableOffersRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.DisableOffersRequest result = new product_hub_back.ProductHubBackOuterClass.DisableOffersRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (offersBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            offers_ = java.util.Collections.unmodifiableList(offers_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.offers_ = offers_;
+        } else {
+          result.offers_ = offersBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.DisableOffersRequest) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.DisableOffersRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.DisableOffersRequest other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.getDefaultInstance()) return this;
+        if (offersBuilder_ == null) {
+          if (!other.offers_.isEmpty()) {
+            if (offers_.isEmpty()) {
+              offers_ = other.offers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureOffersIsMutable();
+              offers_.addAll(other.offers_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.offers_.isEmpty()) {
+            if (offersBuilder_.isEmpty()) {
+              offersBuilder_.dispose();
+              offersBuilder_ = null;
+              offers_ = other.offers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              offersBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getOffersFieldBuilder() : null;
+            } else {
+              offersBuilder_.addAllMessages(other.offers_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.DisableOffersRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.DisableOffersRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer> offers_ =
+        java.util.Collections.emptyList();
+      private void ensureOffersIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          offers_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer>(offers_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder> offersBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer> getOffersList() {
+        if (offersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(offers_);
+        } else {
+          return offersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public int getOffersCount() {
+        if (offersBuilder_ == null) {
+          return offers_.size();
+        } else {
+          return offersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer getOffers(int index) {
+        if (offersBuilder_ == null) {
+          return offers_.get(index);
+        } else {
+          return offersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public Builder setOffers(
+          int index, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer value) {
+        if (offersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOffersIsMutable();
+          offers_.set(index, value);
+          onChanged();
+        } else {
+          offersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public Builder setOffers(
+          int index, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder builderForValue) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          offers_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          offersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public Builder addOffers(product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer value) {
+        if (offersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOffersIsMutable();
+          offers_.add(value);
+          onChanged();
+        } else {
+          offersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public Builder addOffers(
+          int index, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer value) {
+        if (offersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOffersIsMutable();
+          offers_.add(index, value);
+          onChanged();
+        } else {
+          offersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public Builder addOffers(
+          product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder builderForValue) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          offers_.add(builderForValue.build());
+          onChanged();
+        } else {
+          offersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public Builder addOffers(
+          int index, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder builderForValue) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          offers_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          offersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public Builder addAllOffers(
+          java.lang.Iterable<? extends product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer> values) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, offers_);
+          onChanged();
+        } else {
+          offersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public Builder clearOffers() {
+        if (offersBuilder_ == null) {
+          offers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          offersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public Builder removeOffers(int index) {
+        if (offersBuilder_ == null) {
+          ensureOffersIsMutable();
+          offers_.remove(index);
+          onChanged();
+        } else {
+          offersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder getOffersBuilder(
+          int index) {
+        return getOffersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder getOffersOrBuilder(
+          int index) {
+        if (offersBuilder_ == null) {
+          return offers_.get(index);  } else {
+          return offersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder> 
+           getOffersOrBuilderList() {
+        if (offersBuilder_ != null) {
+          return offersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(offers_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder addOffersBuilder() {
+        return getOffersFieldBuilder().addBuilder(
+            product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder addOffersBuilder(
+          int index) {
+        return getOffersFieldBuilder().addBuilder(
+            index, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.DisableOffersRequest.Offer offers = 1;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder> 
+           getOffersBuilderList() {
+        return getOffersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder> 
+          getOffersFieldBuilder() {
+        if (offersBuilder_ == null) {
+          offersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.Offer.Builder, product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.OfferOrBuilder>(
+                  offers_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          offers_ = null;
+        }
+        return offersBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.DisableOffersRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.DisableOffersRequest)
+    private static final product_hub_back.ProductHubBackOuterClass.DisableOffersRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.DisableOffersRequest();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DisableOffersRequest>
+        PARSER = new com.google.protobuf.AbstractParser<DisableOffersRequest>() {
+      @java.lang.Override
+      public DisableOffersRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DisableOffersRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DisableOffersRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DisableOffersRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.DisableOffersRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DisableOffersResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:product_hub_back.DisableOffersResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 disable_offers_count = 1;</code>
+     * @return The disableOffersCount.
+     */
+    long getDisableOffersCount();
+  }
+  /**
+   * Protobuf type {@code product_hub_back.DisableOffersResponse}
+   */
+  public static final class DisableOffersResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:product_hub_back.DisableOffersResponse)
+      DisableOffersResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DisableOffersResponse.newBuilder() to construct.
+    private DisableOffersResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DisableOffersResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DisableOffersResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DisableOffersResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              disableOffersCount_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              product_hub_back.ProductHubBackOuterClass.DisableOffersResponse.class, product_hub_back.ProductHubBackOuterClass.DisableOffersResponse.Builder.class);
+    }
+
+    public static final int DISABLE_OFFERS_COUNT_FIELD_NUMBER = 1;
+    private long disableOffersCount_;
+    /**
+     * <code>int64 disable_offers_count = 1;</code>
+     * @return The disableOffersCount.
+     */
+    @java.lang.Override
+    public long getDisableOffersCount() {
+      return disableOffersCount_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (disableOffersCount_ != 0L) {
+        output.writeInt64(1, disableOffersCount_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (disableOffersCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, disableOffersCount_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof product_hub_back.ProductHubBackOuterClass.DisableOffersResponse)) {
+        return super.equals(obj);
+      }
+      product_hub_back.ProductHubBackOuterClass.DisableOffersResponse other = (product_hub_back.ProductHubBackOuterClass.DisableOffersResponse) obj;
+
+      if (getDisableOffersCount()
+          != other.getDisableOffersCount()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DISABLE_OFFERS_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getDisableOffersCount());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(product_hub_back.ProductHubBackOuterClass.DisableOffersResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code product_hub_back.DisableOffersResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:product_hub_back.DisableOffersResponse)
+        product_hub_back.ProductHubBackOuterClass.DisableOffersResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                product_hub_back.ProductHubBackOuterClass.DisableOffersResponse.class, product_hub_back.ProductHubBackOuterClass.DisableOffersResponse.Builder.class);
+      }
+
+      // Construct using product_hub_back.ProductHubBackOuterClass.DisableOffersResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        disableOffersCount_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return product_hub_back.ProductHubBackOuterClass.internal_static_product_hub_back_DisableOffersResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersResponse getDefaultInstanceForType() {
+        return product_hub_back.ProductHubBackOuterClass.DisableOffersResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersResponse build() {
+        product_hub_back.ProductHubBackOuterClass.DisableOffersResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public product_hub_back.ProductHubBackOuterClass.DisableOffersResponse buildPartial() {
+        product_hub_back.ProductHubBackOuterClass.DisableOffersResponse result = new product_hub_back.ProductHubBackOuterClass.DisableOffersResponse(this);
+        result.disableOffersCount_ = disableOffersCount_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof product_hub_back.ProductHubBackOuterClass.DisableOffersResponse) {
+          return mergeFrom((product_hub_back.ProductHubBackOuterClass.DisableOffersResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(product_hub_back.ProductHubBackOuterClass.DisableOffersResponse other) {
+        if (other == product_hub_back.ProductHubBackOuterClass.DisableOffersResponse.getDefaultInstance()) return this;
+        if (other.getDisableOffersCount() != 0L) {
+          setDisableOffersCount(other.getDisableOffersCount());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        product_hub_back.ProductHubBackOuterClass.DisableOffersResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (product_hub_back.ProductHubBackOuterClass.DisableOffersResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long disableOffersCount_ ;
+      /**
+       * <code>int64 disable_offers_count = 1;</code>
+       * @return The disableOffersCount.
+       */
+      @java.lang.Override
+      public long getDisableOffersCount() {
+        return disableOffersCount_;
+      }
+      /**
+       * <code>int64 disable_offers_count = 1;</code>
+       * @param value The disableOffersCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDisableOffersCount(long value) {
+        
+        disableOffersCount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 disable_offers_count = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDisableOffersCount() {
+        
+        disableOffersCount_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:product_hub_back.DisableOffersResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:product_hub_back.DisableOffersResponse)
+    private static final product_hub_back.ProductHubBackOuterClass.DisableOffersResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new product_hub_back.ProductHubBackOuterClass.DisableOffersResponse();
+    }
+
+    public static product_hub_back.ProductHubBackOuterClass.DisableOffersResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DisableOffersResponse>
+        PARSER = new com.google.protobuf.AbstractParser<DisableOffersResponse>() {
+      @java.lang.Override
+      public DisableOffersResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DisableOffersResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DisableOffersResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DisableOffersResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.DisableOffersResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_back_Data_descriptor;
   private static final 
@@ -31942,6 +42519,16 @@ public final class ProductHubBackOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_back_RetailerStores_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_Group_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_Group_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_GroupItem_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_GroupItem_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_back_SaveProductsRequest_descriptor;
   private static final 
@@ -32023,6 +42610,31 @@ public final class ProductHubBackOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_back_SaveCategoryFiltersResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_RetailerStore_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_RetailerStore_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_SaveGroupsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_SaveGroupsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_SaveGroupsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_SaveGroupsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_product_hub_back_SaveRetailerStoresResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -32032,6 +42644,36 @@ public final class ProductHubBackOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_product_hub_back_SaveRetailerStoresRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_SavePopularitiesRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_SavePopularitiesRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_SavePopularitiesRequest_Popularity_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_SavePopularitiesRequest_Popularity_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_SavePopularitiesResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_SavePopularitiesResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_DisableOffersRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_DisableOffersRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_DisableOffersRequest_Offer_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_DisableOffersRequest_Offer_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_product_hub_back_DisableOffersResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_product_hub_back_DisableOffersResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -32042,14 +42684,16 @@ public final class ProductHubBackOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n*content/product_hub/product-hub-back.p" +
-      "roto\022\020product_hub_back\"f\n\004Data\022\013\n\003key\030\001 " +
-      "\001(\t\022)\n\004type\030\002 \001(\0162\033.product_hub_back.Val" +
-      "ueType\022\026\n\016is_multi_value\030\003 \001(\010\022\016\n\006values" +
-      "\030\004 \003(\t\"\240\001\n\007Product\022\013\n\003sku\030\001 \001(\003\022\014\n\004name\030" +
-      "\002 \001(\t\022\024\n\014category_ids\030\003 \003(\t\022:\n\020attribute" +
-      "_values\030\004 \003(\0132 .product_hub_back.Attribu" +
-      "teValue\022(\n\006status\030\005 \001(\0162\030.product_hub_ba" +
-      "ck.Status\"S\n\016AttributeValue\022\025\n\rattribute" +
+      "roto\022\020product_hub_back\032\034google/api/annot" +
+      "ations.proto\032\036google/protobuf/wrappers.p" +
+      "roto\"f\n\004Data\022\013\n\003key\030\001 \001(\t\022)\n\004type\030\002 \001(\0162" +
+      "\033.product_hub_back.ValueType\022\026\n\016is_multi" +
+      "_value\030\003 \001(\010\022\016\n\006values\030\004 \003(\t\"\262\001\n\007Product" +
+      "\022\013\n\003sku\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\022\024\n\014category_" +
+      "ids\030\003 \003(\t\022:\n\020attribute_values\030\004 \003(\0132 .pr" +
+      "oduct_hub_back.AttributeValue\022(\n\006status\030" +
+      "\005 \001(\0162\030.product_hub_back.Status\022\020\n\010ab_gr" +
+      "oup\030\006 \001(\t\"S\n\016AttributeValue\022\025\n\rattribute" +
       "_key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\022\033\n\023dictionary_" +
       "value_id\030\003 \001(\t\"\272\001\n\010Category\022\n\n\002id\030\001 \001(\t\022" +
       "\014\n\004name\030\002 \001(\t\022\021\n\tparent_id\030\003 \001(\t\022\024\n\014reta" +
@@ -32092,71 +42736,131 @@ public final class ProductHubBackOuterClass {
       "atus\">\n\017CategoryFilters\022\023\n\013category_id\030\001" +
       " \001(\t\022\026\n\016attribute_keys\030\002 \003(\t\"8\n\016Retailer" +
       "Stores\022\023\n\013retailer_id\030\001 \001(\t\022\021\n\tstore_ids" +
-      "\030\002 \003(\t\"B\n\023SaveProductsRequest\022+\n\010product" +
-      "s\030\001 \003(\0132\031.product_hub_back.Product\"3\n\024Sa" +
-      "veProductsResponse\022\033\n\023save_products_coun" +
-      "t\030\001 \001(\003\"<\n\021SaveOffersRequest\022\'\n\006offers\030\001" +
-      " \003(\0132\027.product_hub_back.Offer\"/\n\022SaveOff" +
-      "ersResponse\022\031\n\021save_offers_count\030\001 \001(\003\"<" +
-      "\n\021SaveStocksRequest\022\'\n\006stocks\030\001 \003(\0132\027.pr" +
-      "oduct_hub_back.Stock\"/\n\022SaveStocksRespon" +
-      "se\022\031\n\021save_stocks_count\030\001 \001(\003\"<\n\021SavePri" +
-      "cesRequest\022\'\n\006prices\030\001 \003(\0132\027.product_hub" +
-      "_back.Price\"/\n\022SavePricesResponse\022\031\n\021sav" +
-      "e_prices_count\030\001 \001(\003\"G\n\025SaveCategoriesRe" +
-      "quest\022.\n\ncategories\030\001 \003(\0132\032.product_hub_" +
-      "back.Category\"7\n\026SaveCategoriesResponse\022" +
-      "\035\n\025save_categories_count\030\001 \001(\003\"H\n\025SaveAt" +
-      "tributesRequest\022/\n\nattributes\030\001 \003(\0132\033.pr" +
-      "oduct_hub_back.Attribute\"7\n\026SaveAttribut" +
-      "esResponse\022\035\n\025save_attributes_count\030\001 \001(" +
-      "\003\"M\n\027SaveDictionariesRequest\0222\n\014dictiona" +
-      "ries\030\001 \003(\0132\034.product_hub_back.Dictionary" +
-      "\";\n\030SaveDictionariesResponse\022\037\n\027save_dic" +
-      "tionaries_count\030\001 \001(\003\"X\n\032SaveCategoryFil" +
-      "tersRequest\022:\n\017categoryFilters\030\001 \003(\0132!.p" +
-      "roduct_hub_back.CategoryFilters\"B\n\033SaveC" +
-      "ategoryFiltersResponse\022#\n\033save_category_" +
-      "filters_count\030\001 \001(\003\"I\n\032SaveRetailerStore" +
-      "sResponse\022\026\n\016retailer_count\030\001 \001(\003\022\023\n\013sto" +
-      "re_count\030\002 \001(\003\"V\n\031SaveRetailerStoresRequ" +
-      "est\0229\n\017retailer_stores\030\001 \003(\0132 .product_h" +
-      "ub_back.RetailerStores*.\n\006Status\022\013\n\007DISA" +
-      "BLE\020\000\022\n\n\006ENABLE\020\001\022\013\n\007DELETED\020\002*S\n\tValueT" +
-      "ype\022\n\n\006STRING\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002" +
-      "\022\010\n\004BOOL\020\003\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\005*U\n\006P" +
-      "ricer\022\014\n\010PER_ITEM\020\000\022\025\n\021PER_ITEMS_PACKAGE" +
-      "\020\001\022\026\n\022PER_WEIGHT_PACKAGE\020\002\022\016\n\nPER_WEIGHT" +
-      "\020\0032\224\007\n\016ProductHubBack\022]\n\014SaveProducts\022%." +
-      "product_hub_back.SaveProductsRequest\032&.p" +
-      "roduct_hub_back.SaveProductsResponse\022W\n\n" +
-      "SaveStocks\022#.product_hub_back.SaveStocks" +
-      "Request\032$.product_hub_back.SaveStocksRes" +
-      "ponse\022W\n\nSaveOffers\022#.product_hub_back.S" +
-      "aveOffersRequest\032$.product_hub_back.Save" +
-      "OffersResponse\022W\n\nSavePrices\022#.product_h" +
-      "ub_back.SavePricesRequest\032$.product_hub_" +
-      "back.SavePricesResponse\022c\n\016SaveCategorie" +
-      "s\022\'.product_hub_back.SaveCategoriesReque" +
-      "st\032(.product_hub_back.SaveCategoriesResp" +
-      "onse\022c\n\016SaveAttributes\022\'.product_hub_bac" +
-      "k.SaveAttributesRequest\032(.product_hub_ba" +
-      "ck.SaveAttributesResponse\022i\n\020SaveDiction" +
-      "aries\022).product_hub_back.SaveDictionarie" +
-      "sRequest\032*.product_hub_back.SaveDictiona" +
-      "riesResponse\022r\n\023SaveCategoryFilters\022,.pr" +
-      "oduct_hub_back.SaveCategoryFiltersReques" +
-      "t\032-.product_hub_back.SaveCategoryFilters" +
-      "Response\022o\n\022SaveRetailerStores\022+.product" +
-      "_hub_back.SaveRetailerStoresRequest\032,.pr" +
-      "oduct_hub_back.SaveRetailerStoresRespons" +
-      "eBRZPgitlab.sbermarket.tech/paas/content" +
-      "/product-hub/pkg/server/grpc/product-hub" +
-      "-backb\006proto3"
+      "\030\002 \003(\t\"\366\001\n\005Group\022\n\n\002id\030\001 \001(\003\022\023\n\013retailer" +
+      "_id\030\002 \001(\003\022\024\n\014retailer_sku\030\003 \001(\t\022\014\n\004name\030" +
+      "\004 \001(\t\022*\n\005items\030\005 \003(\0132\033.product_hub_back." +
+      "GroupItem\022\014\n\004sort\030\006 \001(\003\022(\n\006status\030\007 \001(\0162" +
+      "\030.product_hub_back.Status\022\013\n\003min\030\010 \001(\003\022\013" +
+      "\n\003max\030\t \001(\003\022*\n\ngroup_data\030\n \003(\0132\026.produc" +
+      "t_hub_back.Data\"5\n\tGroupItem\022\024\n\014retailer" +
+      "_sku\030\001 \001(\t\022\022\n\nis_default\030\002 \001(\010\"B\n\023SavePr" +
+      "oductsRequest\022+\n\010products\030\001 \003(\0132\031.produc" +
+      "t_hub_back.Product\"3\n\024SaveProductsRespon" +
+      "se\022\033\n\023save_products_count\030\001 \001(\003\"<\n\021SaveO" +
+      "ffersRequest\022\'\n\006offers\030\001 \003(\0132\027.product_h" +
+      "ub_back.Offer\"/\n\022SaveOffersResponse\022\031\n\021s" +
+      "ave_offers_count\030\001 \001(\003\"<\n\021SaveStocksRequ" +
+      "est\022\'\n\006stocks\030\001 \003(\0132\027.product_hub_back.S" +
+      "tock\"/\n\022SaveStocksResponse\022\031\n\021save_stock" +
+      "s_count\030\001 \001(\003\"<\n\021SavePricesRequest\022\'\n\006pr" +
+      "ices\030\001 \003(\0132\027.product_hub_back.Price\"/\n\022S" +
+      "avePricesResponse\022\031\n\021save_prices_count\030\001" +
+      " \001(\003\"G\n\025SaveCategoriesRequest\022.\n\ncategor" +
+      "ies\030\001 \003(\0132\032.product_hub_back.Category\"7\n" +
+      "\026SaveCategoriesResponse\022\035\n\025save_categori" +
+      "es_count\030\001 \001(\003\"H\n\025SaveAttributesRequest\022" +
+      "/\n\nattributes\030\001 \003(\0132\033.product_hub_back.A" +
+      "ttribute\"7\n\026SaveAttributesResponse\022\035\n\025sa" +
+      "ve_attributes_count\030\001 \001(\003\"M\n\027SaveDiction" +
+      "ariesRequest\0222\n\014dictionaries\030\001 \003(\0132\034.pro" +
+      "duct_hub_back.Dictionary\";\n\030SaveDictiona" +
+      "riesResponse\022\037\n\027save_dictionaries_count\030" +
+      "\001 \001(\003\"Y\n\032SaveCategoryFiltersRequest\022;\n\020c" +
+      "ategory_filters\030\001 \003(\0132!.product_hub_back" +
+      ".CategoryFilters\"B\n\033SaveCategoryFiltersR" +
+      "esponse\022#\n\033save_category_filters_count\030\001" +
+      " \001(\003\"6\n\rRetailerStore\022\020\n\010store_id\030\001 \001(\t\022" +
+      "\023\n\013retailer_id\030\002 \001(\t\"Z\n\036SaveStoreIDtoRet" +
+      "ailerIDRequest\0228\n\017retailer_stores\030\001 \003(\0132" +
+      "\037.product_hub_back.RetailerStore\"<\n\021Save" +
+      "GroupsRequest\022\'\n\006groups\030\001 \003(\0132\027.product_" +
+      "hub_back.Group\")\n\022SaveGroupsResponse\022\023\n\013" +
+      "group_count\030\001 \001(\003\"N\n\037SaveStoreIDtoRetail" +
+      "erIDResponse\022\026\n\016retailer_count\030\001 \001(\003\022\023\n\013" +
+      "store_count\030\002 \001(\003\"I\n\032SaveRetailerStoresR" +
+      "esponse\022\026\n\016retailer_count\030\001 \001(\003\022\023\n\013store" +
+      "_count\030\002 \001(\003\"V\n\031SaveRetailerStoresReques" +
+      "t\0229\n\017retailer_stores\030\001 \003(\0132 .product_hub" +
+      "_back.RetailerStores\"\246\001\n\027SavePopularitie" +
+      "sRequest\022J\n\014popularities\030\001 \003(\01324.product" +
+      "_hub_back.SavePopularitiesRequest.Popula" +
+      "rity\032?\n\nPopularity\022\020\n\010store_id\030\001 \001(\t\022\013\n\003" +
+      "sku\030\002 \001(\003\022\022\n\npopularity\030\003 \001(\003\";\n\030SavePop" +
+      "ularitiesResponse\022\037\n\027save_popularities_c" +
+      "ount\030\001 \001(\003\"\210\001\n\024DisableOffersRequest\022<\n\006o" +
+      "ffers\030\001 \003(\0132,.product_hub_back.DisableOf" +
+      "fersRequest.Offer\0322\n\005Offer\022\023\n\013retailer_i" +
+      "d\030\001 \001(\t\022\024\n\014retailer_sku\030\002 \001(\t\"5\n\025Disable" +
+      "OffersResponse\022\034\n\024disable_offers_count\030\001" +
+      " \001(\003*.\n\006Status\022\013\n\007DISABLE\020\000\022\n\n\006ENABLE\020\001\022" +
+      "\013\n\007DELETED\020\002*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n" +
+      "\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATE" +
+      "TIME\020\004\022\t\n\005IMAGE\020\005*U\n\006Pricer\022\014\n\010PER_ITEM\020" +
+      "\000\022\025\n\021PER_ITEMS_PACKAGE\020\001\022\026\n\022PER_WEIGHT_P" +
+      "ACKAGE\020\002\022\016\n\nPER_WEIGHT\020\0032\212\021\n\016ProductHubB" +
+      "ack\022\233\001\n\014SaveProducts\022%.product_hub_back." +
+      "SaveProductsRequest\032&.product_hub_back.S" +
+      "aveProductsResponse\"<\202\323\344\223\0026\"1/api/produc" +
+      "t_hub_back.ProductHubBack/SaveProducts:\001" +
+      "*\022\223\001\n\nSaveStocks\022#.product_hub_back.Save" +
+      "StocksRequest\032$.product_hub_back.SaveSto" +
+      "cksResponse\":\202\323\344\223\0024\"//api/product_hub_ba" +
+      "ck.ProductHubBack/SaveStocks:\001*\022\223\001\n\nSave" +
+      "Offers\022#.product_hub_back.SaveOffersRequ" +
+      "est\032$.product_hub_back.SaveOffersRespons" +
+      "e\":\202\323\344\223\0024\"//api/product_hub_back.Product" +
+      "HubBack/SaveOffers:\001*\022\223\001\n\nSavePrices\022#.p" +
+      "roduct_hub_back.SavePricesRequest\032$.prod" +
+      "uct_hub_back.SavePricesResponse\":\202\323\344\223\0024\"" +
+      "//api/product_hub_back.ProductHubBack/Sa" +
+      "vePrices:\001*\022\243\001\n\016SaveCategories\022\'.product" +
+      "_hub_back.SaveCategoriesRequest\032(.produc" +
+      "t_hub_back.SaveCategoriesResponse\">\202\323\344\223\002" +
+      "8\"3/api/product_hub_back.ProductHubBack/" +
+      "SaveCategories:\001*\022\243\001\n\016SaveAttributes\022\'.p" +
+      "roduct_hub_back.SaveAttributesRequest\032(." +
+      "product_hub_back.SaveAttributesResponse\"" +
+      ">\202\323\344\223\0028\"3/api/product_hub_back.ProductHu" +
+      "bBack/SaveAttributes:\001*\022\253\001\n\020SaveDictiona" +
+      "ries\022).product_hub_back.SaveDictionaries" +
+      "Request\032*.product_hub_back.SaveDictionar" +
+      "iesResponse\"@\202\323\344\223\002:\"5/api/product_hub_ba" +
+      "ck.ProductHubBack/SaveDictionaries:\001*\022\267\001" +
+      "\n\023SaveCategoryFilters\022,.product_hub_back" +
+      ".SaveCategoryFiltersRequest\032-.product_hu" +
+      "b_back.SaveCategoryFiltersResponse\"C\202\323\344\223" +
+      "\002=\"8/api/product_hub_back.ProductHubBack" +
+      "/SaveCategoryFilters:\001*\022\263\001\n\022SaveRetailer" +
+      "Stores\022+.product_hub_back.SaveRetailerSt" +
+      "oresRequest\032,.product_hub_back.SaveRetai" +
+      "lerStoresResponse\"B\202\323\344\223\002<\"7/api/product_" +
+      "hub_back.ProductHubBack/SaveRetailerStor" +
+      "es:\001*\022\253\001\n\020SavePopularities\022).product_hub" +
+      "_back.SavePopularitiesRequest\032*.product_" +
+      "hub_back.SavePopularitiesResponse\"@\202\323\344\223\002" +
+      ":\"5/api/product_hub_back.ProductHubBack/" +
+      "SavePopularities:\001*\022\237\001\n\rDisableOffers\022&." +
+      "product_hub_back.DisableOffersRequest\032\'." +
+      "product_hub_back.DisableOffersResponse\"=" +
+      "\202\323\344\223\0027\"2/api/product_hub_back.ProductHub" +
+      "Back/DisableOffers:\001*\022\307\001\n\027SaveStoreIDtoR" +
+      "etailerID\0220.product_hub_back.SaveStoreID" +
+      "toRetailerIDRequest\0321.product_hub_back.S" +
+      "aveStoreIDtoRetailerIDResponse\"G\202\323\344\223\002A\"<" +
+      "/api/product_hub_back.ProductHubBack/Sav" +
+      "eStoreIDtoRetailerID:\001*\022\223\001\n\nSaveGroups\022#" +
+      ".product_hub_back.SaveGroupsRequest\032$.pr" +
+      "oduct_hub_back.SaveGroupsResponse\":\202\323\344\223\002" +
+      "4\"//api/product_hub_back.ProductHubBack/" +
+      "SaveGroups:\001*BJZHgitlab.sbmt.io/paas/con" +
+      "tent/product-hub/pkg/server/grpc/product" +
+      "-hub-backb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.api.AnnotationsProto.getDescriptor(),
+          com.google.protobuf.WrappersProto.getDescriptor(),
         });
     internal_static_product_hub_back_Data_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -32169,7 +42873,7 @@ public final class ProductHubBackOuterClass {
     internal_static_product_hub_back_Product_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_Product_descriptor,
-        new java.lang.String[] { "Sku", "Name", "CategoryIds", "AttributeValues", "Status", });
+        new java.lang.String[] { "Sku", "Name", "CategoryIds", "AttributeValues", "Status", "AbGroup", });
     internal_static_product_hub_back_AttributeValue_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_product_hub_back_AttributeValue_fieldAccessorTable = new
@@ -32242,114 +42946,199 @@ public final class ProductHubBackOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_RetailerStores_descriptor,
         new java.lang.String[] { "RetailerId", "StoreIds", });
-    internal_static_product_hub_back_SaveProductsRequest_descriptor =
+    internal_static_product_hub_back_Group_descriptor =
       getDescriptor().getMessageTypes().get(12);
+    internal_static_product_hub_back_Group_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_Group_descriptor,
+        new java.lang.String[] { "Id", "RetailerId", "RetailerSku", "Name", "Items", "Sort", "Status", "Min", "Max", "GroupData", });
+    internal_static_product_hub_back_GroupItem_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_product_hub_back_GroupItem_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_GroupItem_descriptor,
+        new java.lang.String[] { "RetailerSku", "IsDefault", });
+    internal_static_product_hub_back_SaveProductsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(14);
     internal_static_product_hub_back_SaveProductsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveProductsRequest_descriptor,
         new java.lang.String[] { "Products", });
     internal_static_product_hub_back_SaveProductsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_product_hub_back_SaveProductsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveProductsResponse_descriptor,
         new java.lang.String[] { "SaveProductsCount", });
     internal_static_product_hub_back_SaveOffersRequest_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_product_hub_back_SaveOffersRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveOffersRequest_descriptor,
         new java.lang.String[] { "Offers", });
     internal_static_product_hub_back_SaveOffersResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_product_hub_back_SaveOffersResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveOffersResponse_descriptor,
         new java.lang.String[] { "SaveOffersCount", });
     internal_static_product_hub_back_SaveStocksRequest_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_product_hub_back_SaveStocksRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveStocksRequest_descriptor,
         new java.lang.String[] { "Stocks", });
     internal_static_product_hub_back_SaveStocksResponse_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_product_hub_back_SaveStocksResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveStocksResponse_descriptor,
         new java.lang.String[] { "SaveStocksCount", });
     internal_static_product_hub_back_SavePricesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_product_hub_back_SavePricesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SavePricesRequest_descriptor,
         new java.lang.String[] { "Prices", });
     internal_static_product_hub_back_SavePricesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_product_hub_back_SavePricesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SavePricesResponse_descriptor,
         new java.lang.String[] { "SavePricesCount", });
     internal_static_product_hub_back_SaveCategoriesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_product_hub_back_SaveCategoriesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveCategoriesRequest_descriptor,
         new java.lang.String[] { "Categories", });
     internal_static_product_hub_back_SaveCategoriesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_product_hub_back_SaveCategoriesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveCategoriesResponse_descriptor,
         new java.lang.String[] { "SaveCategoriesCount", });
     internal_static_product_hub_back_SaveAttributesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_product_hub_back_SaveAttributesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveAttributesRequest_descriptor,
         new java.lang.String[] { "Attributes", });
     internal_static_product_hub_back_SaveAttributesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_product_hub_back_SaveAttributesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveAttributesResponse_descriptor,
         new java.lang.String[] { "SaveAttributesCount", });
     internal_static_product_hub_back_SaveDictionariesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_product_hub_back_SaveDictionariesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveDictionariesRequest_descriptor,
         new java.lang.String[] { "Dictionaries", });
     internal_static_product_hub_back_SaveDictionariesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_product_hub_back_SaveDictionariesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveDictionariesResponse_descriptor,
         new java.lang.String[] { "SaveDictionariesCount", });
     internal_static_product_hub_back_SaveCategoryFiltersRequest_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_product_hub_back_SaveCategoryFiltersRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveCategoryFiltersRequest_descriptor,
         new java.lang.String[] { "CategoryFilters", });
     internal_static_product_hub_back_SaveCategoryFiltersResponse_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_product_hub_back_SaveCategoryFiltersResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveCategoryFiltersResponse_descriptor,
         new java.lang.String[] { "SaveCategoryFiltersCount", });
+    internal_static_product_hub_back_RetailerStore_descriptor =
+      getDescriptor().getMessageTypes().get(30);
+    internal_static_product_hub_back_RetailerStore_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_RetailerStore_descriptor,
+        new java.lang.String[] { "StoreId", "RetailerId", });
+    internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_descriptor =
+      getDescriptor().getMessageTypes().get(31);
+    internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_SaveStoreIDtoRetailerIDRequest_descriptor,
+        new java.lang.String[] { "RetailerStores", });
+    internal_static_product_hub_back_SaveGroupsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(32);
+    internal_static_product_hub_back_SaveGroupsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_SaveGroupsRequest_descriptor,
+        new java.lang.String[] { "Groups", });
+    internal_static_product_hub_back_SaveGroupsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(33);
+    internal_static_product_hub_back_SaveGroupsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_SaveGroupsResponse_descriptor,
+        new java.lang.String[] { "GroupCount", });
+    internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_descriptor =
+      getDescriptor().getMessageTypes().get(34);
+    internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_SaveStoreIDtoRetailerIDResponse_descriptor,
+        new java.lang.String[] { "RetailerCount", "StoreCount", });
     internal_static_product_hub_back_SaveRetailerStoresResponse_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(35);
     internal_static_product_hub_back_SaveRetailerStoresResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveRetailerStoresResponse_descriptor,
         new java.lang.String[] { "RetailerCount", "StoreCount", });
     internal_static_product_hub_back_SaveRetailerStoresRequest_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(36);
     internal_static_product_hub_back_SaveRetailerStoresRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_SaveRetailerStoresRequest_descriptor,
         new java.lang.String[] { "RetailerStores", });
+    internal_static_product_hub_back_SavePopularitiesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(37);
+    internal_static_product_hub_back_SavePopularitiesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_SavePopularitiesRequest_descriptor,
+        new java.lang.String[] { "Popularities", });
+    internal_static_product_hub_back_SavePopularitiesRequest_Popularity_descriptor =
+      internal_static_product_hub_back_SavePopularitiesRequest_descriptor.getNestedTypes().get(0);
+    internal_static_product_hub_back_SavePopularitiesRequest_Popularity_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_SavePopularitiesRequest_Popularity_descriptor,
+        new java.lang.String[] { "StoreId", "Sku", "Popularity", });
+    internal_static_product_hub_back_SavePopularitiesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(38);
+    internal_static_product_hub_back_SavePopularitiesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_SavePopularitiesResponse_descriptor,
+        new java.lang.String[] { "SavePopularitiesCount", });
+    internal_static_product_hub_back_DisableOffersRequest_descriptor =
+      getDescriptor().getMessageTypes().get(39);
+    internal_static_product_hub_back_DisableOffersRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_DisableOffersRequest_descriptor,
+        new java.lang.String[] { "Offers", });
+    internal_static_product_hub_back_DisableOffersRequest_Offer_descriptor =
+      internal_static_product_hub_back_DisableOffersRequest_descriptor.getNestedTypes().get(0);
+    internal_static_product_hub_back_DisableOffersRequest_Offer_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_DisableOffersRequest_Offer_descriptor,
+        new java.lang.String[] { "RetailerId", "RetailerSku", });
+    internal_static_product_hub_back_DisableOffersResponse_descriptor =
+      getDescriptor().getMessageTypes().get(40);
+    internal_static_product_hub_back_DisableOffersResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_product_hub_back_DisableOffersResponse_descriptor,
+        new java.lang.String[] { "DisableOffersCount", });
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.api.AnnotationsProto.http);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
+    com.google.api.AnnotationsProto.getDescriptor();
+    com.google.protobuf.WrappersProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

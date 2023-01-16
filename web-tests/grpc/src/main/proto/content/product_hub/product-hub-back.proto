@@ -1,82 +1,180 @@
 syntax = "proto3";
 
 package product_hub_back;
+option go_package = "gitlab.sbmt.io/paas/content/product-hub/pkg/server/grpc/product-hub-back";
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
 
-option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/grpc/product-hub-back";
 
-/**
+
+/*
  * slack:
  *    #product-hub
  *
- * swagger:
+ * base:
+ *     base-product-hub-back.paas-content-product-hub:3009
+ *
+ * local:
+ *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+ *
+ * swagger prod:
  *     https://paas-content-product-hub-back.sbmt.io/api
+ *
+ * swagger stg:
+ *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
  *
  * public prod grpc uri:
  *    paas-content-product-hub-back.sbmt.io:443
  *
  * public stg grpc uri:
- *    paas-content-product-hub.gw-stage-back.sbmt.io:443
- *
- * kuber prod grpc uri:
- *    base-product-hub.paas-content-product-hub-back:3009
+ *    paas-content-product-hub-back.gw-stage-back.sbmt.io:443
  *
  * description:
  *    Back сервис product-hub для импорта данных
  */
 service ProductHubBack {
-	/**
-   * Сохраняет описание продуктов.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	/*
+   * Сохраняет описание продуктов
   */
-	rpc SaveProducts(SaveProductsRequest) returns (SaveProductsResponse);
+	rpc SaveProducts(SaveProductsRequest) returns (SaveProductsResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveProducts"
+			body: "*"
+		};
+	}
+
+	/*
+   * Сохраняет стоки
+  */
+	rpc SaveStocks(SaveStocksRequest) returns (SaveStocksResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveStocks"
+			body: "*"
+		};
+	}
+
+	/*
+   * Сохраняет товарные предложения
+  */
+	rpc SaveOffers(SaveOffersRequest) returns (SaveOffersResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveOffers"
+			body: "*"
+		};
+	}
+
+	/*
+   * Сохраняет цены
+  */
+	rpc SavePrices(SavePricesRequest) returns (SavePricesResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SavePrices"
+			body: "*"
+		};
+	}
+
+	/*
+   * Сохраняет категории
+  */
+	rpc SaveCategories(SaveCategoriesRequest) returns (SaveCategoriesResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveCategories"
+			body: "*"
+		};
+	}
+
+	/*
+   * Сохраняет атрибуты
+  */
+	rpc SaveAttributes(SaveAttributesRequest) returns (SaveAttributesResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveAttributes"
+			body: "*"
+		};
+	}
+
+	/*
+   * Сохраняет словари и значения словарей
+  */
+	rpc SaveDictionaries(SaveDictionariesRequest) returns (SaveDictionariesResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveDictionaries"
+			body: "*"
+		};
+	}
 
 	/**
-   * Сохраняет стоки.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+   * Сохраняет категорийные фильтры
   */
-	rpc SaveStocks(SaveStocksRequest) returns (SaveStocksResponse);
+	rpc SaveCategoryFilters(SaveCategoryFiltersRequest) returns (SaveCategoryFiltersResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveCategoryFilters"
+			body: "*"
+		};
+	}
 
 	/**
-   * Сохраняет товарные предложения.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+   * Сохраняет связки магазинов на ритейлеров
   */
-	rpc SaveOffers(SaveOffersRequest) returns (SaveOffersResponse);
+	rpc SaveRetailerStores(SaveRetailerStoresRequest) returns (SaveRetailerStoresResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveRetailerStores"
+			body: "*"
+		};
+	}
 
 	/**
-   * Сохраняет цены.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+   * Сохраняет популярность
   */
-	rpc SavePrices(SavePricesRequest) returns (SavePricesResponse);
+	rpc SavePopularities(SavePopularitiesRequest) returns (SavePopularitiesResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SavePopularities"
+			body: "*"
+		};
+	}
 
 	/**
-   * Сохраняет категории.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
-  */
-	rpc SaveCategories(SaveCategoriesRequest) returns (SaveCategoriesResponse);
+	 * Выключение офферов
+	*/
+	rpc DisableOffers(DisableOffersRequest) returns (DisableOffersResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/DisableOffers"
+			body: "*"
+		};
+	}
 
 	/**
-   * Сохраняет атрибуты.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
-  */
-	rpc SaveAttributes(SaveAttributesRequest) returns (SaveAttributesResponse);
+	 * Связка store_id->retailer_id
+	*/
+	rpc SaveStoreIDtoRetailerID(SaveStoreIDtoRetailerIDRequest) returns (SaveStoreIDtoRetailerIDResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveStoreIDtoRetailerID"
+			body: "*"
+		};
+	}
 
 	/**
-   * Сохраняет словари и значения словарей.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
-  */
-	rpc SaveDictionaries(SaveDictionariesRequest) returns (SaveDictionariesResponse);
-
-	/**
-   * Сохраняет категорийные фильтры.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
-  */
-	rpc SaveCategoryFilters(SaveCategoryFiltersRequest) returns (SaveCategoryFiltersResponse);
-
-	/**
-   * Сохраняет связки магазинов на ритейлеров.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
-  */
-	rpc SaveRetailerStores(SaveRetailerStoresRequest) returns (SaveRetailerStoresResponse);
+   * Сохранения групп скушек
+   */
+	rpc SaveGroups(SaveGroupsRequest) returns (SaveGroupsResponse)
+	{
+		option (google.api.http) = {
+			post: "/api/product_hub_back.ProductHubBack/SaveGroups"
+			body: "*"
+		};
+	}
 }
 
 /**
@@ -137,6 +235,7 @@ message Product {
 	repeated string category_ids = 3; // товарные категории
 	repeated AttributeValue attribute_values = 4; // значения атрибутов
 	Status status = 5; // статус сущности
+	string ab_group = 6; // ab группа
 }
 
 /**
@@ -156,7 +255,7 @@ message Category {
 	string name = 2; // название категории
 	string parent_id = 3; // родительский идентификатор категории
 	repeated string retailer_ids = 4; // список идентификаторов ритейлеров
-	repeated Data category_data = 5; // доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated Data category_data = 5; // доп. описание категории, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
 	repeated string tenant_ids = 6; // список площадок где используется данная категория
 	Status status = 7; // статус сущности
 }
@@ -171,7 +270,7 @@ message Attribute {
 	ValueType type = 4; // тип атрибута, см. ValueType
 	bool is_multi_value = 5; // флаг означающий 1 или n значений будет в values
 	map<string, bool> flags = 6; // флаги атрибута, по ним можно фильтровать при запросе через display_attributes
-	repeated Data attribute_data = 7; // доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated Data attribute_data = 7; // доп. данные атрибута, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
 }
 
 /*
@@ -182,7 +281,7 @@ message Dictionary {
 	string name = 2; // название словаря
 	ValueType type = 3; // тип словаря, см. ValueType
 	repeated DictionaryValue values = 4; // значения словаря
-	repeated Data dictionary_data = 5; // доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated Data dictionary_data = 5; // доп. данные словаря, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
 }
 
 /**
@@ -195,7 +294,7 @@ message DictionaryValue {
 	}
 	string id = 1; // идентификатор словарного значения
 	string value = 2; // значение
-	repeated Data value_data = 3; // доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated Data value_data = 3; // доп. данные значения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
 	repeated AdditionalDictionaryValue additional_dictionary_values = 4; // массив дополнительных значений (например на значение бренда будет ссылаться страна изготовления)
 }
 
@@ -208,7 +307,7 @@ message Stock {
 	string retailer_id = 3; // идентификатор ритейлера
 	string retailer_sku = 4; // идентификатор описания ритейлера
 	double stock = 5; // кол-во остатка
-	repeated Data stock_data = 6; // доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated Data stock_data = 6; // доп. данные остатков, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
 	Status status = 7; // статус сущности
 }
 
@@ -220,7 +319,7 @@ message Offer {
 	string retailer_id = 2; // идентификатор ритейлера
 	string retailer_sku = 3; // идентификатор описания ритейлера
 	Pricer pricer = 4; // тип цены товарного предложения
-	repeated Data offer_data = 5; // доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated Data offer_data = 5; // доп. данные товарного предложения, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
 	Status status = 6; // статус сущности
 }
 
@@ -234,7 +333,7 @@ message Price {
 	string retailer_id = 4; // идентификатор ритейлера
 	string retailer_sku = 5; // идентификатор описания ритейлера
 	double price = 6; // оригинальная цена за единицу товара со всеми скидками
-	repeated Data price_data = 7; // доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated Data price_data = 7; // доп. данные цены, полный список data атрибутов описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
 	Status status = 8; // статус сущности
 }
 
@@ -252,6 +351,32 @@ message CategoryFilters {
 message RetailerStores {
 	string retailer_id = 1; // идентификатор ритейлера
 	repeated string store_ids = 2; // идентификаторы магазинов ритейлера
+}
+
+/**
+ * Группа sku которые можно добавить в заказ
+ * Пример: Комплексный обед
+ */
+message Group {
+	int64 id = 1; // идентификатор группы
+	int64 retailer_id = 2; // идентификатор ритейлера
+	string retailer_sku = 3; // идентификатор sku
+	string name = 4; // название
+	repeated GroupItem items = 5;
+	int64 sort = 6; // сортировка
+	Status status = 7; // статус
+	int64 min = 8; // минимальное количество, которое нужно выбрать
+	int64 max = 9; // максимальное количество, которое нужно выбрать
+	repeated Data group_data = 10; // доп. данные: original_id
+}
+
+/**
+ * Одна sku из группы Group
+ * Пример: суп, салат, компот
+ */
+message GroupItem {
+	string retailer_sku = 1; // идентификатор sku
+	bool is_default = 2;  // выбран товар по умолчанию
 }
 
 /**
@@ -317,11 +442,36 @@ message SaveDictionariesResponse {
 }
 
 message SaveCategoryFiltersRequest {
-	repeated CategoryFilters categoryFilters = 1;
+	repeated CategoryFilters category_filters = 1;
 }
 
 message SaveCategoryFiltersResponse {
 	int64 save_category_filters_count = 1;
+}
+
+/*
+ * RetailerStore - идентификатор магазина у ритейлера
+ */
+message RetailerStore{
+	string store_id = 1; // идентификатор магазина ритейлера
+	string retailer_id = 2; // идентификатор ритейлера
+}
+
+message SaveStoreIDtoRetailerIDRequest {
+	repeated RetailerStore retailer_stores = 1;
+}
+
+message SaveGroupsRequest {
+	repeated Group groups = 1;
+}
+
+message SaveGroupsResponse {
+	int64 group_count = 1;
+}
+
+message SaveStoreIDtoRetailerIDResponse{
+	int64 retailer_count = 1;
+	int64 store_count = 2;
 }
 
 message SaveRetailerStoresResponse {
@@ -331,4 +481,29 @@ message SaveRetailerStoresResponse {
 
 message SaveRetailerStoresRequest {
 	repeated RetailerStores retailer_stores = 1;
+}
+
+message SavePopularitiesRequest {
+	message Popularity {
+		string store_id = 1;
+		int64 sku = 2;
+		int64 popularity = 3;
+	}
+	repeated Popularity popularities = 1;
+}
+
+message SavePopularitiesResponse {
+	int64 save_popularities_count = 1;
+}
+
+message DisableOffersRequest {
+	message Offer {
+		string retailer_id = 1;
+		string retailer_sku = 2;
+	}
+	repeated Offer offers = 1;
+}
+
+message DisableOffersResponse {
+	int64 disable_offers_count = 1;
 }

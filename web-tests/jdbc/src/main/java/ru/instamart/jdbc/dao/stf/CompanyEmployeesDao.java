@@ -16,23 +16,23 @@ public class CompanyEmployeesDao extends AbstractDao<Integer, CompanyEmployeesEn
     private final String SELECT_SQL = "SELECT %s FROM company_employees";
 
     public Optional<CompanyEmployeesEntity> findById(Integer id) {
-        CompanyEmployeesEntity companyEmployeesEntity = null;
         try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
             try (final var resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    companyEmployeesEntity = new CompanyEmployeesEntity();
+                if (resultSet.next()) {
+                    final var companyEmployeesEntity = new CompanyEmployeesEntity();
                     companyEmployeesEntity.setId(resultSet.getInt("id"));
                     companyEmployeesEntity.setUserId(resultSet.getInt("user_id"));
                     companyEmployeesEntity.setCompanyId(resultSet.getInt("company_id"));
                     companyEmployeesEntity.setApproved(resultSet.getInt("approved"));
+                    return Optional.ofNullable(companyEmployeesEntity);
                 }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
-        return Optional.ofNullable(companyEmployeesEntity);
+        return null;
     }
 
     @Override

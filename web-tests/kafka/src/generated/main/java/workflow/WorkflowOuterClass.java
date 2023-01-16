@@ -3897,7 +3897,7 @@ public final class WorkflowOuterClass {
 
   }
 
-  public interface CreateWorkflowsV2ResponseOrBuilder extends
+  @java.lang.Deprecated public interface CreateWorkflowsV2ResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:workflow.CreateWorkflowsV2Response)
       com.google.protobuf.MessageOrBuilder {
 
@@ -3952,7 +3952,7 @@ public final class WorkflowOuterClass {
    *
    * Protobuf type {@code workflow.CreateWorkflowsV2Response}
    */
-  public static final class CreateWorkflowsV2Response extends
+  @java.lang.Deprecated public static final class CreateWorkflowsV2Response extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:workflow.CreateWorkflowsV2Response)
       CreateWorkflowsV2ResponseOrBuilder {
@@ -4040,7 +4040,7 @@ public final class WorkflowOuterClass {
               workflow.WorkflowOuterClass.CreateWorkflowsV2Response.class, workflow.WorkflowOuterClass.CreateWorkflowsV2Response.Builder.class);
     }
 
-    public interface ResultOrBuilder extends
+    @java.lang.Deprecated public interface ResultOrBuilder extends
         // @@protoc_insertion_point(interface_extends:workflow.CreateWorkflowsV2Response.Result)
         com.google.protobuf.MessageOrBuilder {
 
@@ -4093,7 +4093,7 @@ public final class WorkflowOuterClass {
     /**
      * Protobuf type {@code workflow.CreateWorkflowsV2Response.Result}
      */
-    public static final class Result extends
+    @java.lang.Deprecated public static final class Result extends
         com.google.protobuf.GeneratedMessageV3 implements
         // @@protoc_insertion_point(message_implements:workflow.CreateWorkflowsV2Response.Result)
         ResultOrBuilder {
@@ -4198,7 +4198,7 @@ public final class WorkflowOuterClass {
       /**
        * Protobuf enum {@code workflow.CreateWorkflowsV2Response.Result.Status}
        */
-      public enum Status
+      @java.lang.Deprecated public enum Status
           implements com.google.protobuf.ProtocolMessageEnum {
         /**
          * <code>SUCCESS = 0;</code>
@@ -4306,7 +4306,7 @@ public final class WorkflowOuterClass {
       /**
        * Protobuf enum {@code workflow.CreateWorkflowsV2Response.Result.ErrorKind}
        */
-      public enum ErrorKind
+      @java.lang.Deprecated public enum ErrorKind
           implements com.google.protobuf.ProtocolMessageEnum {
         /**
          * <pre>
@@ -8291,19 +8291,19 @@ public final class WorkflowOuterClass {
      * Идентификатор родительского назначения для отложенной доставки
      * </pre>
      *
-     * <code>string postponed_parent_uuid = 2;</code>
+     * <code>string postponed_parent_uuid = 2 [deprecated = true];</code>
      * @return The postponedParentUuid.
      */
-    java.lang.String getPostponedParentUuid();
+    @java.lang.Deprecated java.lang.String getPostponedParentUuid();
     /**
      * <pre>
      * Идентификатор родительского назначения для отложенной доставки
      * </pre>
      *
-     * <code>string postponed_parent_uuid = 2;</code>
+     * <code>string postponed_parent_uuid = 2 [deprecated = true];</code>
      * @return The bytes for postponedParentUuid.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getPostponedParentUuidBytes();
 
     /**
@@ -8469,19 +8469,19 @@ public final class WorkflowOuterClass {
      * Идентификатор назначения для отложенной доставки
      * </pre>
      *
-     * <code>string job_uuid = 12;</code>
+     * <code>string job_uuid = 12 [deprecated = true];</code>
      * @return The jobUuid.
      */
-    java.lang.String getJobUuid();
+    @java.lang.Deprecated java.lang.String getJobUuid();
     /**
      * <pre>
      * Идентификатор назначения для отложенной доставки
      * </pre>
      *
-     * <code>string job_uuid = 12;</code>
+     * <code>string job_uuid = 12 [deprecated = true];</code>
      * @return The bytes for jobUuid.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getJobUuidBytes();
 
     /**
@@ -8489,19 +8489,19 @@ public final class WorkflowOuterClass {
      * Идентификатор родительского назначения для отложенной доставки
      * </pre>
      *
-     * <code>string parent_job_uuid = 13;</code>
+     * <code>string parent_job_uuid = 13 [deprecated = true];</code>
      * @return The parentJobUuid.
      */
-    java.lang.String getParentJobUuid();
+    @java.lang.Deprecated java.lang.String getParentJobUuid();
     /**
      * <pre>
      * Идентификатор родительского назначения для отложенной доставки
      * </pre>
      *
-     * <code>string parent_job_uuid = 13;</code>
+     * <code>string parent_job_uuid = 13 [deprecated = true];</code>
      * @return The bytes for parentJobUuid.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getParentJobUuidBytes();
   }
   /**
@@ -8676,11 +8676,11 @@ public final class WorkflowOuterClass {
      * Идентификатор родительского назначения для отложенной доставки
      * </pre>
      *
-     * <code>string postponed_parent_uuid = 2;</code>
+     * <code>string postponed_parent_uuid = 2 [deprecated = true];</code>
      * @return The postponedParentUuid.
      */
     @java.lang.Override
-    public java.lang.String getPostponedParentUuid() {
+    @java.lang.Deprecated public java.lang.String getPostponedParentUuid() {
       java.lang.Object ref = postponedParentUuid_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -8697,11 +8697,11 @@ public final class WorkflowOuterClass {
      * Идентификатор родительского назначения для отложенной доставки
      * </pre>
      *
-     * <code>string postponed_parent_uuid = 2;</code>
+     * <code>string postponed_parent_uuid = 2 [deprecated = true];</code>
      * @return The bytes for postponedParentUuid.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getPostponedParentUuidBytes() {
       java.lang.Object ref = postponedParentUuid_;
       if (ref instanceof java.lang.String) {
@@ -8984,11 +8984,11 @@ public final class WorkflowOuterClass {
      * Идентификатор назначения для отложенной доставки
      * </pre>
      *
-     * <code>string job_uuid = 12;</code>
+     * <code>string job_uuid = 12 [deprecated = true];</code>
      * @return The jobUuid.
      */
     @java.lang.Override
-    public java.lang.String getJobUuid() {
+    @java.lang.Deprecated public java.lang.String getJobUuid() {
       java.lang.Object ref = jobUuid_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -9005,11 +9005,11 @@ public final class WorkflowOuterClass {
      * Идентификатор назначения для отложенной доставки
      * </pre>
      *
-     * <code>string job_uuid = 12;</code>
+     * <code>string job_uuid = 12 [deprecated = true];</code>
      * @return The bytes for jobUuid.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getJobUuidBytes() {
       java.lang.Object ref = jobUuid_;
       if (ref instanceof java.lang.String) {
@@ -9030,11 +9030,11 @@ public final class WorkflowOuterClass {
      * Идентификатор родительского назначения для отложенной доставки
      * </pre>
      *
-     * <code>string parent_job_uuid = 13;</code>
+     * <code>string parent_job_uuid = 13 [deprecated = true];</code>
      * @return The parentJobUuid.
      */
     @java.lang.Override
-    public java.lang.String getParentJobUuid() {
+    @java.lang.Deprecated public java.lang.String getParentJobUuid() {
       java.lang.Object ref = parentJobUuid_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -9051,11 +9051,11 @@ public final class WorkflowOuterClass {
      * Идентификатор родительского назначения для отложенной доставки
      * </pre>
      *
-     * <code>string parent_job_uuid = 13;</code>
+     * <code>string parent_job_uuid = 13 [deprecated = true];</code>
      * @return The bytes for parentJobUuid.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getParentJobUuidBytes() {
       java.lang.Object ref = parentJobUuid_;
       if (ref instanceof java.lang.String) {
@@ -9557,10 +9557,10 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string postponed_parent_uuid = 2;</code>
+       * <code>string postponed_parent_uuid = 2 [deprecated = true];</code>
        * @return The postponedParentUuid.
        */
-      public java.lang.String getPostponedParentUuid() {
+      @java.lang.Deprecated public java.lang.String getPostponedParentUuid() {
         java.lang.Object ref = postponedParentUuid_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
@@ -9577,10 +9577,10 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string postponed_parent_uuid = 2;</code>
+       * <code>string postponed_parent_uuid = 2 [deprecated = true];</code>
        * @return The bytes for postponedParentUuid.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getPostponedParentUuidBytes() {
         java.lang.Object ref = postponedParentUuid_;
         if (ref instanceof String) {
@@ -9598,11 +9598,11 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string postponed_parent_uuid = 2;</code>
+       * <code>string postponed_parent_uuid = 2 [deprecated = true];</code>
        * @param value The postponedParentUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setPostponedParentUuid(
+      @java.lang.Deprecated public Builder setPostponedParentUuid(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
@@ -9617,10 +9617,10 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string postponed_parent_uuid = 2;</code>
+       * <code>string postponed_parent_uuid = 2 [deprecated = true];</code>
        * @return This builder for chaining.
        */
-      public Builder clearPostponedParentUuid() {
+      @java.lang.Deprecated public Builder clearPostponedParentUuid() {
         
         postponedParentUuid_ = getDefaultInstance().getPostponedParentUuid();
         onChanged();
@@ -9631,11 +9631,11 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string postponed_parent_uuid = 2;</code>
+       * <code>string postponed_parent_uuid = 2 [deprecated = true];</code>
        * @param value The bytes for postponedParentUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setPostponedParentUuidBytes(
+      @java.lang.Deprecated public Builder setPostponedParentUuidBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
@@ -10282,10 +10282,10 @@ public final class WorkflowOuterClass {
        * Идентификатор назначения для отложенной доставки
        * </pre>
        *
-       * <code>string job_uuid = 12;</code>
+       * <code>string job_uuid = 12 [deprecated = true];</code>
        * @return The jobUuid.
        */
-      public java.lang.String getJobUuid() {
+      @java.lang.Deprecated public java.lang.String getJobUuid() {
         java.lang.Object ref = jobUuid_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
@@ -10302,10 +10302,10 @@ public final class WorkflowOuterClass {
        * Идентификатор назначения для отложенной доставки
        * </pre>
        *
-       * <code>string job_uuid = 12;</code>
+       * <code>string job_uuid = 12 [deprecated = true];</code>
        * @return The bytes for jobUuid.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getJobUuidBytes() {
         java.lang.Object ref = jobUuid_;
         if (ref instanceof String) {
@@ -10323,11 +10323,11 @@ public final class WorkflowOuterClass {
        * Идентификатор назначения для отложенной доставки
        * </pre>
        *
-       * <code>string job_uuid = 12;</code>
+       * <code>string job_uuid = 12 [deprecated = true];</code>
        * @param value The jobUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setJobUuid(
+      @java.lang.Deprecated public Builder setJobUuid(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
@@ -10342,10 +10342,10 @@ public final class WorkflowOuterClass {
        * Идентификатор назначения для отложенной доставки
        * </pre>
        *
-       * <code>string job_uuid = 12;</code>
+       * <code>string job_uuid = 12 [deprecated = true];</code>
        * @return This builder for chaining.
        */
-      public Builder clearJobUuid() {
+      @java.lang.Deprecated public Builder clearJobUuid() {
         
         jobUuid_ = getDefaultInstance().getJobUuid();
         onChanged();
@@ -10356,11 +10356,11 @@ public final class WorkflowOuterClass {
        * Идентификатор назначения для отложенной доставки
        * </pre>
        *
-       * <code>string job_uuid = 12;</code>
+       * <code>string job_uuid = 12 [deprecated = true];</code>
        * @param value The bytes for jobUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setJobUuidBytes(
+      @java.lang.Deprecated public Builder setJobUuidBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
@@ -10378,10 +10378,10 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 13;</code>
+       * <code>string parent_job_uuid = 13 [deprecated = true];</code>
        * @return The parentJobUuid.
        */
-      public java.lang.String getParentJobUuid() {
+      @java.lang.Deprecated public java.lang.String getParentJobUuid() {
         java.lang.Object ref = parentJobUuid_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
@@ -10398,10 +10398,10 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 13;</code>
+       * <code>string parent_job_uuid = 13 [deprecated = true];</code>
        * @return The bytes for parentJobUuid.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getParentJobUuidBytes() {
         java.lang.Object ref = parentJobUuid_;
         if (ref instanceof String) {
@@ -10419,11 +10419,11 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 13;</code>
+       * <code>string parent_job_uuid = 13 [deprecated = true];</code>
        * @param value The parentJobUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setParentJobUuid(
+      @java.lang.Deprecated public Builder setParentJobUuid(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
@@ -10438,10 +10438,10 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 13;</code>
+       * <code>string parent_job_uuid = 13 [deprecated = true];</code>
        * @return This builder for chaining.
        */
-      public Builder clearParentJobUuid() {
+      @java.lang.Deprecated public Builder clearParentJobUuid() {
         
         parentJobUuid_ = getDefaultInstance().getParentJobUuid();
         onChanged();
@@ -10452,11 +10452,11 @@ public final class WorkflowOuterClass {
        * Идентификатор родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 13;</code>
+       * <code>string parent_job_uuid = 13 [deprecated = true];</code>
        * @param value The bytes for parentJobUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setParentJobUuidBytes(
+      @java.lang.Deprecated public Builder setParentJobUuidBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
@@ -19044,86 +19044,87 @@ public final class WorkflowOuterClass {
       "W_NOT_FOUND\020\n\022\034\n\030PARENT_WORKFLOW_CANCELE" +
       "D\020\013\032X\n\014ResultsEntry\022\013\n\003key\030\001 \001(\t\0227\n\005valu" +
       "e\030\002 \001(\0132(.workflow.CreateWorkflowsRespon" +
-      "se.Result:\0028\001\"\302\005\n\031CreateWorkflowsV2Respo" +
+      "se.Result:\0028\001\"\322\005\n\031CreateWorkflowsV2Respo" +
       "nse\022;\n\007results\030\001 \003(\0132*.workflow.CreateWo" +
-      "rkflowsV2Response.Result\032\347\004\n\006Result\022A\n\006s" +
+      "rkflowsV2Response.Result\032\363\004\n\006Result\022A\n\006s" +
       "tatus\030\001 \001(\01621.workflow.CreateWorkflowsV2" +
       "Response.Result.Status\022\022\n\nerror_text\030\002 \001" +
       "(\t\022H\n\nerror_kind\030\003 \001(\01624.workflow.Create" +
       "WorkflowsV2Response.Result.ErrorKind\022\027\n\017" +
-      "assignment_uuid\030\004 \001(\t\"\"\n\006Status\022\013\n\007SUCCE" +
-      "SS\020\000\022\013\n\007FAILURE\020\001\"\376\002\n\tErrorKind\022\t\n\005OTHER" +
-      "\020\000\022!\n\035STARTED_AT_EARLY_CURRENT_TIME\020\001\022&\n" +
-      "\"HAS_INTERNAL_INTERSECTION_SEGMENTS\020\002\0222\n" +
-      ".HAS_ACTIVE_WORKFLOW_WITH_INTERSECTION_S" +
-      "EGMENTS\020\003\022\032\n\026HAS_PENDING_ASSIGNMENT\020\004\022)\n" +
-      "%HAS_LAST_ACTIVE_WORKFLOW_INTERSECTION\020\005" +
-      "\022\025\n\021CANDIDATE_IS_BUSY\020\006\022\024\n\020PARENT_NOT_FO" +
-      "UND\020\007\022\030\n\024PARENT_NOT_AVAILABLE\020\010\022\034\n\030HAS_P" +
-      "ENDING_CANCELLATION\020\t\022\035\n\031PARENT_WORKFLOW" +
-      "_NOT_FOUND\020\n\022\034\n\030PARENT_WORKFLOW_CANCELED" +
-      "\020\013\"L\n#RejectWorkflowByShipmentUuidReques" +
-      "t\022\025\n\rshipment_uuid\030\001 \001(\t\022\016\n\006reason\030\002 \001(\t" +
-      "\"<\n$RejectWorkflowByShipmentUuidResponse" +
-      "\022\024\n\014workflow_ids\030\001 \003(\004\"\214\001\n\005Shift\022\n\n\002id\030\001" +
-      " \001(\004\022,\n\ttransport\030\002 \001(\0162\031.workflow.Shift" +
-      ".Transport\"I\n\tTransport\022\016\n\nPEDESTRIAN\020\000\022" +
-      "\007\n\003CAR\020\001\022\013\n\007BICYCLE\020\002\022\t\n\005TRUCK\020\003\022\013\n\007SCOO" +
-      "TER\020\004\"\372\002\n\nAssignment\022\035\n\025postponed_parent" +
-      "_uuid\030\002 \001(\t\022\026\n\016performer_uuid\030\003 \001(\t\0225\n\021p" +
-      "erformer_vehicle\030\t \001(\0162\032.workflow.Perfor" +
-      "merVehicle\022-\n\rdelivery_type\030\010 \001(\0162\026.work" +
-      "flow.DeliveryType\022)\n\013source_type\030\n \001(\0162\024" +
-      ".workflow.SourceType\022,\n\004meta\030\007 \003(\0132\036.wor" +
-      "kflow.Assignment.MetaEntry\022\036\n\005shift\030\013 \001(" +
-      "\0132\017.workflow.Shift\022\020\n\010job_uuid\030\014 \001(\t\022\027\n\017" +
-      "parent_job_uuid\030\r \001(\t\032+\n\tMetaEntry\022\013\n\003ke" +
-      "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\374\003\n\007Segment\022#" +
-      "\n\004type\030\001 \001(\0162\025.workflow.SegmentType\022\020\n\010p" +
-      "osition\030\002 \001(\r\022%\n\tshipments\030\003 \003(\0132\022.workf" +
-      "low.Shipment\022*\n\016location_start\030\004 \001(\0132\022.w" +
-      "orkflow.Location\0223\n\017plan_started_at\030\005 \001(" +
-      "\0132\032.google.protobuf.Timestamp\022(\n\014locatio" +
-      "n_end\030\006 \001(\0132\022.workflow.Location\0221\n\rplan_" +
-      "ended_at\030\007 \001(\0132\032.google.protobuf.Timesta" +
-      "mp\022+\n\010time_lag\030\010 \001(\0132\031.google.protobuf.D" +
-      "uration\022)\n\004meta\030\t \003(\0132\033.workflow.Segment" +
-      ".MetaEntry\022+\n\010duration\030\n \001(\0132\031.google.pr" +
-      "otobuf.Duration\022\020\n\010distance\030\013 \001(\004\022\021\n\tjob" +
-      "_uuids\030\014 \003(\t\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r" +
-      "\n\005value\030\002 \001(\t:\0028\001\"Z\n\010Workflow\022)\n\013assignm" +
-      "ents\030\002 \003(\0132\024.workflow.Assignment\022#\n\010segm" +
-      "ents\030\003 \003(\0132\021.workflow.Segment\"\367\001\n\016Region" +
-      "Settings\022\033\n\023operational_zone_id\030\001 \001(\004\022*\n" +
-      "\"timeout_segment_pass_to_client_sec\030\002 \001(" +
-      "\004\022&\n\036segment_assembly_tardiness_sec\030\003 \001(" +
-      "\004\022+\n#increasing_late_assembly_percentage" +
-      "\030\004 \001(\002\022 \n\030time_to_accept_offer_sec\030\005 \001(\004" +
-      "\022%\n\035server_offer_storage_time_sec\030\006 \001(\004\"" +
-      "M\n\030PutRegionSettingsRequest\0221\n\017region_se" +
-      "ttings\030\001 \001(\0132\030.workflow.RegionSettings\"T" +
-      "\n\026PutRegionSettingsReply\022\n\n\002ok\030\001 \001(\010\022\033\n\023" +
-      "operational_zone_id\030\002 \001(\004\022\021\n\terror_msg\030\003" +
-      " \001(\t\"7\n\030GetRegionSettingsRequest\022\033\n\023oper" +
-      "ational_zone_id\030\001 \001(\004\"j\n\026GetRegionSettin" +
-      "gsReply\022\n\n\002ok\030\001 \001(\010\0221\n\017region_settings\030\002" +
-      " \001(\0132\030.workflow.RegionSettings\022\021\n\terror_" +
-      "msg\030\003 \001(\t2\351\004\n\007Service\022V\n\017CreateWorkflows" +
-      "\022 .workflow.CreateWorkflowsRequest\032!.wor" +
-      "kflow.CreateWorkflowsResponse\022Z\n\021CreateW" +
-      "orkflowsV2\022 .workflow.CreateWorkflowsReq" +
-      "uest\032#.workflow.CreateWorkflowsV2Respons" +
-      "e\022q\n\"CancelActiveWorkflowByShipmentUUID\022" +
-      "3.workflow.CancelActiveWorkflowByShipmen" +
-      "tUuidRequest\032\026.google.protobuf.Empty\022}\n\034" +
-      "RejectWorkflowByShipmentUUID\022-.workflow." +
-      "RejectWorkflowByShipmentUuidRequest\032..wo" +
-      "rkflow.RejectWorkflowByShipmentUuidRespo" +
-      "nse\022[\n\021PutRegionSettings\022\".workflow.PutR" +
-      "egionSettingsRequest\032 .workflow.PutRegio" +
-      "nSettingsReply\"\000\022[\n\021GetRegionSettings\022\"." +
-      "workflow.GetRegionSettingsRequest\032 .work" +
-      "flow.GetRegionSettingsReply\"\000b\006proto3"
+      "assignment_uuid\030\004 \001(\t\"&\n\006Status\022\013\n\007SUCCE" +
+      "SS\020\000\022\013\n\007FAILURE\020\001\032\002\030\001\"\202\003\n\tErrorKind\022\t\n\005O" +
+      "THER\020\000\022!\n\035STARTED_AT_EARLY_CURRENT_TIME\020" +
+      "\001\022&\n\"HAS_INTERNAL_INTERSECTION_SEGMENTS\020" +
+      "\002\0222\n.HAS_ACTIVE_WORKFLOW_WITH_INTERSECTI" +
+      "ON_SEGMENTS\020\003\022\032\n\026HAS_PENDING_ASSIGNMENT\020" +
+      "\004\022)\n%HAS_LAST_ACTIVE_WORKFLOW_INTERSECTI" +
+      "ON\020\005\022\025\n\021CANDIDATE_IS_BUSY\020\006\022\024\n\020PARENT_NO" +
+      "T_FOUND\020\007\022\030\n\024PARENT_NOT_AVAILABLE\020\010\022\034\n\030H" +
+      "AS_PENDING_CANCELLATION\020\t\022\035\n\031PARENT_WORK" +
+      "FLOW_NOT_FOUND\020\n\022\034\n\030PARENT_WORKFLOW_CANC" +
+      "ELED\020\013\032\002\030\001:\002\030\001:\002\030\001\"L\n#RejectWorkflowBySh" +
+      "ipmentUuidRequest\022\025\n\rshipment_uuid\030\001 \001(\t" +
+      "\022\016\n\006reason\030\002 \001(\t\"<\n$RejectWorkflowByShip" +
+      "mentUuidResponse\022\024\n\014workflow_ids\030\001 \003(\004\"\214" +
+      "\001\n\005Shift\022\n\n\002id\030\001 \001(\004\022,\n\ttransport\030\002 \001(\0162" +
+      "\031.workflow.Shift.Transport\"I\n\tTransport\022" +
+      "\016\n\nPEDESTRIAN\020\000\022\007\n\003CAR\020\001\022\013\n\007BICYCLE\020\002\022\t\n" +
+      "\005TRUCK\020\003\022\013\n\007SCOOTER\020\004\"\206\003\n\nAssignment\022!\n\025" +
+      "postponed_parent_uuid\030\002 \001(\tB\002\030\001\022\026\n\016perfo" +
+      "rmer_uuid\030\003 \001(\t\0225\n\021performer_vehicle\030\t \001" +
+      "(\0162\032.workflow.PerformerVehicle\022-\n\rdelive" +
+      "ry_type\030\010 \001(\0162\026.workflow.DeliveryType\022)\n" +
+      "\013source_type\030\n \001(\0162\024.workflow.SourceType" +
+      "\022,\n\004meta\030\007 \003(\0132\036.workflow.Assignment.Met" +
+      "aEntry\022\036\n\005shift\030\013 \001(\0132\017.workflow.Shift\022\024" +
+      "\n\010job_uuid\030\014 \001(\tB\002\030\001\022\033\n\017parent_job_uuid\030" +
+      "\r \001(\tB\002\030\001\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005v" +
+      "alue\030\002 \001(\t:\0028\001\"\374\003\n\007Segment\022#\n\004type\030\001 \001(\016" +
+      "2\025.workflow.SegmentType\022\020\n\010position\030\002 \001(" +
+      "\r\022%\n\tshipments\030\003 \003(\0132\022.workflow.Shipment" +
+      "\022*\n\016location_start\030\004 \001(\0132\022.workflow.Loca" +
+      "tion\0223\n\017plan_started_at\030\005 \001(\0132\032.google.p" +
+      "rotobuf.Timestamp\022(\n\014location_end\030\006 \001(\0132" +
+      "\022.workflow.Location\0221\n\rplan_ended_at\030\007 \001" +
+      "(\0132\032.google.protobuf.Timestamp\022+\n\010time_l" +
+      "ag\030\010 \001(\0132\031.google.protobuf.Duration\022)\n\004m" +
+      "eta\030\t \003(\0132\033.workflow.Segment.MetaEntry\022+" +
+      "\n\010duration\030\n \001(\0132\031.google.protobuf.Durat" +
+      "ion\022\020\n\010distance\030\013 \001(\004\022\021\n\tjob_uuids\030\014 \003(\t" +
+      "\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(" +
+      "\t:\0028\001\"Z\n\010Workflow\022)\n\013assignments\030\002 \003(\0132\024" +
+      ".workflow.Assignment\022#\n\010segments\030\003 \003(\0132\021" +
+      ".workflow.Segment\"\367\001\n\016RegionSettings\022\033\n\023" +
+      "operational_zone_id\030\001 \001(\004\022*\n\"timeout_seg" +
+      "ment_pass_to_client_sec\030\002 \001(\004\022&\n\036segment" +
+      "_assembly_tardiness_sec\030\003 \001(\004\022+\n#increas" +
+      "ing_late_assembly_percentage\030\004 \001(\002\022 \n\030ti" +
+      "me_to_accept_offer_sec\030\005 \001(\004\022%\n\035server_o" +
+      "ffer_storage_time_sec\030\006 \001(\004\"M\n\030PutRegion" +
+      "SettingsRequest\0221\n\017region_settings\030\001 \001(\013" +
+      "2\030.workflow.RegionSettings\"T\n\026PutRegionS" +
+      "ettingsReply\022\n\n\002ok\030\001 \001(\010\022\033\n\023operational_" +
+      "zone_id\030\002 \001(\004\022\021\n\terror_msg\030\003 \001(\t\"7\n\030GetR" +
+      "egionSettingsRequest\022\033\n\023operational_zone" +
+      "_id\030\001 \001(\004\"j\n\026GetRegionSettingsReply\022\n\n\002o" +
+      "k\030\001 \001(\010\0221\n\017region_settings\030\002 \001(\0132\030.workf" +
+      "low.RegionSettings\022\021\n\terror_msg\030\003 \001(\t2\356\004" +
+      "\n\007Service\022V\n\017CreateWorkflows\022 .workflow." +
+      "CreateWorkflowsRequest\032!.workflow.Create" +
+      "WorkflowsResponse\022_\n\021CreateWorkflowsV2\022 " +
+      ".workflow.CreateWorkflowsRequest\032#.workf" +
+      "low.CreateWorkflowsV2Response\"\003\210\002\001\022q\n\"Ca" +
+      "ncelActiveWorkflowByShipmentUUID\0223.workf" +
+      "low.CancelActiveWorkflowByShipmentUuidRe" +
+      "quest\032\026.google.protobuf.Empty\022}\n\034RejectW" +
+      "orkflowByShipmentUUID\022-.workflow.RejectW" +
+      "orkflowByShipmentUuidRequest\032..workflow." +
+      "RejectWorkflowByShipmentUuidResponse\022[\n\021" +
+      "PutRegionSettings\022\".workflow.PutRegionSe" +
+      "ttingsRequest\032 .workflow.PutRegionSettin" +
+      "gsReply\"\000\022[\n\021GetRegionSettings\022\".workflo" +
+      "w.GetRegionSettingsRequest\032 .workflow.Ge" +
+      "tRegionSettingsReply\"\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

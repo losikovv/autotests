@@ -1,7 +1,7 @@
-package ru.instamart.jdbc.dao.orders_service;
+package ru.instamart.jdbc.dao.orders_service.publicScheme;
 
 import ru.instamart.jdbc.dao.Dao;
-import ru.instamart.jdbc.entity.order_service.PlacesEntity;
+import ru.instamart.jdbc.entity.order_service.publicScheme.PlacesEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
@@ -15,9 +15,9 @@ import static org.testng.Assert.fail;
 
 public class PlacesDao implements Dao<String, PlacesDao> {
     public static final PlacesDao INSTANCE = new PlacesDao();
-    private final String SELECT_SQL = "SELECT %s FROM places";
-    private final String DELETE_SQL = "DELETE FROM places ";
-    private final String UPDATE_SQL = "UPDATE places";
+    private final String SELECT_SQL = "SELECT %s FROM public.places";
+    private final String DELETE_SQL = "DELETE FROM public.places ";
+    private final String UPDATE_SQL = "UPDATE public.places";
 
     @Override
     public boolean delete(String id) {

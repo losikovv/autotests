@@ -14,6 +14,150 @@ public final class OrderPricing {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  /**
+   * Protobuf enum {@code shipment_pricing.EmploymentType}
+   */
+  public enum EmploymentType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>NOT_SET = 0;</code>
+     */
+    NOT_SET(0),
+    /**
+     * <code>IP = 1;</code>
+     */
+    IP(1),
+    /**
+     * <code>SELF_EMPLOYED = 2;</code>
+     */
+    SELF_EMPLOYED(2),
+    /**
+     * <code>AGENT = 3;</code>
+     */
+    AGENT(3),
+    /**
+     * <code>OUTSOURCE = 4;</code>
+     */
+    OUTSOURCE(4),
+    /**
+     * <code>EXTERNAL_EMPLOYEE = 5;</code>
+     */
+    EXTERNAL_EMPLOYEE(5),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>NOT_SET = 0;</code>
+     */
+    public static final int NOT_SET_VALUE = 0;
+    /**
+     * <code>IP = 1;</code>
+     */
+    public static final int IP_VALUE = 1;
+    /**
+     * <code>SELF_EMPLOYED = 2;</code>
+     */
+    public static final int SELF_EMPLOYED_VALUE = 2;
+    /**
+     * <code>AGENT = 3;</code>
+     */
+    public static final int AGENT_VALUE = 3;
+    /**
+     * <code>OUTSOURCE = 4;</code>
+     */
+    public static final int OUTSOURCE_VALUE = 4;
+    /**
+     * <code>EXTERNAL_EMPLOYEE = 5;</code>
+     */
+    public static final int EXTERNAL_EMPLOYEE_VALUE = 5;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static EmploymentType valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static EmploymentType forNumber(int value) {
+      switch (value) {
+        case 0: return NOT_SET;
+        case 1: return IP;
+        case 2: return SELF_EMPLOYED;
+        case 3: return AGENT;
+        case 4: return OUTSOURCE;
+        case 5: return EXTERNAL_EMPLOYEE;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<EmploymentType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        EmploymentType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<EmploymentType>() {
+            public EmploymentType findValueByNumber(int number) {
+              return EmploymentType.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return shipment_pricing.OrderPricing.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final EmploymentType[] VALUES = values();
+
+    public static EmploymentType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private EmploymentType(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:shipment_pricing.EmploymentType)
+  }
+
   public interface LocationOrBuilder extends
       // @@protoc_insertion_point(interface_extends:shipment_pricing.Location)
       com.google.protobuf.MessageOrBuilder {
@@ -1701,6 +1845,23 @@ public final class OrderPricing {
      * <code>.shipment_pricing.Location start_location = 4;</code>
      */
     shipment_pricing.OrderPricing.LocationOrBuilder getStartLocationOrBuilder();
+
+    /**
+     * <code>.shipment_pricing.EmploymentType employment_type = 5;</code>
+     * @return The enum numeric value on the wire for employmentType.
+     */
+    int getEmploymentTypeValue();
+    /**
+     * <code>.shipment_pricing.EmploymentType employment_type = 5;</code>
+     * @return The employmentType.
+     */
+    shipment_pricing.OrderPricing.EmploymentType getEmploymentType();
+
+    /**
+     * <code>int64 shift_id = 6;</code>
+     * @return The shiftId.
+     */
+    long getShiftId();
   }
   /**
    * Protobuf type {@code shipment_pricing.Shopper}
@@ -1718,6 +1879,7 @@ public final class OrderPricing {
       shopperUuid_ = "";
       shopperType_ = "";
       shopperRole_ = "";
+      employmentType_ = 0;
     }
 
     @java.lang.Override
@@ -1779,6 +1941,17 @@ public final class OrderPricing {
                 startLocation_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 40: {
+              int rawValue = input.readEnum();
+
+              employmentType_ = rawValue;
+              break;
+            }
+            case 48: {
+
+              shiftId_ = input.readInt64();
               break;
             }
             default: {
@@ -1953,6 +2126,36 @@ public final class OrderPricing {
       return getStartLocation();
     }
 
+    public static final int EMPLOYMENT_TYPE_FIELD_NUMBER = 5;
+    private int employmentType_;
+    /**
+     * <code>.shipment_pricing.EmploymentType employment_type = 5;</code>
+     * @return The enum numeric value on the wire for employmentType.
+     */
+    @java.lang.Override public int getEmploymentTypeValue() {
+      return employmentType_;
+    }
+    /**
+     * <code>.shipment_pricing.EmploymentType employment_type = 5;</code>
+     * @return The employmentType.
+     */
+    @java.lang.Override public shipment_pricing.OrderPricing.EmploymentType getEmploymentType() {
+      @SuppressWarnings("deprecation")
+      shipment_pricing.OrderPricing.EmploymentType result = shipment_pricing.OrderPricing.EmploymentType.valueOf(employmentType_);
+      return result == null ? shipment_pricing.OrderPricing.EmploymentType.UNRECOGNIZED : result;
+    }
+
+    public static final int SHIFT_ID_FIELD_NUMBER = 6;
+    private long shiftId_;
+    /**
+     * <code>int64 shift_id = 6;</code>
+     * @return The shiftId.
+     */
+    @java.lang.Override
+    public long getShiftId() {
+      return shiftId_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1979,6 +2182,12 @@ public final class OrderPricing {
       if (startLocation_ != null) {
         output.writeMessage(4, getStartLocation());
       }
+      if (employmentType_ != shipment_pricing.OrderPricing.EmploymentType.NOT_SET.getNumber()) {
+        output.writeEnum(5, employmentType_);
+      }
+      if (shiftId_ != 0L) {
+        output.writeInt64(6, shiftId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2000,6 +2209,14 @@ public final class OrderPricing {
       if (startLocation_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getStartLocation());
+      }
+      if (employmentType_ != shipment_pricing.OrderPricing.EmploymentType.NOT_SET.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(5, employmentType_);
+      }
+      if (shiftId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(6, shiftId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2027,6 +2244,9 @@ public final class OrderPricing {
         if (!getStartLocation()
             .equals(other.getStartLocation())) return false;
       }
+      if (employmentType_ != other.employmentType_) return false;
+      if (getShiftId()
+          != other.getShiftId()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2048,6 +2268,11 @@ public final class OrderPricing {
         hash = (37 * hash) + START_LOCATION_FIELD_NUMBER;
         hash = (53 * hash) + getStartLocation().hashCode();
       }
+      hash = (37 * hash) + EMPLOYMENT_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + employmentType_;
+      hash = (37 * hash) + SHIFT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getShiftId());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2193,6 +2418,10 @@ public final class OrderPricing {
           startLocation_ = null;
           startLocationBuilder_ = null;
         }
+        employmentType_ = 0;
+
+        shiftId_ = 0L;
+
         return this;
       }
 
@@ -2227,6 +2456,8 @@ public final class OrderPricing {
         } else {
           result.startLocation_ = startLocationBuilder_.build();
         }
+        result.employmentType_ = employmentType_;
+        result.shiftId_ = shiftId_;
         onBuilt();
         return result;
       }
@@ -2289,6 +2520,12 @@ public final class OrderPricing {
         }
         if (other.hasStartLocation()) {
           mergeStartLocation(other.getStartLocation());
+        }
+        if (other.employmentType_ != 0) {
+          setEmploymentTypeValue(other.getEmploymentTypeValue());
+        }
+        if (other.getShiftId() != 0L) {
+          setShiftId(other.getShiftId());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2664,6 +2901,91 @@ public final class OrderPricing {
           startLocation_ = null;
         }
         return startLocationBuilder_;
+      }
+
+      private int employmentType_ = 0;
+      /**
+       * <code>.shipment_pricing.EmploymentType employment_type = 5;</code>
+       * @return The enum numeric value on the wire for employmentType.
+       */
+      @java.lang.Override public int getEmploymentTypeValue() {
+        return employmentType_;
+      }
+      /**
+       * <code>.shipment_pricing.EmploymentType employment_type = 5;</code>
+       * @param value The enum numeric value on the wire for employmentType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEmploymentTypeValue(int value) {
+        
+        employmentType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.EmploymentType employment_type = 5;</code>
+       * @return The employmentType.
+       */
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.EmploymentType getEmploymentType() {
+        @SuppressWarnings("deprecation")
+        shipment_pricing.OrderPricing.EmploymentType result = shipment_pricing.OrderPricing.EmploymentType.valueOf(employmentType_);
+        return result == null ? shipment_pricing.OrderPricing.EmploymentType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.shipment_pricing.EmploymentType employment_type = 5;</code>
+       * @param value The employmentType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEmploymentType(shipment_pricing.OrderPricing.EmploymentType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        employmentType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.EmploymentType employment_type = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEmploymentType() {
+        
+        employmentType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long shiftId_ ;
+      /**
+       * <code>int64 shift_id = 6;</code>
+       * @return The shiftId.
+       */
+      @java.lang.Override
+      public long getShiftId() {
+        return shiftId_;
+      }
+      /**
+       * <code>int64 shift_id = 6;</code>
+       * @param value The shiftId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShiftId(long value) {
+        
+        shiftId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 shift_id = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearShiftId() {
+        
+        shiftId_ = 0L;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -7677,6 +7999,66 @@ public final class OrderPricing {
      * @return The fixFirstMile.
      */
     float getFixFirstMile();
+
+    /**
+     * <code>float first_mile_fast_bonus = 22;</code>
+     * @return The firstMileFastBonus.
+     */
+    float getFirstMileFastBonus();
+
+    /**
+     * <code>float first_mile_late_max = 23;</code>
+     * @return The firstMileLateMax.
+     */
+    float getFirstMileLateMax();
+
+    /**
+     * <code>string partner_role = 24;</code>
+     * @return The partnerRole.
+     */
+    java.lang.String getPartnerRole();
+    /**
+     * <code>string partner_role = 24;</code>
+     * @return The bytes for partnerRole.
+     */
+    com.google.protobuf.ByteString
+        getPartnerRoleBytes();
+
+    /**
+     * <code>float per_duration_delivery = 25;</code>
+     * @return The perDurationDelivery.
+     */
+    float getPerDurationDelivery();
+
+    /**
+     * <code>float items_max_threshold = 26;</code>
+     * @return The itemsMaxThreshold.
+     */
+    float getItemsMaxThreshold();
+
+    /**
+     * <code>float weight_max_threshold = 27;</code>
+     * @return The weightMaxThreshold.
+     */
+    float getWeightMaxThreshold();
+
+    /**
+     * <code>float distance_max_threshold = 28;</code>
+     * @return The distanceMaxThreshold.
+     */
+    float getDistanceMaxThreshold();
+
+    /**
+     * <code>float first_mile_max_threshold = 29;</code>
+     * @return The firstMileMaxThreshold.
+     */
+    float getFirstMileMaxThreshold();
+
+    /**
+     * <code>float duration_delivery_threshold = 30;</code>
+     * @return The durationDeliveryThreshold.
+     */
+    float getDurationDeliveryThreshold();
   }
   /**
    * Protobuf type {@code shipment_pricing.SetShipmentParamsRequest}
@@ -7694,6 +8076,7 @@ public final class OrderPricing {
       id_ = "";
       partnerType_ = "";
       storeType_ = "";
+      partnerRole_ = "";
     }
 
     @java.lang.Override
@@ -7832,6 +8215,52 @@ public final class OrderPricing {
             case 173: {
 
               fixFirstMile_ = input.readFloat();
+              break;
+            }
+            case 181: {
+
+              firstMileFastBonus_ = input.readFloat();
+              break;
+            }
+            case 189: {
+
+              firstMileLateMax_ = input.readFloat();
+              break;
+            }
+            case 194: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              partnerRole_ = s;
+              break;
+            }
+            case 205: {
+
+              perDurationDelivery_ = input.readFloat();
+              break;
+            }
+            case 213: {
+
+              itemsMaxThreshold_ = input.readFloat();
+              break;
+            }
+            case 221: {
+
+              weightMaxThreshold_ = input.readFloat();
+              break;
+            }
+            case 229: {
+
+              distanceMaxThreshold_ = input.readFloat();
+              break;
+            }
+            case 237: {
+
+              firstMileMaxThreshold_ = input.readFloat();
+              break;
+            }
+            case 245: {
+
+              durationDeliveryThreshold_ = input.readFloat();
               break;
             }
             default: {
@@ -8178,6 +8607,132 @@ public final class OrderPricing {
       return fixFirstMile_;
     }
 
+    public static final int FIRST_MILE_FAST_BONUS_FIELD_NUMBER = 22;
+    private float firstMileFastBonus_;
+    /**
+     * <code>float first_mile_fast_bonus = 22;</code>
+     * @return The firstMileFastBonus.
+     */
+    @java.lang.Override
+    public float getFirstMileFastBonus() {
+      return firstMileFastBonus_;
+    }
+
+    public static final int FIRST_MILE_LATE_MAX_FIELD_NUMBER = 23;
+    private float firstMileLateMax_;
+    /**
+     * <code>float first_mile_late_max = 23;</code>
+     * @return The firstMileLateMax.
+     */
+    @java.lang.Override
+    public float getFirstMileLateMax() {
+      return firstMileLateMax_;
+    }
+
+    public static final int PARTNER_ROLE_FIELD_NUMBER = 24;
+    private volatile java.lang.Object partnerRole_;
+    /**
+     * <code>string partner_role = 24;</code>
+     * @return The partnerRole.
+     */
+    @java.lang.Override
+    public java.lang.String getPartnerRole() {
+      java.lang.Object ref = partnerRole_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        partnerRole_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string partner_role = 24;</code>
+     * @return The bytes for partnerRole.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPartnerRoleBytes() {
+      java.lang.Object ref = partnerRole_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        partnerRole_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PER_DURATION_DELIVERY_FIELD_NUMBER = 25;
+    private float perDurationDelivery_;
+    /**
+     * <code>float per_duration_delivery = 25;</code>
+     * @return The perDurationDelivery.
+     */
+    @java.lang.Override
+    public float getPerDurationDelivery() {
+      return perDurationDelivery_;
+    }
+
+    public static final int ITEMS_MAX_THRESHOLD_FIELD_NUMBER = 26;
+    private float itemsMaxThreshold_;
+    /**
+     * <code>float items_max_threshold = 26;</code>
+     * @return The itemsMaxThreshold.
+     */
+    @java.lang.Override
+    public float getItemsMaxThreshold() {
+      return itemsMaxThreshold_;
+    }
+
+    public static final int WEIGHT_MAX_THRESHOLD_FIELD_NUMBER = 27;
+    private float weightMaxThreshold_;
+    /**
+     * <code>float weight_max_threshold = 27;</code>
+     * @return The weightMaxThreshold.
+     */
+    @java.lang.Override
+    public float getWeightMaxThreshold() {
+      return weightMaxThreshold_;
+    }
+
+    public static final int DISTANCE_MAX_THRESHOLD_FIELD_NUMBER = 28;
+    private float distanceMaxThreshold_;
+    /**
+     * <code>float distance_max_threshold = 28;</code>
+     * @return The distanceMaxThreshold.
+     */
+    @java.lang.Override
+    public float getDistanceMaxThreshold() {
+      return distanceMaxThreshold_;
+    }
+
+    public static final int FIRST_MILE_MAX_THRESHOLD_FIELD_NUMBER = 29;
+    private float firstMileMaxThreshold_;
+    /**
+     * <code>float first_mile_max_threshold = 29;</code>
+     * @return The firstMileMaxThreshold.
+     */
+    @java.lang.Override
+    public float getFirstMileMaxThreshold() {
+      return firstMileMaxThreshold_;
+    }
+
+    public static final int DURATION_DELIVERY_THRESHOLD_FIELD_NUMBER = 30;
+    private float durationDeliveryThreshold_;
+    /**
+     * <code>float duration_delivery_threshold = 30;</code>
+     * @return The durationDeliveryThreshold.
+     */
+    @java.lang.Override
+    public float getDurationDeliveryThreshold() {
+      return durationDeliveryThreshold_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -8254,6 +8809,33 @@ public final class OrderPricing {
       }
       if (fixFirstMile_ != 0F) {
         output.writeFloat(21, fixFirstMile_);
+      }
+      if (firstMileFastBonus_ != 0F) {
+        output.writeFloat(22, firstMileFastBonus_);
+      }
+      if (firstMileLateMax_ != 0F) {
+        output.writeFloat(23, firstMileLateMax_);
+      }
+      if (!getPartnerRoleBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 24, partnerRole_);
+      }
+      if (perDurationDelivery_ != 0F) {
+        output.writeFloat(25, perDurationDelivery_);
+      }
+      if (itemsMaxThreshold_ != 0F) {
+        output.writeFloat(26, itemsMaxThreshold_);
+      }
+      if (weightMaxThreshold_ != 0F) {
+        output.writeFloat(27, weightMaxThreshold_);
+      }
+      if (distanceMaxThreshold_ != 0F) {
+        output.writeFloat(28, distanceMaxThreshold_);
+      }
+      if (firstMileMaxThreshold_ != 0F) {
+        output.writeFloat(29, firstMileMaxThreshold_);
+      }
+      if (durationDeliveryThreshold_ != 0F) {
+        output.writeFloat(30, durationDeliveryThreshold_);
       }
       unknownFields.writeTo(output);
     }
@@ -8345,6 +8927,41 @@ public final class OrderPricing {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(21, fixFirstMile_);
       }
+      if (firstMileFastBonus_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(22, firstMileFastBonus_);
+      }
+      if (firstMileLateMax_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(23, firstMileLateMax_);
+      }
+      if (!getPartnerRoleBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(24, partnerRole_);
+      }
+      if (perDurationDelivery_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(25, perDurationDelivery_);
+      }
+      if (itemsMaxThreshold_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(26, itemsMaxThreshold_);
+      }
+      if (weightMaxThreshold_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(27, weightMaxThreshold_);
+      }
+      if (distanceMaxThreshold_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(28, distanceMaxThreshold_);
+      }
+      if (firstMileMaxThreshold_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(29, firstMileMaxThreshold_);
+      }
+      if (durationDeliveryThreshold_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(30, durationDeliveryThreshold_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -8420,6 +9037,32 @@ public final class OrderPricing {
       if (java.lang.Float.floatToIntBits(getFixFirstMile())
           != java.lang.Float.floatToIntBits(
               other.getFixFirstMile())) return false;
+      if (java.lang.Float.floatToIntBits(getFirstMileFastBonus())
+          != java.lang.Float.floatToIntBits(
+              other.getFirstMileFastBonus())) return false;
+      if (java.lang.Float.floatToIntBits(getFirstMileLateMax())
+          != java.lang.Float.floatToIntBits(
+              other.getFirstMileLateMax())) return false;
+      if (!getPartnerRole()
+          .equals(other.getPartnerRole())) return false;
+      if (java.lang.Float.floatToIntBits(getPerDurationDelivery())
+          != java.lang.Float.floatToIntBits(
+              other.getPerDurationDelivery())) return false;
+      if (java.lang.Float.floatToIntBits(getItemsMaxThreshold())
+          != java.lang.Float.floatToIntBits(
+              other.getItemsMaxThreshold())) return false;
+      if (java.lang.Float.floatToIntBits(getWeightMaxThreshold())
+          != java.lang.Float.floatToIntBits(
+              other.getWeightMaxThreshold())) return false;
+      if (java.lang.Float.floatToIntBits(getDistanceMaxThreshold())
+          != java.lang.Float.floatToIntBits(
+              other.getDistanceMaxThreshold())) return false;
+      if (java.lang.Float.floatToIntBits(getFirstMileMaxThreshold())
+          != java.lang.Float.floatToIntBits(
+              other.getFirstMileMaxThreshold())) return false;
+      if (java.lang.Float.floatToIntBits(getDurationDeliveryThreshold())
+          != java.lang.Float.floatToIntBits(
+              other.getDurationDeliveryThreshold())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -8491,6 +9134,32 @@ public final class OrderPricing {
       hash = (37 * hash) + FIX_FIRST_MILE_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getFixFirstMile());
+      hash = (37 * hash) + FIRST_MILE_FAST_BONUS_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFirstMileFastBonus());
+      hash = (37 * hash) + FIRST_MILE_LATE_MAX_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFirstMileLateMax());
+      hash = (37 * hash) + PARTNER_ROLE_FIELD_NUMBER;
+      hash = (53 * hash) + getPartnerRole().hashCode();
+      hash = (37 * hash) + PER_DURATION_DELIVERY_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPerDurationDelivery());
+      hash = (37 * hash) + ITEMS_MAX_THRESHOLD_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getItemsMaxThreshold());
+      hash = (37 * hash) + WEIGHT_MAX_THRESHOLD_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getWeightMaxThreshold());
+      hash = (37 * hash) + DISTANCE_MAX_THRESHOLD_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getDistanceMaxThreshold());
+      hash = (37 * hash) + FIRST_MILE_MAX_THRESHOLD_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFirstMileMaxThreshold());
+      hash = (37 * hash) + DURATION_DELIVERY_THRESHOLD_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getDurationDeliveryThreshold());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8666,6 +9335,24 @@ public final class OrderPricing {
 
         fixFirstMile_ = 0F;
 
+        firstMileFastBonus_ = 0F;
+
+        firstMileLateMax_ = 0F;
+
+        partnerRole_ = "";
+
+        perDurationDelivery_ = 0F;
+
+        itemsMaxThreshold_ = 0F;
+
+        weightMaxThreshold_ = 0F;
+
+        distanceMaxThreshold_ = 0F;
+
+        firstMileMaxThreshold_ = 0F;
+
+        durationDeliveryThreshold_ = 0F;
+
         return this;
       }
 
@@ -8713,6 +9400,15 @@ public final class OrderPricing {
         result.weightThreshold_ = weightThreshold_;
         result.distanceThreshold_ = distanceThreshold_;
         result.fixFirstMile_ = fixFirstMile_;
+        result.firstMileFastBonus_ = firstMileFastBonus_;
+        result.firstMileLateMax_ = firstMileLateMax_;
+        result.partnerRole_ = partnerRole_;
+        result.perDurationDelivery_ = perDurationDelivery_;
+        result.itemsMaxThreshold_ = itemsMaxThreshold_;
+        result.weightMaxThreshold_ = weightMaxThreshold_;
+        result.distanceMaxThreshold_ = distanceMaxThreshold_;
+        result.firstMileMaxThreshold_ = firstMileMaxThreshold_;
+        result.durationDeliveryThreshold_ = durationDeliveryThreshold_;
         onBuilt();
         return result;
       }
@@ -8826,6 +9522,34 @@ public final class OrderPricing {
         }
         if (other.getFixFirstMile() != 0F) {
           setFixFirstMile(other.getFixFirstMile());
+        }
+        if (other.getFirstMileFastBonus() != 0F) {
+          setFirstMileFastBonus(other.getFirstMileFastBonus());
+        }
+        if (other.getFirstMileLateMax() != 0F) {
+          setFirstMileLateMax(other.getFirstMileLateMax());
+        }
+        if (!other.getPartnerRole().isEmpty()) {
+          partnerRole_ = other.partnerRole_;
+          onChanged();
+        }
+        if (other.getPerDurationDelivery() != 0F) {
+          setPerDurationDelivery(other.getPerDurationDelivery());
+        }
+        if (other.getItemsMaxThreshold() != 0F) {
+          setItemsMaxThreshold(other.getItemsMaxThreshold());
+        }
+        if (other.getWeightMaxThreshold() != 0F) {
+          setWeightMaxThreshold(other.getWeightMaxThreshold());
+        }
+        if (other.getDistanceMaxThreshold() != 0F) {
+          setDistanceMaxThreshold(other.getDistanceMaxThreshold());
+        }
+        if (other.getFirstMileMaxThreshold() != 0F) {
+          setFirstMileMaxThreshold(other.getFirstMileMaxThreshold());
+        }
+        if (other.getDurationDeliveryThreshold() != 0F) {
+          setDurationDeliveryThreshold(other.getDurationDeliveryThreshold());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -9638,6 +10362,330 @@ public final class OrderPricing {
       public Builder clearFixFirstMile() {
         
         fixFirstMile_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float firstMileFastBonus_ ;
+      /**
+       * <code>float first_mile_fast_bonus = 22;</code>
+       * @return The firstMileFastBonus.
+       */
+      @java.lang.Override
+      public float getFirstMileFastBonus() {
+        return firstMileFastBonus_;
+      }
+      /**
+       * <code>float first_mile_fast_bonus = 22;</code>
+       * @param value The firstMileFastBonus to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFirstMileFastBonus(float value) {
+        
+        firstMileFastBonus_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float first_mile_fast_bonus = 22;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFirstMileFastBonus() {
+        
+        firstMileFastBonus_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float firstMileLateMax_ ;
+      /**
+       * <code>float first_mile_late_max = 23;</code>
+       * @return The firstMileLateMax.
+       */
+      @java.lang.Override
+      public float getFirstMileLateMax() {
+        return firstMileLateMax_;
+      }
+      /**
+       * <code>float first_mile_late_max = 23;</code>
+       * @param value The firstMileLateMax to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFirstMileLateMax(float value) {
+        
+        firstMileLateMax_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float first_mile_late_max = 23;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFirstMileLateMax() {
+        
+        firstMileLateMax_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object partnerRole_ = "";
+      /**
+       * <code>string partner_role = 24;</code>
+       * @return The partnerRole.
+       */
+      public java.lang.String getPartnerRole() {
+        java.lang.Object ref = partnerRole_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          partnerRole_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string partner_role = 24;</code>
+       * @return The bytes for partnerRole.
+       */
+      public com.google.protobuf.ByteString
+          getPartnerRoleBytes() {
+        java.lang.Object ref = partnerRole_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          partnerRole_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string partner_role = 24;</code>
+       * @param value The partnerRole to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPartnerRole(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        partnerRole_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string partner_role = 24;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPartnerRole() {
+        
+        partnerRole_ = getDefaultInstance().getPartnerRole();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string partner_role = 24;</code>
+       * @param value The bytes for partnerRole to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPartnerRoleBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        partnerRole_ = value;
+        onChanged();
+        return this;
+      }
+
+      private float perDurationDelivery_ ;
+      /**
+       * <code>float per_duration_delivery = 25;</code>
+       * @return The perDurationDelivery.
+       */
+      @java.lang.Override
+      public float getPerDurationDelivery() {
+        return perDurationDelivery_;
+      }
+      /**
+       * <code>float per_duration_delivery = 25;</code>
+       * @param value The perDurationDelivery to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPerDurationDelivery(float value) {
+        
+        perDurationDelivery_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float per_duration_delivery = 25;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPerDurationDelivery() {
+        
+        perDurationDelivery_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float itemsMaxThreshold_ ;
+      /**
+       * <code>float items_max_threshold = 26;</code>
+       * @return The itemsMaxThreshold.
+       */
+      @java.lang.Override
+      public float getItemsMaxThreshold() {
+        return itemsMaxThreshold_;
+      }
+      /**
+       * <code>float items_max_threshold = 26;</code>
+       * @param value The itemsMaxThreshold to set.
+       * @return This builder for chaining.
+       */
+      public Builder setItemsMaxThreshold(float value) {
+        
+        itemsMaxThreshold_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float items_max_threshold = 26;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearItemsMaxThreshold() {
+        
+        itemsMaxThreshold_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float weightMaxThreshold_ ;
+      /**
+       * <code>float weight_max_threshold = 27;</code>
+       * @return The weightMaxThreshold.
+       */
+      @java.lang.Override
+      public float getWeightMaxThreshold() {
+        return weightMaxThreshold_;
+      }
+      /**
+       * <code>float weight_max_threshold = 27;</code>
+       * @param value The weightMaxThreshold to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWeightMaxThreshold(float value) {
+        
+        weightMaxThreshold_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float weight_max_threshold = 27;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWeightMaxThreshold() {
+        
+        weightMaxThreshold_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float distanceMaxThreshold_ ;
+      /**
+       * <code>float distance_max_threshold = 28;</code>
+       * @return The distanceMaxThreshold.
+       */
+      @java.lang.Override
+      public float getDistanceMaxThreshold() {
+        return distanceMaxThreshold_;
+      }
+      /**
+       * <code>float distance_max_threshold = 28;</code>
+       * @param value The distanceMaxThreshold to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDistanceMaxThreshold(float value) {
+        
+        distanceMaxThreshold_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float distance_max_threshold = 28;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDistanceMaxThreshold() {
+        
+        distanceMaxThreshold_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float firstMileMaxThreshold_ ;
+      /**
+       * <code>float first_mile_max_threshold = 29;</code>
+       * @return The firstMileMaxThreshold.
+       */
+      @java.lang.Override
+      public float getFirstMileMaxThreshold() {
+        return firstMileMaxThreshold_;
+      }
+      /**
+       * <code>float first_mile_max_threshold = 29;</code>
+       * @param value The firstMileMaxThreshold to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFirstMileMaxThreshold(float value) {
+        
+        firstMileMaxThreshold_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float first_mile_max_threshold = 29;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFirstMileMaxThreshold() {
+        
+        firstMileMaxThreshold_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float durationDeliveryThreshold_ ;
+      /**
+       * <code>float duration_delivery_threshold = 30;</code>
+       * @return The durationDeliveryThreshold.
+       */
+      @java.lang.Override
+      public float getDurationDeliveryThreshold() {
+        return durationDeliveryThreshold_;
+      }
+      /**
+       * <code>float duration_delivery_threshold = 30;</code>
+       * @param value The durationDeliveryThreshold to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDurationDeliveryThreshold(float value) {
+        
+        durationDeliveryThreshold_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float duration_delivery_threshold = 30;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDurationDeliveryThreshold() {
+        
+        durationDeliveryThreshold_ = 0F;
         onChanged();
         return this;
       }
@@ -12646,6 +13694,4308 @@ public final class OrderPricing {
 
   }
 
+  public interface SetDeductionEmploymentTypeRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shipment_pricing.SetDeductionEmploymentTypeRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>.shipment_pricing.EmploymentType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <code>.shipment_pricing.EmploymentType type = 2;</code>
+     * @return The type.
+     */
+    shipment_pricing.OrderPricing.EmploymentType getType();
+
+    /**
+     * <code>float deduction = 3;</code>
+     * @return The deduction.
+     */
+    float getDeduction();
+  }
+  /**
+   * Protobuf type {@code shipment_pricing.SetDeductionEmploymentTypeRequest}
+   */
+  public static final class SetDeductionEmploymentTypeRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shipment_pricing.SetDeductionEmploymentTypeRequest)
+      SetDeductionEmploymentTypeRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SetDeductionEmploymentTypeRequest.newBuilder() to construct.
+    private SetDeductionEmploymentTypeRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SetDeductionEmploymentTypeRequest() {
+      id_ = "";
+      type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SetDeductionEmploymentTypeRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SetDeductionEmploymentTypeRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
+            case 29: {
+
+              deduction_ = input.readFloat();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest.class, shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 2;
+    private int type_;
+    /**
+     * <code>.shipment_pricing.EmploymentType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    @java.lang.Override public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.shipment_pricing.EmploymentType type = 2;</code>
+     * @return The type.
+     */
+    @java.lang.Override public shipment_pricing.OrderPricing.EmploymentType getType() {
+      @SuppressWarnings("deprecation")
+      shipment_pricing.OrderPricing.EmploymentType result = shipment_pricing.OrderPricing.EmploymentType.valueOf(type_);
+      return result == null ? shipment_pricing.OrderPricing.EmploymentType.UNRECOGNIZED : result;
+    }
+
+    public static final int DEDUCTION_FIELD_NUMBER = 3;
+    private float deduction_;
+    /**
+     * <code>float deduction = 3;</code>
+     * @return The deduction.
+     */
+    @java.lang.Override
+    public float getDeduction() {
+      return deduction_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (type_ != shipment_pricing.OrderPricing.EmploymentType.NOT_SET.getNumber()) {
+        output.writeEnum(2, type_);
+      }
+      if (deduction_ != 0F) {
+        output.writeFloat(3, deduction_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (type_ != shipment_pricing.OrderPricing.EmploymentType.NOT_SET.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, type_);
+      }
+      if (deduction_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, deduction_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest)) {
+        return super.equals(obj);
+      }
+      shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest other = (shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (type_ != other.type_) return false;
+      if (java.lang.Float.floatToIntBits(getDeduction())
+          != java.lang.Float.floatToIntBits(
+              other.getDeduction())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
+      hash = (37 * hash) + DEDUCTION_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getDeduction());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shipment_pricing.SetDeductionEmploymentTypeRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shipment_pricing.SetDeductionEmploymentTypeRequest)
+        shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest.class, shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest.Builder.class);
+      }
+
+      // Construct using shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        type_ = 0;
+
+        deduction_ = 0F;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest getDefaultInstanceForType() {
+        return shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest build() {
+        shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest buildPartial() {
+        shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest result = new shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest(this);
+        result.id_ = id_;
+        result.type_ = type_;
+        result.deduction_ = deduction_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest) {
+          return mergeFrom((shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest other) {
+        if (other == shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
+        if (other.getDeduction() != 0F) {
+          setDeduction(other.getDeduction());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int type_ = 0;
+      /**
+       * <code>.shipment_pricing.EmploymentType type = 2;</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.shipment_pricing.EmploymentType type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.EmploymentType type = 2;</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.EmploymentType getType() {
+        @SuppressWarnings("deprecation")
+        shipment_pricing.OrderPricing.EmploymentType result = shipment_pricing.OrderPricing.EmploymentType.valueOf(type_);
+        return result == null ? shipment_pricing.OrderPricing.EmploymentType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.shipment_pricing.EmploymentType type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(shipment_pricing.OrderPricing.EmploymentType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.EmploymentType type = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private float deduction_ ;
+      /**
+       * <code>float deduction = 3;</code>
+       * @return The deduction.
+       */
+      @java.lang.Override
+      public float getDeduction() {
+        return deduction_;
+      }
+      /**
+       * <code>float deduction = 3;</code>
+       * @param value The deduction to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeduction(float value) {
+        
+        deduction_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float deduction = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeduction() {
+        
+        deduction_ = 0F;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shipment_pricing.SetDeductionEmploymentTypeRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:shipment_pricing.SetDeductionEmploymentTypeRequest)
+    private static final shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest();
+    }
+
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SetDeductionEmploymentTypeRequest>
+        PARSER = new com.google.protobuf.AbstractParser<SetDeductionEmploymentTypeRequest>() {
+      @java.lang.Override
+      public SetDeductionEmploymentTypeRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SetDeductionEmploymentTypeRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SetDeductionEmploymentTypeRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SetDeductionEmploymentTypeRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.SetDeductionEmploymentTypeRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SetDeductionEmploymentTypeResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shipment_pricing.SetDeductionEmploymentTypeResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string status = 1;</code>
+     * @return The status.
+     */
+    java.lang.String getStatus();
+    /**
+     * <code>string status = 1;</code>
+     * @return The bytes for status.
+     */
+    com.google.protobuf.ByteString
+        getStatusBytes();
+  }
+  /**
+   * Protobuf type {@code shipment_pricing.SetDeductionEmploymentTypeResponse}
+   */
+  public static final class SetDeductionEmploymentTypeResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shipment_pricing.SetDeductionEmploymentTypeResponse)
+      SetDeductionEmploymentTypeResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SetDeductionEmploymentTypeResponse.newBuilder() to construct.
+    private SetDeductionEmploymentTypeResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SetDeductionEmploymentTypeResponse() {
+      status_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SetDeductionEmploymentTypeResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SetDeductionEmploymentTypeResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              status_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse.class, shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse.Builder.class);
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object status_;
+    /**
+     * <code>string status = 1;</code>
+     * @return The status.
+     */
+    @java.lang.Override
+    public java.lang.String getStatus() {
+      java.lang.Object ref = status_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        status_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string status = 1;</code>
+     * @return The bytes for status.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStatusBytes() {
+      java.lang.Object ref = status_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        status_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getStatusBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, status_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getStatusBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, status_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse)) {
+        return super.equals(obj);
+      }
+      shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse other = (shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse) obj;
+
+      if (!getStatus()
+          .equals(other.getStatus())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getStatus().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shipment_pricing.SetDeductionEmploymentTypeResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shipment_pricing.SetDeductionEmploymentTypeResponse)
+        shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse.class, shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse.Builder.class);
+      }
+
+      // Construct using shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        status_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse getDefaultInstanceForType() {
+        return shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse build() {
+        shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse buildPartial() {
+        shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse result = new shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse(this);
+        result.status_ = status_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse) {
+          return mergeFrom((shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse other) {
+        if (other == shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse.getDefaultInstance()) return this;
+        if (!other.getStatus().isEmpty()) {
+          status_ = other.status_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object status_ = "";
+      /**
+       * <code>string status = 1;</code>
+       * @return The status.
+       */
+      public java.lang.String getStatus() {
+        java.lang.Object ref = status_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          status_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @return The bytes for status.
+       */
+      public com.google.protobuf.ByteString
+          getStatusBytes() {
+        java.lang.Object ref = status_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          status_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = getDefaultInstance().getStatus();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @param value The bytes for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shipment_pricing.SetDeductionEmploymentTypeResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:shipment_pricing.SetDeductionEmploymentTypeResponse)
+    private static final shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse();
+    }
+
+    public static shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SetDeductionEmploymentTypeResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SetDeductionEmploymentTypeResponse>() {
+      @java.lang.Override
+      public SetDeductionEmploymentTypeResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SetDeductionEmploymentTypeResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SetDeductionEmploymentTypeResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SetDeductionEmploymentTypeResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.SetDeductionEmploymentTypeResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SegmentOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shipment_pricing.Segment)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>float plan_distance = 1;</code>
+     * @return The planDistance.
+     */
+    float getPlanDistance();
+
+    /**
+     * <code>float plan_duration = 2;</code>
+     * @return The planDuration.
+     */
+    float getPlanDuration();
+
+    /**
+     * <code>.shipment_pricing.Shipment shipment = 3;</code>
+     * @return Whether the shipment field is set.
+     */
+    boolean hasShipment();
+    /**
+     * <code>.shipment_pricing.Shipment shipment = 3;</code>
+     * @return The shipment.
+     */
+    shipment_pricing.OrderPricing.Shipment getShipment();
+    /**
+     * <code>.shipment_pricing.Shipment shipment = 3;</code>
+     */
+    shipment_pricing.OrderPricing.ShipmentOrBuilder getShipmentOrBuilder();
+
+    /**
+     * <code>.shipment_pricing.Segment.SegmentType segment_type = 4;</code>
+     * @return The enum numeric value on the wire for segmentType.
+     */
+    int getSegmentTypeValue();
+    /**
+     * <code>.shipment_pricing.Segment.SegmentType segment_type = 4;</code>
+     * @return The segmentType.
+     */
+    shipment_pricing.OrderPricing.Segment.SegmentType getSegmentType();
+  }
+  /**
+   * Protobuf type {@code shipment_pricing.Segment}
+   */
+  public static final class Segment extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shipment_pricing.Segment)
+      SegmentOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Segment.newBuilder() to construct.
+    private Segment(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Segment() {
+      segmentType_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Segment();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Segment(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 13: {
+
+              planDistance_ = input.readFloat();
+              break;
+            }
+            case 21: {
+
+              planDuration_ = input.readFloat();
+              break;
+            }
+            case 26: {
+              shipment_pricing.OrderPricing.Shipment.Builder subBuilder = null;
+              if (shipment_ != null) {
+                subBuilder = shipment_.toBuilder();
+              }
+              shipment_ = input.readMessage(shipment_pricing.OrderPricing.Shipment.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(shipment_);
+                shipment_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              segmentType_ = rawValue;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_Segment_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_Segment_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shipment_pricing.OrderPricing.Segment.class, shipment_pricing.OrderPricing.Segment.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code shipment_pricing.Segment.SegmentType}
+     */
+    public enum SegmentType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>ARRIVE = 0;</code>
+       */
+      ARRIVE(0),
+      /**
+       * <code>ASSEMBLY = 1;</code>
+       */
+      ASSEMBLY(1),
+      /**
+       * <code>DELIVERY = 2;</code>
+       */
+      DELIVERY(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>ARRIVE = 0;</code>
+       */
+      public static final int ARRIVE_VALUE = 0;
+      /**
+       * <code>ASSEMBLY = 1;</code>
+       */
+      public static final int ASSEMBLY_VALUE = 1;
+      /**
+       * <code>DELIVERY = 2;</code>
+       */
+      public static final int DELIVERY_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static SegmentType valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static SegmentType forNumber(int value) {
+        switch (value) {
+          case 0: return ARRIVE;
+          case 1: return ASSEMBLY;
+          case 2: return DELIVERY;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<SegmentType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          SegmentType> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<SegmentType>() {
+              public SegmentType findValueByNumber(int number) {
+                return SegmentType.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return shipment_pricing.OrderPricing.Segment.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final SegmentType[] VALUES = values();
+
+      public static SegmentType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private SegmentType(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:shipment_pricing.Segment.SegmentType)
+    }
+
+    public static final int PLAN_DISTANCE_FIELD_NUMBER = 1;
+    private float planDistance_;
+    /**
+     * <code>float plan_distance = 1;</code>
+     * @return The planDistance.
+     */
+    @java.lang.Override
+    public float getPlanDistance() {
+      return planDistance_;
+    }
+
+    public static final int PLAN_DURATION_FIELD_NUMBER = 2;
+    private float planDuration_;
+    /**
+     * <code>float plan_duration = 2;</code>
+     * @return The planDuration.
+     */
+    @java.lang.Override
+    public float getPlanDuration() {
+      return planDuration_;
+    }
+
+    public static final int SHIPMENT_FIELD_NUMBER = 3;
+    private shipment_pricing.OrderPricing.Shipment shipment_;
+    /**
+     * <code>.shipment_pricing.Shipment shipment = 3;</code>
+     * @return Whether the shipment field is set.
+     */
+    @java.lang.Override
+    public boolean hasShipment() {
+      return shipment_ != null;
+    }
+    /**
+     * <code>.shipment_pricing.Shipment shipment = 3;</code>
+     * @return The shipment.
+     */
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.Shipment getShipment() {
+      return shipment_ == null ? shipment_pricing.OrderPricing.Shipment.getDefaultInstance() : shipment_;
+    }
+    /**
+     * <code>.shipment_pricing.Shipment shipment = 3;</code>
+     */
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.ShipmentOrBuilder getShipmentOrBuilder() {
+      return getShipment();
+    }
+
+    public static final int SEGMENT_TYPE_FIELD_NUMBER = 4;
+    private int segmentType_;
+    /**
+     * <code>.shipment_pricing.Segment.SegmentType segment_type = 4;</code>
+     * @return The enum numeric value on the wire for segmentType.
+     */
+    @java.lang.Override public int getSegmentTypeValue() {
+      return segmentType_;
+    }
+    /**
+     * <code>.shipment_pricing.Segment.SegmentType segment_type = 4;</code>
+     * @return The segmentType.
+     */
+    @java.lang.Override public shipment_pricing.OrderPricing.Segment.SegmentType getSegmentType() {
+      @SuppressWarnings("deprecation")
+      shipment_pricing.OrderPricing.Segment.SegmentType result = shipment_pricing.OrderPricing.Segment.SegmentType.valueOf(segmentType_);
+      return result == null ? shipment_pricing.OrderPricing.Segment.SegmentType.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (planDistance_ != 0F) {
+        output.writeFloat(1, planDistance_);
+      }
+      if (planDuration_ != 0F) {
+        output.writeFloat(2, planDuration_);
+      }
+      if (shipment_ != null) {
+        output.writeMessage(3, getShipment());
+      }
+      if (segmentType_ != shipment_pricing.OrderPricing.Segment.SegmentType.ARRIVE.getNumber()) {
+        output.writeEnum(4, segmentType_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (planDistance_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(1, planDistance_);
+      }
+      if (planDuration_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, planDuration_);
+      }
+      if (shipment_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getShipment());
+      }
+      if (segmentType_ != shipment_pricing.OrderPricing.Segment.SegmentType.ARRIVE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, segmentType_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shipment_pricing.OrderPricing.Segment)) {
+        return super.equals(obj);
+      }
+      shipment_pricing.OrderPricing.Segment other = (shipment_pricing.OrderPricing.Segment) obj;
+
+      if (java.lang.Float.floatToIntBits(getPlanDistance())
+          != java.lang.Float.floatToIntBits(
+              other.getPlanDistance())) return false;
+      if (java.lang.Float.floatToIntBits(getPlanDuration())
+          != java.lang.Float.floatToIntBits(
+              other.getPlanDuration())) return false;
+      if (hasShipment() != other.hasShipment()) return false;
+      if (hasShipment()) {
+        if (!getShipment()
+            .equals(other.getShipment())) return false;
+      }
+      if (segmentType_ != other.segmentType_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PLAN_DISTANCE_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPlanDistance());
+      hash = (37 * hash) + PLAN_DURATION_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPlanDuration());
+      if (hasShipment()) {
+        hash = (37 * hash) + SHIPMENT_FIELD_NUMBER;
+        hash = (53 * hash) + getShipment().hashCode();
+      }
+      hash = (37 * hash) + SEGMENT_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + segmentType_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shipment_pricing.OrderPricing.Segment parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.Segment parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shipment_pricing.OrderPricing.Segment prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shipment_pricing.Segment}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shipment_pricing.Segment)
+        shipment_pricing.OrderPricing.SegmentOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_Segment_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_Segment_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shipment_pricing.OrderPricing.Segment.class, shipment_pricing.OrderPricing.Segment.Builder.class);
+      }
+
+      // Construct using shipment_pricing.OrderPricing.Segment.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        planDistance_ = 0F;
+
+        planDuration_ = 0F;
+
+        if (shipmentBuilder_ == null) {
+          shipment_ = null;
+        } else {
+          shipment_ = null;
+          shipmentBuilder_ = null;
+        }
+        segmentType_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_Segment_descriptor;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.Segment getDefaultInstanceForType() {
+        return shipment_pricing.OrderPricing.Segment.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.Segment build() {
+        shipment_pricing.OrderPricing.Segment result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.Segment buildPartial() {
+        shipment_pricing.OrderPricing.Segment result = new shipment_pricing.OrderPricing.Segment(this);
+        result.planDistance_ = planDistance_;
+        result.planDuration_ = planDuration_;
+        if (shipmentBuilder_ == null) {
+          result.shipment_ = shipment_;
+        } else {
+          result.shipment_ = shipmentBuilder_.build();
+        }
+        result.segmentType_ = segmentType_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shipment_pricing.OrderPricing.Segment) {
+          return mergeFrom((shipment_pricing.OrderPricing.Segment)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shipment_pricing.OrderPricing.Segment other) {
+        if (other == shipment_pricing.OrderPricing.Segment.getDefaultInstance()) return this;
+        if (other.getPlanDistance() != 0F) {
+          setPlanDistance(other.getPlanDistance());
+        }
+        if (other.getPlanDuration() != 0F) {
+          setPlanDuration(other.getPlanDuration());
+        }
+        if (other.hasShipment()) {
+          mergeShipment(other.getShipment());
+        }
+        if (other.segmentType_ != 0) {
+          setSegmentTypeValue(other.getSegmentTypeValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shipment_pricing.OrderPricing.Segment parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shipment_pricing.OrderPricing.Segment) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private float planDistance_ ;
+      /**
+       * <code>float plan_distance = 1;</code>
+       * @return The planDistance.
+       */
+      @java.lang.Override
+      public float getPlanDistance() {
+        return planDistance_;
+      }
+      /**
+       * <code>float plan_distance = 1;</code>
+       * @param value The planDistance to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlanDistance(float value) {
+        
+        planDistance_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float plan_distance = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPlanDistance() {
+        
+        planDistance_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float planDuration_ ;
+      /**
+       * <code>float plan_duration = 2;</code>
+       * @return The planDuration.
+       */
+      @java.lang.Override
+      public float getPlanDuration() {
+        return planDuration_;
+      }
+      /**
+       * <code>float plan_duration = 2;</code>
+       * @param value The planDuration to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlanDuration(float value) {
+        
+        planDuration_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float plan_duration = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPlanDuration() {
+        
+        planDuration_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private shipment_pricing.OrderPricing.Shipment shipment_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shipment_pricing.OrderPricing.Shipment, shipment_pricing.OrderPricing.Shipment.Builder, shipment_pricing.OrderPricing.ShipmentOrBuilder> shipmentBuilder_;
+      /**
+       * <code>.shipment_pricing.Shipment shipment = 3;</code>
+       * @return Whether the shipment field is set.
+       */
+      public boolean hasShipment() {
+        return shipmentBuilder_ != null || shipment_ != null;
+      }
+      /**
+       * <code>.shipment_pricing.Shipment shipment = 3;</code>
+       * @return The shipment.
+       */
+      public shipment_pricing.OrderPricing.Shipment getShipment() {
+        if (shipmentBuilder_ == null) {
+          return shipment_ == null ? shipment_pricing.OrderPricing.Shipment.getDefaultInstance() : shipment_;
+        } else {
+          return shipmentBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.shipment_pricing.Shipment shipment = 3;</code>
+       */
+      public Builder setShipment(shipment_pricing.OrderPricing.Shipment value) {
+        if (shipmentBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          shipment_ = value;
+          onChanged();
+        } else {
+          shipmentBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Shipment shipment = 3;</code>
+       */
+      public Builder setShipment(
+          shipment_pricing.OrderPricing.Shipment.Builder builderForValue) {
+        if (shipmentBuilder_ == null) {
+          shipment_ = builderForValue.build();
+          onChanged();
+        } else {
+          shipmentBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Shipment shipment = 3;</code>
+       */
+      public Builder mergeShipment(shipment_pricing.OrderPricing.Shipment value) {
+        if (shipmentBuilder_ == null) {
+          if (shipment_ != null) {
+            shipment_ =
+              shipment_pricing.OrderPricing.Shipment.newBuilder(shipment_).mergeFrom(value).buildPartial();
+          } else {
+            shipment_ = value;
+          }
+          onChanged();
+        } else {
+          shipmentBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Shipment shipment = 3;</code>
+       */
+      public Builder clearShipment() {
+        if (shipmentBuilder_ == null) {
+          shipment_ = null;
+          onChanged();
+        } else {
+          shipment_ = null;
+          shipmentBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Shipment shipment = 3;</code>
+       */
+      public shipment_pricing.OrderPricing.Shipment.Builder getShipmentBuilder() {
+        
+        onChanged();
+        return getShipmentFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.shipment_pricing.Shipment shipment = 3;</code>
+       */
+      public shipment_pricing.OrderPricing.ShipmentOrBuilder getShipmentOrBuilder() {
+        if (shipmentBuilder_ != null) {
+          return shipmentBuilder_.getMessageOrBuilder();
+        } else {
+          return shipment_ == null ?
+              shipment_pricing.OrderPricing.Shipment.getDefaultInstance() : shipment_;
+        }
+      }
+      /**
+       * <code>.shipment_pricing.Shipment shipment = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shipment_pricing.OrderPricing.Shipment, shipment_pricing.OrderPricing.Shipment.Builder, shipment_pricing.OrderPricing.ShipmentOrBuilder> 
+          getShipmentFieldBuilder() {
+        if (shipmentBuilder_ == null) {
+          shipmentBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              shipment_pricing.OrderPricing.Shipment, shipment_pricing.OrderPricing.Shipment.Builder, shipment_pricing.OrderPricing.ShipmentOrBuilder>(
+                  getShipment(),
+                  getParentForChildren(),
+                  isClean());
+          shipment_ = null;
+        }
+        return shipmentBuilder_;
+      }
+
+      private int segmentType_ = 0;
+      /**
+       * <code>.shipment_pricing.Segment.SegmentType segment_type = 4;</code>
+       * @return The enum numeric value on the wire for segmentType.
+       */
+      @java.lang.Override public int getSegmentTypeValue() {
+        return segmentType_;
+      }
+      /**
+       * <code>.shipment_pricing.Segment.SegmentType segment_type = 4;</code>
+       * @param value The enum numeric value on the wire for segmentType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSegmentTypeValue(int value) {
+        
+        segmentType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Segment.SegmentType segment_type = 4;</code>
+       * @return The segmentType.
+       */
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.Segment.SegmentType getSegmentType() {
+        @SuppressWarnings("deprecation")
+        shipment_pricing.OrderPricing.Segment.SegmentType result = shipment_pricing.OrderPricing.Segment.SegmentType.valueOf(segmentType_);
+        return result == null ? shipment_pricing.OrderPricing.Segment.SegmentType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.shipment_pricing.Segment.SegmentType segment_type = 4;</code>
+       * @param value The segmentType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSegmentType(shipment_pricing.OrderPricing.Segment.SegmentType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        segmentType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Segment.SegmentType segment_type = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSegmentType() {
+        
+        segmentType_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shipment_pricing.Segment)
+    }
+
+    // @@protoc_insertion_point(class_scope:shipment_pricing.Segment)
+    private static final shipment_pricing.OrderPricing.Segment DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shipment_pricing.OrderPricing.Segment();
+    }
+
+    public static shipment_pricing.OrderPricing.Segment getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Segment>
+        PARSER = new com.google.protobuf.AbstractParser<Segment>() {
+      @java.lang.Override
+      public Segment parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Segment(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Segment> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Segment> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.Segment getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetShipmentPriceRequestv2OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shipment_pricing.GetShipmentPriceRequestv2)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string assignment_uuid = 1;</code>
+     * @return The assignmentUuid.
+     */
+    java.lang.String getAssignmentUuid();
+    /**
+     * <code>string assignment_uuid = 1;</code>
+     * @return The bytes for assignmentUuid.
+     */
+    com.google.protobuf.ByteString
+        getAssignmentUuidBytes();
+
+    /**
+     * <code>int32 route_id = 2;</code>
+     * @return The routeId.
+     */
+    int getRouteId();
+
+    /**
+     * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+     * @return Whether the assignedShopper field is set.
+     */
+    boolean hasAssignedShopper();
+    /**
+     * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+     * @return The assignedShopper.
+     */
+    shipment_pricing.OrderPricing.Shopper getAssignedShopper();
+    /**
+     * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+     */
+    shipment_pricing.OrderPricing.ShopperOrBuilder getAssignedShopperOrBuilder();
+
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    java.util.List<shipment_pricing.OrderPricing.Segment> 
+        getSegmentsList();
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    shipment_pricing.OrderPricing.Segment getSegments(int index);
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    int getSegmentsCount();
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    java.util.List<? extends shipment_pricing.OrderPricing.SegmentOrBuilder> 
+        getSegmentsOrBuilderList();
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    shipment_pricing.OrderPricing.SegmentOrBuilder getSegmentsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code shipment_pricing.GetShipmentPriceRequestv2}
+   */
+  public static final class GetShipmentPriceRequestv2 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shipment_pricing.GetShipmentPriceRequestv2)
+      GetShipmentPriceRequestv2OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetShipmentPriceRequestv2.newBuilder() to construct.
+    private GetShipmentPriceRequestv2(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetShipmentPriceRequestv2() {
+      assignmentUuid_ = "";
+      segments_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetShipmentPriceRequestv2();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetShipmentPriceRequestv2(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              assignmentUuid_ = s;
+              break;
+            }
+            case 16: {
+
+              routeId_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              shipment_pricing.OrderPricing.Shopper.Builder subBuilder = null;
+              if (assignedShopper_ != null) {
+                subBuilder = assignedShopper_.toBuilder();
+              }
+              assignedShopper_ = input.readMessage(shipment_pricing.OrderPricing.Shopper.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(assignedShopper_);
+                assignedShopper_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                segments_ = new java.util.ArrayList<shipment_pricing.OrderPricing.Segment>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              segments_.add(
+                  input.readMessage(shipment_pricing.OrderPricing.Segment.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          segments_ = java.util.Collections.unmodifiableList(segments_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceRequestv2_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceRequestv2_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shipment_pricing.OrderPricing.GetShipmentPriceRequestv2.class, shipment_pricing.OrderPricing.GetShipmentPriceRequestv2.Builder.class);
+    }
+
+    public static final int ASSIGNMENT_UUID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object assignmentUuid_;
+    /**
+     * <code>string assignment_uuid = 1;</code>
+     * @return The assignmentUuid.
+     */
+    @java.lang.Override
+    public java.lang.String getAssignmentUuid() {
+      java.lang.Object ref = assignmentUuid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        assignmentUuid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string assignment_uuid = 1;</code>
+     * @return The bytes for assignmentUuid.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAssignmentUuidBytes() {
+      java.lang.Object ref = assignmentUuid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        assignmentUuid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ROUTE_ID_FIELD_NUMBER = 2;
+    private int routeId_;
+    /**
+     * <code>int32 route_id = 2;</code>
+     * @return The routeId.
+     */
+    @java.lang.Override
+    public int getRouteId() {
+      return routeId_;
+    }
+
+    public static final int ASSIGNED_SHOPPER_FIELD_NUMBER = 3;
+    private shipment_pricing.OrderPricing.Shopper assignedShopper_;
+    /**
+     * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+     * @return Whether the assignedShopper field is set.
+     */
+    @java.lang.Override
+    public boolean hasAssignedShopper() {
+      return assignedShopper_ != null;
+    }
+    /**
+     * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+     * @return The assignedShopper.
+     */
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.Shopper getAssignedShopper() {
+      return assignedShopper_ == null ? shipment_pricing.OrderPricing.Shopper.getDefaultInstance() : assignedShopper_;
+    }
+    /**
+     * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+     */
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.ShopperOrBuilder getAssignedShopperOrBuilder() {
+      return getAssignedShopper();
+    }
+
+    public static final int SEGMENTS_FIELD_NUMBER = 4;
+    private java.util.List<shipment_pricing.OrderPricing.Segment> segments_;
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shipment_pricing.OrderPricing.Segment> getSegmentsList() {
+      return segments_;
+    }
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shipment_pricing.OrderPricing.SegmentOrBuilder> 
+        getSegmentsOrBuilderList() {
+      return segments_;
+    }
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    @java.lang.Override
+    public int getSegmentsCount() {
+      return segments_.size();
+    }
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.Segment getSegments(int index) {
+      return segments_.get(index);
+    }
+    /**
+     * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+     */
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.SegmentOrBuilder getSegmentsOrBuilder(
+        int index) {
+      return segments_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getAssignmentUuidBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, assignmentUuid_);
+      }
+      if (routeId_ != 0) {
+        output.writeInt32(2, routeId_);
+      }
+      if (assignedShopper_ != null) {
+        output.writeMessage(3, getAssignedShopper());
+      }
+      for (int i = 0; i < segments_.size(); i++) {
+        output.writeMessage(4, segments_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getAssignmentUuidBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, assignmentUuid_);
+      }
+      if (routeId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, routeId_);
+      }
+      if (assignedShopper_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getAssignedShopper());
+      }
+      for (int i = 0; i < segments_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, segments_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shipment_pricing.OrderPricing.GetShipmentPriceRequestv2)) {
+        return super.equals(obj);
+      }
+      shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 other = (shipment_pricing.OrderPricing.GetShipmentPriceRequestv2) obj;
+
+      if (!getAssignmentUuid()
+          .equals(other.getAssignmentUuid())) return false;
+      if (getRouteId()
+          != other.getRouteId()) return false;
+      if (hasAssignedShopper() != other.hasAssignedShopper()) return false;
+      if (hasAssignedShopper()) {
+        if (!getAssignedShopper()
+            .equals(other.getAssignedShopper())) return false;
+      }
+      if (!getSegmentsList()
+          .equals(other.getSegmentsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ASSIGNMENT_UUID_FIELD_NUMBER;
+      hash = (53 * hash) + getAssignmentUuid().hashCode();
+      hash = (37 * hash) + ROUTE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getRouteId();
+      if (hasAssignedShopper()) {
+        hash = (37 * hash) + ASSIGNED_SHOPPER_FIELD_NUMBER;
+        hash = (53 * hash) + getAssignedShopper().hashCode();
+      }
+      if (getSegmentsCount() > 0) {
+        hash = (37 * hash) + SEGMENTS_FIELD_NUMBER;
+        hash = (53 * hash) + getSegmentsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shipment_pricing.GetShipmentPriceRequestv2}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shipment_pricing.GetShipmentPriceRequestv2)
+        shipment_pricing.OrderPricing.GetShipmentPriceRequestv2OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceRequestv2_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceRequestv2_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shipment_pricing.OrderPricing.GetShipmentPriceRequestv2.class, shipment_pricing.OrderPricing.GetShipmentPriceRequestv2.Builder.class);
+      }
+
+      // Construct using shipment_pricing.OrderPricing.GetShipmentPriceRequestv2.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getSegmentsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        assignmentUuid_ = "";
+
+        routeId_ = 0;
+
+        if (assignedShopperBuilder_ == null) {
+          assignedShopper_ = null;
+        } else {
+          assignedShopper_ = null;
+          assignedShopperBuilder_ = null;
+        }
+        if (segmentsBuilder_ == null) {
+          segments_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          segmentsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceRequestv2_descriptor;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 getDefaultInstanceForType() {
+        return shipment_pricing.OrderPricing.GetShipmentPriceRequestv2.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 build() {
+        shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 buildPartial() {
+        shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 result = new shipment_pricing.OrderPricing.GetShipmentPriceRequestv2(this);
+        int from_bitField0_ = bitField0_;
+        result.assignmentUuid_ = assignmentUuid_;
+        result.routeId_ = routeId_;
+        if (assignedShopperBuilder_ == null) {
+          result.assignedShopper_ = assignedShopper_;
+        } else {
+          result.assignedShopper_ = assignedShopperBuilder_.build();
+        }
+        if (segmentsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            segments_ = java.util.Collections.unmodifiableList(segments_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.segments_ = segments_;
+        } else {
+          result.segments_ = segmentsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shipment_pricing.OrderPricing.GetShipmentPriceRequestv2) {
+          return mergeFrom((shipment_pricing.OrderPricing.GetShipmentPriceRequestv2)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 other) {
+        if (other == shipment_pricing.OrderPricing.GetShipmentPriceRequestv2.getDefaultInstance()) return this;
+        if (!other.getAssignmentUuid().isEmpty()) {
+          assignmentUuid_ = other.assignmentUuid_;
+          onChanged();
+        }
+        if (other.getRouteId() != 0) {
+          setRouteId(other.getRouteId());
+        }
+        if (other.hasAssignedShopper()) {
+          mergeAssignedShopper(other.getAssignedShopper());
+        }
+        if (segmentsBuilder_ == null) {
+          if (!other.segments_.isEmpty()) {
+            if (segments_.isEmpty()) {
+              segments_ = other.segments_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureSegmentsIsMutable();
+              segments_.addAll(other.segments_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.segments_.isEmpty()) {
+            if (segmentsBuilder_.isEmpty()) {
+              segmentsBuilder_.dispose();
+              segmentsBuilder_ = null;
+              segments_ = other.segments_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              segmentsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSegmentsFieldBuilder() : null;
+            } else {
+              segmentsBuilder_.addAllMessages(other.segments_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shipment_pricing.OrderPricing.GetShipmentPriceRequestv2) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object assignmentUuid_ = "";
+      /**
+       * <code>string assignment_uuid = 1;</code>
+       * @return The assignmentUuid.
+       */
+      public java.lang.String getAssignmentUuid() {
+        java.lang.Object ref = assignmentUuid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          assignmentUuid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string assignment_uuid = 1;</code>
+       * @return The bytes for assignmentUuid.
+       */
+      public com.google.protobuf.ByteString
+          getAssignmentUuidBytes() {
+        java.lang.Object ref = assignmentUuid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          assignmentUuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string assignment_uuid = 1;</code>
+       * @param value The assignmentUuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssignmentUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        assignmentUuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string assignment_uuid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAssignmentUuid() {
+        
+        assignmentUuid_ = getDefaultInstance().getAssignmentUuid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string assignment_uuid = 1;</code>
+       * @param value The bytes for assignmentUuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssignmentUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        assignmentUuid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int routeId_ ;
+      /**
+       * <code>int32 route_id = 2;</code>
+       * @return The routeId.
+       */
+      @java.lang.Override
+      public int getRouteId() {
+        return routeId_;
+      }
+      /**
+       * <code>int32 route_id = 2;</code>
+       * @param value The routeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRouteId(int value) {
+        
+        routeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 route_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRouteId() {
+        
+        routeId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private shipment_pricing.OrderPricing.Shopper assignedShopper_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shipment_pricing.OrderPricing.Shopper, shipment_pricing.OrderPricing.Shopper.Builder, shipment_pricing.OrderPricing.ShopperOrBuilder> assignedShopperBuilder_;
+      /**
+       * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+       * @return Whether the assignedShopper field is set.
+       */
+      public boolean hasAssignedShopper() {
+        return assignedShopperBuilder_ != null || assignedShopper_ != null;
+      }
+      /**
+       * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+       * @return The assignedShopper.
+       */
+      public shipment_pricing.OrderPricing.Shopper getAssignedShopper() {
+        if (assignedShopperBuilder_ == null) {
+          return assignedShopper_ == null ? shipment_pricing.OrderPricing.Shopper.getDefaultInstance() : assignedShopper_;
+        } else {
+          return assignedShopperBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+       */
+      public Builder setAssignedShopper(shipment_pricing.OrderPricing.Shopper value) {
+        if (assignedShopperBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          assignedShopper_ = value;
+          onChanged();
+        } else {
+          assignedShopperBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+       */
+      public Builder setAssignedShopper(
+          shipment_pricing.OrderPricing.Shopper.Builder builderForValue) {
+        if (assignedShopperBuilder_ == null) {
+          assignedShopper_ = builderForValue.build();
+          onChanged();
+        } else {
+          assignedShopperBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+       */
+      public Builder mergeAssignedShopper(shipment_pricing.OrderPricing.Shopper value) {
+        if (assignedShopperBuilder_ == null) {
+          if (assignedShopper_ != null) {
+            assignedShopper_ =
+              shipment_pricing.OrderPricing.Shopper.newBuilder(assignedShopper_).mergeFrom(value).buildPartial();
+          } else {
+            assignedShopper_ = value;
+          }
+          onChanged();
+        } else {
+          assignedShopperBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+       */
+      public Builder clearAssignedShopper() {
+        if (assignedShopperBuilder_ == null) {
+          assignedShopper_ = null;
+          onChanged();
+        } else {
+          assignedShopper_ = null;
+          assignedShopperBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+       */
+      public shipment_pricing.OrderPricing.Shopper.Builder getAssignedShopperBuilder() {
+        
+        onChanged();
+        return getAssignedShopperFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+       */
+      public shipment_pricing.OrderPricing.ShopperOrBuilder getAssignedShopperOrBuilder() {
+        if (assignedShopperBuilder_ != null) {
+          return assignedShopperBuilder_.getMessageOrBuilder();
+        } else {
+          return assignedShopper_ == null ?
+              shipment_pricing.OrderPricing.Shopper.getDefaultInstance() : assignedShopper_;
+        }
+      }
+      /**
+       * <code>.shipment_pricing.Shopper assigned_shopper = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shipment_pricing.OrderPricing.Shopper, shipment_pricing.OrderPricing.Shopper.Builder, shipment_pricing.OrderPricing.ShopperOrBuilder> 
+          getAssignedShopperFieldBuilder() {
+        if (assignedShopperBuilder_ == null) {
+          assignedShopperBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              shipment_pricing.OrderPricing.Shopper, shipment_pricing.OrderPricing.Shopper.Builder, shipment_pricing.OrderPricing.ShopperOrBuilder>(
+                  getAssignedShopper(),
+                  getParentForChildren(),
+                  isClean());
+          assignedShopper_ = null;
+        }
+        return assignedShopperBuilder_;
+      }
+
+      private java.util.List<shipment_pricing.OrderPricing.Segment> segments_ =
+        java.util.Collections.emptyList();
+      private void ensureSegmentsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          segments_ = new java.util.ArrayList<shipment_pricing.OrderPricing.Segment>(segments_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shipment_pricing.OrderPricing.Segment, shipment_pricing.OrderPricing.Segment.Builder, shipment_pricing.OrderPricing.SegmentOrBuilder> segmentsBuilder_;
+
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public java.util.List<shipment_pricing.OrderPricing.Segment> getSegmentsList() {
+        if (segmentsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(segments_);
+        } else {
+          return segmentsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public int getSegmentsCount() {
+        if (segmentsBuilder_ == null) {
+          return segments_.size();
+        } else {
+          return segmentsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public shipment_pricing.OrderPricing.Segment getSegments(int index) {
+        if (segmentsBuilder_ == null) {
+          return segments_.get(index);
+        } else {
+          return segmentsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public Builder setSegments(
+          int index, shipment_pricing.OrderPricing.Segment value) {
+        if (segmentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSegmentsIsMutable();
+          segments_.set(index, value);
+          onChanged();
+        } else {
+          segmentsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public Builder setSegments(
+          int index, shipment_pricing.OrderPricing.Segment.Builder builderForValue) {
+        if (segmentsBuilder_ == null) {
+          ensureSegmentsIsMutable();
+          segments_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          segmentsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public Builder addSegments(shipment_pricing.OrderPricing.Segment value) {
+        if (segmentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSegmentsIsMutable();
+          segments_.add(value);
+          onChanged();
+        } else {
+          segmentsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public Builder addSegments(
+          int index, shipment_pricing.OrderPricing.Segment value) {
+        if (segmentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSegmentsIsMutable();
+          segments_.add(index, value);
+          onChanged();
+        } else {
+          segmentsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public Builder addSegments(
+          shipment_pricing.OrderPricing.Segment.Builder builderForValue) {
+        if (segmentsBuilder_ == null) {
+          ensureSegmentsIsMutable();
+          segments_.add(builderForValue.build());
+          onChanged();
+        } else {
+          segmentsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public Builder addSegments(
+          int index, shipment_pricing.OrderPricing.Segment.Builder builderForValue) {
+        if (segmentsBuilder_ == null) {
+          ensureSegmentsIsMutable();
+          segments_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          segmentsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public Builder addAllSegments(
+          java.lang.Iterable<? extends shipment_pricing.OrderPricing.Segment> values) {
+        if (segmentsBuilder_ == null) {
+          ensureSegmentsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, segments_);
+          onChanged();
+        } else {
+          segmentsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public Builder clearSegments() {
+        if (segmentsBuilder_ == null) {
+          segments_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          segmentsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public Builder removeSegments(int index) {
+        if (segmentsBuilder_ == null) {
+          ensureSegmentsIsMutable();
+          segments_.remove(index);
+          onChanged();
+        } else {
+          segmentsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public shipment_pricing.OrderPricing.Segment.Builder getSegmentsBuilder(
+          int index) {
+        return getSegmentsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public shipment_pricing.OrderPricing.SegmentOrBuilder getSegmentsOrBuilder(
+          int index) {
+        if (segmentsBuilder_ == null) {
+          return segments_.get(index);  } else {
+          return segmentsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public java.util.List<? extends shipment_pricing.OrderPricing.SegmentOrBuilder> 
+           getSegmentsOrBuilderList() {
+        if (segmentsBuilder_ != null) {
+          return segmentsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(segments_);
+        }
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public shipment_pricing.OrderPricing.Segment.Builder addSegmentsBuilder() {
+        return getSegmentsFieldBuilder().addBuilder(
+            shipment_pricing.OrderPricing.Segment.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public shipment_pricing.OrderPricing.Segment.Builder addSegmentsBuilder(
+          int index) {
+        return getSegmentsFieldBuilder().addBuilder(
+            index, shipment_pricing.OrderPricing.Segment.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .shipment_pricing.Segment segments = 4;</code>
+       */
+      public java.util.List<shipment_pricing.OrderPricing.Segment.Builder> 
+           getSegmentsBuilderList() {
+        return getSegmentsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shipment_pricing.OrderPricing.Segment, shipment_pricing.OrderPricing.Segment.Builder, shipment_pricing.OrderPricing.SegmentOrBuilder> 
+          getSegmentsFieldBuilder() {
+        if (segmentsBuilder_ == null) {
+          segmentsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shipment_pricing.OrderPricing.Segment, shipment_pricing.OrderPricing.Segment.Builder, shipment_pricing.OrderPricing.SegmentOrBuilder>(
+                  segments_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          segments_ = null;
+        }
+        return segmentsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shipment_pricing.GetShipmentPriceRequestv2)
+    }
+
+    // @@protoc_insertion_point(class_scope:shipment_pricing.GetShipmentPriceRequestv2)
+    private static final shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shipment_pricing.OrderPricing.GetShipmentPriceRequestv2();
+    }
+
+    public static shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetShipmentPriceRequestv2>
+        PARSER = new com.google.protobuf.AbstractParser<GetShipmentPriceRequestv2>() {
+      @java.lang.Override
+      public GetShipmentPriceRequestv2 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetShipmentPriceRequestv2(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetShipmentPriceRequestv2> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetShipmentPriceRequestv2> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.GetShipmentPriceRequestv2 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetShipmentPriceResponsev2OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shipment_pricing.GetShipmentPriceResponsev2)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string workassign_id = 1;</code>
+     * @return The workassignId.
+     */
+    java.lang.String getWorkassignId();
+    /**
+     * <code>string workassign_id = 1;</code>
+     * @return The bytes for workassignId.
+     */
+    com.google.protobuf.ByteString
+        getWorkassignIdBytes();
+
+    /**
+     * <code>int32 route_id = 2;</code>
+     * @return The routeId.
+     */
+    int getRouteId();
+
+    /**
+     * <code>float base_cost = 3;</code>
+     * @return The baseCost.
+     */
+    float getBaseCost();
+
+    /**
+     * <code>float bonus_cost = 4;</code>
+     * @return The bonusCost.
+     */
+    float getBonusCost();
+  }
+  /**
+   * Protobuf type {@code shipment_pricing.GetShipmentPriceResponsev2}
+   */
+  public static final class GetShipmentPriceResponsev2 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shipment_pricing.GetShipmentPriceResponsev2)
+      GetShipmentPriceResponsev2OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetShipmentPriceResponsev2.newBuilder() to construct.
+    private GetShipmentPriceResponsev2(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetShipmentPriceResponsev2() {
+      workassignId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetShipmentPriceResponsev2();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetShipmentPriceResponsev2(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              workassignId_ = s;
+              break;
+            }
+            case 16: {
+
+              routeId_ = input.readInt32();
+              break;
+            }
+            case 29: {
+
+              baseCost_ = input.readFloat();
+              break;
+            }
+            case 37: {
+
+              bonusCost_ = input.readFloat();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceResponsev2_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceResponsev2_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shipment_pricing.OrderPricing.GetShipmentPriceResponsev2.class, shipment_pricing.OrderPricing.GetShipmentPriceResponsev2.Builder.class);
+    }
+
+    public static final int WORKASSIGN_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object workassignId_;
+    /**
+     * <code>string workassign_id = 1;</code>
+     * @return The workassignId.
+     */
+    @java.lang.Override
+    public java.lang.String getWorkassignId() {
+      java.lang.Object ref = workassignId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        workassignId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string workassign_id = 1;</code>
+     * @return The bytes for workassignId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getWorkassignIdBytes() {
+      java.lang.Object ref = workassignId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        workassignId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ROUTE_ID_FIELD_NUMBER = 2;
+    private int routeId_;
+    /**
+     * <code>int32 route_id = 2;</code>
+     * @return The routeId.
+     */
+    @java.lang.Override
+    public int getRouteId() {
+      return routeId_;
+    }
+
+    public static final int BASE_COST_FIELD_NUMBER = 3;
+    private float baseCost_;
+    /**
+     * <code>float base_cost = 3;</code>
+     * @return The baseCost.
+     */
+    @java.lang.Override
+    public float getBaseCost() {
+      return baseCost_;
+    }
+
+    public static final int BONUS_COST_FIELD_NUMBER = 4;
+    private float bonusCost_;
+    /**
+     * <code>float bonus_cost = 4;</code>
+     * @return The bonusCost.
+     */
+    @java.lang.Override
+    public float getBonusCost() {
+      return bonusCost_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getWorkassignIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, workassignId_);
+      }
+      if (routeId_ != 0) {
+        output.writeInt32(2, routeId_);
+      }
+      if (baseCost_ != 0F) {
+        output.writeFloat(3, baseCost_);
+      }
+      if (bonusCost_ != 0F) {
+        output.writeFloat(4, bonusCost_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getWorkassignIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, workassignId_);
+      }
+      if (routeId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, routeId_);
+      }
+      if (baseCost_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, baseCost_);
+      }
+      if (bonusCost_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(4, bonusCost_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shipment_pricing.OrderPricing.GetShipmentPriceResponsev2)) {
+        return super.equals(obj);
+      }
+      shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 other = (shipment_pricing.OrderPricing.GetShipmentPriceResponsev2) obj;
+
+      if (!getWorkassignId()
+          .equals(other.getWorkassignId())) return false;
+      if (getRouteId()
+          != other.getRouteId()) return false;
+      if (java.lang.Float.floatToIntBits(getBaseCost())
+          != java.lang.Float.floatToIntBits(
+              other.getBaseCost())) return false;
+      if (java.lang.Float.floatToIntBits(getBonusCost())
+          != java.lang.Float.floatToIntBits(
+              other.getBonusCost())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + WORKASSIGN_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getWorkassignId().hashCode();
+      hash = (37 * hash) + ROUTE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getRouteId();
+      hash = (37 * hash) + BASE_COST_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getBaseCost());
+      hash = (37 * hash) + BONUS_COST_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getBonusCost());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shipment_pricing.GetShipmentPriceResponsev2}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shipment_pricing.GetShipmentPriceResponsev2)
+        shipment_pricing.OrderPricing.GetShipmentPriceResponsev2OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceResponsev2_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceResponsev2_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shipment_pricing.OrderPricing.GetShipmentPriceResponsev2.class, shipment_pricing.OrderPricing.GetShipmentPriceResponsev2.Builder.class);
+      }
+
+      // Construct using shipment_pricing.OrderPricing.GetShipmentPriceResponsev2.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        workassignId_ = "";
+
+        routeId_ = 0;
+
+        baseCost_ = 0F;
+
+        bonusCost_ = 0F;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shipment_pricing.OrderPricing.internal_static_shipment_pricing_GetShipmentPriceResponsev2_descriptor;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 getDefaultInstanceForType() {
+        return shipment_pricing.OrderPricing.GetShipmentPriceResponsev2.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 build() {
+        shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 buildPartial() {
+        shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 result = new shipment_pricing.OrderPricing.GetShipmentPriceResponsev2(this);
+        result.workassignId_ = workassignId_;
+        result.routeId_ = routeId_;
+        result.baseCost_ = baseCost_;
+        result.bonusCost_ = bonusCost_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shipment_pricing.OrderPricing.GetShipmentPriceResponsev2) {
+          return mergeFrom((shipment_pricing.OrderPricing.GetShipmentPriceResponsev2)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 other) {
+        if (other == shipment_pricing.OrderPricing.GetShipmentPriceResponsev2.getDefaultInstance()) return this;
+        if (!other.getWorkassignId().isEmpty()) {
+          workassignId_ = other.workassignId_;
+          onChanged();
+        }
+        if (other.getRouteId() != 0) {
+          setRouteId(other.getRouteId());
+        }
+        if (other.getBaseCost() != 0F) {
+          setBaseCost(other.getBaseCost());
+        }
+        if (other.getBonusCost() != 0F) {
+          setBonusCost(other.getBonusCost());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shipment_pricing.OrderPricing.GetShipmentPriceResponsev2) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object workassignId_ = "";
+      /**
+       * <code>string workassign_id = 1;</code>
+       * @return The workassignId.
+       */
+      public java.lang.String getWorkassignId() {
+        java.lang.Object ref = workassignId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          workassignId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string workassign_id = 1;</code>
+       * @return The bytes for workassignId.
+       */
+      public com.google.protobuf.ByteString
+          getWorkassignIdBytes() {
+        java.lang.Object ref = workassignId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          workassignId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string workassign_id = 1;</code>
+       * @param value The workassignId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWorkassignId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        workassignId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string workassign_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWorkassignId() {
+        
+        workassignId_ = getDefaultInstance().getWorkassignId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string workassign_id = 1;</code>
+       * @param value The bytes for workassignId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWorkassignIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        workassignId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int routeId_ ;
+      /**
+       * <code>int32 route_id = 2;</code>
+       * @return The routeId.
+       */
+      @java.lang.Override
+      public int getRouteId() {
+        return routeId_;
+      }
+      /**
+       * <code>int32 route_id = 2;</code>
+       * @param value The routeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRouteId(int value) {
+        
+        routeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 route_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRouteId() {
+        
+        routeId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private float baseCost_ ;
+      /**
+       * <code>float base_cost = 3;</code>
+       * @return The baseCost.
+       */
+      @java.lang.Override
+      public float getBaseCost() {
+        return baseCost_;
+      }
+      /**
+       * <code>float base_cost = 3;</code>
+       * @param value The baseCost to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBaseCost(float value) {
+        
+        baseCost_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float base_cost = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBaseCost() {
+        
+        baseCost_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float bonusCost_ ;
+      /**
+       * <code>float bonus_cost = 4;</code>
+       * @return The bonusCost.
+       */
+      @java.lang.Override
+      public float getBonusCost() {
+        return bonusCost_;
+      }
+      /**
+       * <code>float bonus_cost = 4;</code>
+       * @param value The bonusCost to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBonusCost(float value) {
+        
+        bonusCost_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float bonus_cost = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBonusCost() {
+        
+        bonusCost_ = 0F;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shipment_pricing.GetShipmentPriceResponsev2)
+    }
+
+    // @@protoc_insertion_point(class_scope:shipment_pricing.GetShipmentPriceResponsev2)
+    private static final shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shipment_pricing.OrderPricing.GetShipmentPriceResponsev2();
+    }
+
+    public static shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetShipmentPriceResponsev2>
+        PARSER = new com.google.protobuf.AbstractParser<GetShipmentPriceResponsev2>() {
+      @java.lang.Override
+      public GetShipmentPriceResponsev2 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetShipmentPriceResponsev2(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetShipmentPriceResponsev2> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetShipmentPriceResponsev2> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shipment_pricing.OrderPricing.GetShipmentPriceResponsev2 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_shipment_pricing_Location_descriptor;
   private static final 
@@ -12706,6 +18056,31 @@ public final class OrderPricing {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shipment_pricing_GetShipmentParamsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shipment_pricing_Segment_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shipment_pricing_Segment_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shipment_pricing_GetShipmentPriceRequestv2_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shipment_pricing_GetShipmentPriceRequestv2_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shipment_pricing_GetShipmentPriceResponsev2_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shipment_pricing_GetShipmentPriceResponsev2_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -12720,57 +18095,92 @@ public final class OrderPricing {
       "(\002\022\013\n\003lon\030\002 \001(\002\"}\n\005Store\022\022\n\nstore_uuid\030\001" +
       " \001(\t\022\030\n\020delivery_zone_id\030\002 \001(\t\0222\n\016store_" +
       "location\030\003 \001(\0132\032.shipment_pricing.Locati" +
-      "on\022\022\n\nstore_type\030\004 \001(\t\"\177\n\007Shopper\022\024\n\014sho" +
-      "pper_uuid\030\001 \001(\t\022\024\n\014shopper_type\030\002 \001(\t\022\024\n" +
-      "\014shopper_role\030\003 \001(\t\0222\n\016start_location\030\004 " +
-      "\001(\0132\032.shipment_pricing.Location\"G\n\003Sku\022\013" +
-      "\n\003sku\030\001 \001(\t\022\014\n\004size\030\002 \001(\002\022\021\n\tsize_unit\030\003" +
-      " \001(\002\022\022\n\nprice_type\030\004 \001(\t\"R\n\010UserCart\022\"\n\003" +
-      "sku\030\001 \003(\0132\025.shipment_pricing.Sku\022\016\n\006weig" +
-      "ht\030\002 \001(\002\022\022\n\nitem_count\030\003 \001(\002\"\257\001\n\010Shipmen" +
-      "t\022\025\n\rshipment_uuid\030\001 \001(\t\022+\n\nstore_info\030\002" +
-      " \001(\0132\027.shipment_pricing.Store\022(\n\004cart\030\003 " +
-      "\001(\0132\032.shipment_pricing.UserCart\0225\n\021deliv" +
-      "ery_location\030\004 \001(\0132\032.shipment_pricing.Lo" +
-      "cation\"\254\001\n\027GetShipmentPriceRequest\022\025\n\rwo" +
-      "rkassign_id\030\001 \001(\t\0223\n\020assigned_shopper\030\002 " +
-      "\001(\0132\031.shipment_pricing.Shopper\022,\n\010shipme" +
-      "nt\030\003 \001(\0132\032.shipment_pricing.Shipment\022\027\n\017" +
-      "workassign_type\030\004 \001(\t\"X\n\030GetShipmentPric" +
-      "eResponse\022\025\n\rworkassign_id\030\001 \001(\t\022\021\n\tbase" +
-      "_cost\030\002 \001(\002\022\022\n\nbonus_cost\030\003 \001(\002\"\204\004\n\030SetS" +
-      "hipmentParamsRequest\022\n\n\002id\030\001 \001(\t\022\024\n\014part" +
+      "on\022\022\n\nstore_type\030\004 \001(\t\"\314\001\n\007Shopper\022\024\n\014sh" +
+      "opper_uuid\030\001 \001(\t\022\024\n\014shopper_type\030\002 \001(\t\022\024" +
+      "\n\014shopper_role\030\003 \001(\t\0222\n\016start_location\030\004" +
+      " \001(\0132\032.shipment_pricing.Location\0229\n\017empl" +
+      "oyment_type\030\005 \001(\0162 .shipment_pricing.Emp" +
+      "loymentType\022\020\n\010shift_id\030\006 \001(\003\"G\n\003Sku\022\013\n\003" +
+      "sku\030\001 \001(\t\022\014\n\004size\030\002 \001(\002\022\021\n\tsize_unit\030\003 \001" +
+      "(\002\022\022\n\nprice_type\030\004 \001(\t\"R\n\010UserCart\022\"\n\003sk" +
+      "u\030\001 \003(\0132\025.shipment_pricing.Sku\022\016\n\006weight" +
+      "\030\002 \001(\002\022\022\n\nitem_count\030\003 \001(\002\"\257\001\n\010Shipment\022" +
+      "\025\n\rshipment_uuid\030\001 \001(\t\022+\n\nstore_info\030\002 \001" +
+      "(\0132\027.shipment_pricing.Store\022(\n\004cart\030\003 \001(" +
+      "\0132\032.shipment_pricing.UserCart\0225\n\021deliver" +
+      "y_location\030\004 \001(\0132\032.shipment_pricing.Loca" +
+      "tion\"\254\001\n\027GetShipmentPriceRequest\022\025\n\rwork" +
+      "assign_id\030\001 \001(\t\0223\n\020assigned_shopper\030\002 \001(" +
+      "\0132\031.shipment_pricing.Shopper\022,\n\010shipment" +
+      "\030\003 \001(\0132\032.shipment_pricing.Shipment\022\027\n\017wo" +
+      "rkassign_type\030\004 \001(\t\"X\n\030GetShipmentPriceR" +
+      "esponse\022\025\n\rworkassign_id\030\001 \001(\t\022\021\n\tbase_c" +
+      "ost\030\002 \001(\002\022\022\n\nbonus_cost\030\003 \001(\002\"\227\006\n\030SetShi" +
+      "pmentParamsRequest\022\n\n\002id\030\001 \001(\t\022\024\n\014partne" +
+      "r_type\030\002 \001(\t\022\021\n\tper_items\030\003 \001(\002\022\034\n\024per_i" +
+      "tems_fast_bonus\030\004 \001(\002\022\024\n\014per_distance\030\005 " +
+      "\001(\002\022\037\n\027per_distance_fast_bonus\030\006 \001(\002\022\022\n\n" +
+      "per_weight\030\007 \001(\002\022\027\n\017per_user_review\030\010 \001(" +
+      "\002\022\013\n\003lat\030\t \001(\002\022\013\n\003lon\030\n \001(\002\022\022\n\nstore_typ" +
+      "e\030\013 \001(\t\022\024\n\014fix_delivery\030\014 \001(\002\022\024\n\014fix_ass" +
+      "embly\030\r \001(\002\022\031\n\021time_per_position\030\016 \001(\002\022\037" +
+      "\n\027time_to_client_late_max\030\017 \001(\002\022\026\n\016per_f" +
+      "irst_mile\030\020 \001(\002\022\034\n\024first_mile_threshold\030" +
+      "\021 \001(\002\022\027\n\017items_threshold\030\022 \001(\002\022\030\n\020weight" +
+      "_threshold\030\023 \001(\002\022\032\n\022distance_threshold\030\024" +
+      " \001(\002\022\026\n\016fix_first_mile\030\025 \001(\002\022\035\n\025first_mi" +
+      "le_fast_bonus\030\026 \001(\002\022\033\n\023first_mile_late_m" +
+      "ax\030\027 \001(\002\022\024\n\014partner_role\030\030 \001(\t\022\035\n\025per_du" +
+      "ration_delivery\030\031 \001(\002\022\033\n\023items_max_thres" +
+      "hold\030\032 \001(\002\022\034\n\024weight_max_threshold\030\033 \001(\002" +
+      "\022\036\n\026distance_max_threshold\030\034 \001(\002\022 \n\030firs" +
+      "t_mile_max_threshold\030\035 \001(\002\022#\n\033duration_d" +
+      "elivery_threshold\030\036 \001(\002\"+\n\031SetShipmentPa" +
+      "ramsResponse\022\016\n\006status\030\001 \001(\t\"P\n\030GetShipm" +
+      "entParamsRequest\022\n\n\002id\030\001 \001(\t\022\024\n\014partner_" +
+      "type\030\002 \001(\t\022\022\n\nstore_type\030\003 \001(\t\"\222\002\n\031GetSh" +
+      "ipmentParamsResponse\022\n\n\002id\030\001 \001(\t\022\024\n\014part" +
       "ner_type\030\002 \001(\t\022\021\n\tper_items\030\003 \001(\002\022\034\n\024per" +
       "_items_fast_bonus\030\004 \001(\002\022\024\n\014per_distance\030" +
       "\005 \001(\002\022\037\n\027per_distance_fast_bonus\030\006 \001(\002\022\022" +
       "\n\nper_weight\030\007 \001(\002\022\027\n\017per_user_review\030\010 " +
       "\001(\002\022\013\n\003lat\030\t \001(\002\022\013\n\003lon\030\n \001(\002\022\022\n\nstore_t" +
-      "ype\030\013 \001(\t\022\024\n\014fix_delivery\030\014 \001(\002\022\024\n\014fix_a" +
-      "ssembly\030\r \001(\002\022\031\n\021time_per_position\030\016 \001(\002" +
-      "\022\037\n\027time_to_client_late_max\030\017 \001(\002\022\026\n\016per" +
-      "_first_mile\030\020 \001(\002\022\034\n\024first_mile_threshol" +
-      "d\030\021 \001(\002\022\027\n\017items_threshold\030\022 \001(\002\022\030\n\020weig" +
-      "ht_threshold\030\023 \001(\002\022\032\n\022distance_threshold" +
-      "\030\024 \001(\002\022\026\n\016fix_first_mile\030\025 \001(\002\"+\n\031SetShi" +
-      "pmentParamsResponse\022\016\n\006status\030\001 \001(\t\"P\n\030G" +
-      "etShipmentParamsRequest\022\n\n\002id\030\001 \001(\t\022\024\n\014p" +
-      "artner_type\030\002 \001(\t\022\022\n\nstore_type\030\003 \001(\t\"\222\002" +
-      "\n\031GetShipmentParamsResponse\022\n\n\002id\030\001 \001(\t\022" +
-      "\024\n\014partner_type\030\002 \001(\t\022\021\n\tper_items\030\003 \001(\002" +
-      "\022\034\n\024per_items_fast_bonus\030\004 \001(\002\022\024\n\014per_di" +
-      "stance\030\005 \001(\002\022\037\n\027per_distance_fast_bonus\030" +
-      "\006 \001(\002\022\022\n\nper_weight\030\007 \001(\002\022\027\n\017per_user_re" +
-      "view\030\010 \001(\002\022\013\n\003lat\030\t \001(\002\022\013\n\003lon\030\n \001(\002\022\022\n\n" +
-      "store_type\030\013 \001(\t\022\020\n\010fix_base\030\014 \001(\0022\335\002\n\024S" +
-      "hipmentPriceService\022i\n\020GetShipmentPrice\022" +
-      ").shipment_pricing.GetShipmentPriceReque" +
-      "st\032*.shipment_pricing.GetShipmentPriceRe" +
-      "sponse\022l\n\021SetShipmentParams\022*.shipment_p" +
-      "ricing.SetShipmentParamsRequest\032+.shipme" +
-      "nt_pricing.SetShipmentParamsResponse\022l\n\021" +
-      "GetShipmentParams\022*.shipment_pricing.Get" +
-      "ShipmentParamsRequest\032+.shipment_pricing" +
-      ".GetShipmentParamsResponseb\006proto3"
+      "ype\030\013 \001(\t\022\020\n\010fix_base\030\014 \001(\002\"r\n!SetDeduct" +
+      "ionEmploymentTypeRequest\022\n\n\002id\030\001 \001(\t\022.\n\004" +
+      "type\030\002 \001(\0162 .shipment_pricing.Employment" +
+      "Type\022\021\n\tdeduction\030\003 \001(\002\"4\n\"SetDeductionE" +
+      "mploymentTypeResponse\022\016\n\006status\030\001 \001(\t\"\331\001" +
+      "\n\007Segment\022\025\n\rplan_distance\030\001 \001(\002\022\025\n\rplan" +
+      "_duration\030\002 \001(\002\022,\n\010shipment\030\003 \001(\0132\032.ship" +
+      "ment_pricing.Shipment\022;\n\014segment_type\030\004 " +
+      "\001(\0162%.shipment_pricing.Segment.SegmentTy" +
+      "pe\"5\n\013SegmentType\022\n\n\006ARRIVE\020\000\022\014\n\010ASSEMBL" +
+      "Y\020\001\022\014\n\010DELIVERY\020\002\"\250\001\n\031GetShipmentPriceRe" +
+      "questv2\022\027\n\017assignment_uuid\030\001 \001(\t\022\020\n\010rout" +
+      "e_id\030\002 \001(\005\0223\n\020assigned_shopper\030\003 \001(\0132\031.s" +
+      "hipment_pricing.Shopper\022+\n\010segments\030\004 \003(" +
+      "\0132\031.shipment_pricing.Segment\"l\n\032GetShipm" +
+      "entPriceResponsev2\022\025\n\rworkassign_id\030\001 \001(" +
+      "\t\022\020\n\010route_id\030\002 \001(\005\022\021\n\tbase_cost\030\003 \001(\002\022\022" +
+      "\n\nbonus_cost\030\004 \001(\002*i\n\016EmploymentType\022\013\n\007" +
+      "NOT_SET\020\000\022\006\n\002IP\020\001\022\021\n\rSELF_EMPLOYED\020\002\022\t\n\005" +
+      "AGENT\020\003\022\r\n\tOUTSOURCE\020\004\022\025\n\021EXTERNAL_EMPLO" +
+      "YEE\020\0052\330\004\n\024ShipmentPriceService\022i\n\020GetShi" +
+      "pmentPrice\022).shipment_pricing.GetShipmen" +
+      "tPriceRequest\032*.shipment_pricing.GetShip" +
+      "mentPriceResponse\022l\n\021SetShipmentParams\022*" +
+      ".shipment_pricing.SetShipmentParamsReque" +
+      "st\032+.shipment_pricing.SetShipmentParamsR" +
+      "esponse\022l\n\021GetShipmentParams\022*.shipment_" +
+      "pricing.GetShipmentParamsRequest\032+.shipm" +
+      "ent_pricing.GetShipmentParamsResponse\022\207\001" +
+      "\n\032SetDeductionEmploymentType\0223.shipment_" +
+      "pricing.SetDeductionEmploymentTypeReques" +
+      "t\0324.shipment_pricing.SetDeductionEmploym" +
+      "entTypeResponse\022o\n\022GetShipmentPriceV2\022+." +
+      "shipment_pricing.GetShipmentPriceRequest" +
+      "v2\032,.shipment_pricing.GetShipmentPriceRe" +
+      "sponsev2b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -12793,7 +18203,7 @@ public final class OrderPricing {
     internal_static_shipment_pricing_Shopper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shipment_pricing_Shopper_descriptor,
-        new java.lang.String[] { "ShopperUuid", "ShopperType", "ShopperRole", "StartLocation", });
+        new java.lang.String[] { "ShopperUuid", "ShopperType", "ShopperRole", "StartLocation", "EmploymentType", "ShiftId", });
     internal_static_shipment_pricing_Sku_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_shipment_pricing_Sku_fieldAccessorTable = new
@@ -12829,7 +18239,7 @@ public final class OrderPricing {
     internal_static_shipment_pricing_SetShipmentParamsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shipment_pricing_SetShipmentParamsRequest_descriptor,
-        new java.lang.String[] { "Id", "PartnerType", "PerItems", "PerItemsFastBonus", "PerDistance", "PerDistanceFastBonus", "PerWeight", "PerUserReview", "Lat", "Lon", "StoreType", "FixDelivery", "FixAssembly", "TimePerPosition", "TimeToClientLateMax", "PerFirstMile", "FirstMileThreshold", "ItemsThreshold", "WeightThreshold", "DistanceThreshold", "FixFirstMile", });
+        new java.lang.String[] { "Id", "PartnerType", "PerItems", "PerItemsFastBonus", "PerDistance", "PerDistanceFastBonus", "PerWeight", "PerUserReview", "Lat", "Lon", "StoreType", "FixDelivery", "FixAssembly", "TimePerPosition", "TimeToClientLateMax", "PerFirstMile", "FirstMileThreshold", "ItemsThreshold", "WeightThreshold", "DistanceThreshold", "FixFirstMile", "FirstMileFastBonus", "FirstMileLateMax", "PartnerRole", "PerDurationDelivery", "ItemsMaxThreshold", "WeightMaxThreshold", "DistanceMaxThreshold", "FirstMileMaxThreshold", "DurationDeliveryThreshold", });
     internal_static_shipment_pricing_SetShipmentParamsResponse_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_shipment_pricing_SetShipmentParamsResponse_fieldAccessorTable = new
@@ -12848,6 +18258,36 @@ public final class OrderPricing {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shipment_pricing_GetShipmentParamsResponse_descriptor,
         new java.lang.String[] { "Id", "PartnerType", "PerItems", "PerItemsFastBonus", "PerDistance", "PerDistanceFastBonus", "PerWeight", "PerUserReview", "Lat", "Lon", "StoreType", "FixBase", });
+    internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shipment_pricing_SetDeductionEmploymentTypeRequest_descriptor,
+        new java.lang.String[] { "Id", "Type", "Deduction", });
+    internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shipment_pricing_SetDeductionEmploymentTypeResponse_descriptor,
+        new java.lang.String[] { "Status", });
+    internal_static_shipment_pricing_Segment_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_shipment_pricing_Segment_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shipment_pricing_Segment_descriptor,
+        new java.lang.String[] { "PlanDistance", "PlanDuration", "Shipment", "SegmentType", });
+    internal_static_shipment_pricing_GetShipmentPriceRequestv2_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_shipment_pricing_GetShipmentPriceRequestv2_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shipment_pricing_GetShipmentPriceRequestv2_descriptor,
+        new java.lang.String[] { "AssignmentUuid", "RouteId", "AssignedShopper", "Segments", });
+    internal_static_shipment_pricing_GetShipmentPriceResponsev2_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_shipment_pricing_GetShipmentPriceResponsev2_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shipment_pricing_GetShipmentPriceResponsev2_descriptor,
+        new java.lang.String[] { "WorkassignId", "RouteId", "BaseCost", "BonusCost", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

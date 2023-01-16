@@ -4,11 +4,16 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
  * <pre>
- **
  * slack:
  *    #product-hub
- * swagger:
+ * base:
+ *     base-product-hub.paas-content-product-hub:3009
+ * local:
+ *     base-product-hub.paas-content-product-hub.svc.cluster.local:3009
+ * swagger prod:
  *     https://paas-content-product-hub.sbmt.io/api
+ * swagger stg:
+ *     https://paas-content-product-hub.gw-stage.sbmt.io/api
  * public prod grpc uri:
  *    paas-content-product-hub.sbmt.io:443
  * public stg grpc uri:
@@ -18,6 +23,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * description:
  *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
  *    Предназначет для real-time нагрузки.
+ *    Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
  * </pre>
  */
 @javax.annotation.Generated(
@@ -91,6 +97,37 @@ public final class ProductHubFrontMetaGrpc {
       }
     }
     return getGetAllCategoriesWithStoresMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse> getGetAllCategoriesWithStoresByCursorIDMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetAllCategoriesWithStoresByCursorID",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse> getGetAllCategoriesWithStoresByCursorIDMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse> getGetAllCategoriesWithStoresByCursorIDMethod;
+    if ((getGetAllCategoriesWithStoresByCursorIDMethod = ProductHubFrontMetaGrpc.getGetAllCategoriesWithStoresByCursorIDMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetAllCategoriesWithStoresByCursorIDMethod = ProductHubFrontMetaGrpc.getGetAllCategoriesWithStoresByCursorIDMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetAllCategoriesWithStoresByCursorIDMethod = getGetAllCategoriesWithStoresByCursorIDMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetAllCategoriesWithStoresByCursorID"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetAllCategoriesWithStoresByCursorID"))
+              .build();
+        }
+      }
+    }
+    return getGetAllCategoriesWithStoresByCursorIDMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsRequest,
@@ -341,6 +378,99 @@ public final class ProductHubFrontMetaGrpc {
     return getGetAllOriginalCategoriesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse> getGetOriginalCategoriesByIDsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetOriginalCategoriesByIDs",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse> getGetOriginalCategoriesByIDsMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse> getGetOriginalCategoriesByIDsMethod;
+    if ((getGetOriginalCategoriesByIDsMethod = ProductHubFrontMetaGrpc.getGetOriginalCategoriesByIDsMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetOriginalCategoriesByIDsMethod = ProductHubFrontMetaGrpc.getGetOriginalCategoriesByIDsMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetOriginalCategoriesByIDsMethod = getGetOriginalCategoriesByIDsMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetOriginalCategoriesByIDs"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetOriginalCategoriesByIDs"))
+              .build();
+        }
+      }
+    }
+    return getGetOriginalCategoriesByIDsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse> getGetAllOriginalCategoriesByCursorIDMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetAllOriginalCategoriesByCursorID",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse> getGetAllOriginalCategoriesByCursorIDMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse> getGetAllOriginalCategoriesByCursorIDMethod;
+    if ((getGetAllOriginalCategoriesByCursorIDMethod = ProductHubFrontMetaGrpc.getGetAllOriginalCategoriesByCursorIDMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetAllOriginalCategoriesByCursorIDMethod = ProductHubFrontMetaGrpc.getGetAllOriginalCategoriesByCursorIDMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetAllOriginalCategoriesByCursorIDMethod = getGetAllOriginalCategoriesByCursorIDMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetAllOriginalCategoriesByCursorID"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetAllOriginalCategoriesByCursorID"))
+              .build();
+        }
+      }
+    }
+    return getGetAllOriginalCategoriesByCursorIDMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse> getGetAllOriginalCategoriesByStoreIDMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetAllOriginalCategoriesByStoreID",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse> getGetAllOriginalCategoriesByStoreIDMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse> getGetAllOriginalCategoriesByStoreIDMethod;
+    if ((getGetAllOriginalCategoriesByStoreIDMethod = ProductHubFrontMetaGrpc.getGetAllOriginalCategoriesByStoreIDMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetAllOriginalCategoriesByStoreIDMethod = ProductHubFrontMetaGrpc.getGetAllOriginalCategoriesByStoreIDMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetAllOriginalCategoriesByStoreIDMethod = getGetAllOriginalCategoriesByStoreIDMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetAllOriginalCategoriesByStoreID"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetAllOriginalCategoriesByStoreID"))
+              .build();
+        }
+      }
+    }
+    return getGetAllOriginalCategoriesByStoreIDMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest,
       product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> getGetRetailerStoresMethod;
 
@@ -372,6 +502,37 @@ public final class ProductHubFrontMetaGrpc {
     return getGetRetailerStoresMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse> getGetAllRetailerStoresMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetAllRetailerStores",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse> getGetAllRetailerStoresMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse> getGetAllRetailerStoresMethod;
+    if ((getGetAllRetailerStoresMethod = ProductHubFrontMetaGrpc.getGetAllRetailerStoresMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetAllRetailerStoresMethod = ProductHubFrontMetaGrpc.getGetAllRetailerStoresMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetAllRetailerStoresMethod = getGetAllRetailerStoresMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetAllRetailerStores"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetAllRetailerStores"))
+              .build();
+        }
+      }
+    }
+    return getGetAllRetailerStoresMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest,
       product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> getGetDictionaryAttributesValuesMethod;
 
@@ -401,6 +562,130 @@ public final class ProductHubFrontMetaGrpc {
       }
     }
     return getGetDictionaryAttributesValuesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse> getGetPopularitiesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetPopularities",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse> getGetPopularitiesMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse> getGetPopularitiesMethod;
+    if ((getGetPopularitiesMethod = ProductHubFrontMetaGrpc.getGetPopularitiesMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetPopularitiesMethod = ProductHubFrontMetaGrpc.getGetPopularitiesMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetPopularitiesMethod = getGetPopularitiesMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetPopularities"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetPopularities"))
+              .build();
+        }
+      }
+    }
+    return getGetPopularitiesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse> getGetRetailerIDsByStoreIDsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetRetailerIDsByStoreIDs",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse> getGetRetailerIDsByStoreIDsMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse> getGetRetailerIDsByStoreIDsMethod;
+    if ((getGetRetailerIDsByStoreIDsMethod = ProductHubFrontMetaGrpc.getGetRetailerIDsByStoreIDsMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetRetailerIDsByStoreIDsMethod = ProductHubFrontMetaGrpc.getGetRetailerIDsByStoreIDsMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetRetailerIDsByStoreIDsMethod = getGetRetailerIDsByStoreIDsMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetRetailerIDsByStoreIDs"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetRetailerIDsByStoreIDs"))
+              .build();
+        }
+      }
+    }
+    return getGetRetailerIDsByStoreIDsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse> getGetDictionaryValuesByPermalinksMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetDictionaryValuesByPermalinks",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse> getGetDictionaryValuesByPermalinksMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse> getGetDictionaryValuesByPermalinksMethod;
+    if ((getGetDictionaryValuesByPermalinksMethod = ProductHubFrontMetaGrpc.getGetDictionaryValuesByPermalinksMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetDictionaryValuesByPermalinksMethod = ProductHubFrontMetaGrpc.getGetDictionaryValuesByPermalinksMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetDictionaryValuesByPermalinksMethod = getGetDictionaryValuesByPermalinksMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetDictionaryValuesByPermalinks"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetDictionaryValuesByPermalinks"))
+              .build();
+        }
+      }
+    }
+    return getGetDictionaryValuesByPermalinksMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse> getGetRetailersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetRetailers",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse> getGetRetailersMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse> getGetRetailersMethod;
+    if ((getGetRetailersMethod = ProductHubFrontMetaGrpc.getGetRetailersMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetRetailersMethod = ProductHubFrontMetaGrpc.getGetRetailersMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetRetailersMethod = getGetRetailersMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetRetailers"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetRetailers"))
+              .build();
+        }
+      }
+    }
+    return getGetRetailersMethod;
   }
 
   /**
@@ -449,11 +734,16 @@ public final class ProductHubFrontMetaGrpc {
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub.sbmt.io:443
    * public stg grpc uri:
@@ -463,14 +753,14 @@ public final class ProductHubFrontMetaGrpc {
    * description:
    *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
    *    Предназначет для real-time нагрузки.
+   *    Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
    * </pre>
    */
   public static abstract class ProductHubFrontMetaImplBase implements io.grpc.BindableService {
 
     /**
      * <pre>
-     **
-     * Возвращает плоский список всех категорий батчами (без спецпредложений).
+     * Возвращает плоский список всех категорий батчами (без спецпредложений)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -486,8 +776,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений).
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -503,8 +792,23 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры категорий по идентификаторам.
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "cursor_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStoresByCursorID
+     * </pre>
+     */
+    public void getAllCategoriesWithStoresByCursorID(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllCategoriesWithStoresByCursorIDMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает экземпляры категорий по идентификаторам
      * Обязательные параметры:
      *    category_ids - идентификатор категории
      * Примеры:
@@ -519,8 +823,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров.
+     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров
      * Обязательные параметры:
      *    category_ids - идентификатор категории
      * Примеры:
@@ -535,8 +838,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры атрибутов по ключам.
+     * Возвращает экземпляры атрибутов по ключам
      * Обязательные параметры:
      *    attribute_keys - ключи атрибутов
      * Примеры:
@@ -551,8 +853,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список всех атрибутов.
+     * Возвращает список всех атрибутов
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -568,8 +869,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список всех словарей.
+     * Возвращает список всех словарей
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -585,8 +885,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры словарей по ключам.
+     * Возвращает экземпляры словарей по ключам
      * Обязательные параметры:
      *    dictionary_keys - ключи словарей
      * Примеры:
@@ -601,8 +900,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает все словарные значения конкретного словаря.
+     * Возвращает все словарные значения конкретного словаря
      * Обязательные параметры:
      *    dictionary_key - ключ словаря
      *    limit - кол-во запрашиваемых элементов
@@ -619,8 +917,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает полный список монолитовских категорий (табличка mysql.taxons).
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -636,8 +933,55 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список идентификаторов магазинов для конкретных ритейлеров.
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+     * Обязательные параметры:
+     *    original_ids - идентификаторы mysql.taxons
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"original_ids": [73278]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetOriginalCategoriesByIDs
+     * </pre>
+     */
+    public void getOriginalCategoriesByIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetOriginalCategoriesByIDsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"limit": 10, "cursord_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByCursorID
+     * </pre>
+     */
+    public void getAllOriginalCategoriesByCursorID(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllOriginalCategoriesByCursorIDMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons) для магазина
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"store_id": "1", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByStoreID
+     * </pre>
+     */
+    public void getAllOriginalCategoriesByStoreID(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllOriginalCategoriesByStoreIDMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список идентификаторов магазинов для конкретных ритейлеров
      * Обязательные параметры:
      *    retailer_ids - идентификаторы ритейлеров
      * Примеры:
@@ -652,7 +996,22 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
+     * Возвращает список всех идентификаторов магазинов с ретейлером по лимиту, оффсету
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть идентификаторы магазины:
+     *        grpcurl -d '{"limit": 10, "offset": 5}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllRetailerStores
+     * </pre>
+     */
+    public void getAllRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllRetailerStoresMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Возвращает список словарных значений по ключу атрибута и идентифиатору словарного значения
      * Обязательные параметры:
      *    attribute_key - ключ атрибута
@@ -665,6 +1024,54 @@ public final class ProductHubFrontMetaGrpc {
     public void getDictionaryAttributesValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetDictionaryAttributesValuesMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список популярностей по ключу магазина и скушкам
+     * Обязательные параметры:
+     *    store_id - ключ магазина
+     * Примеры:
+     * </pre>
+     */
+    public void getPopularities(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetPopularitiesMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список популярностей по ключу магазина и скушкам
+     * Обязательные параметры:
+     *    store_id - ключ магазина
+     * Примеры:
+     * </pre>
+     */
+    public void getRetailerIDsByStoreIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetRetailerIDsByStoreIDsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getDictionaryValuesByPermalinks(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetDictionaryValuesByPermalinksMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список ретейлеров по retailer_id
+     * Обязательные параметры:
+     *    retailer_id - идентификатор ритейлера
+     * Примеры:
+     *    Возвращает список ретейлеров (retailer):
+     *        grpcurl -d '{"retailer_ids": ["1", "330"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailers
+     * </pre>
+     */
+    public void getRetailers(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetRetailersMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -683,6 +1090,13 @@ public final class ProductHubFrontMetaGrpc {
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresRequest,
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresResponse>(
                   this, METHODID_GET_ALL_CATEGORIES_WITH_STORES)))
+          .addMethod(
+            getGetAllCategoriesWithStoresByCursorIDMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse>(
+                  this, METHODID_GET_ALL_CATEGORIES_WITH_STORES_BY_CURSOR_ID)))
           .addMethod(
             getGetCategoriesByCategoryIDsMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -740,6 +1154,27 @@ public final class ProductHubFrontMetaGrpc {
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse>(
                   this, METHODID_GET_ALL_ORIGINAL_CATEGORIES)))
           .addMethod(
+            getGetOriginalCategoriesByIDsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse>(
+                  this, METHODID_GET_ORIGINAL_CATEGORIES_BY_IDS)))
+          .addMethod(
+            getGetAllOriginalCategoriesByCursorIDMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse>(
+                  this, METHODID_GET_ALL_ORIGINAL_CATEGORIES_BY_CURSOR_ID)))
+          .addMethod(
+            getGetAllOriginalCategoriesByStoreIDMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse>(
+                  this, METHODID_GET_ALL_ORIGINAL_CATEGORIES_BY_STORE_ID)))
+          .addMethod(
             getGetRetailerStoresMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
@@ -747,23 +1182,63 @@ public final class ProductHubFrontMetaGrpc {
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse>(
                   this, METHODID_GET_RETAILER_STORES)))
           .addMethod(
+            getGetAllRetailerStoresMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse>(
+                  this, METHODID_GET_ALL_RETAILER_STORES)))
+          .addMethod(
             getGetDictionaryAttributesValuesMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest,
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse>(
                   this, METHODID_GET_DICTIONARY_ATTRIBUTES_VALUES)))
+          .addMethod(
+            getGetPopularitiesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse>(
+                  this, METHODID_GET_POPULARITIES)))
+          .addMethod(
+            getGetRetailerIDsByStoreIDsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse>(
+                  this, METHODID_GET_RETAILER_IDS_BY_STORE_IDS)))
+          .addMethod(
+            getGetDictionaryValuesByPermalinksMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse>(
+                  this, METHODID_GET_DICTIONARY_VALUES_BY_PERMALINKS)))
+          .addMethod(
+            getGetRetailersMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse>(
+                  this, METHODID_GET_RETAILERS)))
           .build();
     }
   }
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub.sbmt.io:443
    * public stg grpc uri:
@@ -773,6 +1248,7 @@ public final class ProductHubFrontMetaGrpc {
    * description:
    *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
    *    Предназначет для real-time нагрузки.
+   *    Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
    * </pre>
    */
   public static final class ProductHubFrontMetaStub extends io.grpc.stub.AbstractAsyncStub<ProductHubFrontMetaStub> {
@@ -789,8 +1265,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает плоский список всех категорий батчами (без спецпредложений).
+     * Возвращает плоский список всех категорий батчами (без спецпредложений)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -807,8 +1282,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений).
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -825,8 +1299,24 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры категорий по идентификаторам.
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "cursor_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStoresByCursorID
+     * </pre>
+     */
+    public void getAllCategoriesWithStoresByCursorID(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAllCategoriesWithStoresByCursorIDMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает экземпляры категорий по идентификаторам
      * Обязательные параметры:
      *    category_ids - идентификатор категории
      * Примеры:
@@ -842,8 +1332,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров.
+     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров
      * Обязательные параметры:
      *    category_ids - идентификатор категории
      * Примеры:
@@ -859,8 +1348,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры атрибутов по ключам.
+     * Возвращает экземпляры атрибутов по ключам
      * Обязательные параметры:
      *    attribute_keys - ключи атрибутов
      * Примеры:
@@ -876,8 +1364,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список всех атрибутов.
+     * Возвращает список всех атрибутов
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -894,8 +1381,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список всех словарей.
+     * Возвращает список всех словарей
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -912,8 +1398,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры словарей по ключам.
+     * Возвращает экземпляры словарей по ключам
      * Обязательные параметры:
      *    dictionary_keys - ключи словарей
      * Примеры:
@@ -929,8 +1414,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает все словарные значения конкретного словаря.
+     * Возвращает все словарные значения конкретного словаря
      * Обязательные параметры:
      *    dictionary_key - ключ словаря
      *    limit - кол-во запрашиваемых элементов
@@ -948,8 +1432,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает полный список монолитовских категорий (табличка mysql.taxons).
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -966,8 +1449,58 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список идентификаторов магазинов для конкретных ритейлеров.
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+     * Обязательные параметры:
+     *    original_ids - идентификаторы mysql.taxons
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"original_ids": [73278]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetOriginalCategoriesByIDs
+     * </pre>
+     */
+    public void getOriginalCategoriesByIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetOriginalCategoriesByIDsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"limit": 10, "cursord_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByCursorID
+     * </pre>
+     */
+    public void getAllOriginalCategoriesByCursorID(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAllOriginalCategoriesByCursorIDMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons) для магазина
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"store_id": "1", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByStoreID
+     * </pre>
+     */
+    public void getAllOriginalCategoriesByStoreID(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAllOriginalCategoriesByStoreIDMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список идентификаторов магазинов для конкретных ритейлеров
      * Обязательные параметры:
      *    retailer_ids - идентификаторы ритейлеров
      * Примеры:
@@ -983,7 +1516,23 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
+     * Возвращает список всех идентификаторов магазинов с ретейлером по лимиту, оффсету
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть идентификаторы магазины:
+     *        grpcurl -d '{"limit": 10, "offset": 5}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllRetailerStores
+     * </pre>
+     */
+    public void getAllRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAllRetailerStoresMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * Возвращает список словарных значений по ключу атрибута и идентифиатору словарного значения
      * Обязательные параметры:
      *    attribute_key - ключ атрибута
@@ -998,15 +1547,72 @@ public final class ProductHubFrontMetaGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetDictionaryAttributesValuesMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Возвращает список популярностей по ключу магазина и скушкам
+     * Обязательные параметры:
+     *    store_id - ключ магазина
+     * Примеры:
+     * </pre>
+     */
+    public void getPopularities(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetPopularitiesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список популярностей по ключу магазина и скушкам
+     * Обязательные параметры:
+     *    store_id - ключ магазина
+     * Примеры:
+     * </pre>
+     */
+    public void getRetailerIDsByStoreIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetRetailerIDsByStoreIDsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getDictionaryValuesByPermalinks(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetDictionaryValuesByPermalinksMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список ретейлеров по retailer_id
+     * Обязательные параметры:
+     *    retailer_id - идентификатор ритейлера
+     * Примеры:
+     *    Возвращает список ретейлеров (retailer):
+     *        grpcurl -d '{"retailer_ids": ["1", "330"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailers
+     * </pre>
+     */
+    public void getRetailers(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetRetailersMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub.sbmt.io:443
    * public stg grpc uri:
@@ -1016,6 +1622,7 @@ public final class ProductHubFrontMetaGrpc {
    * description:
    *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
    *    Предназначет для real-time нагрузки.
+   *    Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
    * </pre>
    */
   public static final class ProductHubFrontMetaBlockingStub extends io.grpc.stub.AbstractBlockingStub<ProductHubFrontMetaBlockingStub> {
@@ -1032,8 +1639,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает плоский список всех категорий батчами (без спецпредложений).
+     * Возвращает плоский список всех категорий батчами (без спецпредложений)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1049,8 +1655,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений).
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1066,8 +1671,23 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры категорий по идентификаторам.
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "cursor_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStoresByCursorID
+     * </pre>
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse getAllCategoriesWithStoresByCursorID(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAllCategoriesWithStoresByCursorIDMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает экземпляры категорий по идентификаторам
      * Обязательные параметры:
      *    category_ids - идентификатор категории
      * Примеры:
@@ -1082,8 +1702,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров.
+     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров
      * Обязательные параметры:
      *    category_ids - идентификатор категории
      * Примеры:
@@ -1098,8 +1717,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры атрибутов по ключам.
+     * Возвращает экземпляры атрибутов по ключам
      * Обязательные параметры:
      *    attribute_keys - ключи атрибутов
      * Примеры:
@@ -1114,8 +1732,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список всех атрибутов.
+     * Возвращает список всех атрибутов
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1131,8 +1748,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список всех словарей.
+     * Возвращает список всех словарей
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1148,8 +1764,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры словарей по ключам.
+     * Возвращает экземпляры словарей по ключам
      * Обязательные параметры:
      *    dictionary_keys - ключи словарей
      * Примеры:
@@ -1164,8 +1779,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает все словарные значения конкретного словаря.
+     * Возвращает все словарные значения конкретного словаря
      * Обязательные параметры:
      *    dictionary_key - ключ словаря
      *    limit - кол-во запрашиваемых элементов
@@ -1182,8 +1796,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает полный список монолитовских категорий (табличка mysql.taxons).
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1199,8 +1812,55 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список идентификаторов магазинов для конкретных ритейлеров.
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+     * Обязательные параметры:
+     *    original_ids - идентификаторы mysql.taxons
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"original_ids": [73278]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetOriginalCategoriesByIDs
+     * </pre>
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse getOriginalCategoriesByIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetOriginalCategoriesByIDsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"limit": 10, "cursord_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByCursorID
+     * </pre>
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse getAllOriginalCategoriesByCursorID(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAllOriginalCategoriesByCursorIDMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons) для магазина
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"store_id": "1", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByStoreID
+     * </pre>
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse getAllOriginalCategoriesByStoreID(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAllOriginalCategoriesByStoreIDMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список идентификаторов магазинов для конкретных ритейлеров
      * Обязательные параметры:
      *    retailer_ids - идентификаторы ритейлеров
      * Примеры:
@@ -1215,7 +1875,22 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
+     * Возвращает список всех идентификаторов магазинов с ретейлером по лимиту, оффсету
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть идентификаторы магазины:
+     *        grpcurl -d '{"limit": 10, "offset": 5}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllRetailerStores
+     * </pre>
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse getAllRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAllRetailerStoresMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * Возвращает список словарных значений по ключу атрибута и идентифиатору словарного значения
      * Обязательные параметры:
      *    attribute_key - ключ атрибута
@@ -1229,15 +1904,68 @@ public final class ProductHubFrontMetaGrpc {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetDictionaryAttributesValuesMethod(), getCallOptions(), request);
     }
+
+    /**
+     * <pre>
+     * Возвращает список популярностей по ключу магазина и скушкам
+     * Обязательные параметры:
+     *    store_id - ключ магазина
+     * Примеры:
+     * </pre>
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse getPopularities(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetPopularitiesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список популярностей по ключу магазина и скушкам
+     * Обязательные параметры:
+     *    store_id - ключ магазина
+     * Примеры:
+     * </pre>
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse getRetailerIDsByStoreIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetRetailerIDsByStoreIDsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse getDictionaryValuesByPermalinks(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetDictionaryValuesByPermalinksMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список ретейлеров по retailer_id
+     * Обязательные параметры:
+     *    retailer_id - идентификатор ритейлера
+     * Примеры:
+     *    Возвращает список ретейлеров (retailer):
+     *        grpcurl -d '{"retailer_ids": ["1", "330"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailers
+     * </pre>
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse getRetailers(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetRetailersMethod(), getCallOptions(), request);
+    }
   }
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub.sbmt.io:443
    * public stg grpc uri:
@@ -1247,6 +1975,7 @@ public final class ProductHubFrontMetaGrpc {
    * description:
    *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
    *    Предназначет для real-time нагрузки.
+   *    Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
    * </pre>
    */
   public static final class ProductHubFrontMetaFutureStub extends io.grpc.stub.AbstractFutureStub<ProductHubFrontMetaFutureStub> {
@@ -1263,8 +1992,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает плоский список всех категорий батчами (без спецпредложений).
+     * Возвращает плоский список всех категорий батчами (без спецпредложений)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1281,8 +2009,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений).
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1299,8 +2026,24 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры категорий по идентификаторам.
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений)
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "cursor_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStoresByCursorID
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse> getAllCategoriesWithStoresByCursorID(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAllCategoriesWithStoresByCursorIDMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает экземпляры категорий по идентификаторам
      * Обязательные параметры:
      *    category_ids - идентификатор категории
      * Примеры:
@@ -1316,8 +2059,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров.
+     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров
      * Обязательные параметры:
      *    category_ids - идентификатор категории
      * Примеры:
@@ -1333,8 +2075,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры атрибутов по ключам.
+     * Возвращает экземпляры атрибутов по ключам
      * Обязательные параметры:
      *    attribute_keys - ключи атрибутов
      * Примеры:
@@ -1350,8 +2091,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список всех атрибутов.
+     * Возвращает список всех атрибутов
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1368,8 +2108,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список всех словарей.
+     * Возвращает список всех словарей
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1386,8 +2125,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает экземпляры словарей по ключам.
+     * Возвращает экземпляры словарей по ключам
      * Обязательные параметры:
      *    dictionary_keys - ключи словарей
      * Примеры:
@@ -1403,8 +2141,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает все словарные значения конкретного словаря.
+     * Возвращает все словарные значения конкретного словаря
      * Обязательные параметры:
      *    dictionary_key - ключ словаря
      *    limit - кол-во запрашиваемых элементов
@@ -1422,8 +2159,7 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает полный список монолитовских категорий (табличка mysql.taxons).
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
      * Обязательные параметры:
      *    limit - кол-во запрашиваемых элементов
      *    offset - сдвиг, начинать с 0
@@ -1440,8 +2176,58 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
-     * Возвращает список идентификаторов магазинов для конкретных ритейлеров.
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+     * Обязательные параметры:
+     *    original_ids - идентификаторы mysql.taxons
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"original_ids": [73278]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetOriginalCategoriesByIDs
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse> getOriginalCategoriesByIDs(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetOriginalCategoriesByIDsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons)
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    cursor_id - ид запрашиваемых данных, не является последовательным идентификатором, нужно передавать в каждый последующий запрос
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"limit": 10, "cursord_id": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByCursorID
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse> getAllOriginalCategoriesByCursorID(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAllOriginalCategoriesByCursorIDMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons) для магазина
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"store_id": "1", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategoriesByStoreID
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse> getAllOriginalCategoriesByStoreID(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAllOriginalCategoriesByStoreIDMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список идентификаторов магазинов для конкретных ритейлеров
      * Обязательные параметры:
      *    retailer_ids - идентификаторы ритейлеров
      * Примеры:
@@ -1457,7 +2243,23 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      * <pre>
-     **
+     * Возвращает список всех идентификаторов магазинов с ретейлером по лимиту, оффсету
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть идентификаторы магазины:
+     *        grpcurl -d '{"limit": 10, "offset": 5}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllRetailerStores
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse> getAllRetailerStores(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAllRetailerStoresMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Возвращает список словарных значений по ключу атрибута и идентифиатору словарного значения
      * Обязательные параметры:
      *    attribute_key - ключ атрибута
@@ -1472,20 +2274,81 @@ public final class ProductHubFrontMetaGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetDictionaryAttributesValuesMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Возвращает список популярностей по ключу магазина и скушкам
+     * Обязательные параметры:
+     *    store_id - ключ магазина
+     * Примеры:
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse> getPopularities(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetPopularitiesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список популярностей по ключу магазина и скушкам
+     * Обязательные параметры:
+     *    store_id - ключ магазина
+     * Примеры:
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse> getRetailerIDsByStoreIDs(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetRetailerIDsByStoreIDsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse> getDictionaryValuesByPermalinks(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetDictionaryValuesByPermalinksMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает список ретейлеров по retailer_id
+     * Обязательные параметры:
+     *    retailer_id - идентификатор ритейлера
+     * Примеры:
+     *    Возвращает список ретейлеров (retailer):
+     *        grpcurl -d '{"retailer_ids": ["1", "330"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailers
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse> getRetailers(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetRetailersMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_ALL_CATEGORIES = 0;
   private static final int METHODID_GET_ALL_CATEGORIES_WITH_STORES = 1;
-  private static final int METHODID_GET_CATEGORIES_BY_CATEGORY_IDS = 2;
-  private static final int METHODID_GET_CATEGORY_FILTERS_BY_CATEGORY_IDS = 3;
-  private static final int METHODID_GET_ATTRIBUTES_BY_KEYS = 4;
-  private static final int METHODID_GET_ALL_ATTRIBUTES = 5;
-  private static final int METHODID_GET_ALL_DICTIONARIES = 6;
-  private static final int METHODID_GET_DICTIONARIES_BY_KEYS = 7;
-  private static final int METHODID_GET_ALL_DICTIONARY_VALUES = 8;
-  private static final int METHODID_GET_ALL_ORIGINAL_CATEGORIES = 9;
-  private static final int METHODID_GET_RETAILER_STORES = 10;
-  private static final int METHODID_GET_DICTIONARY_ATTRIBUTES_VALUES = 11;
+  private static final int METHODID_GET_ALL_CATEGORIES_WITH_STORES_BY_CURSOR_ID = 2;
+  private static final int METHODID_GET_CATEGORIES_BY_CATEGORY_IDS = 3;
+  private static final int METHODID_GET_CATEGORY_FILTERS_BY_CATEGORY_IDS = 4;
+  private static final int METHODID_GET_ATTRIBUTES_BY_KEYS = 5;
+  private static final int METHODID_GET_ALL_ATTRIBUTES = 6;
+  private static final int METHODID_GET_ALL_DICTIONARIES = 7;
+  private static final int METHODID_GET_DICTIONARIES_BY_KEYS = 8;
+  private static final int METHODID_GET_ALL_DICTIONARY_VALUES = 9;
+  private static final int METHODID_GET_ALL_ORIGINAL_CATEGORIES = 10;
+  private static final int METHODID_GET_ORIGINAL_CATEGORIES_BY_IDS = 11;
+  private static final int METHODID_GET_ALL_ORIGINAL_CATEGORIES_BY_CURSOR_ID = 12;
+  private static final int METHODID_GET_ALL_ORIGINAL_CATEGORIES_BY_STORE_ID = 13;
+  private static final int METHODID_GET_RETAILER_STORES = 14;
+  private static final int METHODID_GET_ALL_RETAILER_STORES = 15;
+  private static final int METHODID_GET_DICTIONARY_ATTRIBUTES_VALUES = 16;
+  private static final int METHODID_GET_POPULARITIES = 17;
+  private static final int METHODID_GET_RETAILER_IDS_BY_STORE_IDS = 18;
+  private static final int METHODID_GET_DICTIONARY_VALUES_BY_PERMALINKS = 19;
+  private static final int METHODID_GET_RETAILERS = 20;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1511,6 +2374,10 @@ public final class ProductHubFrontMetaGrpc {
         case METHODID_GET_ALL_CATEGORIES_WITH_STORES:
           serviceImpl.getAllCategoriesWithStores((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresResponse>) responseObserver);
+          break;
+        case METHODID_GET_ALL_CATEGORIES_WITH_STORES_BY_CURSOR_ID:
+          serviceImpl.getAllCategoriesWithStoresByCursorID((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresByCursorIDResponse>) responseObserver);
           break;
         case METHODID_GET_CATEGORIES_BY_CATEGORY_IDS:
           serviceImpl.getCategoriesByCategoryIDs((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsRequest) request,
@@ -1544,13 +2411,45 @@ public final class ProductHubFrontMetaGrpc {
           serviceImpl.getAllOriginalCategories((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse>) responseObserver);
           break;
+        case METHODID_GET_ORIGINAL_CATEGORIES_BY_IDS:
+          serviceImpl.getOriginalCategoriesByIDs((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetOriginalCategoriesByIDsResponse>) responseObserver);
+          break;
+        case METHODID_GET_ALL_ORIGINAL_CATEGORIES_BY_CURSOR_ID:
+          serviceImpl.getAllOriginalCategoriesByCursorID((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByCursorIDResponse>) responseObserver);
+          break;
+        case METHODID_GET_ALL_ORIGINAL_CATEGORIES_BY_STORE_ID:
+          serviceImpl.getAllOriginalCategoriesByStoreID((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesByStoreIDResponse>) responseObserver);
+          break;
         case METHODID_GET_RETAILER_STORES:
           serviceImpl.getRetailerStores((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse>) responseObserver);
           break;
+        case METHODID_GET_ALL_RETAILER_STORES:
+          serviceImpl.getAllRetailerStores((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllRetailerStoresResponse>) responseObserver);
+          break;
         case METHODID_GET_DICTIONARY_ATTRIBUTES_VALUES:
           serviceImpl.getDictionaryAttributesValues((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse>) responseObserver);
+          break;
+        case METHODID_GET_POPULARITIES:
+          serviceImpl.getPopularities((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetPopularitiesResponse>) responseObserver);
+          break;
+        case METHODID_GET_RETAILER_IDS_BY_STORE_IDS:
+          serviceImpl.getRetailerIDsByStoreIDs((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerIDsByStoreIDsResponse>) responseObserver);
+          break;
+        case METHODID_GET_DICTIONARY_VALUES_BY_PERMALINKS:
+          serviceImpl.getDictionaryValuesByPermalinks((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryValuesByPermalinksResponse>) responseObserver);
+          break;
+        case METHODID_GET_RETAILERS:
+          serviceImpl.getRetailers((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetGetRetailersResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1615,6 +2514,7 @@ public final class ProductHubFrontMetaGrpc {
               .setSchemaDescriptor(new ProductHubFrontMetaFileDescriptorSupplier())
               .addMethod(getGetAllCategoriesMethod())
               .addMethod(getGetAllCategoriesWithStoresMethod())
+              .addMethod(getGetAllCategoriesWithStoresByCursorIDMethod())
               .addMethod(getGetCategoriesByCategoryIDsMethod())
               .addMethod(getGetCategoryFiltersByCategoryIDsMethod())
               .addMethod(getGetAttributesByKeysMethod())
@@ -1623,8 +2523,16 @@ public final class ProductHubFrontMetaGrpc {
               .addMethod(getGetDictionariesByKeysMethod())
               .addMethod(getGetAllDictionaryValuesMethod())
               .addMethod(getGetAllOriginalCategoriesMethod())
+              .addMethod(getGetOriginalCategoriesByIDsMethod())
+              .addMethod(getGetAllOriginalCategoriesByCursorIDMethod())
+              .addMethod(getGetAllOriginalCategoriesByStoreIDMethod())
               .addMethod(getGetRetailerStoresMethod())
+              .addMethod(getGetAllRetailerStoresMethod())
               .addMethod(getGetDictionaryAttributesValuesMethod())
+              .addMethod(getGetPopularitiesMethod())
+              .addMethod(getGetRetailerIDsByStoreIDsMethod())
+              .addMethod(getGetDictionaryValuesByPermalinksMethod())
+              .addMethod(getGetRetailersMethod())
               .build();
         }
       }

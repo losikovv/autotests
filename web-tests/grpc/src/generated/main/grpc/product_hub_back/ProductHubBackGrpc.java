@@ -4,17 +4,20 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
  * <pre>
- **
  * slack:
  *    #product-hub
- * swagger:
+ * base:
+ *     base-product-hub-back.paas-content-product-hub:3009
+ * local:
+ *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+ * swagger prod:
  *     https://paas-content-product-hub-back.sbmt.io/api
+ * swagger stg:
+ *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
  * public prod grpc uri:
  *    paas-content-product-hub-back.sbmt.io:443
  * public stg grpc uri:
- *    paas-content-product-hub.gw-stage-back.sbmt.io:443
- * kuber prod grpc uri:
- *    base-product-hub.paas-content-product-hub-back:3009
+ *    paas-content-product-hub-back.gw-stage-back.sbmt.io:443
  * description:
  *    Back сервис product-hub для импорта данных
  * </pre>
@@ -309,6 +312,130 @@ public final class ProductHubBackGrpc {
     return getSaveRetailerStoresMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest,
+      product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse> getSavePopularitiesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SavePopularities",
+      requestType = product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.class,
+      responseType = product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest,
+      product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse> getSavePopularitiesMethod() {
+    io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest, product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse> getSavePopularitiesMethod;
+    if ((getSavePopularitiesMethod = ProductHubBackGrpc.getSavePopularitiesMethod) == null) {
+      synchronized (ProductHubBackGrpc.class) {
+        if ((getSavePopularitiesMethod = ProductHubBackGrpc.getSavePopularitiesMethod) == null) {
+          ProductHubBackGrpc.getSavePopularitiesMethod = getSavePopularitiesMethod =
+              io.grpc.MethodDescriptor.<product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest, product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SavePopularities"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubBackMethodDescriptorSupplier("SavePopularities"))
+              .build();
+        }
+      }
+    }
+    return getSavePopularitiesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest,
+      product_hub_back.ProductHubBackOuterClass.DisableOffersResponse> getDisableOffersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DisableOffers",
+      requestType = product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.class,
+      responseType = product_hub_back.ProductHubBackOuterClass.DisableOffersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest,
+      product_hub_back.ProductHubBackOuterClass.DisableOffersResponse> getDisableOffersMethod() {
+    io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest, product_hub_back.ProductHubBackOuterClass.DisableOffersResponse> getDisableOffersMethod;
+    if ((getDisableOffersMethod = ProductHubBackGrpc.getDisableOffersMethod) == null) {
+      synchronized (ProductHubBackGrpc.class) {
+        if ((getDisableOffersMethod = ProductHubBackGrpc.getDisableOffersMethod) == null) {
+          ProductHubBackGrpc.getDisableOffersMethod = getDisableOffersMethod =
+              io.grpc.MethodDescriptor.<product_hub_back.ProductHubBackOuterClass.DisableOffersRequest, product_hub_back.ProductHubBackOuterClass.DisableOffersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DisableOffers"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.DisableOffersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.DisableOffersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubBackMethodDescriptorSupplier("DisableOffers"))
+              .build();
+        }
+      }
+    }
+    return getDisableOffersMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest,
+      product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse> getSaveStoreIDtoRetailerIDMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SaveStoreIDtoRetailerID",
+      requestType = product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest.class,
+      responseType = product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest,
+      product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse> getSaveStoreIDtoRetailerIDMethod() {
+    io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest, product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse> getSaveStoreIDtoRetailerIDMethod;
+    if ((getSaveStoreIDtoRetailerIDMethod = ProductHubBackGrpc.getSaveStoreIDtoRetailerIDMethod) == null) {
+      synchronized (ProductHubBackGrpc.class) {
+        if ((getSaveStoreIDtoRetailerIDMethod = ProductHubBackGrpc.getSaveStoreIDtoRetailerIDMethod) == null) {
+          ProductHubBackGrpc.getSaveStoreIDtoRetailerIDMethod = getSaveStoreIDtoRetailerIDMethod =
+              io.grpc.MethodDescriptor.<product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest, product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SaveStoreIDtoRetailerID"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubBackMethodDescriptorSupplier("SaveStoreIDtoRetailerID"))
+              .build();
+        }
+      }
+    }
+    return getSaveStoreIDtoRetailerIDMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest,
+      product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse> getSaveGroupsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SaveGroups",
+      requestType = product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest.class,
+      responseType = product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest,
+      product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse> getSaveGroupsMethod() {
+    io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest, product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse> getSaveGroupsMethod;
+    if ((getSaveGroupsMethod = ProductHubBackGrpc.getSaveGroupsMethod) == null) {
+      synchronized (ProductHubBackGrpc.class) {
+        if ((getSaveGroupsMethod = ProductHubBackGrpc.getSaveGroupsMethod) == null) {
+          ProductHubBackGrpc.getSaveGroupsMethod = getSaveGroupsMethod =
+              io.grpc.MethodDescriptor.<product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest, product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SaveGroups"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubBackMethodDescriptorSupplier("SaveGroups"))
+              .build();
+        }
+      }
+    }
+    return getSaveGroupsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -355,17 +482,20 @@ public final class ProductHubBackGrpc {
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub-back.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub-back.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub-back.sbmt.io:443
    * public stg grpc uri:
-   *    paas-content-product-hub.gw-stage-back.sbmt.io:443
-   * kuber prod grpc uri:
-   *    base-product-hub.paas-content-product-hub-back:3009
+   *    paas-content-product-hub-back.gw-stage-back.sbmt.io:443
    * description:
    *    Back сервис product-hub для импорта данных
    * </pre>
@@ -374,9 +504,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет описание продуктов.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет описание продуктов
      * </pre>
      */
     public void saveProducts(product_hub_back.ProductHubBackOuterClass.SaveProductsRequest request,
@@ -386,9 +514,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет стоки.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет стоки
      * </pre>
      */
     public void saveStocks(product_hub_back.ProductHubBackOuterClass.SaveStocksRequest request,
@@ -398,9 +524,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет товарные предложения.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет товарные предложения
      * </pre>
      */
     public void saveOffers(product_hub_back.ProductHubBackOuterClass.SaveOffersRequest request,
@@ -410,9 +534,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет цены.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет цены
      * </pre>
      */
     public void savePrices(product_hub_back.ProductHubBackOuterClass.SavePricesRequest request,
@@ -422,9 +544,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет категории.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет категории
      * </pre>
      */
     public void saveCategories(product_hub_back.ProductHubBackOuterClass.SaveCategoriesRequest request,
@@ -434,9 +554,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет атрибуты.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет атрибуты
      * </pre>
      */
     public void saveAttributes(product_hub_back.ProductHubBackOuterClass.SaveAttributesRequest request,
@@ -446,9 +564,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет словари и значения словарей.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет словари и значения словарей
      * </pre>
      */
     public void saveDictionaries(product_hub_back.ProductHubBackOuterClass.SaveDictionariesRequest request,
@@ -459,8 +575,7 @@ public final class ProductHubBackGrpc {
     /**
      * <pre>
      **
-     * Сохраняет категорийные фильтры.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет категорийные фильтры
      * </pre>
      */
     public void saveCategoryFilters(product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersRequest request,
@@ -471,13 +586,56 @@ public final class ProductHubBackGrpc {
     /**
      * <pre>
      **
-     * Сохраняет связки магазинов на ритейлеров.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет связки магазинов на ритейлеров
      * </pre>
      */
     public void saveRetailerStores(product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest request,
         io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSaveRetailerStoresMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Сохраняет популярность
+     * </pre>
+     */
+    public void savePopularities(product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSavePopularitiesMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Выключение офферов
+     * </pre>
+     */
+    public void disableOffers(product_hub_back.ProductHubBackOuterClass.DisableOffersRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.DisableOffersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDisableOffersMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Связка store_id-&gt;retailer_id
+     * </pre>
+     */
+    public void saveStoreIDtoRetailerID(product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSaveStoreIDtoRetailerIDMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Сохранения групп скушек
+     * </pre>
+     */
+    public void saveGroups(product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSaveGroupsMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -545,23 +703,54 @@ public final class ProductHubBackGrpc {
                 product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest,
                 product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse>(
                   this, METHODID_SAVE_RETAILER_STORES)))
+          .addMethod(
+            getSavePopularitiesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest,
+                product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse>(
+                  this, METHODID_SAVE_POPULARITIES)))
+          .addMethod(
+            getDisableOffersMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_back.ProductHubBackOuterClass.DisableOffersRequest,
+                product_hub_back.ProductHubBackOuterClass.DisableOffersResponse>(
+                  this, METHODID_DISABLE_OFFERS)))
+          .addMethod(
+            getSaveStoreIDtoRetailerIDMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest,
+                product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse>(
+                  this, METHODID_SAVE_STORE_IDTO_RETAILER_ID)))
+          .addMethod(
+            getSaveGroupsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest,
+                product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse>(
+                  this, METHODID_SAVE_GROUPS)))
           .build();
     }
   }
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub-back.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub-back.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub-back.sbmt.io:443
    * public stg grpc uri:
-   *    paas-content-product-hub.gw-stage-back.sbmt.io:443
-   * kuber prod grpc uri:
-   *    base-product-hub.paas-content-product-hub-back:3009
+   *    paas-content-product-hub-back.gw-stage-back.sbmt.io:443
    * description:
    *    Back сервис product-hub для импорта данных
    * </pre>
@@ -580,9 +769,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет описание продуктов.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет описание продуктов
      * </pre>
      */
     public void saveProducts(product_hub_back.ProductHubBackOuterClass.SaveProductsRequest request,
@@ -593,9 +780,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет стоки.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет стоки
      * </pre>
      */
     public void saveStocks(product_hub_back.ProductHubBackOuterClass.SaveStocksRequest request,
@@ -606,9 +791,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет товарные предложения.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет товарные предложения
      * </pre>
      */
     public void saveOffers(product_hub_back.ProductHubBackOuterClass.SaveOffersRequest request,
@@ -619,9 +802,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет цены.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет цены
      * </pre>
      */
     public void savePrices(product_hub_back.ProductHubBackOuterClass.SavePricesRequest request,
@@ -632,9 +813,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет категории.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет категории
      * </pre>
      */
     public void saveCategories(product_hub_back.ProductHubBackOuterClass.SaveCategoriesRequest request,
@@ -645,9 +824,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет атрибуты.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет атрибуты
      * </pre>
      */
     public void saveAttributes(product_hub_back.ProductHubBackOuterClass.SaveAttributesRequest request,
@@ -658,9 +835,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет словари и значения словарей.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет словари и значения словарей
      * </pre>
      */
     public void saveDictionaries(product_hub_back.ProductHubBackOuterClass.SaveDictionariesRequest request,
@@ -672,8 +847,7 @@ public final class ProductHubBackGrpc {
     /**
      * <pre>
      **
-     * Сохраняет категорийные фильтры.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет категорийные фильтры
      * </pre>
      */
     public void saveCategoryFilters(product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersRequest request,
@@ -685,8 +859,7 @@ public final class ProductHubBackGrpc {
     /**
      * <pre>
      **
-     * Сохраняет связки магазинов на ритейлеров.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет связки магазинов на ритейлеров
      * </pre>
      */
     public void saveRetailerStores(product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest request,
@@ -694,21 +867,72 @@ public final class ProductHubBackGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSaveRetailerStoresMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     **
+     * Сохраняет популярность
+     * </pre>
+     */
+    public void savePopularities(product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSavePopularitiesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Выключение офферов
+     * </pre>
+     */
+    public void disableOffers(product_hub_back.ProductHubBackOuterClass.DisableOffersRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.DisableOffersResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDisableOffersMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Связка store_id-&gt;retailer_id
+     * </pre>
+     */
+    public void saveStoreIDtoRetailerID(product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSaveStoreIDtoRetailerIDMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Сохранения групп скушек
+     * </pre>
+     */
+    public void saveGroups(product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSaveGroupsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub-back.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub-back.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub-back.sbmt.io:443
    * public stg grpc uri:
-   *    paas-content-product-hub.gw-stage-back.sbmt.io:443
-   * kuber prod grpc uri:
-   *    base-product-hub.paas-content-product-hub-back:3009
+   *    paas-content-product-hub-back.gw-stage-back.sbmt.io:443
    * description:
    *    Back сервис product-hub для импорта данных
    * </pre>
@@ -727,9 +951,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет описание продуктов.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет описание продуктов
      * </pre>
      */
     public product_hub_back.ProductHubBackOuterClass.SaveProductsResponse saveProducts(product_hub_back.ProductHubBackOuterClass.SaveProductsRequest request) {
@@ -739,9 +961,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет стоки.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет стоки
      * </pre>
      */
     public product_hub_back.ProductHubBackOuterClass.SaveStocksResponse saveStocks(product_hub_back.ProductHubBackOuterClass.SaveStocksRequest request) {
@@ -751,9 +971,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет товарные предложения.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет товарные предложения
      * </pre>
      */
     public product_hub_back.ProductHubBackOuterClass.SaveOffersResponse saveOffers(product_hub_back.ProductHubBackOuterClass.SaveOffersRequest request) {
@@ -763,9 +981,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет цены.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет цены
      * </pre>
      */
     public product_hub_back.ProductHubBackOuterClass.SavePricesResponse savePrices(product_hub_back.ProductHubBackOuterClass.SavePricesRequest request) {
@@ -775,9 +991,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет категории.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет категории
      * </pre>
      */
     public product_hub_back.ProductHubBackOuterClass.SaveCategoriesResponse saveCategories(product_hub_back.ProductHubBackOuterClass.SaveCategoriesRequest request) {
@@ -787,9 +1001,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет атрибуты.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет атрибуты
      * </pre>
      */
     public product_hub_back.ProductHubBackOuterClass.SaveAttributesResponse saveAttributes(product_hub_back.ProductHubBackOuterClass.SaveAttributesRequest request) {
@@ -799,9 +1011,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет словари и значения словарей.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет словари и значения словарей
      * </pre>
      */
     public product_hub_back.ProductHubBackOuterClass.SaveDictionariesResponse saveDictionaries(product_hub_back.ProductHubBackOuterClass.SaveDictionariesRequest request) {
@@ -812,8 +1022,7 @@ public final class ProductHubBackGrpc {
     /**
      * <pre>
      **
-     * Сохраняет категорийные фильтры.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет категорийные фильтры
      * </pre>
      */
     public product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersResponse saveCategoryFilters(product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersRequest request) {
@@ -824,29 +1033,75 @@ public final class ProductHubBackGrpc {
     /**
      * <pre>
      **
-     * Сохраняет связки магазинов на ритейлеров.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет связки магазинов на ритейлеров
      * </pre>
      */
     public product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse saveRetailerStores(product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSaveRetailerStoresMethod(), getCallOptions(), request);
     }
+
+    /**
+     * <pre>
+     **
+     * Сохраняет популярность
+     * </pre>
+     */
+    public product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse savePopularities(product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSavePopularitiesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     **
+     * Выключение офферов
+     * </pre>
+     */
+    public product_hub_back.ProductHubBackOuterClass.DisableOffersResponse disableOffers(product_hub_back.ProductHubBackOuterClass.DisableOffersRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDisableOffersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     **
+     * Связка store_id-&gt;retailer_id
+     * </pre>
+     */
+    public product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse saveStoreIDtoRetailerID(product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSaveStoreIDtoRetailerIDMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     **
+     * Сохранения групп скушек
+     * </pre>
+     */
+    public product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse saveGroups(product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSaveGroupsMethod(), getCallOptions(), request);
+    }
   }
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub-back.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub-back.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub-back.sbmt.io:443
    * public stg grpc uri:
-   *    paas-content-product-hub.gw-stage-back.sbmt.io:443
-   * kuber prod grpc uri:
-   *    base-product-hub.paas-content-product-hub-back:3009
+   *    paas-content-product-hub-back.gw-stage-back.sbmt.io:443
    * description:
    *    Back сервис product-hub для импорта данных
    * </pre>
@@ -865,9 +1120,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет описание продуктов.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет описание продуктов
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveProductsResponse> saveProducts(
@@ -878,9 +1131,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет стоки.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет стоки
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveStocksResponse> saveStocks(
@@ -891,9 +1142,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет товарные предложения.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет товарные предложения
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveOffersResponse> saveOffers(
@@ -904,9 +1153,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет цены.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет цены
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SavePricesResponse> savePrices(
@@ -917,9 +1164,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет категории.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет категории
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveCategoriesResponse> saveCategories(
@@ -930,9 +1175,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет атрибуты.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет атрибуты
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveAttributesResponse> saveAttributes(
@@ -943,9 +1186,7 @@ public final class ProductHubBackGrpc {
 
     /**
      * <pre>
-     **
-     * Сохраняет словари и значения словарей.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет словари и значения словарей
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveDictionariesResponse> saveDictionaries(
@@ -957,8 +1198,7 @@ public final class ProductHubBackGrpc {
     /**
      * <pre>
      **
-     * Сохраняет категорийные фильтры.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет категорийные фильтры
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersResponse> saveCategoryFilters(
@@ -970,14 +1210,61 @@ public final class ProductHubBackGrpc {
     /**
      * <pre>
      **
-     * Сохраняет связки магазинов на ритейлеров.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Сохраняет связки магазинов на ритейлеров
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse> saveRetailerStores(
         product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSaveRetailerStoresMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     **
+     * Сохраняет популярность
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse> savePopularities(
+        product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSavePopularitiesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     **
+     * Выключение офферов
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.DisableOffersResponse> disableOffers(
+        product_hub_back.ProductHubBackOuterClass.DisableOffersRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDisableOffersMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     **
+     * Связка store_id-&gt;retailer_id
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse> saveStoreIDtoRetailerID(
+        product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSaveStoreIDtoRetailerIDMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     **
+     * Сохранения групп скушек
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse> saveGroups(
+        product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSaveGroupsMethod(), getCallOptions()), request);
     }
   }
 
@@ -990,6 +1277,10 @@ public final class ProductHubBackGrpc {
   private static final int METHODID_SAVE_DICTIONARIES = 6;
   private static final int METHODID_SAVE_CATEGORY_FILTERS = 7;
   private static final int METHODID_SAVE_RETAILER_STORES = 8;
+  private static final int METHODID_SAVE_POPULARITIES = 9;
+  private static final int METHODID_DISABLE_OFFERS = 10;
+  private static final int METHODID_SAVE_STORE_IDTO_RETAILER_ID = 11;
+  private static final int METHODID_SAVE_GROUPS = 12;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1043,6 +1334,22 @@ public final class ProductHubBackGrpc {
         case METHODID_SAVE_RETAILER_STORES:
           serviceImpl.saveRetailerStores((product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse>) responseObserver);
+          break;
+        case METHODID_SAVE_POPULARITIES:
+          serviceImpl.savePopularities((product_hub_back.ProductHubBackOuterClass.SavePopularitiesRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SavePopularitiesResponse>) responseObserver);
+          break;
+        case METHODID_DISABLE_OFFERS:
+          serviceImpl.disableOffers((product_hub_back.ProductHubBackOuterClass.DisableOffersRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.DisableOffersResponse>) responseObserver);
+          break;
+        case METHODID_SAVE_STORE_IDTO_RETAILER_ID:
+          serviceImpl.saveStoreIDtoRetailerID((product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveStoreIDtoRetailerIDResponse>) responseObserver);
+          break;
+        case METHODID_SAVE_GROUPS:
+          serviceImpl.saveGroups((product_hub_back.ProductHubBackOuterClass.SaveGroupsRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveGroupsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1114,6 +1421,10 @@ public final class ProductHubBackGrpc {
               .addMethod(getSaveDictionariesMethod())
               .addMethod(getSaveCategoryFiltersMethod())
               .addMethod(getSaveRetailerStoresMethod())
+              .addMethod(getSavePopularitiesMethod())
+              .addMethod(getDisableOffersMethod())
+              .addMethod(getSaveStoreIDtoRetailerIDMethod())
+              .addMethod(getSaveGroupsMethod())
               .build();
         }
       }

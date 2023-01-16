@@ -1,4 +1,4 @@
-package ru.instamart.jdbc.entity.order_service;
+package ru.instamart.jdbc.entity.order_service.publicScheme;
 
 import lombok.Data;
 

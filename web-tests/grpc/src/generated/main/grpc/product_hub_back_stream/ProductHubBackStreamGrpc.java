@@ -7,14 +7,18 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  **
  * slack:
  *    #product-hub
- * swagger:
+ * base:
+ *     base-product-hub-back.paas-content-product-hub:3009
+ * local:
+ *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+ * swagger prod:
  *     https://paas-content-product-hub-back.sbmt.io/api
+ * swagger stg:
+ *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
  * public prod grpc uri:
  *    paas-content-product-hub-back.sbmt.io:443
  * public stg grpc uri:
  *    paas-content-product-hub-back.gw-stage.sbmt.io:443
- * kuber prod grpc uri:
- *    base-product-hub.paas-content-product-hub-back:3009
  * description:
  *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
  * </pre>
@@ -59,6 +63,99 @@ public final class ProductHubBackStreamGrpc {
       }
     }
     return getGetProductsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest,
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse> getGetOffersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetOffers",
+      requestType = product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest.class,
+      responseType = product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest,
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse> getGetOffersMethod() {
+    io.grpc.MethodDescriptor<product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest, product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse> getGetOffersMethod;
+    if ((getGetOffersMethod = ProductHubBackStreamGrpc.getGetOffersMethod) == null) {
+      synchronized (ProductHubBackStreamGrpc.class) {
+        if ((getGetOffersMethod = ProductHubBackStreamGrpc.getGetOffersMethod) == null) {
+          ProductHubBackStreamGrpc.getGetOffersMethod = getGetOffersMethod =
+              io.grpc.MethodDescriptor.<product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest, product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetOffers"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubBackStreamMethodDescriptorSupplier("GetOffers"))
+              .build();
+        }
+      }
+    }
+    return getGetOffersMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest,
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse> getGetPricesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetPrices",
+      requestType = product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest.class,
+      responseType = product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest,
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse> getGetPricesMethod() {
+    io.grpc.MethodDescriptor<product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest, product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse> getGetPricesMethod;
+    if ((getGetPricesMethod = ProductHubBackStreamGrpc.getGetPricesMethod) == null) {
+      synchronized (ProductHubBackStreamGrpc.class) {
+        if ((getGetPricesMethod = ProductHubBackStreamGrpc.getGetPricesMethod) == null) {
+          ProductHubBackStreamGrpc.getGetPricesMethod = getGetPricesMethod =
+              io.grpc.MethodDescriptor.<product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest, product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetPrices"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubBackStreamMethodDescriptorSupplier("GetPrices"))
+              .build();
+        }
+      }
+    }
+    return getGetPricesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest,
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse> getGetStocksMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetStocks",
+      requestType = product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest.class,
+      responseType = product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest,
+      product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse> getGetStocksMethod() {
+    io.grpc.MethodDescriptor<product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest, product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse> getGetStocksMethod;
+    if ((getGetStocksMethod = ProductHubBackStreamGrpc.getGetStocksMethod) == null) {
+      synchronized (ProductHubBackStreamGrpc.class) {
+        if ((getGetStocksMethod = ProductHubBackStreamGrpc.getGetStocksMethod) == null) {
+          ProductHubBackStreamGrpc.getGetStocksMethod = getGetStocksMethod =
+              io.grpc.MethodDescriptor.<product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest, product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetStocks"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubBackStreamMethodDescriptorSupplier("GetStocks"))
+              .build();
+        }
+      }
+    }
+    return getGetStocksMethod;
   }
 
   /**
@@ -110,14 +207,18 @@ public final class ProductHubBackStreamGrpc {
    **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub-back.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub-back.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub-back.sbmt.io:443
    * public stg grpc uri:
    *    paas-content-product-hub-back.gw-stage.sbmt.io:443
-   * kuber prod grpc uri:
-   *    base-product-hub.paas-content-product-hub-back:3009
    * description:
    *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
    * </pre>
@@ -128,9 +229,9 @@ public final class ProductHubBackStreamGrpc {
      * <pre>
      **
      * Возвращает описание товаров.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * Параметры запроса:
-     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из поледнего response до обрыва соединения.
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
      *    display_attributes - возможность запрашивать только конкретные атрибуты описания, например, картинки
      *      - фильтрация по key: {"keys":["brand", "image"]}
      *      - филььрация по flag: {"flags":["show_as_characteristic"]}
@@ -142,6 +243,47 @@ public final class ProductHubBackStreamGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductsMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     **
+     * Возвращает товарные предложения.
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+     * </pre>
+     */
+    public void getOffers(product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetOffersMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Возвращает цены.
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+     *    shard_number - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать shard_number. shard_number можно забрать из последнего response до обрыва соединения. Для скачивания всех цен, шард должен иметь дефолтное значение.
+     * </pre>
+     */
+    public void getPrices(product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetPricesMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Возвращает остатки.
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+     *    shard_number - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать shard_number. shard_number можно забрать из последнего response до обрыва соединения. Для скачивания всех цен, шард должен иметь дефолтное значение.
+     * </pre>
+     */
+    public void getStocks(product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetStocksMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -151,6 +293,27 @@ public final class ProductHubBackStreamGrpc {
                 product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest,
                 product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse>(
                   this, METHODID_GET_PRODUCTS)))
+          .addMethod(
+            getGetOffersMethod(),
+            io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+              new MethodHandlers<
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest,
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse>(
+                  this, METHODID_GET_OFFERS)))
+          .addMethod(
+            getGetPricesMethod(),
+            io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+              new MethodHandlers<
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest,
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse>(
+                  this, METHODID_GET_PRICES)))
+          .addMethod(
+            getGetStocksMethod(),
+            io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+              new MethodHandlers<
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest,
+                product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse>(
+                  this, METHODID_GET_STOCKS)))
           .build();
     }
   }
@@ -160,14 +323,18 @@ public final class ProductHubBackStreamGrpc {
    **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub-back.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub-back.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub-back.sbmt.io:443
    * public stg grpc uri:
    *    paas-content-product-hub-back.gw-stage.sbmt.io:443
-   * kuber prod grpc uri:
-   *    base-product-hub.paas-content-product-hub-back:3009
    * description:
    *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
    * </pre>
@@ -188,9 +355,9 @@ public final class ProductHubBackStreamGrpc {
      * <pre>
      **
      * Возвращает описание товаров.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * Параметры запроса:
-     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из поледнего response до обрыва соединения.
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
      *    display_attributes - возможность запрашивать только конкретные атрибуты описания, например, картинки
      *      - фильтрация по key: {"keys":["brand", "image"]}
      *      - филььрация по flag: {"flags":["show_as_characteristic"]}
@@ -202,6 +369,50 @@ public final class ProductHubBackStreamGrpc {
       io.grpc.stub.ClientCalls.asyncServerStreamingCall(
           getChannel().newCall(getGetProductsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     **
+     * Возвращает товарные предложения.
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+     * </pre>
+     */
+    public void getOffers(product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getGetOffersMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Возвращает цены.
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+     *    shard_number - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать shard_number. shard_number можно забрать из последнего response до обрыва соединения. Для скачивания всех цен, шард должен иметь дефолтное значение.
+     * </pre>
+     */
+    public void getPrices(product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getGetPricesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     **
+     * Возвращает остатки.
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+     *    shard_number - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать shard_number. shard_number можно забрать из последнего response до обрыва соединения. Для скачивания всех цен, шард должен иметь дефолтное значение.
+     * </pre>
+     */
+    public void getStocks(product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getGetStocksMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -209,14 +420,18 @@ public final class ProductHubBackStreamGrpc {
    **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub-back.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub-back.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub-back.sbmt.io:443
    * public stg grpc uri:
    *    paas-content-product-hub-back.gw-stage.sbmt.io:443
-   * kuber prod grpc uri:
-   *    base-product-hub.paas-content-product-hub-back:3009
    * description:
    *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
    * </pre>
@@ -237,9 +452,9 @@ public final class ProductHubBackStreamGrpc {
      * <pre>
      **
      * Возвращает описание товаров.
-     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
      * Параметры запроса:
-     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из поледнего response до обрыва соединения.
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
      *    display_attributes - возможность запрашивать только конкретные атрибуты описания, например, картинки
      *      - фильтрация по key: {"keys":["brand", "image"]}
      *      - филььрация по flag: {"flags":["show_as_characteristic"]}
@@ -251,6 +466,50 @@ public final class ProductHubBackStreamGrpc {
       return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
           getChannel(), getGetProductsMethod(), getCallOptions(), request);
     }
+
+    /**
+     * <pre>
+     **
+     * Возвращает товарные предложения.
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+     * </pre>
+     */
+    public java.util.Iterator<product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse> getOffers(
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getGetOffersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     **
+     * Возвращает цены.
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+     *    shard_number - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать shard_number. shard_number можно забрать из последнего response до обрыва соединения. Для скачивания всех цен, шард должен иметь дефолтное значение.
+     * </pre>
+     */
+    public java.util.Iterator<product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse> getPrices(
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getGetPricesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     **
+     * Возвращает остатки.
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+     *    shard_number - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать shard_number. shard_number можно забрать из последнего response до обрыва соединения. Для скачивания всех цен, шард должен иметь дефолтное значение.
+     * </pre>
+     */
+    public java.util.Iterator<product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse> getStocks(
+        product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getGetStocksMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -258,14 +517,18 @@ public final class ProductHubBackStreamGrpc {
    **
    * slack:
    *    #product-hub
-   * swagger:
+   * base:
+   *     base-product-hub-back.paas-content-product-hub:3009
+   * local:
+   *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+   * swagger prod:
    *     https://paas-content-product-hub-back.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-product-hub-back.sbmt.io:443
    * public stg grpc uri:
    *    paas-content-product-hub-back.gw-stage.sbmt.io:443
-   * kuber prod grpc uri:
-   *    base-product-hub.paas-content-product-hub-back:3009
    * description:
    *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
    * </pre>
@@ -284,6 +547,9 @@ public final class ProductHubBackStreamGrpc {
   }
 
   private static final int METHODID_GET_PRODUCTS = 0;
+  private static final int METHODID_GET_OFFERS = 1;
+  private static final int METHODID_GET_PRICES = 2;
+  private static final int METHODID_GET_STOCKS = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -305,6 +571,18 @@ public final class ProductHubBackStreamGrpc {
         case METHODID_GET_PRODUCTS:
           serviceImpl.getProducts((product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse>) responseObserver);
+          break;
+        case METHODID_GET_OFFERS:
+          serviceImpl.getOffers((product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetOffersResponse>) responseObserver);
+          break;
+        case METHODID_GET_PRICES:
+          serviceImpl.getPrices((product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetPricesResponse>) responseObserver);
+          break;
+        case METHODID_GET_STOCKS:
+          serviceImpl.getStocks((product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetStocksResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -368,6 +646,9 @@ public final class ProductHubBackStreamGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new ProductHubBackStreamFileDescriptorSupplier())
               .addMethod(getGetProductsMethod())
+              .addMethod(getGetOffersMethod())
+              .addMethod(getGetPricesMethod())
+              .addMethod(getGetStocksMethod())
               .build();
         }
       }

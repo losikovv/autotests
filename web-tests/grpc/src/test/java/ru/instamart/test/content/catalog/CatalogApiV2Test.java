@@ -153,7 +153,7 @@ public class CatalogApiV2Test extends GrpcBase {
                 .setTid(tid)
                 .setPage(1)
                 .setPage(24)
-                .setSort(Catalog.Sort.POPULARITY.name())
+                .addSort(Catalog.Sort.POPULARITY.name())
                 .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
@@ -171,7 +171,7 @@ public class CatalogApiV2Test extends GrpcBase {
                 .setTid(tid)
                 .setPage(1)
                 .setPerPage(24)
-                .setSort(Catalog.Sort.POPULARITY.name())
+                .addSort(Catalog.Sort.POPULARITY.name())
                 .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
@@ -195,7 +195,7 @@ public class CatalogApiV2Test extends GrpcBase {
                 .setTid(tid)
                 .setPage(1)
                 .setPage(24)
-                .setSort(Catalog.Sort.POPULARITY.name())
+                .addSort(Catalog.Sort.POPULARITY.name())
                 .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
@@ -215,7 +215,7 @@ public class CatalogApiV2Test extends GrpcBase {
                 .setTid("")
                 .setPage(1)
                 .setPage(24)
-                .setSort(Catalog.Sort.POPULARITY.name())
+                .addSort(Catalog.Sort.POPULARITY.name())
                 .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
@@ -234,7 +234,7 @@ public class CatalogApiV2Test extends GrpcBase {
                 .setSid(String.valueOf(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID))
                 .setPage(1)
                 .setPage(24)
-                .setSort(Catalog.Sort.POPULARITY.name())
+                .addSort(Catalog.Sort.POPULARITY.name())
                 .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
@@ -252,7 +252,7 @@ public class CatalogApiV2Test extends GrpcBase {
                 .setTid(tid)
                 .setPage(1)
                 .setPerPage(24)
-                .setSort(Catalog.Sort.POPULARITY.name())
+                .addSort(Catalog.Sort.POPULARITY.name())
                 .setTenantId("")
                 .build();
 
@@ -274,7 +274,7 @@ public class CatalogApiV2Test extends GrpcBase {
                 .setTid(tid)
                 .setPage(1)
                 .setPerPage(24)
-                .setSort(Catalog.Sort.POPULARITY.name())
+                .addSort(Catalog.Sort.POPULARITY.name())
                 .build();
 
         var response = client.getProductList(request);

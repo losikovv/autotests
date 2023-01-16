@@ -1,7 +1,7 @@
-package ru.instamart.jdbc.dao.orders_service;
+package ru.instamart.jdbc.dao.orders_service.publicScheme;
 
 import ru.instamart.jdbc.dao.Dao;
-import ru.instamart.jdbc.entity.order_service.OrdersEntity;
+import ru.instamart.jdbc.entity.order_service.publicScheme.OrdersEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 

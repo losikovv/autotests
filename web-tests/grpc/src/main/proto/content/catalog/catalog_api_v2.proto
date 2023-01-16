@@ -1,11 +1,14 @@
 syntax = "proto3";
 
-package catalog_api_v2;
+//https://gitlab.sbmt.io/paas/content/catalog/-/blob/master/api/grpc/catalog_api_v2.proto
 
+package catalog_api_v2;
+option go_package = "gitlab.sbmt.io/paas/content/catalog/pkg/server/grpc/catalog_api_v2";
 import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/any.proto";
 
-option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc/catalog";
+
 
 /*
  * slack:
@@ -61,6 +64,58 @@ service CatalogAPIV2Service {
 			get: "/api/v2/products"
 		};
 	}
+
+	/*
+	 * Возвращает листинг товаров
+	 *
+	 * Если q (строка запроса) не пустой - то по поисковому запросу
+	 * Eсли tid (идентификатор категории-mysql.taxon) не пустой - то по каталогу
+	 *
+	 * Обязательные параметры:
+	 *    sid - идентификатор магазина
+	 *
+	 *
+	 * Примеры:
+   	 *    Вернуть листинг товаров:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products/search?sid=63&tid=43492
+	 */
+	rpc GetProductListBySearchQuery(GetProductListBySearchQueryRequest) returns (GetProductListBySearchQueryResponse){
+		option (google.api.http) = {
+			get: "/api/v2/products/search",
+		};
+	}
+
+	/*
+	 * Получить offer_id по retailer_sku
+	 *
+	 * Обязательные параметры:
+	 *   retailer_sku - ску товара у ретейлера
+	 *   sid - идентификатор магазина
+	 *
+	 *  https://paas-content-catalog.sbmt.io/api/v2/products/{retailer_sku}/offer_id?sid={store_id}
+	 *  https://paas-content-catalog.sbmt.io/api/v2/products/638611/offer_id?sid=1
+	 */
+	rpc GetProductOfferIDByRetailerSku(GetProductOfferIDByRetailerSkuRequest) returns (GetProductOfferIDByRetailerSkuResponse){
+		option (google.api.http) = {
+			get: "/api/v2/products/{retailer_sku}/offer_id",
+		};
+	}
+
+	/*
+	 * Возвращает листинг товаров с баннерами
+	 *
+	 * Обязательные параметры:
+	 *    sid - идентификатор магазина
+	 *	  tid - идентификатор категории (mysql.taxon)
+	 *    placement_id - рекламное место, проксируется в сервис баннеров
+	 *    site_id - ид сайта, проксируется в сервис баннеров
+	 */
+	rpc Entities(EntitiesRequest) returns (EntitiesResponse)
+	{
+		option (google.api.http) = {
+			get: "/api/v2/entities"
+		};
+	}
 }
 
 /*
@@ -69,6 +124,7 @@ service CatalogAPIV2Service {
 message GetProductRequest {
 	string product_id = 1 [json_name = "product_id"]; // идентификатор офера, в монолите табилчка offers
 	string tenant_id = 2 [json_name = "tenant_id"]; // идентификатор площадки
+	map<string, string> selected = 3 [json_name = "selected"]; // идентификаторы sku выбранных элементов
 }
 
 /*
@@ -90,10 +146,35 @@ message GetProductListRequest {
 	int64 per_page = 5 [json_name = "per_page"]; // кол-во элементов на странице
 	repeated string filter_keys = 6; // системное поле
 	repeated string filter_values = 7; // системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
-	string sort = 8; // сортировка
+	repeated string sort = 8 [json_name = "sort"]; // сортировка, принимает на вход масссив из одного элемента
 	string tenant_id = 9 [json_name = "tenant_id"]; // идентификатор площадки
 	string anonymous_id = 10; // идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
 	string uuid = 11; // идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
+	string sorting_one = 12 [json_name = "sorting_one"]; // сортировка
+}
+
+/*
+ * GetProductListByQueryRequest - запрос листинга товаров
+ */
+message GetProductListBySearchQueryRequest {
+	string sid = 1; // идентификатор магазина
+	string tid = 2; // идентификатор монолитовской категории (mysql.taxons)
+	string q = 3; // поисковый запрос
+	int64 page = 4; // порядковый номер страницы
+	int64 per_page = 5 [json_name = "per_page"]; // кол-во элементов на странице
+	repeated string filter_keys = 6; // системное поле
+	repeated string filter_values = 7; // системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
+	repeated string sort = 8 [json_name = "sort"]; // сортировка
+	string tenant_id = 9 [json_name = "tenant_id"]; // идентификатор площадки
+	string anonymous_id = 10; // идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+	string uuid = 11; // идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
+	map<string, bool> private_filters = 12 [json_name = "private_filters"];
+	map<string, bool> features = 13; // список фич поискового движка
+}
+
+message PrivateFilters {
+	google.protobuf.BoolValue in_stock = 1 [json_name = "in_stock"];
+	google.protobuf.BoolValue with_similar = 2 [json_name = "with_similar"];
 }
 
 /*
@@ -109,6 +190,25 @@ message GetProductListResponse{
 }
 
 /*
+ * GetProductListByQueryResponse - Ответ поискового запроса по листингу товаров
+ */
+message GetProductListBySearchQueryResponse{
+	repeated Product products = 1; // продукты
+	repeated Facet facets = 2; // фильтры
+	Meta meta = 3; // мета информация о стрницах
+	repeated ProductListSort sort = 4; // возможная сортировка
+	repeated PromoBadge promo_badges = 5 [json_name = "promo_badges"]; // бейджи
+	RootCategories root_categories = 6 [json_name = "root_categories"]; // корневые категории
+	map<string, bool> private_filters = 7 [json_name = "private_filters"];
+	repeated SearchFeature applied_features = 8 [json_name = "applied_features"]; // примененные фичи поискового движка
+}
+
+message SearchFeature {
+	string name = 1;
+	map<string, string> context = 2;
+}
+
+/*
  * Product - продукт
  */
 message Product {
@@ -121,26 +221,26 @@ message Product {
 	/**
 	 * Цена продукта
 	 *  - варинат из ph: ph.price.price
-	 *  - вариант из mysql: prices.price 
+	 *  - вариант из mysql: prices.price
 	 */
 	double price = 6;
 
 	/**
 	 * Оригинальная цена продукта (без скидок)
 	 *  - варинат из ph: ph.price.price + ph.price.discount
-	 *  - вариант из mysql: prices.price + prices.discount 
+	 *  - вариант из mysql: prices.price + prices.discount
 	 */
 	double original_price = 7 [json_name = "original_price"];
 
 	/**
 	 * Скидка товара
 	 *  - варинат из ph: ph.price.discount
-	 *  - вариант из mysql: prices.discount 
+	 *  - вариант из mysql: prices.discount
 	 */
 	double discount = 8;
 
 	/**
-	 * Вес упаковки и количество в человеко читаемом формате  
+	 * Вес упаковки и количество в человеко читаемом формате
 	 * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
 	 */
 	google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];
@@ -152,7 +252,7 @@ message Product {
 	/**
 	 * Тип цены товарного предложения
 	 *  - варинат из ph: offer.pricer
-	 *  - вариант из mysql: offer.pricer 
+	 *  - вариант из mysql: offer.pricer
 	 */
 	google.protobuf.StringValue price_type = 14 [json_name = "price_type"];
 
@@ -193,11 +293,14 @@ message Product {
 	ScoreDetail score_details = 20 [json_name = "score_details"];
 	repeated string labels = 21; // лейблы товара
 	repeated Image images = 22; // картинки
-	repeated string requirements = 23; // не используется
+	repeated Requirements requirements = 23;
+	bool with_options = 24 [json_name = "with_options"];
+	google.protobuf.FloatValue max_per_order = 25 [json_name = "max_per_order"];
+	double stock = 26 [json_name = "stock"];
 }
 
 /*
- * Картинки, приходят в формате url 
+ * Картинки, приходят в формате url
  *
  * ph.attr[main_image]
  * ph.attr[image]
@@ -235,7 +338,7 @@ enum FacetType {
 message FacetOption {
 	string name = 1; // название значения
 	double value = 2; // идентификатор значения
-	double count = 3; // кол-во продуктов 
+	double count = 3; // кол-во продуктов
 	google.protobuf.StringValue permalink = 4; // пермалинк значения
 	bool active = 5; // участвует ли значения в фильтрации
 }
@@ -254,7 +357,7 @@ message Meta {
 
 message RootCategories {
 	message Option {
-		string key = 1;
+		string name = 1;
 		string permalink = 2;
 		double value = 3;
 		double count = 4;
@@ -290,26 +393,26 @@ message ProductWithProperties {
 	/**
  	* Цена продукта
  	*  - варинат из ph: ph.price.price
- 	*  - вариант из mysql: prices.price 
+ 	*  - вариант из mysql: prices.price
  	*/
 	double price = 6;
 
 	/**
 	 * Оригинальная цена продукта (без скидок)
 	 *  - варинат из ph: ph.price.price + ph.price.discount
-	 *  - вариант из mysql: prices.price + prices.discount 
+	 *  - вариант из mysql: prices.price + prices.discount
 	 */
 	double original_price = 7 [json_name = "original_price"];
 
 	/**
 	 * Скидка товара
 	 *  - варинат из ph: ph.price.discount
-	 *  - вариант из mysql: prices.discount 
+	 *  - вариант из mysql: prices.discount
 	 */
 	double discount = 8;
 
 	/**
-	* Вес упаковки и количество в человеко читаемом формате  
+	* Вес упаковки и количество в человеко читаемом формате
 	* ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
 	*/
 	string human_volume = 9 [json_name = "human_volume"];
@@ -321,7 +424,7 @@ message ProductWithProperties {
 	/**
 	 * Тип цены товарного предложения
 	 *  - варинат из ph: offer.pricer
-	 *  - вариант из mysql: offer.pricer 
+	 *  - вариант из mysql: offer.pricer
 	 */
 	string price_type = 14 [json_name = "price_type"];
 
@@ -366,9 +469,15 @@ message ProductWithProperties {
 	}
 
 	ScoreDetail score_details = 24 [json_name = "score_details"];
-	repeated string requirements = 25; // не используется
+	repeated Requirements requirements = 25;
 	repeated string related_products = 26 [json_name = "related_products"]; // не используется
 	MainTaxon main_taxon = 27 [json_name = "main_taxon"]; // таксон
+
+	repeated Group options = 28 [json_name = "options"];
+	Brand brand = 29;
+	int64 store_id = 30 [json_name = "store_id"];
+	google.protobuf.FloatValue max_per_order = 31 [json_name = "max_per_order"];
+	double stock = 32 [json_name = "stock"];
 }
 
 /*
@@ -418,6 +527,8 @@ message Active {
 	string button_text = 5 [json_name = "button_text"];
 	string header = 6;
 	string text = 7;
+	string image_url = 8 [json_name = "image_url"]; // ссылка на картинку бейджа
+	bool position_top = 9 [json_name = "position_top"]; // опция вывода бейджа в верхней части товара
 }
 
 /*
@@ -430,6 +541,8 @@ message Inactive {
 	string button_text = 5 [json_name = "button_text"];
 	string header = 6;
 	string text = 7;
+	string image_url = 8 [json_name = "image_url"]; // ссылка на картинку бейджа
+	bool position_top = 9 [json_name = "position_top"]; // опция вывода бейджа в верхней части товара
 }
 
 /*
@@ -446,7 +559,12 @@ message MainTaxon {
 	google.protobuf.StringValue description = 8 [json_name = "description"];
 	Icon icon = 9;
 	google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];
-	repeated string requirements = 11;
+	repeated Requirements requirements = 11;
+}
+
+message Requirements {
+	string type = 1;
+	string title = 2;
 }
 
 /*
@@ -455,4 +573,186 @@ message MainTaxon {
 message Icon {
 	string  mini_url = 1 [json_name = "mini_url"];
 	string  normal_url = 2 [json_name = "normal_url"];
+}
+
+message EntitiesRequest {
+	// идентификатор магазина
+	string sid = 1;
+	// идентификатор монолитовской категории (mysql.taxons)
+	string tid = 2;
+	// offset по продуктам
+	int64 products_offset = 3[json_name = "products_offset"];
+	// кол-во элементов на странице
+	int64 limit = 4 ;
+	repeated string filter_keys = 5; // системное поле
+	repeated string filter_values = 6; // системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
+	repeated string sort = 7 [json_name = "sort"]; // сортировка, принимает на вход масссив из одного элемента
+	string tenant_id = 8 [json_name = "tenant_id"]; // идентификатор площадки
+	string anonymous_id = 9 [json_name = "anonymous_id"]; // идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+	string uuid = 10; // идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
+	string sorting_one = 11 [json_name = "sorting_one"]; // сортировка
+	string site_id = 12 [json_name = "site_id"];
+	string placement_id = 13 [json_name = "placement_id"];
+	string ip = 14;
+	string didsha1 = 15;
+	string didmd5 = 16;
+	string ifa = 17;
+	string user_agent = 18 [json_name = "user_agent"]; // При хттп запросе этот параметр должен передаваться как header
+	string cookie = 19; // При хттп запросе этот параметр должен передаваться как header
+	string q = 20; // не используется, добавлен для совместимости с апи монолита
+}
+
+message EntityMeta {
+	double products_offset = 1[json_name = "products_offset"]; // offset для следующего запроса
+	double limit = 2; // кол-во товаров на странице
+	double products_total_count = 3 [json_name = "products_total_count"]; // кол-во товаров всего
+}
+
+message EntitiesResponse {
+	// BannerEntity | ProductEntity
+	repeated google.protobuf.Any entities = 1;
+	repeated Facet facets = 2; // фильтры
+	EntityMeta meta = 3; // мета информация о стрницах
+	repeated ProductListSort sort = 4; // возможная сортировка
+	repeated PromoBadge promo_badges = 5 [json_name = "promo_badges"]; // бейджи
+	RootCategories root_categories = 6 [json_name = "root_categories"]; // корневые категории
+}
+
+message BannerEntity {
+	string type = 1;
+	int64 id = 2;
+	string creativeFormat = 3;
+	string sourceImageURL = 4;
+	string clickURL = 5;
+	string clickURLType = 6;
+	repeated string trackClickURLs = 7;
+	repeated string trackImpURLs = 8;
+	string backgroundColor = 9;
+	string fontColor = 10;
+	string titleText = 11;
+	string bodyText = 12;
+	string promotionDescription = 13;
+	string promotionTermsUrl = 14;
+	string promotionCode = 15;
+	string size = 16;
+	string impId = 17;
+}
+
+message ProductEntity {
+	string type = 1;
+	double id = 2; // идентификатор офера, в монолите табилчка offers
+	google.protobuf.Int64Value sku = 3; // идентификатор описания
+	bool active = 4; // активность продукта
+	google.protobuf.StringValue retailer_sku = 5 [json_name = "retailer_sku"]; // идентификатор товарного предложения ритейлера
+	google.protobuf.StringValue name = 6; // название продукта
+
+	/**
+	 * Цена продукта
+	 *  - варинат из ph: ph.price.price
+	 *  - вариант из mysql: prices.price
+	 */
+	double price = 7;
+
+	/**
+	 * Оригинальная цена продукта (без скидок)
+	 *  - варинат из ph: ph.price.price + ph.price.discount
+	 *  - вариант из mysql: prices.price + prices.discount
+	 */
+	double original_price = 8 [json_name = "original_price"];
+
+	/**
+	 * Скидка товара
+	 *  - варинат из ph: ph.price.discount
+	 *  - вариант из mysql: prices.discount
+	 */
+	double discount = 9;
+
+	/**
+	 * Вес упаковки и количество в человеко читаемом формате
+	 * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+	 */
+	google.protobuf.StringValue human_volume = 10 [json_name = "human_volume"];
+	double volume = 11; // объем неделимой единицы продажи ph.attr[volume]
+	google.protobuf.StringValue volume_type = 12 [json_name = "volume_type"]; // единица измерения объема ph.attr[volume_type], например kg = килограммы
+	double items_per_pack = 13 [json_name = "items_per_pack"]; // кол-во шт в упаковке ph.attr[quantity_at_box]
+	google.protobuf.StringValue discount_ends_at = 14 [json_name = "discount_ends_at"]; // конечная дата действия скидки
+
+	/**
+	 * Тип цены товарного предложения
+	 *  - варинат из ph: offer.pricer
+	 *  - вариант из mysql: offer.pricer
+	 */
+	google.protobuf.StringValue price_type = 15 [json_name = "price_type"];
+
+
+	/**
+	 * Общий вес товара
+	 * ph.attr[weight_net] * ph.attr[quantity_at_box]
+	 */
+	double grams_per_unit = 16 [json_name = "grams_per_unit"];
+
+	/**
+	 * Цена за 1 единицу
+	 * ph.attr[offer_price]
+	 */
+	double unit_price = 17 [json_name = "unit_price"];
+
+	/**
+	 * Оригинальная цена за 1 единицу (без скидок)
+	 *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+	 *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+	 *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+	 *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+	 *  -------
+	 *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+	 *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+	 *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+	 *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+	 */
+	double original_unit_price = 18 [json_name = "original_unit_price"];
+	repeated double promo_badge_ids = 19 [json_name = "promo_badge_ids"]; // идентификаторы бейджей
+	google.protobuf.FloatValue score = 20; // рейтинг товара
+	/*
+ 	 * ScoreDetail - рейтинг товара
+	 */
+	message ScoreDetail {
+		google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"]; // кол-во комментариев
+	}
+	ScoreDetail score_details = 21 [json_name = "score_details"];
+	repeated string labels = 22; // лейблы товара
+	repeated Image images = 23; // картинки
+	repeated Requirements requirements = 24;
+	bool with_options = 25 [json_name = "with_options"];
+	google.protobuf.FloatValue max_per_order = 26 [json_name = "max_per_order"];
+}
+
+message Group {
+	int64 id = 1 [json_name = "id"];
+	int32 min_items = 2 [json_name = "min_items"];
+	int32 max_items = 3 [json_name = "max_items"];
+	string title = 4 [json_name = "title"];
+	repeated GroupItem items = 5 [json_name = "items"];
+
+}
+
+message GroupItem {
+	string name = 1 [json_name = "name"];
+	Image image = 2 [json_name = "image"];
+	int64 sku = 3 [json_name = "sku"];
+	bool selected = 4 [json_name = "selected"];
+	double price = 5 [json_name = "price"];
+}
+
+message GetProductOfferIDByRetailerSkuRequest {
+	string retailer_sku = 1 [json_name = "retailer_sku"]; // идентификатор товарного предложения ритейлера
+	string sid = 2 [json_name = "sid"]; // идентификатор магазина
+}
+
+message GetProductOfferIDByRetailerSkuResponse {
+	double offer_id = 1 [json_name = "offer_id"];
+}
+
+message Brand {
+	double id = 1;
+	string name = 2;
 }

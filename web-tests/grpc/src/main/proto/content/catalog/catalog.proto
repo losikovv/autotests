@@ -1,12 +1,29 @@
 syntax = "proto3";
 
-package catalog;
+//https://gitlab.sbmt.io/paas/content/catalog/-/blob/master/api/grpc/catalog.proto
 
-option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc/catalog";
+package catalog;
+option go_package = "gitlab.sbmt.io/paas/content/catalog/pkg/server/grpc/catalog";
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+
+
 
 service CatalogService {
-    rpc GetProducts(GetProductsRequest) returns (GetProductsResponse);
-    rpc FlushCategoryFacetsCache(Empty) returns (Empty);
+    rpc GetProducts(GetProductsRequest) returns (GetProductsResponse)
+    {
+        option (google.api.http) = {
+            post: "/api/catalog.CatalogService/GetProducts"
+            body: "*"
+        };
+    }
+    rpc FlushCategoryFacetsCache(Empty) returns (Empty)
+    {
+        option (google.api.http) = {
+            post: "/api/catalog.CatalogService/FlushCategoryFacetsCache"
+            body: "*"
+        };
+    }
 }
 
 message GetProductsRequest {
@@ -19,7 +36,8 @@ message GetProductsRequest {
     int64 offset = 7;
     bool available = 8;
     Sort sort = 9;
-    repeated string except_attribute_keys = 10;
+    repeated string except_attribute_keys = 10 [deprecated = true];
+    repeated AttributeFilter except_attributes = 11;
 }
 
 message GetProductsResponse{
@@ -29,10 +47,10 @@ message GetProductsResponse{
 }
 
 enum Sort {
-	POPULARITY = 0;
-	PRICE_ASC = 1;
-	PRICE_DESC = 2;
-	WEIGHT_PRICE = 3;
+    POPULARITY = 0;
+    PRICE_ASC = 1;
+    PRICE_DESC = 2;
+    WEIGHT_PRICE = 3;
 }
 
 message AttributeFilter {
@@ -81,10 +99,10 @@ enum ValueType {
 }
 
 enum Pricer {
-  PER_ITEM = 0;  // за штуку
-  PER_ITEMS_PACKAGE = 1;  // за упаковку
-  PER_WEIGHT_PACKAGE = 2;  // весовой фасованный
-  PER_WEIGHT = 3;  // весовой, не фасованный
+    PER_ITEM = 0;  // за штуку
+    PER_ITEMS_PACKAGE = 1;  // за упаковку
+    PER_WEIGHT_PACKAGE = 2;  // весовой фасованный
+    PER_WEIGHT = 3;  // весовой, не фасованный
 }
 
 message Data {

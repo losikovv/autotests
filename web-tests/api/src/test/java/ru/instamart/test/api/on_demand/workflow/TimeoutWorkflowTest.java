@@ -14,10 +14,12 @@ import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.jdbc.dao.workflow.AssignmentsDao;
 import ru.instamart.jdbc.dao.workflow.SegmentsDao;
 import ru.instamart.jdbc.dao.workflow.WorkflowsDao;
+import ru.instamart.jdbc.entity.order_service.publicScheme.JobsEntity;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
 import ru.instamart.jdbc.entity.workflow.WorkflowsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -50,6 +52,9 @@ public class TimeoutWorkflowTest extends RestBase {
     private OrderV2 secondOrder;
     private String shipmentUuid;
     private String secondShipmentUuid;
+    private List<JobsEntity> firstJobUuid;
+    private List<JobsEntity> secondJobUuid;
+    private Integer shiftId;
 
 
     @BeforeClass(alwaysRun = true)
@@ -62,6 +67,13 @@ public class TimeoutWorkflowTest extends RestBase {
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
         shopperApp.authorisation(UserManager.getShp6Universal4());
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        shiftId = shiftsApi.startOfShift(StartPointsTenants.METRO_9);
+
+        firstJobUuid = awaitJobUuid(shipmentUuid, 300L);
+        secondJobUuid = awaitJobUuid(secondShipmentUuid, 300L);
+        ThreadUtil.simplyAwait(240);
     }
 
     @Skip //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
@@ -87,7 +99,7 @@ public class TimeoutWorkflowTest extends RestBase {
     public void checkChildWorkflowStatusAfterTimeout() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
 
-        var childRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid);
+        var childRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid, firstJobUuid, secondJobUuid, shiftId);
         var childResponse = clientWorkflow.createWorkflows(childRequest);
         String childWorkflowUuid = childResponse.getResultsMap().keySet().toArray()[0].toString();
 
@@ -111,7 +123,7 @@ public class TimeoutWorkflowTest extends RestBase {
         cancelWorkflow(clientWorkflow, shipmentUuid);
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
 
-        var childRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid);
+        var childRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid, firstJobUuid, secondJobUuid, shiftId);
         var childResponse = clientWorkflow.createWorkflows(childRequest);
         String childWorkflowUuid = childResponse.getResultsMap().keySet().toArray()[0].toString();
 

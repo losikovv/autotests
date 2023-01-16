@@ -92,6 +92,99 @@ public final class CatalogAPIV2ServiceGrpc {
     return getGetProductListMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest,
+      catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse> getGetProductListBySearchQueryMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetProductListBySearchQuery",
+      requestType = catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest.class,
+      responseType = catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest,
+      catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse> getGetProductListBySearchQueryMethod() {
+    io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest, catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse> getGetProductListBySearchQueryMethod;
+    if ((getGetProductListBySearchQueryMethod = CatalogAPIV2ServiceGrpc.getGetProductListBySearchQueryMethod) == null) {
+      synchronized (CatalogAPIV2ServiceGrpc.class) {
+        if ((getGetProductListBySearchQueryMethod = CatalogAPIV2ServiceGrpc.getGetProductListBySearchQueryMethod) == null) {
+          CatalogAPIV2ServiceGrpc.getGetProductListBySearchQueryMethod = getGetProductListBySearchQueryMethod =
+              io.grpc.MethodDescriptor.<catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest, catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductListBySearchQuery"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CatalogAPIV2ServiceMethodDescriptorSupplier("GetProductListBySearchQuery"))
+              .build();
+        }
+      }
+    }
+    return getGetProductListBySearchQueryMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest,
+      catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse> getGetProductOfferIDByRetailerSkuMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetProductOfferIDByRetailerSku",
+      requestType = catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest.class,
+      responseType = catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest,
+      catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse> getGetProductOfferIDByRetailerSkuMethod() {
+    io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest, catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse> getGetProductOfferIDByRetailerSkuMethod;
+    if ((getGetProductOfferIDByRetailerSkuMethod = CatalogAPIV2ServiceGrpc.getGetProductOfferIDByRetailerSkuMethod) == null) {
+      synchronized (CatalogAPIV2ServiceGrpc.class) {
+        if ((getGetProductOfferIDByRetailerSkuMethod = CatalogAPIV2ServiceGrpc.getGetProductOfferIDByRetailerSkuMethod) == null) {
+          CatalogAPIV2ServiceGrpc.getGetProductOfferIDByRetailerSkuMethod = getGetProductOfferIDByRetailerSkuMethod =
+              io.grpc.MethodDescriptor.<catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest, catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductOfferIDByRetailerSku"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CatalogAPIV2ServiceMethodDescriptorSupplier("GetProductOfferIDByRetailerSku"))
+              .build();
+        }
+      }
+    }
+    return getGetProductOfferIDByRetailerSkuMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.EntitiesRequest,
+      catalog_api_v2.CatalogApiV2.EntitiesResponse> getEntitiesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Entities",
+      requestType = catalog_api_v2.CatalogApiV2.EntitiesRequest.class,
+      responseType = catalog_api_v2.CatalogApiV2.EntitiesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.EntitiesRequest,
+      catalog_api_v2.CatalogApiV2.EntitiesResponse> getEntitiesMethod() {
+    io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.EntitiesRequest, catalog_api_v2.CatalogApiV2.EntitiesResponse> getEntitiesMethod;
+    if ((getEntitiesMethod = CatalogAPIV2ServiceGrpc.getEntitiesMethod) == null) {
+      synchronized (CatalogAPIV2ServiceGrpc.class) {
+        if ((getEntitiesMethod = CatalogAPIV2ServiceGrpc.getEntitiesMethod) == null) {
+          CatalogAPIV2ServiceGrpc.getEntitiesMethod = getEntitiesMethod =
+              io.grpc.MethodDescriptor.<catalog_api_v2.CatalogApiV2.EntitiesRequest, catalog_api_v2.CatalogApiV2.EntitiesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Entities"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v2.CatalogApiV2.EntitiesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v2.CatalogApiV2.EntitiesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CatalogAPIV2ServiceMethodDescriptorSupplier("Entities"))
+              .build();
+        }
+      }
+    }
+    return getEntitiesMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -186,6 +279,53 @@ public final class CatalogAPIV2ServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductListMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * Возвращает листинг товаров
+     * Если q (строка запроса) не пустой - то по поисковому запросу
+     * Eсли tid (идентификатор категории-mysql.taxon) не пустой - то по каталогу
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     * Примеры:
+     *    Вернуть листинг товаров:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products/search?sid=63&amp;tid=43492
+     * </pre>
+     */
+    public void getProductListBySearchQuery(catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductListBySearchQueryMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Получить offer_id по retailer_sku
+     * Обязательные параметры:
+     *   retailer_sku - ску товара у ретейлера
+     *   sid - идентификатор магазина
+     *  https://paas-content-catalog.sbmt.io/api/v2/products/{retailer_sku}/offer_id?sid={store_id}
+     *  https://paas-content-catalog.sbmt.io/api/v2/products/638611/offer_id?sid=1
+     * </pre>
+     */
+    public void getProductOfferIDByRetailerSku(catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductOfferIDByRetailerSkuMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров с баннерами
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     *	  tid - идентификатор категории (mysql.taxon)
+     *    placement_id - рекламное место, проксируется в сервис баннеров
+     *    site_id - ид сайта, проксируется в сервис баннеров
+     * </pre>
+     */
+    public void entities(catalog_api_v2.CatalogApiV2.EntitiesRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.EntitiesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getEntitiesMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -202,6 +342,27 @@ public final class CatalogAPIV2ServiceGrpc {
                 catalog_api_v2.CatalogApiV2.GetProductListRequest,
                 catalog_api_v2.CatalogApiV2.GetProductListResponse>(
                   this, METHODID_GET_PRODUCT_LIST)))
+          .addMethod(
+            getGetProductListBySearchQueryMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest,
+                catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse>(
+                  this, METHODID_GET_PRODUCT_LIST_BY_SEARCH_QUERY)))
+          .addMethod(
+            getGetProductOfferIDByRetailerSkuMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest,
+                catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse>(
+                  this, METHODID_GET_PRODUCT_OFFER_IDBY_RETAILER_SKU)))
+          .addMethod(
+            getEntitiesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                catalog_api_v2.CatalogApiV2.EntitiesRequest,
+                catalog_api_v2.CatalogApiV2.EntitiesResponse>(
+                  this, METHODID_ENTITIES)))
           .build();
     }
   }
@@ -267,6 +428,56 @@ public final class CatalogAPIV2ServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetProductListMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров
+     * Если q (строка запроса) не пустой - то по поисковому запросу
+     * Eсли tid (идентификатор категории-mysql.taxon) не пустой - то по каталогу
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     * Примеры:
+     *    Вернуть листинг товаров:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products/search?sid=63&amp;tid=43492
+     * </pre>
+     */
+    public void getProductListBySearchQuery(catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetProductListBySearchQueryMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Получить offer_id по retailer_sku
+     * Обязательные параметры:
+     *   retailer_sku - ску товара у ретейлера
+     *   sid - идентификатор магазина
+     *  https://paas-content-catalog.sbmt.io/api/v2/products/{retailer_sku}/offer_id?sid={store_id}
+     *  https://paas-content-catalog.sbmt.io/api/v2/products/638611/offer_id?sid=1
+     * </pre>
+     */
+    public void getProductOfferIDByRetailerSku(catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetProductOfferIDByRetailerSkuMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров с баннерами
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     *	  tid - идентификатор категории (mysql.taxon)
+     *    placement_id - рекламное место, проксируется в сервис баннеров
+     *    site_id - ид сайта, проксируется в сервис баннеров
+     * </pre>
+     */
+    public void entities(catalog_api_v2.CatalogApiV2.EntitiesRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.EntitiesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getEntitiesMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -327,6 +538,53 @@ public final class CatalogAPIV2ServiceGrpc {
     public catalog_api_v2.CatalogApiV2.GetProductListResponse getProductList(catalog_api_v2.CatalogApiV2.GetProductListRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetProductListMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров
+     * Если q (строка запроса) не пустой - то по поисковому запросу
+     * Eсли tid (идентификатор категории-mysql.taxon) не пустой - то по каталогу
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     * Примеры:
+     *    Вернуть листинг товаров:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products/search?sid=63&amp;tid=43492
+     * </pre>
+     */
+    public catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse getProductListBySearchQuery(catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetProductListBySearchQueryMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Получить offer_id по retailer_sku
+     * Обязательные параметры:
+     *   retailer_sku - ску товара у ретейлера
+     *   sid - идентификатор магазина
+     *  https://paas-content-catalog.sbmt.io/api/v2/products/{retailer_sku}/offer_id?sid={store_id}
+     *  https://paas-content-catalog.sbmt.io/api/v2/products/638611/offer_id?sid=1
+     * </pre>
+     */
+    public catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse getProductOfferIDByRetailerSku(catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetProductOfferIDByRetailerSkuMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров с баннерами
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     *	  tid - идентификатор категории (mysql.taxon)
+     *    placement_id - рекламное место, проксируется в сервис баннеров
+     *    site_id - ид сайта, проксируется в сервис баннеров
+     * </pre>
+     */
+    public catalog_api_v2.CatalogApiV2.EntitiesResponse entities(catalog_api_v2.CatalogApiV2.EntitiesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getEntitiesMethod(), getCallOptions(), request);
     }
   }
 
@@ -391,10 +649,63 @@ public final class CatalogAPIV2ServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetProductListMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров
+     * Если q (строка запроса) не пустой - то по поисковому запросу
+     * Eсли tid (идентификатор категории-mysql.taxon) не пустой - то по каталогу
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     * Примеры:
+     *    Вернуть листинг товаров:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products/search?sid=63&amp;tid=43492
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse> getProductListBySearchQuery(
+        catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetProductListBySearchQueryMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Получить offer_id по retailer_sku
+     * Обязательные параметры:
+     *   retailer_sku - ску товара у ретейлера
+     *   sid - идентификатор магазина
+     *  https://paas-content-catalog.sbmt.io/api/v2/products/{retailer_sku}/offer_id?sid={store_id}
+     *  https://paas-content-catalog.sbmt.io/api/v2/products/638611/offer_id?sid=1
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse> getProductOfferIDByRetailerSku(
+        catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetProductOfferIDByRetailerSkuMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Возвращает листинг товаров с баннерами
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     *	  tid - идентификатор категории (mysql.taxon)
+     *    placement_id - рекламное место, проксируется в сервис баннеров
+     *    site_id - ид сайта, проксируется в сервис баннеров
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v2.CatalogApiV2.EntitiesResponse> entities(
+        catalog_api_v2.CatalogApiV2.EntitiesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getEntitiesMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_PRODUCT = 0;
   private static final int METHODID_GET_PRODUCT_LIST = 1;
+  private static final int METHODID_GET_PRODUCT_LIST_BY_SEARCH_QUERY = 2;
+  private static final int METHODID_GET_PRODUCT_OFFER_IDBY_RETAILER_SKU = 3;
+  private static final int METHODID_ENTITIES = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -420,6 +731,18 @@ public final class CatalogAPIV2ServiceGrpc {
         case METHODID_GET_PRODUCT_LIST:
           serviceImpl.getProductList((catalog_api_v2.CatalogApiV2.GetProductListRequest) request,
               (io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListResponse>) responseObserver);
+          break;
+        case METHODID_GET_PRODUCT_LIST_BY_SEARCH_QUERY:
+          serviceImpl.getProductListBySearchQuery((catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryRequest) request,
+              (io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListBySearchQueryResponse>) responseObserver);
+          break;
+        case METHODID_GET_PRODUCT_OFFER_IDBY_RETAILER_SKU:
+          serviceImpl.getProductOfferIDByRetailerSku((catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuRequest) request,
+              (io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductOfferIDByRetailerSkuResponse>) responseObserver);
+          break;
+        case METHODID_ENTITIES:
+          serviceImpl.entities((catalog_api_v2.CatalogApiV2.EntitiesRequest) request,
+              (io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.EntitiesResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -484,6 +807,9 @@ public final class CatalogAPIV2ServiceGrpc {
               .setSchemaDescriptor(new CatalogAPIV2ServiceFileDescriptorSupplier())
               .addMethod(getGetProductMethod())
               .addMethod(getGetProductListMethod())
+              .addMethod(getGetProductListBySearchQueryMethod())
+              .addMethod(getGetProductOfferIDByRetailerSkuMethod())
+              .addMethod(getEntitiesMethod())
               .build();
         }
       }

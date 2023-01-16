@@ -1,15 +1,22 @@
 syntax = "proto3";
 
 package product_hub_back_stream;
-
-option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/grpc/product-hub-back-stream";
-
+option go_package = "gitlab.sbmt.io/paas/content/product-hub/pkg/server/grpc/product-hub-back-stream";
 /**
  * slack:
  *    #product-hub
  *
- * swagger:
+ * base:
+ *     base-product-hub-back.paas-content-product-hub:3009
+ *
+ * local:
+ *     base-product-hub-back.paas-content-product-hub.svc.cluster.local:3009
+ *
+ * swagger prod:
  *     https://paas-content-product-hub-back.sbmt.io/api
+ *
+ * swagger stg:
+ *     https://paas-content-product-hub-back.gw-stage.sbmt.io/api
  *
  * public prod grpc uri:
  *    paas-content-product-hub-back.sbmt.io:443
@@ -17,19 +24,16 @@ option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/
  * public stg grpc uri:
  *    paas-content-product-hub-back.gw-stage.sbmt.io:443
  *
- * kuber prod grpc uri:
- *    base-product-hub.paas-content-product-hub-back:3009
- *
  * description:
  *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
  */
 service ProductHubBackStream {
   /**
    * Возвращает описание товаров.
-   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://wiki.sbmt.io/display/CP/Product+Hub
    *
    * Параметры запроса:
-   *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из поледнего response до обрыва соединения.
+   *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
    *    display_attributes - возможность запрашивать только конкретные атрибуты описания, например, картинки
    *      - фильтрация по key: {"keys":["brand", "image"]}
    *      - филььрация по flag: {"flags":["show_as_characteristic"]}
@@ -37,11 +41,33 @@ service ProductHubBackStream {
    *
    */
   rpc GetProducts(GetProductsRequest) returns (stream GetProductsResponse) {}
-}
 
-message GetProductsRequest {
-  int64 cursor_id = 1;
-  DisplayAttributes display_attributes = 2;
+  /**
+  * Возвращает товарные предложения.
+  *
+  * Параметры запроса:
+  *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+  *
+  */
+  rpc GetOffers(GetOffersRequest) returns (stream GetOffersResponse){}
+
+  /**
+  * Возвращает цены.
+  *
+  * Параметры запроса:
+  *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+  *    shard_number - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать shard_number. shard_number можно забрать из последнего response до обрыва соединения. Для скачивания всех цен, шард должен иметь дефолтное значение.
+  */
+  rpc GetPrices(GetPricesRequest) returns (stream GetPricesResponse) {}
+
+  /**
+  * Возвращает остатки.
+  *
+  * Параметры запроса:
+  *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из последнего response до обрыва соединения.
+  *    shard_number - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать shard_number. shard_number можно забрать из последнего response до обрыва соединения. Для скачивания всех цен, шард должен иметь дефолтное значение.
+  */
+  rpc GetStocks(GetStocksRequest) returns (stream GetStocksResponse) {}
 }
 
 message DisplayAttributes {
@@ -64,10 +90,14 @@ enum ValueType {
   IMAGE = 5;
 }
 
-message GetProductsResponse {
-  int64 cursor_id = 1;
-  repeated Product products = 2;
-  bool finish = 3;
+/*
+ * Pricer - тип цены товарного предложения
+ */
+enum Pricer {
+  PER_ITEM = 0;  // за штуку
+  PER_ITEMS_PACKAGE = 1;  // за упаковку
+  PER_WEIGHT_PACKAGE = 2;  // весовой фасованный
+  PER_WEIGHT = 3;  // весовой, не фасованный
 }
 
 message Product {
@@ -99,6 +129,7 @@ message Attribute {
 message AttributeValue {
   string value = 1;
   repeated Data value_data = 2;
+  string dictionary_value_id = 3;
 }
 
 message Data {
@@ -106,4 +137,84 @@ message Data {
   ValueType type = 2;
   bool is_multi_value = 3;
   repeated string values = 4;
+}
+
+message Offer {
+  int64 sku = 1;
+  string retailer_id = 2;
+  string retailer_sku = 3;
+  Pricer pricer = 4;
+  repeated  Data offer_data = 5;
+  string updated_at = 6;
+  Status status = 7;
+}
+
+message Price {
+  int64 sku = 1;
+  string store_id = 2;
+  string tenant_id = 3;
+  double price = 4;
+  repeated Data price_data = 5;
+  Status status = 6;
+  string updated_at = 7;
+  string retailer_sku = 8;
+}
+
+/*
+ * Stock - остаток товарного предложения
+ */
+message Stock {
+  int64 sku = 1; // идентификатор товара
+  string store_id = 2; // идентификатор магазина
+  string retailer_id = 3; // идентификатор ритейлера
+  string retailer_sku = 4; // идентификатор sku ритейлера
+  double stock = 5; // остаток товарного предложения
+  repeated Data stock_data = 6; // доп. данные остатка. подробнее https://wiki.sbmt.io/display/CP/Product+Hub
+  Status status = 7; // статус сущности
+  string updated_at = 8; // последнее время обновление сущности в product-hub
+}
+
+message GetProductsRequest {
+  int64 cursor_id = 1;
+  DisplayAttributes display_attributes = 2;
+}
+
+message GetProductsResponse {
+  int64 cursor_id = 1;
+  repeated Product products = 2;
+  bool finish = 3;
+}
+
+message GetOffersRequest {
+  int64 cursor_id = 1;
+}
+
+message GetOffersResponse{
+  int64 cursor_id = 1;
+  repeated Offer offers = 2;
+  bool finish = 3;
+}
+
+message GetPricesRequest {
+  int64 cursor_id = 1;
+  int64 shard_number = 2;
+}
+
+message GetPricesResponse{
+  int64 cursor_id = 1;
+  int64 shard_number = 2;
+  repeated Price prices = 3;
+  bool finish = 4;
+}
+
+message GetStocksRequest {
+  int64 cursor_id = 1;
+  int64 shard_number = 2;
+}
+
+message GetStocksResponse{
+  int64 cursor_id = 1;
+  int64 shard_number = 2;
+  repeated Stock stocks = 3;
+  bool finish = 4;
 }
