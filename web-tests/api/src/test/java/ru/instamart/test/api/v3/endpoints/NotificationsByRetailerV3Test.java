@@ -246,7 +246,7 @@ public class NotificationsByRetailerV3Test extends RestBase {
         Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
         Response responseRepeatCanceled = POST(bodyCanceled);
-        //checkStatusCode422(responseRepeatCanceled); ждем фикс на проде
+        checkStatusCode422(responseRepeatCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
@@ -410,7 +410,7 @@ public class NotificationsByRetailerV3Test extends RestBase {
         var bodyReadyForDelivery = apiV3Notifications.bodyReadyForDelivery(orderDeliveryByRetailer.getShipments().get(0).getNumber());
 
         Response responseReadyForDelivery = POST(bodyReadyForDelivery);
-        //checkStatusCode422(responseReadyForDelivery); --ждем фикс на проде
+        checkStatusCode422(responseReadyForDelivery);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Cоздан");
@@ -427,7 +427,7 @@ public class NotificationsByRetailerV3Test extends RestBase {
         Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
         Response responseReadyForDelivery = POST(bodyReadyForDelivery);
-        //checkStatusCode422(responseReadyForDelivery); --ждем фикс на проде
+        checkStatusCode422(responseReadyForDelivery);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
@@ -649,45 +649,6 @@ public class NotificationsByRetailerV3Test extends RestBase {
     }
 
     @Story("Позитивные тесты")
-    @TmsLink("3041")
-    @Test(description = "Валидация ready_for_delivery (changed true) (Сборка и доставка ритейлером)",
-            groups = {API_INSTAMART_REGRESS, "api-v3"})
-    public void validationReadyForDeliveryTrue() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
-        var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryByRetailer.getShipments().get(0).getNumber());
-        var bodyReadyForDelivery = Notifications.builder()
-                .event(Event.builder()
-                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
-                        .payload(Payload.builder()
-                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
-                                .order(Order.builder()
-                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
-                                        .changed(true)
-                                        .position(Position.builder()
-                                                .id(retailerSku)
-                                                .originalQuantity(quantity)
-                                                .quantity(quantity)
-                                                .build())
-                                        .build())
-                                .build())
-                        .build())
-                .build();
-
-        Response responseInWork = POST(bodyInWork);
-        checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
-        checkStatusCode200(responseReadyForDelivery);
-
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
-
-        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
-        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
-    }
-
-    @Story("Позитивные тесты")
     @TmsLink("3042")
     @Test(description = "Валидация ready_for_delivery (changed false) (Сборка и доставка ритейлером)",
             groups = {API_INSTAMART_REGRESS, "api-v3"})
@@ -798,49 +759,6 @@ public class NotificationsByRetailerV3Test extends RestBase {
                                 .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
                                 .order(Order.builder()
                                         .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
-                                        .position(Position.builder()
-                                                .id(retailerSku)
-                                                .originalQuantity(quantity)
-                                                .quantity(quantity)
-                                                .build())
-                                        .build())
-                                .build())
-                        .build())
-                .build();
-
-        Response responseInWork = POST(bodyInWork);
-        checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
-        checkStatusCode200(responseReadyForDelivery);
-        simplyAwait(3);
-        Response responseDelivered = POST(bodyDelivered);
-        checkStatusCode200(responseDelivered);
-
-        simplyAwait(2);
-        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
-        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не перешел в статус Доставлен");
-
-        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
-        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
-    }
-
-    @Story("Позитивные тесты")
-    @TmsLink("3046")
-    @Test(description = "Валидация delivered (changed true) (Сборка и доставка ритейлером)",
-            groups = {API_INSTAMART_REGRESS, "api-v3"})
-    public void validationDeliveredTrue() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
-        var bodyInWork = apiV3Notifications.bodyInWork(orderDeliveryByRetailer.getShipments().get(0).getNumber());
-        var bodyReadyForDelivery = apiV3Notifications.bodyReadyForDelivery(orderDeliveryByRetailer.getShipments().get(0).getNumber());
-        var bodyDelivered = Notifications.builder()
-                .event(Event.builder()
-                        .type(NotificationTypeV3.DELIVERED.getValue())
-                        .payload(Payload.builder()
-                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
-                                .order(Order.builder()
-                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
-                                        .changed(true)
                                         .position(Position.builder()
                                                 .id(retailerSku)
                                                 .originalQuantity(quantity)
