@@ -259,7 +259,7 @@ public final class MultiretailerSearchTests {
         final var productListNames = multiSearch().getProductNames();
         multiSearch().checkSearchResultsContains(searchText);
 
-        multiSearch().selectCategoryByPosition(3);
+        multiSearch().selectCategoryByPosition(2);
         multiSearch().checkProductsCardsVisible();
         multiSearch().checkSearchResultsContains(searchText);
         multiSearch().checkIfProductsListChanged(productListNames);

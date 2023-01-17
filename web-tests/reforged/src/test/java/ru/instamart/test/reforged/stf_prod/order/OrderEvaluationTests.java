@@ -27,7 +27,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -46,7 +46,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -65,7 +65,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -87,7 +87,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -108,7 +108,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();

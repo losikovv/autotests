@@ -25,7 +25,7 @@ public final class BasicSbermarketTests {
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = {STF_PROD_S})
     public void successValidateHeader() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().checkPageIsAvailable();
 
         shop().interactHeader().checkHeaderVisible();
@@ -51,7 +51,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на как мы работаем", groups = {STF_PROD_S})
     public void successTransitionHowWeWork() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToHowWeWork();
         howWeWork().checkPageIsAvailable();
         howWeWork().checkPageOpened();
@@ -61,7 +61,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на информацию о контактах", groups = {STF_PROD_S})
     public void successTransitionContactsInfo() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToContacts();
         contacts().checkPageIsAvailable();
         contacts().checkPageOpened();
@@ -71,7 +71,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с помощью для клиента", groups = {STF_PROD_S})
     public void successTransitionHelpInfo() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToHelp();
         faq().checkPageIsAvailable();
         faq().checkPageOpened();
@@ -81,7 +81,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с информацией о доставке", groups = {STF_PROD_S})
     public void successTransitionDeliveryInfo() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToDeliveryAndPayment();
         delivery().checkPageIsAvailable();
         delivery().checkPageOpened();
@@ -91,7 +91,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с Logo", groups = {STF_PROD_S})
     public void successTransitionLogo() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogo();
         shop().checkPageIsAvailable();
         shop().checkPageOpened();

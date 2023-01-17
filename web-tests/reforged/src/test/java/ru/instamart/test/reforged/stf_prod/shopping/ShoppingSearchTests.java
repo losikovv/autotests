@@ -30,7 +30,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -50,7 +50,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -70,7 +70,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -94,7 +94,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -117,7 +117,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -157,7 +157,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();

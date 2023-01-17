@@ -33,7 +33,7 @@ public final class UserRegistrationTests {
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {STF_PROD_S})
     public void successRegOnMainPage() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -69,7 +69,7 @@ public final class UserRegistrationTests {
 
         shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusItemToCartByPositionWithScrollDown(3);
+        shop().plusItemToCartByPosition(3);
 
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();

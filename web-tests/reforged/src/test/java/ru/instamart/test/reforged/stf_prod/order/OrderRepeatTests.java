@@ -36,7 +36,7 @@ public final class OrderRepeatTests {
     @TmsLink("2614")
     @Test(description = "Добавление в корзину товаров из истории заказов", groups = {STF_PROD_S})
     public void successRepeatLastOrderFromOrderHistory() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -55,7 +55,7 @@ public final class OrderRepeatTests {
     @TmsLink("1669")
     @Test(description = "Повтор крайнего заказа со страницы заказа", groups = {STF_PROD_S})
     public void successRepeatOrderFromOrderDetails() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();

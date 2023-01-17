@@ -28,7 +28,7 @@ public class ShoppingTestsForExistingUser {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropAndFillCart(shoppingCartUser, UiProperties.DEFAULT_SID);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
