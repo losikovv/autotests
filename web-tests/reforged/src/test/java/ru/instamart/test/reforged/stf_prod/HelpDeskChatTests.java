@@ -25,7 +25,7 @@ public final class HelpDeskChatTests {
 
         apiHelper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -40,7 +40,7 @@ public final class HelpDeskChatTests {
     @TmsLink("1759")
     @Test(description = "Тест работы с виджетом HelpDesk на витрине ритейлера", groups = {STF_PROD_S})
     public void successOperateHelpDeskWidgetOnRetailerPage() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHelpDesk().openChat();
         shop().interactHelpDesk().checkHelpDeskOpen();
         shop().interactHelpDesk().closeChat();

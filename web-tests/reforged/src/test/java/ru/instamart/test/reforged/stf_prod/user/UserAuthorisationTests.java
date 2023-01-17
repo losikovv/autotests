@@ -24,7 +24,7 @@ public final class UserAuthorisationTests {
     public void successRegWithVkontakte() {
         final var vkUser = UserManager.getNewVkUser();
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().checkRequestsWasLoad();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
@@ -47,7 +47,7 @@ public final class UserAuthorisationTests {
     @Issue("B2C-11803")
     @Test(description = "Тест успешной авторизация через MailRu", groups = {STF_PROD_S})
     public void successRegWithMailRu() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().checkRequestsWasLoad();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
@@ -74,7 +74,7 @@ public final class UserAuthorisationTests {
     @Story("Авторизация через SberID")
     @Test(description = "Тест перехода на сайт Sber ID", groups = {STF_PROD_S})
     public void checkCorrectTransitionToSberIdSite() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().checkSberIdIsVisible();

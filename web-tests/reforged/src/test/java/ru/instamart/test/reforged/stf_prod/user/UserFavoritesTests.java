@@ -28,7 +28,7 @@ public final class UserFavoritesTests {
     @TmsLink("1265")
     @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {STF_PROD_S})
     public void noFavoriteItemsByDefault() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -40,7 +40,7 @@ public final class UserFavoritesTests {
     @TmsLink("1266")
     @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {STF_PROD_S})
     public void successAddFavoriteOnItemCard() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -60,7 +60,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 2);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -78,7 +78,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 1);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -95,7 +95,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 35);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -114,7 +114,7 @@ public final class UserFavoritesTests {
     @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
             groups = {STF_PROD_S})
     public void successAuthAfterAddFavoriteOnItemCard() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().checkModalIsVisible();

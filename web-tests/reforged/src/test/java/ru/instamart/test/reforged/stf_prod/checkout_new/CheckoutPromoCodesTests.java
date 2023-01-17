@@ -41,7 +41,7 @@ public final class CheckoutPromoCodesTests {
     @TmsLink("3612")
     @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {STF_PROD_S})
     public void testApplyFreeDeliveryPromo() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -71,7 +71,7 @@ public final class CheckoutPromoCodesTests {
     @TmsLinks(value = {@TmsLink("3689"), @TmsLink("3646"), @TmsLink("3781")})
     @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {STF_PROD_S})
     public void testSuccessApplyPromo() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -106,7 +106,7 @@ public final class CheckoutPromoCodesTests {
     public void testApplyNonExistPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();

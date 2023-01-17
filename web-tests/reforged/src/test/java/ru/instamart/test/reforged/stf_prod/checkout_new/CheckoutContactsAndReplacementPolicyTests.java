@@ -38,7 +38,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @TmsLink("3691")
     @Test(description = "Проверка отсутствия предвыбранного способа замены товара при первом чекауте", groups = {STF_PROD_S})
     public void testCheckReplacementPolicyNotSelectedFirstTime() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -53,7 +53,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @TmsLink("3632")
     @Test(description = "Проверка что поле 'Замена товара' является обязательным при первом заказе", groups = {STF_PROD_S})
     public void testCheckReplacementPolicyRequired() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -85,7 +85,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @TmsLink("3629")
     @Test(description = "Проверка что поля телефон и e-mail обязательны и валидируются при потере фокуса", groups = {STF_PROD_S})
     public void testCheckPhoneAndEmailRequiredFields() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();

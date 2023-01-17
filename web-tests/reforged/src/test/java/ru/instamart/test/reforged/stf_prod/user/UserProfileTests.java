@@ -19,7 +19,7 @@ public final class UserProfileTests {
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации меню профиля Sbermarket", groups = {STF_PROD_S})
     public void successValidateSbermarketTenantProfileMenu() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -38,7 +38,7 @@ public final class UserProfileTests {
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Профиль' в меню профиля", groups = {STF_PROD_S})
     public void successValidateUserProfileButton() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -52,7 +52,7 @@ public final class UserProfileTests {
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = {STF_PROD_S})
     public void successValidateTermsButton() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -66,7 +66,7 @@ public final class UserProfileTests {
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = {STF_PROD_S})
     public void successValidateDeliveryButton() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -80,7 +80,7 @@ public final class UserProfileTests {
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = {STF_PROD_S})
     public void successValidateFaqButton() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -94,7 +94,7 @@ public final class UserProfileTests {
     @Story("навигация в меню пользователя")
     @Test(description = "Тест доступности страниц профиля пользователя", groups = {STF_PROD_S})
     public void successCheckProfilePagesAreAvailable() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -110,7 +110,7 @@ public final class UserProfileTests {
     @Story("Заказы")
     @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = {STF_PROD_S})
     public void successValidateDefaultOrderHistory() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -131,7 +131,7 @@ public final class UserProfileTests {
     @Test(description = "Добавление имени и фамилии для новых пользователей", groups = {STF_PROD_S})
     public void addFullName() {
         final var userData = UserManager.getQaUser();
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -150,7 +150,7 @@ public final class UserProfileTests {
     @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = {STF_PROD_S})
     public void changeFullName() {
         final var userData = UserManager.getQaUser();
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -180,7 +180,7 @@ public final class UserProfileTests {
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение телефона для существующих пользователей", groups = {STF_PROD_S})
     public void changePhone() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());

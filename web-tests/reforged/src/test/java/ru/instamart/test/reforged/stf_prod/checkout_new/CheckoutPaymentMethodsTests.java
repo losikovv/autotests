@@ -36,7 +36,7 @@ public final class CheckoutPaymentMethodsTests {
     @TmsLink("3822")
     @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Доставка)", groups = {STF_PROD_S})
     public void testTransitionOnB2BIfSelectBusinessPaymentMethodFromDelivery() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();

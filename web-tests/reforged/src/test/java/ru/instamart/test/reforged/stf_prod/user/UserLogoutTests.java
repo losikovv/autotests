@@ -23,7 +23,7 @@ public final class UserLogoutTests {
     public void successQuickLogout() {
         final var userData = UserManager.getQaUser();
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -39,7 +39,7 @@ public final class UserLogoutTests {
     @Story("Позитивный кейс")
     @Test(description = "Тест успешной деавторизации", groups = {STF_PROD_S})
     public void successManualLogout() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -56,12 +56,12 @@ public final class UserLogoutTests {
         final var userData = UserManager.getQaUser();
         apiHelper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().closeCart();
@@ -72,7 +72,7 @@ public final class UserLogoutTests {
 
         home().checkLoginButtonIsVisible();
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().checkEnteredAddressNotVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartEmpty();

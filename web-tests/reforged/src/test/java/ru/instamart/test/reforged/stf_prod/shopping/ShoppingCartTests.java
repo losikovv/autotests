@@ -28,7 +28,7 @@ public final class ShoppingCartTests {
     @Issue("B2C-10717")
     @Test(description = "Тест валидации дефолтной корзины", groups = {STF_PROD_S})
     public void successValidateDefaultCart() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddressLarge().checkYmapsReady();
         shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
@@ -51,7 +51,7 @@ public final class ShoppingCartTests {
     @TmsLink("1572")
     @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {STF_PROD_S})
     public void successAddItemToCartUnauthorized() {
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddressLarge().checkYmapsReady();
         shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
@@ -61,10 +61,10 @@ public final class ShoppingCartTests {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkSnippet();
-        shop().plusFirstItemToCartWithScrollDown();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
@@ -78,7 +78,7 @@ public final class ShoppingCartTests {
         helper.dropCartByQa(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -106,7 +106,7 @@ public final class ShoppingCartTests {
         shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCartWithScrollDown();
+        shop().plusFirstItemToCart();
         shop().checkItemQuantityVisible();
         var itemQuantity = StringUtil.stringToDouble(shop().getFirstItemQuantity());
         shop().interactHeader().checkCartNotificationIsVisible();
@@ -188,14 +188,14 @@ public final class ShoppingCartTests {
         helper.dropCartByQa(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
-        shop().plusFirstItemToCartWithScrollDown();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -213,7 +213,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -227,12 +227,12 @@ public final class ShoppingCartTests {
     }
 
     @TmsLinks(value = {@TmsLink("2620"), @TmsLink("2937"), @TmsLink("2938")})
-    @Test(description = "Многократное добавление и удаление одной позиции", groups = {"regression", "all-cart"})
+    @Test(description = "Многократное добавление и удаление одной позиции", groups = {STF_PROD_S})
     public void testMultipleAddAndRemoveProduct() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -266,12 +266,12 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusFirstItemToCartWithScrollDown();
+        shop().plusFirstItemToCart();
         final var shopProductName = shop().getProductTitleByPosition(1);
         shop().interactHeader().checkCartNotificationIsVisible();
 
@@ -288,7 +288,7 @@ public final class ShoppingCartTests {
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         helper.dropAndFillCart(userData, DEFAULT_SID);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -330,7 +330,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkSnippet();
 
-        final var shopProductName = shop().getProductTitleByPositionWithScrollDown(1);
+        final var shopProductName = shop().getProductTitleByPosition(1);
         shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 
@@ -358,7 +358,7 @@ public final class ShoppingCartTests {
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         helper.dropAndFillCart(userData, DEFAULT_SID, 3);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -380,13 +380,13 @@ public final class ShoppingCartTests {
         helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
-        shop().plusFirstItemToCartWithScrollDown();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -405,7 +405,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCartMultipleByQA(userData, RestAddresses.Moscow.defaultProdAddress(), DEFAULT_AUCHAN_SID, DEFAULT_METRO_MOSCOW_SID);
 
-        shop().goToPage();
+        shop().goToPageProd();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
