@@ -15,6 +15,7 @@ import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.auth.phone_confirm_modal.PhoneConfirmModal;
 import ru.instamart.reforged.stf.frame.disclaimer.Disclaimer;
 import ru.instamart.reforged.stf.frame.order_evaluation_modal.OrderEvaluationModal;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
@@ -40,6 +41,7 @@ public interface ShopElement {
     CategoryMenu categoryMenu = new CategoryMenu();
     Footer footer = new Footer();
     AuthModal authModal = new AuthModal();
+    PhoneConfirmModal phoneConfirmModal = new PhoneConfirmModal();
     HelpDesk helpDesk = new HelpDesk();
     OrderEvaluationModal orderEvaluationModal = new OrderEvaluationModal();
     Disclaimer disclaimer = new Disclaimer();

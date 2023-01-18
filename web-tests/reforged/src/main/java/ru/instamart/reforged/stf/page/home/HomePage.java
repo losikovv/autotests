@@ -8,6 +8,7 @@ import ru.instamart.reforged.stf.block.header_multisearch.MultisearchHeader;
 import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
 import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.auth.phone_confirm_modal.PhoneConfirmModal;
 import ru.instamart.reforged.stf.frame.delivery_zones.DeliveryZones;
 import ru.instamart.reforged.stf.page.StfPage;
 
@@ -17,6 +18,10 @@ public final class HomePage implements StfPage, Window, HomeCheck {
 
     public AuthModal interactAuthModal() {
         return authModal;
+    }
+
+    public PhoneConfirmModal interactPhoneConfirmModal() {
+        return phoneConfirm;
     }
 
     public AddressLarge interactAddressModal() {
@@ -81,6 +86,11 @@ public final class HomePage implements StfPage, Window, HomeCheck {
     @Step("Нажать на первого ретейлера")
     public void clickOnFirstRetailer() {
         deliveryRetailers.clickOnFirst();
+    }
+
+    @Step("Нажимаем кнопку 'Выбрать на карте'")
+    public void clickSelectStoreOnMap() {
+        selectStoreOnMap.click();
     }
 
     @Step("Получаем количество отображаемых магазинов")

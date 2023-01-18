@@ -59,6 +59,46 @@ public interface HomeCheck extends Check, HomeElement {
         waitAction().shouldBeVisible(outOfDeliveryAreaAlert);
     }
 
+    @Step("Проверяем, что отображается блок 'Вы смотрели'")
+    default void checkRecentStoreBlockVisible() {
+        recentStoreBlock.should().visible();
+    }
+
+    @Step("Проверяем, что в блоке 'Вы смотрели' карточка {sid}-го магазина")
+    default void checkRecentStoreBlockVisible(final int sid) {
+        recentStoreBySid.should().visible(sid);
+    }
+
+    @Step("Проверяем, что в блоке 'Вы смотрели' у магазина отображается информация о времени доставки")
+    default void checkRecentStoreBlockNextDeliveryVisible() {
+        recentStoreNextDelivery.should().visible();
+    }
+
+    @Step("Проверяем, что в блоке 'Вы смотрели' у магазина отображается информация о стоимости доставки")
+    default void checkRecentStoreBlockDeliveryPriceVisible() {
+        recentStoreDeliveryPrice.should().visible();
+    }
+
+    @Step("Проверяем, что в блоке 'Вы смотрели' у магазина отображается адрес")
+    default void checkRecentStoreBlockAddressVisible() {
+        recentStoreAddress.should().visible();
+    }
+
+    @Step("Проверяем, что в блоке 'Вы смотрели' у магазина отображается режим работы")
+    default void checkRecentStoreBlockWorkTimeVisible() {
+        recentStoreWorkTime.should().visible();
+    }
+
+    @Step("Проверяем, что в блоке 'Вы смотрели' у магазина отображается предупреждение")
+    default void checkRecentStoreBlockWarningVisible() {
+        recentStoreWarning.should().visible();
+    }
+
+    @Step("Проверяем, что в блоке 'Вы смотрели' текст предупреждения: {expectedText}")
+    default void checkRecentStoreBlockWarningVisible(final String expectedText) {
+        Assert.assertEquals(recentStoreWarning.getText(), expectedText, "Текст предупреждения отличается от ожидаемого");
+    }
+
     @Step("Проверяем, что отображается блок ритейлеров лендинга Сбермаркета")
     default void checkDeliveryRetailersContainerVisible() {
         waitAction().shouldBeVisible(deliveryRetailersBlockContainer);
@@ -185,6 +225,11 @@ public interface HomeCheck extends Check, HomeElement {
     @Step("Проверяем, что отображается сообщение об ошибке")
     default void checkAlertDisplayed() {
         waitAction().shouldBeVisible(alert);
+    }
+
+    @Step("Проверяем, что не отображается сообщение об ошибке")
+    default void checkAlertNotDisplayed() {
+        alert.should().invisible();
     }
 
     @Step("Проверяем, что текст всплывающего сообщения: '{actualText}' соответствует ожидаемому: '{expectedText}'")

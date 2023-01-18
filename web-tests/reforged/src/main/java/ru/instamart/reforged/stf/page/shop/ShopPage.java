@@ -14,6 +14,7 @@ import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.auth.phone_confirm_modal.PhoneConfirmModal;
 import ru.instamart.reforged.stf.frame.disclaimer.Disclaimer;
 import ru.instamart.reforged.stf.frame.order_evaluation_modal.OrderEvaluationModal;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
@@ -28,6 +29,10 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     public AuthModal interactAuthModal() {
         return authModal;
+    }
+
+    public PhoneConfirmModal interactPhoneConfirmModal() {
+        return phoneConfirmModal;
     }
 
     public Header interactHeader() {

@@ -38,7 +38,7 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().checkModalIsNotVisible();
 
         shop().checkRequestsWasLoad();
-        shop().interactAuthModal().checkModalConfirmPhoneIsVisible();
+        shop().interactPhoneConfirmModal().checkModalConfirmPhoneIsVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -65,7 +65,7 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().checkModalIsNotVisible();
 
         shop().checkRequestsWasLoad();
-        shop().interactAuthModal().checkModalConfirmPhoneIsVisible();
+        shop().interactPhoneConfirmModal().checkModalConfirmPhoneIsVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
 

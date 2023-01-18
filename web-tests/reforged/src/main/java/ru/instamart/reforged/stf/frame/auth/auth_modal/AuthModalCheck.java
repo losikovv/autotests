@@ -23,11 +23,6 @@ public interface AuthModalCheck extends Check, AuthModalElement {
         modalLogin.should().invisible();
     }
 
-    @Step("Проверяем, что отображается окно подтверждения номера телефона")
-    default void checkModalConfirmPhoneIsVisible() {
-        waitAction().shouldBeVisible(modalConfirmPhone);
-    }
-
     @Step("Проверяем, что модальное окно скрыто")
     default void checkPhoneInputIsClickable() {
         waitAction().shouldBeClickable(phoneField);
