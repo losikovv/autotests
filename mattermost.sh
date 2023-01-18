@@ -19,7 +19,7 @@ failures=$(sed 's:.*<div class="infoBox" id="failures"><div class="counter">\([^
 # Количество проигнорированных тестов
 ignored=$(sed 's:.*<div class="infoBox" id="ignored"><div class="counter">\([^<]*\)<.*:\1:' <<<"$text")
 # Время прогона
-duration=$(sed 's:.*<div class="infoBox" id="duration"><div class="counter">\([^<]*\)<.*:\1:' <<<"$text")
+duration=$(sed 's:.*<div class="infoBox" id="realDuration">\([^<]*\)<.*:\1:' <<<"$text")
 # Процент пройденных тестов
 successRate=$(sed 's:.*<div class="percent">\([^<]*\)<.*:\1:' <<<"$text")
 
