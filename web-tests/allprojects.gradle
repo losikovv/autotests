@@ -1,5 +1,4 @@
-import java.time.Duration
-import java.time.Instant
+import java.util.concurrent.TimeUnit
 
 allprojects { project ->
     configurations.all {
@@ -9,6 +8,8 @@ allprojects { project ->
         exclude group: 'io.qameta.allure', module: 'allure-testng'
     }
     ext.testsResults = []
+    ext.duration = "00:00:00"
+    ext.reportFile = ""
 
     tasks.withType(Test) {
         testLogging {
@@ -19,7 +20,8 @@ allprojects { project ->
 
         afterSuite() { desc, result ->
             if (desc.parent) return
-
+            // Сохраняем в переменную время выполнения тестов
+            rootProject.duration = convertMs(result.endTime - result.startTime)
             String summary = "${project.name}:${name} results: ${result.resultType} " +
                     "(" +
                     "${result.testCount} tests, " +
@@ -27,10 +29,12 @@ allprojects { project ->
                     "${result.failedTestCount} failures, " +
                     "${result.skippedTestCount} skipped" +
                     ") " +
-                    "in ${Duration.between(Instant.ofEpochMilli(result.startTime) , Instant.ofEpochMilli(result.endTime)).toString()}" +
+                    "in ${rootProject.duration}" +
                     "\n" +
                     "Report file: ${reports.html.entryPoint}"
 
+            //Сохраняем файл с отчетом в переменную
+            rootProject.reportFile = reports.html.entryPoint
             if (result.resultType == TestResult.ResultType.SUCCESS) {
                 rootProject.testsResults.add(0, summary)
             } else {
@@ -45,6 +49,9 @@ gradle.buildFinished {
 
     if (!allResults.isEmpty()) {
         printResults allResults
+        //Добавляем div с реальным временем выполнения прогона
+        //Добавляем тут, потому что только в этом месте есть гарантии что файл уже существует
+        addRealDuration(rootProject.ext.reportFile, rootProject.ext.duration)
     }
 }
 
@@ -60,4 +67,21 @@ private static void printResults(allResults) {
     }.join("\n├${"${"─" * maxLength}"}┤\n")
 
     println "└${"${"─" * maxLength}"}┘"
+}
+
+private static void addRealDuration(file, duration) {
+    if (file.exists()) {
+        new FileWriter(file.getAbsolutePath(), true).with {
+            write('<div class="infoBox" id="realDuration">'+duration+'</div>')
+            flush()
+        }
+    }
+}
+
+private static String convertMs(long millisecondsToConvert) {
+    long hours = TimeUnit.MILLISECONDS.toHours(millisecondsToConvert);
+    long minutes = TimeUnit.MILLISECONDS.toMinutes(millisecondsToConvert) % TimeUnit.HOURS.toMinutes(1);
+    long seconds = TimeUnit.MILLISECONDS.toSeconds(millisecondsToConvert) % TimeUnit.MINUTES.toSeconds(1);
+
+    return String.format("%02d:%02d:%02d", Math.abs(hours), Math.abs(minutes), Math.abs(seconds));
 }
