@@ -16,7 +16,7 @@ public final class Should {
     private final AbstractComponent component;
 
     public void invisible(final Object... args) {
-        Assert.assertTrue(Kraken.waitAction().isInvisible(component, args), "Элемент должен быть невидимым");
+        Assert.assertTrue(Kraken.waitAction().isInvisible(component, args), String.format("Элемент '%s' должен быть невидимым", component.getDescription()));
     }
 
     public void invisible(final WebElement webElement) {

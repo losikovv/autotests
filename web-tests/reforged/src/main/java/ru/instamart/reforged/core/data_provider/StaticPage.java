@@ -4,7 +4,6 @@ import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.helper.ApiV1Helper;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.reforged.core.config.BasicProperties;
 import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public final class StaticPage {
 
     @DataProvider(name = "faqPage", parallel = true)
     public static Object[][] getFaqPage() {
-        return new Object[][] {
+        return new Object[][]{
                 {UiProperties.STF_URL + about().pageUrl()},
                 {UiProperties.STF_URL + contacts().pageUrl()},
                 {UiProperties.STF_URL + delivery().pageUrl()},
@@ -31,7 +30,7 @@ public final class StaticPage {
 
     @DataProvider(name = "selgrosFaqPage", parallel = true)
     public static Object[][] getSelgrosFaqPage() {
-        return new Object[][] {
+        return new Object[][]{
                 {UiProperties.SELGROS_URL + selgrosAbout().pageUrl()},
                 {UiProperties.SELGROS_URL + selgrosDelivery().pageUrl()},
                 {UiProperties.SELGROS_URL + selgrosRules().pageUrl()},
@@ -44,15 +43,19 @@ public final class StaticPage {
 
     @DataProvider(name = "footerLinkPage", parallel = true)
     public static Object[][] getFooterLinkPage() {
-        return new Object[][] {
+        return new Object[][]{
                 {"О компании", about().pageUrl()},
                 {"Контакты", contacts().pageUrl()},
+                {"Ретейлерам", retailerWelcomePage().pageUrl()},
+                {"Ресторанам", foodPage().pageUrl()},
                 {"Документы", terms().pageUrl()},
-                {"Стать курьером", BasicProperties.JOB_LANDING_URL},
+                {"Стать курьером", jobPage().pageUrl() + "?utm_source=sbermarketru_web"},
                 {"Как мы работаем", howWeWork().pageUrl()},
                 {"Доставка и оплата", delivery().pageUrl()},
                 {"Помощь", faq().pageUrl()},
+                {"Политика по противодействию коррупции", "https://storage.yandexcloud.net/sbermarket-prod-compliance/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%E2%84%96%20%D0%9F-2022-04-18%20%D0%BE%D1%82%2019.04.2022%20%D0%98%D0%A1_.pdf"},
                 {"Политика возврата", rules().pageUrl()},
+                {"Правила резервирования товаров", terms().pageUrl()},
         };
     }
 
@@ -98,5 +101,6 @@ public final class StaticPage {
                 .toArray(Object[][]::new);
     }
 
-    private StaticPage() {}
+    private StaticPage() {
+    }
 }

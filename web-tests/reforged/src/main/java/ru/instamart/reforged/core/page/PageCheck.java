@@ -45,7 +45,8 @@ public interface PageCheck extends PageElement {
 
     @Step("Проверка что страница содержит часть url '{0}'")
     default void checkPageContains(final String expectedUrl) {
-        Assert.assertTrue(Kraken.waitAction().isUrlContains(expectedUrl));
+        Assert.assertTrue(Kraken.waitAction().isUrlContains(expectedUrl),
+                String.format("Адрес текущей страницы: '%s' не содержит ожидаемый фрагмент: '%s'", Kraken.currentUrl(), expectedUrl));
     }
 
     @Step("Ожидание загрузки страницы DOM и Network")
