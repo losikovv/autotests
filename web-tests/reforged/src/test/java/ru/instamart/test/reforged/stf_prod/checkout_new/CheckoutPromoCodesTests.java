@@ -12,6 +12,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.config.UiProperties;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
@@ -39,6 +40,8 @@ public final class CheckoutPromoCodesTests {
     }
 
     @TmsLink("3612")
+    @Skip
+    //выключено так как sbervesna истек
     @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {STF_PROD_S})
     public void testApplyFreeDeliveryPromo() {
         shop().goToPageProd();
