@@ -36,6 +36,7 @@ public class StrategyTest extends ShippingCalcBase {
     private Integer globalStrategyId;
     private Integer strategyIdWithDifferentScriptsInRules;
     private Integer strategyIdWithMultipleRulesAndConditions;
+    private Integer strategyIdWithReplace;
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
     private final Integer FIRST_SCRIPT_ID = ScriptsDao.INSTANCE.getScriptByName(FIXED_SCRIPT_NAME).getId();
@@ -44,6 +45,7 @@ public class StrategyTest extends ShippingCalcBase {
     private final String FIRST_SCRIPT_PARAMS = String.format(FIXED_SCRIPT_PARAMS, 0);
     private final String SECOND_SCRIPT_PARAMS = String.format(COMPLEX_SCRIPT_PARAMS, 29900);
     private final String FIRST_PARAMS = "{\"Count\": 1}";
+    private final String SECOND_PARAMS = "{\"Min\": 0, \"Max\": 1000000000000000}";
     private final String THIRD_PARAMS = "{\"Test\": \"shippingcalc_test\", \"Group\": \"control\"}";
 
     @BeforeClass(alwaysRun = true)
@@ -51,12 +53,12 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannelWith(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC, 1024 * 1024 * 10));
     }
 
-    @TmsLinks(value = {@TmsLink("46"), @TmsLink("60"), @TmsLink("74"), @TmsLink("335"), @TmsLink("339"), @TmsLink("333")})
+    @TmsLinks(value = {@TmsLink("46"), @TmsLink("60"), @TmsLink("74"), @TmsLink("335"), @TmsLink("339")})
     @Story("Create Strategy")
     @Test(description = "Создание стратегии с валидными данными",
             groups = "ondemand-shippingcalc")
     public void createStrategy() {
-        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, SECOND_PARAMS, 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
         var response = clientShippingCalc.createStrategy(request);
         localStrategyId = response.getStrategyId();
         checkStrategy(localStrategyId, "autotest", 2, 2, 0, DeliveryType.SELF_DELIVERY.toString());
@@ -84,7 +86,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(1)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -133,7 +135,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(1)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(3)
@@ -166,7 +168,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(1)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(3)
@@ -224,7 +226,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: no required for script parameters")
     public void createStrategyNonValidScriptParams() {
-        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, SECOND_PARAMS, 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -250,7 +252,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setCreatorId("autotest")
@@ -285,7 +287,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setCreatorId("autotest")
@@ -312,7 +314,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -340,7 +342,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: strategy name cannot be empty")
     public void createStrategyWithNoName() {
-        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, SECOND_PARAMS, 0, "autotest", "", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -351,7 +353,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator id cannot be empty")
     public void createStrategyWithNoCreatorId() {
-        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, SECOND_PARAMS, 0, "", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -368,7 +370,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setCreatorId("autotest")
@@ -389,7 +391,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: scriptId 1234567890: entity not found")
     public void createStrategyWithNonExistentScript() {
-        var request = getCreateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getCreateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, SECOND_PARAMS, 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -406,7 +408,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -414,7 +416,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setCreatorId("autotest")
@@ -435,7 +437,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid params")
     public void createStrategyWithNoScriptParams() {
-        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, SECOND_PARAMS, 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -476,9 +478,20 @@ public class StrategyTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при отсутствии параметров условий",
             groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid condition 0, invalid params")
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has condition 0 with validation error: unexpected end of JSON input")
     public void createStrategyWithNoConditionParams() {
         var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+        clientShippingCalc.createStrategy(request);
+    }
+
+    @TmsLink("590")
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки при не прохождении валидации в параметрах условий",
+            groups = "ondemand-shippingcalc",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has condition 0 with validation error: invalid parameters structure, Count field is absent")
+    public void createStrategyWithNoValidationParams() {
+        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 1, "{\"test\": 1}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -540,18 +553,6 @@ public class StrategyTest extends ShippingCalcBase {
                 .build();
 
         clientShippingCalc.createStrategy(request);
-    }
-
-    @TmsLink("379")
-    @Story("Create Strategy")
-    @Test(description = "Получение ошибки валидации параметров скрипта при обновлении стратегии",
-            groups = "ondemand-shippingcalc",
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: no required for script parameters",
-            dependsOnMethods = "updateStrategy")
-    public void updateStrategyNonValidScriptParams() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
-        clientShippingCalc.updateStrategy(request);
     }
 
     @TmsLink("401")
@@ -687,18 +688,29 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.createStrategy(request);
     }
 
+    @TmsLink("333")
+    @Story("Create Strategy")
+    @Test(description = "Проверка замены правой границы в условии ценового интервала (ORDER_VALUE_RANGE)",
+            groups = "ondemand-shippingcalc")
+    public void createStrategyReplaceOrderValueRange() {
+        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{\"Min\": 0, \"Max\": 0}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var response = clientShippingCalc.createStrategy(request);
+        strategyIdWithReplace = response.getStrategyId();
+        checkStrategy(strategyIdWithReplace, "autotest", 2, 2, 0, DeliveryType.SELF_DELIVERY.toString());
+    }
+
     @TmsLinks(value = {@TmsLink("81"), @TmsLink("91"), @TmsLink("205"), @TmsLink("342"), @TmsLink("346"), @TmsLink("363")})
     @Story("Update Strategy")
     @Test(description = "Обновление существующей стратегии с валидными данными",
             groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategy")
     public void updateStrategy() {
-        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.B2B_VALUE);
+        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, SECOND_PARAMS, 10000, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.B2B_VALUE);
         clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(localStrategyId, "autotest-update", 4, 4, 2, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @TmsLinks(value = {@TmsLink("94"), @TmsLink("92"), @TmsLink("334")})
+    @TmsLinks(value = {@TmsLink("94"), @TmsLink("92")})
     @Story("Update Strategy")
     @Test(description = "Обновление существующей стратегии с несколькими правилами на разные скрипты",
             groups = "ondemand-shippingcalc",
@@ -711,7 +723,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(1)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addRules(NewRuleObject.newBuilder()
@@ -760,7 +772,7 @@ public class StrategyTest extends ShippingCalcBase {
                                 .build())
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addRules(NewRuleObject.newBuilder()
@@ -814,7 +826,7 @@ public class StrategyTest extends ShippingCalcBase {
                                 .build())
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(strategyIdWithMultipleRulesAndConditions)
@@ -863,7 +875,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(localStrategyId)
@@ -899,7 +911,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(globalStrategyId)
@@ -927,7 +939,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -956,7 +968,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: strategy name cannot be empty",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoName() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, localStrategyId, "autotest-update", "", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, SECOND_PARAMS, 0, localStrategyId, "autotest-update", "", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -967,7 +979,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: cannot check existence of strategy, entity not found")
     public void updateStrategyWithNonExistentStrategyId() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, 1234567890, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, SECOND_PARAMS, 0, 1234567890, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -979,7 +991,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator id cannot be empty",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoCreatorId() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, localStrategyId, "", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, SECOND_PARAMS, 0, localStrategyId, "", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -997,7 +1009,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(localStrategyId)
@@ -1019,7 +1031,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: scriptId 1234567890: entity not found",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNonExistentScriptId() {
-        var request = getUpdateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, SECOND_PARAMS, 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -1037,7 +1049,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -1045,7 +1057,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(localStrategyId)
@@ -1067,7 +1079,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid params",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoScriptParams() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, SECOND_PARAMS, 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -1090,7 +1102,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(localStrategyId)
@@ -1109,10 +1121,22 @@ public class StrategyTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при отсутствии параметров условий",
             groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid condition 0, invalid params",
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has condition 0 with validation error: unexpected end of JSON input",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoConditionParams() {
         var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        clientShippingCalc.updateStrategy(request);
+    }
+
+    @TmsLink("591")
+    @Story("Update Strategy")
+    @Test(description = "Получение ошибки при не прохождении валидации в параметрах условий",
+            groups = "ondemand-shippingcalc",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has condition 0 with validation error: invalid parameters structure, Max field is absent",
+            dependsOnMethods = "updateStrategy")
+    public void updateStrategyWithNoValidationParams() {
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{\"Min\": 1, \"test\": 1}", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -1131,7 +1155,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(localStrategyId)
@@ -1160,7 +1184,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addRules(NewRuleObject.newBuilder()
@@ -1169,7 +1193,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -1177,7 +1201,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(localStrategyId)
@@ -1206,7 +1230,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -1214,7 +1238,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -1222,7 +1246,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(localStrategyId)
@@ -1251,7 +1275,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -1259,7 +1283,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -1267,7 +1291,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(1)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .setStrategyId(localStrategyId)
@@ -1296,7 +1320,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
-                                .setParams("{}")
+                                .setParams(SECOND_PARAMS)
                                 .build())
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
@@ -1322,8 +1346,31 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: cannot check existence of strategy, entity not found",
             dependsOnMethods = "deleteStrategy")
     public void updateDeletedStrategy() {
-        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, localStrategyId, "autotest-deleted-update", "autotest-deleted-update", "autotest-deleted-update", false, DeliveryType.B2B_VALUE);
+        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, SECOND_PARAMS, 10000, localStrategyId, "autotest-deleted-update", "autotest-deleted-update", "autotest-deleted-update", false, DeliveryType.B2B_VALUE);
         clientShippingCalc.updateStrategy(request);
+    }
+
+    @TmsLink("379")
+    @Story("Update Strategy")
+    @Test(description = "Получение ошибки валидации параметров скрипта при обновлении стратегии",
+            groups = "ondemand-shippingcalc",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: no required for script parameters",
+            dependsOnMethods = "updateStrategy")
+    public void updateStrategyNonValidScriptParams() {
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, SECOND_PARAMS, 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        clientShippingCalc.updateStrategy(request);
+    }
+
+    @TmsLink("334")
+    @Story("Update Strategy")
+    @Test(description = "Проверка замены правой границы в условии ценового интервала (ORDER_VALUE_RANGE)",
+            groups = "ondemand-shippingcalc",
+            dependsOnMethods = "createStrategyReplaceOrderValueRange")
+    public void updateStrategyReplaceOrderValueRange() {
+        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{\"Min\": 0, \"Max\": 0}", 10000, strategyIdWithReplace, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.B2B_VALUE);
+        clientShippingCalc.updateStrategy(request);
+        checkUpdatedStrategy(strategyIdWithReplace, "autotest-update", 4, 4, 2, DeliveryType.SELF_DELIVERY.toString());
     }
 
     @TmsLink("138")
@@ -1903,5 +1950,6 @@ public class StrategyTest extends ShippingCalcBase {
         deleteCreatedStrategy(globalStrategyId);
         deleteCreatedStrategy(strategyIdWithDifferentScriptsInRules);
         deleteCreatedStrategy(strategyIdWithMultipleRulesAndConditions);
+        deleteCreatedStrategy(strategyIdWithReplace);
     }
 }
