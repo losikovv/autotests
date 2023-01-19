@@ -153,6 +153,8 @@ public final class BasicSbermarketTests {
         home().scrollDown();
 
         home().interactFooter().clickToFooterElementWithText(text);
+        home().waitPageLoad();
+        home().checkPageOpened();
         home().checkPageContains(url);
     }
 

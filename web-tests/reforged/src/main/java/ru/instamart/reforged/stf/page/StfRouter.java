@@ -8,8 +8,10 @@ import ru.instamart.reforged.stf.page.faq.*;
 import ru.instamart.reforged.stf.page.home.HomePage;
 import ru.instamart.reforged.stf.page.landings.AeroflotPage;
 import ru.instamart.reforged.stf.page.landings.drivers_hiring.DriversHiringPage;
+import ru.instamart.reforged.stf.page.landings.food.FoodPage;
 import ru.instamart.reforged.stf.page.landings.gift.CertificatePage;
 import ru.instamart.reforged.stf.page.landings.job.JobPage;
+import ru.instamart.reforged.stf.page.landings.retailer_welcome.RetailerWelcomePage;
 import ru.instamart.reforged.stf.page.multiretailer_search.search.MultiSearchPage;
 import ru.instamart.reforged.stf.page.notfound.Page404;
 import ru.instamart.reforged.stf.page.search.SearchPage;
@@ -65,6 +67,18 @@ public final class StfRouter extends Router {
 
     public static ContactsPage contacts() {
         return (ContactsPage) getPage(ContactsPage.class);
+    }
+
+    public static RetailerWelcomePage retailerWelcomePage() {
+        return (RetailerWelcomePage) getPage(RetailerWelcomePage.class);
+    }
+
+    public static FoodPage foodPage() {
+        return (FoodPage) getPage(FoodPage.class);
+    }
+
+    public static JobPage jobPage() {
+        return (JobPage) getPage(JobPage.class);
     }
 
     public static DeliveryPage delivery() {

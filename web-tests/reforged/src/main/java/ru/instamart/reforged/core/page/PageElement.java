@@ -5,5 +5,5 @@ import ru.instamart.reforged.core.component.Element;
 
 public interface PageElement {
 
-    Element page404Error = new Element(By.xpath("//div[contains(@class,'ErrorSplash_styles_root')]"), "Ошибка открытия страницы (404)");
+    Element page404Error = new Element(By.xpath("//div[contains(@class,'ErrorSplash_root')]"), "Ошибка открытия страницы (404)");
 }
