@@ -71,4 +71,7 @@ public interface FooterElement {
 
     Link footerElementWithText = new Link(ByKraken.xpathExpression("//footer//a[text()='%s']"),
             "элемент с текстом в футере");
+
+    Link footerCorruptionElement = new Link(ByKraken.xpathExpression("//footer//a[text()='Политика по противодействию коррупции']"),
+            "элемент с политикой по коррупции в футере");
 }

@@ -115,4 +115,9 @@ public interface FooterCheck extends Check, FooterElement {
     default void checkPublicOfferLinkVisible() {
         krakenAssert.assertTrue(publicOfferLink.is().displayed(), "ссылка 'Официальное уведомление' не отображается");
     }
+
+    @Step("Проверяем что элемент ссылки на коррупцию содержит аттрибут {attr}, со значением {value}")
+    default void checkCorruptionElementContains(String attr, String value) {
+        krakenAssert.assertEquals(footerCorruptionElement.getComponent().getAttribute(attr), value);
+    }
 }

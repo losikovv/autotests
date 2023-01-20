@@ -72,6 +72,8 @@ public final class CheckoutPromoCodesTests {
     }
 
     @TmsLinks(value = {@TmsLink("3689"), @TmsLink("3646"), @TmsLink("3781")})
+    @Skip
+    //выключено так как sbervesna истек
     @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {STF_PROD_S})
     public void testSuccessApplyPromo() {
         shop().goToPageProd();

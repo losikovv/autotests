@@ -166,6 +166,21 @@ public final class BasicSbermarketTests {
         privacyPolicy().checkPageUrl(STF_URL + privacyPolicy().pageUrl());
     }
 
+    @TmsLink("3470")
+    @Story("Статические страницы")
+    //вынесено в отдельный тест, тк в муне не хочет никак открывать ссылку на https://storage.yandexcloud.net/
+    @Test(description = "Тест валидности ссылки про коррупцию в футере Сбермаркета",
+            groups = {STF_PROD_S})
+    public void successCorruptionFooterLink() {
+        home().goToPage();
+        home().scrollDown();
+
+        var corruptionLink = "https://storage.yandexcloud.net/sbermarket-prod-compliance/" +
+        "%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%E2%84%96%20%D0%9F-2022-04-18%20%D0%BE%D1%82%2019.04.2022%20%D0%98%D0%A1_.pdf";
+
+        home().interactFooter().checkCorruptionElementContains("href", corruptionLink);
+    }
+
     @DoNotOpenBrowser
     @TmsLink("1814")
     @Story("Сервисные страницы")
