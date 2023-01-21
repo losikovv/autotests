@@ -170,6 +170,8 @@ public final class ShoppingSearchTests {
         search().selectSort("Сначала дешевые");
 
         search().waitPageLoad();
+        search().refresh();
+        search().waitPageLoad();
         search().checkPriceAscSortCorrect();
     }
 }
