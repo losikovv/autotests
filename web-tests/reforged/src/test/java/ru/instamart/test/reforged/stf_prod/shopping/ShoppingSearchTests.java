@@ -133,6 +133,8 @@ public final class ShoppingSearchTests {
     @Test(description = "Добавление товара в корзину из поиска товаров", groups = {STF_PROD_S})
     public void successAddItemToCartFromSearchResults() {
         home().goToPage();
+        home().waitPageLoad();
+
         home().fillAddressInLanding(Addresses.Moscow.trainingAddressProd());
         home().selectFirstAddressInFounded();
         home().checkDeliveryStoresContainerVisible();
@@ -146,6 +148,7 @@ public final class ShoppingSearchTests {
         search().checkSearchImgLoaded();
         search().interactHeader().checkEnteredAddressIsVisible();
         search().clickAddToCartFirstSearchResult();
+        search().interactHeader().checkCartNotificationIsVisible();
         search().interactHeader().clickToCart();
         search().interactCart().checkCartOpen();
         search().interactCart().checkCartNotEmpty();

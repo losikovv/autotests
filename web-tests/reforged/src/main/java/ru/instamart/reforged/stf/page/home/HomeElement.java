@@ -37,6 +37,7 @@ public interface HomeElement {
     Input clearAddressInput = new Input(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//input[@value='']"), "Очищенное поле ввода");
     Element addressCleanButton = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//input/following-sibling::div/i"), "Кнопка очистви введенного адреса в баннере");
     DropDown dropDownAddresses = new DropDown(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//input/following::div[2]/div/div/div"), "Выпадающий список найденных адресов");
+    Element dropDownAddressesFirst = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//input/following::div[2]/div/div/div"), 20, "Выпадающий список найденных адресов");
     Button addressBlockAddressButton = new Button(By.xpath("//button[@data-qa='b2c_home_landing_address_block_map_modal_button_desktop']"), "кнопка с указанием адреса доставки на лендинге");
     Element outOfDeliveryAreaAlert = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//button[contains(.,'самовывоз')]/../.."), "Уведомдение об адресе вне зоны доставки");
 
