@@ -10,7 +10,9 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
+import static ru.instamart.reforged.Group.SMOKE_B2B;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 
 @Epic("SMBUSINESS UI")
 @Feature("Раздел 'Компании' B2C и B2B")
@@ -19,7 +21,7 @@ public final class CompaniesTests {
     private final ApiHelper helper = new ApiHelper();
 
     @TmsLink("21")
-    @Test(description = "Переход в раздел 'Компании'", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Переход в раздел 'Компании'", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void gotoCompaniesFromHeader() {
         var user = UserManager.getQaUser();
 
@@ -36,11 +38,11 @@ public final class CompaniesTests {
 
     @TmsLink("750")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход в раздел 'Компании' (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Переход в раздел 'Компании' (B2C-витрина)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void gotoCompaniesFromHeaderB2C() {
         var user = UserManager.getQaUser();
 
-        b2cShop().goToPage();
+        b2cShop().goToPage(DEFAULT_SID);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(user);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -55,7 +57,7 @@ public final class CompaniesTests {
     }
 
     @TmsLink("22")
-    @Test(description = "Переход в профиль из раздела 'Компании'", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Переход в профиль из раздела 'Компании'", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void gotoProfileFromCompanies() {
         var user = UserManager.getQaUser();
 
@@ -73,11 +75,11 @@ public final class CompaniesTests {
 
     @TmsLink("751")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход в профиль из раздела 'Компании' (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Переход в профиль из раздела 'Компании' (B2C-витрина)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void gotoProfileFromCompaniesB2C() {
         var user = UserManager.getQaUser();
 
-        b2cShop().goToPage();
+        b2cShop().goToPage(DEFAULT_SID);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(user);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -93,7 +95,7 @@ public final class CompaniesTests {
     }
 
     @TmsLink("23")
-    @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void addCompanyFromCompaniesPagePositive() {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
@@ -122,12 +124,12 @@ public final class CompaniesTests {
 
     @TmsLink("752")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН  (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН  (B2C-витрина)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void addCompanyFromCompaniesPagePositiveB2C() {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
 
-        b2cShop().goToPage();
+        b2cShop().goToPage(DEFAULT_SID);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(user);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -153,7 +155,7 @@ public final class CompaniesTests {
     }
 
     @TmsLink("43")
-    @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void addCompanyFromCompaniesPageIncorrectINN() {
         var user = UserManager.getQaUser();
 
@@ -179,11 +181,11 @@ public final class CompaniesTests {
 
     @TmsLink("758")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН (B2c-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН (B2c-витрина)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void addCompanyFromCompaniesPageIncorrectINNB2C() {
         var user = UserManager.getQaUser();
 
-        b2cShop().goToPage();
+        b2cShop().goToPage(DEFAULT_SID);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(user);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -204,7 +206,7 @@ public final class CompaniesTests {
     }
 
     @TmsLink("37")
-    @Test(description = "Отображение  блока 'менеджер' в кабинете компании", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Отображение  блока 'менеджер' в кабинете компании", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testCompanyManagerInfo() {
         var userData = UserManager.getQaUser();
         var managerData = UserManager.getQaUser();
@@ -227,7 +229,7 @@ public final class CompaniesTests {
 
     @TmsLink("754")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Отображение  блока 'менеджер' в кабинете компании (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Отображение  блока 'менеджер' в кабинете компании (B2C-витрина)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testCompanyManagerInfoB2C() {
         var userData = UserManager.getQaUser();
         var managerData = UserManager.getQaUser();
@@ -235,7 +237,7 @@ public final class CompaniesTests {
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
         helper.addManagerForCompany(company.getInn(), managerData);
 
-        b2cShop().goToPage();
+        b2cShop().goToPage(DEFAULT_SID);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -249,7 +251,7 @@ public final class CompaniesTests {
     }
 
     @TmsLink("38")
-    @Test(description = "Переход в профиль компании", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Переход в профиль компании", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testCompanyInfo() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -270,13 +272,13 @@ public final class CompaniesTests {
 
     @TmsLink("755")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход в профиль компании (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Переход в профиль компании (B2C-витрина)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testCompanyInfoB2C() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
 
-        b2cShop().goToPage();
+        b2cShop().goToPage(DEFAULT_SID);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -290,7 +292,7 @@ public final class CompaniesTests {
     }
 
     @TmsLink("39")
-    @Test(description = "Кнопка 'обновления баланса' и 'подсказка'", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Кнопка 'обновления баланса' и 'подсказка'", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testCompanyBalance() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -336,14 +338,14 @@ public final class CompaniesTests {
 
     @TmsLink("756")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Кнопка 'обновления баланса' и 'подсказка' (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Кнопка 'обновления баланса' и 'подсказка' (B2C-витрина)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testCompanyBalanceB2C() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
         var companyId = helper.getCompanyId(company.getInn());
 
-        b2cShop().goToPage();
+        b2cShop().goToPage(DEFAULT_SID);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -381,7 +383,7 @@ public final class CompaniesTests {
     }
 
     @TmsLink("42")
-    @Test(description = "Блок 'Код безопасности'", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Блок 'Код безопасности'", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testSecurityCodeBlock() {
         var company = JuridicalData.juridical();
         var companyHeadUser = UserManager.getQaUser();
@@ -422,7 +424,7 @@ public final class CompaniesTests {
 
     @TmsLink("757")
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Блок 'Код безопасности' (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Блок 'Код безопасности' (B2C-витрина)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testSecurityCodeBlockB2C() {
         var company = JuridicalData.juridical();
         var companyHeadUser = UserManager.getQaUser();
@@ -430,7 +432,7 @@ public final class CompaniesTests {
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), companyHeadUser.getEmail());
         helper.addEmployeesForCompany(company.getInn(), otherUsers);
 
-        b2cShop().goToPage();
+        b2cShop().goToPage(DEFAULT_SID);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(companyHeadUser);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -447,7 +449,7 @@ public final class CompaniesTests {
         b2cCompanyInfo().interactHeader().interactAccountMenu().clickToLogout();
         b2cCompanyInfo().interactHeader().checkProfileButtonNotVisible();
 
-        b2cShop().goToPage();
+        b2cShop().goToPage(DEFAULT_SID);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(otherUsers.get(9));
         b2cShop().interactHeader().checkProfileButtonVisible();

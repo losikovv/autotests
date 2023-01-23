@@ -23,9 +23,9 @@ public interface CompanyInfoElement {
     Element paymentAccountAmount = new Element(By.xpath("//div[contains(.,'Ваш счёт')][./button]/../following-sibling::div[not(.='Загрузка...')]"), "Сумма на счёте");
 
     Element companyInfo = new Element(By.xpath("//div[./button[@data-qa='user_companies_add_company_button']]/following-sibling::div[1]"), "Блок основной информации о компании");
-    Element companyUserInfo = new Element(By.xpath("//div[./button[@data-qa='user_companies_add_company_button']]/following-sibling::div[2]"), "Блок информации о представителях компании");
-    Element companySecurityInfo = new Element(By.xpath("//div[./button[@data-qa='user_companies_add_company_button']]/following-sibling::div[3]"), "Блок информации 'Код безопасности'");
-
+    Element companyCredentials = new Element(By.xpath("//div[contains(text(), 'Реквизиты')]"), "Блок с реквизитами компании");
+    Element companyUserInfo = new Element(By.xpath("//div[contains(text(), 'Пользователи')]"), "Блок информации о представителях компании");
+    Element companySecurityInfo = new Element(By.xpath("//div[contains(text(), 'Код безопасности')]"), "Блок информации 'Код безопасности'");
     Element managerInfo = new Element(By.xpath("//div[@class='ui-content-wrapper']//nav/following-sibling::div[contains(.,'Ваш персональный менеджер')]"), "Блок 'Ваш персональный менеджер'");
 
 

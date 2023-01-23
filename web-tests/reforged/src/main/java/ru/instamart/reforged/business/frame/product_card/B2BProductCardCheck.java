@@ -3,13 +3,12 @@ package ru.instamart.reforged.business.frame.product_card;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
-import static ru.instamart.reforged.core.Kraken.waitAction;
-
 public interface B2BProductCardCheck extends Check, B2BProductCardElement {
 
     @Step("Проверяем, что карточка продукта открыта")
     default void checkProductCardVisible() {
-        waitAction().shouldBeVisible(itemName);
+        itemName.should().animationFinished();
+        itemName.shouldBe().visible();
     }
 
     @Step("Проверяем, что карточка продукта закрыта")

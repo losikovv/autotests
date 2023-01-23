@@ -8,10 +8,11 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.config.UiProperties;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
+import static ru.instamart.reforged.Group.SMOKE_B2B;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 
 @Epic("SMBUSINESS UI")
 @Feature("Чекаут B2B")
@@ -20,15 +21,15 @@ public final class CheckoutTests {
     private final ApiHelper helper = new ApiHelper();
 
     @TmsLink("738")
-    @Test(description = "Способ оплаты корп. картой в чекауте", groups = {"smoke", REGRESSION_BUSINESS, "all-order"})
+    @Test(description = "Способ оплаты корп. картой в чекауте", groups = {SMOKE_B2B, REGRESSION_BUSINESS, "all-order"})
     public void addBusinessCardInCheckout() {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
         var card = PaymentCards.testBusinessCard();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), user.getEmail());
-        helper.dropAndFillCart(user, UiProperties.DEFAULT_AUCHAN_SID);
+        helper.dropAndFillCart(user, DEFAULT_SID);
 
-        shop().goToPage();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         business().interactHeaderMultisearch().checkUserActionsButtonVisible();

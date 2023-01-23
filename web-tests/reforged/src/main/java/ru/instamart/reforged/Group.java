@@ -15,7 +15,9 @@ public final class Group {
     public static final String REGRESSION_BUSINESS = "regression";
     public static final String HR_OPS_PARTNERS = "partners";
     public static final String CHATWOOT = "chatwoot";
+
     public static final String SMOKE_STF = "smoke";
+    public static final String SMOKE_B2B = "smoke";
     /*
     ###############################
     #########Admin Section#########

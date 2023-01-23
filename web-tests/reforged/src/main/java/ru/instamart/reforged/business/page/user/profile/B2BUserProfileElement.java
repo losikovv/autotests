@@ -6,7 +6,7 @@ import ru.instamart.reforged.core.component.Element;
 
 public interface B2BUserProfileElement {
 
-    Element userInfoBlock = new Element(By.xpath("//div[contains(@class,'user-block')][./div[contains(.,'Информация об аккаунте')]]"), "Блок 'Информация об аккаунте'");
+    Element userInfoBlock = new Element(By.xpath("//div[contains(text(),'Информация об аккаунте')]"), "Блок 'Информация об аккаунте'");
 
     Button openAccount = new Button(By.xpath("//a[contains(.,'Аккаунт')]"), "Кнопка 'Аккаунт'");
     Button openFavorite = new Button(By.xpath("//a[contains(.,'Любимые товары')]"), "Кнопка 'Любимые товары'");
