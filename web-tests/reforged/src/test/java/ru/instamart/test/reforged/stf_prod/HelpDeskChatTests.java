@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.config.UiProperties;
 import io.qameta.allure.TmsLink;
 
@@ -18,7 +19,8 @@ public final class HelpDeskChatTests {
 
     @TmsLink("1758")
     //отключено, потому что чат сейчас показывается в чекауте, ПМ чекаута и чата говорят пусть он там будет пока
-    @Test(enabled = false, description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {STF_PROD_S})
+    @Skip
+    @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {STF_PROD_S})
     public void noHelpDeskWidgetOnCheckout() {
         final var apiHelper = new ApiHelper();
         final var userData = UserManager.getQaUser();

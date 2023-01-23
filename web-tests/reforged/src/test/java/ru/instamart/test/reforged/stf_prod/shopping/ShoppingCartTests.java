@@ -146,10 +146,10 @@ public final class ShoppingCartTests {
         shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().checkQuantityInputVisible();
+        shop().interactHeader().checkCartNotificationIsVisible();
         var itemQuantity = StringUtil.stringToDouble(shop().interactProductCard().getProductQuantity());
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
-        shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity);

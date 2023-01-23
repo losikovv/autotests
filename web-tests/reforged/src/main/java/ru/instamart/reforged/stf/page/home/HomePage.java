@@ -71,11 +71,7 @@ public final class HomePage implements StfPage, Window, HomeCheck {
 
     @Step("Выбираем первый найденный адрес в выпадающем списке")
     public void selectFirstAddressInFounded() {
-        //TODO: Ожидание смены списка
-        //ThreadUtil.simplyAwait(2);
-        dropDownAddresses.selectFirst();
-        //TODO: Ожидание смены геопозиции
-        //ThreadUtil.simplyAwait(2);
+        dropDownAddressesFirst.click();
     }
 
     @Step("Получаем количество отображаемых ритейлеров")
