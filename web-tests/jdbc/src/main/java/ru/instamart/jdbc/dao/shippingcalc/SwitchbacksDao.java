@@ -19,7 +19,7 @@ public class SwitchbacksDao implements Dao<Integer, SwitchbacksEntity> {
         final var switchbacksResult = new ArrayList<SwitchbacksEntity>();
 
         try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
-             final var preparedStatement = connect.prepareStatement(" SELECT * FROM switchbacks ")) {
+             final var preparedStatement = connect.prepareStatement(" SELECT * FROM switchbacks ORDER BY id")) {
             try (final var resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     var switchbacksEntity = SwitchbacksEntity.builder()
@@ -38,6 +38,18 @@ public class SwitchbacksDao implements Dao<Integer, SwitchbacksEntity> {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
         }
         return switchbacksResult;
+    }
+
+    public boolean updateSwitchbackState(String endDateTime, Integer switchbackId) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(" UPDATE switchbacks SET end_date_time = ?::timestamp WHERE id = ? ")) {
+            preparedStatement.setObject(1, endDateTime);
+            preparedStatement.setInt(2,switchbackId);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return false;
     }
 
     public boolean setSwitchbacks(SwitchbacksEntity switchback) {

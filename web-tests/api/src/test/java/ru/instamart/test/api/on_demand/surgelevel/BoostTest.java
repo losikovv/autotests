@@ -29,6 +29,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.helper.SurgeLevelHelper.addStore;
 import static ru.instamart.api.helper.SurgeLevelHelper.checkSurgeLevelProduce;
+import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampLongFromStringDtdb;
 
 @Epic("Surgelevel")
@@ -98,8 +99,8 @@ public class BoostTest extends RestBase {
 
             final var startAt = intervalsList.get(0).getStartAt();
             final var endAt = intervalsList.get(0).getEndAt();
-            final var startAtMillis = getTimestampLongFromStringDtdb(startAt.substring(0, startAt.length() - 7));
-            final var endAtMillis = getTimestampLongFromStringDtdb(endAt.substring(0, endAt.length() - 7));
+            final var startAtMillis = getTimestampLongFromStringDtdb(matchWithRegex("(.*)\\.", startAt, 1));
+            final var endAtMillis = getTimestampLongFromStringDtdb(matchWithRegex("(.*)\\.", endAt, 1));
 
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(intervalsList.get(0).getIntervalType(), "eta", "Не верный тип интервала");

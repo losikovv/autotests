@@ -33,6 +33,7 @@ public class ShippingCalcBase {
     protected Integer minCartAmountGlobal = minCartAmountFirst + 1;
     protected Integer deliveryPriceGlobal = 200000;
     protected List<Integer> bindingRulesList;
+    protected List<SwitchbacksEntity> switchbacksList;
     protected List<Integer> globalStrategiesList;
     protected final int SURGE_LEVEL = 5;
     protected final int SURGE_LEVEL_ADDITION_DEFAULT = 10000;
@@ -69,6 +70,25 @@ public class ShippingCalcBase {
         bindingRulesList = BindingRulesDao.INSTANCE.getActiveBindingRulesList();
         if (!bindingRulesList.isEmpty()) {
             BindingRulesDao.INSTANCE.updateBindingRulesState(getDateWithoutTimezone(), bindingRulesList);
+        }
+    }
+
+    @BeforeSuite(alwaysRun = true, description = "Убираем свитчбеки")
+    public void deactivateSwitchbacks() {
+        switchbacksList = SwitchbacksDao.INSTANCE.getSwitchbacks();
+        if (!switchbacksList.isEmpty()) {
+            var currentTime = getDateWithoutTimezone();
+            for (SwitchbacksEntity switchbacksEntity : switchbacksList) {
+                SwitchbacksDao.INSTANCE.updateSwitchbackState(currentTime, switchbacksEntity.getId());
+            }
+        }
+    }
+
+    @BeforeSuite(alwaysRun = true, description = "Выключаем все глобальные стратегии")
+    public void disableGlobalStrategies() {
+        globalStrategiesList = StrategiesDao.INSTANCE.getGlobalStrategies();
+        if (!globalStrategiesList.isEmpty()) {
+            StrategiesDao.INSTANCE.updateStrategiesGlobalFlag(globalStrategiesList, false);
         }
     }
 
@@ -169,14 +189,6 @@ public class ShippingCalcBase {
         Allure.step("Смогли установить свитчбек в будущем = " + futureSwitchback);
     }
 
-    @BeforeSuite(alwaysRun = true, description = "Выключаем все глобальные стратегии")
-    public void disableGlobalStrategies() {
-        globalStrategiesList = StrategiesDao.INSTANCE.getGlobalStrategies();
-        if (!globalStrategiesList.isEmpty()) {
-            StrategiesDao.INSTANCE.updateStrategiesGlobalFlag(globalStrategiesList, false);
-        }
-    }
-
     @AfterMethod(alwaysRun = true, description = "Добавляем системный лог к тесту")
     public void captureFinish() {
         final String result = getLogbackBufferLog();
@@ -191,12 +203,15 @@ public class ShippingCalcBase {
         }
     }
 
-    @AfterSuite(alwaysRun = true, description = "Удаляем Surge Parameters")
-    public void deleteSurgeThresholds() {
-        if (surgeParameterId > 0 || surgeParameterRegionId > 0 || surgeParameterVerticalId > 0) {
-            SurgeParametersDao.INSTANCE.deleteSurgeParameters(
-                    List.of(surgeParameterId, surgeParameterRegionId, surgeParameterVerticalId)
-            );
+    @AfterSuite(alwaysRun = true, description = "Возвращаем свитчбеки")
+    public void returnSwitchbacks() {
+        if (!switchbacksList.isEmpty()) {
+            for (SwitchbacksEntity switchbacksEntity : switchbacksList) {
+                //SwitchbacksDao.INSTANCE.updateSwitchbackState(switchbacksEntity.getEndDateTime(), switchbacksEntity.getId());
+                SwitchbacksDao.INSTANCE.setSwitchbacks(switchbacksEntity);
+                //После SwitchbacksTest сносятся все свитчбеки, поэтому здесь они заново инсертятся,
+                //если свитчбеки сноситься не будут, то можно использовать строку выше
+            }
         }
     }
 
@@ -204,6 +219,15 @@ public class ShippingCalcBase {
     public void returnGlobalStrategies() {
         if (!globalStrategiesList.isEmpty()) {
             StrategiesDao.INSTANCE.updateStrategiesGlobalFlag(globalStrategiesList, true);
+        }
+    }
+
+    @AfterSuite(alwaysRun = true, description = "Удаляем Surge Parameters")
+    public void deleteSurgeThresholds() {
+        if (surgeParameterId > 0 || surgeParameterRegionId > 0 || surgeParameterVerticalId > 0) {
+            SurgeParametersDao.INSTANCE.deleteSurgeParameters(
+                    List.of(surgeParameterId, surgeParameterRegionId, surgeParameterVerticalId)
+            );
         }
     }
 }
