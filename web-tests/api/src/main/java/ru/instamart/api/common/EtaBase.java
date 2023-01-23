@@ -18,6 +18,7 @@ import java.util.UUID;
 import static ru.instamart.api.helper.EtaHelper.*;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
+import static ru.instamart.kraken.util.TimeUtil.*;
 
 public class EtaBase {
 
@@ -27,14 +28,19 @@ public class EtaBase {
     protected final String STORE_UUID_UNKNOWN_FOR_ML = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";
     protected static final String STORE_UUID = UUID.randomUUID().toString();
     protected static final String STORE_UUID_WITH_DIFFERENT_TIMEZONE = UUID.randomUUID().toString();
+    protected static final String STORE_UUID_DISABLED = UUID.randomUUID().toString();
+    protected final String REDIS_DISABLE_VALUE = "[{\"ID\":%d,\"StoreUUID\":\"%s\",\"IntervalType\":\"eta\", \"IntervalSource\": \"manual\", \"StartAt\":\"%s\", \"EndAt\":\"%s\", \"CreatedAt\":\"%s\"}]";
 
     @BeforeSuite(alwaysRun = true, description = "Добавляем тестовые магазины")
     public void addStores() {
         addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false);
         addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7010f, 37.7280f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true, false);
+        addStore(STORE_UUID_DISABLED, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false);
         checkStore(STORE_UUID_WITH_ML, 55.7006f, 37.7266f, "Europe/Moscow", true, "00:00:00", "00:00:00", "00:00:00", true, false);
         checkStore(STORE_UUID_UNKNOWN_FOR_ML, 55.7010f, 37.7280f, "Europe/Moscow", true, "00:00:00", "00:00:00", "00:00:00", true, false);
         RedisService.del(RedisManager.getConnection(Redis.ETA), List.of("store_" + STORE_UUID_WITH_ML, "store_" + STORE_UUID_UNKNOWN_FOR_ML));
+        // здесь было использование инсерта интервалов в базу, но на данный момент достаточно редиса, после закрытия таски HG-1385 интервалы добавим обратно
+        RedisService.set(RedisManager.getConnection(Redis.ETA), "disable_intervals:" + STORE_UUID_DISABLED, String.format(REDIS_DISABLE_VALUE, Integer.MAX_VALUE, STORE_UUID_DISABLED, getZonedUTCDate(), getZonedUTCDatePlusMinutes(10), getZonedUTCDate()), 300);
     }
 
     @AfterMethod(alwaysRun = true, description = "Добавляем системный лог к тесту")
@@ -51,6 +57,9 @@ public class EtaBase {
         }
         if (Objects.nonNull(STORE_UUID_WITH_DIFFERENT_TIMEZONE)) {
             StoreParametersDao.INSTANCE.delete(STORE_UUID_WITH_DIFFERENT_TIMEZONE);
+        }
+        if (Objects.nonNull(STORE_UUID_DISABLED)) {
+            StoreParametersDao.INSTANCE.delete(STORE_UUID_DISABLED);
         }
     }
 }

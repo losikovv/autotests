@@ -23,8 +23,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
-import static org.testng.Assert.assertNotEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.EtaHelper.*;
 import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
@@ -51,7 +50,7 @@ public class BasketEtaTest extends EtaBase {
         RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID));
     }
 
-    @TmsLinks(value = {@TmsLink("11"), @TmsLink("40"), @TmsLink("49"), @TmsLink("60")})
+    @TmsLinks(value = {@TmsLink("11"), @TmsLink("40"), @TmsLink("49"), @TmsLink("60"), @TmsLink("276")})
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с валидными координатами пользователя",
             groups = "ondemand-eta")
@@ -60,6 +59,7 @@ public class BasketEtaTest extends EtaBase {
 
         var response = clientEta.getBasketEta(request);
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+        Allure.step("Проверяем наличие в ответе isEtaDisabled=false", () -> assertFalse(response.getOrder().getShipmentEtas(0).getIsEtaDisabled(),"В ответе получили isEtaDisabled=true"));
     }
 
     @TmsLink("21")
@@ -450,5 +450,17 @@ public class BasketEtaTest extends EtaBase {
 
         var response = clientEta.getBasketEta(request);
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+    }
+
+    @TmsLink("245")
+    @Story("Basket ETA")
+    @Test(description = "Отправка запроса в магазин, у которого имеются интервалы DisableEta",
+            groups = "ondemand-eta")
+    public void getBasketEtaForDisableIntervals() {
+        var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID_DISABLED, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
+
+        var response = clientEta.getBasketEta(request);
+        checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+        Allure.step("Проверяем наличие в ответе isEtaDisabled=true", () -> assertTrue(response.getOrder().getShipmentEtas(0).getIsEtaDisabled(),"В ответе получили isEtaDisabled=false"));
     }
 }

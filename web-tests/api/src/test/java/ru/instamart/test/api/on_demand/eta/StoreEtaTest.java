@@ -19,7 +19,7 @@ import io.qameta.allure.TmsLink;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.EtaHelper.*;
 import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
@@ -43,7 +43,7 @@ public class StoreEtaTest extends EtaBase {
         RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID));
     }
 
-    @TmsLinks(value = {@TmsLink("1"), @TmsLink("58"), @TmsLink("48"), @TmsLink("30")})
+    @TmsLinks(value = {@TmsLink("1"), @TmsLink("58"), @TmsLink("48"), @TmsLink("30"), @TmsLink("275")})
     @Story("Store ETA")
     @Test(description = "Отправка запроса с валидными store_uuid, lat, lon",
             groups = "ondemand-eta")
@@ -52,6 +52,7 @@ public class StoreEtaTest extends EtaBase {
 
         var response = clientEta.getStoreEta(request);
         checkStoreEta(response, STORE_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+        Allure.step("Проверяем наличие в ответе isEtaDisabled=false", () -> assertFalse(response.getData(0).getIsEtaDisabled(), "В ответе получили isEtaDisabled=true"));
     }
 
     @TmsLink("3")
@@ -290,5 +291,17 @@ public class StoreEtaTest extends EtaBase {
 
         var response = clientEta.getStoreEta(request);
         checkStoreEta(response, STORE_UUID_UNKNOWN_FOR_ML, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+    }
+
+    @TmsLink("244")
+    @Story("Store ETA")
+    @Test(description = "Отправка запроса в магазин, у которого имеются интервалы DisableEta",
+            groups = "ondemand-eta")
+    public void getEtaForDisableIntervals() {
+        var request = getStoreUserEtaRequest(STORE_UUID_DISABLED, 55.7006f, 37.7266f);
+
+        var response = clientEta.getStoreEta(request);
+        checkStoreEta(response, STORE_UUID_DISABLED, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+        Allure.step("Проверяем наличие в ответе isEtaDisabled=true", () -> assertTrue(response.getData(0).getIsEtaDisabled(), "В ответе получили isEtaDisabled=false"));
     }
 }

@@ -11,10 +11,13 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.testng.Assert.fail;
+import static ru.instamart.kraken.util.TimeUtil.*;
 
 public class DisableEtaIntervalsDao implements Dao<Integer, DisableEtaIntervalsEntity> {
+
     public static final DisableEtaIntervalsDao INSTANCE = new DisableEtaIntervalsDao();
     private final String SELECT_SQL = "SELECT %s FROM disable_eta_intervals ";
+    private final String INSERT_SQL = "INSERT INTO disable_eta_intervals ";
 
     public List<DisableEtaIntervalsEntity> getIntervals(String storeUuid) {
         final var intervalResult = new ArrayList<DisableEtaIntervalsEntity>();
@@ -66,6 +69,23 @@ public class DisableEtaIntervalsDao implements Dao<Integer, DisableEtaIntervalsE
             fail("Error init ConnectionPgSQLEtaManager. Error: " + e.getMessage());
         }
         return intervalResult;
+    }
+
+    public boolean addDisableIntervals (String storeId, String startAt, String endAt, String intervalType, String source) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_ETA).getConnection();
+             final var preparedStatement = connect.prepareStatement(INSERT_SQL + " (store_uuid, start_at, end_at, interval_type, source) " +
+                     " VALUES (?::uuid, ?::timestamp, ?::timestamp, ?::disable_interval_type, ?::disable_interval_source) ")) {
+            preparedStatement.setString(1, storeId);
+            preparedStatement.setString(2, startAt);
+            preparedStatement.setString(3, endAt);
+            preparedStatement.setString(4, getZonedUTCDate());
+            preparedStatement.setString(5, intervalType);
+            preparedStatement.setString(6, source);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLEtaManager. Error: " + e.getMessage());
+        }
+        return false;
     }
 
     @Override
