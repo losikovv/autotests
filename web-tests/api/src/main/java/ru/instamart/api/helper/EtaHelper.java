@@ -12,6 +12,7 @@ import ru.instamart.api.request.eta.StoreParametersEtaRequest;
 import ru.instamart.api.response.eta.RetailerParametersEtaResponse;
 import ru.instamart.api.response.eta.ServiceParametersEtaResponse;
 import ru.instamart.api.response.eta.StoreParametersEtaResponse;
+import ru.instamart.jdbc.dao.eta.DisableEtaIntervalsDao;
 import ru.instamart.jdbc.dao.eta.ServiceParametersDao;
 import ru.instamart.jdbc.dao.eta.StoreParametersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -236,5 +237,11 @@ public class EtaHelper {
             return Integer.parseInt(etaSurgeIntervalsDisableSlotsDuration);
         }
         return 0;
+    }
+
+    @Step("Добавляем магазину интервалы отключения ЕТА")
+    public static void addDisableIntervals(final String storeId, final String startAt, final String endAt, final String intervalType, final String source) {
+        final var isDisableIntervalsAdded = DisableEtaIntervalsDao.INSTANCE.addDisableIntervals(storeId, startAt, endAt, intervalType, source);
+        Allure.step("Проверяем что интервалы добавились", () -> assertTrue(isDisableIntervalsAdded, "Не удалось добавить интервалы в БД"));
     }
 }
