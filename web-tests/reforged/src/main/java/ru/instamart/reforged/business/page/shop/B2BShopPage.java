@@ -62,8 +62,16 @@ public final class B2BShopPage implements BusinessPage, B2BShopCheck, Window {
         goToPage(ShopUrl.DEFAULT);
     }
 
+    public void goToPage(final int sid) {
+        goToPage(ShopUrl.DEFAULT, sid);
+    }
+
     public void goToPage(final ShopUrl shop) {
         goToPage(shop.getUrl());
+    }
+
+    public void goToPage(final ShopUrl shopUrl, final int sid) {
+        goToPage(shopUrl.getUrl() + "?sid=" + sid);
     }
 
     @Override

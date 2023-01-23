@@ -2,15 +2,16 @@ package ru.instamart.test.reforged.business;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import io.qameta.allure.TmsLink;
 
 import java.util.List;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
+import static ru.instamart.reforged.Group.SMOKE_B2B;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
 
 @Epic("SMBUSINESS UI")
@@ -19,8 +20,7 @@ public final class LandingTests {
 
     @TmsLink("25")
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
-    @Skip
-    @Test(description = "Ссылка на лендинг для неавторизованного юзера", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Ссылка на лендинг для неавторизованного юзера", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void fromB2CToB2BNotAuthorized() {
         b2cShop().goToPage();
         b2cShop().interactHeader().clickBuyForBusiness();
@@ -32,7 +32,7 @@ public final class LandingTests {
     }
 
     @TmsLink("26")
-    @Test(description = "Переход на страницу лендинга", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Переход на страницу лендинга", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void basicLandingCheck() {
         business().goToPage();
         business().checkLandingVisible();
@@ -48,7 +48,7 @@ public final class LandingTests {
     }
 
     @TmsLink("27")
-    @Test(description = "Добавление компании с лендинга", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Добавление компании с лендинга", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void addCompanyFromLanding() {
         var user = UserManager.getQaUser();
         var company = JuridicalData.juridical();
@@ -75,8 +75,11 @@ public final class LandingTests {
         companies().checkCompaniesListContains(company.getJuridicalName());
     }
 
+    //Появилась google captcha обойти никак
+    //@Роман Макеев - с недавнего времени капча появилась на многих формах, можно удалить эту проверку
+    @Skip
     @TmsLink("28")
-    @Test(description = "Заказать обратный звонок с лендинга", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Заказать обратный звонок с лендинга", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void getCallback() {
         var user = UserManager.getQaUser();
 
@@ -93,8 +96,10 @@ public final class LandingTests {
         business().interactHeader().checkCallbackConfirmDisplayed();
     }
 
+    //@Роман Макеев - Кейс уже неакутален - можно дропать
+    @Skip
     @TmsLink("733")
-    @Test(description = "Отображение всех доступных ритейлеров в блоке 'до 20% от чека' на лендинге.", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Отображение всех доступных ритейлеров в блоке 'до 20% от чека' на лендинге.", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void retailersOnLanding() {
         business().goToPage();
         business().checkLandingVisible();

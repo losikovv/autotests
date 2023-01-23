@@ -21,9 +21,9 @@ import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.frame.store_modal.StoreModal;
 import ru.instamart.reforged.stf.page.StfPage;
 
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
-
 import java.util.List;
+
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 
 public final class ShopPage implements StfPage, ShopCheck {
 
@@ -222,12 +222,20 @@ public final class ShopPage implements StfPage, ShopCheck {
         goToPage(ShopUrl.DEFAULT);
     }
 
+    public void goToPage(final int sid) {
+        goToPage(ShopUrl.DEFAULT, sid);
+    }
+
     public void goToPageProd() {
-        goToPage(ShopUrl.DEFAULT.getUrl() + "?sid=" + DEFAULT_SID);
+        goToPage(ShopUrl.DEFAULT, DEFAULT_SID);
     }
 
     public void goToPage(final ShopUrl shop) {
         goToPage(shop.getUrl());
+    }
+
+    public void goToPage(final ShopUrl shopUrl, final int sid) {
+        goToPage(shopUrl.getUrl() + "?sid=" + sid);
     }
 
     @Override

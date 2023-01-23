@@ -83,5 +83,5 @@ private static String convertMs(long millisecondsToConvert) {
     long minutes = TimeUnit.MILLISECONDS.toMinutes(millisecondsToConvert) % TimeUnit.HOURS.toMinutes(1);
     long seconds = TimeUnit.MILLISECONDS.toSeconds(millisecondsToConvert) % TimeUnit.MINUTES.toSeconds(1);
 
-    return String.format("%02d:%02d:%02d", Math.abs(hours), Math.abs(minutes), Math.abs(seconds));
+    return String.format("%02dh%02dm%02ds", Math.abs(hours), Math.abs(minutes), Math.abs(seconds));
 }

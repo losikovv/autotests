@@ -1,17 +1,11 @@
 package ru.instamart.test.reforged.business;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Run;
-import ru.instamart.kraken.listener.Skip;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
+import static ru.instamart.reforged.Group.SMOKE_B2B;
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
 
 @Epic("SMBUSINESS UI")
@@ -20,7 +14,7 @@ public final class UserAuthorisationBusinessTests {
 
     @TmsLink("230")
     @Story("Авторизация")
-    @Test(description = "Вход по мобильному телефону (B2B)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Вход по мобильному телефону (B2B)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void successAuthOnMainPage() {
         business().goToPage();
         business().interactHeader().clickToLogin();
@@ -30,12 +24,10 @@ public final class UserAuthorisationBusinessTests {
         business().interactHeaderMultisearch().checkUserActionsButtonVisible();
     }
 
-    @Run(onServer = Server.PREPROD)
     @Issue("DEVB2B-1977")
     @TmsLink("231")
     @Story("Авторизация")
-    @Skip
-    @Test(description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", REGRESSION_BUSINESS})
+    @Test(description = "Вход по СберБизнес ID (B2B)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void successRegWithSberBusinessID() {
         business().goToPage();
         business().interactHeader().clickToLogin();

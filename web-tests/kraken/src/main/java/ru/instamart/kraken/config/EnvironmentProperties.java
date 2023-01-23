@@ -135,16 +135,21 @@ public final class EnvironmentProperties {
                 printProperty();
             }
 
-            if (CiModule.isUi()) {
-                final var stfForwardTo = CiModule.isStf() ?
-                        System.getenv("STF_FORWARD") : System.getenv("B2B_FORWARD");
-                forward(stfForwardTo);
+            if (CiModule.isStf()) {
+                forwardStf(System.getenv("STF_FORWARD"));
+                shopperUrl(customBasicUrl, customShopperUrl);
+                printProperty();
+            }
+
+            if (CiModule.isB2b()) {
+                forwardStf(System.getenv("STF_FORWARD"));
+                forwardB2b(System.getenv("B2B_FORWARD"));
                 shopperUrl(customBasicUrl, customShopperUrl);
                 printProperty();
             }
 
             if (CiModule.isAdmin()) {
-                forward(System.getenv("ADMIN_FORWARD"));
+                forwardStf(System.getenv("ADMIN_FORWARD"));
                 shopperUrl(customBasicUrl, customShopperUrl);
                 printProperty();
             }
@@ -208,18 +213,18 @@ public final class EnvironmentProperties {
             return url;
         }
 
-        private static void forward(final String stfForwardTo) {
-            if (isNull(stfForwardTo)) {
+        private static void forwardStf(final String forwardTo) {
+            if (isNull(forwardTo)) {
                 return;
             }
-            STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
-            TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
-            BASIC_URL = stfForwardTo.contains("s-sb-stf")
-                    ? stfForwardTo.replaceAll("s-sb-stf", "stf-").replaceAll("-sbermarket", "") + ".k-stage.sbermarket.tech"
-                    : stfForwardTo.replaceAll("s-sb-|-sbermarket", "") + ".k-stage.sbermarket.tech";
+            STAGE = forwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
+            TENANT = forwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
+            BASIC_URL = forwardTo.contains("s-sb-stf")
+                    ? forwardTo.replaceAll("s-sb-stf", "stf-").replaceAll("-sbermarket", "") + ".k-stage.sbermarket.tech"
+                    : forwardTo.replaceAll("s-sb-|-sbermarket", "") + ".k-stage.sbermarket.tech";
             SERVER = Server.CUSTOM.name().toLowerCase();
 
-            if (stfForwardTo.contains("s-sb-stf")) {
+            if (forwardTo.contains("s-sb-stf")) {
                 DB_URL = DB_URL.replace("kraken", STAGE);
                 DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
             } else {
@@ -227,13 +232,23 @@ public final class EnvironmentProperties {
                 DB_PGSQL_URL = DB_PGSQL_URL.replace("_kraken", "");
             }
 
-            if (stfForwardTo.contains("s-sb-stf")) {
+            if (forwardTo.contains("s-sb-stf")) {
                 K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
                 K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
             } else {
                 K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
                 K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
             }
+        }
+
+        private static void forwardB2b(final String forwardTo) {
+            if (isNull(forwardTo)) {
+                return;
+            }
+            BASIC_URL = forwardTo.contains("s-sb-stf")
+                    ? forwardTo.replaceAll("s-sb-stf", "stf-").replaceAll("-sbermarket", "") + ".k-stage.sbermarket.tech"
+                    : forwardTo.replaceAll("s-sb-|-sbermarket", "") + ".k-stage.sbermarket.tech";
+            TENANT = forwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
         }
 
         private static void shopperUrl(final String customBasicUrl, final String customShopperUrl) {
