@@ -847,6 +847,59 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
+    @TmsLink("593")
+    @Story("Get Delivery Price")
+    @Test(description = "Получение цены при при пустом positions_count в одном из шипментов",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithNoPositionsCountOneOfShipments() {
+        var request = GetDeliveryPriceRequest.newBuilder()
+                .addShipments(Shipment.newBuilder()
+                        .setId(UUID.randomUUID().toString())
+                        .setIsOndemand(false)
+                        .setWeight(1000)
+                        .setItemsCount(1)
+                        .setPrice(99900)
+                        .setStoreId(STORE_ID)
+                        .setStatus("NEW")
+                        .setRegionId(1)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .addShipments(Shipment.newBuilder()
+                        .setId(UUID.randomUUID().toString())
+                        .setIsOndemand(false)
+                        .setWeight(1000)
+                        .setItemsCount(1)
+                        .setPrice(99900)
+                        .setStoreId(STORE_ID)
+                        .setStatus("NEW")
+                        .setRegionId(1)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .setPositionsCount(1)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setId(UUID.randomUUID().toString())
+                        .setAnonymousId(UUID.randomUUID().toString())
+                        .setOrdersCount(1)
+                        .setRegisteredAt(1655822708)
+                        .setLat(55.57f)
+                        .setLon(55.57f)
+                        .build())
+                .setOrderId(UUID.randomUUID().toString())
+                .setIsB2BOrder(false)
+                .setIsPromocode(false)
+                .setPaymentMethod("Картой онлайн")
+                .setHasPaymentMethod(true)
+                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .setTenantId(Tenant.SBERMARKET.getId())
+                .build();
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, localStrategyId, 19900, 0, 3, 4, 0, 0);
+        Allure.step("Проверяем, что посчитали только один шипмент", () -> assertEquals(response.getShipmentsCount(), 1, "Не верное кол-во посчитанных шипментов"));
+    }
+
     @TmsLink("225")
     @Story("Get Delivery Price")
     @Test(description = "Получение ошибки при пустом store_id",
