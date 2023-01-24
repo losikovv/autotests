@@ -206,11 +206,9 @@ public class ShippingCalcBase {
     @AfterSuite(alwaysRun = true, description = "Возвращаем свитчбеки")
     public void returnSwitchbacks() {
         if (!switchbacksList.isEmpty()) {
+            SwitchbacksDao.INSTANCE.clearSwitchbacks();
             for (SwitchbacksEntity switchbacksEntity : switchbacksList) {
-                //SwitchbacksDao.INSTANCE.updateSwitchbackState(switchbacksEntity.getEndDateTime(), switchbacksEntity.getId());
                 SwitchbacksDao.INSTANCE.setSwitchbacks(switchbacksEntity);
-                //После SwitchbacksTest сносятся все свитчбеки, поэтому здесь они заново инсертятся,
-                //если свитчбеки сноситься не будут, то можно использовать строку выше
             }
         }
     }

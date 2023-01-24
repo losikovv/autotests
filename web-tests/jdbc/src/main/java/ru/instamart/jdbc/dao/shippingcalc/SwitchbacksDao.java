@@ -70,6 +70,15 @@ public class SwitchbacksDao implements Dao<Integer, SwitchbacksEntity> {
         return false;
     }
 
+    public void clearSwitchbacks() {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(" TRUNCATE TABLE switchbacks ")) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+    }
+
     @Override
     public boolean delete(Integer id) {
         return false;
