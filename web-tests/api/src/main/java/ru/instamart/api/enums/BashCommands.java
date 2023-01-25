@@ -48,7 +48,6 @@ public interface BashCommands {
         /**
          * Получение переменных окружения сервисов из swissknife
          */
-        ETA_ENABLE_STORE_ON_DEMAND_CHECK("cat /proc/1/environ | tr '\\0' '\\n' | grep -i ETA_ENABLE_STORE_ON_DEMAND_CHECK"),
         ETA_SURGE_INTERVALS("cat /proc/1/environ | tr '\\0' '\\n' | grep -i SURGE_INTERVALS"),
         SHIPPINGCALC_SURGE_DISABLED("cat /proc/1/environ | tr '\\0' '\\n' | grep -i SURGE_DISABLED"),
         SHIPPINGCALC_PLANNED_SURGE_FEATURE("cat /proc/1/environ | tr '\\0' '\\n' | grep -i PLANNED_SURGE_FEATURE_FLAG"),

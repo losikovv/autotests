@@ -24,7 +24,6 @@ import java.util.stream.Stream;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
-import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.ETA_ENABLE_STORE_ON_DEMAND_CHECK;
 import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.ETA_SURGE_INTERVALS;
 import static ru.instamart.api.helper.K8sHelper.getServiceEnvProp;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
@@ -35,12 +34,9 @@ public class EtaHelper {
     private static final List<Eta.EstimateSource> acceptableEstimateSource = List.of(Eta.EstimateSource.FALLBACK, Eta.EstimateSource.ML);
     private static volatile EtaHelper INSTANCE;
     @Getter
-    private final boolean storeOndemand;
-    @Getter
     private final String surgeIntervals;
 
     private EtaHelper() {
-        this.storeOndemand = getStoreOndemandCheckFromK8s();
         this.surgeIntervals = getSurgeIntervalsFromK8s();
     }
 
@@ -197,13 +193,6 @@ public class EtaHelper {
     public static void updateStoreParameters(final String storeId, final StoreParametersEtaResponse storeParameters) {
         final var response = StoreParametersEtaRequest.PUT(storeId, storeParameters);
         checkStatusCode(response, 200);
-    }
-
-    @Step("Смотрим включена ли проверка закрытия магазина")
-    public static boolean getStoreOndemandCheckFromK8s() {
-        final var envProp = getServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, ETA_ENABLE_STORE_ON_DEMAND_CHECK.get());
-        final var etaEnableOnDemandCheck = matchWithRegex("^\\[ETA_ENABLE_STORE_ON_DEMAND_CHECK=(.\\w+)\\]$", envProp.toString(), 1);
-        return etaEnableOnDemandCheck.equals("true");
     }
 
     @Step("Получаем интервалы сюрджа")

@@ -26,6 +26,7 @@ public class EtaBase {
     protected GrpcHelper grpc = new GrpcHelper();
     protected final String STORE_UUID_WITH_ML = "684609ad-6360-4bae-9556-03918c1e41c1";
     protected final String STORE_UUID_UNKNOWN_FOR_ML = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";
+    protected final String RETAILER_ID = "1";
     protected static final String STORE_UUID = UUID.randomUUID().toString();
     protected static final String STORE_UUID_WITH_DIFFERENT_TIMEZONE = UUID.randomUUID().toString();
     protected static final String STORE_UUID_DISABLED = UUID.randomUUID().toString();
