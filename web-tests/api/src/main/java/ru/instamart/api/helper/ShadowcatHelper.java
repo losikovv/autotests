@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode201;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode204or404;
 import static ru.instamart.api.enums.RailsConsole.Shadowcat.CREATE_JWT_TOKEN;
@@ -102,10 +103,6 @@ public class ShadowcatHelper {
             case FIRST_NTH_ORDER:
                 requestBody.put("number", 1000);
                 return requestBody;
-            case ORDER_FROM_DATE:
-                requestBody.put("number", 1);
-                requestBody.put("started_at", getZonedFutureDate(1L));
-                return requestBody;
             default:
                 throw new IllegalArgumentException("Неверный condition");
 
@@ -128,23 +125,14 @@ public class ShadowcatHelper {
     public static JSONObject requestList(TwoStepCondition conditions) {
         JSONObject body = new JSONObject();
         JSONArray array = new JSONArray();
-        array.add(conditions.getConditionValue());
+        array.add(conditions.getConditionValuePass());
         body.put("value", array);
         return body;
     }
 
-    public static Promotion createPromotionBody() {
+    public static Promotion createPromotionBody(PromotionType promotionType) {
         return Promotion.builder()
-                .actions(
-                        Actions.builder()
-                                .act(Actions.Action.builder()
-                                        .method("discount")
-                                        .properties(Actions.Properties.builder()
-                                                .maxFixAmount(1000)
-                                                .percent(10)
-                                                .build())
-                                        .build())
-                                .build())
+                .actions(createAction(promotionType))
                 .aggregationFunc("max")
                 .categoryId(0)
                 .conditions(Condition.builder().build())
@@ -157,6 +145,18 @@ public class ShadowcatHelper {
                 .isAutoAccepted(false)
                 .match("and")
                 .userId(104901)
+                .build();
+    }
+    @Step("Выберем акцию с типом: {promotionType}")
+    private static Actions createAction(PromotionType promotionType){
+        return Actions.builder()
+                .act(Actions.Action.builder()
+                        .method(promotionType.getType())
+                        .properties(Actions.Properties.builder()
+                                .maxFixAmount(promotionType.getValue())
+                                .percent(promotionType.getPercent())
+                                .build())
+                        .build())
                 .build();
     }
 
@@ -218,58 +218,58 @@ public class ShadowcatHelper {
                 .build();
     }
 
-    public static OrderSC updateOrderToFail(OrderSC order, SimpleCondition condition) {
+    public static OrderSC updateOrderSimpleCondition(OrderSC order, SimpleCondition condition, Boolean pass) {
+        int value = pass ? condition.getConditionValuePass() : condition.getConditionValueFail();
         switch (condition) {
             case FIRST_ORDER:
-                order.getCustomer().setOrdersCount(2);
+            case FIRST_NTH_ORDER:
+            case NOT_FIRST_ORDER:
+                order.getCustomer().setOrdersCount(value);
                 break;
             case SBER_CUSTOMER:
-                order.getCustomer().setSberLoyalty(false);
-                break;
-            case FIRST_NTH_ORDER:
-                order.getCustomer().setOrdersCount(1001);
+                order.getCustomer().setSberLoyalty(pass);
                 break;
             case B2B_ORDER:
-                order.setB2b(false);
-                break;
-            case NOT_FIRST_ORDER:
-                order.getCustomer().setOrdersCount(0);
+                order.setB2b(pass);
                 break;
             case ORDER_PRICE:
-                order.getShipments().get(0).getProducts().get(0).setDiscountPrice(1.0);
+                order.getShipments().get(0).getProducts().get(0).setDiscountPrice(value);
                 break;
+            default:
+                fail("Condition not found");
         }
         return order;
     }
 
-    public static OrderSC updateOrderToFail(OrderSC order, TwoStepCondition condition) {
+    public static OrderSC updateOrderTwoStepCondition(OrderSC order, TwoStepCondition condition, Boolean pass) {
+        String value = pass ? condition.getConditionValuePass() : condition.getConditionValueFail();
         switch (condition) {
             case DELIVERY_METHOD:
-                order.setDeliveryMethod("by_courier");
-                return order;
+                order.setDeliveryMethod(value);
+                break;
             case CUSTOMER:
-                order.getCustomer().setId("5d61631b-9438-4f72-8945-677243cf2e9d");
-                return order;
+                order.getCustomer().setId(value);
+                break;
             case PAYMENT:
-                order.setPaymentMethod("Spree::PaymentMethod::CashDesk");
-                return order;
+                order.setPaymentMethod(value);
+                break;
             case PRODUCT:
-                order.getShipments().get(0).getProducts().get(0).setSku("15622");
-                return order;
+                order.getShipments().get(0).getProducts().get(0).setSku(value);
+                break;
             case REGION:
-                order.getShipments().get(0).setRegionId("2");
-                return order;
+                order.getShipments().get(0).setRegionId(value);
+                break;
             case RETAILER:
-                order.getShipments().get(0).setRetailerId("5d61631b-9438-4f72-8945-677243cf2e9d");
-                return order;
+                order.getShipments().get(0).setRetailerId(value);
+                break;
             case STORE_FRONT:
-                order.setStoreFront("metro");
-                return order;
+                order.setStoreFront(value);
+                break;
             case SUBSCRIPTION:
-                order.getCustomer().setSubscription("prime_plus");
-                return order;
+                order.getCustomer().setSubscription(value);
+                break;
             default:
-                new IllegalArgumentException("Неверный параметр");
+                fail("Condition not found");
         }
         return order;
     }

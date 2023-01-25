@@ -16,51 +16,51 @@ import ru.instamart.api.enums.shadowcat.TwoStepCondition;
 import ru.instamart.api.model.shadowcat.OrderSC;
 import ru.instamart.api.request.shadowcat.CalculateRequest;
 import ru.instamart.api.request.shadowcat.ConditionRequest;
-import ru.instamart.api.response.shadowcat.ErrorShadowcatResponse;
+import ru.instamart.api.response.shadowcat.CalculateResponse;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode204or404;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 import static ru.instamart.api.helper.ShadowcatHelper.*;
 
 
 @Epic("Shadowcat")
-@Feature("Негативные тесты на калькуляцию скидки")
-public class CalculateNegativeTest extends ShadowcatRestBase {
+@Feature("Позитивные тесты на калькуляцию скидки")
+public class CalculatePositiveTest extends ShadowcatRestBase {
 
     private static final int promotion = PromotionType.DISCOUNT.getId();
     private static final String code = PromotionType.DISCOUNT.getCode();
     private static OrderSC order;
 
-    @TmsLink("11")
-    @Story("Негативные тесты")
-    @Test(description = "Неудачный расчет скидки для сложных condition ",
-            groups = {"api-shadowcat"}, dataProvider = "twoStepCondition",
-            dataProviderClass = ShadowcatDataProvider.class)
-    public void calculateFailTwoStepCondition(TwoStepCondition condition) {
-        order = createOrderSC(code);
-        updateOrderTwoStepCondition(order, condition , false);
-        addTwoStepCondition(promotion, condition);
-        final Response response = CalculateRequest.POST(order);
-        checkStatusCode422(response);
-        ErrorShadowcatResponse orderRes = response.as(ErrorShadowcatResponse.class);
-        compareTwoObjects(orderRes.getDetail(), condition.getErrorMessage());
-    }
-
-    @TmsLink("12")
-    @Story("Негативные тесты")
-    @Test(description = "Неудачный расчет скидки по condition",
+    @TmsLink("21")
+    @Story("Позитивные тесты")
+    @Test(description = "Успешный расчет скидки по condition",
             groups = {"api-shadowcat"}, dataProvider = "simpleCondition",
             dataProviderClass = ShadowcatDataProvider.class)
-    public void calculateFailSimpleCondition(SimpleCondition condition) {
+    public void testPositiveSimple(SimpleCondition condition) {
         order = createOrderSC(code);
-        updateOrderSimpleCondition(order, condition, false);
         final Response res = ConditionRequest.ConditionSimple.PUT(promotion, condition);
         checkStatusCode204or404(res);
+        updateOrderSimpleCondition(order, condition, true);
         final Response response = CalculateRequest.POST(order);
-        checkStatusCode422(response);
-        ErrorShadowcatResponse orderRes = response.as(ErrorShadowcatResponse.class);
-        compareTwoObjects(orderRes.getDetail(), condition.getErrorMessage());
+        checkStatusCode200(response);
+        CalculateResponse orderRes = response.as(CalculateResponse.class);
+        compareTwoObjects(orderRes.getPromotion().getAdjustmentAmount(), String.valueOf(PromotionType.DISCOUNT.getValue()));
+    }
+
+    @TmsLink("20")
+    @Story("Позитивные тесты")
+    @Test(description = "Успешный расчет скидки по condition",
+            groups = {"api-shadowcat"}, dataProvider = "twoStepCondition",
+            dataProviderClass = ShadowcatDataProvider.class)
+    public void calculateTwoStepCondition(TwoStepCondition condition) {
+        order = createOrderSC(code);
+        addTwoStepCondition(promotion, condition);
+        updateOrderTwoStepCondition(order, condition, true);
+        final Response response = CalculateRequest.POST(order);
+        checkStatusCode200(response);
+        CalculateResponse orderRes = response.as(CalculateResponse.class);
+        compareTwoObjects(orderRes.getPromotion().getAdjustmentAmount(), String.valueOf(PromotionType.DISCOUNT.getValue()));
     }
 
     @AfterMethod(alwaysRun = true)
