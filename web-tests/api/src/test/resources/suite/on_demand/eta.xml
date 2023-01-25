@@ -20,6 +20,7 @@
             <class name="ru.instamart.test.api.on_demand.eta.StoreParametersEtaTest"/>
             <class name="ru.instamart.test.api.on_demand.eta.RetailerParametersEtaTest"/>
             <class name="ru.instamart.test.api.on_demand.eta.ServiceParametersEtaTest"/>
+            <class name="ru.instamart.test.api.on_demand.eta.RedisEtaTest"/>
         </classes>
     </test>
 </suite>

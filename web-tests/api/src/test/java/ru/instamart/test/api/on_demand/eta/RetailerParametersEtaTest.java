@@ -25,7 +25,6 @@ import static ru.instamart.api.helper.EtaHelper.updateRetailerParameters;
 public class RetailerParametersEtaTest extends EtaBase {
 
     private RetailerParametersEtaResponse retailerParameters;
-    private final String retailerId = "1";
     private int courierSpeed;
 
     @TmsLink("27")
@@ -33,12 +32,12 @@ public class RetailerParametersEtaTest extends EtaBase {
     @Test(description = "Получение параметров ритейлера",
             groups = "ondemand-eta")
     public void getRetailerParameters() {
-        final Response response = RetailerParametersEtaRequest.GET(retailerId);
+        final Response response = RetailerParametersEtaRequest.GET(RETAILER_ID);
 
         checkStatusCode(response, 200, "");
         checkResponseJsonSchema(response, RetailerParametersEtaResponse.class);
         retailerParameters = response.as(RetailerParametersEtaResponse.class);
-        compareTwoObjects(retailerParameters.getId(), retailerId);
+        compareTwoObjects(retailerParameters.getId(), RETAILER_ID);
     }
 
     @TmsLink("28")
@@ -49,7 +48,7 @@ public class RetailerParametersEtaTest extends EtaBase {
     public void editRetailerParameters() {
         courierSpeed = retailerParameters.getCourierSpeed();
         retailerParameters.setCourierSpeed(RandomUtils.nextInt(10, 100));
-        updateRetailerParameters(retailerId, retailerParameters);
+        updateRetailerParameters(RETAILER_ID, retailerParameters);
 
         RetailerParametersEntity retailerParametersFromDb = RetailerParametersDao.INSTANCE.findById(1L).get();
         compareTwoObjects(retailerParametersFromDb.getCourierSpeed(), retailerParameters.getCourierSpeed());
@@ -61,7 +60,7 @@ public class RetailerParametersEtaTest extends EtaBase {
             groups = "ondemand-eta",
             dependsOnMethods = "getRetailerParameters")
     public void editRetailerParametersWithoutContentType() {
-        final Response response = RetailerParametersEtaRequest.WithoutСontentType.PUT(retailerId, retailerParameters);
+        final Response response = RetailerParametersEtaRequest.WithoutСontentType.PUT(RETAILER_ID, retailerParameters);
 
         checkStatusCode(response, 415, "");
         ErrorResponse parameters = response.as(ErrorResponse.class);
@@ -71,6 +70,6 @@ public class RetailerParametersEtaTest extends EtaBase {
     @AfterClass(alwaysRun = true)
     public void postConditions() {
         retailerParameters.setCourierSpeed(courierSpeed);
-        updateRetailerParameters(retailerId, retailerParameters);
+        updateRetailerParameters(RETAILER_ID, retailerParameters);
     }
 }

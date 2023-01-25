@@ -5,14 +5,12 @@ import eta.PredEtaGrpc;
 import eta.PredEtaGrpc.PredEtaBlockingStub;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.*;
-import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.EtaBase;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
-import ru.instamart.api.helper.EtaHelper;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
@@ -36,12 +34,11 @@ public class BasketEtaTest extends EtaBase {
     private final String ORDER_UUID = UUID.randomUUID().toString();
     private final String SHIPMENT_UUID = UUID.randomUUID().toString();
     private final String USER_UUID = UUID.randomUUID().toString();
-    private boolean etaEnableOnDemandCheck;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));
-        etaEnableOnDemandCheck = EtaHelper.getInstance().isStoreOndemand();
+        RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID));
     }
 
     @AfterMethod(alwaysRun = true)
@@ -294,76 +291,11 @@ public class BasketEtaTest extends EtaBase {
         });
     }
 
-    @TmsLink("41")
-    @Story("Basket ETA")
-    @Test(description = "Получение пустого ответа при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
-            groups = "ondemand-eta")
-    public void getBasketEtaForClosedStoreTrue() {
-
-        if (!etaEnableOnDemandCheck) {
-            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = false");
-        }
-
-        final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
-        final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
-        updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:00:00");
-
-        var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
-
-        var response = clientEta.getBasketEta(request);
-        compareTwoObjects(response.getOrder().getShipmentEtasCount(), 0);
-    }
-
-    @TmsLink("45")
-    @Story("Basket ETA")
-    @Test(description = "Получение пустого ответа при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
-            groups = "ondemand-eta")
-    public void getBasketEtaForClosedStoreViaClosingDeltaTrue() {
-
-        if (!etaEnableOnDemandCheck) {
-            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = false");
-        }
-
-        final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
-        updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:30:00");
-
-        var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
-
-        var response = clientEta.getBasketEta(request);
-        compareTwoObjects(response.getOrder().getShipmentEtasCount(), 0);
-    }
-
-    @TmsLink("50")
-    @Story("Basket ETA")
-    @Test(description = "Получение пустого ответа при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
-            groups = "ondemand-eta")
-    public void getBasketEtaForClosedStoreEqualClosingDeltaTrue() {
-
-        if (!etaEnableOnDemandCheck) {
-            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = false");
-        }
-
-        final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
-        updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "02:00:00");
-
-        var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
-
-        var response = clientEta.getBasketEta(request);
-        compareTwoObjects(response.getOrder().getShipmentEtasCount(), 0);
-    }
-
     @TmsLink("248")
     @Story("Basket ETA")
-    @Test(description = "Получение ЕТА при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
+    @Test(description = "Получение ЕТА при запросе в закрытый магазин",
             groups = "ondemand-eta")
-    public void getBasketEtaForClosedStoreFalse() {
-
-        if (etaEnableOnDemandCheck) {
-            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = true");
-        }
-
+    public void getBasketEtaForClosedStore() {
         String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
         String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:00:00");
@@ -376,14 +308,9 @@ public class BasketEtaTest extends EtaBase {
 
     @TmsLink("251")
     @Story("Basket ETA")
-    @Test(description = "Получение ЕТА при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
+    @Test(description = "Получение ЕТА при запросе в пределах работы параметра OnDemandClosingDelta",
             groups = "ondemand-eta")
-    public void getBasketEtaForClosedStoreViaClosingDeltaFalse() {
-
-        if (etaEnableOnDemandCheck) {
-            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = true");
-        }
-
+    public void getBasketEtaForClosedStoreViaClosingDelta() {
         final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
         final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:30:00");
@@ -396,14 +323,9 @@ public class BasketEtaTest extends EtaBase {
 
     @TmsLink("252")
     @Story("Basket ETA")
-    @Test(description = "Получение ЕТА при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
+    @Test(description = "Получение ЕТА при запросе с OnDemandClosingDelta равным времени работы магазина",
             groups = "ondemand-eta")
-    public void getBasketEtaForClosedStoreEqualClosingDeltaFalse() {
-
-        if (etaEnableOnDemandCheck) {
-            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = true");
-        }
-
+    public void getBasketEtaForClosedStoreEqualClosingDelta() {
         final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
         final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "02:00:00");
