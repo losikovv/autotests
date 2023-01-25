@@ -59,7 +59,7 @@ public class ApiV1Helper {
     public List<OfferV1> getActiveOffers(String storeUuid) {
         Response response = StoresV1Request.Offers.GET(
                 storeUuid,
-                "вода",
+                "хлеб",
                 "");
         checkStatusCode200(response);
         return response.as(OffersV1Response.class)

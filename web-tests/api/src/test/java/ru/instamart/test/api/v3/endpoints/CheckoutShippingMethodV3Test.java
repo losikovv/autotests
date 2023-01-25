@@ -42,7 +42,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
         user = UserManager.getQaUser();
         apiV1.authByPhone(user);
         AddressV2 addressDefaultMoscowSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
-        long offerDefaultMoscowSidId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId();
+        long offerDefaultMoscowSidId = apiV2.getProducts(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId();
         apiV1.changeAddress(addressDefaultMoscowSid, ShippingMethodV2.BY_COURIER.getMethod());
         apiV1.fillCart(addressDefaultMoscowSid, ShippingMethodV2.PICKUP.getMethod(), offerDefaultMoscowSidId, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         order = apiV1.getMultiRetailerOrder();

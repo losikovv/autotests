@@ -52,7 +52,7 @@ public class ShippingRatesV3Test extends RestBase {
         user = UserManager.getQaUser();
         apiV1.authByPhone(user);
         AddressV2 addressDefaultSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
-        long offerDefaultSidId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0).getId();
+        long offerDefaultSidId = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId, EnvironmentProperties.DEFAULT_SID);
         order = apiV1.getMultiRetailerOrder();
     }
@@ -211,7 +211,7 @@ public class ShippingRatesV3Test extends RestBase {
     public void addOnDemandDeliveryWindow() {
         apiV1.authByPhone(UserManager.getQaUser());
         AddressV2 addressDefaultSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
-        long offerDefaultSidId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get(0).getId();
+        long offerDefaultSidId = apiV2.getProducts(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get(0).getId();
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId, EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
         order = apiV1.getMultiRetailerOrder();
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()

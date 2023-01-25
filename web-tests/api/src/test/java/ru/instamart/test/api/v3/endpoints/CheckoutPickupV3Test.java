@@ -42,7 +42,7 @@ public class CheckoutPickupV3Test extends RestBase {
         user = UserManager.getQaUser();
         apiV1.authByPhone(user);
         addressDefaultMoscowSid = apiV2.getAddressBySidMy(defaultMetroMoscowSid);
-        offerDefaultMoscowSidId = apiV2.getProductFromEachDepartmentOnMainPage(defaultMetroMoscowSid).get(0).getId();
+        offerDefaultMoscowSidId = apiV2.getProducts(defaultMetroMoscowSid).get(0).getId();
         checkFlipper("checkout_web_force_all");
         apiV1.changeAddress(addressDefaultMoscowSid, ShippingMethodV2.BY_COURIER.getMethod());
         apiV1.fillCart(addressDefaultMoscowSid, ShippingMethodV2.PICKUP.getMethod(), offerDefaultMoscowSidId, defaultMetroMoscowSid);

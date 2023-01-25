@@ -291,7 +291,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Добавление позиции к заказу с обязательными полями")
     public void setLineItems200() {
-        List<ProductV2> products = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID);
+        List<ProductV2> products = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID);
         ProductV2 product = products.get(0);
 
         final Response response = LineItemsV2Request.POST(product.getId(), 1, apiV2.getCurrentOrderNumber());

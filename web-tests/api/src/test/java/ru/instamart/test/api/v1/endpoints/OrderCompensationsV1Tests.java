@@ -49,7 +49,7 @@ public class OrderCompensationsV1Tests extends RestBase {
         deleteOrderCompensationsCache();
         createCompensationPromotions();
         AddressV2 address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
-        Long offerId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0).getId();
+        Long offerId = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         apiV1.fillCart(address, ShippingMethodV2.BY_COURIER.getMethod(), offerId);
         order = apiV1.getMultiRetailerOrder();
     }
