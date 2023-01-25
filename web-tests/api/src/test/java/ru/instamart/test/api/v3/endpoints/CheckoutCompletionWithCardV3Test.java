@@ -42,7 +42,7 @@ public class CheckoutCompletionWithCardV3Test extends RestBase {
         apiV1.authByPhone(user);
         apiV2.authByQA(user);
         addressDefaultSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
-        offerDefaultSidId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0).getId();
+        offerDefaultSidId = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         order = apiV1.getMultiRetailerOrder();
         apiV1.addReplacementPolicy();

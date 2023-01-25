@@ -59,7 +59,7 @@ public class LineItemsV1Test extends RestBase {
     @Test(description = "Добавление товара в заказ",
             groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"})
     public void createLineItem() {
-        ProductV2 product = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0);
+        ProductV2 product = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0);
         final Response response = LineItemsV1Request.POST(product.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, LineItemV1Response.class);

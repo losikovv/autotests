@@ -48,7 +48,7 @@ public class CheckoutCompletionV3Test extends RestBase {
         user = UserManager.getQaUser();
         apiV1.authByPhone(user);
         addressDefaultSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
-        offerDefaultSidId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0).getId();
+        offerDefaultSidId = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         order = apiV1.order(addressDefaultSid, offerDefaultSidId, user);
     }
 

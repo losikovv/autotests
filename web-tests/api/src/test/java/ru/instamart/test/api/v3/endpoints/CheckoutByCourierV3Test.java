@@ -51,9 +51,9 @@ public class CheckoutByCourierV3Test extends RestBase {
     public void preconditions() {
         checkFlipper("checkout_web_force_all");
         addressDefaultSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
-        offerDefaultSidId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0).getId();
+        offerDefaultSidId = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         addressSecondSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
-        offerSecondSidId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId();
+        offerSecondSidId = apiV2.getProducts(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId();
     }
 
     @BeforeMethod(alwaysRun = true)

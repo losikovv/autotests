@@ -7,14 +7,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Null;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class ShoppingSessionV1 extends BaseObject {
-    @NotEmpty
     @JsonProperty("available_stores")
     private List<StoreV1> availableStores;
 

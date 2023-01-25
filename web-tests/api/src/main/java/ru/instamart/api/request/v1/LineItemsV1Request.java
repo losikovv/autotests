@@ -29,6 +29,7 @@ public class LineItemsV1Request extends ApiV1RequestBase {
         JSONObject body = new JSONObject();
         JSONObject lineItem = new JSONObject();
         lineItem.put("offer_id", offerId);
+        lineItem.put("packs", 1);
         body.put("line_item", lineItem);
         return givenWithAuth()
                 .contentType(ContentType.JSON)

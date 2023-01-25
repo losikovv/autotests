@@ -44,7 +44,7 @@ public class PaymentsV1Tests extends RestBase {
     public void preconditions() {
         admin.authApi();
         AddressV2 address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
-        Long offerId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0).getId();
+        Long offerId = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         order = apiV1.order(address, offerId, SessionFactory.getSession(SessionType.API_V1).getUserData());
     }
 
