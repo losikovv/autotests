@@ -21,11 +21,19 @@ public final class CheckoutTests {
     private final ApiHelper helper = new ApiHelper();
 
     @TmsLink("738")
-    @Test(description = "Способ оплаты корп. картой в чекауте", groups = {SMOKE_B2B, REGRESSION_BUSINESS, "all-order"})
+    @Test(description = "Способ оплаты корп. картой в чекауте", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void addBusinessCardInCheckout() {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
-        var card = PaymentCards.testBusinessCard();
+        //TODO: Сейчас сделали Бизнес картой карту 41111
+        // По идее насколько я понял, можно сделать любую через рельсу таску, но этот момент надо будет проговаривать с командой
+        /*
+            B2b::BankIdentificationNumber.all
+            B2b::BankIdentificationNumber.create(value: 411111)
+            B2b::CardChecker.new('4111111111111111').corporate?
+            Rails.cache.clear
+         */
+        var card = PaymentCards.testCard();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), user.getEmail());
         helper.dropAndFillCart(user, DEFAULT_SID);
 

@@ -909,7 +909,7 @@ public final class ApiV2Helper {
         Response response = StoresV2Request.GET(sid);
 
         if (response.statusCode() == 404) {
-            new SkipException("Магазин отключен admin/stores/" + currentSid.get());
+            throw new SkipException("Магазин отключен admin/stores/" + currentSid.get());
         }
         checkStatusCode200(response);
         StoreV2 store = response.as(StoreV2Response.class).getStore();
