@@ -24,10 +24,11 @@ public final class UserAuthorisationBusinessTests {
         business().interactHeaderMultisearch().checkUserActionsButtonVisible();
     }
 
+    //TODO: @Роман Макеев Были проблемы с сертами, из за этого проблема в тесте - уточняю статус, должны были тегнуть Сбер
     @Issue("DEVB2B-1977")
     @TmsLink("231")
     @Story("Авторизация")
-    @Test(description = "Вход по СберБизнес ID (B2B)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
+    @Test(enabled = false, description = "Вход по СберБизнес ID (B2B)", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void successRegWithSberBusinessID() {
         business().goToPage();
         business().interactHeader().clickToLogin();

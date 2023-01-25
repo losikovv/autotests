@@ -7,6 +7,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 
@@ -21,6 +22,8 @@ public final class ShoppingCartTests {
 
     private final ApiHelper helper = new ApiHelper();
 
+    @Skip
+    //TODO: по НДС можно считать неактуальными, ребята из этой команды опишут смоук набор, учитывая новую логику НДС
     @TmsLink("261")
     @Test(description = "Отображение TOTAL НДС", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testTotalVatDisplayed() {
@@ -40,6 +43,8 @@ public final class ShoppingCartTests {
         business().interactHeaderMultisearch().interactCart().checkTotalVatDisplayed();
     }
 
+    @Skip
+    //TODO: по НДС можно считать неактуальными, ребята из этой команды опишут смоук набор, учитывая новую логику НДС
     @TmsLink("263")
     @Test(description = "Отображение TOTAL НДС мультизаказ", groups = {SMOKE_B2B, REGRESSION_BUSINESS})
     public void testTotalVatDisplayedMultiply() {
