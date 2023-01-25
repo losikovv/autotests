@@ -3,6 +3,7 @@ package ru.instamart.api.request.shadowcat;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoint.ShadowcatEndpoints;
+import ru.instamart.api.enums.shadowcat.PromotionType;
 import ru.instamart.api.model.shadowcat.Promotion;
 import ru.instamart.api.request.ShadowcatRequestBase;
 
@@ -26,13 +27,13 @@ public class PromotionRequest extends ShadowcatRequestBase {
         @Step("{method} /" + ShadowcatEndpoints.PROMO)
         public static Response POST() {
             return givenWithAuth()
-                    .body(createPromotionBody())
+                    .body(createPromotionBody(PromotionType.DISCOUNT))
                     .post(ShadowcatEndpoints.PROMO);
         }
 
         @Step("{method} /" + ShadowcatEndpoints.PROMOACTION)
         public static Response PUT(int id) {
-            Promotion promo = createPromotionBody().toBuilder().description("After update").build();
+            Promotion promo = createPromotionBody(PromotionType.DISCOUNT).toBuilder().description("After update").build();
             return givenWithAuth()
                     .body(promo)
                     .put(ShadowcatEndpoints.PROMOACTION, id);

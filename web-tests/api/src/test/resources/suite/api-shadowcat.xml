@@ -15,6 +15,7 @@
             <class name="ru.instamart.test.api.shadowcat.CreatePromotionTest"/>
             <class name="ru.instamart.test.api.shadowcat.ConditionsTest"/>
             <class name="ru.instamart.test.api.shadowcat.CalculateNegativeTest"/>
+            <class name="ru.instamart.test.api.shadowcat.CalculatePositiveTest"/>
         </classes>
     </test>
 </suite>

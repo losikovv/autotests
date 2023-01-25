@@ -49,8 +49,9 @@ public class CreatePromotionTest extends ShadowcatRestBase {
     @TmsLink("9")
     @Test(description = "Создание промокода в промоакции",
             groups = {"api-shadowcat"},
-            priority = 3)
-    public void createPromocode() {
+            priority = 3,
+            dependsOnMethods = "createPromotion")
+    public void generatePromocode() {
         final Response response = PromocodeRequest.Promocodes.POST(promoId);
         checkStatusCode201(response);
         PromocodeResponse pr = response.as(PromocodeResponse.class);
@@ -62,7 +63,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
     @Test(description = "Обновление промокода в промоакции",
             groups = {"api-shadowcat"},
             priority = 4,
-            dependsOnMethods = "createPromocode")
+            dependsOnMethods = "generatePromocode")
     public void updatePromocode() {
         final Response response = PromocodeRequest.Promocodes.PUT(promocodeId, promoId, promocode);
         checkStatusCode200(response);
@@ -117,7 +118,7 @@ public class CreatePromotionTest extends ShadowcatRestBase {
     @Test(description = "Удаление промоакции",
             groups = {"api-shadowcat"},
             priority = 9,
-            dependsOnMethods = "deletePromocode")
+            dependsOnMethods = "updatePromotion")
     public void deletePromotion() {
         final Response response = Promotions.DELETE(promoId);
         checkStatusCode204or404(response);

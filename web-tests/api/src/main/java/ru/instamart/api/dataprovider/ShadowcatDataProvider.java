@@ -7,14 +7,14 @@ import ru.instamart.api.enums.shadowcat.TwoStepCondition;
 import java.util.Arrays;
 
 public class ShadowcatDataProvider {
-    @DataProvider(name = "SimpleCondition")
+    @DataProvider(name = "simpleCondition")
     public static Object[][] checkFailSimpleConditionOrder() {
         return Arrays.stream(SimpleCondition.values())
                 .map(f -> new Object[]{f})
                 .toArray(Object[][]::new);
     }
 
-    @DataProvider(name = "TwoStepCondition")
+    @DataProvider(name = "twoStepCondition")
     public static Object[][] checkFailTwoStepConditionOrder() {
         return Arrays.stream(TwoStepCondition.values())
                 .map(f -> new Object[]{f})
