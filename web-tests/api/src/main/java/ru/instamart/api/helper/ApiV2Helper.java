@@ -783,6 +783,7 @@ public final class ApiV2Helper {
     OrderV2 completeOrder() {
         orderCompleted.set(false);
         Response response = OrdersV2Request.Completion.POST(currentOrderNumber.get());
+        response.prettyPeek();
         if (response.getStatusCode() == 422) {
             response = slotAvailabilityCheck(response);
         }

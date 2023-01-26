@@ -19,6 +19,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.jdbc.dao.orders_service.publicScheme.*;
 import ru.instamart.jdbc.entity.order_service.publicScheme.RetailersEntity;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.UUID;
@@ -252,6 +253,7 @@ public class OrderServiceKafkaTest extends RestBase {
     }
 
     @TmsLink("254")
+    @Skip //Тест кейс удален
     @Test(description = "При создании магазина через топик yc.retail-onboarding.fct.stores active = false",
             groups = "dispatch-orderservice-smoke")
     public void checkNewStoreStatusAfterRetailerStoreChangedMessage() {

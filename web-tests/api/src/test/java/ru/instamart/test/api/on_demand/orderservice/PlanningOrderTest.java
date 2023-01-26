@@ -11,14 +11,18 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.jdbc.dao.orders_service.publicScheme.OrdersDao;
+import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.ThreadUtil;
 import io.qameta.allure.TmsLink;
+
+import static org.testng.Assert.assertNotNull;
 
 @Epic("On Demand")
 @Feature("DISPATCH")
 public class PlanningOrderTest extends RestBase {
     private OrderV2 order;
+    private String shipmentUuid;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -27,6 +31,7 @@ public class PlanningOrderTest extends RestBase {
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         );
+        shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
     }
 
     @TmsLink("47")
@@ -34,9 +39,10 @@ public class PlanningOrderTest extends RestBase {
             description = "Получение данных on-demand заказа")
     public void createOrder() {
         ThreadUtil.simplyAwait(10);
-        final var orderEntity = OrdersDao.INSTANCE.findByOrderUuid(order.getUuid());
+        final var orderEntity = OrdersDao.INSTANCE.findByOrderUuid(shipmentUuid);
         Allure.step("Проверка orderEntity", () -> {
-            final SoftAssert softAssert = new SoftAssert();
+            assertNotNull(orderEntity, "Данные из бвзы не пришли");
+            final var softAssert = new SoftAssert();
             softAssert.assertEquals(orderEntity.getPlaceUuid(), "599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a", "placeUUID не совпадает");
             softAssert.assertEquals(orderEntity.getWeight(), order.getTotalWeight(), "weight не совпадает");
             softAssert.assertEquals(orderEntity.getType(), "ON_DEMAND", "type не совпадает");
