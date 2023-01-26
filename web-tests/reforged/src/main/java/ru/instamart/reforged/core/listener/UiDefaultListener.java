@@ -18,7 +18,8 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.report.CustomReport;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -74,8 +75,8 @@ public class UiDefaultListener extends AllureTestNgListener {
         try {
             final var doNotOpenBrowser = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(DoNotOpenBrowser.class);
             if (isNull(doNotOpenBrowser)) {
-                final var customCookies = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(CookieProvider.class);
-                final var cookies = isNull(customCookies) ? UiProperties.DEFAULT_COOKIES : Arrays.asList(customCookies.cookies());
+                final var cookieProvider = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(CookieProvider.class);
+                final var cookies = getCookies(cookieProvider);
                 final var fields = FieldUtils.getAllFieldsList(CookieFactory.class)
                         .stream()
                         .filter(f -> cookies.contains(f.getName()))
@@ -92,5 +93,16 @@ public class UiDefaultListener extends AllureTestNgListener {
         } catch (Exception e) {
             log.error("FATAL: Can't add cookie for method '{}' = {}", method, e);
         }
+    }
+
+    private List<String> getCookies(final CookieProvider cookieProvider) {
+        if (isNull(cookieProvider)) {
+            return UiProperties.DEFAULT_COOKIES;
+        }
+        final var cookies = new ArrayList<>(List.of(cookieProvider.cookies()));
+        if (cookieProvider.append()) {
+            cookies.addAll(UiProperties.DEFAULT_COOKIES);
+        }
+        return cookies;
     }
 }

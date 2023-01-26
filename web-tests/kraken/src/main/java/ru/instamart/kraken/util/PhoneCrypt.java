@@ -1,6 +1,7 @@
 package ru.instamart.kraken.util;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -19,9 +20,9 @@ public enum PhoneCrypt {
     private static final String ENCRYPT_ALGO = "AES/CBC/PKCS5Padding";
     private static final String ALGORITHM="AES";
     private static final int IV_SIZE = 16; // in bytes
-    //"Qqh79BpFGPpEWpdsNsZDwHgo65Xa5LHy53ahcN9caHM="
-    private static final byte[] CIPHER_KEY_PHONE = new byte[]{66, -88, 123, -12, 26, 69, 24, -6, 68, 90, -105, 108, 54, -58, 67, -64, 120, 40, -21, -107, -38, -28, -79, -14, -25, 118, -95, 112, -33, 92, 104, 115};
-    private static final SecretKeySpec SECRET_KEY_SPEC = new SecretKeySpec(CIPHER_KEY_PHONE, ALGORITHM);
+    private static final byte[] CIPHER_KEY_PHONE_STAGE = new byte[]{66, -88, 123, -12, 26, 69, 24, -6, 68, 90, -105, 108, 54, -58, 67, -64, 120, 40, -21, -107, -38, -28, -79, -14, -25, 118, -95, 112, -33, 92, 104, 115};
+    private static final byte[] CIPHER_KEY_PHONE_PROD = new byte[]{78, 53, -89, 102, -66, 46, -17, 27, 0, -128, 59, 70, -108, -90, -113, 70, 5, 36, 94, -99, -84, -26, -1, 58, -78, 7, 109, 123, -103, 28, -22, -21};
+    private static final SecretKeySpec SECRET_KEY_SPEC = new SecretKeySpec(EnvironmentProperties.Env.isProduction() ? CIPHER_KEY_PHONE_PROD : CIPHER_KEY_PHONE_STAGE, ALGORITHM);
     private static final Base64.Encoder encoder = Base64.getEncoder();
 
     /**

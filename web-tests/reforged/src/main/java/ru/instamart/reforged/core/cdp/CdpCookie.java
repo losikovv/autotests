@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.devtools.v107.network.Network;
-import org.openqa.selenium.devtools.v107.network.model.CookieParam;
-import org.openqa.selenium.devtools.v107.network.model.CookiePriority;
-import org.openqa.selenium.devtools.v107.network.model.CookieSourceScheme;
-import org.openqa.selenium.devtools.v107.network.model.TimeSinceEpoch;
+import org.openqa.selenium.devtools.v107.network.model.*;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.ArrayList;
@@ -69,10 +66,10 @@ public final class CdpCookie {
                     Optional.empty(),
                     Optional.of(c.getDomain()),
                     Optional.of(c.getPath()),
-                    Optional.of(false),
-                    Optional.of(false),
-                    Optional.empty(),
-                    isNull(c.getExpiry()) ? Optional.empty() : Optional.of(new TimeSinceEpoch(c.getExpiry().getTime()/1000)),
+                    Optional.of(c.isSecure()),
+                    Optional.of(c.isHttpOnly()),
+                    isNull(c.getSameSite()) ? Optional.empty() : Optional.of(CookieSameSite.fromString(c.getSameSite())),
+                    isNull(c.getExpiry()) ? Optional.empty() : Optional.of(new TimeSinceEpoch(c.getExpiry().getTime() / 1000)),
                     Optional.of(CookiePriority.MEDIUM),
                     Optional.of(false),
                     Optional.of(CookieSourceScheme.SECURE),
