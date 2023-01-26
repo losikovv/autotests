@@ -53,7 +53,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public final class SessionFactory {
 
     @Setter
-    private static SessionProvider provider = SessionProvider.PHONE;
+    private static SessionProvider provider = SessionProvider.QA;
 
     @Getter
     private static final Map<SessionId, SessionInfo> sessionMap = new ConcurrentHashMap<>();
