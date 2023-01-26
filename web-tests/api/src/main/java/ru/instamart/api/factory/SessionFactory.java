@@ -21,8 +21,8 @@ import ru.instamart.api.request.v1.TokensV1Request;
 import ru.instamart.api.request.v1.UserSessionsV1Request;
 import ru.instamart.api.request.v2.AuthProvidersV2Request;
 import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
-import ru.instamart.api.response.keycloak.TokenKeycloakResponse;
 import ru.instamart.api.response.delivery_club.TokenDCResponse;
+import ru.instamart.api.response.keycloak.TokenKeycloakResponse;
 import ru.instamart.api.response.ris_exporter.TokenRisResponse;
 import ru.instamart.api.response.shopper.app.OtpCodeSHPResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
@@ -145,13 +145,10 @@ public final class SessionFactory {
         final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
         final SessionInfo session = sessionMap.get(sessionId);
         if (nonNull(session) && !session.getLogin().equals(userData.getEmail())) {
-            //TODO  исправить проверку номера телефона
-            // if (nonNull(session) && (!session.getLogin().equals(userData.getEmail()) || !session.getPhone().equals(userData.getPhone()))) {
             addSessionMap(type, provider, userData);
         } else if (isNull(session)) {
             addSessionMap(type, provider, userData);
         }
-
     }
 
     private static void addSessionMap(final SessionType type, final SessionProvider provider, final UserData userData) {

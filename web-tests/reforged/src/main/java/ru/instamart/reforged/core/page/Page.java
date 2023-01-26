@@ -9,6 +9,8 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.CdpCookie;
 
+import java.util.List;
+
 public interface Page extends PageCheck {
 
     String BASIC_AUTH = CoreProperties.BASIC_AUTH_USERNAME + ":" + CoreProperties.BASIC_AUTH_PASSWORD + "@";
@@ -41,6 +43,11 @@ public interface Page extends PageCheck {
     @Step("Добавить куки {0}")
     default void addCookie(final Cookie cookie) {
         CdpCookie.addCookie(cookie);
+    }
+
+    @Step("Добавить список кук {0}")
+    default void addCookies(final List<Cookie> cookies) {
+        CdpCookie.addCookies(cookies);
     }
 
     @Step("Скролл страницы вверх")

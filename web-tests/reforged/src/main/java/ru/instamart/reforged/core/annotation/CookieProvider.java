@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CookieProvider {
     String[] cookies() default {};
+    boolean append() default false;
 }
