@@ -5,6 +5,7 @@ package candidates;
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/duration.proto";
 
 
 
@@ -133,6 +134,8 @@ message CandidateLastLocation {
 	double lon = 2;
 	// дата последней фиксации geo позиции
 	google.protobuf.Timestamp created_at = 3;
+	google.protobuf.Timestamp updated_at = 4;
+	bool is_fake_gps = 5;
 }
 
 message CandidateShift {
@@ -162,6 +165,8 @@ message CandidateShift {
 	string store_uuid = 8;
 	// AR кандидата на дату начала этой смены
 	float candidate_acceptance_rate = 9;
+	// общее время, проведенное под fake GPS за смену
+	google.protobuf.Duration total_fake_gps_time = 10;
 }
 
 message AssignmentRejections {
