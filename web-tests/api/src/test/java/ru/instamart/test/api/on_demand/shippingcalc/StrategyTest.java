@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.ShippingCalcBase;
+import ru.instamart.api.dataprovider.ShippingCalcDataProvider;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.shippingcalc.RulesDao;
 import ru.instamart.jdbc.dao.shippingcalc.ScriptsDao;
@@ -20,10 +21,10 @@ import io.qameta.allure.TmsLink;
 import shippingcalc.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
 
@@ -488,11 +489,16 @@ public class StrategyTest extends ShippingCalcBase {
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при не прохождении валидации в параметрах условий",
             groups = "ondemand-shippingcalc",
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has condition 0 with validation error: invalid parameters structure, Count field is absent")
-    public void createStrategyWithNoValidationParams() {
-        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 1, "{\"test\": 1}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
-        clientShippingCalc.createStrategy(request);
+            dataProvider = "conditionValidation",
+            dataProviderClass = ShippingCalcDataProvider.class)
+    public void createStrategyWithNoValidationParams(int conditionType, String params, String errorMessage) {
+        try {
+            var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, conditionType, params, 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+            clientShippingCalc.createStrategy(request);
+            fail("Не получили никакую ошибку");
+        } catch (StatusRuntimeException e) {
+            assertTrue(e.getMessage().matches(errorMessage + ".*"), "Не верный текст ошибки");
+        }
     }
 
     @TmsLink("336")
@@ -1132,12 +1138,17 @@ public class StrategyTest extends ShippingCalcBase {
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при не прохождении валидации в параметрах условий",
             groups = "ondemand-shippingcalc",
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has condition 0 with validation error: invalid parameters structure, Max field is absent",
+            dataProvider = "conditionValidation",
+            dataProviderClass = ShippingCalcDataProvider.class,
             dependsOnMethods = "updateStrategy")
-    public void updateStrategyWithNoValidationParams() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{\"Min\": 1, \"test\": 1}", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
-        clientShippingCalc.updateStrategy(request);
+    public void updateStrategyWithNoValidationParams(int conditionType, String params, String errorMessage) {
+        try {
+            var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, conditionType, params, 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+            clientShippingCalc.updateStrategy(request);
+            fail("Не получили никакую ошибку");
+        } catch (StatusRuntimeException e) {
+            assertTrue(e.getMessage().matches(errorMessage + ".*"), "Не верный текст ошибки");
+        }
     }
 
     @TmsLink("343")
@@ -1946,10 +1957,20 @@ public class StrategyTest extends ShippingCalcBase {
 
     @AfterClass(alwaysRun = true)
     public void postConditions() {
-        deleteCreatedStrategy(localStrategyId);
-        deleteCreatedStrategy(globalStrategyId);
-        deleteCreatedStrategy(strategyIdWithDifferentScriptsInRules);
-        deleteCreatedStrategy(strategyIdWithMultipleRulesAndConditions);
-        deleteCreatedStrategy(strategyIdWithReplace);
+        if (Objects.nonNull(localStrategyId)) {
+            deleteCreatedStrategy(localStrategyId);
+        }
+        if (Objects.nonNull(globalStrategyId)) {
+            deleteCreatedStrategy(globalStrategyId);
+        }
+        if (Objects.nonNull(strategyIdWithDifferentScriptsInRules)) {
+            deleteCreatedStrategy(strategyIdWithDifferentScriptsInRules);
+        }
+        if (Objects.nonNull(strategyIdWithMultipleRulesAndConditions)) {
+            deleteCreatedStrategy(strategyIdWithMultipleRulesAndConditions);
+        }
+        if (Objects.nonNull(strategyIdWithReplace)) {
+            deleteCreatedStrategy(strategyIdWithReplace);
+        }
     }
 }
