@@ -295,7 +295,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что отображается сообщение об ошибке поля ввода промокода")
     default void checkPromoCodeErrorVisible() {
-        Kraken.waitAction().shouldBeVisible(promoCodeError);
+        promoCodeError.should().visible();
     }
 
     @Step("Проверяем, что текст ошибки в поле ввода промокода: '{expectedErrorText}'")
