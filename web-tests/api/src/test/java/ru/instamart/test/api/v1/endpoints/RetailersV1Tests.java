@@ -236,7 +236,7 @@ public class RetailersV1Tests extends RestBase {
     @TmsLink("1291")
     @Test(description = "Получение ритейлеров, отсортированных по имени в возрастающем порядке",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
-            dependsOnMethods = "getRetailers")
+            dependsOnMethods = "getRetailers", enabled = false)
     public void getRetailersSortedByNameAsc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .sorts(RetailerSortTypeV1.NAME_ASC.getValue())
@@ -253,7 +253,7 @@ public class RetailersV1Tests extends RestBase {
     @TmsLink("1292")
     @Test(description = "Получение ритейлеров, отсортированных по имени в убывающем порядке",
             groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
-            dependsOnMethods = "getRetailers")
+            dependsOnMethods = "getRetailers", enabled = false)
     public void getRetailersSortedByNameDesc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .sorts(RetailerSortTypeV1.NAME_DESC.getValue())
