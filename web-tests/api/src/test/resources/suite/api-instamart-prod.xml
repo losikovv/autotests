@@ -34,7 +34,6 @@
             <class name="ru.instamart.test.api.v1.endpoints.LineItemsV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.PhoneConfirmationsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ShoppingContextV1Tests"/>
-            <class name="ru.instamart.test.api.v1.endpoints.ImportsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.UsersShipmentsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.UserOnDemandShipmentsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.CheckoutV1Tests"/>
