@@ -9687,6 +9687,27 @@ public final class CandidatesOuterClass {
      * <code>.google.protobuf.Timestamp created_at = 3;</code>
      */
     com.google.protobuf.TimestampOrBuilder getCreatedAtOrBuilder();
+
+    /**
+     * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+     * @return Whether the updatedAt field is set.
+     */
+    boolean hasUpdatedAt();
+    /**
+     * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+     * @return The updatedAt.
+     */
+    com.google.protobuf.Timestamp getUpdatedAt();
+    /**
+     * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getUpdatedAtOrBuilder();
+
+    /**
+     * <code>bool is_fake_gps = 5;</code>
+     * @return The isFakeGps.
+     */
+    boolean getIsFakeGps();
   }
   /**
    * Protobuf type {@code candidates.CandidateLastLocation}
@@ -9754,6 +9775,24 @@ public final class CandidatesOuterClass {
                 createdAt_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 34: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (updatedAt_ != null) {
+                subBuilder = updatedAt_.toBuilder();
+              }
+              updatedAt_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(updatedAt_);
+                updatedAt_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 40: {
+
+              isFakeGps_ = input.readBool();
               break;
             }
             default: {
@@ -9856,6 +9895,43 @@ public final class CandidatesOuterClass {
       return getCreatedAt();
     }
 
+    public static final int UPDATED_AT_FIELD_NUMBER = 4;
+    private com.google.protobuf.Timestamp updatedAt_;
+    /**
+     * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+     * @return Whether the updatedAt field is set.
+     */
+    @java.lang.Override
+    public boolean hasUpdatedAt() {
+      return updatedAt_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+     * @return The updatedAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getUpdatedAt() {
+      return updatedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : updatedAt_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getUpdatedAtOrBuilder() {
+      return getUpdatedAt();
+    }
+
+    public static final int IS_FAKE_GPS_FIELD_NUMBER = 5;
+    private boolean isFakeGps_;
+    /**
+     * <code>bool is_fake_gps = 5;</code>
+     * @return The isFakeGps.
+     */
+    @java.lang.Override
+    public boolean getIsFakeGps() {
+      return isFakeGps_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9879,6 +9955,12 @@ public final class CandidatesOuterClass {
       if (createdAt_ != null) {
         output.writeMessage(3, getCreatedAt());
       }
+      if (updatedAt_ != null) {
+        output.writeMessage(4, getUpdatedAt());
+      }
+      if (isFakeGps_ != false) {
+        output.writeBool(5, isFakeGps_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -9899,6 +9981,14 @@ public final class CandidatesOuterClass {
       if (createdAt_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, getCreatedAt());
+      }
+      if (updatedAt_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getUpdatedAt());
+      }
+      if (isFakeGps_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, isFakeGps_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -9926,6 +10016,13 @@ public final class CandidatesOuterClass {
         if (!getCreatedAt()
             .equals(other.getCreatedAt())) return false;
       }
+      if (hasUpdatedAt() != other.hasUpdatedAt()) return false;
+      if (hasUpdatedAt()) {
+        if (!getUpdatedAt()
+            .equals(other.getUpdatedAt())) return false;
+      }
+      if (getIsFakeGps()
+          != other.getIsFakeGps()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -9947,6 +10044,13 @@ public final class CandidatesOuterClass {
         hash = (37 * hash) + CREATED_AT_FIELD_NUMBER;
         hash = (53 * hash) + getCreatedAt().hashCode();
       }
+      if (hasUpdatedAt()) {
+        hash = (37 * hash) + UPDATED_AT_FIELD_NUMBER;
+        hash = (53 * hash) + getUpdatedAt().hashCode();
+      }
+      hash = (37 * hash) + IS_FAKE_GPS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsFakeGps());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -10090,6 +10194,14 @@ public final class CandidatesOuterClass {
           createdAt_ = null;
           createdAtBuilder_ = null;
         }
+        if (updatedAtBuilder_ == null) {
+          updatedAt_ = null;
+        } else {
+          updatedAt_ = null;
+          updatedAtBuilder_ = null;
+        }
+        isFakeGps_ = false;
+
         return this;
       }
 
@@ -10123,6 +10235,12 @@ public final class CandidatesOuterClass {
         } else {
           result.createdAt_ = createdAtBuilder_.build();
         }
+        if (updatedAtBuilder_ == null) {
+          result.updatedAt_ = updatedAt_;
+        } else {
+          result.updatedAt_ = updatedAtBuilder_.build();
+        }
+        result.isFakeGps_ = isFakeGps_;
         onBuilt();
         return result;
       }
@@ -10179,6 +10297,12 @@ public final class CandidatesOuterClass {
         }
         if (other.hasCreatedAt()) {
           mergeCreatedAt(other.getCreatedAt());
+        }
+        if (other.hasUpdatedAt()) {
+          mergeUpdatedAt(other.getUpdatedAt());
+        }
+        if (other.getIsFakeGps() != false) {
+          setIsFakeGps(other.getIsFakeGps());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -10449,6 +10573,156 @@ public final class CandidatesOuterClass {
         }
         return createdAtBuilder_;
       }
+
+      private com.google.protobuf.Timestamp updatedAt_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> updatedAtBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+       * @return Whether the updatedAt field is set.
+       */
+      public boolean hasUpdatedAt() {
+        return updatedAtBuilder_ != null || updatedAt_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+       * @return The updatedAt.
+       */
+      public com.google.protobuf.Timestamp getUpdatedAt() {
+        if (updatedAtBuilder_ == null) {
+          return updatedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : updatedAt_;
+        } else {
+          return updatedAtBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+       */
+      public Builder setUpdatedAt(com.google.protobuf.Timestamp value) {
+        if (updatedAtBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          updatedAt_ = value;
+          onChanged();
+        } else {
+          updatedAtBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+       */
+      public Builder setUpdatedAt(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (updatedAtBuilder_ == null) {
+          updatedAt_ = builderForValue.build();
+          onChanged();
+        } else {
+          updatedAtBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+       */
+      public Builder mergeUpdatedAt(com.google.protobuf.Timestamp value) {
+        if (updatedAtBuilder_ == null) {
+          if (updatedAt_ != null) {
+            updatedAt_ =
+              com.google.protobuf.Timestamp.newBuilder(updatedAt_).mergeFrom(value).buildPartial();
+          } else {
+            updatedAt_ = value;
+          }
+          onChanged();
+        } else {
+          updatedAtBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+       */
+      public Builder clearUpdatedAt() {
+        if (updatedAtBuilder_ == null) {
+          updatedAt_ = null;
+          onChanged();
+        } else {
+          updatedAt_ = null;
+          updatedAtBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getUpdatedAtBuilder() {
+        
+        onChanged();
+        return getUpdatedAtFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getUpdatedAtOrBuilder() {
+        if (updatedAtBuilder_ != null) {
+          return updatedAtBuilder_.getMessageOrBuilder();
+        } else {
+          return updatedAt_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : updatedAt_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp updated_at = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getUpdatedAtFieldBuilder() {
+        if (updatedAtBuilder_ == null) {
+          updatedAtBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getUpdatedAt(),
+                  getParentForChildren(),
+                  isClean());
+          updatedAt_ = null;
+        }
+        return updatedAtBuilder_;
+      }
+
+      private boolean isFakeGps_ ;
+      /**
+       * <code>bool is_fake_gps = 5;</code>
+       * @return The isFakeGps.
+       */
+      @java.lang.Override
+      public boolean getIsFakeGps() {
+        return isFakeGps_;
+      }
+      /**
+       * <code>bool is_fake_gps = 5;</code>
+       * @param value The isFakeGps to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsFakeGps(boolean value) {
+        
+        isFakeGps_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool is_fake_gps = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsFakeGps() {
+        
+        isFakeGps_ = false;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -10664,6 +10938,33 @@ public final class CandidatesOuterClass {
      * @return The candidateAcceptanceRate.
      */
     float getCandidateAcceptanceRate();
+
+    /**
+     * <pre>
+     * общее время, проведенное под fake GPS за смену
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+     * @return Whether the totalFakeGpsTime field is set.
+     */
+    boolean hasTotalFakeGpsTime();
+    /**
+     * <pre>
+     * общее время, проведенное под fake GPS за смену
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+     * @return The totalFakeGpsTime.
+     */
+    com.google.protobuf.Duration getTotalFakeGpsTime();
+    /**
+     * <pre>
+     * общее время, проведенное под fake GPS за смену
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+     */
+    com.google.protobuf.DurationOrBuilder getTotalFakeGpsTimeOrBuilder();
   }
   /**
    * Protobuf type {@code candidates.CandidateShift}
@@ -10775,6 +11076,19 @@ public final class CandidatesOuterClass {
             case 77: {
 
               candidateAcceptanceRate_ = input.readFloat();
+              break;
+            }
+            case 82: {
+              com.google.protobuf.Duration.Builder subBuilder = null;
+              if (totalFakeGpsTime_ != null) {
+                subBuilder = totalFakeGpsTime_.toBuilder();
+              }
+              totalFakeGpsTime_ = input.readMessage(com.google.protobuf.Duration.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(totalFakeGpsTime_);
+                totalFakeGpsTime_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -11187,6 +11501,44 @@ public final class CandidatesOuterClass {
       return candidateAcceptanceRate_;
     }
 
+    public static final int TOTAL_FAKE_GPS_TIME_FIELD_NUMBER = 10;
+    private com.google.protobuf.Duration totalFakeGpsTime_;
+    /**
+     * <pre>
+     * общее время, проведенное под fake GPS за смену
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+     * @return Whether the totalFakeGpsTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasTotalFakeGpsTime() {
+      return totalFakeGpsTime_ != null;
+    }
+    /**
+     * <pre>
+     * общее время, проведенное под fake GPS за смену
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+     * @return The totalFakeGpsTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Duration getTotalFakeGpsTime() {
+      return totalFakeGpsTime_ == null ? com.google.protobuf.Duration.getDefaultInstance() : totalFakeGpsTime_;
+    }
+    /**
+     * <pre>
+     * общее время, проведенное под fake GPS за смену
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.DurationOrBuilder getTotalFakeGpsTimeOrBuilder() {
+      return getTotalFakeGpsTime();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -11227,6 +11579,9 @@ public final class CandidatesOuterClass {
       }
       if (candidateAcceptanceRate_ != 0F) {
         output.writeFloat(9, candidateAcceptanceRate_);
+      }
+      if (totalFakeGpsTime_ != null) {
+        output.writeMessage(10, getTotalFakeGpsTime());
       }
       unknownFields.writeTo(output);
     }
@@ -11271,6 +11626,10 @@ public final class CandidatesOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(9, candidateAcceptanceRate_);
       }
+      if (totalFakeGpsTime_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, getTotalFakeGpsTime());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -11310,6 +11669,11 @@ public final class CandidatesOuterClass {
       if (java.lang.Float.floatToIntBits(getCandidateAcceptanceRate())
           != java.lang.Float.floatToIntBits(
               other.getCandidateAcceptanceRate())) return false;
+      if (hasTotalFakeGpsTime() != other.hasTotalFakeGpsTime()) return false;
+      if (hasTotalFakeGpsTime()) {
+        if (!getTotalFakeGpsTime()
+            .equals(other.getTotalFakeGpsTime())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -11346,6 +11710,10 @@ public final class CandidatesOuterClass {
       hash = (37 * hash) + CANDIDATE_ACCEPTANCE_RATE_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getCandidateAcceptanceRate());
+      if (hasTotalFakeGpsTime()) {
+        hash = (37 * hash) + TOTAL_FAKE_GPS_TIME_FIELD_NUMBER;
+        hash = (53 * hash) + getTotalFakeGpsTime().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11505,6 +11873,12 @@ public final class CandidatesOuterClass {
 
         candidateAcceptanceRate_ = 0F;
 
+        if (totalFakeGpsTimeBuilder_ == null) {
+          totalFakeGpsTime_ = null;
+        } else {
+          totalFakeGpsTime_ = null;
+          totalFakeGpsTimeBuilder_ = null;
+        }
         return this;
       }
 
@@ -11548,6 +11922,11 @@ public final class CandidatesOuterClass {
         result.fixedOnDeliveryAreaOrStore_ = fixedOnDeliveryAreaOrStore_;
         result.storeUuid_ = storeUuid_;
         result.candidateAcceptanceRate_ = candidateAcceptanceRate_;
+        if (totalFakeGpsTimeBuilder_ == null) {
+          result.totalFakeGpsTime_ = totalFakeGpsTime_;
+        } else {
+          result.totalFakeGpsTime_ = totalFakeGpsTimeBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -11624,6 +12003,9 @@ public final class CandidatesOuterClass {
         }
         if (other.getCandidateAcceptanceRate() != 0F) {
           setCandidateAcceptanceRate(other.getCandidateAcceptanceRate());
+        }
+        if (other.hasTotalFakeGpsTime()) {
+          mergeTotalFakeGpsTime(other.getTotalFakeGpsTime());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -12415,6 +12797,161 @@ public final class CandidatesOuterClass {
         candidateAcceptanceRate_ = 0F;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.Duration totalFakeGpsTime_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> totalFakeGpsTimeBuilder_;
+      /**
+       * <pre>
+       * общее время, проведенное под fake GPS за смену
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+       * @return Whether the totalFakeGpsTime field is set.
+       */
+      public boolean hasTotalFakeGpsTime() {
+        return totalFakeGpsTimeBuilder_ != null || totalFakeGpsTime_ != null;
+      }
+      /**
+       * <pre>
+       * общее время, проведенное под fake GPS за смену
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+       * @return The totalFakeGpsTime.
+       */
+      public com.google.protobuf.Duration getTotalFakeGpsTime() {
+        if (totalFakeGpsTimeBuilder_ == null) {
+          return totalFakeGpsTime_ == null ? com.google.protobuf.Duration.getDefaultInstance() : totalFakeGpsTime_;
+        } else {
+          return totalFakeGpsTimeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * общее время, проведенное под fake GPS за смену
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+       */
+      public Builder setTotalFakeGpsTime(com.google.protobuf.Duration value) {
+        if (totalFakeGpsTimeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          totalFakeGpsTime_ = value;
+          onChanged();
+        } else {
+          totalFakeGpsTimeBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * общее время, проведенное под fake GPS за смену
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+       */
+      public Builder setTotalFakeGpsTime(
+          com.google.protobuf.Duration.Builder builderForValue) {
+        if (totalFakeGpsTimeBuilder_ == null) {
+          totalFakeGpsTime_ = builderForValue.build();
+          onChanged();
+        } else {
+          totalFakeGpsTimeBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * общее время, проведенное под fake GPS за смену
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+       */
+      public Builder mergeTotalFakeGpsTime(com.google.protobuf.Duration value) {
+        if (totalFakeGpsTimeBuilder_ == null) {
+          if (totalFakeGpsTime_ != null) {
+            totalFakeGpsTime_ =
+              com.google.protobuf.Duration.newBuilder(totalFakeGpsTime_).mergeFrom(value).buildPartial();
+          } else {
+            totalFakeGpsTime_ = value;
+          }
+          onChanged();
+        } else {
+          totalFakeGpsTimeBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * общее время, проведенное под fake GPS за смену
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+       */
+      public Builder clearTotalFakeGpsTime() {
+        if (totalFakeGpsTimeBuilder_ == null) {
+          totalFakeGpsTime_ = null;
+          onChanged();
+        } else {
+          totalFakeGpsTime_ = null;
+          totalFakeGpsTimeBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * общее время, проведенное под fake GPS за смену
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+       */
+      public com.google.protobuf.Duration.Builder getTotalFakeGpsTimeBuilder() {
+        
+        onChanged();
+        return getTotalFakeGpsTimeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * общее время, проведенное под fake GPS за смену
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+       */
+      public com.google.protobuf.DurationOrBuilder getTotalFakeGpsTimeOrBuilder() {
+        if (totalFakeGpsTimeBuilder_ != null) {
+          return totalFakeGpsTimeBuilder_.getMessageOrBuilder();
+        } else {
+          return totalFakeGpsTime_ == null ?
+              com.google.protobuf.Duration.getDefaultInstance() : totalFakeGpsTime_;
+        }
+      }
+      /**
+       * <pre>
+       * общее время, проведенное под fake GPS за смену
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration total_fake_gps_time = 10;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> 
+          getTotalFakeGpsTimeFieldBuilder() {
+        if (totalFakeGpsTimeBuilder_ == null) {
+          totalFakeGpsTimeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder>(
+                  getTotalFakeGpsTime(),
+                  getParentForChildren(),
+                  isClean());
+          totalFakeGpsTime_ = null;
+        }
+        return totalFakeGpsTimeBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -42287,184 +42824,188 @@ public final class CandidatesOuterClass {
       "\n\032on_demand/candidates.proto\022\ncandidates" +
       "\032\037google/protobuf/timestamp.proto\032\036googl" +
       "e/protobuf/wrappers.proto\032\033google/protob" +
-      "uf/empty.proto\"j\n\013ZoneSetting\022\033\n\023operati" +
-      "onal_zone_id\030\001 \001(\r\022\036\n\026surged_shift_thres" +
-      "hold\030\002 \001(\r\022\036\n\026normal_shift_threshold\030\003 \001" +
-      "(\r\"2\n\023ZoneSettingsRequest\022\033\n\023operational" +
-      "_zone_id\030\001 \001(\r\"5\n\031HaveActiveWorkflowRequ" +
-      "est\022\030\n\020candidates_uuids\030\001 \003(\t\"\222\001\n\032HaveAc" +
-      "tiveWorkflowResponse\022D\n\007results\030\001 \003(\01323." +
-      "candidates.HaveActiveWorkflowResponse.Re" +
-      "sultsEntry\032.\n\014ResultsEntry\022\013\n\003key\030\001 \001(\t\022" +
-      "\r\n\005value\030\002 \001(\010:\0028\001\"_\n\030SetCandidateStateR" +
-      "equest\022\030\n\020candidates_uuids\030\001 \003(\t\022)\n\005stat" +
-      "e\030\002 \001(\0162\032.candidates.CandidateState\"\326\003\n\031" +
-      "SetCandidateStateResponse\022C\n\007results\030\001 \003" +
-      "(\01322.candidates.SetCandidateStateRespons" +
-      "e.ResultsEntry\032\225\002\n\006Result\022C\n\006status\030\001 \001(" +
-      "\01623.candidates.SetCandidateStateResponse" +
-      ".Result.Status\022J\n\nerror_kind\030\002 \001(\01626.can" +
+      "uf/empty.proto\032\036google/protobuf/duration" +
+      ".proto\"j\n\013ZoneSetting\022\033\n\023operational_zon" +
+      "e_id\030\001 \001(\r\022\036\n\026surged_shift_threshold\030\002 \001" +
+      "(\r\022\036\n\026normal_shift_threshold\030\003 \001(\r\"2\n\023Zo" +
+      "neSettingsRequest\022\033\n\023operational_zone_id" +
+      "\030\001 \001(\r\"5\n\031HaveActiveWorkflowRequest\022\030\n\020c" +
+      "andidates_uuids\030\001 \003(\t\"\222\001\n\032HaveActiveWork" +
+      "flowResponse\022D\n\007results\030\001 \003(\01323.candidat" +
+      "es.HaveActiveWorkflowResponse.ResultsEnt" +
+      "ry\032.\n\014ResultsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value" +
+      "\030\002 \001(\010:\0028\001\"_\n\030SetCandidateStateRequest\022\030" +
+      "\n\020candidates_uuids\030\001 \003(\t\022)\n\005state\030\002 \001(\0162" +
+      "\032.candidates.CandidateState\"\326\003\n\031SetCandi" +
+      "dateStateResponse\022C\n\007results\030\001 \003(\01322.can" +
       "didates.SetCandidateStateResponse.Result" +
-      ".ErrorKind\"\"\n\006Status\022\013\n\007SUCCESS\020\000\022\013\n\007FAI" +
-      "LURE\020\001\"V\n\tErrorKind\022\t\n\005OTHER\020\000\022\022\n\016UUID_N" +
-      "OT_FOUND\020\001\022\023\n\017ALREADY_BLOCKED\020\002\022\025\n\021ALREA" +
-      "DY_ACTIVATED\020\003\032\\\n\014ResultsEntry\022\013\n\003key\030\001 " +
-      "\001(\t\022;\n\005value\030\002 \001(\0132,.candidates.SetCandi" +
-      "dateStateResponse.Result:\0028\001\"\361\001\n\027SelectC" +
-      "andidatesRequest\0222\n\006filter\030\001 \003(\0132\".candi" +
-      "dates.SelectCandidatesFilter\022C\n\013source_t" +
-      "ype\030\002 \001(\0162..candidates.SelectCandidatesR" +
-      "equest.SourceType\022\021\n\tsource_id\030\003 \001(\t\022\025\n\r" +
-      "shipment_uuid\030\004 \001(\t\"3\n\nSourceType\022\013\n\007UNK" +
-      "NOWN\020\000\022\014\n\010DISPATCH\020\001\022\n\n\006MANUAL\020\002\"\236\002\n\026Sel" +
-      "ectCandidatesFilter\0227\n\014target_point\030\001 \001(" +
-      "\0132!.candidates.CandidateLastLocation\022\016\n\006" +
-      "radius\030\002 \001(\002\022(\n\005roles\030\003 \003(\0162\031.candidates" +
-      ".CandidateRole\0222\n\ntransports\030\004 \003(\0162\036.can" +
-      "didates.CandidateTransport\022\014\n\004tags\030\005 \003(\t" +
-      "\022\022\n\nplace_uuid\030\006 \001(\t\022\r\n\005uuids\030\007 \003(\t\022\026\n\016m" +
-      "ax_queue_size\030\010 \001(\005\022\024\n\014with_blocked\030\t \001(" +
-      "\010\"a\n\025CandidateLastLocation\022\013\n\003lat\030\001 \001(\001\022" +
-      "\013\n\003lon\030\002 \001(\001\022.\n\ncreated_at\030\003 \001(\0132\032.googl" +
-      "e.protobuf.Timestamp\"\341\002\n\016CandidateShift\022" +
-      ".\n\nstarted_at\030\001 \001(\0132\032.google.protobuf.Ti" +
-      "mestamp\022,\n\010ended_at\030\002 \001(\0132\032.google.proto" +
-      "buf.Timestamp\022\r\n\005state\030\003 \001(\t\022\020\n\010shift_id" +
-      "\030\004 \001(\004\022-\n\004type\030\005 \001(\0162\037.candidates.Candid" +
-      "ateShift.Type\022\030\n\020delivery_area_id\030\006 \001(\r\022" +
-      "\'\n\037fixed_on_delivery_area_or_store\030\007 \001(\010" +
-      "\022\022\n\nstore_uuid\030\010 \001(\t\022!\n\031candidate_accept" +
-      "ance_rate\030\t \001(\002\"\'\n\004Type\022\n\n\006normal\020\000\022\t\n\005s" +
-      "urge\020\001\022\010\n\004free\020\002\"A\n\024AssignmentRejections" +
-      "\022\025\n\rshipment_uuid\030\001 \001(\t\022\022\n\nrejections\030\002 " +
-      "\001(\003\"\327\006\n\tCandidate\022\014\n\004uuid\030\001 \001(\t\022\021\n\tfull_" +
-      "name\030\002 \001(\t\022\'\n\004role\030\003 \001(\0162\031.candidates.Ca" +
-      "ndidateRole\0221\n\ttransport\030\004 \001(\0162\036.candida" +
-      "tes.CandidateTransport\0228\n\rlast_location\030" +
-      "\005 \001(\0132!.candidates.CandidateLastLocation" +
-      "\022\014\n\004tags\030\006 \003(\t\022)\n\005shift\030\007 \001(\0132\032.candidat" +
-      "es.CandidateShift\0220\n\nqueue_size\030\010 \001(\0132\034." +
-      "google.protobuf.UInt64Value\0222\n\016available" +
-      "_time\030\t \001(\0132\032.google.protobuf.Timestamp\022" +
-      "\'\n\tworkflows\030\n \003(\0132\024.candidates.Workflow" +
-      "\0220\n\022available_location\030\013 \001(\0132\024.candidate" +
-      "s.Location\022\035\n\025active_shipment_uuids\030\014 \003(" +
-      "\t\022=\n\017employment_type\030\r \001(\0162$.candidates." +
-      "Candidate.EmploymentType\022?\n\025assignment_r" +
-      "ejections\030\016 \001(\0132 .candidates.AssignmentR" +
-      "ejections\022=\n\020active_shipments\030\017 \003(\0132#.ca" +
-      "ndidates.Candidate.ShipmentShort\032P\n\rShip" +
-      "mentShort\022\014\n\004uuid\030\001 \001(\t\0221\n\rplan_ended_at" +
-      "\030\014 \001(\0132\032.google.protobuf.Timestamp\"i\n\016Em" +
-      "ploymentType\022\013\n\007NOT_SET\020\000\022\006\n\002IP\020\001\022\021\n\rSEL" +
-      "F_EMPLOYED\020\002\022\t\n\005AGENT\020\003\022\r\n\tOUTSOURCE\020\004\022\025" +
-      "\n\021EXTERNAL_EMPLOYEE\020\005\"R\n\025InRectQueryStat" +
-      "istics\022\r\n\005total\030\001 \001(\003\022\014\n\004free\030\002 \001(\003\022\014\n\004b" +
-      "usy\030\003 \001(\003\022\016\n\006paused\030\004 \001(\003\"x\n\024SelectInRec" +
-      "tResponse\022)\n\ncandidates\030\001 \003(\0132\025.candidat" +
-      "es.Candidate\0225\n\nstatistics\030\002 \001(\0132!.candi" +
-      "dates.InRectQueryStatistics\"O\n\030SelectCan" +
-      "didatesResponse\0223\n\007results\030\001 \003(\0132\".candi" +
-      "dates.SelectCandidatesResult\"B\n\026SelectCa" +
-      "ndidatesResult\022(\n\tcandidate\030\001 \003(\0132\025.cand" +
-      "idates.Candidate\"\307\002\n\010Workflow\022\n\n\002id\030\001 \001(" +
-      "\004\022\026\n\016performer_uuid\030\003 \001(\t\022+\n\006status\030\004 \001(" +
-      "\0162\033.candidates.Workflow.Status\022.\n\ncreate" +
-      "d_at\030\005 \001(\0132\032.google.protobuf.Timestamp\022." +
-      "\n\nupdated_at\030\006 \001(\0132\032.google.protobuf.Tim" +
-      "estamp\022\020\n\010shift_id\030\007 \001(\004\022+\n\013assignments\030" +
-      "\010 \003(\0132\026.candidates.Assignment\"K\n\006Status\022" +
-      "\007\n\003NEW\020\000\022\n\n\006QUEUED\020\001\022\017\n\013IN_PROGRESS\020\002\022\r\n" +
-      "\tCOMPLETED\020\003\022\014\n\010CANCELED\020\004\"\370\005\n\nAssignmen" +
-      "t\022\n\n\002id\030\001 \001(\004\022\033\n\023postponed_parent_id\030\002 \001" +
-      "(\004\022\014\n\004uuid\030\r \001(\t\022\035\n\025postponed_parent_uui" +
-      "d\030\014 \001(\t\022\023\n\013workflow_id\030\003 \001(\004\022\026\n\016performe" +
-      "r_uuid\030\004 \001(\t\0227\n\021performer_vehicle\030\016 \001(\0162" +
-      "\034.candidates.PerformerVehicle\022-\n\006status\030" +
-      "\005 \001(\0162\035.candidates.Assignment.Status\022/\n\r" +
-      "delivery_type\030\013 \001(\0162\030.candidates.Deliver" +
-      "yType\022+\n\013source_type\030\021 \001(\0162\026.candidates." +
-      "SourceType\022\'\n\tshipments\030\006 \003(\0132\024.candidat" +
-      "es.Shipment\022\024\n\014plan_payroll\030\007 \001(\002\022\031\n\021pla" +
-      "n_payroll_base\030\017 \001(\002\022\032\n\022plan_payroll_bon" +
-      "us\030\020 \001(\002\022.\n\004meta\030\010 \003(\0132 .candidates.Assi" +
-      "gnment.MetaEntry\022.\n\ncreated_at\030\t \001(\0132\032.g" +
-      "oogle.protobuf.Timestamp\022.\n\nupdated_at\030\n" +
-      " \001(\0132\032.google.protobuf.Timestamp\032+\n\tMeta" +
-      "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"n\n" +
-      "\006Status\022\007\n\003NEW\020\000\022\r\n\tPOSTPONED\020\001\022\013\n\007OFFER" +
-      "ED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPTED\020\004\022\014\n\010DECLINED" +
-      "\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCELED\020\007\"$\n\010Locatio" +
-      "n\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001\"\203\002\n\010Shipment" +
-      "\022\016\n\006number\030\001 \001(\t\022\014\n\004uuid\030\014 \001(\t\022\023\n\013items_" +
-      "count\030\002 \001(\r\022\032\n\022items_total_amount\030\003 \001(\002\022" +
-      "\031\n\021distance_to_store\030\004 \001(\004\022\031\n\021duration_t" +
-      "o_store\030\005 \001(\004\022\021\n\tweight_kg\030\006 \001(\002\022\022\n\nstor" +
-      "e_uuid\030\007 \001(\t\022\020\n\010is_heavy\030\010 \001(\010\022\016\n\006is_new" +
-      "\030\t \001(\010\022\022\n\nstore_name\030\n \001(\t\022\025\n\rstore_addr" +
-      "ess\030\013 \001(\t\"`\n\016CandidateRoute\022\n\n\002id\030\001 \001(\t\022" +
-      "\r\n\005state\030\002 \001(\t\0223\n\010segments\030\003 \001(\0132!.candi" +
-      "dates.CandidateRouteSegment\"\357\002\n\025Candidat" +
-      "eRouteSegment\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\t\022" +
-      "3\n\017plan_started_at\030\003 \001(\0132\032.google.protob" +
-      "uf.Timestamp\0221\n\rplan_ended_at\030\004 \001(\0132\032.go" +
-      "ogle.protobuf.Timestamp\0223\n\017fact_started_" +
-      "at\030\005 \001(\0132\032.google.protobuf.Timestamp\0221\n\r" +
-      "fact_ended_at\030\006 \001(\0132\032.google.protobuf.Ti" +
-      "mestamp\0226\n\013start_point\030\007 \001(\0132!.candidate" +
-      "s.CandidateLastLocation\0224\n\tend_point\030\010 \001" +
-      "(\0132!.candidates.CandidateLastLocation\",\n" +
-      "\034SelectCandidateByUUIDRequest\022\014\n\004uuid\030\001 " +
-      "\001(\t\"\036\n\rSearchRequest\022\r\n\005query\030\001 \001(\t\"G\n\033S" +
-      "electCandidateByUUIDResult\022(\n\tcandidate\030" +
-      "\001 \001(\0132\025.candidates.Candidate\"8\n\014SearchRe" +
-      "sult\022(\n\tcandidate\030\001 \001(\0132\025.candidates.Can" +
-      "didate\":\n\016SearchResultV2\022(\n\tcandidate\030\001 " +
-      "\003(\0132\025.candidates.Candidate\"\342\001\n\023SelectInR" +
-      "ectRequest\022\036\n\004rect\030\001 \001(\0132\020.candidates.Re" +
-      "ct\022(\n\005roles\030\003 \003(\0162\031.candidates.Candidate" +
-      "Role\0222\n\ntransports\030\004 \003(\0162\036.candidates.Ca" +
-      "ndidateTransport\022\026\n\016schedule_types\030\005 \003(\t" +
-      "\022\033\n\023operational_zone_id\030\006 \001(\r\022\030\n\020deliver" +
-      "y_area_id\030\007 \001(\r\"L\n\004Rect\022!\n\003min\030\001 \001(\0132\024.c" +
-      "andidates.GeoPoint\022!\n\003max\030\002 \001(\0132\024.candid" +
-      "ates.GeoPoint\"$\n\010GeoPoint\022\013\n\003lat\030\001 \001(\001\022\013" +
-      "\n\003lon\030\002 \001(\001\"-\n\023GetLocationsRequest\022\026\n\016ca" +
-      "ndidate_uuid\030\001 \003(\t\"H\n\024GetLocationsRespon" +
-      "se\0220\n\tcandidate\030\001 \003(\0132\035.candidates.Candi" +
-      "dateLocation\";\n\021CandidateLocation\022\014\n\004uui" +
-      "d\030\001 \001(\t\022\013\n\003lon\030\002 \001(\001\022\013\n\003lat\030\003 \001(\001*7\n\rCan" +
-      "didateRole\022\013\n\007SHOPPER\020\000\022\n\n\006DRIVER\020\001\022\r\n\tU" +
-      "NIVERSAL\020\002*R\n\022CandidateTransport\022\016\n\nPEDE" +
-      "STRIAN\020\000\022\007\n\003CAR\020\001\022\013\n\007BICYCLE\020\002\022\t\n\005TRUCK\020" +
-      "\003\022\013\n\007SCOOTER\020\004*)\n\016CandidateState\022\013\n\007BLOC" +
-      "KED\020\000\022\n\n\006ACTIVE\020\001*N\n\020PerformerVehicle\022\026\n" +
-      "\022VEHICLE_PEDESTRIAN\020\000\022\020\n\014VEHICLE_AUTO\020\001\022" +
-      "\020\n\014VEHICLE_BIKE\020\002*&\n\nSourceType\022\n\n\006MANUA" +
-      "L\020\000\022\014\n\010DISPATCH\020\001*%\n\014DeliveryType\022\013\n\007DEF" +
-      "AULT\020\000\022\010\n\004TAXI\020\0012\357\006\n\nCandidates\022_\n\020Selec" +
-      "tCandidates\022#.candidates.SelectCandidate" +
-      "sRequest\032$.candidates.SelectCandidatesRe" +
-      "sponse\"\000\022c\n\022SetCandidatesState\022$.candida" +
-      "tes.SetCandidateStateRequest\032%.candidate" +
-      "s.SetCandidateStateResponse\"\000\022S\n\014SelectI" +
-      "nRect\022\037.candidates.SelectInRectRequest\032 " +
-      ".candidates.SelectInRectResponse\"\000\022l\n\025Se" +
-      "lectCandidateByUUID\022(.candidates.SelectC" +
-      "andidateByUUIDRequest\032\'.candidates.Selec" +
-      "tCandidateByUUIDResult\"\000\022?\n\006Search\022\031.can" +
-      "didates.SearchRequest\032\030.candidates.Searc" +
-      "hResult\"\000\022C\n\010SearchV2\022\031.candidates.Searc" +
-      "hRequest\032\032.candidates.SearchResultV2\"\000\022e" +
-      "\n\022HaveActiveWorkflow\022%.candidates.HaveAc" +
-      "tiveWorkflowRequest\032&.candidates.HaveAct" +
-      "iveWorkflowResponse\"\000\022M\n\017GetZoneSettings" +
-      "\022\037.candidates.ZoneSettingsRequest\032\027.cand" +
-      "idates.ZoneSetting\"\000\022G\n\022UpdateZoneSettin" +
-      "gs\022\027.candidates.ZoneSetting\032\026.google.pro" +
-      "tobuf.Empty\"\000\022S\n\014GetLocations\022\037.candidat" +
-      "es.GetLocationsRequest\032 .candidates.GetL" +
-      "ocationsResponse\"\000b\006proto3"
+      "sEntry\032\225\002\n\006Result\022C\n\006status\030\001 \001(\01623.cand" +
+      "idates.SetCandidateStateResponse.Result." +
+      "Status\022J\n\nerror_kind\030\002 \001(\01626.candidates." +
+      "SetCandidateStateResponse.Result.ErrorKi" +
+      "nd\"\"\n\006Status\022\013\n\007SUCCESS\020\000\022\013\n\007FAILURE\020\001\"V" +
+      "\n\tErrorKind\022\t\n\005OTHER\020\000\022\022\n\016UUID_NOT_FOUND" +
+      "\020\001\022\023\n\017ALREADY_BLOCKED\020\002\022\025\n\021ALREADY_ACTIV" +
+      "ATED\020\003\032\\\n\014ResultsEntry\022\013\n\003key\030\001 \001(\t\022;\n\005v" +
+      "alue\030\002 \001(\0132,.candidates.SetCandidateStat" +
+      "eResponse.Result:\0028\001\"\361\001\n\027SelectCandidate" +
+      "sRequest\0222\n\006filter\030\001 \003(\0132\".candidates.Se" +
+      "lectCandidatesFilter\022C\n\013source_type\030\002 \001(" +
+      "\0162..candidates.SelectCandidatesRequest.S" +
+      "ourceType\022\021\n\tsource_id\030\003 \001(\t\022\025\n\rshipment" +
+      "_uuid\030\004 \001(\t\"3\n\nSourceType\022\013\n\007UNKNOWN\020\000\022\014" +
+      "\n\010DISPATCH\020\001\022\n\n\006MANUAL\020\002\"\236\002\n\026SelectCandi" +
+      "datesFilter\0227\n\014target_point\030\001 \001(\0132!.cand" +
+      "idates.CandidateLastLocation\022\016\n\006radius\030\002" +
+      " \001(\002\022(\n\005roles\030\003 \003(\0162\031.candidates.Candida" +
+      "teRole\0222\n\ntransports\030\004 \003(\0162\036.candidates." +
+      "CandidateTransport\022\014\n\004tags\030\005 \003(\t\022\022\n\nplac" +
+      "e_uuid\030\006 \001(\t\022\r\n\005uuids\030\007 \003(\t\022\026\n\016max_queue" +
+      "_size\030\010 \001(\005\022\024\n\014with_blocked\030\t \001(\010\"\246\001\n\025Ca" +
+      "ndidateLastLocation\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030" +
+      "\002 \001(\001\022.\n\ncreated_at\030\003 \001(\0132\032.google.proto" +
+      "buf.Timestamp\022.\n\nupdated_at\030\004 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\022\023\n\013is_fake_gps\030\005 \001" +
+      "(\010\"\231\003\n\016CandidateShift\022.\n\nstarted_at\030\001 \001(" +
+      "\0132\032.google.protobuf.Timestamp\022,\n\010ended_a" +
+      "t\030\002 \001(\0132\032.google.protobuf.Timestamp\022\r\n\005s" +
+      "tate\030\003 \001(\t\022\020\n\010shift_id\030\004 \001(\004\022-\n\004type\030\005 \001" +
+      "(\0162\037.candidates.CandidateShift.Type\022\030\n\020d" +
+      "elivery_area_id\030\006 \001(\r\022\'\n\037fixed_on_delive" +
+      "ry_area_or_store\030\007 \001(\010\022\022\n\nstore_uuid\030\010 \001" +
+      "(\t\022!\n\031candidate_acceptance_rate\030\t \001(\002\0226\n" +
+      "\023total_fake_gps_time\030\n \001(\0132\031.google.prot" +
+      "obuf.Duration\"\'\n\004Type\022\n\n\006normal\020\000\022\t\n\005sur" +
+      "ge\020\001\022\010\n\004free\020\002\"A\n\024AssignmentRejections\022\025" +
+      "\n\rshipment_uuid\030\001 \001(\t\022\022\n\nrejections\030\002 \001(" +
+      "\003\"\327\006\n\tCandidate\022\014\n\004uuid\030\001 \001(\t\022\021\n\tfull_na" +
+      "me\030\002 \001(\t\022\'\n\004role\030\003 \001(\0162\031.candidates.Cand" +
+      "idateRole\0221\n\ttransport\030\004 \001(\0162\036.candidate" +
+      "s.CandidateTransport\0228\n\rlast_location\030\005 " +
+      "\001(\0132!.candidates.CandidateLastLocation\022\014" +
+      "\n\004tags\030\006 \003(\t\022)\n\005shift\030\007 \001(\0132\032.candidates" +
+      ".CandidateShift\0220\n\nqueue_size\030\010 \001(\0132\034.go" +
+      "ogle.protobuf.UInt64Value\0222\n\016available_t" +
+      "ime\030\t \001(\0132\032.google.protobuf.Timestamp\022\'\n" +
+      "\tworkflows\030\n \003(\0132\024.candidates.Workflow\0220" +
+      "\n\022available_location\030\013 \001(\0132\024.candidates." +
+      "Location\022\035\n\025active_shipment_uuids\030\014 \003(\t\022" +
+      "=\n\017employment_type\030\r \001(\0162$.candidates.Ca" +
+      "ndidate.EmploymentType\022?\n\025assignment_rej" +
+      "ections\030\016 \001(\0132 .candidates.AssignmentRej" +
+      "ections\022=\n\020active_shipments\030\017 \003(\0132#.cand" +
+      "idates.Candidate.ShipmentShort\032P\n\rShipme" +
+      "ntShort\022\014\n\004uuid\030\001 \001(\t\0221\n\rplan_ended_at\030\014" +
+      " \001(\0132\032.google.protobuf.Timestamp\"i\n\016Empl" +
+      "oymentType\022\013\n\007NOT_SET\020\000\022\006\n\002IP\020\001\022\021\n\rSELF_" +
+      "EMPLOYED\020\002\022\t\n\005AGENT\020\003\022\r\n\tOUTSOURCE\020\004\022\025\n\021" +
+      "EXTERNAL_EMPLOYEE\020\005\"R\n\025InRectQueryStatis" +
+      "tics\022\r\n\005total\030\001 \001(\003\022\014\n\004free\030\002 \001(\003\022\014\n\004bus" +
+      "y\030\003 \001(\003\022\016\n\006paused\030\004 \001(\003\"x\n\024SelectInRectR" +
+      "esponse\022)\n\ncandidates\030\001 \003(\0132\025.candidates" +
+      ".Candidate\0225\n\nstatistics\030\002 \001(\0132!.candida" +
+      "tes.InRectQueryStatistics\"O\n\030SelectCandi" +
+      "datesResponse\0223\n\007results\030\001 \003(\0132\".candida" +
+      "tes.SelectCandidatesResult\"B\n\026SelectCand" +
+      "idatesResult\022(\n\tcandidate\030\001 \003(\0132\025.candid" +
+      "ates.Candidate\"\307\002\n\010Workflow\022\n\n\002id\030\001 \001(\004\022" +
+      "\026\n\016performer_uuid\030\003 \001(\t\022+\n\006status\030\004 \001(\0162" +
+      "\033.candidates.Workflow.Status\022.\n\ncreated_" +
+      "at\030\005 \001(\0132\032.google.protobuf.Timestamp\022.\n\n" +
+      "updated_at\030\006 \001(\0132\032.google.protobuf.Times" +
+      "tamp\022\020\n\010shift_id\030\007 \001(\004\022+\n\013assignments\030\010 " +
+      "\003(\0132\026.candidates.Assignment\"K\n\006Status\022\007\n" +
+      "\003NEW\020\000\022\n\n\006QUEUED\020\001\022\017\n\013IN_PROGRESS\020\002\022\r\n\tC" +
+      "OMPLETED\020\003\022\014\n\010CANCELED\020\004\"\370\005\n\nAssignment\022" +
+      "\n\n\002id\030\001 \001(\004\022\033\n\023postponed_parent_id\030\002 \001(\004" +
+      "\022\014\n\004uuid\030\r \001(\t\022\035\n\025postponed_parent_uuid\030" +
+      "\014 \001(\t\022\023\n\013workflow_id\030\003 \001(\004\022\026\n\016performer_" +
+      "uuid\030\004 \001(\t\0227\n\021performer_vehicle\030\016 \001(\0162\034." +
+      "candidates.PerformerVehicle\022-\n\006status\030\005 " +
+      "\001(\0162\035.candidates.Assignment.Status\022/\n\rde" +
+      "livery_type\030\013 \001(\0162\030.candidates.DeliveryT" +
+      "ype\022+\n\013source_type\030\021 \001(\0162\026.candidates.So" +
+      "urceType\022\'\n\tshipments\030\006 \003(\0132\024.candidates" +
+      ".Shipment\022\024\n\014plan_payroll\030\007 \001(\002\022\031\n\021plan_" +
+      "payroll_base\030\017 \001(\002\022\032\n\022plan_payroll_bonus" +
+      "\030\020 \001(\002\022.\n\004meta\030\010 \003(\0132 .candidates.Assign" +
+      "ment.MetaEntry\022.\n\ncreated_at\030\t \001(\0132\032.goo" +
+      "gle.protobuf.Timestamp\022.\n\nupdated_at\030\n \001" +
+      "(\0132\032.google.protobuf.Timestamp\032+\n\tMetaEn" +
+      "try\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"n\n\006S" +
+      "tatus\022\007\n\003NEW\020\000\022\r\n\tPOSTPONED\020\001\022\013\n\007OFFERED" +
+      "\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPTED\020\004\022\014\n\010DECLINED\020\005" +
+      "\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCELED\020\007\"$\n\010Location\022" +
+      "\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001\"\203\002\n\010Shipment\022\016" +
+      "\n\006number\030\001 \001(\t\022\014\n\004uuid\030\014 \001(\t\022\023\n\013items_co" +
+      "unt\030\002 \001(\r\022\032\n\022items_total_amount\030\003 \001(\002\022\031\n" +
+      "\021distance_to_store\030\004 \001(\004\022\031\n\021duration_to_" +
+      "store\030\005 \001(\004\022\021\n\tweight_kg\030\006 \001(\002\022\022\n\nstore_" +
+      "uuid\030\007 \001(\t\022\020\n\010is_heavy\030\010 \001(\010\022\016\n\006is_new\030\t" +
+      " \001(\010\022\022\n\nstore_name\030\n \001(\t\022\025\n\rstore_addres" +
+      "s\030\013 \001(\t\"`\n\016CandidateRoute\022\n\n\002id\030\001 \001(\t\022\r\n" +
+      "\005state\030\002 \001(\t\0223\n\010segments\030\003 \001(\0132!.candida" +
+      "tes.CandidateRouteSegment\"\357\002\n\025CandidateR" +
+      "outeSegment\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\t\0223\n" +
+      "\017plan_started_at\030\003 \001(\0132\032.google.protobuf" +
+      ".Timestamp\0221\n\rplan_ended_at\030\004 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\0223\n\017fact_started_at" +
+      "\030\005 \001(\0132\032.google.protobuf.Timestamp\0221\n\rfa" +
+      "ct_ended_at\030\006 \001(\0132\032.google.protobuf.Time" +
+      "stamp\0226\n\013start_point\030\007 \001(\0132!.candidates." +
+      "CandidateLastLocation\0224\n\tend_point\030\010 \001(\013" +
+      "2!.candidates.CandidateLastLocation\",\n\034S" +
+      "electCandidateByUUIDRequest\022\014\n\004uuid\030\001 \001(" +
+      "\t\"\036\n\rSearchRequest\022\r\n\005query\030\001 \001(\t\"G\n\033Sel" +
+      "ectCandidateByUUIDResult\022(\n\tcandidate\030\001 " +
+      "\001(\0132\025.candidates.Candidate\"8\n\014SearchResu" +
+      "lt\022(\n\tcandidate\030\001 \001(\0132\025.candidates.Candi" +
+      "date\":\n\016SearchResultV2\022(\n\tcandidate\030\001 \003(" +
+      "\0132\025.candidates.Candidate\"\342\001\n\023SelectInRec" +
+      "tRequest\022\036\n\004rect\030\001 \001(\0132\020.candidates.Rect" +
+      "\022(\n\005roles\030\003 \003(\0162\031.candidates.CandidateRo" +
+      "le\0222\n\ntransports\030\004 \003(\0162\036.candidates.Cand" +
+      "idateTransport\022\026\n\016schedule_types\030\005 \003(\t\022\033" +
+      "\n\023operational_zone_id\030\006 \001(\r\022\030\n\020delivery_" +
+      "area_id\030\007 \001(\r\"L\n\004Rect\022!\n\003min\030\001 \001(\0132\024.can" +
+      "didates.GeoPoint\022!\n\003max\030\002 \001(\0132\024.candidat" +
+      "es.GeoPoint\"$\n\010GeoPoint\022\013\n\003lat\030\001 \001(\001\022\013\n\003" +
+      "lon\030\002 \001(\001\"-\n\023GetLocationsRequest\022\026\n\016cand" +
+      "idate_uuid\030\001 \003(\t\"H\n\024GetLocationsResponse" +
+      "\0220\n\tcandidate\030\001 \003(\0132\035.candidates.Candida" +
+      "teLocation\";\n\021CandidateLocation\022\014\n\004uuid\030" +
+      "\001 \001(\t\022\013\n\003lon\030\002 \001(\001\022\013\n\003lat\030\003 \001(\001*7\n\rCandi" +
+      "dateRole\022\013\n\007SHOPPER\020\000\022\n\n\006DRIVER\020\001\022\r\n\tUNI" +
+      "VERSAL\020\002*R\n\022CandidateTransport\022\016\n\nPEDEST" +
+      "RIAN\020\000\022\007\n\003CAR\020\001\022\013\n\007BICYCLE\020\002\022\t\n\005TRUCK\020\003\022" +
+      "\013\n\007SCOOTER\020\004*)\n\016CandidateState\022\013\n\007BLOCKE" +
+      "D\020\000\022\n\n\006ACTIVE\020\001*N\n\020PerformerVehicle\022\026\n\022V" +
+      "EHICLE_PEDESTRIAN\020\000\022\020\n\014VEHICLE_AUTO\020\001\022\020\n" +
+      "\014VEHICLE_BIKE\020\002*&\n\nSourceType\022\n\n\006MANUAL\020" +
+      "\000\022\014\n\010DISPATCH\020\001*%\n\014DeliveryType\022\013\n\007DEFAU" +
+      "LT\020\000\022\010\n\004TAXI\020\0012\357\006\n\nCandidates\022_\n\020SelectC" +
+      "andidates\022#.candidates.SelectCandidatesR" +
+      "equest\032$.candidates.SelectCandidatesResp" +
+      "onse\"\000\022c\n\022SetCandidatesState\022$.candidate" +
+      "s.SetCandidateStateRequest\032%.candidates." +
+      "SetCandidateStateResponse\"\000\022S\n\014SelectInR" +
+      "ect\022\037.candidates.SelectInRectRequest\032 .c" +
+      "andidates.SelectInRectResponse\"\000\022l\n\025Sele" +
+      "ctCandidateByUUID\022(.candidates.SelectCan" +
+      "didateByUUIDRequest\032\'.candidates.SelectC" +
+      "andidateByUUIDResult\"\000\022?\n\006Search\022\031.candi" +
+      "dates.SearchRequest\032\030.candidates.SearchR" +
+      "esult\"\000\022C\n\010SearchV2\022\031.candidates.SearchR" +
+      "equest\032\032.candidates.SearchResultV2\"\000\022e\n\022" +
+      "HaveActiveWorkflow\022%.candidates.HaveActi" +
+      "veWorkflowRequest\032&.candidates.HaveActiv" +
+      "eWorkflowResponse\"\000\022M\n\017GetZoneSettings\022\037" +
+      ".candidates.ZoneSettingsRequest\032\027.candid" +
+      "ates.ZoneSetting\"\000\022G\n\022UpdateZoneSettings" +
+      "\022\027.candidates.ZoneSetting\032\026.google.proto" +
+      "buf.Empty\"\000\022S\n\014GetLocations\022\037.candidates" +
+      ".GetLocationsRequest\032 .candidates.GetLoc" +
+      "ationsResponse\"\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -42472,6 +43013,7 @@ public final class CandidatesOuterClass {
           com.google.protobuf.TimestampProto.getDescriptor(),
           com.google.protobuf.WrappersProto.getDescriptor(),
           com.google.protobuf.EmptyProto.getDescriptor(),
+          com.google.protobuf.DurationProto.getDescriptor(),
         });
     internal_static_candidates_ZoneSetting_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -42544,13 +43086,13 @@ public final class CandidatesOuterClass {
     internal_static_candidates_CandidateLastLocation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_CandidateLastLocation_descriptor,
-        new java.lang.String[] { "Lat", "Lon", "CreatedAt", });
+        new java.lang.String[] { "Lat", "Lon", "CreatedAt", "UpdatedAt", "IsFakeGps", });
     internal_static_candidates_CandidateShift_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_candidates_CandidateShift_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_CandidateShift_descriptor,
-        new java.lang.String[] { "StartedAt", "EndedAt", "State", "ShiftId", "Type", "DeliveryAreaId", "FixedOnDeliveryAreaOrStore", "StoreUuid", "CandidateAcceptanceRate", });
+        new java.lang.String[] { "StartedAt", "EndedAt", "State", "ShiftId", "Type", "DeliveryAreaId", "FixedOnDeliveryAreaOrStore", "StoreUuid", "CandidateAcceptanceRate", "TotalFakeGpsTime", });
     internal_static_candidates_AssignmentRejections_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_candidates_AssignmentRejections_fieldAccessorTable = new
@@ -42704,6 +43246,7 @@ public final class CandidatesOuterClass {
     com.google.protobuf.TimestampProto.getDescriptor();
     com.google.protobuf.WrappersProto.getDescriptor();
     com.google.protobuf.EmptyProto.getDescriptor();
+    com.google.protobuf.DurationProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
