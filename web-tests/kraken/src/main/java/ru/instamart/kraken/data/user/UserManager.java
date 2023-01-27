@@ -46,6 +46,7 @@ public final class UserManager {
     private static UserData stf6Universal2;
     private static UserData stf6Universal3;
     private static UserData stf6Universal4;
+    private static UserData stf6UniversalVidar;
     private static UserData stf6ShpUniversalUi;
     private static UserData defaultGmailUser;
     private static UserData defaultVkUser;
@@ -249,6 +250,19 @@ public final class UserManager {
             }
         }
         return stf6Universal4;
+    }
+
+    public static UserData getShp6UniversalVidar() {
+        if (isNull(stf6UniversalVidar)) {
+            log.debug("User shopper default login");
+            stf6UniversalVidar = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("Hx/INXv6hiEkiW01IDni0A==")) //TestJobs
+                    .phone(Crypt.INSTANCE.decrypt("OouweNn1oHVV/GJ5JGs+0A=="))
+                    .uuid("63c9d131-07f5-4e94-8db8-1d52cc38e0ad")
+                    .build();
+
+        }
+        return stf6UniversalVidar;
     }
 
     public static UserData getShp6Shopper1() {

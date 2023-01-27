@@ -83,6 +83,7 @@ public final class ShopperAppEndpoints {
 
     public static class Shipments {
         public static final String ID = "shipments/{shipmentId}";
+        public static final String UUID = "shipments/{shipmentUUID}";
         public static final String MARKETING_SAMPLE_ITEMS = "shipments/{shipmentId}/marketing_sample_items";
         public static final String STOCKS = "shipments/{shipmentId}/stocks";
     }
