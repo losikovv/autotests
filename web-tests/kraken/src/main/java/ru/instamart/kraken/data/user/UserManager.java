@@ -46,6 +46,8 @@ public final class UserManager {
     private static UserData stf6Universal2;
     private static UserData stf6Universal3;
     private static UserData stf6Universal4;
+    private static UserData stf6UniversalWFS1;
+    private static UserData stf6UniversalWFS2;
     private static UserData stf6UniversalVidar;
     private static UserData stf6ShpUniversalUi;
     private static UserData defaultGmailUser;
@@ -263,6 +265,28 @@ public final class UserManager {
 
         }
         return stf6UniversalVidar;
+    }
+
+    public static UserData getShp6UniversalWFS1() {
+        if (isNull(stf6UniversalWFS1)) {
+                stf6UniversalWFS1 = UserData.builder()
+                        .email(Crypt.INSTANCE.decrypt("xaL2G5Kxa2fI4vosV/yX8A=="))
+                        .phone(Crypt.INSTANCE.decrypt("M3oolyG4y5eGB3KD6pDluw=="))
+                        .uuid("f81d0774-c32f-46e3-944c-7f42cb13f0d9")
+                        .build();
+        }
+        return stf6UniversalWFS1;
+    }
+
+    public static UserData getShp6UniversalWFS2() {
+        if (isNull(stf6UniversalWFS2)) {
+            stf6UniversalWFS2 = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("xaL2G5Kxa2fI4vosV/yX8A=="))
+                    .phone(Crypt.INSTANCE.decrypt("82UmK1Fdv/byH6JbYO4/iA=="))
+                    .uuid("6bd6bf52-5c7a-4bdf-8b6a-64b5f1af738f")
+                    .build();
+        }
+        return stf6UniversalWFS2;
     }
 
     public static UserData getShp6Shopper1() {
