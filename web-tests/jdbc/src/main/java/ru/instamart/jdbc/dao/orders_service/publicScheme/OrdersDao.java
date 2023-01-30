@@ -82,7 +82,7 @@ public class OrdersDao implements Dao<String, OrdersEntity> {
 
     public OrdersEntity findByOrderUuid(String shipmentUuid) {
         try (final var connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
-             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE order_uuid = ?::uuid LIMIT 1")) {
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE shipment_uuid = ?::uuid LIMIT 1")) {
             preparedStatement.setString(1, shipmentUuid);
             try (final var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {

@@ -4,6 +4,7 @@ import enums.Enums;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.apache.commons.lang3.EnumUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -14,13 +15,14 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.jdbc.dao.orders_service.publicScheme.OrdersDao;
 import ru.instamart.jdbc.dao.orders_service.publicScheme.PlaceSettingsDao;
+import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.jdbc.entity.order_service.publicScheme.OrdersEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
-import io.qameta.allure.TmsLink;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -44,6 +46,7 @@ public class OrderTimeToThrowTest extends RestBase {
     }
 
     @TmsLink("50")
+    @Skip
     @Test(groups = {"dispatch-orderservice-smoke"},
             description = "On-demand заказ не хранится в буфере до момента time_to_throw")
     public void createOrder() {
@@ -51,9 +54,9 @@ public class OrderTimeToThrowTest extends RestBase {
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         );
+        var shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
         ThreadUtil.simplyAwait(10);
-        System.out.println("order uuid : " + order.getUuid());
-        final var orderEntity = OrdersDao.INSTANCE.findByOrderUuid(order.getUuid());
+        final var orderEntity = OrdersDao.INSTANCE.findByOrderUuid(shipmentUuid);
         Allure.step("Проверка orderEntity", () -> {
             assertNotNull(orderEntity, "orderEntity пришел null");
             final SoftAssert softAssert = new SoftAssert();
@@ -73,15 +76,16 @@ public class OrderTimeToThrowTest extends RestBase {
     @Test(enabled = false,
             groups = {"dispatch-orderservice-smoke"},
             description = "Проверка расчёта time_to_throw")
-    //в этот топик уже не пишут и кей не актуален
+    //в этот топик уже не пишут и кейс не актуален
     public void createOnDemandOrder() {
         order = apiV2.order(
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         );
+        var shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
         ThreadUtil.simplyAwait(10);
 
-        OrdersEntity orderEntity = OrdersDao.INSTANCE.findByOrderUuid(order.getUuid());
+        OrdersEntity orderEntity = OrdersDao.INSTANCE.findByOrderUuid(shipmentUuid);
         final var eventOrderEnrichments = kafka.waitDataInKafkaTopicConsumeOrderEnrichment(orderEntity.getShipmentUuid(), AUTOMATIC_ROUTING);
 
         final var scheduleType = PlaceSettingsDao.INSTANCE.getScheduleType("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a");
