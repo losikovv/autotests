@@ -46,7 +46,7 @@ public class WorkflowCandidatesTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         //Выводим на смену
-        shopperApp.authorisation(UserManager.getShp6Universal3());
+        shopperApp.authorisation(UserManager.getShp6UniversalWFS2());
         shiftsApi.cancelAllActiveShifts();
         shiftsApi.stopAllActiveShifts();
         shiftId = shiftsApi.startOfShift(StartPointsTenants.METRO_9);

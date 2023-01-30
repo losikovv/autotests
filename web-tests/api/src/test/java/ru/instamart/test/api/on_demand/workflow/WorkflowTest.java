@@ -77,7 +77,7 @@ public class WorkflowTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        shopperApp.authorisation(UserManager.getShp6Universal1());
+        shopperApp.authorisation(UserManager.getShp6UniversalWFS1());
         //Выводим на смену
         shiftsApi.cancelAllActiveShifts();
         shiftsApi.stopAllActiveShifts();
