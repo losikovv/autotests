@@ -34,6 +34,7 @@ public class CandidateDao extends AbstractDao<String, CandidateEntity> {
                     result.setFakegps(resultSet.getBoolean("fakegps"));
                     result.setCreatedAt(resultSet.getString("created_at"));
                     result.setUpdatedAt(resultSet.getString("updated_at"));
+                    result.setExpiredAt(resultSet.getString("expired_at"));
                 } else return null;
             }
         } catch (SQLException e) {

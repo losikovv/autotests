@@ -15,4 +15,5 @@ public class CandidateEntity {
     private Boolean fakegps;
     private String createdAt;
     private String updatedAt;
+    private String expiredAt;
 }
