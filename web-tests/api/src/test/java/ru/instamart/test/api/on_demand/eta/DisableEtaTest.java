@@ -5,23 +5,21 @@ import eta.Eta;
 import eta.PredEtaGrpc;
 import eta.PredEtaGrpc.PredEtaBlockingStub;
 import io.grpc.StatusRuntimeException;
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.EtaBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.eta.DisableEtaIntervalsDao;
-import ru.instamart.jdbc.entity.eta.DisableEtaIntervalsEntity;
-import io.qameta.allure.TmsLink;
+import ru.instamart.redis.Redis;
+import ru.instamart.redis.RedisManager;
+import ru.instamart.redis.RedisService;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.kraken.util.TimeUtil.getDateMinusSec;
 import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
 
 @Epic("ETA")
@@ -31,6 +29,7 @@ public class DisableEtaTest extends EtaBase {
     private PredEtaBlockingStub clientEta;
     private final String STORE_UUID_FIRST = UUID.randomUUID().toString();
     private final String STORE_UUID_SECOND = UUID.randomUUID().toString();
+    private final String STORE_UUID_THIRD = UUID.randomUUID().toString();
     private final Timestamp LEFT_BORDER = getDatePlusSec(1200);
     private final Timestamp RIGHT_BORDER = getDatePlusSec(1300);
 
@@ -73,7 +72,7 @@ public class DisableEtaTest extends EtaBase {
         Allure.step("Проверка успешного выполнения запроса", () -> compareTwoObjects(response.toString(), ""));
     }
 
-    @TmsLink("256")
+    @TmsLinks({@TmsLink("256"), @TmsLink("262")})
     @Story("Disable ETA")
     @Test(description = "Загрузка корректных интервалов отключения ЕТА и слота",
             groups = "ondemand-eta")
@@ -89,8 +88,9 @@ public class DisableEtaTest extends EtaBase {
 
         Allure.step("Проверка успешного сохранения интервалов", () -> {
             compareTwoObjects(response.toString(), "");
-            final var intervalsList =  DisableEtaIntervalsDao.INSTANCE.getIntervals(STORE_UUID_SECOND);
+            final var intervalsList = DisableEtaIntervalsDao.INSTANCE.getIntervals(STORE_UUID_SECOND);
             assertTrue(intervalsList.size() >= 2, "Сохранены не все интервалы");
+            assertTrue(RedisService.isExist(RedisManager.getConnection(Redis.ETA), "disable_intervals:" + STORE_UUID_SECOND), "Не сохранили интервалы в redis");
         });
     }
 
@@ -129,10 +129,51 @@ public class DisableEtaTest extends EtaBase {
 
         Allure.step("Проверка успешного сохранения новых интервалов и удаления пересекающихся", () -> {
             compareTwoObjects(response.toString(), "");
-            List<DisableEtaIntervalsEntity> intervals =  DisableEtaIntervalsDao.INSTANCE.getIntervals(STORE_UUID_SECOND);
+            final var intervals = DisableEtaIntervalsDao.INSTANCE.getIntervals(STORE_UUID_SECOND);
             assertTrue(intervals.size() >= 2, "Сохранены не все интервалы");
-            List<DisableEtaIntervalsEntity> intervalsDeleted =  DisableEtaIntervalsDao.INSTANCE.getDeletedIntervals(STORE_UUID_SECOND);
+            final var intervalsDeleted = DisableEtaIntervalsDao.INSTANCE.getDeletedIntervals(STORE_UUID_SECOND);
             assertEquals(intervalsDeleted.size(), 2, "Не были удалены пересекающиеся интервалы");
+        });
+    }
+
+    @TmsLink("280")
+    @Story("Disable ETA")
+    @Test(description = "Загрузка интервалов в прошломв",
+            groups = "ondemand-eta")
+    public void disableEtaAndSlotExpired() {
+        var request = Eta.DisableEtaRequest.newBuilder()
+                .addStoreUuids(STORE_UUID_THIRD)
+                .setLeftBorder(getDateMinusSec(1200))
+                .setRightBorder(getDateMinusSec(1300))
+                .setDisableEta(true)
+                .setDisableSlot(true)
+                .build();
+
+        var response = clientEta.disableEta(request);
+        Allure.step("Проверка успешного выполнения запроса", () -> compareTwoObjects(response.toString(), ""));
+    }
+
+    @TmsLink("279")
+    @Story("Disable ETA")
+    @Test(description = "Удаление истекших интервалов",
+            groups = "ondemand-eta",
+            dependsOnMethods = "disableEtaAndSlotExpired")
+    public void disableEtaAndSlotDeleteExpired() {
+        var request = Eta.DisableEtaRequest.newBuilder()
+                .addStoreUuids(STORE_UUID_THIRD)
+                .setLeftBorder(LEFT_BORDER)
+                .setRightBorder(RIGHT_BORDER)
+                .setDisableEta(true)
+                .setDisableSlot(true)
+                .build();
+        var response = clientEta.disableEta(request);
+
+        Allure.step("Проверка успешного сохранения интервалов", () -> {
+            compareTwoObjects(response.toString(), "");
+            final var intervals = DisableEtaIntervalsDao.INSTANCE.getIntervals(STORE_UUID_THIRD);
+            assertEquals(intervals.size(), 2, "Сохранены не все интервалы");
+            final var intervalsDeleted = DisableEtaIntervalsDao.INSTANCE.getDeletedIntervals(STORE_UUID_THIRD);
+            assertEquals(intervalsDeleted.size(), 2, "Не были удалены истекшие интервалы");
         });
     }
 
