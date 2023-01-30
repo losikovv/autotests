@@ -193,3 +193,15 @@ tests:api:apiSelfFee:
     - gradle clean build apiSelfFee
   after_script:
     - bash ./report.sh api api-self-fee
+
+tests:shadowcat:
+  resource_group: testShadowcat
+  only:
+    variables:
+      - $API_SHADOWCAT == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_api_tests"
+  script:
+    - gradle clean build apiShadowcat
+  after_script:
+    - bash ./report.sh api api-shadowcat
