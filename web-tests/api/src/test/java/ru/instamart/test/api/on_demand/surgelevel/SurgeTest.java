@@ -500,7 +500,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @TmsLink("157")
+    @TmsLinks({@TmsLink("157"), @TmsLink("142")})
     @Story("Workflow")
     @Test(description = "Проверка supply при получении in_progress МЛ",
             groups = "ondemand-surgelevel")
@@ -511,6 +511,7 @@ public class SurgeTest extends RestBase {
 
         Allure.step("Проверка сохранения supply", () -> {
             final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNotNull(WorkflowDao.INSTANCE.findWorkflowByCandidateId(CANDIDATE_UUID_WORKFLOW), "Не записался workflow");
             softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WORKFLOW), "Пропал supply");
             softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WORKFLOW), "Пропал supply");
             softAssert.assertAll();
@@ -590,7 +591,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @TmsLinks({@TmsLink("188"), @TmsLink("193")})
+    @TmsLinks({@TmsLink("188"), @TmsLink("193"), @TmsLink("196")})
     @Story("Demand")
     @Test(description = "Добавление supply onshift кандидату",
             groups = "ondemand-surgelevel")
@@ -604,13 +605,14 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка сохранения supply", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(CandidateDao.INSTANCE.findCandidate(CANDIDATE_UUID_WITH_SHIFT).getOnshift(), "У кандидата не проставлен onshift");
+            softAssert.assertNull(CandidateDao.INSTANCE.findCandidate(CANDIDATE_UUID_WITH_SHIFT).getExpiredAt(), "У кандидата при регистрации expired_at != null");
             softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не добавился supply");
             softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не добавился supply");
             softAssert.assertAll();
         });
     }
 
-    @TmsLink("190")
+    @TmsLinks({@TmsLink("190"), @TmsLink("195")})
     @Story("Demand")
     @Test(description = "Удаление всего supply при смене onshift на false",
             groups = "ondemand-surgelevel",
@@ -624,6 +626,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка удаления supply", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertFalse(CandidateDao.INSTANCE.findCandidate(CANDIDATE_UUID_WITH_SHIFT).getOnshift(), "У кандидата не изменился onshift");
+            softAssert.assertNotNull(CandidateDao.INSTANCE.findCandidate(CANDIDATE_UUID_WITH_SHIFT).getExpiredAt(), "У кандидата не добавилось expired_at");
             softAssert.assertNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не пропал supply");
             softAssert.assertNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WITH_SHIFT), "Не пропал supply");
             softAssert.assertAll();
