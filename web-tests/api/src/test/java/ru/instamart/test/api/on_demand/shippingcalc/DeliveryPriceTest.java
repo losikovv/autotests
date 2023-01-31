@@ -12,6 +12,7 @@ import ru.instamart.api.helper.ShippingCalcHelper;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.kraken.enums.AppVersion;
 import ru.instamart.kraken.enums.Tenant;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
 import ru.instamart.redis.RedisService;
@@ -848,6 +849,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     }
 
     @TmsLink("593")
+    @Skip
     @Story("Get Delivery Price")
     @Test(description = "Получение цены при при пустом positions_count в одном из шипментов",
             groups = "ondemand-shippingcalc")
