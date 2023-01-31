@@ -19,4 +19,8 @@ public final class Group {
      */
     public static final String SELF_FEE = "api-selffee";
 
+    /**
+     * Assembly Dispatch
+     */
+    public static final String ASSEMBLY_DISPATCH = "assembly-dispatch";
 }

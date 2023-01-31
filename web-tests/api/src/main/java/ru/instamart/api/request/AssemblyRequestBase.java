@@ -7,7 +7,7 @@ import ru.instamart.api.factory.SessionFactory;
 
 import static io.restassured.RestAssured.given;
 
-public class ShiftsRequestBase {
+public class AssemblyRequestBase {
 
     /**
      * Добавляем спеки к запросу
@@ -22,7 +22,7 @@ public class ShiftsRequestBase {
      */
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec()
-                .basePath("shifts/")
+                .basePath("assembly/api/")
                 .header("client-id","Instashopper")
                 .header("user-agent","Instashopper/53.0.0 (Android; 12)")
                 .header("Authorization",

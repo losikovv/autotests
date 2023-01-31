@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package planned_dispatch;
+
+//https://gitlab.sbmt.io/paas/content/shopper/-/blob/master/deps/services/assembly/grpc/assembly_changed.proto
+
+option go_package = "gitlab.sbmt.io/paas/content/operations/assembly/pkg/server/grpc/planned_dispatch";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service Dispatch {
+  rpc AssemblyStart(AssemblyStartRequest) returns (google.protobuf.Empty);
+  rpc AssemblyPause(AssemblyPauseRequest) returns (google.protobuf.Empty);
+  rpc AssemblyFinish(AssemblyFinishRequest) returns (google.protobuf.Empty);
+}
+
+message AssemblyStartRequest {
+  string assembly_request_id = 1;
+  string shipment_uuid = 2;
+  string picker_uuid = 3;
+
+  enum State {
+    UNSUPPORTED = 0;
+    STARTED = 1;
+  }
+  State state = 4;
+  google.protobuf.Timestamp started_at = 5;
+}
+
+message AssemblyFinishRequest {
+  string shipment_uuid = 1;
+  string picker_uuid = 2;
+
+  enum State {
+    UNSUPPORTED = 0;
+    FINISHED = 1;
+  }
+  State state = 3;
+  google.protobuf.Timestamp finished_at = 4;
+}
+
+message AssemblyPauseRequest {
+  string shipment_uuid = 1;
+  string picker_uuid = 2;
+  google.protobuf.Timestamp timestamp = 4;
+  bool pause_enabled = 5;
+}

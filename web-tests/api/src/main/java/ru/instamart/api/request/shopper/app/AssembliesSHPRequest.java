@@ -57,6 +57,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .post(ShopperAppEndpoints.Assemblies.ITEMS, assemblyId);
         }
     }
+
     public static class Approve {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.APPROVE)
         public static Response PATCH(String assemblyId) {
@@ -64,6 +65,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .patch(ShopperAppEndpoints.Assemblies.APPROVE, assemblyId);
         }
     }
+
     public static class StartPaymentVerification {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.START_PAYMENT_VERIFICATION)
         public static Response PUT(String assemblyId) {
@@ -71,6 +73,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .put(ShopperAppEndpoints.Assemblies.START_PAYMENT_VERIFICATION, assemblyId);
         }
     }
+
     public static class FinishAssembling {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.FINISH_ASSEMBLING)
         public static Response PUT(String assemblyId) {
@@ -78,14 +81,17 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .put(ShopperAppEndpoints.Assemblies.FINISH_ASSEMBLING, assemblyId);
         }
     }
+
     public static class PackageSets {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.PACKAGE_SETS)
         public static Response GET(String assemblyId) {
             return givenWithAuth()
                     .get(ShopperAppEndpoints.Assemblies.PACKAGE_SETS, assemblyId);
         }
+
         /**
          * Сборщик складывает товары для передачи упаковщику
+         *
          * @param boxNumber - количество ящиков
          */
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.PACKAGE_SETS)
@@ -94,7 +100,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
             JSONArray packageSets = new JSONArray();
             requestParams.put("package_sets", packageSets);
             for (int i = 1; i <= boxNumber; i++) {
-                packageSets.add(packageSet(PackageSetLocationSHP.BASKET.getLocation(),1, i));
+                packageSets.add(packageSet(PackageSetLocationSHP.BASKET.getLocation(), 1, i));
             }
             return givenWithAuth()
                     .body(requestParams)
@@ -104,9 +110,10 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
 
         /**
          * Упаковщик складывает товары для передачи курьеру
-         * @param basket - кол-во товаров в ящике
-         * @param rack - кол-во товаров на стеллаже
-         * @param fridge - кол-во товаров в холодильнике
+         *
+         * @param basket  - кол-во товаров в ящике
+         * @param rack    - кол-во товаров на стеллаже
+         * @param fridge  - кол-во товаров в холодильнике
          * @param freezer - кол-во товаров в морозилке
          */
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.PACKAGE_SETS)
@@ -133,7 +140,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
             return packageSet(packageSetLocation.getLocation(), number, packageSetLocation.getBoxNumber());
         }
 
-        private static JSONObject packageSet(String location, int number, int boxNumber){
+        private static JSONObject packageSet(String location, int number, int boxNumber) {
             JSONObject packageSet = new JSONObject();
             packageSet.put("location", location);
             packageSet.put("number", number);
@@ -141,6 +148,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
             return packageSet;
         }
     }
+
     public static class Packer {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.PACKER)
         public static Response PUT(String assemblyId) {
@@ -148,6 +156,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .put(ShopperAppEndpoints.Assemblies.PACKER, assemblyId);
         }
     }
+
     public static class StartPurchasing {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.START_PURCHASING)
         public static Response PUT(String assemblyId) {
@@ -155,6 +164,15 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .put(ShopperAppEndpoints.Assemblies.START_PURCHASING, assemblyId);
         }
     }
+
+    public static class Stocks {
+        @Step("{method} /" + ShopperAppEndpoints.Assemblies.STOCKS)
+        public static Response GET(String assemblyId) {
+            return givenWithAuth()
+                    .get(ShopperAppEndpoints.Assemblies.STOCKS, assemblyId);
+        }
+    }
+
     public static class Receipts {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.RECEIPTS)
         public static Response POST(
@@ -178,6 +196,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .post(ShopperAppEndpoints.Assemblies.RECEIPTS, assemblyId);
         }
     }
+
     public static class StartPackaging {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.START_PACKAGING)
         public static Response PATCH(String assemblyId) {
@@ -185,6 +204,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .patch(ShopperAppEndpoints.Assemblies.START_PACKAGING, assemblyId);
         }
     }
+
     public static class Purchase {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.PURCHASE)
         public static Response PATCH(String assemblyId) {
@@ -192,6 +212,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .patch(ShopperAppEndpoints.Assemblies.PURCHASE, assemblyId);
         }
     }
+
     public static class LifePay {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.LIFEPAY)
         public static Response PUT(String assemblyId) {
@@ -199,6 +220,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .put(ShopperAppEndpoints.Assemblies.LIFEPAY, assemblyId);
         }
     }
+
     public static class Pause {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.PAUSE)
         public static Response PATCH(String assemblyId) {
@@ -206,6 +228,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .patch(ShopperAppEndpoints.Assemblies.PAUSE, assemblyId);
         }
     }
+
     public static class Suspend {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.SUSPEND)
         public static Response PATCH(String assemblyId) {
@@ -213,6 +236,7 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .patch(ShopperAppEndpoints.Assemblies.SUSPEND, assemblyId);
         }
     }
+
     public static class Ship {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.SHIP)
         public static Response PATCH(String assemblyId) {
@@ -220,9 +244,11 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
                     .patch(ShopperAppEndpoints.Assemblies.SHIP, assemblyId);
         }
     }
+
     public static class Trolleys {
         //todo
     }
+
     public static class ApproveNeedReviewItems {
         @Step("{method} /" + ShopperAppEndpoints.Assemblies.APPROVE_NEED_REVIEW_ITEMS)
         public static Response PUT(String assemblyId) {

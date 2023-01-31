@@ -43,6 +43,10 @@ public final class ShopperAppEndpoints {
         public static final String SHIPMENTS = "packer/shipments";
     }
 
+    /**
+     *  Ручки через шопер.
+     *  Ручки через сервис ru.instamart.api.endpoint.AssemblyEndpoints
+     */
     public static class Assemblies {
         public static final String APPROVE = "assemblies/{assemblyId}/approve";
         public static final String FINISH_ASSEMBLING = "assemblies/{assemblyId}/finish_assembling";
@@ -58,6 +62,7 @@ public final class ShopperAppEndpoints {
         public static final String START_PACKAGING = "assemblies/{assemblyId}/start_packaging";
         public static final String START_PAYMENT_VERIFICATION = "assemblies/{assemblyId}/start_payment_verification";
         public static final String START_PURCHASING = "assemblies/{assemblyId}/start_purchasing";
+        public static final String STOCKS = "assemblies/{assemblyId}/ ";
         public static final String SUSPEND = "assemblies/{assemblyId}/suspend";
         public static final String APPROVE_NEED_REVIEW_ITEMS = "assemblies/{assemblyId}/approve_need_review_items";
         public static final String TROLLEYS = "assemblies/{assemblyId}/trolleys";

@@ -82,6 +82,20 @@ public final class K8sConsumer {
         return result;
     }
 
+    public static List<String> execRailsCommandWithPodShopper(final String commands){
+        final List<String> result = new CopyOnWriteArrayList<>();
+        final var nameSpace = EnvironmentProperties.K8S_NAME_SHP_SPACE;
+        final var labelSelector = EnvironmentProperties.K8S_LABEL_SHP_SELECTOR;
+        final var pod = getPod(nameSpace, labelSelector);
+
+        try {
+            execRailsCommandWithShopperPod(pod, commands, result::add, true).close();
+        } catch (IOException e) {
+            log.error("Error: {}", e.getMessage());
+        }
+        return result;
+    }
+
     public static <T> T getClassWithExecRailsCommand(final String commands, final Class<T> clazz) {
         final List<String> result = new CopyOnWriteArrayList<>();
         final var namespace = EnvironmentProperties.K8S_NAME_STF_SPACE;
@@ -217,6 +231,12 @@ public final class K8sConsumer {
         final var commandExec = new String[]{"/bin/bash", "-c", "/vault/vault-env", "bundle", "exec", "rails", "runner", "\"puts " + commands + "\""};
         log.debug("Exec command: {}", String.join("\n", commandExec));
         return execCommandWithPod(pod, commandExec, "puma", outputFun, waiting);
+    }
+
+    private static Closeable execRailsCommandWithShopperPod(final V1Pod pod, final String commands, final Consumer<String> outputFun, final boolean waiting) {
+        final var commandExec = new String[]{"/paas-entrypoint/entrypoint", "rails", "runner", "\"puts " + commands + "\""};
+        log.debug("Exec command: {}", String.join("\n", commandExec));
+        return execCommandWithPod(pod, commandExec, "app-puma", outputFun, waiting);
     }
 
     private static Closeable execBashCommandWithPod(final V1Pod pod, final String commands, final String container, final Consumer<String> outputFun, final boolean waiting) {

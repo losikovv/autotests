@@ -19,6 +19,7 @@ public class OrdersV1Request extends ApiV1RequestBase {
     @Step("{method} /" + ApiV1Endpoints.ORDERS)
     public static Response GET(Integer pageNumber) {
         return givenWithAuth()
+                .queryParam("page", pageNumber)
                 .get(ApiV1Endpoints.ORDERS, pageNumber);
     }
 
@@ -33,6 +34,21 @@ public class OrdersV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .contentType(ContentType.JSON)
                 .body(shipment)
+                .put(ApiV1Endpoints.Orders.Number.SHIPMENT, orderNumber, shipmentNumber);
+    }
+
+    @Step("{method} /" + ApiV1Endpoints.Orders.Number.SHIPMENT)
+    public static Response PUT(final String orderNumber, final String shipmentNumber, final Integer sid, final Long deliveryWindowId) {
+        var json = new JSONObject();
+        var body = new JSONObject();
+        json.put("delivery_window_id", deliveryWindowId);
+        json.put("change_reason_id", 6);
+        json.put("store_id", sid);
+        body.put("shipment", json);
+
+        return givenWithAuth()
+                .contentType(ContentType.JSON)
+                .body(body)
                 .put(ApiV1Endpoints.Orders.Number.SHIPMENT, orderNumber, shipmentNumber);
     }
 

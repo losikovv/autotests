@@ -12,11 +12,14 @@ import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.UserV1;
+import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.admin.*;
+import ru.instamart.api.request.admin_gw.AssemblyAdminRequest;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
+import ru.instamart.api.request.v1.admin.OrderCancellationsAdminV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v1.admin.StoreLabelsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
@@ -29,6 +32,7 @@ import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.response.v1.admin.StoreLabelsAdminV1Response;
 import ru.instamart.api.response.v1.admin.VehicleV1Response;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
+import ru.instamart.api.response.v1.gw.assembly.FreePickersV1Response;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -37,8 +41,10 @@ import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.Vehicles;
 import ru.instamart.kraken.data.user.UserManager;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.helper.K8sHelper.createAdmin;
 
@@ -296,10 +302,25 @@ public class AdminHelper {
         checkStatusCode200(responsePost);
     }
 
-    public List<DeliveryWindowV1> getDeliveryWindows(Integer storeId) {
-        final Response responseGet = StoresV1Request.DeliveryWindows.GET(storeId);
+    @Step("Окна доставки для магазина sid = {sid} на завтрешний день")
+    public List<DeliveryWindowV1> getDeliveryWindows(Integer sid) {
+        final Response responseGet = StoresV1Request.DeliveryWindows.GET(sid);
         checkStatusCode200(responseGet);
         return responseGet.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
+    }
+
+    @Step("Окна доставки для магазина sid = {sid} на дату {date}")
+    public List<DeliveryWindowV1> getDeliveryWindows(final Integer sid, final String date) {
+        final Response responseGet = StoresV1Request.DeliveryWindows.GET(sid, date);
+        checkStatusCode200(responseGet);
+        return responseGet.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
+    }
+
+    @Step("Изменение окна доставки на {deliveryWindowId} для {order.number} в sid={sid}")
+    public ShipmentV1Response changeDeliveryWindows(final OrderV2 order, final Integer sid, final Long deliveryWindowId){
+        final Response response = OrdersV1Request.PUT(order.getNumber(), order.getShipments().get(0).getNumber(), sid, deliveryWindowId);
+        checkStatusCode200(response);
+        return response.as(ShipmentV1Response.class);
     }
 
     public List<AdminStoreLabelsItemV1> getStoreLabels() {
@@ -372,4 +393,27 @@ public class AdminHelper {
 
         return response.as(VehicleV1Response.class).getVehicle();
     }
+
+    @Step("Получаем всех свободных сборщиков для store uuid {uuid}")
+    public List<FreePickersV1Response> getFreePickers(final String uuid) {
+        final var freePickers = AssemblyAdminRequest.FreePickers.GET(uuid);
+        checkStatusCode200(freePickers);
+
+        final var freePickersList = Arrays.asList(freePickers.as(FreePickersV1Response[].class));
+        assertTrue(freePickersList.size()>0, "Список свободных сборщиков пустой");
+        return freePickersList;
+    }
+
+    @Step("Назначение заказа на другого сборщика")
+    public void reassignOffer(final String pickerUUID, final String shipmentUUID){
+        final var offer = AssemblyAdminRequest.Offer.POST(pickerUUID, shipmentUUID);
+        checkStatusCode(offer, 201);
+    }
+
+    @Step("Отмена заказа {order.number}")
+    public void canselOrder(final OrderV2 order){
+        final var response = OrderCancellationsAdminV1Request.POST(order.getNumber(), 1, "test");
+        checkStatusCode200(response);
+    }
+
 }

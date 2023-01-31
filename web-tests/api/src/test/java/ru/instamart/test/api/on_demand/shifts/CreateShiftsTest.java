@@ -24,6 +24,7 @@ import java.util.Set;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
+import static ru.instamart.api.enums.shopper.RoleSHP.UNIVERSAL;
 
 @Epic("Shifts")
 @Feature("Endpoints")
@@ -51,7 +52,7 @@ public class CreateShiftsTest extends RestBase {
         } else {
             defaultShiftZone = EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID;
         }
-        planningPeriod = shiftsApi.getPlanningPeriod();
+        planningPeriod = shiftsApi.getPlanningPeriod(UNIVERSAL);
     }
 
     @AfterClass(alwaysRun = true)
@@ -67,7 +68,7 @@ public class CreateShiftsTest extends RestBase {
     public void creationOfShift201() {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(defaultShiftZone)
-                .role(RoleSHP.UNIVERSAL.getRole())
+                .role(UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
                                 .guaranteedPayroll(planningPeriod.get(0).getBaseGuaranteedPayroll())
@@ -95,7 +96,7 @@ public class CreateShiftsTest extends RestBase {
         PlanningPeriodsSHPResponse planningPeriodItem = planningPeriod.get(2);
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(defaultShiftZone)
-                .role(RoleSHP.UNIVERSAL.getRole())
+                .role(UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
                                 .guaranteedPayroll(0)
@@ -133,7 +134,7 @@ public class CreateShiftsTest extends RestBase {
 
         ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(defaultShiftZone)
-                .role(RoleSHP.UNIVERSAL.getRole())
+                .role(UNIVERSAL.getRole())
                 .planningPeriods(planningPeriods)
                 .build();
         final Response response = ShiftsRequest.POST(postShift);
@@ -148,7 +149,7 @@ public class CreateShiftsTest extends RestBase {
     public void createTwoShifts422() {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(defaultShiftZone)
-                .role(RoleSHP.UNIVERSAL.getRole())
+                .role(UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
                                 .guaranteedPayroll(planningPeriod.get(0).getBaseGuaranteedPayroll())
@@ -176,7 +177,7 @@ public class CreateShiftsTest extends RestBase {
     public void createShiftsBeforeOneMinutesToStart422() {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(defaultShiftZone)
-                .role(RoleSHP.UNIVERSAL.getRole())
+                .role(UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
                                 .guaranteedPayroll(planningPeriod.get(0).getBaseGuaranteedPayroll())

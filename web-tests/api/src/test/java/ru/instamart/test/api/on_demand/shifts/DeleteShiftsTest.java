@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -28,7 +29,7 @@ public class DeleteShiftsTest extends RestBase {
         shiftsApi.cancelAllActiveShifts();
         shiftsApi.stopAllActiveShifts();
         //Подготовка
-        planningPeriodId = shiftsApi.createSecondDaysShift().getId();
+        planningPeriodId = shiftsApi.createSecondDaysShift(RoleSHP.UNIVERSAL).getId();
     }
 
     @TmsLink("59")

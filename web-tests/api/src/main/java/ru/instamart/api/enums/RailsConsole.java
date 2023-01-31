@@ -165,6 +165,7 @@ public interface RailsConsole {
         public String get() {
             return command;
         }
+
         public String get(String value) {
             return format(command, value);
         }
@@ -215,6 +216,28 @@ public interface RailsConsole {
 
         public String get(String... values) {
             return format(command, (Object[]) values);
+        }
+    }
+
+    @AllArgsConstructor
+    enum Shopper implements RailsConsole {
+        SHIFT_PARAMS_CREATE("time = Time.zone.now; shp = Shopper.find(%s); params = {shopper_id: shp.id, plan_starts_at: time, " +
+                "fact_starts_at: time, plan_ends_at: time + 10.hours, role_id: 1, state: \"active\",store_id: shp.store.id,}; " +
+                "OperationShift.create!(params)");
+        private String command;
+
+        public String get(String... values) {
+            return format(command, (Object[]) values);
+        }
+    }
+
+    @AllArgsConstructor
+    enum CredtCard implements RailsConsole {
+        CREDIT_CARD_GETEWAY("Spree::CreditCard.where(id: %s).update(gateway_customer_profile_id: '%s')");
+
+        private String command;
+        public String get(String... values) {
+            return format(command, (Object[]) values );
         }
     }
 }

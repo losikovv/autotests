@@ -116,3 +116,13 @@ task onDemandRes(type: Test) {
     environment 'PROJECT_ID', 'RES'
     environment 'TEST_RUN_NAME', 'RES Autotests'
 }
+
+task onDemandASML(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/on_demand/assembly.xml'
+        includeGroups 'assembly-dispatch'
+    }
+    environment 'P_ENV', "service-assembly"
+    environment 'PROJECT_ID', 'ASML'
+    environment 'TEST_RUN_NAME', 'Assembly Dispatch'
+}

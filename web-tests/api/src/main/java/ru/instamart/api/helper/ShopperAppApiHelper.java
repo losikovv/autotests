@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.StopWatch;
+import org.awaitility.Awaitility;
 import org.testng.SkipException;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.shopper.AssemblyStateSHP;
@@ -13,9 +14,12 @@ import ru.instamart.api.enums.shopper.PricerSHP;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.shopper.admin.ShipmentsItemSHP;
 import ru.instamart.api.model.shopper.app.*;
+import ru.instamart.api.request.assembly.AssemblyV1Request;
 import ru.instamart.api.request.localtor.LocatorRequest;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.shopper.app.*;
+import ru.instamart.api.response.assembly.AcceptV1Response;
+import ru.instamart.api.response.assembly.OfferV1Response;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
@@ -23,14 +27,17 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -414,6 +421,15 @@ public class ShopperAppApiHelper {
         return offers;
     }
 
+
+    @Step("Получаем инфу о позициях в текущей сборке")
+    public List<AssemblyItemSHP.Data> getItemsId(String assemblyId) {
+        log.debug("Получаем инфу о позициях в сборке");
+        Response response = AssembliesSHPRequest.GET(assemblyId);
+        checkStatusCode200(response);
+        return response.as(AssemblySHPResponse.class).getIncluded();
+    }
+
     /**
      * Получаем инфу о позициях в текущей сборке
      */
@@ -421,14 +437,6 @@ public class ShopperAppApiHelper {
     public List<AssemblyItemSHP.Data> getItems() {
         log.debug("Получаем инфу о позициях в сборке");
         Response response = AssembliesSHPRequest.GET(currentAssemblyId.get());
-        checkStatusCode200(response);
-        return response.as(AssemblySHPResponse.class).getIncluded();
-    }
-
-    @Step("Получаем инфу о позициях в текущей сборке")
-    public List<AssemblyItemSHP.Data> getItemsId(String assemblyId) {
-        log.debug("Получаем инфу о позициях в сборке");
-        Response response = AssembliesSHPRequest.GET(assemblyId);
         checkStatusCode200(response);
         return response.as(AssemblySHPResponse.class).getIncluded();
     }
@@ -585,13 +593,6 @@ public class ShopperAppApiHelper {
         assertNull(attributes.getPackerId());
     }
 
-    @Step("Завершаем сборку для передачи упаковщику")
-    public void finishAssemblingWithAssemblyId(String assemblyId) {
-        log.debug("Завершаем сборку для передачи упаковщику");
-        Response response = AssembliesSHPRequest.FinishAssembling.PUT(assemblyId);
-        checkStatusCode200(response);
-    }
-
     @Step("Берем сборку упаковщиком")
     public void packer() {
         log.debug("Берем сборку упаковщиком");
@@ -601,13 +602,6 @@ public class ShopperAppApiHelper {
         assertEquals(attributes.getState(),
                 AssemblyStateSHP.ASSEMBLED.getState());
         checkFieldIsNotEmpty(attributes.getPackerId(), "packerId");
-    }
-
-    @Step("Берем сборку упаковщиком")
-    public void packerWithAssemblyId(String assemblyId) {
-        log.debug("Берем сборку упаковщиком");
-        Response response = AssembliesSHPRequest.Packer.PUT(assemblyId);
-        checkStatusCode200(response);
     }
 
     @Step("Оплата на кассе")
@@ -674,7 +668,6 @@ public class ShopperAppApiHelper {
                 transactionDetails);
         checkStatusCode200(response);
     }
-
     @Step("Упаковка заказа")
     public void startPackaging() {
         log.debug("Начинаем упаковку");
@@ -751,6 +744,22 @@ public class ShopperAppApiHelper {
                 AssemblyStateSHP.PAUSED.getState());
     }
 
+    @Step("Ставим сборку на паузу")
+    public void pauseAssembly(String id) {
+        log.debug("Ставим сборку на паузу");
+        Response response = AssembliesSHPRequest.Pause.PATCH(id);
+        checkStatusCode200(response);
+        assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
+                AssemblyStateSHP.PAUSED.getState());
+    }
+
+    @Step("Берем сборку из паузы")
+    public void stocksAssembly(String id){
+        log.debug("Ставим сборку на паузу");
+        Response response = AssembliesSHPRequest.Stocks.GET(id);
+        checkStatusCode200(response);
+    }
+
     @Step("Отдаём сборку другому сборщику: ")
     public void suspendAssembly() {
         log.debug("Отдаём сборку другому сборщику");
@@ -786,7 +795,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Получаем данные о заказе")
-    public ShipmentSHPResponse getShipments(final String shipmentId){
+    public ShipmentSHPResponse getShipments(final String shipmentId) {
         final var response = ShipmentsSHPRequest.GET(shipmentId);
         return response.as(ShipmentSHPResponse.class);
     }
@@ -803,5 +812,35 @@ public class ShopperAppApiHelper {
         final var response = ShipmentsSHPRequest.GET(shipmentUUID);
         checkStatusCode200(response);
         return response.as(ShipmentSHPResponse.class);
+    }
+
+    @Step("Получаем офферы")
+    public OfferV1Response getAssemblyOffer() {
+        final var response = AssemblyV1Request.Offer.GET();
+        return response.as(OfferV1Response.class);
+    }
+
+    @Step("Ожидание первого оффера")
+    public OfferV1Response awaitOffer(final int seconds) {
+        Awaitility.with()
+                .pollInSameThread()
+                .pollInterval(Duration.of(10, SECONDS))
+                .await()
+                .atMost(seconds, TimeUnit.SECONDS)
+                .until(() -> {
+                    final var response = AssemblyV1Request.Offer.GET();
+                    return 200 == response.getStatusCode();
+                });
+        return getAssemblyOffer();
+    }
+
+    @Step("Берем заказ в сборку")
+    public String startAssemblyOnDemand() {
+        final var offer = awaitOffer(300);
+        Response response = AssemblyV1Request.Offer.Accept.PUT(offer.getId());
+        checkStatusCode(response, 202);
+        final var assembly = response.as(AcceptV1Response.class).getAssemblyId();
+        currentAssemblyId.set(assembly);
+        return assembly;
     }
 }
