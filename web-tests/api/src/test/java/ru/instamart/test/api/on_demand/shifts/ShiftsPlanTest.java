@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.api.response.ErrorTypeResponse;
 import ru.instamart.api.response.shifts.PlanningPeriodsSHPResponse;
@@ -76,7 +77,7 @@ public class ShiftsPlanTest extends RestBase {
             dependsOnMethods = "startShift200",
             description = "Событие \"Начать смену\". Партнер имеет незавершенные смены")
     public void startShift() {
-        ShiftResponse shift = shiftsApi.createShift(2);
+        ShiftResponse shift = shiftsApi.createShift(2, RoleSHP.UNIVERSAL);
         ShiftsDao.INSTANCE.updateState(shift.getId());
         final Response response = ShiftsRequest.Start.PATCH(shift.getId(), METRO_9.getLat(), METRO_9.getLon());
         checkStatusCode422(response);

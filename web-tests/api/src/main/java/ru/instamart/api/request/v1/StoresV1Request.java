@@ -47,8 +47,17 @@ public class StoresV1Request extends ApiV1RequestBase {
         public static Response GET(Integer storeId) {
             String date = getFutureDateWithoutTime(1L);
             return givenWithAuth()
+                    .queryParam("date", date)
                     .get(ApiV1Endpoints.Stores.DeliveryWindows.BY_DATE, storeId, date);
         }
+
+        @Step("{method} /" + ApiV1Endpoints.Stores.DeliveryWindows.BY_DATE)
+        public static Response GET(final Integer storeId, final String date) {
+            return givenWithAuth()
+                    .queryParam("date", date)
+                    .get(ApiV1Endpoints.Stores.DeliveryWindows.BY_DATE, storeId);
+        }
+
 
         @Step("{method} /" + ApiV1Endpoints.Stores.DeliveryWindows.GENERATE)
         public static Response POST(Integer storeId) {

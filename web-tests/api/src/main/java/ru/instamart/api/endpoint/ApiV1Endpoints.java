@@ -20,7 +20,7 @@ public final class ApiV1Endpoints {
     public static final String MARKETING_SAMPLES = "marketing_samples";
     public static final String MULTIRETAILER_ORDER = "multiretailer_order";
     public static final String OPERATIONAL_ZONES = "operational_zones";
-    public static final String ORDERS = "orders?page={pageNumber}";
+    public static final String ORDERS = "orders";
     public static final String PHONE_CONFIRMATIONS = "phone_confirmations";
     public static final String PROMOTION_CARD_CATEGORIES = "promotion_card_categories";
     public static final String PROMOTION_CARDS = "promotion_cards";
@@ -58,6 +58,7 @@ public final class ApiV1Endpoints {
         public static final String PAYMENT_METHODS = "admin/payment_methods";
         public static final String STORE = "admin/stores/{storeUuid}";
         public static final String STORES = "admin/stores";
+        public static final String DELIVERY_WINDOWS = "admin/stores/{sid}/delivery_windows";
         public static final String SHIPMENTS = "admin/shipments.json";
         public static final String SHIPMENT = "admin/shipments/{uuid}";
         public static final String SHIPPING_CATEGORIES = "admin/shipping_categories";
@@ -408,7 +409,7 @@ public final class ApiV1Endpoints {
         public static final String ZONE_FILES = "stores/{storeId}/zone_files";
 
         public static final class DeliveryWindows {
-            public static final String BY_DATE = "stores/{storeId}/delivery_windows?date={date}";
+            public static final String BY_DATE = "stores/{storeId}/delivery_windows";
             public static final String GENERATE = "stores/{storeId}/delivery_windows/generate";
         }
 

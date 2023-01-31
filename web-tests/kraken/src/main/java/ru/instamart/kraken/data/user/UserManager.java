@@ -42,6 +42,8 @@ public final class UserManager {
     private static UserData krakenUniversal2;
     private static UserData krakenUniversal3;
     private static UserData stf6Shopper1;
+    private static UserData stf6ShopperASML1;
+    private static UserData stf6ShopperASML2;
     private static UserData stf6Universal1;
     private static UserData stf6Universal2;
     private static UserData stf6Universal3;
@@ -299,6 +301,29 @@ public final class UserManager {
         }
         return stf6Shopper1;
     }
+
+    public static UserData getShp6ShopperASML1() {
+        if (isNull(stf6ShopperASML1)) {
+            stf6ShopperASML1 = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("D4p9xMk+ifkXuCtuwAvu8A=="))
+                    .phone(Crypt.INSTANCE.decrypt("92LJ7YeP7ZH8r8ToXsgcIg=="))
+                    .uuid("fb2c3f16-9a58-4d27-8d21-4688e3e7af76")
+                    .build();
+        }
+        return stf6ShopperASML1;
+    }
+    public static UserData getShp6ShopperASML2() {
+        if (isNull(stf6ShopperASML2)) {
+            stf6ShopperASML2 = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("D4p9xMk+ifkXuCtuwAvu8A=="))
+                    .phone(Crypt.INSTANCE.decrypt("NB5CH6HDJwZZlWhux642Pg=="))
+                    .uuid("2b8e6b81-bd57-4a04-b643-b8de36e1c46b")
+                    .build();
+        }
+        return stf6ShopperASML2;
+    }
+
+
 
     public static UserData getKrakenUniversal() {
         if (isNull(krakenUniversal)) {

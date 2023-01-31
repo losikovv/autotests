@@ -4,6 +4,8 @@ import candidates.CandidatesGrpc;
 import candidates.CandidatesOuterClass;
 import candidates.CandidatesOuterClass.CandidateRole;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.TmsLink;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,6 +18,8 @@ import ru.instamart.kraken.data.user.UserManager;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_CANDIDATES;
 
+@Epic("On Demand")
+@Feature("Candidates")
 public class CandidatesShopperTest extends RestBase {
 
     private CandidatesGrpc.CandidatesBlockingStub clientCandidates;

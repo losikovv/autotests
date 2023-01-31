@@ -71,25 +71,24 @@ public final class ShiftsApiHelper {
     }
 
     @Step("Перечень периодов планирования области планирования.")
-    public List<PlanningPeriodsSHPResponse> getPlanningPeriod() {
-        final Response response = PlanningAreasRequest.GET(defaultShiftZone, RoleSHP.UNIVERSAL);
+    public List<PlanningPeriodsSHPResponse> getPlanningPeriod(final RoleSHP role) {
+        final Response response = PlanningAreasRequest.GET(defaultShiftZone, role);
         checkStatusCode200(response);
         return Arrays.asList(response.as(PlanningPeriodsSHPResponse[].class));
     }
 
     @Step("Перечень периодов планирования области планирования.")
-    public List<PlanningPeriodsSHPResponse> getPlanningPeriod(final String startedAt, final String endedAt) {
-        final Response response = PlanningAreasRequest.GET(
-                defaultShiftZone, RoleSHP.UNIVERSAL, startedAt, endedAt);
+    public List<PlanningPeriodsSHPResponse> getPlanningPeriod(final String startedAt, final String endedAt, final RoleSHP role) {
+        final Response response = PlanningAreasRequest.GET(defaultShiftZone, role, startedAt, endedAt);
         checkStatusCode200(response);
         return Arrays.asList(response.as(PlanningPeriodsSHPResponse[].class));
     }
 
     @Step("Создание новой смены для партнёра Универсала.")
-    public ShiftResponse postShift(PlanningPeriodsSHPResponse planning) {
+    public ShiftResponse postShift(PlanningPeriodsSHPResponse planning, RoleSHP role) {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(defaultShiftZone)
-                .role(RoleSHP.UNIVERSAL.getRole())
+                .role(role.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
                                 .guaranteedPayroll(planning.getBaseGuaranteedPayroll())
@@ -136,19 +135,26 @@ public final class ShiftsApiHelper {
     }
 
     public ShiftResponse createShift() {
-        return createShift(0);
+        return createShift(0, RoleSHP.UNIVERSAL);
     }
 
-    @Step("Создание ближайшей смены = '{plusId}'")
-    public ShiftResponse createShift(final int plusId) {
+    @Step("Создание смены с ролью {role.role}")
+    public ShiftResponse createShift(RoleSHP role) {
+        return createShift(0, role);
+    }
+
+    @Step("Создание ближайшей смены")
+    public ShiftResponse createShift(final int plusId, final RoleSHP role) {
         getShopperInfo();
-        final var shifts = shifts().stream().map(item -> item.getPlanningPeriods().get(0).getId()).collect(Collectors.toList());
+        final var shifts = shifts().stream()
+                .map(item -> item.getPlanningPeriods().get(0).getId())
+                .collect(Collectors.toList());
         final var planningAreaList = getPlanningArea();
         //условие для универсалов с единственной зоной планирования
         if (planningAreaList.size() == 1) {
             defaultShiftZone = planningAreaList.get(0).getId();
         }
-        final var planningPeriodItem = getPlanningPeriod();
+        final var planningPeriodItem = getPlanningPeriod(role);
         final List<PlanningPeriodsSHPResponse> collect = planningPeriodItem.stream()
                 .filter(item -> !shifts.contains(item.getId()))
                 .collect(Collectors.toList());
@@ -156,21 +162,21 @@ public final class ShiftsApiHelper {
         planningPeriodId.set(planningItem.getId());
         log.debug("Shifts accept: {}", planningPeriodId.get());
 
-        return postShift(planningItem);
+        return postShift(planningItem, role);
     }
 
     @Step("Создание смены до начала которой более 1440 минут")
-    public ShiftResponse createSecondDaysShift() {
+    public ShiftResponse createSecondDaysShift(final RoleSHP role) {
         getShopperInfo();
         var shifts = shifts().stream().map(item -> item.getPlanningPeriods().get(0).getId()).collect(Collectors.toList());
-        var planningPeriodItem = getPlanningPeriod(getZonedUTCFutureDate(1L), getZonedUTCFutureDate(2L));
+        var planningPeriodItem = getPlanningPeriod(getZonedUTCFutureDate(1L), getZonedUTCFutureDate(2L), role);
         List<PlanningPeriodsSHPResponse> collect = planningPeriodItem.stream()
                 .filter(item -> !shifts.contains(item.getId()))
                 .collect(Collectors.toList());
         var planningItem = collect.get(0);
         planningPeriodId.set(planningItem.getId());
         log.debug("Shifts accept: {}", planningPeriodId.get());
-        return postShift(planningItem);
+        return postShift(planningItem, role);
     }
 
     @Step("Начало смены для сборщика универсала")
@@ -179,8 +185,31 @@ public final class ShiftsApiHelper {
         var planningId = shifts().get(0).getId();
         planningPeriodId.set(planningId);
         boolean state = ShiftsDao.INSTANCE.updateState(planningId);
-        assertTrue(state, String.format("Статус смены %s не изменился", planningId ));
+        assertTrue(state, String.format("Статус смены %s не изменился", planningId));
         activateShiftsPartner(startPointsTenants);
         return planningPeriodId.get();
+    }
+
+    @Step("Начало смены для сборщика c ролью {role.}")
+    public Integer startOfShift(StartPointsTenants startPointsTenants, RoleSHP role) {
+        createShift(role);
+        var planningId = shifts().get(0).getId();
+        planningPeriodId.set(planningId);
+        boolean state = ShiftsDao.INSTANCE.updateState(planningId);
+        assertTrue(state, String.format("Статус смены %s не изменился", planningId));
+        activateShiftsPartner(startPointsTenants);
+        return planningPeriodId.get();
+    }
+
+    @Step("Смена ставится на паузу")
+    public void pauseShifts(final Integer id){
+        final var response = ShiftsRequest.Pause.POST(id);
+        checkStatusCode(response, 201);
+    }
+
+    @Step("Выходим на смену с паузы")
+    public void pauseStartShifts(final Integer id){
+        final var response = ShiftsRequest.Pause.DELETE(id);
+        checkStatusCode(response, 204);
     }
 }

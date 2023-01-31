@@ -11,7 +11,6 @@ import ru.instamart.api.request.SelfFeeRequestBase;
 
 public class SelfFeeV1Request extends SelfFeeRequestBase {
 
-
     public static class Registry {
 
         @Step("{method} /" + SelfFreeEndpoints.V1.REGISTRY)

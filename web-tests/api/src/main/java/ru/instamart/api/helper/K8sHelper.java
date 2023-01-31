@@ -20,6 +20,7 @@ import static ru.instamart.api.enums.RailsConsole.Other.DELETE_COMPENSATIONS_CAC
 import static ru.instamart.api.enums.RailsConsole.Other.DELETE_SHIPMENT_RETURN;
 import static ru.instamart.api.enums.RailsConsole.Shadowcat.CREATE_JWT_TOKEN;
 import static ru.instamart.api.enums.RailsConsole.Shipments.UPDATE_SHIPMENT_INDEX_BY_PAYMENT_STATE;
+import static ru.instamart.api.enums.RailsConsole.Shopper.SHIFT_PARAMS_CREATE;
 import static ru.instamart.api.enums.RailsConsole.User.*;
 import static ru.instamart.api.enums.RailsConsole.WebhookClient.ADD_WEBHOOK_URL;
 import static ru.instamart.api.enums.RailsConsole.WebhookClient.SEND_MESSAGE;
@@ -278,5 +279,11 @@ public class K8sHelper {
     public static void commandChatwoot(final String command) {
         var pod = getPod("app-chatwoot-ashunicorn", "role=web");
         execShCommandWithPod(command, pod, "chatwoot-web");
+    }
+
+    @Step("Assembly hask")
+    public static void shiftParamsCreate(final String shopperId){
+        List<String> strings = execRailsCommandWithPodShopper(SHIFT_PARAMS_CREATE.get(shopperId));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 }

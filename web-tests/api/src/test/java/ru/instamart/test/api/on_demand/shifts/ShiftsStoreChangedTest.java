@@ -175,7 +175,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                 )
                 .build();
 
-        kafka.publish(configPlanningPeriods(), periodsImport);
+         kafka.publish(configPlanningPeriods(), periodsImport);
         simplyAwait(10);
         var filters = PlanningPeriodFilters.builder()
                 .importId(importIdBefore)
