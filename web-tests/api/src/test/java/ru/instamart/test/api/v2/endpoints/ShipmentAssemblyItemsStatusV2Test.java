@@ -43,7 +43,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     private ShipmentV2 shipment;
     private UserData userData;
-
+    //неактуальные тесты, сейчас флоу ассембли работает по другому и проверяется в других тестах
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
@@ -64,6 +64,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
     @Story("Детали по сборке подзаказа")
     @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Детали по существующему подзаказу до сборки")
+    @Deprecated
     public void getAssemblyItemsOfExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(response);
@@ -77,6 +78,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
     @Story("Детали по сборке подзаказа")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Детали по сборке несуществующего подзаказа")
+    @Deprecated
     public void getAssemblyItemsOfNonExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET("failedShipmentNumber");
         checkStatusCode404(response);
@@ -88,6 +90,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Детали по сборке cобранного подзаказа",
             dependsOnMethods = "getAssemblyItemsOfExistingShipment")
+    @Deprecated
     public void getAssemblyItemsOfShipmentAfterAssembling() {
         changeToAssembled(shipment.getNumber(), "0");
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
@@ -101,6 +104,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
     @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Детали по сборке отмененного подзаказа",
             dependsOnMethods = {"getAssemblyItemsOfExistingShipment", "getAssemblyItemsOfShipmentAfterAssembling"})
+    @Deprecated
     public void getCancelledAssemblyItemsOfShipment() {
         changeItemToCancel(shipment.getNumber(), "0");
 
@@ -118,6 +122,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
             dataProvider = "priceTypes",
             dataProviderClass = RestDataProvider.class,
             dependsOnMethods = "getCancelledAssemblyItemsOfShipment")
+    @Deprecated
     public void getAssemblyItemsWithPriceType(ProductPriceTypeV2 priceType) {
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID, priceType);

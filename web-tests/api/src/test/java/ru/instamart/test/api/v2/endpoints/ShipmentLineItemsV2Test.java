@@ -53,7 +53,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         user = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        products = apiV2.getProductsFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        products = apiV2.getProducts(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         deliveryWindowId = order.getShipments().get(0).getDeliveryWindow().getId();
         DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 1, 999, 1);
