@@ -3,13 +3,14 @@ package ru.instamart.test.api.on_demand.workflow;
 import com.google.protobuf.util.Timestamps;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
+import io.qameta.allure.TmsLinks;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import push.Push;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -35,8 +36,6 @@ import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
-import io.qameta.allure.TmsLinks;
-import io.qameta.allure.TmsLink;
 import shipment_pricing.OrderPricing;
 import shipment_pricing.ShipmentPriceServiceGrpc;
 import workflow.*;
@@ -62,7 +61,7 @@ import static workflow.WorkflowOuterClass.CreateWorkflowsResponse.Result.ErrorKi
 public class WorkflowTest extends RestBase {
 
     private ServiceGrpc.ServiceBlockingStub clientWorkflow;
-    private ShipmentPriceServiceGrpc.ShipmentPriceServiceBlockingStub clientAnalytics;
+    private ShipmentPriceServiceGrpc.ShipmentPriceServiceBlockingStub clientPricing;
     private OrderV2 order;
     private OrderV2 secondOrder;
     private String shipmentUuid;
@@ -84,18 +83,18 @@ public class WorkflowTest extends RestBase {
         shiftId = shiftsApi.startOfShift(StartPointsTenants.METRO_9);
 
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
-        clientAnalytics = ShipmentPriceServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_ANALYTICS_ORDER_PRICING));
+        clientPricing = ShipmentPriceServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ORDER_PRICING));
         SessionFactory.makeSession(SessionType.API_V2);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
         firstJobUuid = awaitJobUuid(shipmentUuid, 300L);
-        secondJobUuid = awaitJobUuid(secondShipmentUuid, 300L);
+        secondJobUuid = awaitJobUuid(shipmentUuid, 300L);
         ThreadUtil.simplyAwait(70);
     }
 
-    @TmsLink("101")
+    @TmsLink("101")//номер кейса будет другой, создание одного мл с двумя подлетами надо для батчинга
     @Test(description = "Создание маршрутных листов с одинаковым ARRIVE сегментом",
             groups = "dispatch-workflow-smoke")
     public void createWorkflowWithSameArriveSegment() {
@@ -120,6 +119,10 @@ public class WorkflowTest extends RestBase {
         var requestForCreation = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
 
         var responseForCreation = clientWorkflow.createWorkflows(requestForCreation);
+
+        // var request = PricingV1.GetOfferOrderPriceRequest.newBuilder()
+
+
 
         var request = OrderPricing.GetShipmentPriceRequest
                 .newBuilder()
@@ -148,7 +151,7 @@ public class WorkflowTest extends RestBase {
                         .build())
                 .build();
 
-        var response = clientAnalytics.getShipmentPrice(request);
+        var response = clientPricing.getShipmentPrice(request);
 
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getBaseCost(), 100f);
@@ -269,29 +272,15 @@ public class WorkflowTest extends RestBase {
         checkGrpcError(response, "Parent assignment not found", PARENT_NOT_FOUND.toString());
     }
 
-    @TmsLinks(value = {@TmsLink("37"), @TmsLink("123"), @TmsLink("93")})
-    @Test(enabled = false,
-            description = "Создание маршрутного листа за 30 секунд от текущего времени",
-            groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowWithDifferentStores")
-    //dependsOnMethods = "createWorkflowWithNotAvailableParentWorkflow")
-    public void createWorkflow30SecToNow() {
-        var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(30), WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
+    @TmsLink("37")
+    @Test(description = "Создание маршрутного листа за n-секунд от текущего времени",
+            groups = "dispatch-workflow-smoke")
+    public void createWorkflowNSecToNow() {
+        var request = getWorkflowsRequestWithAssembly(secondOrder, secondShipmentUuid, getDateMinusSec(301),  WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
         var response = clientWorkflow.createWorkflows(request);
 
-        compareTwoObjects(response.getResultsMap().get(response.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
-        workflowUuid = response.getResultsMap().keySet().toArray()[0].toString();
-        checkFieldIsNotEmpty(workflowUuid, "Не вернулся uuid workflow");
-        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
-        workflowId = assignments.get(0).getWorkflowId();
-        List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
-        List<Push.EventPushNotification> notifications = kafka.waitDataInKafkaTopicNotifications(workflowId);
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(workflows.get(0).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.NEW, softAssert);
-        compareTwoObjects(assignments.get(0).getStatus(), OFFERED, softAssert);
-        compareTwoObjects(notifications.get(notifications.size() - 1).getMessage().getData().getFieldsMap().get("type").getStringValue(), "ASSIGNMENT_CREATED", softAssert);
-        compareTwoObjects(notifications.get(notifications.size() - 1).getMessage().getData().getFieldsMap().get("performer_uuid").getStringValue(), UserManager.getShp6Universal1().getUuid(), softAssert);
-        softAssert.assertAll();
+        checkGrpcError(response, "Workflow started at early current time", STARTED_AT_EARLY_CURRENT_TIME.toString());
+        cancelWorkflow(clientWorkflow, secondShipmentUuid);
     }
 
     @TmsLink("57")
