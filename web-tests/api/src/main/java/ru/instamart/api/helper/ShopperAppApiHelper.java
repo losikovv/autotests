@@ -593,6 +593,13 @@ public class ShopperAppApiHelper {
         assertNull(attributes.getPackerId());
     }
 
+    @Step("Завершаем сборку для передачи упаковщику")
+    public void finishAssemblingWithAssemblyId(String assemblyId) {
+        log.debug("Завершаем сборку для передачи упаковщику");
+        Response response = AssembliesSHPRequest.FinishAssembling.PUT(assemblyId);
+        checkStatusCode200(response);
+    }
+
     @Step("Берем сборку упаковщиком")
     public void packer() {
         log.debug("Берем сборку упаковщиком");
@@ -602,6 +609,13 @@ public class ShopperAppApiHelper {
         assertEquals(attributes.getState(),
                 AssemblyStateSHP.ASSEMBLED.getState());
         checkFieldIsNotEmpty(attributes.getPackerId(), "packerId");
+    }
+
+    @Step("Берем сборку упаковщиком")
+    public void packerWithAssemblyId(String assemblyId) {
+        log.debug("Берем сборку упаковщиком");
+        Response response = AssembliesSHPRequest.Packer.PUT(assemblyId);
+        checkStatusCode200(response);
     }
 
     @Step("Оплата на кассе")
