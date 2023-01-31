@@ -47,7 +47,7 @@ import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.TIME
 public class TimeoutWorkflowTest extends RestBase {
 
     private ServiceGrpc.ServiceBlockingStub clientWorkflow;
-    private ShipmentPriceServiceGrpc.ShipmentPriceServiceBlockingStub clientAnalytics;
+    private ShipmentPriceServiceGrpc.ShipmentPriceServiceBlockingStub clientPricing;
     private OrderV2 order;
     private OrderV2 secondOrder;
     private String shipmentUuid;
@@ -60,7 +60,7 @@ public class TimeoutWorkflowTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
-        clientAnalytics = ShipmentPriceServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_ANALYTICS_ORDER_PRICING));
+        clientPricing = ShipmentPriceServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ORDER_PRICING));
         SessionFactory.makeSession(SessionType.API_V2);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);

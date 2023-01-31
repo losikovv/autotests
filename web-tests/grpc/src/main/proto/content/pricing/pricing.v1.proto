@@ -1,0 +1,440 @@
+syntax = "proto3";
+
+package order_pricing_grpc;
+option go_package = "gitlab.sbmt.io/paas/content/operations/order-pricing/pkg/server/grpc/pricing.v1";
+import "google/protobuf/timestamp.proto";
+import "content/pricing/decimal.proto";
+
+service PricingServiceV1 {
+	rpc GetOfferOrderPrice (GetOfferOrderPriceRequest) returns (GetOfferOrderPriceResponse);
+	rpc GetFinalOrderPrice (GetFinalOrderPriceRequest) returns (GetFinalOrderPriceResponse);
+}
+
+// GetOfferOrderPrice
+
+message GetOfferOrderPriceRequest {
+	// id назначения на партнера
+	string assignment_uuid = 1;
+	// id маршрута
+	uint64 route_id = 2;
+	// информация о партнере, выполняющем заказ
+	Shopper assigned_shopper = 3;
+
+	// контейнер для сегментов подлёта
+	OfferArriveBucket arrive_bucket = 4;
+	// контейнер для сегментов сборки
+	OfferAssemblyBucket assembly_bucket = 5;
+	// контейнер для сегментов доставки
+	OfferDeliveryBucket delivery_bucket = 6;
+}
+
+enum ShopperRole {
+	SHOPPER = 0;				// сборщик
+	DRIVER = 1;					// курьер
+	UNIVERSAL = 2;				// универсал
+	PACKER = 3;					// упаковщик
+	EXTERNAL_INSPECTOR = 4;		// внешний наблюдатель
+}
+
+enum VehicleType {
+	UNKNOWN = 0; 			// тип транспорта неизвестен (для плановой сборки)
+	PEDESTRIAN = 1; 		// пеший
+	AUTO = 2;     			// авто
+	BICYCLE = 3; 			// вело
+	SCOOTER = 4; 			// самокат
+	TRUCK = 5;   			// грузовой
+}
+
+enum EmploymentType {
+	NOT_SET = 0;			// не определено
+	IP = 1;					// индивидуальный предприниматель
+	SELF_EMPLOYED = 2;		// самозанятый
+	AGENT = 3;				// агентский договор
+	OUTSOURCE = 4;			// аутсорс
+	EXTERNAL_EMPLOYEE = 5;	// внешний сотрудник
+}
+
+enum StoreType {
+	ON_DEMAND = 0;		// магазин быстрой доставки
+	PLANNED = 1;		// магазин плановой доставки
+}
+
+enum HandlingType {
+	// последовательная обработка
+	// для сборки – заказы собираются друг за другом
+	// для доставки – партнер подлетает в магазин после доставки каждого заказа
+	SEQUENTIAL = 0;
+	// параллельная обработка
+	// для сборки – все заказы собираются одновременно
+	// для доставки – партнер подлетает в магазин один раз и забирает все заказы сразу
+	PARALLEL = 1;
+}
+
+message Shopper {
+	// uuid партнера
+	string shopper_uuid = 1;
+	// тип транспорта партнера
+	VehicleType vehicle_type = 2;
+	// роль партнера (SHOPPER, DRIVER, UNIVERSAL, PACKER, EXTERNAL_INSPECTOR)
+	ShopperRole shopper_role = 3;
+	// тип занятости партнера
+	EmploymentType employment_type = 4;
+
+	// id смены, в которой партнер выполняет заказ
+	uint64 shift_id = 5;
+	// информация о магазине
+	Store store = 6;
+}
+
+message Store {
+	// uuid магазина
+	string store_uuid = 1;
+	// id зоны доставки
+	string delivery_zone_id = 2;
+	// тип магазина
+	StoreType store_type = 3;
+}
+
+message OfferArriveBucket {
+	// сегменты подлёта
+	repeated OfferArriveSegment arrive_segments = 1;
+}
+
+message OfferArriveSegment {
+	// планируемое время подлета, сек
+	float first_mile_time_plan = 1;
+	// планируемая дистанция подлета, м
+	float first_mile_plan = 2;
+}
+
+message OfferAssemblyBucket {
+	// плановая длительность сборки всех сегментов, сек
+	float assembly_time_plan = 1;
+	// способ обработки сегментов – параллельно или последовательно
+	HandlingType handling_type = 2;
+	// сегменты сборки
+	repeated OfferAssemblySegment assembly_segments = 3;
+}
+
+message OfferAssemblySegment {
+	// id заказа, к которому относится сегмент
+	string shipment_uuid = 1;
+	// номер заказа, к которому относится сегмент (H123...)
+	string shipment_number = 2;
+	// плановое количество уникальных позиций в заказе
+	int32 items_total_plan = 3;
+	// плановый вес заказа, г
+	float weight_plan = 4;
+}
+
+message OfferDeliveryBucket {
+	// плановая длительность доставки всех сегментов, сек
+	float delivery_duration_plan = 1;
+	// способ обработки сегментов – параллельно или последовательно
+	HandlingType handling_type = 2;
+	// сегменты доставки
+	repeated OfferDeliverySegment delivery_segments = 3;
+}
+
+message OfferDeliverySegment {
+	// id заказа, к которому относится сегмент
+	string shipment_uuid = 1;
+	// номер заказа, к которому относится сегмент (H123...)
+	string shipment_number = 2;
+	// плановое время доставки до клиента, сек
+	float delivery_duration_plan = 3;
+	// плановая дистанция доставки до клиента, м
+	float delivery_distance_plan = 4;
+	// плановый вес заказа, г
+	float weight_plan = 5;
+}
+
+message GetOfferOrderPriceResponse {
+	// id назначения
+	string assignment_uuid = 1;
+	// id маршрута
+	uint64 route_id = 2;
+
+	// предварительная оценка выплаты за подлёт (сумма по сегментам)
+	PlanArrivePrice plan_arrive_total_price = 3;
+	// предварительная оценка выплаты за подлёт (за каждый сегмент)
+	repeated PlanArriveSegmentPrice plan_arrive_segment_prices = 4;
+
+	// предварительная оценка выплаты за сборку (сумма по сегментам)
+	PlanAssemblyPrice plan_assembly_total_price = 5;
+	// предварительная оценка выплаты за сборку (за каждый сегмент)
+	repeated PlanAssemblySegmentPrice plan_assembly_segment_prices = 6;
+
+	// предварительная оценка выплаты за доставку (сумма по сегментам)
+	PlanDeliveryPrice plan_delivery_total_price = 7;
+	// предварительная оценка выплаты за доставку (за каждый сегмент)
+	repeated PlanDeliverySegmentPrice plan_delivery_segment_prices = 8;
+
+	// предварительная оценка выплаты итого (при равенстве плановых и фактических показателей)
+	Price plan_total_price = 9;
+
+	// уровень сурджа
+	float surge_level = 10;
+}
+
+message PlanArrivePrice {
+	// ожидаемая выплата за подлёт (при совпадении плановых и фактических показателей)
+	Price price = 1;
+	// предсказания дополнительной бонусной выплаты для различных фактических длительностей подлета
+	repeated PredictedTimeBonus predicted_first_mile_time_bonuses = 2;
+}
+
+message PlanArriveSegmentPrice {
+	// предварительная оценка выплаты за подлёт в сегменте
+	PlanArrivePrice segment_price = 1;
+}
+
+message PlanAssemblyPrice {
+	// ожидаемая выплата за сборку (при совпадении плановых и фактических показателей)
+	Price price = 1;
+	// предсказания дополнительной бонусной выплаты для различных фактических длительностей сборки
+	repeated PredictedTimeBonus predicted_assembly_time_bonuses = 2;
+	// предсказания дополнительной бонусной выплаты для различных фактических показателей целостности сборки
+	repeated PredictedIntegrityBonus predicted_order_integrity_bonuses = 3;
+}
+
+message PlanAssemblySegmentPrice {
+	// id заказа, к которому относится сегмент
+	string shipment_uuid = 1;
+	// номер заказа, к которому относится сегмент (H123...)
+	string shipment_number = 2;
+	// предварительная оценка выплаты за сборку в сегменте
+	PlanAssemblyPrice segment_price = 3;
+}
+
+message PlanDeliveryPrice {
+	// выплата за доставку (при совпадении плановых и фактических показателей)
+	Price price = 1;
+	// предсказания дополнительной бонусной выплаты для различных фактических показателей длительности доставки
+	repeated PredictedTimeBonus predicted_delivery_duration_bonuses = 2;
+}
+
+message PlanDeliverySegmentPrice {
+	// id заказа, к которому относится сегмент
+	string shipment_uuid = 1;
+	// номер заказа, к которому относится сегмент (H123...)
+	string shipment_number = 2;
+	// предварительная оценка выплаты за доставку в сегменте
+	PlanDeliveryPrice segment_price = 3;
+}
+
+message PredictedTimeBonus {
+	// значение длительности, для которого вычислен бонус, сек
+	float time = 1;
+	// рассчитанная бонусная стоимость, руб
+	types.Decimal bonus_cost = 2;
+}
+
+message PredictedIntegrityBonus {
+	// значение целостности, для которого вычислен бонус, (0...1)
+	float order_integrity = 1;
+	// рассчитанная бонусная стоимость, руб
+	types.Decimal bonus_cost = 2;
+}
+
+// GetFinalOrderPrice
+
+message GetFinalOrderPriceRequest {
+	// id назначения на партнера
+	string assignment_uuid = 1;
+	// id маршрута
+	uint64 route_id = 2;
+	// информация о партнере, выполняющем заказ
+	Shopper assigned_shopper = 3;
+
+	// время начала работы партнера над маршрутом
+	google.protobuf.Timestamp assignment_started_at = 4;
+	// время окончания работы партнера над маршрутом
+	google.protobuf.Timestamp assignment_finished_at = 5;
+
+	// контейнер для сегментов подлёта
+	FinalArriveBucket arrive_bucket = 6;
+	// контейнер для сегментов сборки
+	FinalAssemblyBucket assembly_bucket = 7;
+	// контейнер для сегментов доставки
+	FinalDeliveryBucket delivery_bucket = 8;
+}
+
+message FinalArriveBucket {
+	// сегменты подлёта
+	repeated FinalArriveSegment arrive_segments = 1;
+}
+
+message FinalArriveSegment {
+	// планируемое время подлета, сек
+	float first_mile_time_plan = 1;
+	// фактическое время подлета, сек
+	float first_mile_time_fact = 2;
+	// планируемая дистанция подлета, м
+	float first_mile_plan = 3;
+	// фактическая дистанция подлета, м
+	float first_mile_fact = 4;
+
+	// время начала работы партнера над сегментом
+	google.protobuf.Timestamp segment_started_at = 5;
+	// время окончания работы партнера над сегментом
+	google.protobuf.Timestamp segment_finished_at = 6;
+}
+
+message FinalAssemblyBucket {
+	// плановая длительность сборки всех сегментов, сек
+	float assembly_time_plan = 1;
+	// фактическая длительность сборки всех сегментов, сек
+	float assembly_time_fact = 2;
+
+	// время начала работы партнера над сборкой сегментов
+	google.protobuf.Timestamp bucket_started_at = 3;
+	// время окончания работы партнера над сборкой сегментов
+	google.protobuf.Timestamp bucket_finished_at = 4;
+
+	// способ обработки сегментов – параллельно или последовательно
+	HandlingType handling_type = 5;
+
+	// сегменты сборки
+	repeated FinalAssemblySegment assembly_segments = 6;
+}
+
+message FinalAssemblySegment {
+	// id заказа, к которому относится сегмент
+	string shipment_uuid = 1;
+	// номер заказа, к которому относится сегмент (H123...)
+	string shipment_number = 2;
+	// плановое количество уникальных позиций в заказе
+	int32 items_total_plan = 3;
+	// фактическое количество уникальных позиций в заказе
+	int32 items_total_fact = 4;
+	// плановый вес заказа, г
+	float weight_plan = 5;
+	// фактический вес заказа, г
+	float weight_fact = 6;
+	// фактический показатель целостности (0...1)
+	float order_integrity_fact = 7;
+}
+
+message FinalDeliveryBucket {
+	// плановая длительность доставки всех сегментов, сек
+	float delivery_duration_plan = 1;
+	// фактическая длительность сборки всех сегментов, сек
+	float delivery_duration_fact = 2;
+
+	// способ обработки сегментов – параллельно или последовательно
+	HandlingType handling_type = 3;
+
+	// сегменты доставки
+	repeated FinalDeliverySegment delivery_segments = 4;
+}
+
+message FinalDeliverySegment {
+	// id заказа, к которому относится сегмент
+	string shipment_uuid = 1;
+	// номер заказа, к которому относится сегмент (H123...)
+	string shipment_number = 2;
+	// плановое время доставки до клиента, сек
+	float delivery_duration_plan = 3;
+	// фактическое время доставки до клиента, сек
+	float delivery_duration_fact = 4;
+	// плановая дистанция доставки до клиента, м
+	float delivery_distance_plan = 5;
+	// фактическая дистанция доставки до клиента, м
+	float delivery_distance_fact = 6;
+	// плановый вес заказа, г
+	float weight_plan = 7;
+	// фактический вес заказа, г
+	float weight_fact = 8;
+
+	// время начала работы партнера над сегментом
+	google.protobuf.Timestamp segment_started_at = 9;
+	// время окончания работы партнера над сегментом
+	google.protobuf.Timestamp segment_finished_at = 10;
+}
+
+message GetFinalOrderPriceResponse {
+	// id назначения
+	string assignment_uuid = 1;
+	// id маршрута
+	uint64 route_id = 2;
+
+	// выплата за подлёт (сумма по сегментам)
+	FactArrivePrice fact_arrive_total_price = 4;
+	// выплата за подлёт (за каждый сегмент)
+	repeated FactArriveSegmentPrice fact_arrive_segment_prices = 3;
+
+	// выплата за сборку (сумма по сегментам)
+	FactAssemblyPrice fact_assembly_total_price = 6;
+	// выплата за сборку (за каждый сегмент)
+	repeated FactAssemblySegmentPrice fact_assembly_segment_prices = 5;
+
+	// выплата за доставку (сумма по сегментам)
+	FactDeliveryPrice fact_delivery_total_price = 8;
+	// выплата за доставку (за каждый сегмент)
+	repeated FactDeliverySegmentPrice fact_delivery_segment_prices = 7;
+
+	// выплата итого
+	Price fact_total_price = 9;
+
+	// уровень сурджа
+	float surge_level = 10;
+}
+
+message FactArrivePrice {
+	// выплата за подлёт
+	Price price = 1;
+}
+
+message FactArriveSegmentPrice {
+	// выплата за подлёт в сегменте
+	FactArrivePrice segment_price = 1;
+}
+
+message FactAssemblyPrice {
+	// выплата за сборку
+	Price price = 1;
+}
+
+message FactAssemblySegmentPrice {
+	// id заказа, к которому относится сегмент
+	string shipment_uuid = 1;
+	// номер заказа, к которому относится сегмент (H123...)
+	string shipment_number = 2;
+	// выплата за сборку в сегменте
+	FactAssemblyPrice segment_price = 3;
+}
+
+message FactDeliveryPrice {
+	// выплата за доставку
+	Price price = 1;
+}
+
+message FactDeliverySegmentPrice {
+	// id заказа, к которому относится сегмент
+	string shipment_uuid = 1;
+	// номер заказа, к которому относится сегмент (H123...)
+	string shipment_number = 2;
+	// выплата за доставку в сегменте
+	FactDeliveryPrice segment_price = 3;
+}
+
+message Price {
+	// базовая стоимость, руб
+	types.Decimal base_cost = 1;
+	// бонусная стоимость, руб
+	types.Decimal bonus_cost = 2;
+	// полная стоимость (базовая + бонусная + дополнительные), руб
+	types.Decimal total_cost = 3;
+  // сумма дополнительных выплат, руб
+  types.Decimal total_additional_cost = 4;
+  // дополнительные выплаты
+  repeated AdditionalPrice additional_prices = 5;
+}
+
+message AdditionalPrice {
+  // тип
+  string type = 1;
+  // стоимость, руб
+  types.Decimal cost = 2;
+}
