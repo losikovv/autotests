@@ -7,10 +7,7 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
 import ru.instamart.api.enums.v3.ClientV3;
@@ -123,7 +120,9 @@ public class CheckoutV3Request extends ApiV3RequestBase {
     @Data
     public static class OrderRequest {
         private Order order;
+
         @JsonProperty("shipment_numbers")
+        @Singular
         private List<String> shipmentNumbers;
     }
 

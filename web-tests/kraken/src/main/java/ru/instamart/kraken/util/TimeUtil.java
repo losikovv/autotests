@@ -150,6 +150,10 @@ public final class TimeUtil {
         return zdtz.format(ZonedDateTime.now(ZONE_ID));
     }
 
+    public static String getDateTimePlusHours(int hours) {
+        return zdtz.format(ZonedDateTime.now(ZONE_ID).plusHours(hours));
+    }
+
     public static String getFutureDateTime(Long days) {
         return zdtz.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
     }

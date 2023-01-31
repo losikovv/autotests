@@ -50,7 +50,6 @@ public class StoresV1Request extends ApiV1RequestBase {
                     .get(ApiV1Endpoints.Stores.DeliveryWindows.BY_DATE, storeId, date);
         }
 
-
         @Step("{method} /" + ApiV1Endpoints.Stores.DeliveryWindows.GENERATE)
         public static Response POST(Integer storeId) {
             JSONObject body = new JSONObject();

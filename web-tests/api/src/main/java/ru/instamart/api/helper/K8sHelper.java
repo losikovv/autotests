@@ -69,6 +69,12 @@ public class K8sHelper {
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 
+    @Step("Добавляем заказу '{shipmentNumber}' прогнозируемый срок доставки '{forecastHoursSince}' часов с текущего момента")
+    public static void createDeliveryForecast(String shipmentNumber, String forecastHoursSince) {
+        List<String> strings = execRailsCommandWithPod(CREATE_DELIVERY_FORECAST.get(shipmentNumber, forecastHoursSince));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
     @Step("Добавление инстакоинов {instacoin} для пользователя email: {email} userId: {userId}")
     public static List<String> execRakeTaskAddBonus(String email, String instacoin, String userId) {
         List<String> consoleLog = execBashCommandWithPod(ADD_USER_INSTACOIN.get(email, instacoin, userId));
