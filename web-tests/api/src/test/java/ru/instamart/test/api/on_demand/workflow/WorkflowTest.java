@@ -256,18 +256,17 @@ public class WorkflowTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @Skip
+
     @TmsLink("120")
-    @Test(enabled = false,
-            description = "Создание отложенного назначения отдельно от родительского",
-            groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowWithDifferentStores")
-    public void createWorkflowWithNotAvailableParentWorkflow() {
-        var request = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, order, shipmentUuid, workflowUuid, firstJobUuid, secondJobUuid, shiftId);
+    @Test(
+            description = "Ошибка недоступного родительского назначения",
+            groups = "dispatch-workflow-smoke" /*           dependsOnMethods = "createWorkflowWithDifferentStores"*/)
+    public void createWorkflowWithNotFoundParentWorkflow() {
+        var request = getWorkflowsRequestDelivery(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT, firstJobUuid, shiftId);
 
         var response = clientWorkflow.createWorkflows(request);
 
-        checkGrpcError(response, "Parent assignment not available", PARENT_NOT_AVAILABLE.toString());
+        checkGrpcError(response, "Parent assignment not found", PARENT_NOT_FOUND.toString());
     }
 
     @TmsLinks(value = {@TmsLink("37"), @TmsLink("123"), @TmsLink("93")})
