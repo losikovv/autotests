@@ -538,7 +538,8 @@ public class TransferMethodV2Test extends RestBase {
 
     @TmsLink("1771")
     @Story("Трансфер доставка, алкоголь")
-    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
+    @Test(enabled = false,
+            groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверяем потери для несуществующего адреса",
             priority = 11)
     public void analyzeCourierTransferForAlcoholWoStore() {

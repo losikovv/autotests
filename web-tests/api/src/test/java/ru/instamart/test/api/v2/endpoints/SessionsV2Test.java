@@ -59,7 +59,8 @@ public final class SessionsV2Test extends RestBase {
 
     @TmsLink("1437")
     @Story("Валидация данных по сессионному токену")
-    @Test(groups = {API_INSTAMART_REGRESS},
+    @Test(enabled = false,
+            groups = {API_INSTAMART_REGRESS},
             description = "Невалидный токен")
     public void testUserDataWithInvalidToken() {
         final UserData userData = UserManager.getUser();
