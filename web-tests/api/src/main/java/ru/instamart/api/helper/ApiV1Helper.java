@@ -121,6 +121,12 @@ public class ApiV1Helper {
         return currentLineItem.get();
     }
 
+    @Step("Удаляем товар из корзины")
+    public void removeItemFromCart(Long offerId) {
+        final Response response = LineItemsV1Request.DELETE(offerId);
+        checkStatusCode200(response);
+    }
+
     @Step("Изменяем количество товара")
     public void changeItemCountInCart(int count) {
         currentLineItem.get().setPacks(count);
@@ -198,7 +204,8 @@ public class ApiV1Helper {
     @Step("Завершаем заказ")
     public void finishOrder(UserData user, Long paymentToolId, OrderKindV1 orderKind) {
         final Response response = CheckoutV1Request.PUT(getOrderAttributes(user, paymentToolId, orderKind.getValue()));
-        if (response.statusCode() == 422 && response.as(ErrorsV1Response.class).getErrors().get(0).startsWith("Выбранный интервал стал недоступен")) throw new SkipException("Слот занят");
+        if (response.statusCode() == 422 && response.as(ErrorsV1Response.class).getErrors().get(0).startsWith("Выбранный интервал стал недоступен"))
+            throw new SkipException("Слот занят");
         checkStatusCode200(response);
     }
 
@@ -223,7 +230,7 @@ public class ApiV1Helper {
     public CompanyV1 getCompanyWithBalanceByInn(String inn) {
         List<CompanyV1> companies = getCompanyByInn(inn);
         CompanyV1 company;
-        if(companies.size() == 0) {
+        if (companies.size() == 0) {
             Juridical companyData = new Juridical(
                     "ЗАО \"Лидер-" + Generate.digitalString(4) + "\"",
                     Generate.string(8),

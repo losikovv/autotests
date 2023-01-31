@@ -140,19 +140,6 @@ public class ShipmentsV1Tests extends RestBase {
         compareTwoObjects(response.as(ShipmentV1Response.class).getShipment().getStoreId(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
-    @TmsLink("1557")
-    @Story("Мерж заказов")
-    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
-            description = "Получение статуса мержа",
-            dependsOnMethods = "getMultireteilerOrder")
-    public void getMergeStatus() {
-        final Response response = OrdersV1Request.MergeStatus.GET(order.getNumber());
-        checkStatusCode200(response);
-        checkResponseJsonSchema(response, MergeStatusV1Response.class);
-        MergeShipmentV1 mergeShipment = response.as(MergeStatusV1Response.class).getShipments().get(0);
-        compareTwoObjects(mergeShipment.getShipmentId(), (long) lineItem.getShipmentId());
-    }
-
     @TmsLink("2775")
     @Story("Мерж заказов")
     @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},

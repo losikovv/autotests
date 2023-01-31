@@ -19,7 +19,8 @@ public interface RailsConsole {
         STOP_SHIPPING("Spree::Shipment.find_by_number('%s').stop_shipping!"),
         FIND_BY_NUMBER("Spree::Shipment.find_by_number('%s')"),
         ASSEMBLY_ITEMS_ORDER("Spree::Shipment.find_by_number('%s').line_items[%s].update_attributes(assembly_issue: 'Собрано', assembled: true)"),
-        CANCEL_ITEMS_ORDER("ShopperCart.new(Spree::Shipment.find_by_number('%s')).cancel_item(Spree::Shipment.find_by_number('%s').line_items[%s], reason: 'Нет в наличии')");
+        CANCEL_ITEMS_ORDER("ShopperCart.new(Spree::Shipment.find_by_number('%s')).cancel_item(Spree::Shipment.find_by_number('%s').line_items[%s], reason: 'Нет в наличии')"),
+        CREATE_DELIVERY_FORECAST("ShipmentDeliveryForecast.create!(shipment_id: Spree::Shipment.find_by_number('%s').id, will_deliver_at: %s.hours.since)");
 
         private String command;
 

@@ -159,4 +159,8 @@ public class UserShipmentV1 extends BaseObject {
     @JsonSchema(required = true)
     @JsonProperty("total_weight")
     private Long totalWeight;
+
+    @Null
+    @JsonSchema(required = true)
+    private MergeShipmentPossibilityV1 merge;
 }

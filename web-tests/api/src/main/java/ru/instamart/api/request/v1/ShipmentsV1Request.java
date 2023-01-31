@@ -9,6 +9,12 @@ import java.util.Objects;
 
 public class ShipmentsV1Request extends ApiV1RequestBase {
 
+    @Step("{method} /" + ApiV1Endpoints.Shipments.ACTIVE)
+    public static Response GET() {
+        return givenWithAuth()
+                .get(ApiV1Endpoints.Shipments.ACTIVE);
+    }
+
     @Step("{method} /" + ApiV1Endpoints.Shipments.NUMBER)
     public static Response GET(String shipmentNumber) {
         return givenWithAuth()

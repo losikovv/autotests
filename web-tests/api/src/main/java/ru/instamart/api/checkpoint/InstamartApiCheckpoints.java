@@ -47,7 +47,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTime;
 import static ru.instamart.kraken.util.TimeUtil.getFutureDateWithoutTime;

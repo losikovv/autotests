@@ -50,4 +50,31 @@ public class DeliveryWindowsDao extends AbstractDao<Long, DeliveryWindowsEntity>
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
+
+    //Базовый вес * кол-во заказов в слоте = лимит веса для слота
+    public void updateWeightLimits(Integer id, Integer shipmentBaseWeight, Integer shipmentMaxWeight, Integer shipmentExcessWeight) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement("UPDATE delivery_windows SET shipment_base_weight = ?, shipment_max_weight = ?, shipments_excess_weight = ? WHERE id = ?")) {
+            preparedStatement.setInt(1, shipmentBaseWeight);    //вес в граммах
+            preparedStatement.setInt(2, shipmentMaxWeight);     //вес в граммах
+            preparedStatement.setInt(3, shipmentExcessWeight);  //вес в граммах
+            preparedStatement.setLong(4, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
+
+    public void updateItemsCountLimits(Integer id, Integer shipmentsLimit, Integer shipmentBaseItemsCount, Integer shipmentExcessItemsCount) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement("UPDATE delivery_windows SET shipments_limit = ?, shipment_base_items_count = ?, shipments_excess_items_count = ? WHERE id = ?")) {
+            preparedStatement.setInt(1, shipmentsLimit);
+            preparedStatement.setInt(2, shipmentBaseItemsCount);
+            preparedStatement.setInt(3, shipmentExcessItemsCount);
+            preparedStatement.setLong(4, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
 }

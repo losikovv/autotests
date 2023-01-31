@@ -323,6 +323,7 @@ public final class ApiV1Endpoints {
     }
 
     public static final class Shipments {
+        public static final String ACTIVE = "shipments/active";
         public static final String NUMBER = "shipments/{shipmentNumber}";
         public static final String OFFERS = "shipments/{shipmentNumber}/offers";
         public static final String SHIPPING_RATES = "shipments/{shipmentNumber}/shipping_rates?{date}";

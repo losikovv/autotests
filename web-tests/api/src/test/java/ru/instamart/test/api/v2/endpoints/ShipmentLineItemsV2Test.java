@@ -66,7 +66,6 @@ public class ShipmentLineItemsV2Test extends RestBase {
         }
     }
 
-
     @AfterClass(alwaysRun = true)
     public void restoreData() {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 0);

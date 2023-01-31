@@ -22,10 +22,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.PaymentCardData;
 import ru.instamart.kraken.data.user.UserData;
-import ru.instamart.kraken.util.CollectionUtil;
-import ru.instamart.kraken.util.CryptCard;
-import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.kraken.util.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -1305,6 +1302,10 @@ public final class ApiV2Helper {
         return setDefaultAttributesAndCompleteOrder("test", "Картой курьеру");
     }
 
+    public OrderV2 setDefaultAttributesAndCompleteOrderOnTomorrow() {
+        return setDefaultAttributesAndCompleteOrderOnTomorrow("test", "Картой курьеру");
+    }
+
     public OrderV2 setDefaultAttributesAndCompleteOrderOnDemand() {
         return setDefaultAttributesAndCompleteOrderOnDemand("test", "Картой курьеру");
     }
@@ -1320,6 +1321,15 @@ public final class ApiV2Helper {
         getAvailablePaymentTool(paymentName);
         getAvailableShippingMethod();
         getAvailableDeliveryWindow();
+
+        setDefaultOrderAttributes(comment);
+        return completeOrder();
+    }
+
+    public OrderV2 setDefaultAttributesAndCompleteOrderOnTomorrow(String comment, String paymentName) {
+        getAvailablePaymentTool(paymentName);
+        getAvailableShippingMethod();
+        getAvailableDeliveryWindowOnTomorrow();
 
         setDefaultOrderAttributes(comment);
         return completeOrder();
@@ -1468,8 +1478,8 @@ public final class ApiV2Helper {
      * Оформить тестовый заказ у юзера в определенном магазине с определенным типом оплаты
      */
     @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid}")
-    public OrderV2 order(UserData user, int sid, String paymentName) {
-        dropAndFillCart(user, sid);
+    public OrderV2 orderWithAmount(int sid, String paymentName, final int amount) {
+        fillCartWithAmount(getProducts(sid), amount);
         return setDefaultAttributesAndCompleteOrder(paymentName);
     }
 

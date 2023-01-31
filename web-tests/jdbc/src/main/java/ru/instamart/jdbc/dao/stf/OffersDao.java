@@ -124,6 +124,17 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
         }
     }
 
+    public void updateOfferPublished(Long offerId, Integer published) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + "SET published = ? WHERE id = ?")) {
+            preparedStatement.setInt(1, published);
+            preparedStatement.setLong(2, offerId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
+
     public OffersEntity getSkuByPricer(long retailerId, int storeId, long shippingCategoryId, String pricer) {
         final var offersEntity = new OffersEntity();
         try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
