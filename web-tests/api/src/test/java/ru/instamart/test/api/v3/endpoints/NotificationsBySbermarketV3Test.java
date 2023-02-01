@@ -22,8 +22,8 @@ import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
 
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.helper.WaitHelper.withRetriesAsserted;
 import static ru.instamart.api.request.v3.NotificationsV3Request.*;
-import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
 @Epic("ApiV3")
 @Feature("Нотификации")
@@ -124,10 +124,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
-
+        withRetriesAsserted(() -> {
+            OrderV2 assembledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(assembledOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
@@ -148,10 +150,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseDelivering = POST(bodyDelivering);
         checkStatusCode(responseDelivering, 405);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
-
+        withRetriesAsserted(() -> {
+            OrderV2 assembledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(assembledOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
@@ -203,10 +207,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseInWorkRepeat = POST(bodyInWork);
         checkStatusCode422(responseInWorkRepeat);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не остался в статусе Готов к доставке");
-
+        withRetriesAsserted(() -> {
+            OrderV2 assembledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(assembledOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не остался в статусе Готов к доставке");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
@@ -243,10 +249,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseReadyForDeliveryRepeat = POST(bodyReadyForDelivery);
         checkStatusCode422(responseReadyForDeliveryRepeat);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
-
+        withRetriesAsserted(() -> {
+            OrderV2 assembledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(assembledOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
@@ -452,10 +460,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
-
+        withRetriesAsserted(() -> {
+            OrderV2 assembledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(assembledOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
@@ -473,10 +483,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
-
+        withRetriesAsserted(() -> {
+            OrderV2 assembledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(assembledOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
@@ -536,10 +548,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
 
-        simplyAwait(4);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
-
+        withRetriesAsserted(() -> {
+            OrderV2 assembledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(assembledOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
@@ -603,10 +617,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode422(responseReadyForDelivery);
 
-        simplyAwait(2);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
-
+        withRetriesAsserted(() -> {
+            OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(collectingOrder.getShipmentState(),
+                    OrderStatusV2.COLLECTING.getStatus(),
+                    "Заказ не остался в статусе Собирается");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
     }
@@ -634,10 +650,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode422(responseReadyForDelivery);
 
-        simplyAwait(2);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
-
+        withRetriesAsserted(() -> {
+            OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(collectingOrder.getShipmentState(),
+                    OrderStatusV2.COLLECTING.getStatus(),
+                    "Заказ не остался в статусе Собирается");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
     }
@@ -665,10 +683,12 @@ public class NotificationsBySbermarketV3Test extends RestBase {
         Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode422(responseReadyForDelivery);
 
-        simplyAwait(2);
-        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
-
+        withRetriesAsserted(() -> {
+            OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+            Assert.assertEquals(collectingOrder.getShipmentState(),
+                    OrderStatusV2.COLLECTING.getStatus(),
+                    "Заказ не остался в статусе Собирается");
+        }, 30);
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
     }
