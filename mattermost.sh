@@ -21,7 +21,10 @@ ignored=$(sed 's:.*<div class="infoBox" id="ignored"><div class="counter">\([^<]
 # Время прогона
 duration=$(sed 's:.*<div class="infoBox" id="realDuration">\([^<]*\)<.*:\1:' <<<"$text")
 # Процент пройденных тестов
-successRate=$(sed 's:.*<div class="percent">\([^<]*\)<.*:\1:' <<<"$text")
+#successRate=$(sed 's:.*<div class="percent">\([^<]*\)<.*:\1:' <<<"$text")
+
+success=$(($total-$failures-$ignored))
+persent=$(($success*100/$total))
 
 if [ "$failures" != "0" ]; then
   EMOJI_MESSAGE=":x:"
@@ -31,9 +34,19 @@ fi
 
 if [[ "$failures" != "0" || $4 == "true" ]]; then
   #Text message
-  TEXT_MSG="*Результаты:* \n*Рабочее окружение: :* $2 \n*Продолжительность:* $duration \n *Всего сценариев:* $total \n *Всего успешных тестов:* $(($total-$failures-$ignored)) \n *Всего упавших тестов: :* $failures \n *Всего пропущенных тестов:* $ignored \n *% прошедших тестов:* $successRate $EMOJI_MESSAGE \n *CI JOB URL* $CI_JOB_URL \n *CI_PIPELINE_URL* $CI_PIPELINE_URL \n *Отчет доступен по ссылке:* ${ALLURE_REPORT_URL} \n"
+  TEXT_MSG="***Результаты*** \n
+  *Рабочее окружение:* $2 \n
+  *Продолжительность:* $duration \n
+  *Всего сценариев:* $total \n
+  *Всего успешных тестов:* $success \n
+  *Всего упавших тестов: :* $failures \n
+  *Всего пропущенных тестов:* $ignored \n
+  *% прошедших тестов:* $persent $EMOJI_MESSAGE \n
+  *CI JOB URL* $CI_JOB_URL \n
+  *CI_PIPELINE_URL* $CI_PIPELINE_URL \n
+  *Отчет доступен по ссылке:* ${ALLURE_REPORT_URL}"
 
-  set -o xtrace
+  #set -o xtrace
   echo "------------------SEND-RESULTS------------------"
   sendResultsResponse=$(curl -ik -X POST $MATTERMOST_SERVER"/hooks/"$3 -H 'Content-Type: application/json' -d "{\"text\": \"$TEXT_MSG\"}")
   echo "$sendResultsResponse"
