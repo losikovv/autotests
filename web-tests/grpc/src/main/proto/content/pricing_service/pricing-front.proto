@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package pricing_front;
+option go_package = "gitlab.sbmt.io/paas/content/pricing/pkg/server/grpc/pricing-front";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+
+
+service PricingFront {
+  rpc GetPricesBySKU(GetPricesBySKURequest) returns (GetPricesBySKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingFront/GetPricesBySKU"
+      body: "*"
+    };
+  }
+  rpc GetPricesByRetailerSKU(GetPricesByRetailerSKURequest) returns (GetPricesByRetailerSKUResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingFront/GetPricesByRetailerSKU"
+      body: "*"
+    };
+  }
+}
+
+enum ValueType {
+    STRING = 0;
+    INTEGER = 1;
+    DOUBLE = 2;
+    BOOL = 3;
+    DATETIME = 4;
+}
+
+/**
+ * Для extra_attributes доступны следующие атрибуты:
+ * SKU - SKU товара
+ * RETAILER_ID - ID ритейлера
+ * RETAILER_SKU - SKU ритейлера для товара
+ * DISCOUNT_TEMPLATES - массив скидочных шаблонов, которые модифицировали цену
+ * DISCOUNT_STARTS_AT - время начала скидки
+ * DISCOUNT_END_AT - время окончания скидки
+ * DISCOUNT - размер скидки в рублях
+ * OFFER_PRICE - цена товара за 1кг/1шт/1уп
+ * OFFER_ORIGINAL_PRICE - цена товара без скидок, но с учетом наценки сбермаркета
+ * RETAILER_PRICE - цена ритейлера за товар (с учетом скидки ритейлера, при наличии)
+ * RETAILER_ORIGINAL_PRICE  - исходная цена ритейлера за товар без всех скидок
+ * VAT_RATE - НДС
+ * STATUS - статус цены
+ * UPDATED_AT - дата обновления
+ */
+enum AttributeKey {
+  SKU = 0;
+  RETAILER_SKU = 2;
+  RETAILER_ID = 3;
+  DISCOUNT_TEMPLATES = 4;
+  DISCOUNT_STARTS_AT = 5;
+  DISCOUNT_END_AT = 6;
+  DISCOUNT = 7;
+  OFFER_PRICE = 8;
+  OFFER_ORIGINAL_PRICE = 9;
+  RETAILER_PRICE = 10;
+  RETAILER_ORIGINAL_PRICE = 11;
+  VAT_RATE = 12;
+  STATUS = 13;
+  UPDATED_AT = 14;
+}
+
+message Attribute {
+  AttributeKey key = 1;
+  ValueType type = 2; // тип атрибута, см. ValueType
+  bool is_multi_value = 3; // флаг означающий 1 или n значений будет в values
+  repeated string values = 4; // значения атрибута
+}
+
+message GetPricesBySKURequest {
+  message SKU {
+    int64 sku = 1;
+    int64 store_id = 2;
+    string tenant_id = 3;
+    string ab_group = 4;
+  }
+  repeated SKU sku = 1;
+  repeated AttributeKey extra_attribute_keys = 2;
+}
+
+message GetPricesByRetailerSKURequest{
+  message RetailerSKU {
+    int64 retailer_sku = 1;
+    int64 store_id = 2;
+    string tenant_id = 3;
+    string ab_group = 4;
+  }
+  repeated RetailerSKU retailer_sku = 1;
+  repeated AttributeKey extra_attribute_keys = 2;
+}
+
+message GetPricesBySKUResponse {
+  message Price {
+    int64 sku = 1;
+    int64 store_id = 2;
+    string tenant_id = 3;
+    string price = 5;
+    repeated Attribute attributes = 6;
+  }
+  repeated Price prices = 1;
+}
+
+message GetPricesByRetailerSKUResponse {
+  message Price {
+    int64 retailer_sku = 1;
+    int64 store_id = 2;
+    string tenant_id = 3;
+    string price = 5;
+    repeated Attribute attributes = 6;
+  }
+  repeated Price prices = 1;
+}

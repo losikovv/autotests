@@ -1,0 +1,330 @@
+syntax = "proto3";
+
+package pricing_back;
+option go_package = "gitlab.sbmt.io/paas/content/pricing/pkg/server/grpc/pricing-back";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+
+
+service PricingBack {
+  rpc GetDiscountTemplates(GetDiscountTemplatesRequest) returns (GetDiscountTemplatesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingBack/GetDiscountTemplates"
+      body: "*"
+    };
+  }
+  rpc CheckDiscountRetailerSKUTemplate(CheckDiscountRetailerSKUTemplateRequest) returns (CheckDiscountRetailerSKUTemplateResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingBack/CheckDiscountRetailerSKUTemplate"
+      body: "*"
+    };
+  }
+  rpc CheckDiscountProductSKUTemplate(CheckDiscountProductSKUTemplateRequest) returns (CheckDiscountProductSKUTemplateResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingBack/CheckDiscountProductSKUTemplate"
+      body: "*"
+    };
+  }
+  rpc SaveDiscountTemplates(SaveDiscountTemplatesRequest) returns (SaveDiscountTemplatesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingBack/SaveDiscountTemplates"
+      body: "*"
+    };
+  }
+  rpc DeactivateDiscountTemplates(DeactivateDiscountTemplatesRequest) returns (DeactivateDiscountTemplatesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingBack/DeactivateDiscountTemplates"
+      body: "*"
+    };
+  }
+  rpc SavePrices(SavePricesRequest) returns (SavePricesResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingBack/SavePrices"
+      body: "*"
+    };
+  }
+  rpc SaveProductDescription(SaveProductDescriptionRequest) returns (SaveProductDescriptionResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingBack/SaveProductDescription"
+      body: "*"
+    };
+  }
+  rpc SaveStoreSettings(SaveStoreSettingsRequest) returns (SaveStoreSettingsResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingBack/SaveStoreSettings"
+      body: "*"
+    };
+  }
+  rpc GetStoreSettings(GetStoreSettingsRequest) returns (GetStoreSettingsResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.PricingBack/GetStoreSettings"
+      body: "*"
+    };
+  }
+}
+
+message DiscountTemplate {
+  // entiry
+  int64 id = 1;
+  string name = 2;
+  ProviderType provider_type = 3;
+  OperationType operation_type = 4;
+  double value = 5;
+  string ab_group = 6;
+  bool is_use_with_others = 7;
+  google.protobuf.Timestamp start_at = 8;
+  google.protobuf.Timestamp end_at = 9;
+
+  // filter
+  DiscountTemplateFilter filter = 11;
+
+  // manage
+  Status status = 12;
+}
+
+message DiscountTemplateFilter {
+  repeated int64 product_sku = 1;
+  repeated int64 retailer_sku = 2;
+  repeated int64 store_ids = 3;
+  repeated int64 city_ids = 4;
+  repeated int64 retailer_ids = 5;
+  repeated string tenant_ids = 6;
+  repeated int64 exclude_store_ids = 7;
+  repeated int64 exclude_city_ids = 8;
+  repeated int64 exclude_retailer_ids = 9;
+  repeated double discount_value = 10;
+}
+
+enum ProviderType {
+  MARKETING = 0;
+  BRAND_SOLUTIONS = 1;
+  MAGNIT_TEMP = 2;
+  CRITICAL_PRICING = 3;
+  CRITICAL_ONLY_PROMO = 4;
+  CRITICAL_PROMO_MARKUP = 5;
+  METRO = 6;
+  FMCG = 7;
+  ANALYTIC_PRICING = 8;
+  ANALYTIC_SPECIAL_CATEGORY = 9;
+}
+
+enum OperationType {
+  MARKUP_VALUE = 0;
+  MARKUP_PERCENT = 1;
+  DISCOUNT_VALUE = 2;
+  DISCOUNT_PERCENT = 3;
+}
+
+enum ProductType {
+  PIECE = 0;
+  GROUP = 1;
+  PACKAGED = 2;
+  WEIGHT = 3;
+}
+
+enum Status {
+  DISABLE = 0;
+  ENABLE = 1;
+  DELETED = 2;
+}
+
+enum ValueType {
+	STRING = 0; // строка
+	INTEGER = 1; // число
+	DOUBLE = 2; // число с точкой
+	BOOL = 3; // флаг
+	DATETIME = 4; // время в формате ISO-8601 (YYYY-MM-DDThh:mm:ss)
+}
+
+/**
+ * Для extra_attributes доступны следующие атрибуты:
+ * SKU - SKU товара
+ * RETAILER_ID - ID ритейлера
+ * RETAILER_SKU - SKU ритейлера для товара
+ * DISCOUNT_TEMPLATES - массив скидочных шаблонов, которые модифицировали цену
+ * DISCOUNT_STARTS_AT - время начала скидки
+ * DISCOUNT_END_AT - время окончания скидки
+ * DISCOUNT - размер скидки в рублях
+ * OFFER_PRICE - цена товара за 1кг/1шт/1уп
+ * OFFER_ORIGINAL_PRICE - цена товара без скидок, но с учетом наценки сбермаркета
+ * RETAILER_PRICE - цена ритейлера за товар (с учетом скидки ритейлера, при наличии)
+ * RETAILER_ORIGINAL_PRICE  - исходная цена ритейлера за товар без всех скидок
+ * VAT_RATE - НДС
+ * STATUS - статус цены
+ * UPDATED_AT - дата обновления
+ */
+enum AttributeKey {
+  SKU = 0;
+  RETAILER_SKU = 2;
+  RETAILER_ID = 3;
+  DISCOUNT_TEMPLATES = 4;
+  DISCOUNT_STARTS_AT = 5;
+  DISCOUNT_END_AT = 6;
+  DISCOUNT = 7;
+  OFFER_PRICE = 8;
+  OFFER_ORIGINAL_PRICE = 9;
+  RETAILER_PRICE = 10;
+  RETAILER_ORIGINAL_PRICE = 11;
+  VAT_RATE = 12;
+  STATUS = 13;
+  UPDATED_AT = 14;
+}
+
+message Attribute {
+  AttributeKey key = 1;
+  ValueType type = 2; // тип атрибута, см. ValueType
+  bool is_multi_value = 3; // флаг означающий 1 или n значений будет в values
+  repeated string values = 4; // значения атрибута
+}
+
+message SaveDiscountTemplatesRequest{
+  repeated DiscountTemplate discount_templates = 1;
+}
+
+message SaveDiscountTemplatesResponse{
+  repeated DiscountTemplate discount_templates = 1;
+}
+
+message GetDiscountTemplatesRequest {
+  repeated int64 ids = 1;
+  optional ProviderType provider_type = 2;
+  optional OperationType operation_type = 3;
+  optional google.protobuf.Timestamp start_at = 5;
+  optional google.protobuf.Timestamp end_at = 6;
+  optional Status status = 7;
+  int64 limit = 8;
+  int64 offset = 9;
+}
+
+message GetDiscountTemplatesResponse{
+  repeated DiscountTemplate discount_templates = 1;
+}
+
+message DeactivateDiscountTemplatesRequest{
+  repeated int64 ids = 1;
+}
+
+message DeactivateDiscountTemplatesResponse{
+}
+
+message CheckDiscountRetailerSKUTemplateRequest{
+  DiscountTemplate discount_template = 1;
+  repeated RetailerSKU retailer_sku = 2;
+  repeated AttributeKey extra_attribute_keys = 3;
+}
+
+message CheckDiscountProductSKUTemplateRequest{
+  DiscountTemplate discount_template = 1;
+  repeated ProductSKU product_sku = 2;
+  repeated AttributeKey extra_attribute_keys = 3;
+}
+
+message RetailerSKU{
+  int64 retailer_sku = 1;
+  int64 store_id = 2;
+  string tenant_id = 3;
+}
+
+message ProductSKU{
+  int64 sku = 1;
+  int64 store_id = 2;
+  string tenant_id = 3;
+}
+
+message CheckDiscountRetailerSKUTemplateResponse{
+  message Price {
+    int64 retailer_sku = 1;
+    int64 store_id = 2;
+    string tenant_id = 3;
+    string price = 5;
+    repeated Attribute attributes = 6;
+  }
+  repeated Price price = 2;  
+}
+
+message CheckDiscountProductSKUTemplateResponse{
+  message Price {
+    int64 sku = 1;
+    int64 store_id = 2;
+    string tenant_id = 3;
+    string price = 5;
+    repeated Attribute attributes = 6;
+  }
+  repeated Price price = 2;  
+}
+
+message Data {
+	string key = 1; // уникальный ключ атрибута
+	ValueType type = 2; // тип атрибута, см. ValueType
+	bool is_multi_value = 3; // флаг означающий 1 или n значений будет в values
+	repeated string values = 4; // значения атрибута
+}
+
+message SavePricesRequest {
+  repeated Price prices = 1;
+}
+
+message Price {
+  int64 retailer_sku = 1;
+  int64 store_id = 2;
+  string regular_price = 3;
+  string discount_price = 4;
+  int64 product_sku = 5;
+  Status status = 6;
+  double vat_rate = 7;
+  optional google.protobuf.Timestamp discount_price_start_at = 8;
+  optional google.protobuf.Timestamp discount_price_end_at = 9;
+}
+
+message SavePricesResponse {
+  int64 prices_count = 1;
+}
+
+message ProductDescription {
+  int64 sku = 1;
+  int64 quantity_at_box = 2;
+  double weight_net = 3;
+  ProductType product_type = 4;
+  Status status = 5;
+}
+
+message StoreSetting {
+  int64 store_id = 1;
+  double markup_regular = 2;
+  double markup_discount = 3;
+  int64 disable_discount_hours = 4;
+}
+
+message SaveProductDescriptionRequest{
+  repeated ProductDescription product = 1;
+}
+
+message SaveProductDescriptionResponse{
+  int64 count = 1;
+}
+
+message SaveStoreSettingsRequest{
+  repeated StoreSetting store_settings = 1;
+}
+
+message SaveStoreSettingsResponse{
+  int64 count = 1;
+}
+
+message GetStoreSettingsRequest{
+  repeated int64 store_id = 1;
+}
+
+message GetStoreSettingsResponse{
+  repeated StoreSetting store_settings = 1;
+}

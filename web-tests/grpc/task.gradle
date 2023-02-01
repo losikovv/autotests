@@ -56,3 +56,12 @@ task grpcCustomerPayments(type: Test) {
     environment 'PROJECT_ID', 'B2CPAY'
     environment 'TEST_RUN_NAME', 'Customer Payments Autotests'
 }
+
+task grpcPricingService(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/grpc-pricing.xml'
+        includeGroups 'pricing-save-discount-templates'
+    }
+    systemProperty 'qase.Project', 'PB'
+    systemProperty 'qase.Title', 'Pricing Servise SaveDiscountTemplates Regress'
+}

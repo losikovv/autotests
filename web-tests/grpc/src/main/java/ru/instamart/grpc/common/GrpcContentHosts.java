@@ -22,5 +22,6 @@ public final class GrpcContentHosts {
     public static final String PAAS_CONTENT_OPERATIONS_ROUTE_ESTIMATOR = "paas-content-operations-route-estimator.gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_CUSTOMER_PAYMENTS = "paas-content-customer-payments.gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ASSEMBLY = "paas-content-operations-assembly.gw-stage.sbmt.io";
+    public static final String PAAS_CONTENT_PRICING_BACK = "paas-content-pricing-back.gw-stage.sbmt.io";
 
 }

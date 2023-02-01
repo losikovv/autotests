@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package update_city_worker;
+option go_package = "gitlab.sbmt.io/paas/content/pricing/pkg/server/grpc/update-city-worker";
+
+import "google/api/annotations.proto";
+
+service UpdateCityWorkerService {
+  rpc SaveCityIDMap(SaveCityIDMapRequest) returns (SaveCityIDMapResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.UpdateCityWorker/SaveCityIDMap"
+      body: "*"
+    };
+  }
+  rpc SaveCityStoreIDMap(SaveCityStoreIDMapRequest) returns (SaveCityStoreIDMapResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.UpdateCityWorker/SaveCityStoreIDMap"
+      body: "*"
+    };
+  }
+  rpc SaveRetailerStoreMap(SaveRetailerStoreMapRequest) returns (SaveRetailerStoreMapResponse)
+  {
+    option (google.api.http) = {
+      post: "/api/pricing.UpdateCityWorker/SaveRetailerStoreMap"
+      body: "*"
+    };
+  }
+}
+
+message SaveCityIDMapRequest {
+  repeated CityIDMap city_id_map = 1;
+}
+
+message CityIDMap {
+  int64 city_id = 1;
+  string city_name = 2;
+  Status status = 3;
+}
+
+message SaveCityStoreIDMapRequest {
+  repeated CityStoreIDMap city_store_id_map = 1;
+}
+
+message CityStoreIDMap {
+  int64 store_id = 1;
+  int64 city_id = 2;
+  Status status = 3;
+}
+
+message SaveCityStoreIDMapResponse {
+  int64 createdCount = 1;
+}
+
+message SaveCityIDMapResponse {
+  int64 createdCount = 1;
+}
+
+message SaveRetailerStoreMapRequest {
+  repeated RetailerStoreMap retailer_store_map = 1;
+}
+
+message RetailerStoreMap {
+  int64 store_id = 1;
+  int64 retailer_id = 2;
+  Status status = 3;
+}
+
+message SaveRetailerStoreMapResponse {
+  int64 createdCount = 1;
+}
+
+enum Status {
+  DISABLE = 0;
+  ENABLE = 1;
+  DELETED = 2;
+}
