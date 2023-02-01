@@ -20,6 +20,7 @@ public final class GrpcContentHosts {
     public static final String PAAS_CONTENT_OPERATIONS_SURGELEVEL = EnvironmentProperties.Env.SURGELEVEL_NAMESPACE + ".gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_CORE_SERVICES_AUTHORIZATION = "paas-content-core-services-authorization.gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ROUTE_ESTIMATOR = "paas-content-operations-route-estimator.gw-stage.sbmt.io";
+    public static final String PAAS_CONTENT_CUSTOMER_PAYMENTS = "paas-content-customer-payments.gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ASSEMBLY = "paas-content-operations-assembly.gw-stage.sbmt.io";
 
 }

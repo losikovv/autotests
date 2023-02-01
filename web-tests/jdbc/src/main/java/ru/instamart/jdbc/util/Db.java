@@ -153,6 +153,16 @@ public enum Db {
             EnvironmentProperties.DB_MYSQL_USERNAME,
             EnvironmentProperties.DB_MYSQL_PASSWORD,
             CoreProperties.DEFAULT_MYSQL_POOL_SIZE
+    ),
+    PG_PAYMENTS(
+            DbType.POSTGRESQL,
+            "paas-content-customer-payments",
+            "statefulset.kubernetes.io/pod-name=postgresql-0",
+            5432,
+            "jdbc:postgresql://localhost:%s/app",
+            Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),
+            Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg=="),
+            EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE
     );
 
     private final DbType type;

@@ -44,3 +44,16 @@ tests:authorization:service:grpc:
     - gradle clean build grpcAuthorizationService
   after_script:
     - bash ./report.sh grpc grpc-authorization-service
+
+tests:grpc:customer:payments:
+  resource_group: grpcCustomerPayments
+  extends:
+    - ".template_grpc_tests"
+  only:
+    variables:
+      - $GRPC_CUSTOMER_PAYMENTS == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  when: always
+  script:
+    - gradle clean build grpcCustomerPayments
+  after_script:
+    - bash ./report.sh grpc grpc-customer-payments
