@@ -1,5 +1,7 @@
 package ru.instamart.api.helper;
 
+import org.awaitility.core.ThrowingRunnable;
+
 import java.time.Duration;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
@@ -8,6 +10,15 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.awaitility.Awaitility.with;
 
 public class WaitHelper {
+
+  public static void withRetriesAsserted(final ThrowingRunnable assertion, final Integer awaitSeconds) {
+    with()
+            .pollInSameThread()
+            .pollInterval(Duration.of(1, SECONDS))
+            .await()
+            .atMost(awaitSeconds, TimeUnit.SECONDS)
+            .untilAsserted(assertion);
+  }
 
     public static void withRetries(long retryPollDelay, long retryPollInterval, String conditionDesc, Callable<Boolean> conditionEvaluator) {
         with()

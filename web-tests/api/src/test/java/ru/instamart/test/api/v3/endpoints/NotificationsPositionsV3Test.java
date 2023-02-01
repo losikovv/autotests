@@ -12,6 +12,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.enums.v3.IntegrationTypeV3;
@@ -24,9 +25,11 @@ import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
 import ru.instamart.kraken.listener.Skip;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
+import static ru.instamart.api.helper.WaitHelper.withRetriesAsserted;
 
 @Epic("ApiV3")
 @Feature("Нотификации")
@@ -61,10 +64,15 @@ public class NotificationsPositionsV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается после сборки");
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
@@ -91,10 +99,15 @@ public class NotificationsPositionsV3Test extends RestBase {
                 --quantity);
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается от переданного");
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
@@ -120,10 +133,15 @@ public class NotificationsPositionsV3Test extends RestBase {
                 ++quantity);
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается от переданного");
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
@@ -156,11 +174,17 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Integer total = (int) Math.round(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Integer total = (int) Math.round(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -195,11 +219,17 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Double total = Math.floor(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -232,12 +262,18 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
         Double expTotal = lineItem.getProduct().getUnitPrice() * quantity;
-        Double total = readyOrder.getShipments().get(0).getLineItems().get(0).getTotal();
+        Double total = assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal();
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -270,12 +306,18 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
         Double expTotal = lineItem.getProduct().getUnitPrice() * quantity;
-        Double total = readyOrder.getShipments().get(0).getLineItems().get(0).getTotal();
+        Double total = assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal();
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -308,11 +350,17 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "0");
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = readyOrder.getShipments().get(0).getLineItems().get(0).getTotal();
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Double total = assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal();
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -345,11 +393,17 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "0");
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = readyOrder.getShipments().get(0).getLineItems().get(0).getTotal();
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Double total = assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal();
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -384,11 +438,17 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Integer total = (int) Math.round(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Integer total = (int) Math.round(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -423,11 +483,17 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Double total = Math.floor(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -462,11 +528,17 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Double total = Math.floor(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -501,11 +573,17 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(3);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
+        AtomicReference<OrderV2> assembledOrder = new AtomicReference();
+        withRetriesAsserted(() -> {
+            OrderV2 thisOrder = apiV2.getOrder(order.getNumber());
+            assembledOrder.set(thisOrder);
+            Assert.assertEquals(thisOrder.getShipmentState(),
+                    OrderStatusV2.READY_TO_SHIP.getStatus(),
+                    "Заказ не перешел в статус Готов к доставке");
+        }, 30);
+        Double total = Math.floor(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
+        Assert.assertEquals(assembledOrder.get().getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
