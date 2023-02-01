@@ -138,13 +138,13 @@ public class DisableEtaTest extends EtaBase {
 
     @TmsLink("280")
     @Story("Disable ETA")
-    @Test(description = "Загрузка интервалов в прошломв",
+    @Test(description = "Загрузка интервалов в прошлом",
             groups = "ondemand-eta")
     public void disableEtaAndSlotExpired() {
         var request = Eta.DisableEtaRequest.newBuilder()
                 .addStoreUuids(STORE_UUID_THIRD)
-                .setLeftBorder(getDateMinusSec(1200))
-                .setRightBorder(getDateMinusSec(1300))
+                .setLeftBorder(getDateMinusSec(1300))
+                .setRightBorder(getDateMinusSec(1200))
                 .setDisableEta(true)
                 .setDisableSlot(true)
                 .build();
@@ -239,6 +239,23 @@ public class DisableEtaTest extends EtaBase {
                 .setRightBorder(RIGHT_BORDER)
                 .setDisableEta(false)
                 .setDisableSlot(false)
+                .build();
+        clientEta.disableEta(request);
+    }
+
+    @TmsLink("281")
+    @Story("Disable ETA")
+    @Test(description = "Получение ошибки при загрузке интервалов с левой границей больше правой",
+            groups = "ondemand-eta",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: invalid time interval.*")
+    public void disableEtaLeftGreaterThenRight() {
+        var request = Eta.DisableEtaRequest.newBuilder()
+                .addStoreUuids(STORE_UUID_SECOND)
+                .setLeftBorder(RIGHT_BORDER)
+                .setRightBorder(LEFT_BORDER)
+                .setDisableEta(true)
+                .setDisableSlot(true)
                 .build();
         clientEta.disableEta(request);
     }
