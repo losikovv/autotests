@@ -78,9 +78,9 @@ public final class OperatorStatusChangeTests {
         dialogs().interactLeftMenu().checkAccountMenuIndicatorColor(ONLINE.getColorCode());
 
         dialogs().checkActiveGroupTab("Мои");
-        dialogs().checkConversationCountOnActiveTab("3");
+        dialogs().checkConversationCountOnActiveTab("4");
         dialogs().checkConversationsVisible();
-        dialogs().checkConversationsCount(3);
+        dialogs().checkConversationsCount(4);
 
         dialogs().interactLeftMenu().clickAccountMenuButton();
         dialogs().interactLeftMenu().interactAccountMenu().checkAccountMenuDisplayed();
@@ -110,9 +110,9 @@ public final class OperatorStatusChangeTests {
         dialogs().interactLeftMenu().checkAccountMenuIndicatorColor(ONLINE.getColorCode());
 
         dialogs().checkActiveGroupTab("Мои");
-        dialogs().checkConversationCountOnActiveTab("3");
+        dialogs().checkConversationCountOnActiveTab("4");
         dialogs().checkConversationsVisible();
-        dialogs().checkConversationsCount(3);
+        dialogs().checkConversationsCount(4);
 
         dialogs().interactLeftMenu().clickAccountMenuButton();
         dialogs().interactLeftMenu().interactAccountMenu().checkAccountMenuDisplayed();
@@ -121,9 +121,9 @@ public final class OperatorStatusChangeTests {
         dialogs().interactLeftMenu().checkAccountMenuIndicatorColor(WAITING.getColorCode());
 
         dialogs().checkActiveGroupTab("Мои");
-        dialogs().checkConversationCountOnActiveTab("3");
+        dialogs().checkConversationCountOnActiveTab("4");
         dialogs().checkConversationsVisible();
-        dialogs().checkConversationsCount(3);
+        dialogs().checkConversationsCount(4);
 
         dialogs().clickFirstConversationInList();
         dialogs().checkEditConversationButtonVisible();
@@ -139,9 +139,9 @@ public final class OperatorStatusChangeTests {
         dialogs().clickCompleteConversation();
         dialogs().checkReopenConversationVisible();
 
-        dialogs().checkConversationCountOnActiveTab("2");
+        dialogs().checkConversationCountOnActiveTab("3");
         dialogs().checkConversationsVisible();
-        dialogs().checkConversationsCount(2);
+        dialogs().checkConversationsCount(3);
 
         dialogs().checkLoadCompleteMsgVisible();
     }
