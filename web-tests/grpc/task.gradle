@@ -47,3 +47,12 @@ task grpcAuthorizationService(type: Test) {
     environment 'PROJECT_ID', 'CS'
     environment 'TEST_RUN_NAME', 'Authorization Service Autotests'
 }
+
+task grpcCustomerPayments(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/grpc-customer-payments.xml'
+        includeGroups 'grpc-customer-payments'
+    }
+    environment 'PROJECT_ID', 'B2CPAY'
+    environment 'TEST_RUN_NAME', 'Customer Payments Autotests'
+}

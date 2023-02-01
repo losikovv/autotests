@@ -1,0 +1,192 @@
+syntax = "proto3";
+
+package payments;
+option go_package = "gitlab.sbmt.io/paas/content/customer/payments/pkg/server/grpc/payments";
+import "google/type/money.proto";
+
+service Payments {
+	rpc CreateSberpayPaymentTool(CreateSberpayPaymentToolRequest) returns (PaymentTool);
+	rpc CreateHold(CreateHoldRequest) returns (Hold);
+	rpc CreatePayment(CreatePaymentRequest) returns (Payment);
+	rpc CreateCancel(CreateCancelRequest) returns (Cancel);
+	rpc CreateRefund(CreateRefundRequest) returns (Refund);
+	rpc GetRefund(GetRefundRequest) returns (Refund);
+	rpc GetInvoice(GetInvoiceRequest) returns (Invoice);
+	rpc GetOrderStatus(GetOrderStatusRequest) returns (OrderStatus);
+}
+
+message CreateSberpayPaymentToolRequest {
+	string uuid = 1; // idempotency key
+	string customer_uuid = 2;
+	string customer_phone = 3; // required only for back2app flow
+	SberpayFlow flow = 4;
+	string merchant_id = 5;
+}
+
+enum SberpayFlow {
+	SBERPAY_FLOW_NONE = 0;
+	SBERPAY_FLOW_APP2APP = 1;
+	SBERPAY_FLOW_BACK2APP = 2;
+	SBERPAY_FLOW_UNSPECIFIED = 3;
+}
+
+message PaymentTool {
+	string uuid = 1;
+	string customer_uuid = 2;
+	string title = 3; // optional
+	PaymentToolState state = 4;
+	PaymentMethodType payment_method_type = 5;
+	PaymentToolData data = 6;
+}
+
+enum PaymentToolState {
+	PAYMENT_TOOL_STATE_NONE = 0;
+	PAYMENT_TOOL_STATE_PENDING = 1;
+	PAYMENT_TOOL_STATE_AUTHORIZED = 2;
+	PAYMENT_TOOL_STATE_CANCELED = 3;
+	PAYMENT_TOOL_STATE_UNSPECIFIED = 4;
+}
+
+enum PaymentMethodType {
+	PAYMENT_METHOD_TYPE_NONE = 0;
+	PAYMENT_METHOD_TYPE_SBERPAY = 1;
+	PAYMENT_METHOD_TYPE_UNSPECIFIED = 2;
+}
+
+message PaymentToolData {
+	string deeplink = 1;
+}
+
+message CreateHoldRequest {
+	string shipment_uuid = 1;
+	string payment_tool_uuid = 2;
+	google.type.Money amount = 3;
+	string merchant_id = 4;
+}
+
+message CreatePaymentRequest {
+	string shipment_uuid = 1;
+	string payment_tool_uuid = 2;
+	google.type.Money amount = 3;
+	string merchant_id = 4;
+	Payload payload = 5;
+	optional string external_order_number = 6;
+}
+
+message Payload {
+	string order_bundle = 1;
+}
+
+message Hold {
+	string uuid = 1;
+	string shipment_uuid = 2;
+	string payment_tool_uuid = 3;
+	google.type.Money amount = 4;
+	PaymentState state = 5;
+}
+
+message Payment {
+	string uuid = 1;
+	string shipment_uuid = 2;
+	string payment_tool_uuid = 3;
+	google.type.Money amount = 4;
+	PaymentState state = 5;
+	Payload payload = 6;
+}
+
+enum PaymentState {
+	PAYMENT_STATE_NONE = 0;
+	PAYMENT_STATE_PENDING = 1;
+	PAYMENT_STATE_SUCCESS = 2;
+	PAYMENT_STATE_FAILED = 3;
+	PAYMENT_STATE_UNSPECIFIED = 4;
+}
+
+message CreateCancelRequest {
+	string shipment_uuid = 1;
+	string merchant_id = 2;
+}
+
+message Cancel {
+	string shipment_uuid = 1;
+	RefundState state = 2;
+}
+
+message CreateRefundRequest {
+	string uuid = 1;
+	string shipment_uuid = 2;
+	string payment_tool_uuid = 3;
+	google.type.Money amount = 4;
+	string merchant_id = 5;
+	string items = 6;
+}
+
+message Refund {
+	string uuid = 1;
+	string shipment_uuid = 2;
+	string payment_tool_uuid = 3;
+	google.type.Money amount = 4;
+	RefundState state = 5;
+}
+
+enum RefundState {
+	REFUND_STATE_NONE = 0;
+	REFUND_STATE_PENDING = 1;
+	REFUND_STATE_SUCCESS = 2;
+	REFUND_STATE_FAILED = 3;
+	REFUND_STATE_UNSPECIFIED = 4;
+}
+
+message GetRefundRequest {
+	string uuid = 1;
+}
+
+message GetInvoiceRequest {
+	string shipment_uuid = 1;
+}
+
+message Invoice {
+	string uuid = 1;
+	string shipment_uuid = 2;
+	string customer_uuid = 3;
+	InvoiceState state = 4;
+	map<string, InvoiceAmounts> amounts = 5; // [payment_tool_uuid => InvoiceAmounts]
+}
+
+enum InvoiceState {
+	INVOICE_STATE_NONE = 0;
+
+	INVOICE_STATE_HOLD_PENDING = 1;
+	INVOICE_STATE_HOLD_SUCCESS = 2;
+	INVOICE_STATE_HOLD_FAILED = 3;
+
+	INVOICE_STATE_PAYMENT_PENDING = 4;
+	INVOICE_STATE_PAYMENT_SUCCESS = 5;
+	INVOICE_STATE_PAYMENT_FAILED = 6;
+
+	INVOICE_STATE_CANCEL_PENDING = 7;
+	INVOICE_STATE_CANCEL_SUCCESS = 8;
+	INVOICE_STATE_CANCEL_FAILED = 9;
+
+	INVOICE_STATE_REFUND_PENDING = 10;
+	INVOICE_STATE_REFUND_SUCCESS = 11;
+	INVOICE_STATE_REFUND_FAILED = 12;
+
+	INVOICE_STATE_UNSPECIFIED = 13;
+}
+
+message InvoiceAmounts {
+	google.type.Money hold = 1;
+	google.type.Money purchased = 2;
+	google.type.Money refunded = 3;
+}
+
+message GetOrderStatusRequest {
+	string order_number = 1;
+	string merchant_id = 2;
+}
+
+message OrderStatus {
+	string order_number = 1;
+	string status = 2;
+}
