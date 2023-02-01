@@ -51,7 +51,7 @@ tests:grpc:customer:payments:
     - ".template_grpc_tests"
   only:
     variables:
-      - $GRPC_CUSTOMER_PAYMENTS == 'true' && $CI_RUN_ALL_JOBS == 'false'
+      - $GRPC_CUSTOMER_PAYMENTS == 'true'
   when: always
   script:
     - gradle clean build grpcCustomerPayments
