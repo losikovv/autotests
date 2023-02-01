@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="PRICING GRPC SUITE" verbose="1">
+    <listeners>
+        <listener class-name="ru.instamart.grpc.listener.GrpcContentExecutionListener"/>
+        <listener class-name="ru.instamart.grpc.listener.GrpcTestSuiteListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="PRICING SERVICE">
+        <classes>
+            <class name="ru.instamart.test.content.pricing_service.pricing_back.PricingSaveDiscountTemplatesTest"/>
+        </classes>
+    </test>
+</suite>
