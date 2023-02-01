@@ -51,8 +51,8 @@ public final class DialogsTests {
 
         dialogs().checkActiveGroupTab("Мои");
         dialogs().checkConversationsVisible();
-        dialogs().checkConversationCountOnActiveTab("3");
-        dialogs().checkConversationsCount(3);
+        dialogs().checkConversationCountOnActiveTab("4");
+        dialogs().checkConversationsCount(4);
     }
 
     @TmsLink("114")

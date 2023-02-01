@@ -50,6 +50,7 @@ public final class CustomerCardTests {
 
         dialogs().checkActiveGroupTab("Мои");
         dialogs().checkConversationsVisible();
+        dialogs().waitPageLoad();
 
         var firstConversationName = dialogs().getFirstConversationNameInList();
 
