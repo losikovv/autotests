@@ -18,7 +18,7 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 public final class Item extends Container {
 
     private final InnerButton buttonOpenItemPopupInfo = new InnerButton(getContainer(), By.xpath(".//a[@data-qa='open-button']"), "Открыть карточку товара");
-    private final InnerButton buttonDeleteItem = new InnerButton(getContainer(), By.xpath(".//div[contains(@class, 'LineItem_v2_deleteButton')]"), "Кнопка удалить товар");
+    private final InnerButton buttonDeleteItem = new InnerButton(getContainer(), By.xpath(".//div[contains(@class, 'LineItem_deleteButton')]"), "Кнопка удалить товар");
     private final InnerButton returnDeletedItem = new InnerButton(getContainer(), By.xpath(".//button[contains(@class,'LineItem_returnProductButton')]"), "Кнопка 'Вернуть' удаленный товар");
 
     private final InnerButton buttonIncreaseItemsCount = new InnerButton(getContainer(), By.xpath(".//div[contains(@class,'LineItemQuantityButton')][@title='Добавить еще']"), "Кнопка увеличить количество товара");
