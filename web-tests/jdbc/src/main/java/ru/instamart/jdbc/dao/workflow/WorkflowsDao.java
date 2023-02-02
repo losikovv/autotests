@@ -40,7 +40,27 @@ public class WorkflowsDao extends AbstractDao<Long, WorkflowsEntity> {
         }
         return Optional.ofNullable(workflowsEntity);
     }
-
+    public WorkflowsEntity findByWorkflowId(Long id) {
+        WorkflowsEntity workflowsEntity = null;
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_WORKFLOW).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+            preparedStatement.setObject(1, id);
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    workflowsEntity = new WorkflowsEntity();
+                    workflowsEntity.setId(resultSet.getLong("id"));
+                    workflowsEntity.setStatus(resultSet.getInt("status"));
+                    workflowsEntity.setPlanStartedAt(resultSet.getString("plan_started_at"));
+                    workflowsEntity.setPlanEndedAt(resultSet.getString("plan_ended_at"));
+                    workflowsEntity.setShiftId(resultSet.getLong("shift_id"));
+                    workflowsEntity.setShipments(resultSet.getString("shipments"));
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLWorkflowManager. Error: " + e.getMessage());
+        }
+        return workflowsEntity;
+    }
     public void updateStatus(int status, long workflowId) {
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_WORKFLOW).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " status = ? WHERE id = ?")) {
