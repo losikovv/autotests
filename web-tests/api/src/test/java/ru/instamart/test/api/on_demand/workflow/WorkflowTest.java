@@ -64,10 +64,13 @@ public class WorkflowTest extends RestBase {
     private ShipmentPriceServiceGrpc.ShipmentPriceServiceBlockingStub clientPricing;
     private OrderV2 order;
     private OrderV2 secondOrder;
+    private OrderV2 thirdOrder;
     private String shipmentUuid;
     private List<JobsEntity> firstJobUuid;
     private List<JobsEntity> secondJobUuid;
+    private List<JobsEntity> thirdJobUuid;
     private String secondShipmentUuid;
+    private String thirdShipmentUuid;
     private long workflowId;
     private String workflowUuid;
     private String assignmentId;
@@ -87,10 +90,13 @@ public class WorkflowTest extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        thirdOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
+        thirdShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(thirdOrder.getShipments().get(0).getNumber()).getUuid();
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
         firstJobUuid = awaitJobUuid(shipmentUuid, 300L);
         secondJobUuid = awaitJobUuid(shipmentUuid, 300L);
+        thirdJobUuid = awaitJobUuid(thirdShipmentUuid, 300L);
         ThreadUtil.simplyAwait(70);
     }
 
@@ -214,19 +220,19 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("82")
-    @Test(enabled = false,
+    @Test(
             description = "Обогащение идентификатором смены и видом транспорта",
-            groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowForTaxi")
+            groups = "dispatch-workflow-smoke"/*,
+            dependsOnMethods = "createWorkflowForTaxi"*/)
     public void createWorkflowWithTransport() {
-        var request = getWorkflowsRequestWithTransport(order, shipmentUuid, 1, WorkflowOuterClass.Shift.Transport.CAR, shiftId);
+        var request = getWorkflowsRequestWithTransport(order, thirdShipmentUuid, 1, WorkflowOuterClass.Shift.Transport.CAR, shiftId);
 
         var response = clientWorkflow.createWorkflows(request);
 
         compareTwoObjects(response.getResultsMap().get(response.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
         String workflowUuid = response.getResultsMap().keySet().toArray()[0].toString();
         checkFieldIsNotEmpty(workflowUuid, "Не вернулся uuid workflow");
-        cancelWorkflow(clientWorkflow, shipmentUuid);
+        cancelWorkflow(clientWorkflow, thirdShipmentUuid);
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
         Shift shift = Mapper.INSTANCE.jsonToObject(assignmentsEntity.getShift(), Shift.class);
         compareTwoObjects(shift.getTransport(), WorkflowOuterClass.Shift.Transport.CAR_VALUE);
