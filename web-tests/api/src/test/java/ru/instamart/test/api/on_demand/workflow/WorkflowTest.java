@@ -29,6 +29,7 @@ import ru.instamart.jdbc.dao.workflow.SegmentsDao;
 import ru.instamart.jdbc.dao.workflow.WorkflowsDao;
 import ru.instamart.jdbc.entity.order_service.publicScheme.JobsEntity;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
+import ru.instamart.jdbc.entity.workflow.WorkflowsEntity;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
 import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -40,10 +41,7 @@ import shipment_pricing.OrderPricing;
 import shipment_pricing.ShipmentPriceServiceGrpc;
 import workflow.*;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -192,7 +190,7 @@ public class WorkflowTest extends RestBase {
         Assert.assertFalse(response.getWorkflowIdsList().isEmpty(), "Маршрутные листы не удалились");
     }
 
-    @TmsLink("73")   
+    @TmsLink("73")
     @Skip    //Кейс в архиве
     @Test(enabled = false,
             description = "Создание маршрутного листа для такси",
@@ -232,10 +230,14 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(response.getResultsMap().get(response.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
         String workflowUuid = response.getResultsMap().keySet().toArray()[0].toString();
         checkFieldIsNotEmpty(workflowUuid, "Не вернулся uuid workflow");
-        cancelWorkflow(clientWorkflow, thirdShipmentUuid);
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
+        acceptWorkflow(String.valueOf(assignmentsEntity.getId()));
+        cancelWorkflow(clientWorkflow, thirdShipmentUuid);
         Shift shift = Mapper.INSTANCE.jsonToObject(assignmentsEntity.getShift(), Shift.class);
+        WorkflowsEntity workflowsEntity = WorkflowsDao.INSTANCE.findByWorkflowId(assignmentsEntity.getWorkflowId());
         compareTwoObjects(shift.getTransport(), WorkflowOuterClass.Shift.Transport.CAR_VALUE);
+        compareTwoObjects(workflowsEntity.getShiftId(), new Long(shiftId));
+
     }
 
     @TmsLink("90")
