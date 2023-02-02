@@ -1,18 +1,19 @@
 package ru.instamart.api.response.workflows;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.workflows.Stores;
 import ru.instamart.api.response.BaseResponseObject;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class AssignmentsResponse extends BaseResponseObject{
 
 	@JsonProperty("workflow_id")
-	private Integer workflowId;
+	private String workflowId;
 
 	@JsonProperty("distance")
 	private String distance;
@@ -36,7 +37,7 @@ public class AssignmentsResponse extends BaseResponseObject{
 	private Integer deliveryCount;
 
 	@JsonProperty("timeout")
-	private Integer timeout;
+	private String timeout;
 
 	@JsonProperty("pricing_total_cost")
 	private String pricingTotalCost;
@@ -57,8 +58,8 @@ public class AssignmentsResponse extends BaseResponseObject{
 	private String performerUuid;
 
 	@JsonProperty("id")
-	private Integer id;
+	private String id;
 
 	@JsonProperty("status")
-	private Integer status;
+	private String status;
 }
