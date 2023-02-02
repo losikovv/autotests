@@ -17,11 +17,11 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.workflows.Error;
 import ru.instamart.api.model.workflows.Shift;
-import ru.instamart.api.model.workflows.ShopperAssignment;
 import ru.instamart.api.request.workflows.AssignmentsRequest;
 import ru.instamart.api.request.workflows.SegmentsRequest;
 import ru.instamart.api.request.workflows.WorkflowsRequest;
 import ru.instamart.api.response.workflows.AssignmentResponse;
+import ru.instamart.api.response.workflows.AssignmentsResponse;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.jdbc.dao.workflow.AssignmentsDao;
@@ -29,8 +29,8 @@ import ru.instamart.jdbc.dao.workflow.SegmentsDao;
 import ru.instamart.jdbc.dao.workflow.WorkflowsDao;
 import ru.instamart.jdbc.entity.order_service.publicScheme.JobsEntity;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
-import ru.instamart.jdbc.entity.workflow.WorkflowsEntity;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
+import ru.instamart.jdbc.entity.workflow.WorkflowsEntity;
 import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
@@ -41,7 +41,10 @@ import shipment_pricing.OrderPricing;
 import shipment_pricing.ShipmentPriceServiceGrpc;
 import workflow.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -178,7 +181,7 @@ public class WorkflowTest extends RestBase {
     @TmsLink("141")
     @Test(description = "Отмена маршрутного листа по uuid шимпента",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowWithExistingSegment")
+            dependsOnMethods = "getShopperAssignments")
     public void cancelExistingWorkflow() {
         var request = WorkflowOuterClass.RejectWorkflowByShipmentUuidRequest
                 .newBuilder()
@@ -220,8 +223,8 @@ public class WorkflowTest extends RestBase {
     @TmsLink("82")
     @Test(
             description = "Обогащение идентификатором смены и видом транспорта",
-            groups = "dispatch-workflow-smoke"/*,
-            dependsOnMethods = "createWorkflowForTaxi"*/)
+            groups = "dispatch-workflow-smoke",
+            dependsOnMethods = "getShopperAssignments")
     public void createWorkflowWithTransport() {
         var request = getWorkflowsRequestWithTransport(order, thirdShipmentUuid, 1, WorkflowOuterClass.Shift.Transport.CAR, shiftId);
 
@@ -292,18 +295,16 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("57")
-    @Test(enabled = false,
-            description = "Получение назначений в статусе offered/seen",
+    @Test(description = "Получение назначений в статусе offered/seen",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflow30SecToNow")
+            dependsOnMethods = "createWorkflowWithSameArriveSegment")
     public void getShopperAssignments() {
         final Response response = AssignmentsRequest.GET();
         checkStatusCode200(response);
-        checkResponseJsonSchema(response, ShopperAssignment[].class);
-        List<ShopperAssignment> shopperAssignments = Arrays.asList(response.as(ShopperAssignment[].class));
-        assignmentId = shopperAssignments.get(0).getId();
-        compareTwoObjects(shopperAssignments.size(), 1);
-        compareTwoObjects(shopperAssignments.get(0).getWorkflowId(), String.valueOf(workflowId));
+        checkResponseJsonSchema(response, AssignmentsResponse[].class);
+        List<AssignmentsResponse> assignments = Arrays.asList(response.as(AssignmentsResponse[].class));
+        compareTwoObjects(assignments.size(), 1);
+        compareTwoObjects(assignments.get(0).getStatus(), "2" );
     }
 
     @TmsLink("118")
