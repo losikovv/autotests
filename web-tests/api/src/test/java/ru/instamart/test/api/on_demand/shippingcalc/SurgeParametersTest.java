@@ -5,6 +5,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -13,7 +14,12 @@ import ru.instamart.grpc.common.GrpcContentHosts;
 import io.qameta.allure.TmsLink;
 import ru.instamart.jdbc.dao.shippingcalc.SurgeParametersDao;
 import shippingcalc.*;
+import surgelevelevent.Surgelevelevent.SurgeEvent.Grade;
 
+import java.util.List;
+import java.util.Objects;
+
+import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.testng.Assert.*;
 
 @Epic("ShippingCalc")
@@ -26,6 +32,9 @@ public class SurgeParametersTest extends ShippingCalcBase {
     private Integer firstParameterId;
     private Integer secondParameterId;
     private Integer thirdParameterId;
+    private Integer firstGradeParameterId;
+    private Integer secondGradeParameterId;
+    private Integer thirdGradeParameterId;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -56,7 +65,7 @@ public class SurgeParametersTest extends ShippingCalcBase {
 
         Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-            var surgeThresholdsEntity = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID, VERTICAL);
+            final var surgeThresholdsEntity = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID, VERTICAL);
             assertNotNull(surgeThresholdsEntity, "Не нашли трешхолд");
             firstParameterId = surgeThresholdsEntity.getId();
             assertNotNull(surgeThresholdsEntity.getParameters(), "Пустые параметры");
@@ -90,7 +99,7 @@ public class SurgeParametersTest extends ShippingCalcBase {
 
         Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-            var surgeThresholdsEntity = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID, VERTICAL);
+            final var surgeThresholdsEntity = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID, VERTICAL);
             assertNotNull(surgeThresholdsEntity, "Не нашли трешхолд");
             assertNotNull(surgeThresholdsEntity.getParameters(), "Пустые параметры");
             assertTrue(surgeThresholdsEntity.getParameters().contains("\"price_addition\": " + (SURGE_LEVEL_ADDITION_DEFAULT + 1)), "Не верная наценка");
@@ -148,8 +157,8 @@ public class SurgeParametersTest extends ShippingCalcBase {
 
         Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-            var surgeThresholdsEntityFirst = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID + 1, VERTICAL + 1);
-            var surgeThresholdsEntitySecond = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID + 2, VERTICAL + 2);
+            final var surgeThresholdsEntityFirst = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID + 1, VERTICAL + 1);
+            final var surgeThresholdsEntitySecond = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID + 2, VERTICAL + 2);
             assertNotNull(surgeThresholdsEntityFirst, "Не нашли первый трешхолд");
             secondParameterId = surgeThresholdsEntityFirst.getId();
             assertNotNull(surgeThresholdsEntityFirst.getParameters(), "Пустые первые параметры");
@@ -237,6 +246,152 @@ public class SurgeParametersTest extends ShippingCalcBase {
         clientShippingCalc.setSurgeParameters(request);
     }
 
+    @TmsLink("594")
+    @Story("Set Surge Parameters")
+    @Test(description = "Установка сюрдж-параметра с grade из контракта surgelevelevent",
+            groups = "ondemand-shippingcalc")
+    public void setSurgeParametersWithGrade() {
+        final var randomInt = nextInt(300000, 350000);
+
+        var request = SetSurgeParametersRequest.newBuilder()
+                .addParameters(SurgeParameters.newBuilder()
+                        .setRegionId(randomInt)
+                        .setVertical(randomInt)
+                        .setParameters(SurgeParameters.Parameters.newBuilder()
+                                .addIntervals(SurgeInterval.newBuilder()
+                                        .setLeftBoundary(0)
+                                        .setRightBoundary(1)
+                                        .setGrade(Grade.SUPPLYMID.toString().toLowerCase())
+                                        .setPriceAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .setPercentAddition(SURGE_LEVEL_PERCENT_ADDITION)
+                                        .setMinCartAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var response = clientShippingCalc.setSurgeParameters(request);
+
+        Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
+            assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
+            final var surgeThresholdsEntity = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(randomInt, randomInt);
+            assertNotNull(surgeThresholdsEntity, "Не нашли трешхолд");
+            firstGradeParameterId = surgeThresholdsEntity.getId();
+        });
+    }
+
+    @TmsLink("595")
+    @Story("Set Surge Parameters")
+    @Test(description = "Установка сюрдж-параметра с пустым grade",
+            groups = "ondemand-shippingcalc")
+    public void setSurgeParametersWithEmptyGrade() {
+        final var randomInt = nextInt(300000, 350000);
+
+        var request = SetSurgeParametersRequest.newBuilder()
+                .addParameters(SurgeParameters.newBuilder()
+                        .setRegionId(randomInt)
+                        .setVertical(randomInt)
+                        .setParameters(SurgeParameters.Parameters.newBuilder()
+                                .addIntervals(SurgeInterval.newBuilder()
+                                        .setLeftBoundary(0)
+                                        .setRightBoundary(1)
+                                        .setGrade("")
+                                        .setPriceAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .setPercentAddition(SURGE_LEVEL_PERCENT_ADDITION)
+                                        .setMinCartAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var response = clientShippingCalc.setSurgeParameters(request);
+
+        Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
+            assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
+            final var surgeThresholdsEntity = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(randomInt, randomInt);
+            assertNotNull(surgeThresholdsEntity, "Не нашли трешхолд");
+            secondGradeParameterId = surgeThresholdsEntity.getId();
+        });
+    }
+
+    @TmsLink("596")
+    @Story("Set Surge Parameters")
+    @Test(description = "Установка сюрдж-параметра с grade без числовых интервалов",
+            groups = "ondemand-shippingcalc")
+    public void setSurgeParametersWithGradeAndEmptyIntervals() {
+        final var randomInt = nextInt(300000, 350000);
+
+        var request = SetSurgeParametersRequest.newBuilder()
+                .addParameters(SurgeParameters.newBuilder()
+                        .setRegionId(randomInt)
+                        .setVertical(randomInt)
+                        .setParameters(SurgeParameters.Parameters.newBuilder()
+                                .addIntervals(SurgeInterval.newBuilder()
+                                        .setGrade(Grade.SUPPLYMID.toString().toLowerCase())
+                                        .setPriceAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .setPercentAddition(SURGE_LEVEL_PERCENT_ADDITION)
+                                        .setMinCartAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var response = clientShippingCalc.setSurgeParameters(request);
+
+        Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
+            assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
+            final var surgeThresholdsEntity = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(randomInt, randomInt);
+            assertNotNull(surgeThresholdsEntity, "Не нашли трешхолд");
+            thirdGradeParameterId = surgeThresholdsEntity.getId();
+        });
+    }
+
+    @TmsLink("597")
+    @Story("Set Surge Parameters")
+    @Test(description = "Получение ошибки при установке сюрдж-параметров без grade и числовых интервалов",
+            groups = "ondemand-shippingcalc",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed: invalid 0 parameters: right boundary must be greater than left.*")
+    public void setSurgeParametersWithEmptyGradeAndEmptyIntervals() {
+        var request = SetSurgeParametersRequest.newBuilder()
+                .addParameters(SurgeParameters.newBuilder()
+                        .setRegionId(666)
+                        .setVertical(666)
+                        .setParameters(SurgeParameters.Parameters.newBuilder()
+                                .addIntervals(SurgeInterval.newBuilder()
+                                        .setPriceAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .setPercentAddition(SURGE_LEVEL_PERCENT_ADDITION)
+                                        .setMinCartAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        clientShippingCalc.setSurgeParameters(request);
+    }
+
+    @TmsLink("622")
+    @Story("Set Surge Parameters")
+    @Test(description = "Получение ошибки при установке сюрдж-параметра с не валидным grade",
+            groups = "ondemand-shippingcalc",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed: invalid 0 parameters: incorrect grade test")
+    public void setSurgeParametersWithNonValidGrade() {
+        var request = SetSurgeParametersRequest.newBuilder()
+                .addParameters(SurgeParameters.newBuilder()
+                        .setRegionId(666)
+                        .setVertical(666)
+                        .setParameters(SurgeParameters.Parameters.newBuilder()
+                                .addIntervals(SurgeInterval.newBuilder()
+                                        .setLeftBoundary(0)
+                                        .setRightBoundary(1)
+                                        .setGrade("test")
+                                        .setPriceAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .setPercentAddition(SURGE_LEVEL_PERCENT_ADDITION)
+                                        .setMinCartAddition(SURGE_LEVEL_ADDITION_DEFAULT)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        clientShippingCalc.setSurgeParameters(request);
+    }
+
     @TmsLink("547")
     @Story("Get Surge Parameters")
     @Test(description = "Получение списка сюрдж-параметров",
@@ -270,7 +425,7 @@ public class SurgeParametersTest extends ShippingCalcBase {
 
         Allure.step("Проверка успешного выполнения запроса и удаления в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-            var surgeThresholdsEntity = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID, VERTICAL);
+            final var surgeThresholdsEntity = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID, VERTICAL);
             assertNull(surgeThresholdsEntity, "Не пустой трешхолд");
         });
     }
@@ -289,8 +444,8 @@ public class SurgeParametersTest extends ShippingCalcBase {
 
         Allure.step("Проверка успешного выполнения запроса и удаления в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-            var surgeThresholdsEntityFirst = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID + 1, VERTICAL + 1);
-            var surgeThresholdsEntitySecond = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID + 2, VERTICAL + 2);
+            final var surgeThresholdsEntityFirst = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID + 1, VERTICAL + 1);
+            final var surgeThresholdsEntitySecond = SurgeParametersDao.INSTANCE.getSurgeParametersByRegionIdAndVertical(REGION_ID + 2, VERTICAL + 2);
             assertNull(surgeThresholdsEntityFirst, "Не пустой трешхолд");
             assertNull(surgeThresholdsEntitySecond, "Не пустой трешхолд");
         });
@@ -305,5 +460,14 @@ public class SurgeParametersTest extends ShippingCalcBase {
     public void deleteSurgeParametersNoRegionId() {
         var request = DeleteSurgeParametersRequest.newBuilder().build();
         clientShippingCalc.deleteSurgeParameters(request);
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void postConditions() {
+        if (Objects.nonNull(firstGradeParameterId) && Objects.nonNull(secondGradeParameterId) && Objects.nonNull(thirdGradeParameterId)) {
+            SurgeParametersDao.INSTANCE.deleteSurgeParameters(
+                    List.of(firstGradeParameterId, secondGradeParameterId, thirdGradeParameterId)
+            );
+        }
     }
 }

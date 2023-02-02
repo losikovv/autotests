@@ -94,6 +94,29 @@ public final class Surgelevelevent {
      * <code>.surgelevelevent.SurgeEvent.Info info = 8;</code>
      */
     surgelevelevent.Surgelevelevent.SurgeEvent.InfoOrBuilder getInfoOrBuilder();
+
+    /**
+     * <code>string id = 9;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 9;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>.surgelevelevent.SurgeEvent.Grade grade = 10;</code>
+     * @return The enum numeric value on the wire for grade.
+     */
+    int getGradeValue();
+    /**
+     * <code>.surgelevelevent.SurgeEvent.Grade grade = 10;</code>
+     * @return The grade.
+     */
+    surgelevelevent.Surgelevelevent.SurgeEvent.Grade getGrade();
   }
   /**
    * Protobuf type {@code surgelevelevent.SurgeEvent}
@@ -110,6 +133,8 @@ public final class Surgelevelevent {
     private SurgeEvent() {
       storeId_ = "";
       method_ = 0;
+      id_ = "";
+      grade_ = 0;
     }
 
     @java.lang.Override
@@ -200,6 +225,18 @@ public final class Surgelevelevent {
 
               break;
             }
+            case 74: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 80: {
+              int rawValue = input.readEnum();
+
+              grade_ = rawValue;
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -238,28 +275,37 @@ public final class Surgelevelevent {
     public enum Method
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>UNKNOWN = 0;</code>
+       * <code>UNKNOWN = 0 [deprecated = true];</code>
        */
-      UNKNOWN(0),
+      @java.lang.Deprecated
+      UNKNOWN(0, 0),
       /**
        * <code>ACTUAL = 1;</code>
        */
-      ACTUAL(1),
+      ACTUAL(2, 1),
       /**
        * <code>PREDICT = 2;</code>
        */
-      PREDICT(2),
+      PREDICT(3, 2),
       /**
        * <code>MANUAL = 3;</code>
        */
-      MANUAL(3),
-      UNRECOGNIZED(-1),
+      MANUAL(4, 3),
+      UNRECOGNIZED(-1, -1),
       ;
 
       /**
-       * <code>UNKNOWN = 0;</code>
+       * <code>NOMETHOD = 0;</code>
        */
-      public static final int UNKNOWN_VALUE = 0;
+      public static final Method NOMETHOD = UNKNOWN;
+      /**
+       * <code>UNKNOWN = 0 [deprecated = true];</code>
+       */
+      @java.lang.Deprecated public static final int UNKNOWN_VALUE = 0;
+      /**
+       * <code>NOMETHOD = 0;</code>
+       */
+      public static final int NOMETHOD_VALUE = 0;
       /**
        * <code>ACTUAL = 1;</code>
        */
@@ -275,7 +321,7 @@ public final class Surgelevelevent {
 
 
       public final int getNumber() {
-        if (this == UNRECOGNIZED) {
+        if (index == -1) {
           throw new java.lang.IllegalArgumentException(
               "Can't get the number of an unknown enum value.");
         }
@@ -320,6 +366,192 @@ public final class Surgelevelevent {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (index == -1) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return surgelevelevent.Surgelevelevent.SurgeEvent.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Method[] VALUES = getStaticValuesArray();
+      private static Method[] getStaticValuesArray() {
+        return new Method[] {
+          UNKNOWN, NOMETHOD, ACTUAL, PREDICT, MANUAL, 
+        };
+      }
+      public static Method valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private Method(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:surgelevelevent.SurgeEvent.Method)
+    }
+
+    /**
+     * Protobuf enum {@code surgelevelevent.SurgeEvent.Grade}
+     */
+    public enum Grade
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>NOGRADE = 0;</code>
+       */
+      NOGRADE(0),
+      /**
+       * <code>SUPPLYHIGH = 10;</code>
+       */
+      SUPPLYHIGH(10),
+      /**
+       * <code>SUPPLYMID = 20;</code>
+       */
+      SUPPLYMID(20),
+      /**
+       * <code>SUPPLYLOW = 30;</code>
+       */
+      SUPPLYLOW(30),
+      /**
+       * <code>MID = 40;</code>
+       */
+      MID(40),
+      /**
+       * <code>DEMANDLOW = 50;</code>
+       */
+      DEMANDLOW(50),
+      /**
+       * <code>DEMANDMID = 60;</code>
+       */
+      DEMANDMID(60),
+      /**
+       * <code>DEMANDHIGH = 70;</code>
+       */
+      DEMANDHIGH(70),
+      /**
+       * <code>DEMANDEXTREME = 80;</code>
+       */
+      DEMANDEXTREME(80),
+      /**
+       * <code>DEMANDSHUTDOWN = 90;</code>
+       */
+      DEMANDSHUTDOWN(90),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>NOGRADE = 0;</code>
+       */
+      public static final int NOGRADE_VALUE = 0;
+      /**
+       * <code>SUPPLYHIGH = 10;</code>
+       */
+      public static final int SUPPLYHIGH_VALUE = 10;
+      /**
+       * <code>SUPPLYMID = 20;</code>
+       */
+      public static final int SUPPLYMID_VALUE = 20;
+      /**
+       * <code>SUPPLYLOW = 30;</code>
+       */
+      public static final int SUPPLYLOW_VALUE = 30;
+      /**
+       * <code>MID = 40;</code>
+       */
+      public static final int MID_VALUE = 40;
+      /**
+       * <code>DEMANDLOW = 50;</code>
+       */
+      public static final int DEMANDLOW_VALUE = 50;
+      /**
+       * <code>DEMANDMID = 60;</code>
+       */
+      public static final int DEMANDMID_VALUE = 60;
+      /**
+       * <code>DEMANDHIGH = 70;</code>
+       */
+      public static final int DEMANDHIGH_VALUE = 70;
+      /**
+       * <code>DEMANDEXTREME = 80;</code>
+       */
+      public static final int DEMANDEXTREME_VALUE = 80;
+      /**
+       * <code>DEMANDSHUTDOWN = 90;</code>
+       */
+      public static final int DEMANDSHUTDOWN_VALUE = 90;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Grade valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Grade forNumber(int value) {
+        switch (value) {
+          case 0: return NOGRADE;
+          case 10: return SUPPLYHIGH;
+          case 20: return SUPPLYMID;
+          case 30: return SUPPLYLOW;
+          case 40: return MID;
+          case 50: return DEMANDLOW;
+          case 60: return DEMANDMID;
+          case 70: return DEMANDHIGH;
+          case 80: return DEMANDEXTREME;
+          case 90: return DEMANDSHUTDOWN;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Grade>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Grade> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Grade>() {
+              public Grade findValueByNumber(int number) {
+                return Grade.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
         if (this == UNRECOGNIZED) {
           throw new java.lang.IllegalStateException(
               "Can't get the descriptor of an unrecognized enum value.");
@@ -332,12 +564,12 @@ public final class Surgelevelevent {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return surgelevelevent.Surgelevelevent.SurgeEvent.getDescriptor().getEnumTypes().get(0);
+        return surgelevelevent.Surgelevelevent.SurgeEvent.getDescriptor().getEnumTypes().get(1);
       }
 
-      private static final Method[] VALUES = values();
+      private static final Grade[] VALUES = values();
 
-      public static Method valueOf(
+      public static Grade valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
           throw new java.lang.IllegalArgumentException(
@@ -351,11 +583,11 @@ public final class Surgelevelevent {
 
       private final int value;
 
-      private Method(int value) {
+      private Grade(int value) {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:surgelevelevent.SurgeEvent.Method)
+      // @@protoc_insertion_point(enum_scope:surgelevelevent.SurgeEvent.Grade)
     }
 
     public interface InfoOrBuilder extends
@@ -1219,6 +1451,63 @@ public final class Surgelevelevent {
       return getInfo();
     }
 
+    public static final int ID_FIELD_NUMBER = 9;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 9;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 9;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int GRADE_FIELD_NUMBER = 10;
+    private int grade_;
+    /**
+     * <code>.surgelevelevent.SurgeEvent.Grade grade = 10;</code>
+     * @return The enum numeric value on the wire for grade.
+     */
+    @java.lang.Override public int getGradeValue() {
+      return grade_;
+    }
+    /**
+     * <code>.surgelevelevent.SurgeEvent.Grade grade = 10;</code>
+     * @return The grade.
+     */
+    @java.lang.Override public surgelevelevent.Surgelevelevent.SurgeEvent.Grade getGrade() {
+      @SuppressWarnings("deprecation")
+      surgelevelevent.Surgelevelevent.SurgeEvent.Grade result = surgelevelevent.Surgelevelevent.SurgeEvent.Grade.valueOf(grade_);
+      return result == null ? surgelevelevent.Surgelevelevent.SurgeEvent.Grade.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1256,6 +1545,12 @@ public final class Surgelevelevent {
       }
       if (info_ != null) {
         output.writeMessage(8, getInfo());
+      }
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, id_);
+      }
+      if (grade_ != surgelevelevent.Surgelevelevent.SurgeEvent.Grade.NOGRADE.getNumber()) {
+        output.writeEnum(10, grade_);
       }
       unknownFields.writeTo(output);
     }
@@ -1297,6 +1592,13 @@ public final class Surgelevelevent {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(8, getInfo());
       }
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, id_);
+      }
+      if (grade_ != surgelevelevent.Surgelevelevent.SurgeEvent.Grade.NOGRADE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(10, grade_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1337,6 +1639,9 @@ public final class Surgelevelevent {
         if (!getInfo()
             .equals(other.getInfo())) return false;
       }
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (grade_ != other.grade_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1372,6 +1677,10 @@ public final class Surgelevelevent {
         hash = (37 * hash) + INFO_FIELD_NUMBER;
         hash = (53 * hash) + getInfo().hashCode();
       }
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + GRADE_FIELD_NUMBER;
+      hash = (53 * hash) + grade_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1529,6 +1838,10 @@ public final class Surgelevelevent {
           info_ = null;
           infoBuilder_ = null;
         }
+        id_ = "";
+
+        grade_ = 0;
+
         return this;
       }
 
@@ -1571,6 +1884,8 @@ public final class Surgelevelevent {
         } else {
           result.info_ = infoBuilder_.build();
         }
+        result.id_ = id_;
+        result.grade_ = grade_;
         onBuilt();
         return result;
       }
@@ -1643,6 +1958,13 @@ public final class Surgelevelevent {
         }
         if (other.hasInfo()) {
           mergeInfo(other.getInfo());
+        }
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (other.grade_ != 0) {
+          setGradeValue(other.getGradeValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2164,6 +2486,136 @@ public final class Surgelevelevent {
         }
         return infoBuilder_;
       }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 9;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 9;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 9;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 9;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int grade_ = 0;
+      /**
+       * <code>.surgelevelevent.SurgeEvent.Grade grade = 10;</code>
+       * @return The enum numeric value on the wire for grade.
+       */
+      @java.lang.Override public int getGradeValue() {
+        return grade_;
+      }
+      /**
+       * <code>.surgelevelevent.SurgeEvent.Grade grade = 10;</code>
+       * @param value The enum numeric value on the wire for grade to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGradeValue(int value) {
+        
+        grade_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.surgelevelevent.SurgeEvent.Grade grade = 10;</code>
+       * @return The grade.
+       */
+      @java.lang.Override
+      public surgelevelevent.Surgelevelevent.SurgeEvent.Grade getGrade() {
+        @SuppressWarnings("deprecation")
+        surgelevelevent.Surgelevelevent.SurgeEvent.Grade result = surgelevelevent.Surgelevelevent.SurgeEvent.Grade.valueOf(grade_);
+        return result == null ? surgelevelevent.Surgelevelevent.SurgeEvent.Grade.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.surgelevelevent.SurgeEvent.Grade grade = 10;</code>
+       * @param value The grade to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGrade(surgelevelevent.Surgelevelevent.SurgeEvent.Grade value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        grade_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.surgelevelevent.SurgeEvent.Grade grade = 10;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearGrade() {
+        
+        grade_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2237,7 +2689,7 @@ public final class Surgelevelevent {
   static {
     java.lang.String[] descriptorData = {
       "\n\025surgelevelevent.proto\022\017surgelevelevent" +
-      "\032\037google/protobuf/timestamp.proto\"\261\003\n\nSu" +
+      "\032\037google/protobuf/timestamp.proto\"\250\005\n\nSu" +
       "rgeEvent\022\020\n\010store_id\030\001 \001(\t\0222\n\006method\030\002 \001" +
       "(\0162\".surgelevelevent.SurgeEvent.Method\022\030" +
       "\n\020past_surge_level\030\003 \001(\002\022\033\n\023present_surg" +
@@ -2245,13 +2697,19 @@ public final class Surgelevelevent {
       "\002\022.\n\nstarted_at\030\006 \001(\0132\032.google.protobuf." +
       "Timestamp\022\030\n\020step_surge_level\030\007 \001(\002\022.\n\004i" +
       "nfo\030\010 \001(\0132 .surgelevelevent.SurgeEvent.I" +
-      "nfo\032T\n\004Info\022\031\n\021shipment_quantity\030\001 \001(\005\022\032" +
-      "\n\022candidate_quantity\030\002 \001(\005\022\025\n\ranalytics_" +
-      "log\030\003 \001(\t\":\n\006Method\022\013\n\007UNKNOWN\020\000\022\n\n\006ACTU" +
-      "AL\020\001\022\013\n\007PREDICT\020\002\022\n\n\006MANUAL\020\003BUZSgitlab." +
-      "sbmt.io/paas/content/operations/surgelev" +
-      "el/pkg/server/events/surgeleveleventb\006pr" +
-      "oto3"
+      "nfo\022\n\n\002id\030\t \001(\t\0220\n\005grade\030\n \001(\0162!.surgele" +
+      "velevent.SurgeEvent.Grade\032T\n\004Info\022\031\n\021shi" +
+      "pment_quantity\030\001 \001(\005\022\032\n\022candidate_quanti" +
+      "ty\030\002 \001(\005\022\025\n\ranalytics_log\030\003 \001(\t\"P\n\006Metho" +
+      "d\022\017\n\007UNKNOWN\020\000\032\002\010\001\022\014\n\010NOMETHOD\020\000\022\n\n\006ACTU" +
+      "AL\020\001\022\013\n\007PREDICT\020\002\022\n\n\006MANUAL\020\003\032\002\020\001\"\240\001\n\005Gr" +
+      "ade\022\013\n\007NOGRADE\020\000\022\016\n\nSUPPLYHIGH\020\n\022\r\n\tSUPP" +
+      "LYMID\020\024\022\r\n\tSUPPLYLOW\020\036\022\007\n\003MID\020(\022\r\n\tDEMAN" +
+      "DLOW\0202\022\r\n\tDEMANDMID\020<\022\016\n\nDEMANDHIGH\020F\022\021\n" +
+      "\rDEMANDEXTREME\020P\022\022\n\016DEMANDSHUTDOWN\020ZBUZS" +
+      "gitlab.sbmt.io/paas/content/operations/s" +
+      "urgelevel/pkg/server/events/surgelevelev" +
+      "entb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2263,7 +2721,7 @@ public final class Surgelevelevent {
     internal_static_surgelevelevent_SurgeEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevelevent_SurgeEvent_descriptor,
-        new java.lang.String[] { "StoreId", "Method", "PastSurgeLevel", "PresentSurgeLevel", "FutureSurgeLevel", "StartedAt", "StepSurgeLevel", "Info", });
+        new java.lang.String[] { "StoreId", "Method", "PastSurgeLevel", "PresentSurgeLevel", "FutureSurgeLevel", "StartedAt", "StepSurgeLevel", "Info", "Id", "Grade", });
     internal_static_surgelevelevent_SurgeEvent_Info_descriptor =
       internal_static_surgelevelevent_SurgeEvent_descriptor.getNestedTypes().get(0);
     internal_static_surgelevelevent_SurgeEvent_Info_fieldAccessorTable = new

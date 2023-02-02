@@ -11,6 +11,7 @@ import ru.instamart.jdbc.dao.shippingcalc.*;
 import ru.instamart.jdbc.entity.shippingcalc.RetailersEntity;
 import ru.instamart.jdbc.entity.shippingcalc.SurgeParametersEntity;
 import ru.instamart.jdbc.entity.shippingcalc.SwitchbacksEntity;
+import surgelevelevent.Surgelevelevent.SurgeEvent.Grade;
 
 import java.util.List;
 import java.util.UUID;
@@ -41,14 +42,16 @@ public class ShippingCalcBase {
     protected final int SURGE_PARAMETERS_REGION_ADDITION_DIFF = 1;
     protected final int SURGE_PARAMETERS_VERTICAL_ADDITION_DIFF = SURGE_PARAMETERS_REGION_ADDITION_DIFF + 1;
     protected final int SURGE_PARAMETERS_ADDITION_DIFF = SURGE_PARAMETERS_VERTICAL_ADDITION_DIFF + 1;
-    protected final int SURGE_SWITCHBACK_REGION_ADDITION_DIFF = SURGE_PARAMETERS_ADDITION_DIFF + 1;
+    protected final int SURGE_PARAMETERS_GRADE_ADDITION_DIFF = SURGE_PARAMETERS_ADDITION_DIFF + 1;
+    protected final int SURGE_SWITCHBACK_REGION_ADDITION_DIFF = SURGE_PARAMETERS_GRADE_ADDITION_DIFF + 1;
     protected final int SURGE_SWITCHBACK_VERTICAL_ADDITION_DIFF = SURGE_SWITCHBACK_REGION_ADDITION_DIFF + 1;
     protected final int SURGE_SWITCHBACK_ADDITION_DIFF = SURGE_SWITCHBACK_VERTICAL_ADDITION_DIFF + 1;
     protected final int SURGE_SWITCHBACK_FUTURE_ADDITION_DIFF = SURGE_SWITCHBACK_ADDITION_DIFF + 1;
     protected static final int REGION_ID_WITH_SWITCHBACK = nextInt(100000, 150000);
     protected static final int REGION_ID_WITH_FUTURE_SWITCHBACK = REGION_ID_WITH_SWITCHBACK + 1;
-    protected static final int REGION_ID_WITH_PARAMETERS = nextInt(150000, 200000);
+    protected static final int REGION_ID_WITH_PARAMETERS = REGION_ID_WITH_FUTURE_SWITCHBACK + 1;
     protected static final int REGION_ID_WITHOUT_PARAMETERS = REGION_ID_WITH_PARAMETERS + 1;
+    protected static final int REGION_ID_WITH_GRADE = REGION_ID_WITHOUT_PARAMETERS + 1;
     protected static final int RETAILER_ID_WITH_SWITCHBACK = 1;
     protected static final int RETAILER_ID_WITHOUT_SWITCHBACK = REGION_ID_WITH_FUTURE_SWITCHBACK;
     protected static final int RETAILER_ID_WITH_PARAMETERS = 2;
@@ -57,13 +60,15 @@ public class ShippingCalcBase {
     protected int surgeParameterId;
     protected int surgeParameterVerticalId;
     protected int surgeParameterRegionId;
+    protected int surgeParameterWithGradeId;
     protected final String FIXED_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
     protected final String COMPLEX_SCRIPT_NAME = "Цена с учётом сложности, с подсказками и объяснением";
     protected final String FIXED_SCRIPT_PARAMS = "{\"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
     protected final String COMPLEX_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"basePositions\": \"30\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";
-    protected final String REDIS_VALUE = "{\"StoreID\":\"%s\",\"Method\":1,\"PastSurgeLever\":%d,\"PresentSurgeLevel\":%d,\"FutureSurgeLevel\":%d,\"StartedAt\":\"%s\",\"StepSurgeLevel\":1}";
+    protected final String REDIS_VALUE = "{\"StoreID\":\"%s\",\"Method\":1,\"PastSurgeLever\":%d,\"PresentSurgeLevel\":%d,\"FutureSurgeLevel\":%d,\"StartedAt\":\"%s\",\"StepSurgeLevel\":1, \"Grade\":\"%s\"}";
     protected final String SURGE_PARAMETERS = "{\"intervals\": [{\"left_boundary\": 0, \"right_boundary\": 1, \"price_addition\": 0, \"percent_addition\": 0, \"min_cart_addition\": 0}, {\"left_boundary\": 1, \"right_boundary\": %s, \"price_addition\": %s, \"percent_addition\": %s, \"min_cart_addition\": %s}, {\"left_boundary\": %s, \"right_boundary\": 10, \"price_addition\": 20000, \"percent_addition\": 20, \"min_cart_addition\": 20000}]}";
     protected final String SURGE_PLANNED_PARAMETERS = "{\"intervals\": [{\"left_boundary\": 0, \"right_boundary\": 1, \"price_addition\": 0, \"percent_addition\": 0, \"min_cart_addition\": 0}, {\"left_boundary\": 1, \"right_boundary\": %s, \"price_addition\": %s, \"percent_addition\": %s, \"min_cart_addition\": %s}, {\"left_boundary\": %s, \"right_boundary\": 10, \"price_addition\": 20000, \"percent_addition\": 20, \"min_cart_addition\": 20000}], \"allow_min_cart_for_planned\": true}";
+    protected final String SURGE_PARAMETERS_WITH_GRADE = "{\"intervals\": [{\"grade\": \"%s\", \"left_boundary\": 0, \"right_boundary\": 0.1, \"price_addition\": %s, \"percent_addition\":0, \"min_cart_addition\": %s}, {\"left_boundary\": 0.1, \"right_boundary\": %s, \"price_addition\": %s, \"percent_addition\": %s, \"min_cart_addition\": %s}, {\"left_boundary\": %s, \"right_boundary\": 10, \"price_addition\": 20000, \"percent_addition\": 20, \"min_cart_addition\": 20000}]}";
 
     @BeforeSuite(alwaysRun = true, description = "Убираем автобиндер")
     public void deactivateBindingRules() {
@@ -135,6 +140,13 @@ public class ShippingCalcBase {
                         .vertical(VERTICAL)
                         .parameters(String.format(SURGE_PARAMETERS,
                                 SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_ADDITION_DIFF, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_ADDITION_DIFF, SURGE_LEVEL))
+                        .build());
+        surgeParameterWithGradeId = SurgeParametersDao.INSTANCE.setSurgeParameters(
+                SurgeParametersEntity.builder()
+                        .regionId(REGION_ID_WITH_GRADE)
+                        .vertical(-1)
+                        .parameters(String.format(SURGE_PARAMETERS_WITH_GRADE,
+                                Grade.MID.toString().toLowerCase(), SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_GRADE_ADDITION_DIFF, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_GRADE_ADDITION_DIFF, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
                         .build());
         boolean switchbackRegion = SwitchbacksDao.INSTANCE.setSwitchbacks(
                 SwitchbacksEntity.builder()
@@ -222,9 +234,9 @@ public class ShippingCalcBase {
 
     @AfterSuite(alwaysRun = true, description = "Удаляем Surge Parameters")
     public void deleteSurgeThresholds() {
-        if (surgeParameterId > 0 || surgeParameterRegionId > 0 || surgeParameterVerticalId > 0) {
+        if (surgeParameterId > 0 && surgeParameterRegionId > 0 && surgeParameterVerticalId > 0 && surgeParameterWithGradeId > 0) {
             SurgeParametersDao.INSTANCE.deleteSurgeParameters(
-                    List.of(surgeParameterId, surgeParameterRegionId, surgeParameterVerticalId)
+                    List.of(surgeParameterId, surgeParameterRegionId, surgeParameterVerticalId, surgeParameterWithGradeId)
             );
         }
     }

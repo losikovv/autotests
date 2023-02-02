@@ -11,6 +11,7 @@ import ru.instamart.jdbc.dao.shippingcalc.SwitchbacksDao;
 import shippingcalc.GetSwitchbacksRequest;
 import shippingcalc.SetSwitchbacksRequest;
 import shippingcalc.ShippingcalcGrpc;
+import surgelevelevent.Surgelevelevent.SurgeEvent.Grade;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -27,6 +28,9 @@ public class SwitchbacksTest extends ShippingCalcBase {
             "%s,%s,%s,%s,test,\"{\"\"intervals\"\":[{\"\"left_boundary\"\":0,\"\"right_boundary\"\":1,\"\"price_addition\"\":0,\"\"percent_addition\"\":0,\"\"min_cart_addition\"\":0},{\"\"left_boundary\"\":1,\"\"right_boundary\"\":%s,\"\"price_addition\"\":%s,\"\"percent_addition\"\":%s,\"\"min_cart_addition\"\":%s},{\"\"left_boundary\"\":%s,\"\"right_boundary\"\":10,\"\"price_addition\"\":20000,\"\"percent_addition\"\":20,\"\"min_cart_addition\"\":20000}]}\"\n" +
             "%s,%s,%s,%s,test,\"{\"\"intervals\"\":[{\"\"left_boundary\"\":0,\"\"right_boundary\"\":1,\"\"price_addition\"\":0,\"\"percent_addition\"\":0,\"\"min_cart_addition\"\":0},{\"\"left_boundary\"\":1,\"\"right_boundary\"\":%s,\"\"price_addition\"\":%s,\"\"percent_addition\"\":%s,\"\"min_cart_addition\"\":%s},{\"\"left_boundary\"\":%s,\"\"right_boundary\"\":10,\"\"price_addition\"\":20000,\"\"percent_addition\"\":20,\"\"min_cart_addition\"\":20000}]}\"\n" +
             "%s,%s,%s,%s,test,\"{\"\"intervals\"\":[{\"\"left_boundary\"\":0,\"\"right_boundary\"\":1,\"\"price_addition\"\":0,\"\"percent_addition\"\":0,\"\"min_cart_addition\"\":0},{\"\"left_boundary\"\":1,\"\"right_boundary\"\":%s,\"\"price_addition\"\":%s,\"\"percent_addition\"\":%s,\"\"min_cart_addition\"\":%s},{\"\"left_boundary\"\":%s,\"\"right_boundary\"\":10,\"\"price_addition\"\":20000,\"\"percent_addition\"\":20,\"\"min_cart_addition\"\":20000}]}\"\n";
+    private final String SWITCHBACK_INTERVAL_WITH_GRADE = "start_date_time,end_date_time,region_id,vertical,group,parameters\n" +
+            "%s,%s,%s,%s,test,\"{\"\"intervals\"\":[{\"\"grade\"\":\"\"%s\"\",\"\"left_boundary\"\":0,\"\"right_boundary\"\":1,\"\"price_addition\"\":0,\"\"percent_addition\"\":0,\"\"min_cart_addition\"\":0},{\"\"left_boundary\"\":1,\"\"right_boundary\"\":%s,\"\"price_addition\"\":%s,\"\"percent_addition\"\":%s,\"\"min_cart_addition\"\":%s},{\"\"left_boundary\"\":%s,\"\"right_boundary\"\":10,\"\"price_addition\"\":20000,\"\"percent_addition\"\":20,\"\"min_cart_addition\"\":20000}]}\"\n";
+    private final String DATE = getDbDate();
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -40,7 +44,7 @@ public class SwitchbacksTest extends ShippingCalcBase {
     public void setSwitchbacks() {
         var request = SetSwitchbacksRequest.newBuilder()
                 .setData(String.format(SWITCHBACK_INTERVAL,
-                        getDbDate(), getDbDate(), 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                        DATE, DATE, 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
                 .setTypeValue(0)
                 .build();
         var response = clientShippingCalc.setSwitchbacks(request);
@@ -56,9 +60,9 @@ public class SwitchbacksTest extends ShippingCalcBase {
     public void setSwitchbacksReplace() {
         var request = SetSwitchbacksRequest.newBuilder()
                 .setData(String.format(MULTIPLE_SWITCHBACK_INTERVAL,
-                        getDbDate(), getDbDate(), 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL,
-                        getDbDate(), getDbDate(), 2, 2, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL,
-                        getDbDate(), getDbDate(), 3, 3, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                        DATE, DATE, 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL,
+                        DATE, DATE, 2, 2, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL,
+                        DATE, DATE, 3, 3, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
                 .setTypeValue(0)
                 .build();
         var response = clientShippingCalc.setSwitchbacks(request);
@@ -92,7 +96,7 @@ public class SwitchbacksTest extends ShippingCalcBase {
     public void setSwitchbacksOneGlobal() {
         var request = SetSwitchbacksRequest.newBuilder()
                 .setData(String.format(SWITCHBACK_INTERVAL,
-                        getDbDate(), getDbDate(), -1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                        DATE, DATE, -1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
                 .setTypeValue(0)
                 .build();
         var response = clientShippingCalc.setSwitchbacks(request);
@@ -109,7 +113,7 @@ public class SwitchbacksTest extends ShippingCalcBase {
     public void setSwitchbacksBothGlobal() {
         var request = SetSwitchbacksRequest.newBuilder()
                 .setData(String.format(SWITCHBACK_INTERVAL,
-                        getDbDate(), getDbDate(), -1, -1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                        DATE, DATE, -1, -1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
                 .setTypeValue(0)
                 .build();
         clientShippingCalc.setSwitchbacks(request);
@@ -124,9 +128,9 @@ public class SwitchbacksTest extends ShippingCalcBase {
     public void setSwitchbacksSameIntervals() {
         var request = SetSwitchbacksRequest.newBuilder()
                 .setData(String.format(MULTIPLE_SWITCHBACK_INTERVAL,
-                        getDbDate(), getDbDate(), 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL,
-                        getDbDate(), getDbDate(), 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL,
-                        getDbDate(), getDbDate(), 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                        DATE, DATE, 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL,
+                        DATE, DATE, 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL,
+                        DATE, DATE, 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
                 .setTypeValue(0)
                 .build();
         clientShippingCalc.setSwitchbacks(request);
@@ -141,8 +145,89 @@ public class SwitchbacksTest extends ShippingCalcBase {
     public void setSwitchbacksInvalidType() {
         var request = SetSwitchbacksRequest.newBuilder()
                 .setData(String.format(SWITCHBACK_INTERVAL,
-                        getDbDate(), getDbDate(), 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                        DATE, DATE, 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
                 .setTypeValue(1)
+                .build();
+        clientShippingCalc.setSwitchbacks(request);
+    }
+
+    @TmsLink("598")
+    @Story("Set Switchbacks")
+    @Test(description = "Установка switchback-интервала с grade из контракта surgelevelevent",
+            groups = "ondemand-shippingcalc")
+    public void setSwitchbacksWithGrade() {
+        var request = SetSwitchbacksRequest.newBuilder()
+                .setData(String.format(SWITCHBACK_INTERVAL_WITH_GRADE,
+                        DATE, DATE, 1, 1, Grade.MID.toString().toLowerCase(), SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                .setTypeValue(0)
+                .build();
+        var response = clientShippingCalc.setSwitchbacks(request);
+
+        Allure.step("Проверка успешного выполнения запроса", () -> assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ"));
+    }
+
+    @TmsLink("599")
+    @Story("Set Switchbacks")
+    @Test(description = "Установка switchback-интервала с пустым grade",
+            groups = "ondemand-shippingcalc")
+    public void setSwitchbacksWithEmptyGrade() {
+        var request = SetSwitchbacksRequest.newBuilder()
+                .setData(String.format(SWITCHBACK_INTERVAL_WITH_GRADE,
+                        DATE, DATE, 1, 1, "", SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                .setTypeValue(0)
+                .build();
+        var response = clientShippingCalc.setSwitchbacks(request);
+
+        Allure.step("Проверка успешного выполнения запроса", () -> assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ"));
+    }
+
+    @TmsLink("600")
+    @Story("Set Switchbacks")
+    @Test(description = "Установка switchback-интервала с grade без числовых интервалов",
+            groups = "ondemand-shippingcalc")
+    public void setSwitchbacksWithGradeAndEmptyIntervals() {
+        final var switchback = "start_date_time,end_date_time,region_id,vertical,group,parameters\n" +
+                "%s,%s,%s,%s,test,\"{\"\"intervals\"\":[{\"\"grade\"\":\"\"%s\"\",\"\"price_addition\"\":0,\"\"percent_addition\"\":0,\"\"min_cart_addition\"\":0},{\"\"left_boundary\"\":1,\"\"right_boundary\"\":%s,\"\"price_addition\"\":%s,\"\"percent_addition\"\":%s,\"\"min_cart_addition\"\":%s},{\"\"left_boundary\"\":%s,\"\"right_boundary\"\":10,\"\"price_addition\"\":20000,\"\"percent_addition\"\":20,\"\"min_cart_addition\"\":20000}]}\"\n";
+
+        var request = SetSwitchbacksRequest.newBuilder()
+                .setData(String.format(switchback,
+                        DATE, DATE, 1, 1, Grade.MID.toString().toLowerCase(), SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                .setTypeValue(0)
+                .build();
+        var response = clientShippingCalc.setSwitchbacks(request);
+
+        Allure.step("Проверка успешного выполнения запроса", () -> assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ"));
+    }
+
+    @TmsLink("601")
+    @Story("Set Switchbacks")
+    @Test(description = "Получение ошибки при установке switchback-интервала без grade и числовых интервалов",
+            groups = "ondemand-shippingcalc",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot set switchbacks: cannot extract switchback experiments from data received: error parsing record 0, params validation failed, right boundary must be greater than left.*")
+    public void setSwitchbacksWithEmptyGradeAndEmptyIntervals() {
+        final var switchback = "start_date_time,end_date_time,region_id,vertical,group,parameters\n" +
+                "%s,%s,%s,%s,test,\"{\"\"intervals\"\":[{\"\"price_addition\"\":0,\"\"percent_addition\"\":0,\"\"min_cart_addition\"\":0},{\"\"left_boundary\"\":1,\"\"right_boundary\"\":%s,\"\"price_addition\"\":%s,\"\"percent_addition\"\":%s,\"\"min_cart_addition\"\":%s},{\"\"left_boundary\"\":%s,\"\"right_boundary\"\":10,\"\"price_addition\"\":20000,\"\"percent_addition\"\":20,\"\"min_cart_addition\"\":20000}]}\"\n";
+
+        var request = SetSwitchbacksRequest.newBuilder()
+                .setData(String.format(switchback,
+                        DATE, DATE, 1, 1, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                .setTypeValue(0)
+                .build();
+        clientShippingCalc.setSwitchbacks(request);
+    }
+
+    @TmsLink("621")
+    @Story("Set Switchbacks")
+    @Test(description = "Получение ошибки при установке switchback-интервала с не валидным grade",
+            groups = "ondemand-shippingcalc",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp =  "INVALID_ARGUMENT: cannot set switchbacks: cannot extract switchback experiments from data received: error parsing record 0, params validation failed, incorrect grade test, experiments data parsing error")
+    public void setSwitchbacksWithNonValidGrade() {
+        var request = SetSwitchbacksRequest.newBuilder()
+                .setData(String.format(SWITCHBACK_INTERVAL_WITH_GRADE,
+                        DATE, DATE, 1, 1, "test", SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                .setTypeValue(0)
                 .build();
         clientShippingCalc.setSwitchbacks(request);
     }

@@ -17,6 +17,7 @@ import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
 import ru.instamart.redis.RedisService;
 import shippingcalc.*;
+import surgelevelevent.Surgelevelevent.SurgeEvent.Grade;
 
 import java.util.UUID;
 
@@ -36,6 +37,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     private int selfDeliveryStrategyId;
     private final String STORE_ID = UUID.randomUUID().toString();
     private final String SURGE_STORE_ID = UUID.randomUUID().toString();
+    private final String GRADE_SURGE_STORE_ID = UUID.randomUUID().toString();
     private final String SHIPMENT_ID = UUID.randomUUID().toString();
     private final String ORDER_ID = UUID.randomUUID().toString();
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
@@ -56,6 +58,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addCondition(addRule(localStrategyId, "", minCartAmountSecond.toString(), 1, "min_cart"), "{\"Max\": 1000000000000000, \"Min\": 300100}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addBinding(localStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
         addBinding(localStrategyId, SURGE_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
+        addBinding(localStrategyId, GRADE_SURGE_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
 
         conditionStrategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
         addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "0"), 0, "delivery_price"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
@@ -70,7 +73,6 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "49900"), 7, "delivery_price"), "{}", ConditionType.ALWAYS.name().toLowerCase());
         addCondition(addRule(conditionStrategyId, "", minCartAmountThird.toString(), 0, "min_cart"), "{}", ConditionType.ALWAYS.name().toLowerCase());
         addBinding(conditionStrategyId, STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.COURIER_DELIVERY.toString());
-        addBinding(conditionStrategyId, SURGE_STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.COURIER_DELIVERY.toString());
 
         globalStrategyId = addStrategy(true, 0, DeliveryType.COURIER_DELIVERY.toString());
         addCondition(addRule(globalStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "10001"), 0, "delivery_price"), "{}", "always");
@@ -82,7 +84,8 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addBinding(selfDeliveryStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.SELF_DELIVERY.toString());
         addBinding(selfDeliveryStrategyId, SURGE_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.SELF_DELIVERY.toString());
 
-        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, SURGE_LEVEL, getZonedUTCDate()), 1000);
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, SURGE_LEVEL, getZonedUTCDate(), ""), 1000);
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + GRADE_SURGE_STORE_ID, String.format(REDIS_VALUE, GRADE_SURGE_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, SURGE_LEVEL, getZonedUTCDate(), Grade.MID.toString().toLowerCase()), 1000);
 
         surgeDisabled = ShippingCalcHelper.getInstance().isSurgeDisabled();
         plannedSurgeFeature = ShippingCalcHelper.getInstance().isPlannedSurgeFeatureEnabled();
@@ -314,7 +317,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         });
     }
 
-    @TmsLinks({@TmsLink("288"), @TmsLink("513"), @TmsLink("541")})
+    @TmsLinks({@TmsLink("288"), @TmsLink("513"), @TmsLink("541"), @TmsLink("603")})
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены с наценкой surge",
             groups = "ondemand-shippingcalc")
@@ -601,7 +604,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "ondemand-shippingcalc",
             dependsOnMethods = "getDeliveryPriceWithSurge")
     public void getDeliveryPriceWithStoreCustomerSurge() {
-        Allure.step("Меняем уровень surge у магазина", () -> RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, 0, 0, 0, getZonedUTCDate()), 100));
+        Allure.step("Меняем уровень surge у магазина", () -> RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, 0, 0, 0, getZonedUTCDate(), ""), 100));
 
         var request = getDeliveryPriceRequest(
                 1, UUID.randomUUID().toString(), true, 1000, 1, 199900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_PARAMETERS, RETAILER_ID_WITHOUT_PARAMETERS, 0,
@@ -685,6 +688,50 @@ public class DeliveryPriceTest extends ShippingCalcBase {
 
         var response = clientShippingCalc.getDeliveryPrice(request);
         checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
+    }
+
+    @TmsLink("602")
+    @Story("Get Delivery Price")
+    @Test(description = "Расчет цены с наценкой surge по grade",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithGradeSurge() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, SHIPMENT_ID, true, 1000, 1, 99900, GRADE_SURGE_STORE_ID, "NEW", REGION_ID_WITH_GRADE, RETAILER_ID_WITHOUT_PARAMETERS, 0,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        checkDeliveryPrice(response, localStrategyId, 19900 + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_GRADE_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_GRADE_ADDITION_DIFF, 3, 4, 0, 0);
+        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_PARAMETERS_GRADE_ADDITION_DIFF);
+    }
+
+    @TmsLink("602")
+    @Story("Get Delivery Price")
+    @Test(description = "Расчет цены с наценкой surge не по grade (нет в redis)",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithGradeSurgeNoRedis() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, SHIPMENT_ID, true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_GRADE, RETAILER_ID_WITHOUT_PARAMETERS, 0,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        checkDeliveryPrice(response, localStrategyId, 31890, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT, 3, 4, 0, 0);
+        checkDeliveryPriceSurgeOn(response, SURGE_LEVEL, 11990);
     }
 
     @TmsLink("572")
