@@ -275,6 +275,65 @@ public final class OperatorStatusChangeTests {
         dialogs().checkSnackbarVisible();
         dialogs().checkSnackbarText("Ошибка переключения статуса.");
     }
+
+    @TmsLink("128")
+    @Test(description = "Переход в статус Горячая линия", groups = {CHATWOOT})
+    public void switchToHotLineTest() {
+        UserData userData = UserManager.getOperatorUser();
+
+        //TODO Нагенерить 3+ чата
+        login().goToPage();
+        login().waitPageLoad();
+
+        login().fillEmail(userData.getEmail());
+        login().fillPassword(userData.getPassword());
+        login().clickSubmit();
+
+        dialogs().waitPageLoad();
+        dialogs().interactLeftMenu().checkAccountMenuButtonDisplayed();
+        dialogs().interactLeftMenu().clickAccountMenuButton();
+        dialogs().interactLeftMenu().interactAccountMenu().checkAccountMenuDisplayed();
+
+        dialogs().interactLeftMenu().interactAccountMenu().clickUserState(ONLINE.getName());
+        dialogs().interactLeftMenu().interactAccountMenu().checkAccountMenuNotDisplayed();
+        dialogs().interactLeftMenu().checkAccountMenuIndicatorColor(ONLINE.getColorCode());
+
+        dialogs().checkActiveGroupTab("Мои");
+        dialogs().checkConversationCountOnActiveTab("4");
+        dialogs().checkConversationsVisible();
+        dialogs().checkConversationsCount(4);
+
+        dialogs().interactLeftMenu().clickAccountMenuButton();
+        dialogs().interactLeftMenu().interactAccountMenu().checkAccountMenuDisplayed();
+        dialogs().interactLeftMenu().interactAccountMenu().clickUserState(HOTLINE.getName());
+        dialogs().interactLeftMenu().interactAccountMenu().checkAccountMenuNotDisplayed();
+        dialogs().interactLeftMenu().checkAccountMenuIndicatorColor(HOTLINE.getColorCode());
+
+        dialogs().checkActiveGroupTab("Мои");
+        dialogs().checkConversationCountOnActiveTab("4");
+        dialogs().checkConversationsVisible();
+        dialogs().checkConversationsCount(4);
+
+        dialogs().clickFirstConversationInList();
+        dialogs().checkEditConversationButtonVisible();
+        dialogs().clickEditConversation();
+        dialogs().interactEditPopover().checkEditConversationPopoverVisible();
+        dialogs().interactEditPopover().clickTopicInput();
+        dialogs().interactEditPopover().checkTopicsListVisible();
+        dialogs().interactEditPopover().selectFirstTopic();
+        dialogs().interactEditPopover().checkTopicsListNotVisible();
+        dialogs().interactEditPopover().clickSubmitEditPopover();
+        dialogs().checkNotificationMessageVisible();
+        dialogs().checkNotificationMessageText("Данные успешно сохранены");
+        dialogs().clickCompleteConversation();
+        dialogs().checkReopenConversationVisible();
+
+        dialogs().checkConversationCountOnActiveTab("3");
+        dialogs().checkConversationsVisible();
+        dialogs().checkConversationsCount(3);
+
+        dialogs().checkLoadCompleteMsgVisible();
+    }
 }
 
 
