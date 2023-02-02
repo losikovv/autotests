@@ -15,7 +15,7 @@ before_script:
   - cd web-tests
 
 cache:
-  key: ${CI_COMMIT_REF_NAME}
+  key: ${CI_PROJECT_ID}
   paths:
     - web-tests/.gradle
     - web-tests/build-cache
