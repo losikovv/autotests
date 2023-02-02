@@ -1,6 +1,7 @@
 # Ignore build folders
 **/.allure
 **/.gradle
+**/build-cache
 **/build
 **/allure-results
 **/logs
@@ -31,3 +32,6 @@ gradle-app.setting
 # Ignore screen
 **/diff.png
 **/actual.png
+
+# Env
+.env
