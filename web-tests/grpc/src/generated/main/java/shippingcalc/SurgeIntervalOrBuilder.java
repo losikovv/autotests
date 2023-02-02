@@ -56,4 +56,24 @@ public interface SurgeIntervalOrBuilder extends
    * @return The minCartAddition.
    */
   long getMinCartAddition();
+
+  /**
+   * <pre>
+   * Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+   * </pre>
+   *
+   * <code>string grade = 6;</code>
+   * @return The grade.
+   */
+  java.lang.String getGrade();
+  /**
+   * <pre>
+   * Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+   * </pre>
+   *
+   * <code>string grade = 6;</code>
+   * @return The bytes for grade.
+   */
+  com.google.protobuf.ByteString
+      getGradeBytes();
 }

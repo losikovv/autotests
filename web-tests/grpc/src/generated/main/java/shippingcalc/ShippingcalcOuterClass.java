@@ -668,108 +668,108 @@ public final class ShippingcalcOuterClass {
       "\001\001\022\030\n\013description\030\014 \001(\tH\006\210\001\001B\014\n\n_tenant_" +
       "idB\014\n\n_region_idB\016\n\014_retailer_idB\013\n\t_ond" +
       "emandB\013\n\t_label_idB\r\n\013_deleted_atB\016\n\014_de" +
-      "scription\"\213\001\n\rSurgeInterval\022\025\n\rleft_boun" +
+      "scription\"\232\001\n\rSurgeInterval\022\025\n\rleft_boun" +
       "dary\030\001 \001(\002\022\026\n\016right_boundary\030\002 \001(\002\022\026\n\016pr" +
       "ice_addition\030\003 \001(\004\022\030\n\020percent_addition\030\004" +
-      " \001(\004\022\031\n\021min_cart_addition\030\005 \001(\004\"\301\001\n\017Surg" +
-      "eSwitchback\0223\n\017start_date_time\030\001 \001(\0132\032.g" +
-      "oogle.protobuf.Timestamp\0221\n\rend_date_tim" +
-      "e\030\002 \001(\0132\032.google.protobuf.Timestamp\022\021\n\tr" +
-      "egion_id\030\003 \001(\003\022\020\n\010vertical\030\004 \001(\005\022\r\n\005grou" +
-      "p\030\005 \001(\t\022\022\n\nparameters\030\006 \001(\t\"Z\n\025SetSwitch" +
-      "backsRequest\022\014\n\004data\030\001 \001(\t\0223\n\004type\030\002 \001(\016" +
-      "2%.shippingcalc.SurgeSwitchbackDataType\"" +
-      "\030\n\026SetSwitchbacksResponse\"\027\n\025GetSwitchba" +
-      "cksRequest\"L\n\026GetSwitchbacksResponse\0222\n\013" +
-      "experiments\030\001 \003(\0132\035.shippingcalc.SurgeSw" +
-      "itchback\"\276\001\n\017SurgeParameters\022\n\n\002id\030\001 \001(\004" +
-      "\022\021\n\tregion_id\030\002 \001(\003\022\020\n\010vertical\030\003 \001(\005\022<\n" +
-      "\nparameters\030\004 \001(\0132(.shippingcalc.SurgePa" +
-      "rameters.Parameters\032<\n\nParameters\022.\n\tint" +
-      "ervals\030\001 \003(\0132\033.shippingcalc.SurgeInterva" +
-      "l\"\033\n\031GetSurgeParametersRequest\"O\n\032GetSur" +
-      "geParametersResponse\0221\n\nparameters\030\001 \003(\013" +
-      "2\035.shippingcalc.SurgeParameters\"N\n\031SetSu" +
-      "rgeParametersRequest\0221\n\nparameters\030\001 \003(\013" +
-      "2\035.shippingcalc.SurgeParameters\"\034\n\032SetSu" +
-      "rgeParametersResponse\"*\n\034DeleteSurgePara" +
-      "metersRequest\022\n\n\002id\030\001 \003(\004\"\037\n\035DeleteSurge" +
-      "ParametersResponse*a\n\014DeliveryType\022\010\n\004NO" +
-      "NE\020\000\022\021\n\rSELF_DELIVERY\020\001\022\024\n\020COURIER_DELIV" +
-      "ERY\020\002\022\007\n\003B2B\020\003\022\025\n\021B2B_SELF_DELIVERY\020\004*\272\001" +
-      "\n\rConditionType\022\n\n\006ALWAYS\020\000\022\022\n\016FIRST_N_O" +
-      "RDERS\020\001\022\025\n\021ORDER_VALUE_RANGE\020\002\022\024\n\020AB_TES" +
-      "T_ENTRANCE\020\003\022\030\n\024ORDER_DISTANCE_RANGE\020\004\022\r" +
-      "\n\tPLATFORMS\020\005\022\024\n\020REGISTERED_AFTER\020\006\022\r\n\tO" +
-      "N_DEMAND\020\007\022\016\n\nCLIENT_API\020\010*1\n\013ScriptStat" +
-      "e\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SCRIPT_ERROR\020\001*\"\n" +
-      "\027SurgeSwitchbackDataType\022\007\n\003CSV\020\0002\327\023\n\014Sh" +
-      "ippingcalc\022[\n\016CreateStrategy\022#.shippingc" +
-      "alc.CreateStrategyRequest\032$.shippingcalc" +
-      ".CreateStrategyResponse\022[\n\016UpdateStrateg" +
-      "y\022#.shippingcalc.UpdateStrategyRequest\032$" +
-      ".shippingcalc.UpdateStrategyResponse\022U\n\014" +
-      "BindStrategy\022!.shippingcalc.BindStrategy" +
-      "Request\032\".shippingcalc.BindStrategyRespo" +
-      "nse\022[\n\016UnbindStrategy\022#.shippingcalc.Unb" +
-      "indStrategyRequest\032$.shippingcalc.Unbind" +
-      "StrategyResponse\022d\n\021CreateBindingRule\022&." +
-      "shippingcalc.CreateBindingRuleRequest\032\'." +
-      "shippingcalc.CreateBindingRuleResponse\022d" +
-      "\n\021UpdateBindingRule\022&.shippingcalc.Updat" +
-      "eBindingRuleRequest\032\'.shippingcalc.Updat" +
-      "eBindingRuleResponse\022^\n\017GetBindingRules\022" +
-      "$.shippingcalc.GetBindingRulesRequest\032%." +
-      "shippingcalc.GetBindingRulesResponse\022d\n\021" +
-      "DeleteBindingRule\022&.shippingcalc.DeleteB" +
-      "indingRuleRequest\032\'.shippingcalc.DeleteB" +
-      "indingRuleResponse\022X\n\rGetStrategies\022\".sh" +
-      "ippingcalc.GetStrategiesRequest\032#.shippi" +
-      "ngcalc.GetStrategiesResponse\022R\n\013GetStrat" +
-      "egy\022 .shippingcalc.GetStrategyRequest\032!." +
-      "shippingcalc.GetStrategyResponse\022p\n\025GetS" +
-      "trategiesForStore\022*.shippingcalc.GetStra" +
-      "tegiesForStoreRequest\032+.shippingcalc.Get" +
-      "StrategiesForStoreResponse\022[\n\016DeleteStra" +
-      "tegy\022#.shippingcalc.DeleteStrategyReques" +
-      "t\032$.shippingcalc.DeleteStrategyResponse\022" +
-      "U\n\014CreateScript\022!.shippingcalc.CreateScr" +
-      "iptRequest\032\".shippingcalc.CreateScriptRe" +
-      "sponse\022U\n\014UpdateScript\022!.shippingcalc.Up" +
-      "dateScriptRequest\032\".shippingcalc.UpdateS" +
-      "criptResponse\022L\n\tGetScript\022\036.shippingcal" +
-      "c.GetScriptRequest\032\037.shippingcalc.GetScr" +
-      "iptResponse\022O\n\nGetScripts\022\037.shippingcalc" +
-      ".GetScriptsRequest\032 .shippingcalc.GetScr" +
-      "iptsResponse\022m\n\024GetScriptTestResults\022).s" +
-      "hippingcalc.GetScriptTestResultsRequest\032" +
-      "*.shippingcalc.GetScriptTestResultsRespo" +
-      "nse\022U\n\014DeleteScript\022!.shippingcalc.Delet" +
-      "eScriptRequest\032\".shippingcalc.DeleteScri" +
-      "ptResponse\022a\n\020GetDeliveryPrice\022%.shippin" +
-      "gcalc.GetDeliveryPriceRequest\032&.shipping" +
-      "calc.GetDeliveryPriceResponse\022d\n\021GetMinC" +
-      "artAmounts\022&.shippingcalc.GetMinCartAmou" +
-      "ntsRequest\032\'.shippingcalc.GetMinCartAmou" +
-      "ntsResponse\022p\n\025GetDeliveryConditions\022*.s" +
-      "hippingcalc.GetDeliveryConditionsRequest" +
-      "\032+.shippingcalc.GetDeliveryConditionsRes" +
-      "ponse\022[\n\016SetSwitchbacks\022#.shippingcalc.S" +
-      "etSwitchbacksRequest\032$.shippingcalc.SetS" +
-      "witchbacksResponse\022[\n\016GetSwitchbacks\022#.s" +
-      "hippingcalc.GetSwitchbacksRequest\032$.ship" +
-      "pingcalc.GetSwitchbacksResponse\022g\n\022GetSu" +
-      "rgeParameters\022\'.shippingcalc.GetSurgePar" +
-      "ametersRequest\032(.shippingcalc.GetSurgePa" +
-      "rametersResponse\022g\n\022SetSurgeParameters\022\'" +
-      ".shippingcalc.SetSurgeParametersRequest\032" +
-      "(.shippingcalc.SetSurgeParametersRespons" +
-      "e\022p\n\025DeleteSurgeParameters\022*.shippingcal" +
-      "c.DeleteSurgeParametersRequest\032+.shippin" +
-      "gcalc.DeleteSurgeParametersResponseBTP\001Z" +
-      "Pgitlab.sbmt.io/paas/content/operations/" +
-      "shippingcalc/pkg/server/grpc/shippingcal" +
-      "cb\006proto3"
+      " \001(\004\022\031\n\021min_cart_addition\030\005 \001(\004\022\r\n\005grade" +
+      "\030\006 \001(\t\"\301\001\n\017SurgeSwitchback\0223\n\017start_date" +
+      "_time\030\001 \001(\0132\032.google.protobuf.Timestamp\022" +
+      "1\n\rend_date_time\030\002 \001(\0132\032.google.protobuf" +
+      ".Timestamp\022\021\n\tregion_id\030\003 \001(\003\022\020\n\010vertica" +
+      "l\030\004 \001(\005\022\r\n\005group\030\005 \001(\t\022\022\n\nparameters\030\006 \001" +
+      "(\t\"Z\n\025SetSwitchbacksRequest\022\014\n\004data\030\001 \001(" +
+      "\t\0223\n\004type\030\002 \001(\0162%.shippingcalc.SurgeSwit" +
+      "chbackDataType\"\030\n\026SetSwitchbacksResponse" +
+      "\"\027\n\025GetSwitchbacksRequest\"L\n\026GetSwitchba" +
+      "cksResponse\0222\n\013experiments\030\001 \003(\0132\035.shipp" +
+      "ingcalc.SurgeSwitchback\"\276\001\n\017SurgeParamet" +
+      "ers\022\n\n\002id\030\001 \001(\004\022\021\n\tregion_id\030\002 \001(\003\022\020\n\010ve" +
+      "rtical\030\003 \001(\005\022<\n\nparameters\030\004 \001(\0132(.shipp" +
+      "ingcalc.SurgeParameters.Parameters\032<\n\nPa" +
+      "rameters\022.\n\tintervals\030\001 \003(\0132\033.shippingca" +
+      "lc.SurgeInterval\"\033\n\031GetSurgeParametersRe" +
+      "quest\"O\n\032GetSurgeParametersResponse\0221\n\np" +
+      "arameters\030\001 \003(\0132\035.shippingcalc.SurgePara" +
+      "meters\"N\n\031SetSurgeParametersRequest\0221\n\np" +
+      "arameters\030\001 \003(\0132\035.shippingcalc.SurgePara" +
+      "meters\"\034\n\032SetSurgeParametersResponse\"*\n\034" +
+      "DeleteSurgeParametersRequest\022\n\n\002id\030\001 \003(\004" +
+      "\"\037\n\035DeleteSurgeParametersResponse*a\n\014Del" +
+      "iveryType\022\010\n\004NONE\020\000\022\021\n\rSELF_DELIVERY\020\001\022\024" +
+      "\n\020COURIER_DELIVERY\020\002\022\007\n\003B2B\020\003\022\025\n\021B2B_SEL" +
+      "F_DELIVERY\020\004*\272\001\n\rConditionType\022\n\n\006ALWAYS" +
+      "\020\000\022\022\n\016FIRST_N_ORDERS\020\001\022\025\n\021ORDER_VALUE_RA" +
+      "NGE\020\002\022\024\n\020AB_TEST_ENTRANCE\020\003\022\030\n\024ORDER_DIS" +
+      "TANCE_RANGE\020\004\022\r\n\tPLATFORMS\020\005\022\024\n\020REGISTER" +
+      "ED_AFTER\020\006\022\r\n\tON_DEMAND\020\007\022\016\n\nCLIENT_API\020" +
+      "\010*1\n\013ScriptState\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SC" +
+      "RIPT_ERROR\020\001*\"\n\027SurgeSwitchbackDataType\022" +
+      "\007\n\003CSV\020\0002\327\023\n\014Shippingcalc\022[\n\016CreateStrat" +
+      "egy\022#.shippingcalc.CreateStrategyRequest" +
+      "\032$.shippingcalc.CreateStrategyResponse\022[" +
+      "\n\016UpdateStrategy\022#.shippingcalc.UpdateSt" +
+      "rategyRequest\032$.shippingcalc.UpdateStrat" +
+      "egyResponse\022U\n\014BindStrategy\022!.shippingca" +
+      "lc.BindStrategyRequest\032\".shippingcalc.Bi" +
+      "ndStrategyResponse\022[\n\016UnbindStrategy\022#.s" +
+      "hippingcalc.UnbindStrategyRequest\032$.ship" +
+      "pingcalc.UnbindStrategyResponse\022d\n\021Creat" +
+      "eBindingRule\022&.shippingcalc.CreateBindin" +
+      "gRuleRequest\032\'.shippingcalc.CreateBindin" +
+      "gRuleResponse\022d\n\021UpdateBindingRule\022&.shi" +
+      "ppingcalc.UpdateBindingRuleRequest\032\'.shi" +
+      "ppingcalc.UpdateBindingRuleResponse\022^\n\017G" +
+      "etBindingRules\022$.shippingcalc.GetBinding" +
+      "RulesRequest\032%.shippingcalc.GetBindingRu" +
+      "lesResponse\022d\n\021DeleteBindingRule\022&.shipp" +
+      "ingcalc.DeleteBindingRuleRequest\032\'.shipp" +
+      "ingcalc.DeleteBindingRuleResponse\022X\n\rGet" +
+      "Strategies\022\".shippingcalc.GetStrategiesR" +
+      "equest\032#.shippingcalc.GetStrategiesRespo" +
+      "nse\022R\n\013GetStrategy\022 .shippingcalc.GetStr" +
+      "ategyRequest\032!.shippingcalc.GetStrategyR" +
+      "esponse\022p\n\025GetStrategiesForStore\022*.shipp" +
+      "ingcalc.GetStrategiesForStoreRequest\032+.s" +
+      "hippingcalc.GetStrategiesForStoreRespons" +
+      "e\022[\n\016DeleteStrategy\022#.shippingcalc.Delet" +
+      "eStrategyRequest\032$.shippingcalc.DeleteSt" +
+      "rategyResponse\022U\n\014CreateScript\022!.shippin" +
+      "gcalc.CreateScriptRequest\032\".shippingcalc" +
+      ".CreateScriptResponse\022U\n\014UpdateScript\022!." +
+      "shippingcalc.UpdateScriptRequest\032\".shipp" +
+      "ingcalc.UpdateScriptResponse\022L\n\tGetScrip" +
+      "t\022\036.shippingcalc.GetScriptRequest\032\037.ship" +
+      "pingcalc.GetScriptResponse\022O\n\nGetScripts" +
+      "\022\037.shippingcalc.GetScriptsRequest\032 .ship" +
+      "pingcalc.GetScriptsResponse\022m\n\024GetScript" +
+      "TestResults\022).shippingcalc.GetScriptTest" +
+      "ResultsRequest\032*.shippingcalc.GetScriptT" +
+      "estResultsResponse\022U\n\014DeleteScript\022!.shi" +
+      "ppingcalc.DeleteScriptRequest\032\".shipping" +
+      "calc.DeleteScriptResponse\022a\n\020GetDelivery" +
+      "Price\022%.shippingcalc.GetDeliveryPriceReq" +
+      "uest\032&.shippingcalc.GetDeliveryPriceResp" +
+      "onse\022d\n\021GetMinCartAmounts\022&.shippingcalc" +
+      ".GetMinCartAmountsRequest\032\'.shippingcalc" +
+      ".GetMinCartAmountsResponse\022p\n\025GetDeliver" +
+      "yConditions\022*.shippingcalc.GetDeliveryCo" +
+      "nditionsRequest\032+.shippingcalc.GetDelive" +
+      "ryConditionsResponse\022[\n\016SetSwitchbacks\022#" +
+      ".shippingcalc.SetSwitchbacksRequest\032$.sh" +
+      "ippingcalc.SetSwitchbacksResponse\022[\n\016Get" +
+      "Switchbacks\022#.shippingcalc.GetSwitchback" +
+      "sRequest\032$.shippingcalc.GetSwitchbacksRe" +
+      "sponse\022g\n\022GetSurgeParameters\022\'.shippingc" +
+      "alc.GetSurgeParametersRequest\032(.shipping" +
+      "calc.GetSurgeParametersResponse\022g\n\022SetSu" +
+      "rgeParameters\022\'.shippingcalc.SetSurgePar" +
+      "ametersRequest\032(.shippingcalc.SetSurgePa" +
+      "rametersResponse\022p\n\025DeleteSurgeParameter" +
+      "s\022*.shippingcalc.DeleteSurgeParametersRe" +
+      "quest\032+.shippingcalc.DeleteSurgeParamete" +
+      "rsResponseBTP\001ZPgitlab.sbmt.io/paas/cont" +
+      "ent/operations/shippingcalc/pkg/server/g" +
+      "rpc/shippingcalcb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1195,7 +1195,7 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_SurgeInterval_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SurgeInterval_descriptor,
-        new java.lang.String[] { "LeftBoundary", "RightBoundary", "PriceAddition", "PercentAddition", "MinCartAddition", });
+        new java.lang.String[] { "LeftBoundary", "RightBoundary", "PriceAddition", "PercentAddition", "MinCartAddition", "Grade", });
     internal_static_shippingcalc_SurgeSwitchback_descriptor =
       getDescriptor().getMessageTypes().get(70);
     internal_static_shippingcalc_SurgeSwitchback_fieldAccessorTable = new

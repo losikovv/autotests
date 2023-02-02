@@ -829,6 +829,8 @@ message SurgeInterval {
 	uint64 percent_addition = 4;
 	// Дополнительная наценка, напрямую добавленная к мин корзине
 	uint64 min_cart_addition = 5;
+	// Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+	string grade = 6;
 }
 
 // Ожидаемый тип данных для surge switchback-теста

@@ -20,6 +20,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private SurgeInterval() {
+    grade_ = "";
   }
 
   @java.lang.Override
@@ -75,6 +76,12 @@ private static final long serialVersionUID = 0L;
           case 40: {
 
             minCartAddition_ = input.readUInt64();
+            break;
+          }
+          case 50: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            grade_ = s;
             break;
           }
           default: {
@@ -184,6 +191,52 @@ private static final long serialVersionUID = 0L;
     return minCartAddition_;
   }
 
+  public static final int GRADE_FIELD_NUMBER = 6;
+  private volatile java.lang.Object grade_;
+  /**
+   * <pre>
+   * Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+   * </pre>
+   *
+   * <code>string grade = 6;</code>
+   * @return The grade.
+   */
+  @java.lang.Override
+  public java.lang.String getGrade() {
+    java.lang.Object ref = grade_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      grade_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+   * </pre>
+   *
+   * <code>string grade = 6;</code>
+   * @return The bytes for grade.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getGradeBytes() {
+    java.lang.Object ref = grade_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      grade_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -212,6 +265,9 @@ private static final long serialVersionUID = 0L;
     }
     if (minCartAddition_ != 0L) {
       output.writeUInt64(5, minCartAddition_);
+    }
+    if (!getGradeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, grade_);
     }
     unknownFields.writeTo(output);
   }
@@ -242,6 +298,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(5, minCartAddition_);
     }
+    if (!getGradeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, grade_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -269,6 +328,8 @@ private static final long serialVersionUID = 0L;
         != other.getPercentAddition()) return false;
     if (getMinCartAddition()
         != other.getMinCartAddition()) return false;
+    if (!getGrade()
+        .equals(other.getGrade())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -295,6 +356,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + MIN_CART_ADDITION_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getMinCartAddition());
+    hash = (37 * hash) + GRADE_FIELD_NUMBER;
+    hash = (53 * hash) + getGrade().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -442,6 +505,8 @@ private static final long serialVersionUID = 0L;
 
       minCartAddition_ = 0L;
 
+      grade_ = "";
+
       return this;
     }
 
@@ -473,6 +538,7 @@ private static final long serialVersionUID = 0L;
       result.priceAddition_ = priceAddition_;
       result.percentAddition_ = percentAddition_;
       result.minCartAddition_ = minCartAddition_;
+      result.grade_ = grade_;
       onBuilt();
       return result;
     }
@@ -535,6 +601,10 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getMinCartAddition() != 0L) {
         setMinCartAddition(other.getMinCartAddition());
+      }
+      if (!other.getGrade().isEmpty()) {
+        grade_ = other.grade_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -776,6 +846,102 @@ private static final long serialVersionUID = 0L;
     public Builder clearMinCartAddition() {
       
       minCartAddition_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object grade_ = "";
+    /**
+     * <pre>
+     * Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+     * </pre>
+     *
+     * <code>string grade = 6;</code>
+     * @return The grade.
+     */
+    public java.lang.String getGrade() {
+      java.lang.Object ref = grade_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        grade_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+     * </pre>
+     *
+     * <code>string grade = 6;</code>
+     * @return The bytes for grade.
+     */
+    public com.google.protobuf.ByteString
+        getGradeBytes() {
+      java.lang.Object ref = grade_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        grade_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+     * </pre>
+     *
+     * <code>string grade = 6;</code>
+     * @param value The grade to set.
+     * @return This builder for chaining.
+     */
+    public Builder setGrade(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      grade_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+     * </pre>
+     *
+     * <code>string grade = 6;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearGrade() {
+      
+      grade_ = getDefaultInstance().getGrade();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Строковое название уровня сурджа в нижнем регистре (например, supplyhigh). Может быть пустым
+     * </pre>
+     *
+     * <code>string grade = 6;</code>
+     * @param value The bytes for grade to set.
+     * @return This builder for chaining.
+     */
+    public Builder setGradeBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      grade_ = value;
       onChanged();
       return this;
     }
