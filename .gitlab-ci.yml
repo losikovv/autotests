@@ -10,10 +10,15 @@ include:
 
 image: ${JAVA_IMAGE}
 
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/web-tests/.gradle
+  - cd web-tests
+
 cache:
-  key: ${CI_PROJECT_ID}
+  key: ${CI_COMMIT_REF_NAME}
   paths:
     - web-tests/.gradle
+    - web-tests/build-cache
 
 variables:
   HARBOR_URL: "dreg.sbmt.io"
@@ -30,10 +35,20 @@ variables:
   RUNNER_IMAGE_TAG: "v1.4.5"
   RUNNER_IMAGE_URL: "${RUNNER_IMAGE_REPO}/${RUNNER_IMAGE_NAME}:${RUNNER_IMAGE_TAG}"
   JAVA_IMAGE: ${HARBOR_URL}/${HARBOR_PROJECT}/${HARBOR_APP}:${DOCKER_BUILD_TAGS}
+  # Политика работы с GIT
   GIT_SUBMODULE_STRATEGY: none
   GIT_DEPTH: 10
+  # ==================================
+  #  Сжатие артифактов и кеша
+  FF_USE_FASTZIP: "true"
+  ARTIFACT_COMPRESSION_LEVEL: "fast"
+  CACHE_COMPRESSION_LEVEL: "fast"
+  # ==================================
+  # Gradle
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  # ==================================
   CI_RUN_ALL_JOBS: "true"
+
   ADMIN_URL:
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ АДМИНКИ! Нужно указывать полный url. Например: https://stf-kraken.k-stage.sbermarket.tech/"
   ADMIN_FORWARD:
@@ -57,16 +72,21 @@ variables:
   DEFAULT_SID:
     description: "Сид магазина на котором будут прогоняться тесты"
   CI_MODULE:
-    description: "Название тестового модуля. Возможные варианты: ui-stf/ui-b2b/ui-admin/ui-partners/ui-chatwoot/api/grpc/kafka"
+    value: "api"
+    options:
+      - "ui-stf"
+      - "ui-b2b"
+      - "ui-admin"
+      - "ui-partners"
+      - "api"
+      - "grpc"
+      - "kafka"
+    description: "Название тестового модуля"
   CI_GROUP:
     description: "Название группы тестов для запуска. Например: all-cart/all-order/api-instamart-smoke/api-instamart-regress"
   BFF_FORWARD:
     value: "default"
     description: "Значение для хедера sbm-forward-feature-version-paas-content-front-platform-stf-mobile-aggregator"
-
-before_script:
-  - export GRADLE_USER_HOME=$(pwd)/web-tests/.gradle
-  - cd web-tests
 
 stages:
   - mr

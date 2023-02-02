@@ -1,2 +1,9 @@
 rootProject.name = 'Kraken'
 include 'kraken', 'api', 'reforged', 'grpc', 'jdbc', 'kafka', 'k8s', 'redis'
+
+buildCache {
+    local {
+        directory = new File(rootDir, 'build-cache')
+        removeUnusedEntriesAfterDays = 10
+    }
+}
