@@ -50,7 +50,6 @@ public interface BashCommands {
          */
         ETA_SURGE_INTERVALS("cat /proc/1/environ | tr '\\0' '\\n' | grep -i SURGE_INTERVALS"),
         SHIPPINGCALC_SURGE_DISABLED("cat /proc/1/environ | tr '\\0' '\\n' | grep -i SURGE_DISABLED"),
-        SHIPPINGCALC_PLANNED_SURGE_FEATURE("cat /proc/1/environ | tr '\\0' '\\n' | grep -i PLANNED_SURGE_FEATURE_FLAG"),
         SURGE_EVENT_OUTDATE("cat /proc/1/environ | tr '\\0' '\\n' | grep -i SURGEEVENT_OUTDATE"),
         SURGE_HTTP_AUTH_TOKENS("cat /proc/1/environ | tr '\\0' '\\n' | grep -i HTTP_AUTH_TOKENS");
         private String command;

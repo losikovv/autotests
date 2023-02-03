@@ -14,7 +14,6 @@ import java.util.Objects;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.SHIPPINGCALC_PLANNED_SURGE_FEATURE;
 import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.SHIPPINGCALC_SURGE_DISABLED;
 import static ru.instamart.api.helper.K8sHelper.getServiceEnvProp;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
@@ -25,12 +24,9 @@ public class ShippingCalcHelper {
     private static volatile ShippingCalcHelper INSTANCE;
     @Getter
     private final boolean surgeDisabled;
-    @Getter
-    private final boolean plannedSurgeFeatureEnabled;
 
     private ShippingCalcHelper() {
         this.surgeDisabled = getSurgeDisabledFromK8s();
-        this.plannedSurgeFeatureEnabled = getPlannedSurgeFeatureFromK8s();
     }
 
     public static ShippingCalcHelper getInstance() {
@@ -508,15 +504,5 @@ public class ShippingCalcHelper {
         final var envProp = getServiceEnvProp(EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE, SHIPPINGCALC_SURGE_DISABLED.get());
         final var surgeDisabled = matchWithRegex("^\\[SURGE_DISABLED=(.\\w+)\\]$", envProp.toString(), 1);
         return surgeDisabled.equals("true");
-    }
-
-    @Step("Смотрим включена ли фича планнового сюрджа")
-    public static boolean getPlannedSurgeFeatureFromK8s() {
-        final var envProp = getServiceEnvProp(EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE, SHIPPINGCALC_PLANNED_SURGE_FEATURE.get());
-        final var plannedSurgeFeature = matchWithRegex("^\\[PLANNED_SURGE_FEATURE_FLAG=(.\\w+)\\]$", envProp.toString(), 1);
-        if (!plannedSurgeFeature.isBlank()) {
-            return plannedSurgeFeature.equals("true");
-        }
-        return true; // по дефолту в конфиге сервиса true
     }
 }

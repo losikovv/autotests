@@ -43,7 +43,6 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
     private final String ANONYMOUS_ID = UUID.randomUUID().toString();
     private boolean surgeDisabled;
-    private boolean plannedSurgeFeature;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -88,7 +87,6 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + GRADE_SURGE_STORE_ID, String.format(REDIS_VALUE, GRADE_SURGE_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, SURGE_LEVEL, getZonedUTCDate(), Grade.MID.toString().toLowerCase()), 1000);
 
         surgeDisabled = ShippingCalcHelper.getInstance().isSurgeDisabled();
-        plannedSurgeFeature = ShippingCalcHelper.getInstance().isPlannedSurgeFeatureEnabled();
     }
 
     @TmsLinks(value = {@TmsLink("355"), @TmsLink("356"), @TmsLink("289"), @TmsLink("321"), @TmsLink("322"), @TmsLink("328"), @TmsLink("330"), @TmsLink("383"), @TmsLink("427"), @TmsLink("512")})
@@ -650,36 +648,11 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 29900, 0, 3, 4, 0, 0);
     }
 
-    @TmsLink("570")
-    @Story("Get Delivery Price")
-    @Test(description = "Расчет цены с наценкой слота surge_delivery_window_addition для ondemand магазина",
-            groups = "ondemand-shippingcalc")
-    public void getDeliveryPriceWithSurgeDeliveryWindowAdditionOndemandOn() {
-
-        if (plannedSurgeFeature) {
-            throw new SkipException("Пропускаем, потому что PLANNED_SURGE_FEATURE_FLAG = true");
-        }
-
-        var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 1, 10000,
-                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
-                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
-                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
-
-        var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 29900, minCartAmountFirst, 3, 4, 0, 0);
-    }
-
     @TmsLink("571")
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены без наценки слота surge_delivery_window_addition для ondemand магазина",
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceWithSurgeDeliveryWindowAdditionOndemandOff() {
-
-        if (!plannedSurgeFeature) {
-            throw new SkipException("Пропускаем, потому что PLANNED_SURGE_FEATURE_FLAG = false");
-        }
-
         var request = getDeliveryPriceRequest(
                 1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 1, 10000,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
