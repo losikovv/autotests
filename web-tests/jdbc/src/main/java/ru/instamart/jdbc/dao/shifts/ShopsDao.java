@@ -16,7 +16,10 @@ import static org.testng.Assert.fail;
 public class ShopsDao extends AbstractDao<Long, ShopsEntity> {
 
     public static final ShopsDao INSTANCE = new ShopsDao();
-    private final String SELECT_ORIGINAL_ID_DESK = "SELECT uuid, original_id FROM public.shops ORDER BY original_id DESC LIMIT 1;";
+    private final String SELECT_ORIGINAL_ID_DESK = "SELECT uuid, original_id " +
+            "FROM public.shops " +
+            "WHERE EXISTS(SELECT 1 FROM planning_areas WHERE shops.delivery_area_id = planning_areas.delivery_area_id)\n" +
+            "ORDER BY original_id DESC LIMIT 1";
     private final String DELETE = "DELETE FROM public.shops";
 
     public List<ShopsEntity> getOriginalId() {
