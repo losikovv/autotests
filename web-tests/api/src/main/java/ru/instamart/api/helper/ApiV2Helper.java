@@ -22,6 +22,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.PaymentCardData;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.retry.StepRetry;
 import ru.instamart.kraken.util.*;
 
 import java.math.BigDecimal;
@@ -1085,6 +1086,7 @@ public final class ApiV2Helper {
      * Узнаем номер заказа
      */
     @Step("Узнаем номер заказа")
+    @StepRetry(count = 3)
     public String getCurrentOrderNumber() {
         Response response = OrdersV2Request.POST();
         checkStatusCode200(response);
