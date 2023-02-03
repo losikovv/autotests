@@ -5082,7 +5082,10 @@ public final class ImportPlanningPeriods {
       "ry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\002:\0028\001\0327\n\025Pr" +
       "edictedPayrollEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005valu" +
       "e\030\002 \001(\002:\0028\001\0325\n\023PublishedTimesEntry\022\013\n\003ke" +
-      "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001b\006proto3"
+      "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001BYZWgitlab.sbm" +
+      "t.io/paas/content/operations/shifts/pkg/" +
+      "server/events/import_planning_periodsb\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

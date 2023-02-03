@@ -46,8 +46,13 @@ public class KafkaProducers {
     }
 
     public RecordMetadata publish(final KafkaConfig config, byte[] msg) {
+        return publish(config, null, msg);
+    }
+
+    public RecordMetadata publish(final KafkaConfig config, String uuid, byte[] msg) {
         createProducer(config);
-        ProducerRecord<String, byte[]> record = new ProducerRecord(config.topic, msg);
+
+        ProducerRecord<String, byte[]> record = Objects.isNull(uuid) ? new ProducerRecord(config.topic, msg) : new ProducerRecord<>(config.topic, uuid, msg);
 
         long start = System.currentTimeMillis();
 
