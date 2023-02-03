@@ -49,7 +49,7 @@ public class ShiftsStoreChangedTest extends RestBase {
     public void preconditions() {
         var shopsEntity = ShopsDao.INSTANCE.getOriginalId();
         assertTrue(shopsEntity.size() > 0, "Данные по id shops пустые");
-        baseStoreId = shopsEntity.get(0).getOriginalId() + 1;
+        baseStoreId = shopsEntity.get(0).getOriginalId();
         deliveryAreaId = baseStoreId + 1;
         var storeChanged = StoreChangedOuterClass.StoreChanged.newBuilder()
                 .setAdditionalSecondsForAssembly(600)
