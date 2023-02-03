@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.config.UiProperties;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
@@ -25,7 +25,7 @@ public final class OrderRepeatTests {
     @BeforeMethod(alwaysRun = true, description = "Аутентификация и выбор адреса доставки")
     public void preconditions() {
         ordersUser.set(UserManager.getQaUser());
-        helper.makeOrder(ordersUser.get(), UiProperties.DEFAULT_SID, 2);
+        helper.makeOrder(ordersUser.get(), DEFAULT_SID, 2);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена заказа")
@@ -36,7 +36,7 @@ public final class OrderRepeatTests {
     @TmsLink("2614")
     @Test(description = "Добавление в корзину товаров из истории заказов", groups = {STF_PROD_S})
     public void successRepeatLastOrderFromOrderHistory() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -55,7 +55,7 @@ public final class OrderRepeatTests {
     @TmsLink("1669")
     @Test(description = "Повтор крайнего заказа со страницы заказа", groups = {STF_PROD_S})
     public void successRepeatOrderFromOrderDetails() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();

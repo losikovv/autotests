@@ -3,14 +3,14 @@ package ru.instamart.test.reforged.stf_prod.shopping;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.config.UiProperties;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -26,9 +26,9 @@ public class ShoppingTestsForExistingUser {
             groups = {STF_PROD_S})
     public void successCollectItemsForMinOrder() {
         final UserData shoppingCartUser = UserManager.getQaUser();
-        helper.dropAndFillCart(shoppingCartUser, UiProperties.DEFAULT_SID);
+        helper.dropAndFillCart(shoppingCartUser, DEFAULT_SID);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();

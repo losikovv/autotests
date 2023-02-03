@@ -3,14 +3,14 @@ package ru.instamart.test.reforged.stf_prod.user;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.Metrics;
-import ru.instamart.reforged.core.config.UiProperties;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -33,7 +33,7 @@ public final class UserRegistrationTests {
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {STF_PROD_S})
     public void successRegOnMainPage() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -65,7 +65,7 @@ public final class UserRegistrationTests {
         home().interactAddressModal().clickFindStores();
         home().interactAddressModal().checkAddressModalIsNotVisible();
 
-        home().clickOnStoreWithSid(UiProperties.DEFAULT_SID);
+        home().clickOnStoreWithSid(DEFAULT_SID);
 
         shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();

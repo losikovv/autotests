@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.config.UiProperties;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
@@ -27,7 +27,7 @@ public final class CheckoutSlotsTests {
     @BeforeMethod(alwaysRun = true, description = "Шаги предусловия")
     public void beforeTest() {
         ordersUser.set(UserManager.getQaUser());
-        this.helper.dropAndFillCart(ordersUser.get(), UiProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(ordersUser.get(), DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -38,7 +38,7 @@ public final class CheckoutSlotsTests {
     @TmsLink("3638")
     @Test(description = "Выбор слота доставки", groups = {STF_PROD_S})
     public void testSelectDeliverySlot() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -137,7 +137,7 @@ public final class CheckoutSlotsTests {
     @TmsLink("3634")
     @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {STF_PROD_S})
     public void testSelectSlotRequired() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
