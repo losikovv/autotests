@@ -1086,7 +1086,7 @@ public final class ApiV2Helper {
      * Узнаем номер заказа
      */
     @Step("Узнаем номер заказа")
-    @StepRetry
+    @StepRetry(count = 3)
     public String getCurrentOrderNumber() {
         Response response = OrdersV2Request.POST();
         checkStatusCode200(response);
