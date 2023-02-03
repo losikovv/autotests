@@ -29,6 +29,25 @@ task localRun(type: Test) {
     environment 'TEST_RUN_NAME', 'STF UI DEBUG'
 }
 
+task localRunB2B(type: Test) {
+    useTestNG() {
+        options {
+            listeners.add("ru.instamart.reforged.core.listener.UiExecutionListener")
+            listeners.add("ru.instamart.reforged.core.listener.UiDefaultListener")
+        }
+    }
+    environment 'BROWSER', 'chrome'
+    environment 'HEADLESS', 'false'
+    environment 'URL_STF_FRONT', 'https://next-default.k-stage.sbermarket.tech/'
+    environment 'URL_B2B_FRONT', 'https://next-default-smbusiness.k-stage.sbermarket.tech/'
+    environment 'B2B_FORWARD', 's-sb-stf15-smbusiness'
+    environment 'STF_FORWARD', 's-sb-stf15-smbusiness'
+    environment 'CI_MODULE', 'ui-b2b'
+    environment 'P_ENV', 'business-custom'
+    environment 'PROJECT_ID', 'DEBUG'
+    environment 'TEST_RUN_NAME', 'B2B UI DEBUG'
+}
+
 task localRunAdminOnDemand(type: Test) {
     useTestNG() {
         options {
