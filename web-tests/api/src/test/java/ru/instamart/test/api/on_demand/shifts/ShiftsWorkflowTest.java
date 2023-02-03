@@ -17,13 +17,18 @@ import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.api.response.ErrorTypeResponse;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
+import ru.instamart.jdbc.entity.order_service.publicScheme.JobsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import io.qameta.allure.TmsLink;
+import ru.instamart.kraken.util.ThreadUtil;
 import workflow.ServiceGrpc;
 
+import java.util.List;
+
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
+import static ru.instamart.api.helper.WorkflowHelper.awaitJobUuid;
 import static ru.instamart.api.helper.WorkflowHelper.getWorkflowUuid;
 import static ru.instamart.kraken.data.StartPointsTenants.METRO_9;
 import static ru.instamart.kraken.util.TimeUtil.getDateMinusSec;
@@ -32,10 +37,11 @@ import static ru.instamart.kraken.util.TimeUtil.getDateMinusSec;
 @Feature("Endpoints")
 public class ShiftsWorkflowTest extends RestBase {
 
-    private int planningPeriodId;
+    private int shiftId;
     private OrderV2 order;
     private String shipmentUuid;
     private ServiceGrpc.ServiceBlockingStub clientWorkflow;
+    private List<JobsEntity> firstJobUuid;
 
     @BeforeClass(alwaysRun = true,
             description = "Оформляем смену и маршрутный лист")
@@ -48,12 +54,14 @@ public class ShiftsWorkflowTest extends RestBase {
         shiftsApi.cancelAllActiveShifts();
         shiftsApi.stopAllActiveShifts();
         //
-        planningPeriodId = shiftsApi.startOfShift(METRO_9);
+        shiftId = shiftsApi.startOfShift(METRO_9);
         SessionFactory.makeSession(SessionType.API_V2);
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
+        ThreadUtil.simplyAwait(2);
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
-        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
+        firstJobUuid = awaitJobUuid(shipmentUuid, 300L);
+        getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow, firstJobUuid, shiftId);
     }
 
     @AfterClass(alwaysRun = true)
@@ -68,7 +76,7 @@ public class ShiftsWorkflowTest extends RestBase {
     @Test(groups = {"api-shifts"},
             description = "Получение ошибки при завершении активной смены с активным маршрутным листом")
     public void startShift200() {
-        final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, METRO_9.getLat(), METRO_9.getLon());
+        final Response response = ShiftsRequest.Start.PATCH(shiftId, METRO_9.getLat(), METRO_9.getLon());
         checkStatusCode422(response);
         ErrorTypeResponse errorTypeResponse = response.as(ErrorTypeResponse.class);
         Allure.step("Проверка ошибки при начале смены", () -> {

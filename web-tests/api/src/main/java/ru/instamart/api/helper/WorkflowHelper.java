@@ -31,6 +31,7 @@ import workflow.WorkflowOuterClass.Shift.Transport;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
@@ -414,9 +415,10 @@ public class WorkflowHelper {
                         .build())
                 .build();
     }
+
     @Step("Подготавливаем запрос для создания маршрутного листа на сборку")
     public static CreateWorkflowsRequest getWorkflowsRequestWithAssembly(final OrderV2 secondOrder, final String secondShipmentUuid, final Timestamp time, final DeliveryType deliveryType,
-                                                                                final List<JobsEntity> jobs, final Integer shiftId) {
+                                                                         final List<JobsEntity> jobs, final Integer shiftId) {
         final var jobsList = jobs.stream()
                 .map(JobsEntity::getJobId)
                 .collect(Collectors.toList());
@@ -773,9 +775,10 @@ public class WorkflowHelper {
                 .until(() -> JobsDao.INSTANCE.findByShipmentUuid(shipmentUuid).size() > 0);
         return JobsDao.INSTANCE.findByShipmentUuid(shipmentUuid);
     }
+
     @Step("Подготавливаем запрос для создания маршрутного листа на доставку")
-    public static CreateWorkflowsRequest getWorkflowsRequestDelivery (final OrderV2 order, final String shipmentUuid, final Timestamp time,
-                                                                      final DeliveryType deliveryType, final List<JobsEntity> jobs, final Integer shiftId) {
+    public static CreateWorkflowsRequest getWorkflowsRequestDelivery(final OrderV2 order, final String shipmentUuid, final Timestamp time,
+                                                                     final DeliveryType deliveryType, final List<JobsEntity> jobs, final Integer shiftId) {
         var mapJobs = jobs.stream()
                 .map(JobsEntity::getJobId)
                 .collect(Collectors.toList());

@@ -39,6 +39,7 @@ message StoreChanged {
   string closing_time = 32;
   DispatchSettings dispatch_settings = 33;
   PlaceSettings place_settings = 34;
+  string operational_zone_name = 35;
 }
 
 message DispatchSettings {
@@ -87,6 +88,7 @@ enum PlaceType {
   SHOP = 0;
 }
 
+
 enum AssemblyType {
   EXTERNAL = 0;
   SM = 1;
@@ -96,5 +98,4 @@ enum AssemblyType {
 enum AvailableTasks {
   DELIVERY = 0;
   ASSEMBLY = 1;
-
 }

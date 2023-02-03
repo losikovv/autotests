@@ -668,6 +668,18 @@ public final class StoreChangedOuterClass {
      * <code>.candidates.PlaceSettings place_settings = 34;</code>
      */
     candidates.StoreChangedOuterClass.PlaceSettingsOrBuilder getPlaceSettingsOrBuilder();
+
+    /**
+     * <code>string operational_zone_name = 35;</code>
+     * @return The operationalZoneName.
+     */
+    java.lang.String getOperationalZoneName();
+    /**
+     * <code>string operational_zone_name = 35;</code>
+     * @return The bytes for operationalZoneName.
+     */
+    com.google.protobuf.ByteString
+        getOperationalZoneNameBytes();
   }
   /**
    * Protobuf type {@code candidates.StoreChanged}
@@ -695,6 +707,7 @@ public final class StoreChangedOuterClass {
       phone_ = "";
       openingTime_ = "";
       closingTime_ = "";
+      operationalZoneName_ = "";
     }
 
     @java.lang.Override
@@ -948,6 +961,12 @@ public final class StoreChangedOuterClass {
                 placeSettings_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 282: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              operationalZoneName_ = s;
               break;
             }
             default: {
@@ -1782,6 +1801,44 @@ public final class StoreChangedOuterClass {
       return getPlaceSettings();
     }
 
+    public static final int OPERATIONAL_ZONE_NAME_FIELD_NUMBER = 35;
+    private volatile java.lang.Object operationalZoneName_;
+    /**
+     * <code>string operational_zone_name = 35;</code>
+     * @return The operationalZoneName.
+     */
+    @java.lang.Override
+    public java.lang.String getOperationalZoneName() {
+      java.lang.Object ref = operationalZoneName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        operationalZoneName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string operational_zone_name = 35;</code>
+     * @return The bytes for operationalZoneName.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOperationalZoneNameBytes() {
+      java.lang.Object ref = operationalZoneName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        operationalZoneName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1897,6 +1954,9 @@ public final class StoreChangedOuterClass {
       }
       if (placeSettings_ != null) {
         output.writeMessage(34, getPlaceSettings());
+      }
+      if (!getOperationalZoneNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 35, operationalZoneName_);
       }
       unknownFields.writeTo(output);
     }
@@ -2030,6 +2090,9 @@ public final class StoreChangedOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(34, getPlaceSettings());
       }
+      if (!getOperationalZoneNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(35, operationalZoneName_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -2128,6 +2191,8 @@ public final class StoreChangedOuterClass {
         if (!getPlaceSettings()
             .equals(other.getPlaceSettings())) return false;
       }
+      if (!getOperationalZoneName()
+          .equals(other.getOperationalZoneName())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2233,6 +2298,8 @@ public final class StoreChangedOuterClass {
         hash = (37 * hash) + PLACE_SETTINGS_FIELD_NUMBER;
         hash = (53 * hash) + getPlaceSettings().hashCode();
       }
+      hash = (37 * hash) + OPERATIONAL_ZONE_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getOperationalZoneName().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2454,6 +2521,8 @@ public final class StoreChangedOuterClass {
           placeSettings_ = null;
           placeSettingsBuilder_ = null;
         }
+        operationalZoneName_ = "";
+
         return this;
       }
 
@@ -2534,6 +2603,7 @@ public final class StoreChangedOuterClass {
         } else {
           result.placeSettings_ = placeSettingsBuilder_.build();
         }
+        result.operationalZoneName_ = operationalZoneName_;
         onBuilt();
         return result;
       }
@@ -2696,6 +2766,10 @@ public final class StoreChangedOuterClass {
         }
         if (other.hasPlaceSettings()) {
           mergePlaceSettings(other.getPlaceSettings());
+        }
+        if (!other.getOperationalZoneName().isEmpty()) {
+          operationalZoneName_ = other.operationalZoneName_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4803,6 +4877,82 @@ public final class StoreChangedOuterClass {
           placeSettings_ = null;
         }
         return placeSettingsBuilder_;
+      }
+
+      private java.lang.Object operationalZoneName_ = "";
+      /**
+       * <code>string operational_zone_name = 35;</code>
+       * @return The operationalZoneName.
+       */
+      public java.lang.String getOperationalZoneName() {
+        java.lang.Object ref = operationalZoneName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          operationalZoneName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string operational_zone_name = 35;</code>
+       * @return The bytes for operationalZoneName.
+       */
+      public com.google.protobuf.ByteString
+          getOperationalZoneNameBytes() {
+        java.lang.Object ref = operationalZoneName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          operationalZoneName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string operational_zone_name = 35;</code>
+       * @param value The operationalZoneName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOperationalZoneName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        operationalZoneName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string operational_zone_name = 35;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOperationalZoneName() {
+        
+        operationalZoneName_ = getDefaultInstance().getOperationalZoneName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string operational_zone_name = 35;</code>
+       * @param value The bytes for operationalZoneName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOperationalZoneNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        operationalZoneName_ = value;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -8654,7 +8804,7 @@ public final class StoreChangedOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\035on_demand/store_changed.proto\022\ncandida" +
-      "tes\032\037google/protobuf/timestamp.proto\"\334\007\n" +
+      "tes\032\037google/protobuf/timestamp.proto\"\373\007\n" +
       "\014StoreChanged\022\n\n\002id\030\001 \001(\003\022\014\n\004uuid\030\002 \001(\t\022" +
       "\014\n\004name\030\003 \001(\t\022.\n\ncreated_at\030\004 \001(\0132\032.goog" +
       "le.protobuf.Timestamp\022.\n\nupdated_at\030\005 \001(" +
@@ -8679,42 +8829,42 @@ public final class StoreChangedOuterClass {
       "pening_time\030\037 \001(\t\022\024\n\014closing_time\030  \001(\t\022" +
       "7\n\021dispatch_settings\030! \001(\0132\034.candidates." +
       "DispatchSettings\0221\n\016place_settings\030\" \001(\013" +
-      "2\031.candidates.PlaceSettings\"\304\006\n\020Dispatch" +
-      "Settings\022$\n\034max_order_assign_retry_count" +
-      "\030\001 \001(\004\022\037\n\027avg_parking_min_vehicle\030\002 \001(\004\022" +
-      "&\n\036max_current_order_assign_queue\030\003 \001(\004\022" +
-      ":\n2order_weight_threshold_to_assign_to_v" +
-      "ehicle_gramms\030\004 \001(\006\0229\n1average_speed_for" +
-      "_straight_distance_to_client_min\030\005 \001(\004\022=" +
-      "\n5additional_factor_for_straight_distanc" +
-      "e_to_client_min\030\006 \001(\004\0229\n1order_transfer_" +
-      "time_from_assembly_to_delivery_min\030\007 \001(\004" +
-      "\022!\n\031avg_to_place_min_external\030\010 \001(\004\022\030\n\020a" +
-      "vg_to_place_min\030\t \001(\004\022\036\n\026offer_seen_time" +
-      "out_sec\030\n \001(\004\022\035\n\025place_location_center\030\013" +
-      " \001(\010\022\034\n\024last_position_expire\030\014 \001(\004\022\032\n\022ta" +
-      "xi_delivery_only\030\r \001(\010\0227\n/order_transfer" +
-      "_time_from_delivery_to_client_min\030\016 \001(\004\022" +
-      "8\n0order_receive_time_from_assembly_to_d" +
-      "elivery_min\030\017 \001(\004\022 \n\030offer_server_timeou" +
-      "t_sec\030\020 \001(\004\022&\n\036external_assembliers_pres" +
-      "ented\030\021 \001(\010\022\033\n\023gap_taxi_punish_min\030\022 \001(\004" +
-      "\022\026\n\016taxi_available\030\023 \001(\010\022(\n max_waiting_" +
-      "time_for_courier_min\030\024 \001(\004\"\356\002\n\rPlaceSett" +
-      "ings\022)\n\nplace_type\030\001 \001(\0162\025.candidates.Pl" +
-      "aceType\0221\n\016place_location\030\002 \001(\0132\031.candid" +
-      "ates.LocationPoint\0224\n\022assembly_task_type" +
-      "\030\003 \001(\0162\030.candidates.AssemblyType\022B\n\022deli" +
-      "very_task_type\030\004 \001(\0162&.candidates.PlaceS" +
-      "ettings.DeliveryType\022H\n$place_available_" +
-      "tasks_to_be_assigned\030\005 \003(\0162\032.candidates." +
-      "AvailableTasks\";\n\014DeliveryType\022\014\n\010EXTERN" +
-      "AL\020\000\022\006\n\002SM\020\001\022\t\n\005PLACE\020\002\022\n\n\006PICKUP\020\003\")\n\rL" +
-      "ocationPoint\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001*\025" +
-      "\n\tPlaceType\022\010\n\004SHOP\020\000*/\n\014AssemblyType\022\014\n" +
-      "\010EXTERNAL\020\000\022\006\n\002SM\020\001\022\t\n\005PLACE\020\002*,\n\016Availa" +
-      "bleTasks\022\014\n\010DELIVERY\020\000\022\014\n\010ASSEMBLY\020\001b\006pr" +
-      "oto3"
+      "2\031.candidates.PlaceSettings\022\035\n\025operation" +
+      "al_zone_name\030# \001(\t\"\304\006\n\020DispatchSettings\022" +
+      "$\n\034max_order_assign_retry_count\030\001 \001(\004\022\037\n" +
+      "\027avg_parking_min_vehicle\030\002 \001(\004\022&\n\036max_cu" +
+      "rrent_order_assign_queue\030\003 \001(\004\022:\n2order_" +
+      "weight_threshold_to_assign_to_vehicle_gr" +
+      "amms\030\004 \001(\006\0229\n1average_speed_for_straight" +
+      "_distance_to_client_min\030\005 \001(\004\022=\n5additio" +
+      "nal_factor_for_straight_distance_to_clie" +
+      "nt_min\030\006 \001(\004\0229\n1order_transfer_time_from" +
+      "_assembly_to_delivery_min\030\007 \001(\004\022!\n\031avg_t" +
+      "o_place_min_external\030\010 \001(\004\022\030\n\020avg_to_pla" +
+      "ce_min\030\t \001(\004\022\036\n\026offer_seen_timeout_sec\030\n" +
+      " \001(\004\022\035\n\025place_location_center\030\013 \001(\010\022\034\n\024l" +
+      "ast_position_expire\030\014 \001(\004\022\032\n\022taxi_delive" +
+      "ry_only\030\r \001(\010\0227\n/order_transfer_time_fro" +
+      "m_delivery_to_client_min\030\016 \001(\004\0228\n0order_" +
+      "receive_time_from_assembly_to_delivery_m" +
+      "in\030\017 \001(\004\022 \n\030offer_server_timeout_sec\030\020 \001" +
+      "(\004\022&\n\036external_assembliers_presented\030\021 \001" +
+      "(\010\022\033\n\023gap_taxi_punish_min\030\022 \001(\004\022\026\n\016taxi_" +
+      "available\030\023 \001(\010\022(\n max_waiting_time_for_" +
+      "courier_min\030\024 \001(\004\"\356\002\n\rPlaceSettings\022)\n\np" +
+      "lace_type\030\001 \001(\0162\025.candidates.PlaceType\0221" +
+      "\n\016place_location\030\002 \001(\0132\031.candidates.Loca" +
+      "tionPoint\0224\n\022assembly_task_type\030\003 \001(\0162\030." +
+      "candidates.AssemblyType\022B\n\022delivery_task" +
+      "_type\030\004 \001(\0162&.candidates.PlaceSettings.D" +
+      "eliveryType\022H\n$place_available_tasks_to_" +
+      "be_assigned\030\005 \003(\0162\032.candidates.Available" +
+      "Tasks\";\n\014DeliveryType\022\014\n\010EXTERNAL\020\000\022\006\n\002S" +
+      "M\020\001\022\t\n\005PLACE\020\002\022\n\n\006PICKUP\020\003\")\n\rLocationPo" +
+      "int\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001*\025\n\tPlaceTy" +
+      "pe\022\010\n\004SHOP\020\000*/\n\014AssemblyType\022\014\n\010EXTERNAL" +
+      "\020\000\022\006\n\002SM\020\001\022\t\n\005PLACE\020\002*,\n\016AvailableTasks\022" +
+      "\014\n\010DELIVERY\020\000\022\014\n\010ASSEMBLY\020\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8726,7 +8876,7 @@ public final class StoreChangedOuterClass {
     internal_static_candidates_StoreChanged_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_StoreChanged_descriptor,
-        new java.lang.String[] { "Id", "Uuid", "Name", "CreatedAt", "UpdatedAt", "TimeZone", "OperationalZoneId", "RetailerId", "ImportKeyPostfix", "Location", "HelpdeskeddyId", "HasConveyor", "AutoRouting", "FastPayment", "FastPaymentMetroStoreDns", "FastPaymentMetroBarcodeCiphertext", "ExpressDelivery", "SecondsForAssemblyItem", "AdditionalSecondsForAssembly", "DeliveryAreaId", "RetailerStoreId", "BoxScanning", "ExternalAssembliesEnabled", "Training", "ScheduleType", "StoreZones", "FastPaymentCashless", "AvailableOn", "Phone", "BaseStoreId", "OpeningTime", "ClosingTime", "DispatchSettings", "PlaceSettings", });
+        new java.lang.String[] { "Id", "Uuid", "Name", "CreatedAt", "UpdatedAt", "TimeZone", "OperationalZoneId", "RetailerId", "ImportKeyPostfix", "Location", "HelpdeskeddyId", "HasConveyor", "AutoRouting", "FastPayment", "FastPaymentMetroStoreDns", "FastPaymentMetroBarcodeCiphertext", "ExpressDelivery", "SecondsForAssemblyItem", "AdditionalSecondsForAssembly", "DeliveryAreaId", "RetailerStoreId", "BoxScanning", "ExternalAssembliesEnabled", "Training", "ScheduleType", "StoreZones", "FastPaymentCashless", "AvailableOn", "Phone", "BaseStoreId", "OpeningTime", "ClosingTime", "DispatchSettings", "PlaceSettings", "OperationalZoneName", });
     internal_static_candidates_DispatchSettings_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_candidates_DispatchSettings_fieldAccessorTable = new

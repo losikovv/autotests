@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @Builder
-public class PlanningPeriodFilters {
+public class    PlanningPeriodFilters {
     private Integer id;
     private String createdAt;
     private String updatedAt;

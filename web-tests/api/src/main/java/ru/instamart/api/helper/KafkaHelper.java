@@ -2,12 +2,11 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import protobuf.order_data.OrderOuterClass;
-import protobuf.order_data.OrderOuterClass.Order;
 import order.OrderChanged;
 import order_enrichment.OrderEnrichment;
 import order_status.OrderStatus;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import protobuf.order_data.OrderOuterClass;
 import protobuf.retail_onboarding_retailer_data.RetailOnboardingRetailerData;
 import push.Push;
 import ru.instamart.kafka.KafkaConfig;
@@ -64,6 +63,15 @@ public class KafkaHelper {
         KafkaProducers producer = new KafkaProducers();
         Allure.addAttachment("proto message", msg.toString());
         final RecordMetadata recordMetadata = producer.publish(config, msg.toByteArray());
+        producer.shutdown();
+        return recordMetadata;
+    }
+
+    @Step("Отправка сообщения в топик {config.topic} с ключом {uuid}")
+    public RecordMetadata publish(KafkaConfig config, String uuid, com.google.protobuf.GeneratedMessageV3 msg) {
+        KafkaProducers producer = new KafkaProducers();
+        Allure.addAttachment("proto message", msg.toString());
+        final RecordMetadata recordMetadata = producer.publish(config, uuid, msg.toByteArray());
         producer.shutdown();
         return recordMetadata;
     }
