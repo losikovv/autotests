@@ -432,7 +432,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartOpen();
         shop().interactCart().checkCartNotEmpty();
 
-        final var cartProductName = shop().interactCart().getLastItem().getName();
+        final var cartProductName = shop().interactCart().getFirstItem().getName();
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 

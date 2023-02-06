@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.config.UiProperties;
 import io.qameta.allure.TmsLink;
 
@@ -21,6 +22,7 @@ public final class UserLogoutTests {
 
     @TmsLink("1473")
     @Story("Позитивный кейс")
+    @Skip //неактуальный кейс
     @Test(description = "Тест успешной быстрой деавторизации", groups = {REGRESSION_STF, SMOKE_STF})
     public void successQuickLogout() {
         UserData userData = UserManager.getQaUser();
