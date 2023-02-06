@@ -9,41 +9,38 @@ import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.SurgeLevelBase;
 import ru.instamart.api.helper.KafkaHelper;
-import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.surgelevel.ResultDao;
 import ru.instamart.jdbc.dao.surgelevel.StoreDao;
-import ru.instamart.jdbc.entity.surgelevel.ResultEntity;
-import ru.instamart.kraken.util.ThreadUtil;
 import io.qameta.allure.TmsLinks;
 import io.qameta.allure.TmsLink;
 import surgelevel.ServiceGrpc;
 import surgelevel.Surgelevel;
-import surgelevelevent.Surgelevelevent;
 import surgelevelevent.Surgelevelevent.SurgeEvent.Method;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 import static org.apache.commons.lang3.RandomUtils.nextInt;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.helper.SurgeLevelHelper.*;
+import static ru.instamart.api.helper.WaitHelper.withRetriesAsserted;
 import static ru.instamart.kraken.enums.ScheduleType.DISPATCH;
 import static ru.instamart.kraken.util.TimeUtil.getDateMinusSec;
 import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
 
 @Epic("Surgelevel")
 @Feature("Manual Surge")
-public class ManualSurgeTest extends GrpcBase {
+public class ManualSurgeTest extends SurgeLevelBase {
 
     private ServiceGrpc.ServiceBlockingStub client;
     protected static final KafkaHelper kafka = new KafkaHelper();
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
     private final int DELIVERY_AREA_ID = nextInt(150000, 200000);
-    private final int LONG_TIMEOUT = 10;
     private final float SURGE_LEVEL = 5;
     private String expiredAt;
 
@@ -66,15 +63,15 @@ public class ManualSurgeTest extends GrpcBase {
                         .build())
                 .setResult(Surgelevel.Result.Option.newBuilder()
                         .setSurgeLevel(SURGE_LEVEL)
-                        .setExpiredAt(getDatePlusSec(LONG_TIMEOUT))
+                        .setExpiredAt(getDatePlusSec(MEDIUM_TIMEOUT))
                         .build())
                 .build();
         client.saveResult(request);
 
-        ThreadUtil.simplyAwait(LONG_TIMEOUT);
-
-        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 3L);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, 0, 0, Method.MANUAL);
+        Allure.step("Проверка отправки ручного surgelevel в kafka", () -> withRetriesAsserted(() -> {
+            final var surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 1L);
+            checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, 0, 0, Method.MANUAL);
+        }, LONG_TIMEOUT));
     }
 
     @TmsLinks({@TmsLink("155"), @TmsLink("42"), @TmsLink("194")})
@@ -83,10 +80,10 @@ public class ManualSurgeTest extends GrpcBase {
             groups = "ondemand-surgelevel",
             dependsOnMethods = "saveResult")
     public void manualSurgeRecalculate() {
-        ThreadUtil.simplyAwait(60);
-
-        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 3L);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, 0, 0, 0, Method.ACTUAL);
+        Allure.step("Проверка перерасчета ручного surgelevel в kafka", () -> withRetriesAsserted(() -> {
+            final var surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 1L);
+            checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, 0, 0, 0, Method.ACTUAL);
+        }, 100));
     }
 
     @TmsLink("147")
@@ -109,15 +106,16 @@ public class ManualSurgeTest extends GrpcBase {
                 .build();
         client.saveResult(request);
 
-        ThreadUtil.simplyAwait(LONG_TIMEOUT);
+        Allure.step("Проверка выставления ручного surgelevel", () -> withRetriesAsserted(() -> {
+            final var firstResult = ResultDao.INSTANCE.findResult(FIRST_STORE_ID);
+            assertNotNull(firstResult, "Для магазина не выставлен surgelevel");
+            final var secondResult = ResultDao.INSTANCE.findResult(SECOND_STORE_ID);
+            assertNotNull(secondResult, "Для магазина не выставлен surgelevel");
 
-        Allure.step("Проверка surgelevel", () -> {
-            ResultEntity firstResult = ResultDao.INSTANCE.findResult(FIRST_STORE_ID);
-            ResultEntity secondResult = ResultDao.INSTANCE.findResult(SECOND_STORE_ID);
-            compareTwoObjects(SURGE_LEVEL, firstResult.getSurgeLevel().floatValue());
-            compareTwoObjects(SURGE_LEVEL, secondResult.getSurgeLevel().floatValue());
+            assertEquals(firstResult.getSurgeLevel().floatValue(), SURGE_LEVEL, "Не верный уровень surgelevel");
+            assertEquals(secondResult.getSurgeLevel().floatValue(), SURGE_LEVEL, "Не верный уровень surgelevel");
             expiredAt = secondResult.getExpiredAt();
-        });
+        }, LONG_TIMEOUT));
     }
 
     @TmsLink("156")
@@ -126,13 +124,14 @@ public class ManualSurgeTest extends GrpcBase {
             groups = "ondemand-surgelevel",
             dependsOnMethods = "saveResultMultipleStores")
     public void manualSurgeNotRecalculate() {
-        publishEventCandidateStatus(UUID.randomUUID().toString(), CandidateChangesOuterClass.CandidateChanges.Role.UNIVERSAL, CandidateChangesOuterClass.CandidateChanges.Status.BUSY, 0, DELIVERY_AREA_ID, true, SECOND_STORE_ID, DISPATCH.getName(), LONG_TIMEOUT);
+        publishEventCandidateStatus(UUID.randomUUID().toString(), CandidateChangesOuterClass.CandidateChanges.Role.UNIVERSAL, CandidateChangesOuterClass.CandidateChanges.Status.BUSY, 0, DELIVERY_AREA_ID, true, SECOND_STORE_ID, DISPATCH.getName(), 0);
 
-        Allure.step("Проверка отсутствия изменения surgelevel", () -> {
-            ResultEntity result = ResultDao.INSTANCE.findResult(SECOND_STORE_ID);
-            compareTwoObjects(expiredAt, result.getExpiredAt());
-            compareTwoObjects(SURGE_LEVEL, result.getSurgeLevel().floatValue());
-        });
+        Allure.step("Проверка отсутствия изменения surgelevel", () -> withRetriesAsserted(() -> {
+            final var result = ResultDao.INSTANCE.findResult(SECOND_STORE_ID);
+
+            assertEquals(result.getSurgeLevel().floatValue(), SURGE_LEVEL, "Не верный уровень surgelevel");
+            assertEquals(result.getExpiredAt(), expiredAt, "Не верный expired_at");
+        }, LONG_TIMEOUT));
     }
 
     @TmsLink("148")

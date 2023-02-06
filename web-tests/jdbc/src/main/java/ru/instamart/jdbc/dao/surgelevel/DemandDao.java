@@ -1,13 +1,10 @@
 package ru.instamart.jdbc.dao.surgelevel;
 
 import ru.instamart.jdbc.dao.AbstractDao;
-import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
 import ru.instamart.jdbc.entity.surgelevel.DemandEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 

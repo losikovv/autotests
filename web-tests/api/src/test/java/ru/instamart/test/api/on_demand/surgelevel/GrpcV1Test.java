@@ -5,7 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.grpc.common.GrpcBase;
+import ru.instamart.api.common.SurgeLevelBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import io.qameta.allure.TmsLink;
 import surgelevel.ServiceGrpc;
@@ -13,7 +13,7 @@ import surgelevel.Surgelevel;
 
 @Epic("Surgelevel")
 @Feature("gRPC V1")
-public class GrpcV1Test extends GrpcBase {
+public class GrpcV1Test extends SurgeLevelBase {
 
     private ServiceGrpc.ServiceBlockingStub client;
 

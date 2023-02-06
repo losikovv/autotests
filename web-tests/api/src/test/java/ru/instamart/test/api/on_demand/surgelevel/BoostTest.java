@@ -8,15 +8,13 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.SurgeLevelBase;
 import ru.instamart.api.helper.SurgeLevelHelper;
 import ru.instamart.api.request.surgelevel.BoostSurgeRequest;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.jdbc.dao.eta.DisableEtaIntervalsDao;
 import ru.instamart.jdbc.dao.surgelevel.ResultDao;
 import ru.instamart.jdbc.dao.surgelevel.StoreDao;
-import ru.instamart.kraken.util.ThreadUtil;
-import surgelevelevent.Surgelevelevent;
 import surgelevelevent.Surgelevelevent.SurgeEvent.Method;
 
 import java.util.ArrayList;
@@ -25,16 +23,18 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.helper.SurgeLevelHelper.addStore;
 import static ru.instamart.api.helper.SurgeLevelHelper.checkSurgeLevelProduce;
+import static ru.instamart.api.helper.WaitHelper.withRetriesAsserted;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampLongFromStringDtdb;
 
 @Epic("Surgelevel")
 @Feature("HTTP")
-public class BoostTest extends RestBase {
+public class BoostTest extends SurgeLevelBase {
 
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
@@ -69,11 +69,10 @@ public class BoostTest extends RestBase {
                         .build());
 
         checkStatusCode(response, 200, "");
-
-        ThreadUtil.simplyAwait(10);
-
-        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 1L);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, BOOSTED_SURGELEVEL, BOOSTED_SURGELEVEL, 0, 0, Method.MANUAL);
+        Allure.step("Проверка отправки ручного surgelevel в kafka", () -> withRetriesAsserted(() -> {
+            final var surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 1L);
+            checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, BOOSTED_SURGELEVEL, BOOSTED_SURGELEVEL, 0, 0, Method.MANUAL);
+        }, LONG_TIMEOUT));
     }
 
     @TmsLink("170")
@@ -162,11 +161,10 @@ public class BoostTest extends RestBase {
                         .build());
 
         checkStatusCode(response, 200, "");
-
-        ThreadUtil.simplyAwait(60);
-
-        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 3L);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, BOOSTED_SURGELEVEL, 0, 0, 0, Method.ACTUAL);
+        Allure.step("Проверка отправки ручного surgelevel в kafka", () -> withRetriesAsserted(() -> {
+            final var surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 1L);
+            checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, BOOSTED_SURGELEVEL, 0, 0, 0, Method.ACTUAL);
+        }, 100));
     }
 
     @TmsLink("172")
@@ -195,8 +193,8 @@ public class BoostTest extends RestBase {
 
             final var startAt = intervalsList.get(0).getStartAt();
             final var endAt = intervalsList.get(0).getEndAt();
-            final var startAtMillis = getTimestampLongFromStringDtdb(startAt.substring(0, startAt.length() - 7));
-            final var endAtMillis = getTimestampLongFromStringDtdb(endAt.substring(0, endAt.length() - 7));
+            final var startAtMillis = getTimestampLongFromStringDtdb(matchWithRegex("(.*)\\.", startAt, 1));
+            final var endAtMillis = getTimestampLongFromStringDtdb(matchWithRegex("(.*)\\.", endAt, 1));
             assertEquals(endAtMillis - startAtMillis, 1000, "Не верная длительность");
         });
     }
@@ -244,11 +242,11 @@ public class BoostTest extends RestBase {
                         .build());
 
         checkStatusCode(response, 200, "");
-        Allure.step("Проверка установки мануального сюрджа для нескольких магазинов", () -> {
-            ThreadUtil.simplyAwait(10);
-
+        Allure.step("Проверка установки ручного сюрджа для нескольких магазинов", () -> withRetriesAsserted(() -> {
             final var firstResult = ResultDao.INSTANCE.findResult(FIRST_STORE_ID);
+            assertNotNull(firstResult, "Не посчитан результат для магазина");
             final var secondResult = ResultDao.INSTANCE.findResult(SECOND_STORE_ID);
+            assertNotNull(secondResult, "Не посчитан результат для магазина");
 
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(firstResult.getSurgeLevel().intValue(), BOOSTED_SURGELEVEL, "Не верный surgelevel");
@@ -256,7 +254,7 @@ public class BoostTest extends RestBase {
             softAssert.assertEquals(firstResult.getMethod().intValue(), 1, "Не верный метод расчета");
             softAssert.assertEquals(secondResult.getMethod().intValue(), 1, "Не верный метод расчета");
             softAssert.assertAll();
-        });
+        }, LONG_TIMEOUT));
     }
 
     @TmsLink("178")
