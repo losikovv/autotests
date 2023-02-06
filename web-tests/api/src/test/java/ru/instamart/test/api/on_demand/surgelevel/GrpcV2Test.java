@@ -6,7 +6,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.grpc.common.GrpcBase;
+import ru.instamart.api.common.SurgeLevelBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.surgelevel.*;
 import io.qameta.allure.TmsLink;
@@ -20,7 +20,7 @@ import static org.apache.commons.lang3.RandomUtils.nextLong;
 
 @Epic("Surgelevel")
 @Feature("gRPC V2")
-public class GrpcV2Test extends GrpcBase {
+public class GrpcV2Test extends SurgeLevelBase {
 
     private surgelevel.v2.ServiceGrpc.ServiceBlockingStub client;
     private final long REGION_ID = nextLong(1000000, 2000000);
@@ -315,11 +315,7 @@ public class GrpcV2Test extends GrpcBase {
         if (Objects.nonNull(FORMULA_ID)) {
             FormulaDao.INSTANCE.delete(FORMULA_ID);
         }
-        if (Objects.nonNull(REGION_ID)) {
-            RegionDao.INSTANCE.delete(REGION_ID);
-        }
-        if (Objects.nonNull(RETAILER_ID)) {
-            RetailerDao.INSTANCE.delete(RETAILER_ID);
-        }
+        RegionDao.INSTANCE.delete(REGION_ID);
+        RetailerDao.INSTANCE.delete(RETAILER_ID);
     }
 }
