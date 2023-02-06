@@ -22,6 +22,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.PaymentCardData;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.retry.StepRetry;
 import ru.instamart.kraken.util.*;
 
 import java.math.BigDecimal;
@@ -508,6 +509,18 @@ public final class ApiV2Helper {
         return availableDays;
     }
 
+    @Step("Получаем доступные дни для доставки")
+    public List<String> getAvailableDaysWithOrderNumber(String OrderNumber) {
+        Response response = ShipmentsV2Request.ShippingRates.GET(OrderNumber, null);
+        checkStatusCode200(response);
+
+        List<String> availableDays = response.as(ShippingRatesV2Response.class).getMeta().getAvailableDays();
+        assertFalse(availableDays.isEmpty(),
+                "Пустой список available_days в магазине");
+
+        return availableDays;
+    }
+
     @Step("Получаем доступные слоты для доставки")
     private List<ShippingRateV2> getShippingRates(String availableDay) {
         Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), availableDay);
@@ -516,6 +529,18 @@ public final class ApiV2Helper {
         List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
         assertFalse(shippingRates.isEmpty(),
                 "Нет слотов в магазине " + currentSid.get() + "\n" + response.body().asString());
+
+        return shippingRates;
+    }
+
+    @Step("Получаем доступные слоты для доставки")
+    public List<ShippingRateV2> getShippingRatesWithOrderNumber(String availableDay,String OrderNumber) {
+        Response response = ShipmentsV2Request.ShippingRates.GET(OrderNumber, availableDay);
+        checkStatusCode200(response);
+
+        List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
+        assertFalse(shippingRates.isEmpty(),
+                "Нет слотов в магазине");
 
         return shippingRates;
     }
@@ -535,6 +560,15 @@ public final class ApiV2Helper {
 
         log.debug(deliveryWindow.toString());
         return deliveryWindow;
+    }
+
+    @Step("Получаем доступные слот")
+    public List<ShippingRateV2> getAvailableDeliveryWindowSecond(String OrderNumber, Integer day) {
+        List<String> availableDays = getAvailableDaysWithOrderNumber(OrderNumber);
+
+        List<ShippingRateV2> shippingRates = getShippingRatesWithOrderNumber(availableDays.get(day),OrderNumber);
+
+        return shippingRates;
     }
 
 
@@ -1085,6 +1119,7 @@ public final class ApiV2Helper {
      * Узнаем номер заказа
      */
     @Step("Узнаем номер заказа")
+    @StepRetry(count = 3)
     public String getCurrentOrderNumber() {
         Response response = OrdersV2Request.POST();
         checkStatusCode200(response);

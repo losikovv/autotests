@@ -1,6 +1,10 @@
 syntax = "proto3";
 
 package shifts;
+
+//https://gitlab.sbmt.io/paas/content/operations/shifts/-/blob/master/api/events/import_planning_periods.proto
+
+option go_package = "gitlab.sbmt.io/paas/content/operations/shifts/pkg/server/events/import_planning_periods";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 

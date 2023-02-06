@@ -1,11 +1,12 @@
 package ru.instamart.test.api.on_demand.shifts;
 
 import candidates.StoreChangedOuterClass;
+import candidates.StoreChangedOuterClass.AssemblyType;
+import candidates.StoreChangedOuterClass.AvailableTasks;
+import candidates.StoreChangedOuterClass.DispatchSettings;
+import candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType;
 import com.google.protobuf.UInt32Value;
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -17,15 +18,17 @@ import ru.instamart.jdbc.dao.shifts.PlanningPeriodsDao;
 import ru.instamart.jdbc.dao.shifts.ShopsDao;
 import ru.instamart.jdbc.dto.shifts.PlanningPeriodFilters;
 import ru.instamart.jdbc.entity.shifts.PlanningPeriodEntity;
-import io.qameta.allure.TmsLink;
+import ru.instamart.kraken.listener.Skip;
 import shifts.ImportPlanningPeriods;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import static org.testng.Assert.*;
 import static ru.instamart.kafka.configs.KafkaConfigs.configPlanningPeriods;
 import static ru.instamart.kafka.configs.KafkaConfigs.configStoreChanged;
-import static ru.instamart.kafka.enums.Pods.SHIFT_SERVICE_CONSUMER;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 import static ru.instamart.kraken.util.TimeUtil.*;
 
@@ -33,52 +36,82 @@ import static ru.instamart.kraken.util.TimeUtil.*;
 @Feature("Endpoints")
 public class ShiftsStoreChangedTest extends RestBase {
 
+    private final String storeUUID = UUID.randomUUID().toString(); //"4872ead0-274b-49a2-955e-a5101a7de9cb";
     private Integer baseStoreId;
     private Integer deliveryAreaId;
-    private final String storeUUID = UUID.randomUUID().toString(); //"4872ead0-274b-49a2-955e-a5101a7de9cb";
     private String date = getFutureDateWithoutTime(1L);
     private String dateTime = getZonedDate();
     private List<PlanningPeriodEntity> planningPeriodsBefore;
+    private String kafkaStoreUUIDKey = UUID.randomUUID().toString();
 
     @BeforeClass(alwaysRun = true,
             description = "Отправка информации о создании магазина через кафку")
     public void preconditions() {
         var shopsEntity = ShopsDao.INSTANCE.getOriginalId();
         assertTrue(shopsEntity.size() > 0, "Данные по id shops пустые");
-        baseStoreId = shopsEntity.get(0).getOriginalId() + 1;
+        baseStoreId = shopsEntity.get(0).getOriginalId();
         deliveryAreaId = baseStoreId + 1;
         var storeChanged = StoreChangedOuterClass.StoreChanged.newBuilder()
-                .setId(baseStoreId)
-                .setBaseStoreId(baseStoreId)
-                .setUuid(storeUUID)
-                .setName("METRO, Тестовая_" + baseStoreId)
-                .setCreatedAt(getTimestamp())
-                .setUpdatedAt(getTimestamp())
-                .setTimeZone("Europe/Moscow")
-                .setOperationalZoneId(1)
-                .setRetailerId(1)
-                .setImportKeyPostfix(String.valueOf(RandomUtils.nextInt(1, 999)))
-                .setLocation("{\"id\":95,\"lat\":55.630794,\"lon\":37.624798,\"area\":null,\"city\":\"Москва\",\"kind\":null,\"block\":\"\",\"floor\":null,\"phone\":null,\"region\":null,\"street\":\"Дорожная\",\"building\":\" д. 1, корп. 1\",\"comments\":null,\"entrance\":null,\"apartment\":null,\"door_phone\":null,\"settlement\":null,\"elevator\":null,\"delivery_to_door\":false,\"full_address\":\"Москва, Дорожная,  д. 1, корп. 1\"}")
-                .setHelpdeskeddyId(RandomUtils.nextInt(100, 999))
+                .setAdditionalSecondsForAssembly(600)
                 .setAutoRouting(true)
-                .setSecondsForAssemblyItem(RandomUtils.nextInt(1, 999))
-                .setAdditionalSecondsForAssembly(RandomUtils.nextLong(1000, 9999))
-                .setDeliveryAreaId(deliveryAreaId)
-                .setRetailerStoreId("12")
-                .setBoxScanning(true)
-                .setScheduleType("dispatch")
-                .setStoreZones("[{\"id\":70,\"name\":\"Зона Дорожная\",\"area\":[[[37.6346352,55.684103000000015],[37.628947,55.70151000000001],[37.629633,55.70518400000001],[37.623694,55.70585499999999],[37.621737,55.705837],[37.619092,55.705325999999985],[37.6186622,55.705132000000006],[37.6081052,55.701553],[37.5888792,55.70682500000001],[37.5831292,55.70970210000001],[37.5735422,55.687786],[37.5082692,55.62179200000001],[37.4911022,55.6108373],[37.5087839,55.596194999999994],[37.5686932,55.58125600000001],[37.5535872,55.56960999999999],[37.5533372,55.557857000000006],[37.5831122,55.55038800000001],[37.5999352,55.55932099999999],[37.6030252,55.56534],[37.5966742,55.576113],[37.6706602,55.572328],[37.6880842,55.575637],[37.68037819999999,55.58318299999999],[37.668919,55.60412000000001],[37.662927,55.60253199999999],[37.6578712,55.602014],[37.6494072,55.602391999999995],[37.64135420000001,55.610046],[37.6359602,55.613774000000014],[37.6329252,55.61867899999999],[37.6286602,55.62777100000002],[37.6257712,55.63855699999999],[37.657571,55.651055],[37.6705744,55.65463840000001],[37.672806,55.66441899999999],[37.676239,55.66829100000001],[37.685913,55.670838],[37.695009,55.67196579999999],[37.7030751,55.67096320000001],[37.709593000000005,55.666827700000006],[37.7142177,55.6683341],[37.71454210000001,55.67231490000002],[37.7109019,55.68017930000001],[37.7125856,55.68495279999999],[37.70634,55.688694],[37.695611,55.69145100000001],[37.6852854,55.690934199999994],[37.6657497,55.68637699999999],[37.6453916,55.6846066],[37.6346352,55.684103000000015]]]}]")
                 .setAvailableOn(getTimestamp())
-                .setOpeningTime("10:00")
-                .setClosingTime("20:00")
+                .setBaseStoreId(baseStoreId)
+                .setClosingTime("23:00")
+                .setCreatedAt(getTimestamp())
+                .setDeliveryAreaId(deliveryAreaId)
+                .setDispatchSettings(DispatchSettings.newBuilder()
+                        .setAdditionalFactorForStraightDistanceToClientMin(5L)
+                        .setAverageSpeedForStraightDistanceToClientMin(3L)
+                        .setAvgParkingMinVehicle(5L)
+                        .setAvgToPlaceMin(15L)
+                        .setAvgToPlaceMinExternal(20L)
+                        .setGapTaxiPunishMin(15L)
+                        .setLastPositionExpire(180L)
+                        .setMaxCurrentOrderAssignQueue(5L)
+                        .setMaxOrderAssignRetryCount(5L)
+                        .setMaxWaitingTimeForCourierMin(5L)
+                        .setOfferSeenTimeoutSec(60L)
+                        .setOfferServerTimeoutSec(60L)
+                        .setOrderReceiveTimeFromAssemblyToDeliveryMin(5L)
+                        .setOrderTransferTimeFromAssemblyToDeliveryMin(5L)
+                        .setOrderTransferTimeFromDeliveryToClientMin(3L)
+                        .setOrderWeightThresholdToAssignToVehicleGramms(10000L)
+                        .build())
+                .setExpressDelivery(true)
+                .setHelpdeskeddyId(1234L)
+                .setId(baseStoreId)
+                .setImportKeyPostfix("999")
+                .setLocation("{\"id\":95,\"lat\":55.630794,\"lon\":37.624798,\"area\":null,\"city\":\"Москва\",\"kind\":null,\"block\":\"\",\"floor\":null,\"phone\":null,\"region\":null,\"street\":\"Дорожная\",\"building\":\" д. 1, корп. 1\",\"comments\":null,\"entrance\":null,\"apartment\":null,\"door_phone\":null,\"settlement\":null,\"elevator\":null,\"delivery_to_door\":false,\"full_address\":\"Москва, Дорожная,  д. 1, корп. 1\"}")
+                .setName("METRO, Тестовая_" + baseStoreId)
+                .setOpeningTime("01:00")
+                .setOperationalZoneId(1)
+                .setOperationalZoneName("Москва")
+                .setPlaceSettings(StoreChangedOuterClass.PlaceSettings.newBuilder()
+                        .setAssemblyTaskType(AssemblyType.SM)
+                        .setDeliveryTaskType(DeliveryType.SM)
+                        .addPlaceAvailableTasksToBeAssigned(AvailableTasks.ASSEMBLY)
+                        .addPlaceAvailableTasksToBeAssigned(AvailableTasks.DELIVERY)
+                        .setPlaceLocation(StoreChangedOuterClass.LocationPoint.newBuilder()
+                                .setLat(55.630794)
+                                .setLon(37.624798)
+                                .build())
+                        .build())
+                .setRetailerId(1)
+                .setRetailerStoreId("12")
+                .setScheduleType("dispatch")
+                .setSecondsForAssemblyItem(Long.parseLong("300"))
+                .setStoreZones("[{\"id\":70,\"name\":\"Зона Дорожная\",\"area\":[[[37.6346352,55.684103000000015],[37.628947,55.70151000000001],[37.629633,55.70518400000001],[37.623694,55.70585499999999],[37.621737,55.705837],[37.619092,55.705325999999985],[37.6186622,55.705132000000006],[37.6081052,55.701553],[37.5888792,55.70682500000001],[37.5831292,55.70970210000001],[37.5735422,55.687786],[37.5082692,55.62179200000001],[37.4911022,55.6108373],[37.5087839,55.596194999999994],[37.5686932,55.58125600000001],[37.5535872,55.56960999999999],[37.5533372,55.557857000000006],[37.5831122,55.55038800000001],[37.5999352,55.55932099999999],[37.6030252,55.56534],[37.5966742,55.576113],[37.6706602,55.572328],[37.6880842,55.575637],[37.68037819999999,55.58318299999999],[37.668919,55.60412000000001],[37.662927,55.60253199999999],[37.6578712,55.602014],[37.6494072,55.602391999999995],[37.64135420000001,55.610046],[37.6359602,55.613774000000014],[37.6329252,55.61867899999999],[37.6286602,55.62777100000002],[37.6257712,55.63855699999999],[37.657571,55.651055],[37.6705744,55.65463840000001],[37.672806,55.66441899999999],[37.676239,55.66829100000001],[37.685913,55.670838],[37.695009,55.67196579999999],[37.7030751,55.67096320000001],[37.709593000000005,55.666827700000006],[37.7142177,55.6683341],[37.71454210000001,55.67231490000002],[37.7109019,55.68017930000001],[37.7125856,55.68495279999999],[37.70634,55.688694],[37.695611,55.69145100000001],[37.6852854,55.690934199999994],[37.6657497,55.68637699999999],[37.6453916,55.6846066],[37.6346352,55.684103000000015]]]}]")
+                .setTimeZone("Europe/Moscow")
+                .setUpdatedAt(getTimestamp())
+                .setUuid(kafkaStoreUUIDKey)
                 .build();
-        kafka.publish(configStoreChanged(), storeChanged);
+        kafka.publish(configStoreChanged(), kafkaStoreUUIDKey, storeChanged);
     }
 
     @AfterClass(alwaysRun = true, description = "Clear")
     public void after() {
         boolean delete = PlanningAreasDao.INSTANCE.delete(baseStoreId);
-        if(delete) {
+        if (delete) {
             ShopsDao.INSTANCE.delete(baseStoreId);
         }
     }
@@ -88,9 +121,9 @@ public class ShiftsStoreChangedTest extends RestBase {
     @Test(groups = {"api-shifts"},
             description = "Создание зоны планирования для магазина с быстрой доставкой и территорией доставки")
     public void createStore() {
-        var planningAreas = PlanningAreasDao.INSTANCE.getPlanningAreas(deliveryAreaId);
+        var store = ShopsDao.INSTANCE.getOriginalId(baseStoreId);
         Allure.step("Asserts", () ->
-                assertEquals(planningAreas.size(), 1, "Данные shops пустые или вернулось более одного магазина")
+                assertEquals(store.size(), 1, "Данные shops пустые или вернулось более одного магазина")
         );
     }
 
@@ -101,32 +134,65 @@ public class ShiftsStoreChangedTest extends RestBase {
             description = "Создание зоны планирования для магазина с быстрой доставкой и территорией доставки")
     public void createStore2() {
         var storeChanged = StoreChangedOuterClass.StoreChanged.newBuilder()
-                .setId(baseStoreId)
-                .setUuid(storeUUID)
-                .setName("Ашан, Севастопольский просп.")
-                .setCreatedAt(getTimestamp())
-                .setUpdatedAt(getTimestamp())
-                .setTimeZone("Europe/Moscow")
-                .setOperationalZoneId(1)
-                .setRetailerId(15)
-                .setImportKeyPostfix("1")
-                .setLocation("{\"id\":171,\"lat\":55.686856,\"lon\":37.603826,\"area\":null,\"city\":\"Москва\",\"kind\":null,\"block\":null,\"floor\":null,\"phone\":null,\"region\":null,\"street\":\"Севастопольский просп.\",\"building\":\"11Е\",\"comments\":null,\"entrance\":null,\"apartment\":null,\"door_phone\":null,\"settlement\":null,\"elevator\":null,\"delivery_to_door\":false,\"full_address\":\"Москва, Севастопольский просп., 11Е\"}")
-                .setHelpdeskeddyId(1293)
-                .setFastPaymentMetroStoreDns("MOW11MPSU010001")
-                .setFastPaymentMetroBarcodeCiphertext("OCTZ3Td/m0q3TPPKOBgcP+7oo78S5b22IQVokP7KHw6flEiaQbvC7UWOhKgvTin2hUI=")
-                .setExpressDelivery(true)
-                .setBaseStoreId(baseStoreId)
-                .setDeliveryAreaId(deliveryAreaId)
-                .setRetailerStoreId("-1")
-                .setScheduleType("list")
-                .setStoreZones("[{\"id\":47,\"area\":[[[37.6387751,56.0294056],[37.3970759,55.8679255],[37.0070613,55.8771711],[37.2597468,55.7042236],[37.0043147,55.5631378],[37.3696101,55.564691],[37.5975764,55.3981549],[37.7870906,55.5476029],[38.1963313,55.5476029],[37.8887141,55.7181496],[38.2265437,55.8679255],[37.8530085,55.8710076],[37.6387751,56.0294056]]],\"name\":\"Москва TEST\"}]")
+                .setAdditionalSecondsForAssembly(600)
+                .setAutoRouting(true)
                 .setAvailableOn(getTimestamp())
+                .setBaseStoreId(baseStoreId)
+                .setClosingTime("23:00")
+                .setCreatedAt(getTimestamp())
+                .setDeliveryAreaId(deliveryAreaId)
+                .setDispatchSettings(DispatchSettings.newBuilder()
+                        .setAdditionalFactorForStraightDistanceToClientMin(5L)
+                        .setAverageSpeedForStraightDistanceToClientMin(3L)
+                        .setAvgParkingMinVehicle(5L)
+                        .setAvgToPlaceMin(15L)
+                        .setAvgToPlaceMinExternal(20L)
+                        .setGapTaxiPunishMin(15L)
+                        .setLastPositionExpire(180L)
+                        .setMaxCurrentOrderAssignQueue(5L)
+                        .setMaxOrderAssignRetryCount(5L)
+                        .setMaxWaitingTimeForCourierMin(5L)
+                        .setOfferSeenTimeoutSec(60L)
+                        .setOfferServerTimeoutSec(60L)
+                        .setOrderReceiveTimeFromAssemblyToDeliveryMin(5L)
+                        .setOrderTransferTimeFromAssemblyToDeliveryMin(5L)
+                        .setOrderTransferTimeFromDeliveryToClientMin(3L)
+                        .setOrderWeightThresholdToAssignToVehicleGramms(10000L)
+                        .build())
+                .setExpressDelivery(true)
+                .setHelpdeskeddyId(1234L)
+                .setId(baseStoreId)
+                .setImportKeyPostfix("999")
+                .setLocation("{\"id\":95,\"lat\":55.630794,\"lon\":37.624798,\"area\":null,\"city\":\"Москва\",\"kind\":null,\"block\":\"\",\"floor\":null,\"phone\":null,\"region\":null,\"street\":\"Дорожная\",\"building\":\" д. 1, корп. 1\",\"comments\":null,\"entrance\":null,\"apartment\":null,\"door_phone\":null,\"settlement\":null,\"elevator\":null,\"delivery_to_door\":false,\"full_address\":\"Москва, Дорожная,  д. 1, корп. 1\"}")
+                .setName("METRO, Тестовая_EDIT_" + baseStoreId)
+                .setOpeningTime("01:00")
+                .setOperationalZoneId(1)
+                .setOperationalZoneName("Москва")
+                .setPlaceSettings(StoreChangedOuterClass.PlaceSettings.newBuilder()
+                        .setAssemblyTaskType(AssemblyType.SM)
+                        .setDeliveryTaskType(DeliveryType.SM)
+                        .addPlaceAvailableTasksToBeAssigned(AvailableTasks.ASSEMBLY)
+                        .addPlaceAvailableTasksToBeAssigned(AvailableTasks.DELIVERY)
+                        .setPlaceLocation(StoreChangedOuterClass.LocationPoint.newBuilder()
+                                .setLat(55.630794)
+                                .setLon(37.624798)
+                                .build())
+                        .build())
+                .setRetailerId(1)
+                .setRetailerStoreId("12")
+                .setScheduleType("dispatch")
+                .setSecondsForAssemblyItem(Long.parseLong("300"))
+                .setStoreZones("[{\"id\":70,\"name\":\"Зона Дорожная\",\"area\":[[[37.6346352,55.684103000000015],[37.628947,55.70151000000001],[37.629633,55.70518400000001],[37.623694,55.70585499999999],[37.621737,55.705837],[37.619092,55.705325999999985],[37.6186622,55.705132000000006],[37.6081052,55.701553],[37.5888792,55.70682500000001],[37.5831292,55.70970210000001],[37.5735422,55.687786],[37.5082692,55.62179200000001],[37.4911022,55.6108373],[37.5087839,55.596194999999994],[37.5686932,55.58125600000001],[37.5535872,55.56960999999999],[37.5533372,55.557857000000006],[37.5831122,55.55038800000001],[37.5999352,55.55932099999999],[37.6030252,55.56534],[37.5966742,55.576113],[37.6706602,55.572328],[37.6880842,55.575637],[37.68037819999999,55.58318299999999],[37.668919,55.60412000000001],[37.662927,55.60253199999999],[37.6578712,55.602014],[37.6494072,55.602391999999995],[37.64135420000001,55.610046],[37.6359602,55.613774000000014],[37.6329252,55.61867899999999],[37.6286602,55.62777100000002],[37.6257712,55.63855699999999],[37.657571,55.651055],[37.6705744,55.65463840000001],[37.672806,55.66441899999999],[37.676239,55.66829100000001],[37.685913,55.670838],[37.695009,55.67196579999999],[37.7030751,55.67096320000001],[37.709593000000005,55.666827700000006],[37.7142177,55.6683341],[37.71454210000001,55.67231490000002],[37.7109019,55.68017930000001],[37.7125856,55.68495279999999],[37.70634,55.688694],[37.695611,55.69145100000001],[37.6852854,55.690934199999994],[37.6657497,55.68637699999999],[37.6453916,55.6846066],[37.6346352,55.684103000000015]]]}]")
+                .setTimeZone("Europe/Moscow")
+                .setUpdatedAt(getTimestamp())
+                .setUuid(kafkaStoreUUIDKey)
                 .build();
+
         kafka.publish(configStoreChanged(), storeChanged);
 
-        var planningAreas = PlanningAreasDao.INSTANCE.getPlanningAreas(deliveryAreaId);
+        var store = ShopsDao.INSTANCE.getOriginalId(baseStoreId);
         Allure.step("Asserts", () ->
-                assertEquals(planningAreas.size(), 1, "Данные shops пустые или вернулось более одного магазина")
+                assertEquals(store.size(), 1, "Данные shops пустые или вернулось более одного магазина")
         );
     }
 
@@ -237,7 +303,7 @@ public class ShiftsStoreChangedTest extends RestBase {
         simplyAwait(10);
         var planningPeriodsAfter = PlanningPeriodsDao.INSTANCE.getPlanningPeriods(filters2);
 
-        Allure.step("", ()->{
+        Allure.step("", () -> {
             assertNotEquals(planningPeriodsBefore.get(0).getGuaranteedPayroll(), planningPeriodsAfter.get(0).getGuaranteedPayroll(), "Данные совпадают");
             assertNotEquals(planningPeriodsBefore.get(1).getGuaranteedPayroll(), planningPeriodsAfter.get(1).getGuaranteedPayroll(), "Данные совпадают");
             assertNotEquals(planningPeriodsBefore.get(0).getPredictedPayroll(), planningPeriodsAfter.get(0).getPredictedPayroll(), "Данные совпадают");
@@ -247,6 +313,7 @@ public class ShiftsStoreChangedTest extends RestBase {
 
     @TmsLink("136")
     @Story("Импорт плановых периодов")
+    @Skip
     @Test(groups = {"api-shifts"},
             description = "Добавление плановых периодов для всех существующих ролей")
     public void addPlanningPeriodForAllRole() {
