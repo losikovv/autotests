@@ -18,4 +18,7 @@ public @interface StepRetry {
 
     //Количество повторов шага -- по умолчанию 1
     int count() default 1;
+
+    //Ожидание перед повторной попыткой в ms
+    long delay() default 100;
 }

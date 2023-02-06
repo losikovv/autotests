@@ -43,6 +43,7 @@ public final class StepRetryAspect {
         final var method = methodSignature.getMethod();
         final var stepRetry = method.getAnnotation(StepRetry.class);
         final var retryCount = stepRetry.count();
+        final var retryDelay = stepRetry.delay();
 
         Object result = null;
         Throwable storedException = null;
@@ -55,6 +56,12 @@ public final class StepRetryAspect {
                 processed = true;
             } catch (Throwable throwable) {
                 storedException = throwable;
+                try {
+                    Thread.sleep(retryDelay);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    storedException = e;
+                }
             }
             i++;
         }
