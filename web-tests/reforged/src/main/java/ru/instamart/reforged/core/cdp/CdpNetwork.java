@@ -1,6 +1,6 @@
 package ru.instamart.reforged.core.cdp;
 
-import org.openqa.selenium.devtools.v107.network.Network;
+import org.openqa.selenium.devtools.v109.network.Network;
 import ru.instamart.reforged.core.Kraken;
 
 public final class CdpNetwork {

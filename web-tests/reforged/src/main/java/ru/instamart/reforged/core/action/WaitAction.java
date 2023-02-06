@@ -61,6 +61,10 @@ public final class WaitAction {
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
     }
 
+    public void tabOpenCount(final int tabCount) {
+        createWait("Таб не загрузился").until(ExpectedConditions.numberOfWindowsToBe(tabCount));
+    }
+
     //######################## Not Visible ########################
     public boolean elementOfCollectionShouldNotBeVisible(final ElementCollection elementCollection, final int elementIndex) {
         return createWait(elementCollection, "элемент коллекции не должен отображаться")

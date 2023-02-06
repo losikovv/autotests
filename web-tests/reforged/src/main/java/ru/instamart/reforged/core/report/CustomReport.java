@@ -4,7 +4,7 @@ import com.google.common.base.Joiner;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.devtools.v107.performance.model.Metric;
+import org.openqa.selenium.devtools.v109.performance.model.Metric;
 import org.openqa.selenium.logging.LogType;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.CdpCookie;
@@ -70,7 +70,7 @@ public final class CustomReport {
         final var cookies = CdpCookie.getAllCookies();
         final int maxLineLength = cookies
                 .stream()
-                .map(org.openqa.selenium.devtools.v107.network.model.Cookie::getValue)
+                .map(org.openqa.selenium.devtools.v109.network.model.Cookie::getValue)
                 .mapToInt(String::length)
                 .max().orElse(0);
         final int count = maxLineLength >= 20 ? Math.min(maxLineLength + 1, 120) : 20;

@@ -3,7 +3,7 @@ package ru.instamart.reforged.core.aspect;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.openqa.selenium.devtools.v107.performance.Performance;
+import org.openqa.selenium.devtools.v109.performance.Performance;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.report.CustomReport;
 
