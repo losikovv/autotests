@@ -55,7 +55,8 @@ public interface HeaderElement {
     Button scrollTabHeadersRight = new Button(By.xpath("//button[@data-qa='suggester_header_next_slide']"), "Кнопка пролистать вкладки категорий вправо");
     ElementCollection suggesterTabHeaders = new ElementCollection(By.xpath("//button[contains(@data-qa,'suggester_header_tab_')]"), "Вкладки категорий в саджесторе");
     ElementCollection suggesterFirstTabItems = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_0']/div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на первой вкладке саджестора");
-    ElementCollection suggesterItemsNew = new ElementCollection(By.xpath("//div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на саджестора (товары)");
+    ElementCollection suggesterItemsNew = new ElementCollection(By.xpath("//a[contains(@class,'SuggesterExtensions_completion_')]"), "Результаты поиска на саджестора (товары)");
+    ElementCollection suggesterCompletions = new ElementCollection(By.xpath("//a[contains(@class,'SuggesterExtensions_completion_')]"), "Результаты поиска на саджестора (товары)");
 
     ElementCollection suggesterSecondTabItems = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_1']/div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на второй вкладке саджестора");
     Link showAllResults = new Link(By.xpath("//a[@data-qa='suggester_header_show_all_link']"), "Кнопка 'Показать все ХХ результаты'");

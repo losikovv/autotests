@@ -148,13 +148,13 @@ public interface HeaderCheck extends Check, HeaderElement {
     }
 
     @Step("Проверяем, товарные подсказки в поиске отображаются")
-    default void checkSearchSuggestsVisible() {
-        waitAction().shouldBeVisible(suggesterFirstTabItems);
+    default void checkSearchSuggestsVisibleProd() {
+        suggesterItemsNew.should().visible();
     }
 
     @Step("Проверяем, товарные подсказки в поиске отображаются")
-    default void checkSearchSuggestsVisibleProd() {
-        waitAction().shouldBeVisible(suggesterItemsNew);
+    default void checkSearchSuggestsVisible() {
+        suggesterCompletions.should().visible();
     }
 
     @Step("Проверяем что текст в кнопке поиска в саджесторе '{0}' изменился при переключении категории на текст '{1}'")

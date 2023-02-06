@@ -92,7 +92,7 @@ public final class AuthModal implements Close, AuthModalCheck {
     @Step("Войти через sberId")
     public void authViaSberId() {
         CdpHeaders.disableNetworkTacking();
-        sberId.hoverAndClick();
+        sberId.click();
     }
 
     @Step("Войти через SberBusinessId")
