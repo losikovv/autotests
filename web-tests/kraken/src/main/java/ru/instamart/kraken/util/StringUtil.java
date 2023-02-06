@@ -59,10 +59,6 @@ public final class StringUtil {
         return Long.parseLong(stringToParse.replaceAll("\\D+", ""));
     }
 
-    public static String cutBasicAuthFromUrl(final String url) {
-        return url.replaceAll("[^/]+@", "");
-    }
-
     public static String getPhone(final String phone) {
         return getPhoneNumber(phone).substring(1);
     }

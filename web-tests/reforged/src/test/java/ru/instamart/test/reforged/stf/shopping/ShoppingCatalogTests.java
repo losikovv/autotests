@@ -2,11 +2,11 @@ package ru.instamart.test.reforged.stf.shopping;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -96,8 +96,6 @@ public final class ShoppingCatalogTests {
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
-        shop().refreshWithoutBasicAuth();
-
         shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnClose();
@@ -124,9 +122,6 @@ public final class ShoppingCatalogTests {
 
         seo().checkCatalogTitleVisible();
         seo().checkSpinnerIsNotVisible();
-        seo().refreshWithoutBasicAuth();
-        seo().checkCatalogTitleVisible();
-        seo().checkSpinnerIsNotVisible();
 
         seo().openFirstProductCardOnDepartment();
         seo().interactProductCard().checkProductCardVisible();
@@ -146,8 +141,8 @@ public final class ShoppingCatalogTests {
         shop().interactAddressLarge().clickSave();
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().goToPage();
 
+        shop().goToPage();
         shop().interactHeader().clickToCategoryMenu();
         shop().interactCategoryMenu().checkCatalogMenuIsOpen();
         shop().interactCategoryMenu().moveOnFirstLevelCategory("Бакалея");
@@ -157,7 +152,6 @@ public final class ShoppingCatalogTests {
         seo().checkSpinnerIsNotVisible();
         seo().clickOnSubCategory("Гречневая");
         seo().checkSpinnerIsNotVisible();
-        seo().refreshWithoutBasicAuth();
 
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().checkProductCardVisible();
@@ -181,8 +175,7 @@ public final class ShoppingCatalogTests {
         shop().interactHeader().fillSearch("молоко");
         shop().interactHeader().clickSearchButton();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        search().checkAddToCartButtonVisible();
-        search().refreshWithoutBasicAuth();
+
         search().checkAddToCartButtonVisible();
         search().openFirstProductCard();
         search().interactProductCard().checkProductCardVisible();
