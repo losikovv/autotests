@@ -68,7 +68,7 @@ public class WorkflowCandidatesTest extends RestBase {
     public void checkUnavailableCandidate() {
         workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(300000), clientWorkflow, firstJobUuid, shiftId);
         ThreadUtil.simplyAwait(10);
-        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Universal3().getUuid());
+        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6UniversalWFS2().getUuid());
         compareTwoObjects(candidate.getActive(), false);
     }
 
@@ -79,7 +79,7 @@ public class WorkflowCandidatesTest extends RestBase {
     public void checkAvailableCandidateWithAcceptedWorkflow() {
         final Response response = AssignmentsRequest.Accept.PATCH(getShopperAssignments().get(0).getId());
         checkStatusCode200(response);
-        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Universal3().getUuid());
+        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6UniversalWFS2().getUuid());
         compareTwoObjects(candidate.getActive(), true);
     }
 
@@ -89,7 +89,7 @@ public class WorkflowCandidatesTest extends RestBase {
             dependsOnMethods = "checkAvailableCandidateWithAcceptedWorkflow")
     public void checkAvailableCandidateWithCanceledWorkflow() {
         cancelWorkflow(clientWorkflow, workflowUuid);
-        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Universal3().getUuid());
+        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6UniversalWFS2().getUuid());
         compareTwoObjects(candidate.getActive(), true);
     }
 
