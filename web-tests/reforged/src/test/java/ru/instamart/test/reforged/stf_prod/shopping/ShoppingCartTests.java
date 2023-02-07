@@ -1,8 +1,6 @@
 package ru.instamart.test.reforged.stf_prod.shopping;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -10,8 +8,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
-import io.qameta.allure.TmsLinks;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.*;
@@ -28,7 +24,7 @@ public final class ShoppingCartTests {
     @Issue("B2C-10717")
     @Test(description = "Тест валидации дефолтной корзины", groups = {STF_PROD_S})
     public void successValidateDefaultCart() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddressLarge().checkYmapsReady();
         shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
@@ -51,7 +47,7 @@ public final class ShoppingCartTests {
     @TmsLink("1572")
     @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {STF_PROD_S})
     public void successAddItemToCartUnauthorized() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddressLarge().checkYmapsReady();
         shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
@@ -61,7 +57,7 @@ public final class ShoppingCartTests {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkSnippet();
         shop().plusFirstItemToCart();
@@ -78,7 +74,7 @@ public final class ShoppingCartTests {
         helper.dropCartByQa(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -188,7 +184,7 @@ public final class ShoppingCartTests {
         helper.dropCartByQa(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -213,7 +209,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -232,7 +228,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -266,7 +262,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -288,7 +284,7 @@ public final class ShoppingCartTests {
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         helper.dropAndFillCart(userData, DEFAULT_SID);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -358,7 +354,7 @@ public final class ShoppingCartTests {
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         helper.dropAndFillCart(userData, DEFAULT_SID, 3);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -380,7 +376,7 @@ public final class ShoppingCartTests {
         helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -405,7 +401,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCartMultipleByQA(userData, RestAddresses.Moscow.defaultProdAddress(), DEFAULT_AUCHAN_SID, DEFAULT_METRO_MOSCOW_SID);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();

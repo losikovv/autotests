@@ -3,8 +3,8 @@ package ru.instamart.reforged.core.cdp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.devtools.v107.network.Network;
-import org.openqa.selenium.devtools.v107.network.model.*;
+import org.openqa.selenium.devtools.v109.network.Network;
+import org.openqa.selenium.devtools.v109.network.model.*;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import static java.util.Objects.isNull;
 @Slf4j
 public final class CdpCookie {
 
-    public static List<org.openqa.selenium.devtools.v107.network.model.Cookie> getAllCookies() {
+    public static List<org.openqa.selenium.devtools.v109.network.model.Cookie> getAllCookies() {
         log.debug("Получить список cookies");
         return Kraken.getDevTools().send(Network.getAllCookies());
     }

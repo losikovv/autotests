@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.config.UiProperties;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_BUSINESS_ACCOUNT;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -25,7 +25,7 @@ public final class CheckoutPaymentMethodsTests {
     @BeforeMethod(alwaysRun = true, description = "Шаги предусловия")
     public void beforeTest() {
         ordersUser.set(UserManager.getQaUser());
-        this.helper.dropAndFillCart(ordersUser.get(), UiProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(ordersUser.get(), DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -36,7 +36,7 @@ public final class CheckoutPaymentMethodsTests {
     @TmsLink("3822")
     @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Доставка)", groups = {STF_PROD_S})
     public void testTransitionOnB2BIfSelectBusinessPaymentMethodFromDelivery() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();

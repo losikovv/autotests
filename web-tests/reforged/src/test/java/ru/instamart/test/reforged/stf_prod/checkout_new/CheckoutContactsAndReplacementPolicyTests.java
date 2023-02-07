@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.config.UiProperties;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.NOT_SELECTED;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
@@ -27,7 +27,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @BeforeMethod(alwaysRun = true, description = "Шаги предусловия")
     public void beforeTest() {
         ordersUser.set(UserManager.getQaUser());
-        this.helper.dropAndFillCart(ordersUser.get(), UiProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(ordersUser.get(), DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -38,7 +38,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @TmsLink("3691")
     @Test(description = "Проверка отсутствия предвыбранного способа замены товара при первом чекауте", groups = {STF_PROD_S})
     public void testCheckReplacementPolicyNotSelectedFirstTime() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -53,7 +53,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @TmsLink("3632")
     @Test(description = "Проверка что поле 'Замена товара' является обязательным при первом заказе", groups = {STF_PROD_S})
     public void testCheckReplacementPolicyRequired() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -85,7 +85,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @TmsLink("3629")
     @Test(description = "Проверка что поля телефон и e-mail обязательны и валидируются при потере фокуса", groups = {STF_PROD_S})
     public void testCheckPhoneAndEmailRequiredFields() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();

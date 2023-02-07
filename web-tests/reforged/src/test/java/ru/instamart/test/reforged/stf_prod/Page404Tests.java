@@ -2,8 +2,8 @@ package ru.instamart.test.reforged.stf_prod;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import org.testng.annotations.Test;
 import io.qameta.allure.TmsLink;
+import org.testng.annotations.Test;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.stf.page.StfRouter.home;

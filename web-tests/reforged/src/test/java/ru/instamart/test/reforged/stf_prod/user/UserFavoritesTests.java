@@ -2,11 +2,11 @@ package ru.instamart.test.reforged.stf_prod.user;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
@@ -28,7 +28,7 @@ public final class UserFavoritesTests {
     @TmsLink("1265")
     @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {STF_PROD_S})
     public void noFavoriteItemsByDefault() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -40,7 +40,7 @@ public final class UserFavoritesTests {
     @TmsLink("1266")
     @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {STF_PROD_S})
     public void successAddFavoriteOnItemCard() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -60,7 +60,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 2);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -78,7 +78,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 1);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -95,7 +95,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 35);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -114,7 +114,7 @@ public final class UserFavoritesTests {
     @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
             groups = {STF_PROD_S})
     public void successAuthAfterAddFavoriteOnItemCard() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().checkModalIsVisible();

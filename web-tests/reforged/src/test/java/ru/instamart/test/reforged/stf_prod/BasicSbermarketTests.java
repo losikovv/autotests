@@ -14,6 +14,7 @@ import ru.instamart.reforged.core.service.curl.CurlService;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.BasicProperties.JOB_LANDING_URL;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.core.config.UiProperties.STF_URL;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -25,7 +26,7 @@ public final class BasicSbermarketTests {
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = {STF_PROD_S})
     public void successValidateHeader() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().checkPageIsAvailable();
 
         shop().interactHeader().checkHeaderVisible();
@@ -51,7 +52,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на как мы работаем", groups = {STF_PROD_S})
     public void successTransitionHowWeWork() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToHowWeWork();
         howWeWork().checkPageIsAvailable();
         howWeWork().checkPageOpened();
@@ -61,7 +62,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на информацию о контактах", groups = {STF_PROD_S})
     public void successTransitionContactsInfo() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToContacts();
         contacts().checkPageIsAvailable();
         contacts().checkPageOpened();
@@ -71,7 +72,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с помощью для клиента", groups = {STF_PROD_S})
     public void successTransitionHelpInfo() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToHelp();
         faq().checkPageIsAvailable();
         faq().checkPageOpened();
@@ -81,7 +82,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с информацией о доставке", groups = {STF_PROD_S})
     public void successTransitionDeliveryInfo() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToDeliveryAndPayment();
         delivery().checkPageIsAvailable();
         delivery().checkPageOpened();
@@ -91,7 +92,7 @@ public final class BasicSbermarketTests {
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с Logo", groups = {STF_PROD_S})
     public void successTransitionLogo() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogo();
         shop().checkPageIsAvailable();
         shop().checkPageOpened();

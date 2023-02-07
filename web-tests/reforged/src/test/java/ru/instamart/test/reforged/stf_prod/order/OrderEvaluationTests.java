@@ -2,12 +2,12 @@ package ru.instamart.test.reforged.stf_prod.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
@@ -27,7 +27,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -46,7 +46,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -65,7 +65,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -87,7 +87,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -108,7 +108,7 @@ public final class OrderEvaluationTests {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();

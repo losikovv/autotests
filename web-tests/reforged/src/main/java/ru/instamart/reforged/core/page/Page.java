@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.CdpCookie;
@@ -20,12 +19,6 @@ public interface Page extends PageCheck {
     @Step("Обновить страницу")
     default void refresh() {
         Kraken.refresh();
-    }
-
-    @Step("Обновить страницу, обрезав basic auth - костыльный шаг от разлогина и ошибок бейсика")
-    default void refreshWithoutBasicAuth() {
-        final var currentUrl = Kraken.getWebDriver().getCurrentUrl();
-        Kraken.open(StringUtil.cutBasicAuthFromUrl(currentUrl));
     }
 
     //TODO при открытии бизнес-витрины по клику "Покупать для бизнеса" на stf мешает базовая авторизация

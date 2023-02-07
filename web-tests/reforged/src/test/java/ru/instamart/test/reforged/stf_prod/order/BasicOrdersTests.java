@@ -35,7 +35,7 @@ public final class BasicOrdersTests {
         helper.addFavorites(ordersUser.get(), DEFAULT_SID, 5);
         helper.dropAndFillCartFromFavorites(ordersUser.get(), DEFAULT_SID);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -90,7 +90,7 @@ public final class BasicOrdersTests {
         helper.makeOrder(ordersUser.get(), DEFAULT_SID, 1);
         helper.setAddress(ordersUser.get(), RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -115,7 +115,7 @@ public final class BasicOrdersTests {
         helper.makeOrderOnTomorrowByQa(ordersUser.get(), DEFAULT_SID, 1);
         helper.setAddress(ordersUser.get(), RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -124,7 +124,7 @@ public final class BasicOrdersTests {
         shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstRetailer().mergeProducts();
         shop().interactCart().clickToViewOrder();
@@ -139,7 +139,7 @@ public final class BasicOrdersTests {
     public void successCancelMultiOrderViaCancelOneOrder() {
         ordersUser.set(UserManager.getQaUser());
         helper.makeMultipleOrderByQa(ordersUser.get(), RestAddresses.Moscow.defaultProdAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();

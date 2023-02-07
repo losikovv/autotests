@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -9,7 +10,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.seo;
@@ -40,7 +40,6 @@ public final class SeoCatalogTests {
     @Test(description = "Тест открытия карточки товара на странице SEO-каталога", groups = REGRESSION_STF)
     public void successOpenItemCardOnSeoCatalog() {
         seo().goToPage();
-        seo().refreshWithoutBasicAuth();
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().checkProductCardVisible();
     }
@@ -49,7 +48,6 @@ public final class SeoCatalogTests {
     @Test(description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога", groups = REGRESSION_STF)
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
         seo().goToPage();
-        seo().refreshWithoutBasicAuth();
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().clickOnBuy();
 

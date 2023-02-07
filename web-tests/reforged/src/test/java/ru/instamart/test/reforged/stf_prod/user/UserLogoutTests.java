@@ -3,13 +3,13 @@ package ru.instamart.test.reforged.stf_prod.user;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.config.UiProperties;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -23,7 +23,7 @@ public final class UserLogoutTests {
     public void successQuickLogout() {
         final var userData = UserManager.getQaUser();
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -39,7 +39,7 @@ public final class UserLogoutTests {
     @Story("Позитивный кейс")
     @Test(description = "Тест успешной деавторизации", groups = {STF_PROD_S})
     public void successManualLogout() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
@@ -54,14 +54,14 @@ public final class UserLogoutTests {
     public void noShipAddressAndEmptyCartAfterLogout() {
         final var apiHelper = new ApiHelper();
         final var userData = UserManager.getQaUser();
-        apiHelper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        apiHelper.dropAndFillCart(userData, DEFAULT_SID);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().closeCart();
@@ -72,7 +72,7 @@ public final class UserLogoutTests {
 
         home().checkLoginButtonIsVisible();
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().checkEnteredAddressNotVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartEmpty();

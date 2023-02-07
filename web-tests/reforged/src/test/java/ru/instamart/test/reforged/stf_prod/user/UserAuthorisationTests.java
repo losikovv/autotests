@@ -1,15 +1,12 @@
 package ru.instamart.test.reforged.stf_prod.user;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.BasicProperties;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -24,7 +21,7 @@ public final class UserAuthorisationTests {
     public void successRegWithVkontakte() {
         final var vkUser = UserManager.getNewVkUser();
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().checkRequestsWasLoad();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
@@ -47,7 +44,7 @@ public final class UserAuthorisationTests {
     @Issue("B2C-11803")
     @Test(description = "Тест успешной авторизация через MailRu", groups = {STF_PROD_S})
     public void successRegWithMailRu() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().checkRequestsWasLoad();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
@@ -74,7 +71,7 @@ public final class UserAuthorisationTests {
     @Story("Авторизация через SberID")
     @Test(description = "Тест перехода на сайт Sber ID", groups = {STF_PROD_S})
     public void checkCorrectTransitionToSberIdSite() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().checkSberIdIsVisible();

@@ -13,9 +13,9 @@ import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.reforged.core.config.UiProperties;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -31,7 +31,7 @@ public final class CheckoutPromoCodesTests {
     public void beforeMethod() {
         userData.set(UserManager.getQaUser());
         //Промокод хочет сумму заказа от 1000 рублей
-        this.helper.dropAndFillCartWithAmount(userData.get(), UiProperties.DEFAULT_SID, 1100);
+        this.helper.dropAndFillCartWithAmount(userData.get(), DEFAULT_SID, 1100);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -44,7 +44,7 @@ public final class CheckoutPromoCodesTests {
     //выключено так как sbervesna истек
     @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {STF_PROD_S})
     public void testApplyFreeDeliveryPromo() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -76,7 +76,7 @@ public final class CheckoutPromoCodesTests {
     //выключено так как sbervesna истек
     @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {STF_PROD_S})
     public void testSuccessApplyPromo() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -111,7 +111,7 @@ public final class CheckoutPromoCodesTests {
     public void testApplyNonExistPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData.get());
         shop().interactHeader().checkProfileButtonVisible();

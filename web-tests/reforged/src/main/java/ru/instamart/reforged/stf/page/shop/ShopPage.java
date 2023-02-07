@@ -23,8 +23,6 @@ import ru.instamart.reforged.stf.page.StfPage;
 
 import java.util.List;
 
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
-
 public final class ShopPage implements StfPage, ShopCheck {
 
     public AuthModal interactAuthModal() {
@@ -224,10 +222,6 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     public void goToPage(final int sid) {
         goToPage(ShopUrl.DEFAULT, sid);
-    }
-
-    public void goToPageProd() {
-        goToPage(ShopUrl.DEFAULT, DEFAULT_SID);
     }
 
     public void goToPage(final ShopUrl shop) {

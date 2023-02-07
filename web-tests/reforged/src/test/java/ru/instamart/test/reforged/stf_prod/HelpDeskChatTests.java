@@ -2,14 +2,14 @@ package ru.instamart.test.reforged.stf_prod;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.reforged.core.config.UiProperties;
-import io.qameta.allure.TmsLink;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -25,9 +25,9 @@ public final class HelpDeskChatTests {
         final var apiHelper = new ApiHelper();
         final var userData = UserManager.getQaUser();
 
-        apiHelper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        apiHelper.dropAndFillCart(userData, DEFAULT_SID);
 
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -42,7 +42,7 @@ public final class HelpDeskChatTests {
     @TmsLink("1759")
     @Test(description = "Тест работы с виджетом HelpDesk на витрине ритейлера", groups = {STF_PROD_S})
     public void successOperateHelpDeskWidgetOnRetailerPage() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHelpDesk().openChat();
         shop().interactHelpDesk().checkHelpDeskOpen();
         shop().interactHelpDesk().closeChat();

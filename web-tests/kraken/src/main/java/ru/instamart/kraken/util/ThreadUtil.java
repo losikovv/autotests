@@ -20,6 +20,7 @@ public final class ThreadUtil {
             ALL_WAIT_TIME.add(seconds);
             Thread.sleep((long) (seconds * 1000));
         } catch (InterruptedException i) {
+            Thread.currentThread().interrupt();
             log.error("Прервано");
         }
     }

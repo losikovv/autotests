@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.config.UiProperties;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REPLACE;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
@@ -27,7 +27,7 @@ public final class CheckoutAddressTests {
     @BeforeMethod(alwaysRun = true, description = "Шаги предусловия")
     public void beforeTest() {
         ordersUser.set(UserManager.getQaUser());
-        this.helper.dropAndFillCart(ordersUser.get(), UiProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(ordersUser.get(), DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -38,7 +38,7 @@ public final class CheckoutAddressTests {
     @TmsLink("3594")
     @Test(description = "Проверка того, что поле 'Кв, офис' является обязательным к заполнению", groups = {STF_PROD_S})
     public void testCheckRequiredFields() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
@@ -77,7 +77,7 @@ public final class CheckoutAddressTests {
     @TmsLink("3821")
     @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Доставка)", groups = {STF_PROD_S})
     public void testTransitionOnB2BViaCheckoutFromDelivery() {
-        shop().goToPageProd();
+        shop().goToPage(DEFAULT_SID);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
