@@ -25,7 +25,7 @@ public class SurgeLevelBase {
     protected final String FORMULA_ID = "10000000-1000-1000-1000-100000000000";
     protected final int SHORT_TIMEOUT = 3;
     protected final int MEDIUM_TIMEOUT = 10;
-    protected final int LONG_TIMEOUT = 20;
+    protected final int LONG_TIMEOUT = 30;
     protected final float BASE_SURGELEVEL = 100; //см. формулу, которую используем для тестов
     protected final int BASE_SURGE_OUTDATE = 10;
 

@@ -3,6 +3,7 @@ package ru.instamart.test.api.on_demand.surgelevel;
 import io.qameta.allure.*;
 import order.OrderChanged.EventOrderChanged.OrderStatus;
 import order.OrderChanged.EventOrderChanged.ShipmentType;
+import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -34,18 +35,19 @@ public class SurgeOneTest extends SurgeLevelBase {
     private final String STORE_ID_NOT_ON_DEMAND = UUID.randomUUID().toString();
     private final String STORE_ID_DISABLED = UUID.randomUUID().toString();
     private final String STORE_ID_NOT_EXPIRED = UUID.randomUUID().toString();
+    private final String STORE_ID_UNCHANGED = UUID.randomUUID().toString();
     private final String SHIPMENT_UUID = UUID.randomUUID().toString();
     private final String ORDER_UUID = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID_DELIVERY_AREA = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID_FAKE_GPS = UUID.randomUUID().toString();
-    private float currentSurgeLevel = BASE_SURGELEVEL;
-    private float currentSurgeLevelNotExpired = currentSurgeLevel;
-    private int currentDemandAmount;
-    private int currentSupplyAmount;
-    private float pastSurgeLevel;
     private final AtomicInteger SURGE_CALCULATION_COUNT = new AtomicInteger(); //костыль для понимания какой pastSurgeLevel использовать
     private int surgeEventOutdate = BASE_SURGE_OUTDATE;
+    private float currentSurgeLevel = BASE_SURGELEVEL;
+    private float pastSurgeLevel;
+    private int currentDemandAmount;
+    private int currentSupplyAmount;
+    private boolean surgeProduceUnchanged;
     private Surgelevel.Location storeLocation;
 
     @BeforeClass(alwaysRun = true)
@@ -54,12 +56,14 @@ public class SurgeOneTest extends SurgeLevelBase {
         addStore(STORE_ID, UUID.randomUUID().toString(), false, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, 1000);
         addStore(STORE_ID_NOT_ON_DEMAND, UUID.randomUUID().toString(), false, false, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, null);
         addStore(STORE_ID_DISABLED, UUID.randomUUID().toString(), true, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, null);
-        addStore(STORE_ID_NOT_EXPIRED, UUID.randomUUID().toString(), false, true, storeLocation.getLat() - 1, storeLocation.getLon() - 1, FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, null);
+        addStore(STORE_ID_NOT_EXPIRED, UUID.randomUUID().toString(), false, true, storeLocation.getLat() - 1, storeLocation.getLon() - 1, FORMULA_ID, 1000, 0, null);
+        addStore(STORE_ID_UNCHANGED, UUID.randomUUID().toString(), false, true, storeLocation.getLat() - 2, storeLocation.getLon() - 2, FORMULA_ID, 1000, 0, null);
 
         final var surgeEventOutdateFromK8s = SurgeLevelHelper.getInstance().getSurgeEventOutdate();
         if (Objects.nonNull(surgeEventOutdateFromK8s)) {
             surgeEventOutdate = surgeEventOutdateFromK8s;
         }
+        surgeProduceUnchanged = SurgeLevelHelper.getInstance().isSurgeProduceUnchanged();
     }
 
     @AfterMethod(alwaysRun = true)
@@ -100,19 +104,82 @@ public class SurgeOneTest extends SurgeLevelBase {
     public void surgeNoRecalculationWithExpired() {
         publishEventOrderStatus(UUID.randomUUID().toString(), STORE_ID_NOT_EXPIRED, OrderStatus.NEW, ShipmentType.ON_DEMAND, UUID.randomUUID().toString(), 0);
 
-        currentSurgeLevelNotExpired++;
+        final var surgeLevel = BASE_SURGELEVEL + 1;
 
         Allure.step("Выставляем expired_at у surgelevel магазина", () -> withRetriesAsserted(() -> {
             final var result = ResultDao.INSTANCE.findResult(STORE_ID_NOT_EXPIRED);
 
             assertNotNull(result, "Для магазина не посчитан результат");
-            assertEquals(result.getSurgeLevel().floatValue(), currentSurgeLevelNotExpired, "Не верный surgelevel");
+            assertEquals(result.getSurgeLevel().floatValue(), surgeLevel, "Не верный surgelevel");
         }, LONG_TIMEOUT));
 
         ResultDao.INSTANCE.updateResult(STORE_ID_NOT_EXPIRED, getZonedUTCDatePlusMinutes(666));
-        publishEventOrderStatus(UUID.randomUUID().toString(), STORE_ID_NOT_EXPIRED, OrderStatus.NEW, ShipmentType.ON_DEMAND, UUID.randomUUID().toString(), 0);
+        publishEventOrderStatus(UUID.randomUUID().toString(), STORE_ID_NOT_EXPIRED, OrderStatus.NEW, ShipmentType.ON_DEMAND, UUID.randomUUID().toString(), MEDIUM_TIMEOUT);
 
-        Allure.step("Провер]ем отсутствие перерасчета surgelevel", () -> withRetriesAsserted(() -> assertEquals(ResultDao.INSTANCE.findResult(STORE_ID_NOT_EXPIRED).getSurgeLevel().floatValue(), currentSurgeLevelNotExpired, "Не верный surgelevel"), LONG_TIMEOUT));
+        Allure.step("Провер]ем отсутствие перерасчета surgelevel", () -> assertEquals(ResultDao.INSTANCE.findResult(STORE_ID_NOT_EXPIRED).getSurgeLevel().floatValue(), surgeLevel, "Не верный surgelevel"));
+    }
+
+    @TmsLinks({@TmsLink("31"), @TmsLink("40")})
+    @Story("Surge Calculation")
+    @Test(description = "Отсутствие перерасчета surgelevel, который не отличается от предыдущего результата (SURGEEVENT_PRODUCE_UNCHANGED=false)",
+            groups = "ondemand-surgelevel")
+    public void surgeProduceWithoutProduceUnchanged() {
+        if (surgeProduceUnchanged) {
+            throw new SkipException("Пропускаем, потому что SURGEEVENT_PRODUCE_UNCHANGED = true");
+        }
+
+        String shipmentUuid = UUID.randomUUID().toString();
+        String orderUuid = UUID.randomUUID().toString();
+
+        publishEventOrderStatus(orderUuid, STORE_ID_UNCHANGED, OrderStatus.NEW, ShipmentType.ON_DEMAND, shipmentUuid, 0);
+
+        final var surgeLevel = BASE_SURGELEVEL + 1;
+
+        Allure.step("Проверка отправки SurgeEvent", () -> withRetriesAsserted(() -> {
+            final var surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID_UNCHANGED, 1L);
+            assertEquals(surgeLevels.size(), 1, "Не верное кол-во событий");
+            checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID_UNCHANGED, 0, surgeLevel, 1, 0, Method.ACTUAL);
+        }, LONG_TIMEOUT));
+
+        publishEventOrderStatus(orderUuid, STORE_ID_UNCHANGED, OrderStatus.ROUTING, ShipmentType.ON_DEMAND, shipmentUuid, MEDIUM_TIMEOUT);
+
+        Allure.step("Проверка отсутствия отправки SurgeEvent", () -> {
+            final var surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID_UNCHANGED, 5L);
+            assertEquals(surgeLevels.size(), 1, "Не верное кол-во событий");
+            checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID_UNCHANGED, 0, surgeLevel, 1, 0, Method.ACTUAL);
+            assertEquals(ResultDao.INSTANCE.findResult(STORE_ID_UNCHANGED).getSurgeLevel().floatValue(), surgeLevel, "Не верный surgelevel");
+        });
+    }
+
+    @TmsLink("199")
+    @Story("Surge Calculation")
+    @Test(description = "Перерасчет surgelevel, который не отличается от предыдущего результата (SURGEEVENT_PRODUCE_UNCHANGED=true)",
+            groups = "ondemand-surgelevel")
+    public void surgeProduceWithProduceUnchanged() {
+        if (!surgeProduceUnchanged) {
+            throw new SkipException("Пропускаем, потому что SURGEEVENT_PRODUCE_UNCHANGED = false");
+        }
+
+        String shipmentUuid = UUID.randomUUID().toString();
+        String orderUuid = UUID.randomUUID().toString();
+
+        publishEventOrderStatus(orderUuid, STORE_ID_UNCHANGED, OrderStatus.NEW, ShipmentType.ON_DEMAND, shipmentUuid, 0);
+
+        final var surgeLevel = BASE_SURGELEVEL + 1;
+
+        Allure.step("Проверка отправки SurgeEvent", () -> withRetriesAsserted(() -> {
+            final var surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID_UNCHANGED, 1L);
+            assertEquals(surgeLevels.size(), 1, "Не верное кол-во событий");
+            checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID_UNCHANGED, 0, surgeLevel, 1, 0, Method.ACTUAL);
+        }, LONG_TIMEOUT));
+
+        publishEventOrderStatus(orderUuid, STORE_ID_UNCHANGED, OrderStatus.ROUTING, ShipmentType.ON_DEMAND, shipmentUuid, 0);
+
+        Allure.step("Проверка повторной отправки SurgeEvent", () -> withRetriesAsserted(() -> {
+            final var surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID_UNCHANGED, 5L);
+            assertEquals(surgeLevels.size(), 2, "Не верное кол-во событий");
+            checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID_UNCHANGED, surgeLevel, surgeLevel, 1, 0, Method.ACTUAL);
+        }, LONG_TIMEOUT));
     }
 
     @TmsLinks({@TmsLink("14"), @TmsLink("23"), @TmsLink("25"), @TmsLink("163"), @TmsLink("32")})
@@ -130,22 +197,6 @@ public class SurgeOneTest extends SurgeLevelBase {
         Allure.step("Проверка отсутствия изменения surgelevel", () -> withRetriesAsserted(() -> {
             final var surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID, 1L);
             checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, SURGE_CALCULATION_COUNT.get() > 1 ? pastSurgeLevel : 0, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
-        }, LONG_TIMEOUT));
-    }
-
-    @TmsLink("40")
-    @Story("Demand")
-    @Test(description = "Отсутствие изменения surgelevel при получении ранее полученного ON_DEMAND заказа",
-            groups = "ondemand-surgelevel",
-            dependsOnMethods = "surgeProduceEventOrderOnDemand")
-    public void surgeProduceEventOrderRepeat() {
-        publishEventOrderStatus(ORDER_UUID, STORE_ID, OrderStatus.ROUTING, ShipmentType.ON_DEMAND, SHIPMENT_UUID, 0);
-
-        Allure.step("Проверка отсутствия изменения surgelevel", () -> withRetriesAsserted(() -> {
-            final var result = ResultDao.INSTANCE.findResult(STORE_ID);
-
-            assertNotNull(result, "Для магазина не посчитан результат");
-            assertEquals(result.getSurgeLevel().floatValue(), currentSurgeLevel, "Не верный surgelevel");
         }, LONG_TIMEOUT));
     }
 
@@ -365,5 +416,6 @@ public class SurgeOneTest extends SurgeLevelBase {
         deleteStore(STORE_ID_NOT_ON_DEMAND);
         deleteStore(STORE_ID_DISABLED);
         deleteStore(STORE_ID_NOT_EXPIRED);
+        deleteStore(STORE_ID_UNCHANGED);
     }
 }
