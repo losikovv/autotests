@@ -13,6 +13,6 @@ public class SurgelevelRequestBase {
     }
 
     public static RequestSpecification givenWithAuth() {
-        return givenWithSpec().header("x-api-secret", SurgeLevelHelper.getInstance().getAuthToken());
+        return givenWithSpec().header("x-api-secret", SurgeLevelHelper.getInstance().getSurgeAuthToken());
     }
 }

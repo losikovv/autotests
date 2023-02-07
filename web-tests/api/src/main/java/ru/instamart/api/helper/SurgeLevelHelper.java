@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Objects;
 
 import static events.ShiftChangedEventOuterClass.*;
+import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.SURGE_EVENT_OUTDATE;
-import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.SURGE_HTTP_AUTH_TOKENS;
+import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.*;
 import static ru.instamart.api.helper.K8sHelper.getServiceEnvProp;
 import static ru.instamart.kafka.configs.KafkaConfigs.*;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
@@ -39,11 +39,14 @@ public class SurgeLevelHelper {
     @Getter
     private final Integer surgeEventOutdate;
     @Getter
-    private final String authToken;
+    private final String surgeAuthToken;
+    @Getter
+    private final boolean surgeProduceUnchanged;
 
     private SurgeLevelHelper() {
         this.surgeEventOutdate = getSurgeEventOutdateFromK8s();
-        this.authToken = getHttpAuthTokenFromK8s();
+        this.surgeAuthToken = getHttpAuthTokenFromK8s();
+        this.surgeProduceUnchanged = getSurgeEventProduceUnchangedFromK8s();
     }
 
     public static SurgeLevelHelper getInstance() {
@@ -247,12 +250,8 @@ public class SurgeLevelHelper {
     public static Integer getSurgeEventOutdateFromK8s() {
         final var envProp = getServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, SURGE_EVENT_OUTDATE.get());
         final var surgeEventOutdateStr = matchWithRegex("^\\[SURGEEVENT_OUTDATE=(\\d+)s\\]$", envProp.toString(), 1);
-        if (!surgeEventOutdateStr.isBlank()) {
-            final var surgeEventOutdate = Integer.parseInt(surgeEventOutdateStr);
-            if (surgeEventOutdate < 3) {
-                return surgeEventOutdate + 3;
-            }
-            return surgeEventOutdate;
+        if (!surgeEventOutdateStr.isBlank() && isNumeric(surgeEventOutdateStr)) {
+            return Integer.parseInt(surgeEventOutdateStr);
         }
         return null;
     }
@@ -274,5 +273,12 @@ public class SurgeLevelHelper {
             }
         }
         return null;
+    }
+
+    @Step("Проверяем включено ли PRODUCE_UNCHANGED")
+    public static boolean getSurgeEventProduceUnchangedFromK8s() {
+        final var envProp = getServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, SURGE_PRODUCE_UNCHANGED.get());
+        final var surgeProduceUnchanged = matchWithRegex("^\\[SURGEEVENT_PRODUCE_UNCHANGED=(.\\w+)\\]$", envProp.toString(), 1);
+        return surgeProduceUnchanged.equals("true");
     }
 }

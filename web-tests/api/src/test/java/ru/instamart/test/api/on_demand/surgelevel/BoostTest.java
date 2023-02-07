@@ -44,7 +44,7 @@ public class BoostTest extends SurgeLevelBase {
 
     @BeforeClass(alwaysRun = true)
     public void preConditions() {
-        secret = SurgeLevelHelper.getInstance().getAuthToken();
+        secret = SurgeLevelHelper.getInstance().getSurgeAuthToken();
         if (Objects.nonNull(secret)) {
             storesAdded = true;
             addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, 0, null);
