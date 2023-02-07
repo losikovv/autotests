@@ -48,7 +48,7 @@ public interface MultisearchHeaderCheck extends Check, MultisearchHeaderElement 
 
     @Step("Проверяем, что отображаются товары в саджесторе межритейлерного поиска")
     default void checkProductsVisibleInSuggester() {
-        Kraken.waitAction().shouldBeVisible(productsInActiveTab);
+        productsInActiveTab.should().visible();
     }
 
     @Step("Проверяем, саджестор не отображается")

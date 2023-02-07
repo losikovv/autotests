@@ -71,7 +71,7 @@ public final class UserFavoritesTests {
         userFavorites().removeFirstFavoriteItem();
         userFavorites().refresh();
 
-        userFavorites().checkCountChange(userFavorites().getFavoritesCount(), 1);
+        userFavorites().checkCountChange(1, userFavorites().getFavoritesCount());
     }
 
     @TmsLink("1268")
