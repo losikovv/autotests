@@ -55,10 +55,7 @@ public class WorkflowCandidatesTest extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
         order = apiV2.orderOnDemand(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
-        secondOrder = apiV2.orderOnDemand(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
         firstJobUuid = awaitJobUuid(shipmentUuid, 300L);
-        secondJobUuid = awaitJobUuid(secondShipmentUuid, 300L);
         ThreadUtil.simplyAwait(240);
     }
 
@@ -99,8 +96,11 @@ public class WorkflowCandidatesTest extends RestBase {
             dependsOnMethods = "checkAvailableCandidateWithCanceledWorkflow")
     public void createWorkflowForBusyCandidate() {
         String candidateUuid = CandidatesDao.INSTANCE.getCandidateUuidByStatus(false);
+        secondOrder = apiV2.orderOnDemand(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
+        secondJobUuid = awaitJobUuid(secondShipmentUuid, 300L);
 
-        var request = getWorkflowsRequestWithDifferentStores(secondOrder, secondShipmentUuid, candidateUuid);
+        var request = getWorkflowsRequestWithDifferentStores(secondOrder, secondShipmentUuid, secondJobUuid, candidateUuid, 0);
         var response = clientWorkflow.createWorkflows(request);
 
         checkGrpcError(response, "Candidate is busy", CANDIDATE_IS_BUSY.toString());

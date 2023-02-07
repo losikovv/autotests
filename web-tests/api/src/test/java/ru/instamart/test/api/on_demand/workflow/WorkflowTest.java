@@ -249,7 +249,7 @@ public class WorkflowTest extends RestBase {
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelExistingWorkflow")
     public void createWorkflowWithDifferentStores() {
-        var request = getWorkflowsRequestWithDifferentStores(order, shipmentUuid, UserManager.getShp6Universal1().getUuid());
+        var request = getWorkflowsRequestWithDifferentStores(order, shipmentUuid, firstJobUuid, UserManager.getShp6Universal1().getUuid(), shiftId);
 
         var response = clientWorkflow.createWorkflows(request);
 
