@@ -52,9 +52,7 @@ public class CancellationsTest extends SelfFeeBase {
         checkStatusCode(response, 202);
         final var fileUploadResponse = response.as(FileUploadResponse.class);
 
-        awaitFile(fileUploadResponse.getId(), 600, 200);
-
-        final var responseFileInfo = SelfFeeV3Request.Upload.GET(fileUploadResponse.getId());
+        final var responseFileInfo = awaitFile(fileUploadResponse.getId(), 600);
         checkStatusCode200(responseFileInfo);
         final var responseFile = responseFileInfo.as(UploadIdResponse.class);
 

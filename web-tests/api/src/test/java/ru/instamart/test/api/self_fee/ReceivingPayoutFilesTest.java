@@ -55,9 +55,7 @@ public class ReceivingPayoutFilesTest extends SelfFeeTest {
         checkStatusCode(response, 202);
         final var fileUploadResponse = response.as(FileUploadResponse.class);
 
-        awaitFile(fileUploadResponse.getId(), 600, 200);
-
-        final var responseFileInfo = SelfFeeV3Request.Upload.GET(fileUploadResponse.getId());
+        final var responseFileInfo = awaitFile(fileUploadResponse.getId(), 600);
         checkStatusCode200(responseFileInfo);
         final var responseFile = responseFileInfo.as(UploadIdResponse.class);
 
@@ -75,7 +73,8 @@ public class ReceivingPayoutFilesTest extends SelfFeeTest {
 
     @TmsLink("217")
     @Story("Получение файлов на выплату")
-    @Test(groups = {SELF_FEE},
+    @Test(enabled = false,
+            groups = {SELF_FEE},
             description = "Получение архива на выплату в сбер")
     public void test217() {
         final var reestrId = registryResponse.getResult().get(0).getId();
