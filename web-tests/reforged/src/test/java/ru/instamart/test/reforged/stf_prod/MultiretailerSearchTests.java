@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf_prod;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
@@ -31,6 +32,7 @@ public final class MultiretailerSearchTests {
     }
 
     @TmsLink("3848")
+    @Issue("B2C-12914")
     @Test(description = "Тест успешной отработки межритейлерного саджестора", groups = {STF_PROD_S})
     public void testMultisearchPositiveInSuggester() {
         final UserData userData = UserManager.getQaUser();
@@ -103,7 +105,8 @@ public final class MultiretailerSearchTests {
     }
 
     @TmsLink("3851")
-    @Test(description = "Успешная отработки межритейлерного поиска", groups = {STF_PROD_S})
+    @Issue("B2C-12914")
+    @Test(description = "Успешная отработка межритейлерного поиска", groups = {STF_PROD_S})
     public void testMultisearchPositiveOnPage() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
@@ -208,6 +211,7 @@ public final class MultiretailerSearchTests {
     }
 
     @TmsLink("3855")
+    @Issue("B2C-12914")
     @Test(description = "Переключения слага ритейлера в межритейлерном поиске", groups = {STF_PROD_S})
     public void testSwitchRetailerOnMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
@@ -237,6 +241,7 @@ public final class MultiretailerSearchTests {
     }
 
     @TmsLink("3856")
+    @Issue("B2C-12914")
     @Test(description = "Переключение категорий в межритейлерном поиске", groups = {STF_PROD_S})
     public void testCategoryFiltersOnMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
@@ -316,6 +321,7 @@ public final class MultiretailerSearchTests {
     }
 
     @TmsLink("3860")
+    @Issue("B2C-12914")
     @Test(description = "Переключение слага ритейлера в межритейлерном саджесторе", groups = {STF_PROD_S})
     public void testSwitchRetailerInSuggester() {
         final UserData userData = UserManager.getQaUser();

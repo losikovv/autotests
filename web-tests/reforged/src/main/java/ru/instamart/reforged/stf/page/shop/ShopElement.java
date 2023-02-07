@@ -29,7 +29,8 @@ public interface ShopElement {
             "[not(contains(.,'Дешевле, чем в магазине'))]" +
             "[not(contains(.,'Новый год'))]" +
             "[not(contains(.,'Спецпредложения'))]" +
-            "[not(contains(.,'Алкоголь'))]";
+            "[not(contains(.,'Алкоголь'))]" +
+            "[not(contains(.,'14 февраля'))]";
 
     Header header = new Header();
     StoreModal storeModal = new StoreModal();

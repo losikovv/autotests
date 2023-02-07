@@ -22,7 +22,7 @@ public interface MultisearchHeaderElement {
     Button resetSearch = new Button(By.xpath("//button[@data-qa='multisearch_form_reset_button']"), "Кнопка 'X' поиск");
     Element multiSearchDropdown = new Element(By.xpath("//div[@data-qa='multisearch_dropdown_content']"), "Саджестор межритейлерного поиска");
     ElementCollection retailersInDropdown = new ElementCollection(By.xpath("//div[@data-qa='multisearch_dropdown_content']//li[./div[contains(@class,'StoresItem')]]"), "Вкладки магазинов в саджесторе межритейлерного поиска");
-    ElementCollection productsInActiveTab = new ElementCollection(By.xpath("//div[contains(@class,'Tabs_active')]//a[contains(@class,'ProductCard_link')]"), "Найденные продукты в саджесторе");
+    ElementCollection productsInActiveTab = new ElementCollection(By.xpath("//div[contains(@class,'Tabs_active')]//a[contains(@class,'ProductCard_link')]"), 20, "Найденные продукты в саджесторе");
     ElementCollection productsTitleInActiveTab = new ElementCollection(By.xpath("//div[contains(@class,'Tabs_active')]//div[contains(@data-qa,'multisearch_item')]//h3[contains(@class,'ProductCard_title')]"), "Названия найденных продуктов в саджесторе");
     ElementCollection productsLinkInActiveTab = new ElementCollection(By.xpath("//div[contains(@class,'Tabs_active')]//a"), "Ссылка на найденный продукт в саджесторе");
     ElementCollection productsAddToCart = new ElementCollection(By.xpath("//div[contains(@class,'Tabs_active')]//button[@title = 'Добавить в корзину']"), "Кнопки 'Добавить в корзину' найденных продуктов в саджесторе");
