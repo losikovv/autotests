@@ -69,4 +69,9 @@ public interface PageCheck extends PageElement {
     default void checkFrameOpened() {
         Kraken.waitAction().frameShouldBeVisible(0);
     }
+
+    @Step("Проверка, что открылась вкладка")
+    default void checkTabOpened() {
+        Kraken.waitAction().tabOpenCount(2);
+    }
 }

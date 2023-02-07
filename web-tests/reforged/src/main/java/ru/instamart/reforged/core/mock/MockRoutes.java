@@ -14,7 +14,8 @@ public final class MockRoutes {
 
     //Пример мока для всех роутов
     @MockRout(name = "allRoute")
-    public static final Route allRoutes = Route.matching(httpRequest -> true).to(() -> req -> new HttpResponse()
+    public static final Route allRoutes = Route.matching(httpRequest -> true)
+            .to(() -> req -> new HttpResponse()
             .setStatus(200)
             .addHeader("Content-Type", MediaType.HTML_UTF_8.toString())
             .setContent(utf8String("Потрачено!")));
@@ -23,9 +24,9 @@ public final class MockRoutes {
     @MockRout(name = "metroRout")
     public static final Route metroRout = Route.matching(httpRequest -> httpRequest.getUri().contains("/metro"))
             .to(() -> req -> new HttpResponse()
-                    .setStatus(200)
-                    .addHeader("Content-Type", MediaType.JSON_UTF_8.toString())
-                    .setContent(asJson(GeoLocation.builder().withAccuracy(1).withLatitude(2.3f).withLongitude(4.5f).build())));
+            .setStatus(200)
+            .addHeader("Content-Type", MediaType.JSON_UTF_8.toString())
+            .setContent(asJson(GeoLocation.builder().withAccuracy(1).withLatitude(2.3f).withLongitude(4.5f).build())));
 
     //Пример мока для группы роутов
     @MockRout(name = "multipleRout")
