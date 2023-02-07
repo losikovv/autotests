@@ -121,7 +121,7 @@ public final class CheckoutTests {
         checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
-        //B2C-9730
+        checkoutNew().checkDeliveryTabNotVisible();
 
         userShipment().checkPageContains(userShipments().pageUrl());
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
@@ -181,6 +181,7 @@ public final class CheckoutTests {
         checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
+        checkoutNew().checkDeliveryTabNotVisible();
 
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
@@ -398,6 +399,7 @@ public final class CheckoutTests {
         checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
+        checkoutNew().checkDeliveryTabNotVisible();
 
         userShipment().checkPageContains(userShipments().pageUrl());
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());

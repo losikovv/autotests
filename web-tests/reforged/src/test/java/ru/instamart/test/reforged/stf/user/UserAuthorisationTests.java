@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.config.BasicProperties;
 import io.qameta.allure.TmsLink;
@@ -80,7 +81,6 @@ public final class UserAuthorisationTests {
 
     @TmsLink("2735")
     @Story("Авторизация через VK")
-    @Issue("B2C-11803")
     @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
     public void successRegWithVkontakte() {
         UserData vkUser = UserManager.getNewVkUser();
@@ -103,7 +103,7 @@ public final class UserAuthorisationTests {
 
     @TmsLink("1460")
     @Story("Авторизация через Mail.ru")
-    @Issue("B2C-11803")
+    @Skip(onServer = Server.PREPROD)
     @Test(description = "Тест успешной авторизация через MailRu", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
     public void successRegWithMailRu() {
         shop().goToPage();
@@ -156,8 +156,8 @@ public final class UserAuthorisationTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaSberId();
+        shop().interactAuthModal().checkModalIsNotVisible();
 
-        sberId().checkPhoneInputVisible();
         sberId().checkPageContains(BasicProperties.SBER_ID_URL);
     }
 

@@ -249,8 +249,8 @@ public class SurgeLevelHelper {
         final var surgeEventOutdateStr = matchWithRegex("^\\[SURGEEVENT_OUTDATE=(\\d+)s\\]$", envProp.toString(), 1);
         if (!surgeEventOutdateStr.isBlank()) {
             final var surgeEventOutdate = Integer.parseInt(surgeEventOutdateStr);
-            if (surgeEventOutdate < 5) {
-                return surgeEventOutdate + 5;
+            if (surgeEventOutdate < 3) {
+                return surgeEventOutdate + 3;
             }
             return surgeEventOutdate;
         }
