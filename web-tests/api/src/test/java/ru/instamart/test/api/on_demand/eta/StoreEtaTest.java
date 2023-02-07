@@ -119,6 +119,19 @@ public class StoreEtaTest extends EtaBase {
         clientEta.getStoreEta(request);
     }
 
+    @TmsLink("284")
+    @Story("Store ETA")
+    @Test(description = "Отправка запроса с нулевыми координатами",
+            groups = "ondemand-eta",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed")
+    public void getEtaWithZeroCoordinates() {
+        var request = getStoreUserEtaRequest(STORE_UUID, 0, 0);
+
+        clientEta.getStoreEta(request);
+    }
+
+
     @TmsLink("8")
     @Story("Store ETA")
     @Test(description = "Отправка запроса с валидным, но несуществующим в БД store_uuid",
