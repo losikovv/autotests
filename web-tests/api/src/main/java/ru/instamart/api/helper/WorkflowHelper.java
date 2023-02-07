@@ -605,7 +605,11 @@ public class WorkflowHelper {
     }
 
     @Step("Подготавливаем запрос для создания маршрутного листа c разными магазинами в сегментах")
-    public static CreateWorkflowsRequest getWorkflowsRequestWithDifferentStores(final OrderV2 order, final String shipmentUuid, final String performerUuid) {
+    public static CreateWorkflowsRequest getWorkflowsRequestWithDifferentStores(final OrderV2 order, final String shipmentUuid, final List<JobsEntity> jobs, final String performerUuid, final Integer shiftId) {
+        var mapJobs = jobs.stream()
+                .map(JobsEntity::getJobId)
+                .collect(Collectors.toList());
+
         return CreateWorkflowsRequest
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
@@ -614,10 +618,15 @@ public class WorkflowHelper {
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH.getNumber())
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
                                 .setDeliveryTypeValue(DeliveryType.DEFAULT_VALUE)
+                                .setShift(WorkflowOuterClass.Shift.newBuilder()
+                                        .setId(shiftId)
+                                        .setTransport(Transport.CAR)
+                                        .build())
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
                                 .setTypeValue(SegmentType.ARRIVE_VALUE)
                                 .setPosition(0)
+                                .addAllJobUuids(mapJobs)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
                                         .setUuid(shipmentUuid)
@@ -644,6 +653,7 @@ public class WorkflowHelper {
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
                                 .setTypeValue(SegmentType.DELIVERY_VALUE)
                                 .setPosition(2)
+                                .addAllJobUuids(mapJobs)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
                                         .setUuid(shipmentUuid)
@@ -670,6 +680,7 @@ public class WorkflowHelper {
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
                                 .setTypeValue(SegmentType.PASS_TO_CLIENT_VALUE)
                                 .setPosition(3)
+                                .addAllJobUuids(mapJobs)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
                                         .setUuid(shipmentUuid)
