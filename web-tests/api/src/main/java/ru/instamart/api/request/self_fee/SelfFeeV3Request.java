@@ -45,9 +45,9 @@ public class SelfFeeV3Request extends SelfFeeRequestBase {
 
     public static class Registry {
         @Step("{method} /" + SelfFreeEndpoints.V3.Registry.RECEIPT)
-        public static Response GET(final long id, final boolean with_errors) {
+        public static Response GET(final long id, final boolean withErrors) {
             return givenWithAuth()
-                    .queryParam("with_errors", with_errors)
+                    .queryParam("with_errors", withErrors)
                     .get(SelfFreeEndpoints.V3.Registry.RECEIPT, id);
         }
     }

@@ -46,7 +46,7 @@ public class SelfFeeTest extends SelfFeeBase {
     public void test316() {
         final var user = UserData.builder()
                 .email("test_not_billing_admin@sbermarket.ru")
-                .password("Notbilling1!")
+                .password("selfFee123456!")
                 .build();
         SessionFactory.clearSession(SessionType.ADMIN);
         SessionFactory.createSessionToken(SessionType.ADMIN, user);

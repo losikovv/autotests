@@ -41,32 +41,31 @@ public class SuccessfulFiscalizationsTest extends SelfFeeBase {
             description = "Получение ненулевой суммы успешных фискализации")
     public void test452() {
         final var files = new HashMap<String, String>();
-        files.put("b2c", "src/test/resources/data/self_fee/Успешная+фискализация.csv");
-        files.put("file", "src/test/resources/data/self_fee/Успешная+фискализация.xlsx");
+        files.put("b2c", "src/test/resources/data/self_fee/reestr_test.csv");
+        files.put("file", "src/test/resources/data/self_fee/reestr_test.xlsx");
         final var response = SelfFeeV3Request.Upload.POST(files);
         checkStatusCode(response, 202);
         final var fileUploadResponse = response.as(FileUploadResponse.class);
-        awaitFile(fileUploadResponse.getId(), 600, 200);
-        final var responseFileInfo = SelfFeeV3Request.Upload.GET(fileUploadResponse.getId());
+        final var responseFileInfo = awaitFile(fileUploadResponse.getId(), 600);
         checkStatusCode200(responseFileInfo);
         final var responseFile = responseFileInfo.as(UploadIdResponse.class);
 
         final var softAssert = new SoftAssert();
-        softAssert.assertEquals(responseFile.getFile().getFilename(), "Успешная+фискализация.xlsx", "Наименование загруженного файла не совпадает");
-        softAssert.assertEquals(responseFile.getB2c().getFilename(), "Успешная+фискализация.csv", "Наименование b2c файла не совпадает");
+        softAssert.assertEquals(responseFile.getFile().getFilename(), "reestr_test.xlsx", "Наименование загруженного файла не совпадает");
+        softAssert.assertEquals(responseFile.getB2c().getFilename(), "reestr_test.csv", "Наименование b2c файла не совпадает");
         softAssert.assertEquals(responseFile.getSber().getReceiptCount(), 0, "sber.receipt_count не совпадает с файлом");
         softAssert.assertEquals(responseFile.getSber().getPartnerCount(), 0, "sber.partnerCount не совпадает с файлом");
         softAssert.assertEquals(responseFile.getSber().getTotalSum(), "", "sber.totalSum не совпадает с файлом");
         softAssert.assertNotNull(responseFile.getOther().getId(), "id пришел пустым");
-        softAssert.assertEquals(responseFile.getOther().getPartnerCount(), 4, "other.partnerCount не совпадает с файлом");
-        softAssert.assertEquals(responseFile.getOther().getReceiptCount(), 30, "other.receiptCount не совпадает с файлом");
-        softAssert.assertEquals(responseFile.getOther().getTotalSum(), "1305.79", "other.totalSum не совпадает с файлом");
+        softAssert.assertEquals(responseFile.getOther().getPartnerCount(), 2, "other.partnerCount не совпадает с файлом");
+        softAssert.assertEquals(responseFile.getOther().getReceiptCount(), 15, "other.receiptCount не совпадает с файлом");
+        softAssert.assertEquals(responseFile.getOther().getTotalSum(), "339.76", "other.totalSum не совпадает с файлом");
         softAssert.assertAll();
 
         final var resp = SelfFeeV2Request.POST(responseFile.getOther().getId());
         checkStatusCode(resp, 202);
         final var respFiscal = SelfFeeV1Request.Registry.Fiscalize.POST(responseFile.getOther().getId());
-        checkStatusCode(respFiscal, 202);
+        checkStatusCode(respFiscal, 200);
 
         final var respRegistry = SelfFeeV1Request.Registry.GET();
         checkStatusCode200(respRegistry);

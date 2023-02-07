@@ -49,9 +49,7 @@ public class XlsxRegistryErrorsTest extends SelfFeeBase {
         checkStatusCode(response, 202);
         final var fileUploadResponse = response.as(FileUploadResponse.class);
 
-        awaitFile(fileUploadResponse.getId(), 600, 200);
-
-        final var responseFileInfo = SelfFeeV3Request.Upload.GET(fileUploadResponse.getId());
+        final var responseFileInfo = awaitFile(fileUploadResponse.getId(), 600);
         checkStatusCode200(responseFileInfo);
         final var responseFile = responseFileInfo.as(UploadIdResponse.class);
 
@@ -100,18 +98,18 @@ public class XlsxRegistryErrorsTest extends SelfFeeBase {
         });
         Allure.step("Проверка ошибок по партнерам", () -> {
             final var softAssert = new SoftAssert();
-            softAssert.assertEquals(sheet.getRow(1).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(2).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(3).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(4).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(5).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(6).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(7).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(8).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(9).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(10).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(11).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
-            softAssert.assertEquals(sheet.getRow(12).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки");
+            softAssert.assertEquals(sheet.getRow(1).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 1");
+            softAssert.assertEquals(sheet.getRow(2).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 2");
+            softAssert.assertEquals(sheet.getRow(3).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 3");
+            softAssert.assertEquals(sheet.getRow(4).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 4");
+            softAssert.assertEquals(sheet.getRow(5).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 5");
+            softAssert.assertEquals(sheet.getRow(6).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 6");
+            softAssert.assertEquals(sheet.getRow(7).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 7");
+            softAssert.assertEquals(sheet.getRow(8).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 8");
+            softAssert.assertEquals(sheet.getRow(9).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 9");
+            softAssert.assertEquals(sheet.getRow(10).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 10");
+            softAssert.assertEquals(sheet.getRow(11).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 11");
+            softAssert.assertEquals(sheet.getRow(12).getCell(0).getStringCellValue(), "Партнер перестал быть самозанятым. ", "Неверный статус ошибки строки 12");
             softAssert.assertAll();
         });
     }
