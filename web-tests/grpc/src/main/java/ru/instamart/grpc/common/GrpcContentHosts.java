@@ -14,7 +14,7 @@ public final class GrpcContentHosts {
     public static final String PAAS_CONTENT_OPERATIONS_ORDER_PRICING = "paas-content-operations-order-pricing.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ETA = EnvironmentProperties.Env.ETA_NAMESPACE + ".gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_CANDIDATES = "paas-content-operations-candidates.gw-stage.sbmt.io";
-    public static final String PAAS_CONTENT_OPERATIONS_TAG_MANAGER = "paas-content-operations-tag-manager.gw-stage.sbmt.io";
+    public static final String PAAS_CONTENT_OPERATIONS_TAG_MANAGER = EnvironmentProperties.Env.TAG_MANAGER_NAMESPACE + ".gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_SHIPPINGCALC = EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE + ".gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ORDER_SERVICE = "paas-content-operations-order-service.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_SURGELEVEL = EnvironmentProperties.Env.SURGELEVEL_NAMESPACE + ".gw-stage.sbmt.io";

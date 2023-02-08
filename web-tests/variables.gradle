@@ -14,4 +14,7 @@ tasks.withType(Test) {
     if (project.hasProperty('surge_hash_commit_or_branch')) {
         systemProperty 'surge_hash_commit_or_branch',"${surge_hash_commit_or_branch}"
     }
+    if (project.hasProperty('url_paas_tm')) {
+        systemProperty 'url_paas_tm',"${url_paas_tm}"
+    }
 }
