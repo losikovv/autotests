@@ -424,7 +424,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactFooter().checkLeftInfoBlockText(
                 "По вопросам сотрудничества\n" +
                         "+7 (800) 500-49-54\n" +
-                        "© 2013 — 2022\n" +
+                        "© 2013 — 2023\n" +
                         "ООО «Инстамарт Сервис»");
         vacancyPage().interactFooter().checkRightInfoBlockVisible();
         vacancyPage().interactFooter().checkRightInfoBlockText(

@@ -145,8 +145,8 @@ public final class HomePageTests {
         home().interactMainBanner().checkBannerImageVisible();
         home().interactMainBanner().checkBannerTitle("ВАКАНСИИ В СБЕРМАРКЕТЕ");
         home().interactMainBanner().checkBannerSubtitle("Работа в быстрорастущей компании из экосистемы Сбера");
-        home().interactMainBanner().checkBannerSalary("Доход до 115,000 рублей в месяц и бонусы");
-        home().interactMainBanner().checkBannerShortDescription("Откликайтесь на вакансии и присоединяйтесь к команде");
+        home().interactMainBanner().checkBannerSalary("Доход до 125,000 рублей в месяц и бонусы");
+        home().interactMainBanner().checkBannerShortDescription("Присоединяйтесь к команде и участвуйте в конкурсе с главным призом 1 000 000 ₽");
 
         home().checkVacanciesCount(5);
 
@@ -393,7 +393,7 @@ public final class HomePageTests {
         home().interactFooter().checkLeftInfoBlockText(
                 "По вопросам сотрудничества\n" +
                         "+7 (800) 500-49-54\n" +
-                        "© 2013 — 2022\n" +
+                        "© 2013 — 2023\n" +
                         "ООО «Инстамарт Сервис»");
         home().interactFooter().checkRightInfoBlockVisible();
         home().interactFooter().checkRightInfoBlockText(

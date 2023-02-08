@@ -27,11 +27,11 @@ public class VacancyCards {
         return VacancyCardData.builder()
                 .pageUrl("/sborshchik-zakazov")
                 .homePageTitle("Cборщик заказов в СберМаркет")
-                .vacancyPageTitle("РАБОТАЙТЕ СБОРЩИКОМ ЗАКАЗОВ В МОСКВЕ")
+                .vacancyPageTitle("РАБОТАЙТЕ СБОРЩИКОМ В МОСКВЕ")
                 .shortDescription("Собирайте продукты в магазине и передавайте курьерам")
                 .fullDescription("Cборщик выбирает лучшие товары в магазине, внимательно проверяет качество и срок годности продуктов," +
                         " оплачивает их на кассе, упаковывает и передаёт курьеру. Иногда созванивается с клиентом и договаривается о замене товаров.")
-                .homePageSalary("Доход до 57 000 рублей в месяц и бонусы")
+                .homePageSalary("Доход до 84 000 рублей в месяц и бонусы")
                 .actionButtonText("Стать сборщиком")
                 .homePageAdvantages(
                         Set.of(
@@ -208,7 +208,7 @@ public class VacancyCards {
                 .homePageTitle("Оператор контактного центра в СберМаркет")
                 .shortDescription("Принимайте звонки и общайтесь с клиентами СберМаркета")
                 .homePageSalary("Доход до 30 000 рублей в месяц и бонусы")
-                .vacancyPageSalary("Зарабатывайте до 30 000 рублей в месяц")
+                .vacancyPageSalary("Зарабатывайте от 30 000 рублей в месяц")
                 .actionButtonText("Стать оператором")
                 .homePageAdvantages(
                         Set.of(
@@ -222,12 +222,12 @@ public class VacancyCards {
         return VacancyCardData.builder()
                 .pageUrl("/operator-kontaktnogo-centra")
                 .homePageTitle("Оператор контактного центра в СберМаркет")
-                .vacancyPageTitle("РАБОТАЙТЕ ОПЕРАТОРОМ КОНТАКТНОГО ЦЕНТРА УДАЛЕННО")
+                .vacancyPageTitle("РАБОТАЙТЕ ОПЕРАТОРОМ КОЛЛ-ЦЕНТРА УДАЛЕННО")
                 .shortDescription("Принимайте звонки и общайтесь с клиентами СберМаркета")
                 .fullDescription("Оператор контактного центра принимает звонки клиентов СберМаркета, вежливо и с пониманием " +
                         "разбирается в сути обращений и решает любой вопрос. Иногда оператор звонит клиентам сам для повышения качества сервиса.")
                 .homePageSalary("Доход до 30 000 рублей в месяц и бонусы")
-                .vacancyPageSalary("Зарабатывайте до 30 000 рублей в месяц")
+                .vacancyPageSalary("Зарабатывайте от 30 000 рублей в месяц")
                 .actionButtonText("Стать оператором")
                 .homePageAdvantages(
                         Set.of(
@@ -245,13 +245,13 @@ public class VacancyCards {
 
     public static VacancyCardData callCenterOperatorOrel() {
         return VacancyCardData.builder()
-                .vacancyPageTitle("РАБОТАЙТЕ ОПЕРАТОРОМ КОНТАКТНОГО ЦЕНТРА В ОРЛЕ")
+                .vacancyPageTitle("РАБОТАЙТЕ ОПЕРАТОРОМ КОЛЛ-ЦЕНТРА В ОРЛЕ")
                 .build();
     }
 
     public static VacancyCardData callCenterOperatorTomsk() {
         return VacancyCardData.builder()
-                .vacancyPageTitle("РАБОТАЙТЕ ОПЕРАТОРОМ КОНТАКТНОГО ЦЕНТРА В ТОМСКЕ")
+                .vacancyPageTitle("РАБОТАЙТЕ ОПЕРАТОРОМ КОЛЛ-ЦЕНТРА В ТОМСКЕ")
                 .build();
     }
 }
