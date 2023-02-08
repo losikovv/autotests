@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 
@@ -24,12 +23,10 @@ public final class OrderEvaluationTests {
     @TmsLink("3220")
     @Test(description = "Оценка заказа | положительная", groups = {STF_PROD_S})
     public void orderPositiveEvaluation() {
-        UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactOrderEvaluation().checkOrderEvaluationModalDisplayed();
@@ -43,12 +40,10 @@ public final class OrderEvaluationTests {
     @TmsLink("3221")
     @Test(description = "Оценка заказа | отрицательная", groups = {STF_PROD_S})
     public void orderNegativeEvaluation() {
-        UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactOrderEvaluation().checkOrderEvaluationModalDisplayed();
@@ -62,12 +57,10 @@ public final class OrderEvaluationTests {
     @TmsLink("3223")
     @Test(description = "Выбор тегов для оценки заказа", groups = {STF_PROD_S})
     public void orderNegativeEvaluationTags() {
-        UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactOrderEvaluation().checkOrderEvaluationModalDisplayed();
@@ -84,12 +77,10 @@ public final class OrderEvaluationTests {
     @TmsLink("3224")
     @Test(description = "Оценка заказа с комментарием", groups = {STF_PROD_S})
     public void orderEvaluationComment() {
-        UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactOrderEvaluation().checkOrderEvaluationModalDisplayed();
@@ -105,12 +96,10 @@ public final class OrderEvaluationTests {
     @TmsLink("3225")
     @Test(description = "Оценка заказа с фото", groups = {STF_PROD_S})
     public void orderEvaluationPhoto() {
-        UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);//бд
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactOrderEvaluation().checkOrderEvaluationModalDisplayed();

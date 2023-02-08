@@ -44,9 +44,7 @@ public final class CheckoutPromoCodesTests {
     //выключено так как sbervesna истек
     @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {STF_PROD_S})
     public void testApplyFreeDeliveryPromo() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData.get());
+        shop().goToPageWithAuth(DEFAULT_SID, userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -76,9 +74,7 @@ public final class CheckoutPromoCodesTests {
     //выключено так как sbervesna истек
     @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {STF_PROD_S})
     public void testSuccessApplyPromo() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData.get());
+        shop().goToPageWithAuth(DEFAULT_SID, userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -111,9 +107,7 @@ public final class CheckoutPromoCodesTests {
     public void testApplyNonExistPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData.get());
+        shop().goToPageWithAuth(DEFAULT_SID, userData.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();

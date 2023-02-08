@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 
@@ -27,12 +26,10 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {STF_PROD_S})
     public void successSearchItemUsingCategorySuggests() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().waitPageLoad();
@@ -47,12 +44,10 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {STF_PROD_S})
     public void successSearchItemUsingSuggests() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().waitPageLoad();
@@ -67,12 +62,10 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {STF_PROD_S})
     public void changeAmountOnButtonSearchResult() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().waitPageLoad();
@@ -91,12 +84,10 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {STF_PROD_S})
     public void swipeCategoryItemInSuggester() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().waitPageLoad();
@@ -114,12 +105,10 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {STF_PROD_S})
     public void clearSearchBar() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().waitPageLoad();
@@ -157,12 +146,10 @@ public final class ShoppingSearchTests {
     @TmsLink("2589")
     @Test(description = "Работоспособность сортировки товаров", groups = {STF_PROD_S})
     public void successApplySort() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().waitPageLoad();

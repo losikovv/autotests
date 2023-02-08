@@ -38,9 +38,7 @@ public final class CheckoutSlotsTests {
     @TmsLink("3638")
     @Test(description = "Выбор слота доставки", groups = {STF_PROD_S})
     public void testSelectDeliverySlot() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -137,9 +135,7 @@ public final class CheckoutSlotsTests {
     @TmsLink("3634")
     @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {STF_PROD_S})
     public void testSelectSlotRequired() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();

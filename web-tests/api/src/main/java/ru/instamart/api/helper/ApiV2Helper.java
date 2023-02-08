@@ -23,7 +23,10 @@ import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.PaymentCardData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.retry.StepRetry;
-import ru.instamart.kraken.util.*;
+import ru.instamart.kraken.util.CollectionUtil;
+import ru.instamart.kraken.util.CryptCard;
+import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.kraken.util.ThreadUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -1632,6 +1635,11 @@ public final class ApiV2Helper {
     @Step("Регистрация/авторизация по номеру телефона с помощью API")
     public void authByPhone(final UserData user) {
         SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
+    }
+
+    @Step("Регистрация/авторизация по номеру телефона с помощью API")
+    public void authByPhoneV1(final UserData user) {
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, user);
     }
 
     public void authByQA(final UserData user) {

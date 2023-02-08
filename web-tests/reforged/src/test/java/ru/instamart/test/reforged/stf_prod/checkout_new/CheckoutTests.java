@@ -39,9 +39,7 @@ public final class CheckoutTests {
     @TmsLink("3624")
     @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = {STF_PROD_S})
     public void testCheckoutCompleteWithPayToCourierAndDelivery() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -95,9 +93,7 @@ public final class CheckoutTests {
     @TmsLink("3840")
     @Test(description = "Тест полного оформления заказа с оплатой наличными (Доставка)", groups = {STF_PROD_S})
     public void testCheckoutCompleteWithCash() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
