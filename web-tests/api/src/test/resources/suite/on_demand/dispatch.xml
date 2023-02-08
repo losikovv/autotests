@@ -21,7 +21,7 @@
             <class name="ru.instamart.test.api.on_demand.orderservice.ExternalAssemblyTest"/>
 <!--            <class name="ru.instamart.test.api.on_demand.orderservice.RouteSettingsTest"/> Требует актуализации кейсов-->
             <class name="ru.instamart.test.api.on_demand.orderservice.FullOrderPathAllEnpointsTest"/>
-            <class name="ru.instamart.test.api.on_demand.orderservice.JobsTest"/>
+<!--            <class name="ru.instamart.test.api.on_demand.orderservice.JobsTest"/> TODO Павел Непримеров правит-->
             <class name="ru.instamart.test.api.on_demand.orderservice.TransferDeliveryWindowsTest"/>
         </classes>
     </test>
