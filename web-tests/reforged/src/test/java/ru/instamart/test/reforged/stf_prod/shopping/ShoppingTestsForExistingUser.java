@@ -6,7 +6,6 @@ import io.qameta.allure.Story;
 import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
@@ -25,13 +24,10 @@ public class ShoppingTestsForExistingUser {
     @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа",
             groups = {STF_PROD_S})
     public void successCollectItemsForMinOrder() {
-        final UserData shoppingCartUser = UserManager.getQaUser();
+        final var shoppingCartUser = UserManager.getQaUser();
         helper.dropAndFillCart(shoppingCartUser, DEFAULT_SID);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(shoppingCartUser);
-        shop().interactAuthModal().checkModalIsNotVisible();
+        shop().goToPageWithAuth(DEFAULT_SID, shoppingCartUser);
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 

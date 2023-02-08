@@ -74,10 +74,7 @@ public final class ShoppingCartTests {
         helper.dropCartByQa(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(shoppingCartUser);
-        shop().interactAuthModal().checkModalIsNotVisible();
+        shop().goToPageWithAuth(DEFAULT_SID, shoppingCartUser);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
@@ -184,10 +181,7 @@ public final class ShoppingCartTests {
         helper.dropCartByQa(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(shoppingCartUser);
-        shop().interactAuthModal().checkModalIsNotVisible();
+        shop().goToPageWithAuth(DEFAULT_SID, shoppingCartUser);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
@@ -209,9 +203,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
@@ -228,9 +220,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
@@ -262,9 +252,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().plusFirstItemToCart();
@@ -284,9 +272,7 @@ public final class ShoppingCartTests {
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         helper.dropAndFillCart(userData, DEFAULT_SID);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -354,9 +340,7 @@ public final class ShoppingCartTests {
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         helper.dropAndFillCart(userData, DEFAULT_SID, 3);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -376,9 +360,7 @@ public final class ShoppingCartTests {
         helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
@@ -401,9 +383,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCartMultipleByQA(userData, RestAddresses.Moscow.defaultProdAddress(), DEFAULT_AUCHAN_SID, DEFAULT_METRO_MOSCOW_SID);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();

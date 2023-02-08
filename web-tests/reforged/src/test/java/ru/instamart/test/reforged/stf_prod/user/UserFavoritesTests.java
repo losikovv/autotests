@@ -10,7 +10,8 @@ import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
-import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.userFavorites;
 
 @Epic("STF UI")
 @Feature("Любимые товары")
@@ -28,9 +29,7 @@ public final class UserFavoritesTests {
     @TmsLink("1265")
     @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {STF_PROD_S})
     public void noFavoriteItemsByDefault() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().goToPageWithAuth(DEFAULT_SID, UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
@@ -40,9 +39,7 @@ public final class UserFavoritesTests {
     @TmsLink("1266")
     @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {STF_PROD_S})
     public void successAddFavoriteOnItemCard() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().goToPageWithAuth(DEFAULT_SID, UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().openFirstNonRecommendationsProductCard();
@@ -60,12 +57,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 2);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        userFavorites().goToPage();
+        userFavorites().goToPageWithAuth(userData);
         userFavorites().removeFirstFavoriteItem();
 
         userFavorites().checkCountChange(userFavorites().getFavoritesCount(), 1);
@@ -78,12 +70,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 1);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        userFavorites().goToPage();
+        userFavorites().goToPageWithAuth(userData);
         userFavorites().removeFirstFavoriteItem();
         userFavorites().checkEmptyFavoritesProd();
     }
@@ -95,12 +82,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 35);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        userFavorites().goToPage();
+        userFavorites().goToPageWithAuth(userData);
         userFavorites().checkNotEmptyFavoritesProd();
 
         final int initCount = userFavorites().getFavoritesCount();
@@ -130,14 +112,7 @@ public final class UserFavoritesTests {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         apiHelper.addFavorites(userData, DEFAULT_SID, 3);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().checkDeliveryStoresContainerVisible();
-
-        home().clickOnStoreWithSid(DEFAULT_SID);
-
-        userFavorites().goToPage();
+        userFavorites().goToPageWithAuth(userData);
         userFavorites().interactHeader().checkEnteredAddressIsVisible();
         userFavorites().addToCartFirstFavoriteItem();
         userFavorites().interactHeader().clickToCart();

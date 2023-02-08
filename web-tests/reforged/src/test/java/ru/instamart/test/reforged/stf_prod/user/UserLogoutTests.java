@@ -21,11 +21,7 @@ public final class UserLogoutTests {
     @Story("Позитивный кейс")
     @Test(description = "Тест успешной быстрой деавторизации", groups = {STF_PROD_S})
     public void successQuickLogout() {
-        final var userData = UserManager.getQaUser();
-
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clearSessionLogoutProd();
@@ -39,9 +35,7 @@ public final class UserLogoutTests {
     @Story("Позитивный кейс")
     @Test(description = "Тест успешной деавторизации", groups = {STF_PROD_S})
     public void successManualLogout() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().goToPageWithAuth(DEFAULT_SID, UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToLogout();
@@ -56,16 +50,15 @@ public final class UserLogoutTests {
         final var userData = UserManager.getQaUser();
         apiHelper.dropAndFillCart(userData, DEFAULT_SID);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
 
-        shop().goToPage(DEFAULT_SID);
+        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToCart();
+
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().closeCart();
         shop().interactCart().checkCartClose();
+
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().checkAccountMenuVisible();
         shop().interactHeader().interactAccountMenu().clickToLogout();

@@ -1,6 +1,7 @@
 package ru.instamart.api.factory;
 
 import io.qameta.allure.Step;
+import io.restassured.http.Cookies;
 import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -30,14 +31,12 @@ import ru.instamart.api.response.v1.PhoneConfirmationsV1Response;
 import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserV2Response;
-import ru.instamart.jdbc.dao.stf.PhoneTokensDao;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -224,18 +223,17 @@ public final class SessionFactory {
                 checkStatusCode200(response);
                 log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
                 log.debug("cookies: {}", response.getCookies());
-                UserV2Response userV2Response = response.as(UserV2Response.class);
+                final var userV2Response = response.as(UserV2Response.class);
                 userData.setId(userV2Response.getUser().getId());
-                return new SessionInfo(userData, userV2Response.getCsrfToken(), response.getCookies());
+                return new SessionInfo(userData, userV2Response.getCsrfToken(), response.getDetailedCookies());
             case PHONE:
                 final Response postResponse = PhoneConfirmationsV1Request.POST(userData.getEncryptedPhone());
                 checkStatusCode200(postResponse);
-                String phone = userData.getPhone();
-                final Response phoneResponse = PhoneConfirmationsV1Request.PUT(phone, PhoneTokensDao.INSTANCE.getByPhoneValue(phone).getConfirmationCode());
+                final Response phoneResponse = PhoneConfirmationsV1Request.PUT(userData.getPhone(), Integer.parseInt(userData.getSmsCode()));
                 checkStatusCode200(phoneResponse);
                 log.debug("Авторизуемся: {}", userData.getPhone());
                 log.debug("cookies: {}", phoneResponse.getCookies());
-                return new SessionInfo(userData, phoneResponse.as(PhoneConfirmationsV1Response.class).getCsrfToken(), phoneResponse.getCookies());
+                return new SessionInfo(userData, phoneResponse.as(PhoneConfirmationsV1Response.class).getCsrfToken(), phoneResponse.getDetailedCookies());
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -308,7 +306,7 @@ public final class SessionFactory {
         checkStatusCode200(response);
         log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
         log.debug("cookies: {}", response.getCookies());
-        return new SessionInfo(userData, response.as(UserV2Response.class).getCsrfToken(), response.getCookies());
+        return new SessionInfo(userData, response.as(UserV2Response.class).getCsrfToken(), response.getDetailedCookies());
     }
 
     private static SessionInfo createRisSession(final UserData userData) {
@@ -353,29 +351,29 @@ public final class SessionFactory {
         private final UserData userData;
         private String token;
         private String refreshToken;
-        private Map<String, String> cookies;
+        private Cookies cookies;
 
         public SessionInfo() {
             this(UserManager.getNullUser(),
                     "invalid",
                     "invalid_refresh",
-                    new HashMap<>());
+                    new Cookies());
         }
 
         public SessionInfo(final UserData userData, final String token) {
-            this(userData, token, "empty", new HashMap<>());
+            this(userData, token, "empty", new Cookies());
         }
 
-        public SessionInfo(final UserData userData, final Map<String, String> cookies) {
+        public SessionInfo(final UserData userData, final Cookies cookies) {
             this(userData, "empty", "empty", cookies);
         }
 
-        public SessionInfo(final UserData userData, final String token, final Map<String, String> cookies) {
+        public SessionInfo(final UserData userData, final String token, final Cookies cookies) {
             this(userData, token, "empty", cookies);
         }
 
         public SessionInfo(final UserData userData, final String token, final String refreshToken) {
-            this(userData, token, refreshToken, new HashMap<>());
+            this(userData, token, refreshToken, new Cookies());
         }
 
         public String getPhone() {

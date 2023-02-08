@@ -27,11 +27,10 @@ public final class HelpDeskChatTests {
 
         apiHelper.dropAndFillCart(userData, DEFAULT_SID);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
+        shop().goToPageWithAuth(DEFAULT_SID, userData);
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToCart();
+
         shop().interactCart().submitOrder();
 
         checkoutNew().checkSpinnerNotVisible();

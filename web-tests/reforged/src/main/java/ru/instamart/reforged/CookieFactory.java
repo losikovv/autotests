@@ -1,7 +1,11 @@
 package ru.instamart.reforged;
 
 import org.openqa.selenium.Cookie;
+import ru.instamart.api.enums.SessionProvider;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 
@@ -103,5 +107,23 @@ public final class CookieFactory {
                 COOKIE_DOMAIN,
                 "/",
                 date);
+    }
+
+    public static Cookie authStf(final UserData userData) {
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, userData);
+        final var sessionInfo = SessionFactory.getSession(SessionType.API_V1);
+
+        final var sessionCookieOptional = sessionInfo.getCookies()
+                .asList()
+                .stream()
+                .filter(c -> c.getName().equals("_Instamart_session"))
+                .findFirst();
+
+        if (sessionCookieOptional.isPresent()) {
+            final var sessionCookie = sessionCookieOptional.get();
+            return new Cookie(sessionCookie.getName(), sessionCookie.getValue(), COOKIE_DOMAIN, "/", null);
+        }
+
+        return new Cookie("session", "invalid", COOKIE_DOMAIN, "/", date);
     }
 }

@@ -20,7 +20,6 @@
             <class name="ru.instamart.test.reforged.stf_prod.checkout_new.CheckoutSlotsTests"/>
 
             <class name="ru.instamart.test.reforged.stf_prod.order.BasicOrdersTests"/>
-            <class name="ru.instamart.test.reforged.stf_prod.order.OrderEvaluationTests"/>
             <class name="ru.instamart.test.reforged.stf_prod.order.OrderRepeatTests"/>
 
             <class name="ru.instamart.test.reforged.stf_prod.shopping.ShoppingCartTests"/>

@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Kraken;
@@ -220,16 +221,33 @@ public final class ShopPage implements StfPage, ShopCheck {
         goToPage(ShopUrl.DEFAULT);
     }
 
+    @Override
+    public void goToPageWithAuth(final UserData userData) {
+        goToPageWithAuth(ShopUrl.DEFAULT, userData);
+    }
+
     public void goToPage(final int sid) {
         goToPage(ShopUrl.DEFAULT, sid);
+    }
+
+    public void goToPageWithAuth(final int sid, final UserData userData) {
+        goToPageWithAuth(ShopUrl.DEFAULT, sid, userData);
     }
 
     public void goToPage(final ShopUrl shop) {
         goToPage(shop.getUrl());
     }
 
+    public void goToPageWithAuth(final ShopUrl shop, final UserData userData) {
+        goToPageWithAuth(shop.getUrl(), userData);
+    }
+
     public void goToPage(final ShopUrl shopUrl, final int sid) {
         goToPage(shopUrl.getUrl() + "?sid=" + sid);
+    }
+
+    public void goToPageWithAuth(final ShopUrl shopUrl, final int sid, final UserData userData) {
+        goToPageWithAuth(shopUrl.getUrl() + "?sid=" + sid, userData);
     }
 
     @Override

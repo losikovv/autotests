@@ -38,9 +38,7 @@ public final class CheckoutAddressTests {
     @TmsLink("3594")
     @Test(description = "Проверка того, что поле 'Кв, офис' является обязательным к заполнению", groups = {STF_PROD_S})
     public void testCheckRequiredFields() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -77,9 +75,7 @@ public final class CheckoutAddressTests {
     @TmsLink("3821")
     @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Доставка)", groups = {STF_PROD_S})
     public void testTransitionOnB2BViaCheckoutFromDelivery() {
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();

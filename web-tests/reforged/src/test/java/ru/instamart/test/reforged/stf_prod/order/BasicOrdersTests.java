@@ -35,9 +35,7 @@ public final class BasicOrdersTests {
         helper.addFavorites(ordersUser.get(), DEFAULT_SID, 5);
         helper.dropAndFillCartFromFavorites(ordersUser.get(), DEFAULT_SID);
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().submitOrder();
@@ -90,9 +88,7 @@ public final class BasicOrdersTests {
         helper.makeOrder(ordersUser.get(), DEFAULT_SID, 1);
         helper.setAddress(ordersUser.get(), RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -115,9 +111,7 @@ public final class BasicOrdersTests {
         helper.makeOrderOnTomorrowByQa(ordersUser.get(), DEFAULT_SID, 1);
         helper.setAddress(ordersUser.get(), RestAddresses.Moscow.defaultProdAddress());
 
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         final var itemName = shop().getProductTitleByPosition(1);
@@ -139,9 +133,7 @@ public final class BasicOrdersTests {
     public void successCancelMultiOrderViaCancelOneOrder() {
         ordersUser.set(UserManager.getQaUser());
         helper.makeMultipleOrderByQa(ordersUser.get(), RestAddresses.Moscow.defaultProdAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
-        shop().goToPage(DEFAULT_SID);
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser.get());
+        shop().goToPageWithAuth(DEFAULT_SID, ordersUser.get());
         shop().interactHeader().checkProfileButtonVisible();
 
         userShipments().goToPage();

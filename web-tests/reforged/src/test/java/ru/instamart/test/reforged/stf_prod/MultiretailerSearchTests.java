@@ -7,7 +7,6 @@ import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
@@ -35,16 +34,11 @@ public final class MultiretailerSearchTests {
     @Issue("B2C-12914")
     @Test(description = "Тест успешной отработки межритейлерного саджестора", groups = {STF_PROD_S})
     public void testMultisearchPositiveInSuggester() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
+        home().goToPageWithAuth(userData);
         home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
 
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
@@ -57,49 +51,30 @@ public final class MultiretailerSearchTests {
     @TmsLink("3849")
     @Test(description = "Открытие карточки товара из межритейлерного саджестора", groups = {STF_PROD_S})
     public void testOpenProductCardFromMultisearchSuggester() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
         home().interactMultisearchHeader().checkProductsVisibleInSuggester();
-
         home().interactMultisearchHeader().clickProductInSuggester(1);
-
         home().interactMultisearchHeader().interactProductCard().checkProductCardVisible();
     }
 
     @TmsLink("3850")
     @Test(description = "Добавление товара в корзину из межритейлерного саджестора", groups = {STF_PROD_S})
     public void testAddProductToCartFromMultisearchSuggester() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
         home().interactMultisearchHeader().checkProductsVisibleInSuggester();
-
         home().interactMultisearchHeader().clickAddProductToCartInSuggester(1);
-
         home().interactMultisearchHeader().clickOutOffSuggester();
         home().interactMultisearchHeader().checkProductsNotVisibleInSuggester();
-
         home().interactMultisearchHeader().clickToCart();
         home().interactMultisearchHeader().interactCart().checkCartNotEmpty();
     }
@@ -108,17 +83,10 @@ public final class MultiretailerSearchTests {
     @Issue("B2C-12914")
     @Test(description = "Успешная отработка межритейлерного поиска", groups = {STF_PROD_S})
     public void testMultisearchPositiveOnPage() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
         home().interactMultisearchHeader().clickStartSearch();
@@ -133,17 +101,10 @@ public final class MultiretailerSearchTests {
     @TmsLink("3852")
     @Test(description = "Открытие карточки товара в межритейлерном поиске", groups = {STF_PROD_S})
     public void testOpenProductCardFromMultisearchPage() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
         home().interactMultisearchHeader().clickStartSearch();
@@ -159,17 +120,10 @@ public final class MultiretailerSearchTests {
     @TmsLink("3853")
     @Test(description = "Добавление товара в корзину в межритейлерном поиске", groups = {STF_PROD_S})
     public void testAddProductToCartFromMultisearchPage() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
         home().interactMultisearchHeader().clickStartSearch();
@@ -186,17 +140,10 @@ public final class MultiretailerSearchTests {
     @TmsLink("3854")
     @Test(description = "Добавление товара в любимые в межритейлерном поиске", groups = {STF_PROD_S})
     public void testAddProductToFavouritesFromMultisearchPage() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
         home().interactMultisearchHeader().clickStartSearch();
@@ -214,17 +161,10 @@ public final class MultiretailerSearchTests {
     @Issue("B2C-12914")
     @Test(description = "Переключения слага ритейлера в межритейлерном поиске", groups = {STF_PROD_S})
     public void testSwitchRetailerOnMultisearchPage() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
         home().interactMultisearchHeader().clickStartSearch();
@@ -244,17 +184,10 @@ public final class MultiretailerSearchTests {
     @Issue("B2C-12914")
     @Test(description = "Переключение категорий в межритейлерном поиске", groups = {STF_PROD_S})
     public void testCategoryFiltersOnMultisearchPage() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
         home().interactMultisearchHeader().clickStartSearch();
@@ -273,17 +206,10 @@ public final class MultiretailerSearchTests {
     @TmsLink("3858")
     @Test(description = "Недоступность межритейлерного поиска при самовывозе на главной", groups = {STF_PROD_S})
     public void testCheckMultisearchNotAvailableOnMainPageViaPickup() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().switchToPickup();
         home().interactMultisearchHeader().checkPickupActive();
 
@@ -293,16 +219,10 @@ public final class MultiretailerSearchTests {
     @TmsLink("3859")
     @Test(description = "Недоступность межритейлерного поиска при самовывозе в результатах поиска", groups = {STF_PROD_S})
     public void testCheckMultisearchNotAvailableOnMultiearchPageViaPickup() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkUserActionsButtonVisible();
 
         home().interactMultisearchHeader().checkMultisearchInputVisible();
@@ -324,17 +244,10 @@ public final class MultiretailerSearchTests {
     @Issue("B2C-12914")
     @Test(description = "Переключение слага ритейлера в межритейлерном саджесторе", groups = {STF_PROD_S})
     public void testSwitchRetailerInSuggester() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
-
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkMultisearchInputVisible();
         home().interactMultisearchHeader().fillMultisearch(searchText);
 
@@ -352,16 +265,10 @@ public final class MultiretailerSearchTests {
     @TmsLink("3857")
     @Test(description = "Переключение слага ритейлера при переходе на товары из блоков 'С этим товаром смотрят' и 'Похожие'", groups = {STF_PROD_S})
     public void testAddProductToCartFromFromRecommendationsViaAnotherProductCard() {
-        final UserData userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
-        home().goToPage();
-        home().checkPageIsAvailable();
-        home().checkLoginButtonIsVisible();
-
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        home().interactAuthModal().checkModalIsNotVisible();
+        home().goToPageWithAuth(userData);
         home().interactMultisearchHeader().checkUserActionsButtonVisible();
 
         home().interactMultisearchHeader().checkMultisearchInputVisible();
