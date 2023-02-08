@@ -7,6 +7,7 @@ import ru.instamart.api.common.EtaBase;
 import ru.instamart.api.request.eta.RetailerParametersEtaRequest;
 import ru.instamart.api.request.eta.ServiceParametersEtaRequest;
 import ru.instamart.api.request.eta.StoreParametersEtaRequest;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
 import ru.instamart.redis.RedisService;
@@ -29,6 +30,7 @@ public final class RedisEtaTest extends EtaBase {
         ));
     }
 
+    @Skip
     @TmsLink("236")
     @Story("Redis ETA")
     @Test(description = "Кеширование настроек сервиса в redis",

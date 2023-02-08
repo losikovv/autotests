@@ -30,13 +30,15 @@ public class EtaBase {
     protected static final String STORE_UUID = UUID.randomUUID().toString();
     protected static final String STORE_UUID_WITH_DIFFERENT_TIMEZONE = UUID.randomUUID().toString();
     protected static final String STORE_UUID_DISABLED = UUID.randomUUID().toString();
+    protected static final String STORE_UUID_UNKNOWN_RETAILER = UUID.randomUUID().toString();
     protected final String REDIS_DISABLE_VALUE = "[{\"ID\":%d,\"StoreUUID\":\"%s\",\"IntervalType\":\"eta\", \"IntervalSource\": \"manual\", \"StartAt\":\"%s\", \"EndAt\":\"%s\", \"CreatedAt\":\"%s\"}]";
 
     @BeforeSuite(alwaysRun = true, description = "Добавляем тестовые магазины")
     public void addStores() {
-        addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false);
-        addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7010f, 37.7280f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true, false);
-        addStore(STORE_UUID_DISABLED, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false);
+        addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false, 1);
+        addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7010f, 37.7280f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true, false, 1);
+        addStore(STORE_UUID_DISABLED, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false, 1);
+        addStore(STORE_UUID_UNKNOWN_RETAILER, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false, Integer.MAX_VALUE);
         checkStore(STORE_UUID_WITH_ML, 55.7006f, 37.7266f, "Europe/Moscow", true, "00:00:00", "00:00:00", "00:00:00", true, false);
         checkStore(STORE_UUID_UNKNOWN_FOR_ML, 55.7010f, 37.7280f, "Europe/Moscow", true, "00:00:00", "00:00:00", "00:00:00", true, false);
         RedisService.del(RedisManager.getConnection(Redis.ETA), List.of("store_" + STORE_UUID_WITH_ML, "store_" + STORE_UUID_UNKNOWN_FOR_ML));
