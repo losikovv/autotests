@@ -363,6 +363,71 @@ public class BasketEtaTest extends EtaBase {
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.ML);
     }
 
+    @TmsLink("33")
+    @Story("Basket ETA")
+    @Test(description = "Отправка запроса для нескольких магазинов с ML и FALLBACK",
+            groups = "ondemand-eta")
+    public void getBasketEtaMLAndFallback() {
+        String secondShipmentUuid = UUID.randomUUID().toString();
+        var request = Eta.UserEtaRequest.newBuilder()
+                .setUser(Eta.UserData.newBuilder()
+                        .setUserUuid(USER_UUID)
+                        .setLat(55.7006f)
+                        .setLon(37.7266f)
+                        .build())
+                .setOrder(Eta.OrderData.newBuilder()
+                        .setOrderUuid(ORDER_UUID)
+                        .addShipments(Eta.ShipmentData.newBuilder()
+                                .setShipmentUuid(SHIPMENT_UUID)
+                                .setStoreInfo(Eta.StoreData.newBuilder()
+                                        .setStoreUuid(STORE_UUID)
+                                        .setLat(55.7010f)
+                                        .setLon(37.7280f)
+                                        .build())
+                                .setBasket(Eta.UserStoreBasket.newBuilder()
+                                        .setWeight(5.0f)
+                                        .addSku(Eta.SkuData.newBuilder()
+                                                .setSku("sku")
+                                                .setUnitQuantity(1)
+                                                .setPriceType(ProductPriceTypeV2.PER_ITEM.getValue())
+                                                .build())
+                                        .build())
+                                .build())
+                        .addShipments(Eta.ShipmentData.newBuilder()
+                                .setShipmentUuid(secondShipmentUuid)
+                                .setStoreInfo(Eta.StoreData.newBuilder()
+                                        .setStoreUuid(STORE_UUID_WITH_ML)
+                                        .setLat(55.7030f)
+                                        .setLon(37.7230f)
+                                        .build())
+                                .setBasket(Eta.UserStoreBasket.newBuilder()
+                                        .setWeight(5.0f)
+                                        .addSku(Eta.SkuData.newBuilder()
+                                                .setSku("sku")
+                                                .setUnitQuantity(1)
+                                                .setPriceType(ProductPriceTypeV2.PER_ITEM.getValue())
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        var response = clientEta.getBasketEta(request);
+        Allure.step("Проверка ЕТА в ответе", () -> {
+            assertEquals(response.getOrder().getShipmentEtasCount(), 2, "Не верное кол-во шипментов");
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getOrder().getShipmentEtas(0).getShipmentUuid(), secondShipmentUuid, "Не верный шипмент");
+            softAssert.assertEquals(response.getOrder().getShipmentEtas(1).getShipmentUuid(), SHIPMENT_UUID, "Не верный шипмент");
+            softAssert.assertEquals(response.getOrder().getShipmentEtas(0).getEstimateSource(), Eta.EstimateSource.ML, "Не верный тип источника");
+            softAssert.assertEquals(response.getOrder().getShipmentEtas(1).getEstimateSource(), Eta.EstimateSource.FALLBACK, "Не верный тип источника");
+            softAssert.assertTrue(response.getOrder().getShipmentEtas(0).getEta() > 300, "Поле eta меньше 300 секунд");
+            softAssert.assertTrue(response.getOrder().getShipmentEtas(0).getSigma() > 0, "Поле sigma меньше или равно нулю");
+            softAssert.assertTrue(response.getOrder().getShipmentEtas(1).getEta() > 300, "Поле eta меньше 300 секунд");
+            softAssert.assertTrue(response.getOrder().getShipmentEtas(1).getSigma() > 0, "Поле sigma меньше или равно нулю");
+            softAssert.assertAll();
+        });
+    }
+
     @TmsLink("37")
     @Story("Basket ETA")
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML возвращает ноль",
@@ -384,5 +449,87 @@ public class BasketEtaTest extends EtaBase {
         var response = clientEta.getBasketEta(request);
         checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
         Allure.step("Проверяем наличие в ответе isEtaDisabled=true", () -> assertTrue(response.getOrder().getShipmentEtas(0).getIsEtaDisabled(),"В ответе получили isEtaDisabled=false"));
+    }
+
+    @TmsLink("96")
+    @Story("Basket ETA")
+    @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML недоступен, а ритейлер у магазина не существует",
+            groups = "ondemand-eta")
+    public void getBasketEtaWithUnknownRetailer() {
+        var request = getUserEtaRequest(USER_UUID, 55.7006f, 37.7266f, STORE_UUID_UNKNOWN_RETAILER, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
+
+        var response = clientEta.getBasketEta(request);
+        checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+    }
+
+    @TmsLink("288")
+    @Story("Basket ETA")
+    @Test(description = "Получение ошибки при отправке запроса с пустым order",
+            groups = "ondemand-eta",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed")
+    public void getBasketEtaWithEmptyOrder() {
+        var request = Eta.UserEtaRequest.newBuilder()
+                .setUser(Eta.UserData.newBuilder()
+                        .setUserUuid(USER_UUID)
+                        .setLat(55.7006f)
+                        .setLon(37.7266f)
+                        .build())
+                .build();
+
+        clientEta.getBasketEta(request);
+    }
+
+    @TmsLink("289")
+    @Story("Basket ETA")
+    @Test(description = "Получение ошибки при отправке запроса с пустым shipments",
+            groups = "ondemand-eta",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed")
+    public void getBasketEtaWithEmptyShipments() {
+        var request = Eta.UserEtaRequest.newBuilder()
+                .setUser(Eta.UserData.newBuilder()
+                        .setUserUuid(USER_UUID)
+                        .setLat(55.7006f)
+                        .setLon(37.7266f)
+                        .build())
+                .setOrder(Eta.OrderData.newBuilder()
+                        .setOrderUuid(ORDER_UUID)
+                        .build())
+                .build();
+
+        clientEta.getBasketEta(request);
+    }
+
+    @TmsLink("290")
+    @Story("Basket ETA")
+    @Test(description = "Получение ошибки при отправке запроса с пустым store_info",
+            groups = "ondemand-eta",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed")
+    public void getBasketEtaWithEmptyStoreInfo() {
+        var request = Eta.UserEtaRequest.newBuilder()
+                .setUser(Eta.UserData.newBuilder()
+                        .setUserUuid(USER_UUID)
+                        .setLat(55.7006f)
+                        .setLon(37.7266f)
+                        .build())
+                .setOrder(Eta.OrderData.newBuilder()
+                        .setOrderUuid(ORDER_UUID)
+                        .addShipments(Eta.ShipmentData.newBuilder()
+                                .setShipmentUuid(SHIPMENT_UUID)
+                                .setBasket(Eta.UserStoreBasket.newBuilder()
+                                        .setWeight(5.0f)
+                                        .addSku(Eta.SkuData.newBuilder()
+                                                .setSku("sku")
+                                                .setUnitQuantity(1)
+                                                .setPriceType(ProductPriceTypeV2.PER_ITEM.getValue())
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        clientEta.getBasketEta(request);
     }
 }

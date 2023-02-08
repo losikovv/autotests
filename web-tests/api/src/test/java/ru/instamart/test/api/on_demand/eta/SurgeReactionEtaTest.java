@@ -48,9 +48,9 @@ public class SurgeReactionEtaTest extends RestBase {
             if (surgeLevel > 0f && (disableEtaDuration > 0 || disableSlotDuration > 0)) {
                 etaSurgeIntervalsEnabled = true;
                 storesAdded = true;
-                addStore(STORE_UUID_WITH_SURGE, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, true);
-                addStore(STORE_UUID_WITH_LOW_SURGE, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, true);
-                addStore(STORE_UUID_WITHOUT_SURGE, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false);
+                addStore(STORE_UUID_WITH_SURGE, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, true, 1);
+                addStore(STORE_UUID_WITH_LOW_SURGE, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, true, 1);
+                addStore(STORE_UUID_WITHOUT_SURGE, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false, 1);
             }
         }
     }

@@ -48,7 +48,7 @@ public final class StoreParametersDao extends AbstractDao<String, StoreParameter
         return false;
     }
 
-    public boolean addStore(String storeId, Float lat, Float lon, String timezone, Boolean isMlEnabled, String openingTime, String closingTime, String closingDelta, Boolean isSigmaEnabled, Boolean isSurgeEnabled) {
+    public boolean addStore(String storeId, Float lat, Float lon, String timezone, Boolean isMlEnabled, String openingTime, String closingTime, String closingDelta, Boolean isSigmaEnabled, Boolean isSurgeEnabled, Integer retailerId) {
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_ETA).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (id, lat, lon, timezone, is_ml_enabled, store_opening_time, store_closing_time, on_demand_closing_delta, is_sigma_enabled, retailer_id, avg_positions_per_place, to_place_sec, collection_speed_sec_per_pos, surge_enabled) " +
                      "VALUES (?::uuid, ?, ?, ?, ?, ?::timetz, ?::timetz, ?::interval, ?, ?, ?, ?::interval, ?::interval, ?) ")) {
@@ -61,7 +61,7 @@ public final class StoreParametersDao extends AbstractDao<String, StoreParameter
             preparedStatement.setString(7, closingTime);
             preparedStatement.setString(8, closingDelta);
             preparedStatement.setBoolean(9, isSigmaEnabled);
-            preparedStatement.setInt(10, 1);
+            preparedStatement.setInt(10, retailerId);
             preparedStatement.setInt(11, 7);
             preparedStatement.setString(12, "00:07:00");
             preparedStatement.setString(13, "00:01:00");

@@ -227,6 +227,23 @@ public class StoreEtaTest extends EtaBase {
         checkStoreEta(response, STORE_UUID_UNKNOWN_FOR_ML, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
+    @TmsLink("287")
+    @Story("Store ETA")
+    @Test(description = "Отправка запроса в два магазина с получением ML в одном и FALLBACK в другом",
+            groups = "ondemand-eta",
+            dependsOnMethods = {"getEta", "getEtaWithML"})
+    public void getEtaWithMLAndFallback() {
+        var request = Eta.StoreUserEtaRequest.newBuilder()
+                .addStoreUuids(STORE_UUID)
+                .addStoreUuids(STORE_UUID_WITH_ML)
+                .setLat(55.7006f)
+                .setLon(37.7266f)
+                .build();
+
+        var response = clientEta.getStoreEta(request);
+        checkMultipleStoreEta(response, STORE_UUID, STORE_UUID_WITH_ML);
+    }
+
     @TmsLink("244")
     @Story("Store ETA")
     @Test(description = "Отправка запроса в магазин, у которого имеются интервалы DisableEta",
@@ -237,5 +254,16 @@ public class StoreEtaTest extends EtaBase {
         var response = clientEta.getStoreEta(request);
         checkStoreEta(response, STORE_UUID_DISABLED, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
         Allure.step("Проверяем наличие в ответе isEtaDisabled=true", () -> assertTrue(response.getData(0).getIsEtaDisabled(), "В ответе получили isEtaDisabled=false"));
+    }
+
+    @TmsLink("95")
+    @Story("Store ETA")
+    @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML недоступен, а ритейлер у магазина не существует",
+            groups = "ondemand-eta")
+    public void getEtaWithUnknownRetailer() {
+        var request = getStoreUserEtaRequest(STORE_UUID_UNKNOWN_RETAILER, 55.7006f, 37.7266f);
+
+        var response = clientEta.getStoreEta(request);
+        checkStoreEta(response, STORE_UUID_UNKNOWN_RETAILER, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 }
