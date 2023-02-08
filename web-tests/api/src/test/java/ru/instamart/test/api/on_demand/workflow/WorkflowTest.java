@@ -226,7 +226,7 @@ public class WorkflowTest extends RestBase {
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getShopperAssignments")
     public void createWorkflowWithTransport() {
-        var request = getWorkflowsRequestWithTransport(order, thirdShipmentUuid, 1, WorkflowOuterClass.Shift.Transport.CAR, shiftId);
+        var request = getWorkflowsRequestWithTransport(thirdOrder, thirdShipmentUuid, 1, WorkflowOuterClass.Shift.Transport.CAR, shiftId);
 
         var response = clientWorkflow.createWorkflows(request);
 
@@ -244,19 +244,17 @@ public class WorkflowTest extends RestBase {
     }
 
     @TmsLink("90")
-    @Test(enabled = false,
-            description = "Обогащение названием и адресом магазина нескольких сегментов с разными магазинами",
+    @Test(  description = "Обогащение названием и адресом магазина нескольких сегментов с разными магазинами",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelExistingWorkflow")
     public void createWorkflowWithDifferentStores() {
-        var request = getWorkflowsRequestWithDifferentStores(order, shipmentUuid, firstJobUuid, UserManager.getShp6Universal1().getUuid(), shiftId);
-
+        var request = getWorkflowsRequestWithDifferentStores(thirdOrder, thirdShipmentUuid, thirdJobUuid, UserManager.getShp6Universal1().getUuid(), shiftId);
         var response = clientWorkflow.createWorkflows(request);
 
         compareTwoObjects(response.getResultsMap().get(response.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
         workflowUuid = response.getResultsMap().keySet().toArray()[0].toString();
         checkFieldIsNotEmpty(workflowUuid, "Не вернулся uuid workflow");
-        cancelWorkflow(clientWorkflow, shipmentUuid);
+        cancelWorkflow(clientWorkflow, thirdShipmentUuid);
         List<SegmentsEntity> segments = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(workflowUuid).stream()
                 .sorted(Comparator.comparing(SegmentsEntity::getType)).collect(Collectors.toList());
 
