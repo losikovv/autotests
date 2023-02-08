@@ -170,6 +170,7 @@ public final class EnvironmentProperties {
         public static String SHIPPINGCALC_NAMESPACE = getShippingcalcNamespace();
         public static String SURGELEVEL_NAMESPACE = "paas-content-operations-surgelevel" + getSurgelevelHashOrBranch();
         public static String SURGELEVEL_HASH_OR_BRANCH = getSurgelevelHashOrBranch();
+        public static String TAG_MANAGER_NAMESPACE = getTagManagerNamespace();
 
         private static String getEtaNamespace() {
             var etaNamespace = System.getProperty("url_paas_eta", "paas-content-operations-eta");
@@ -193,6 +194,14 @@ public final class EnvironmentProperties {
                 return "";
             }
             return "-" + surgeLevelHashOrBranch;
+        }
+
+        private static String getTagManagerNamespace() {
+            String tagManagerNamespace = System.getProperty("url_paas_tm", "paas-content-operations-tag-manager");
+            if (isNull(tagManagerNamespace) || tagManagerNamespace.isEmpty() || tagManagerNamespace.isBlank()) {
+                tagManagerNamespace = "paas-content-operations-tag-manager";
+            }
+            return tagManagerNamespace;
         }
 
         public static boolean isPreprod() {
